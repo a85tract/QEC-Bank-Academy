@@ -1,0 +1,24 @@
+<!doctype html><html><head><meta charset='utf-8'><meta name='viewport' content='width=device-width, initial-scale=1'><title>Syndrome is the boundary of an error chain</title><link rel='stylesheet' href='../../../style.css?v=3d2fa6103434'><script defer src='../../../renderer/mathjax-config.js?v=6dc4bd4b7c05'></script><script defer src='https://cdn.jsdelivr.net/npm/mathjax@4.1.3/tex-svg.js'></script><link rel='stylesheet' href='../../../tutorial.css?v=7a0c037fa91a'></head><body><nav><a href='../../../index.html'>QEC Atlas</a> · <a href='../../../foundations/index.html'>Foundations</a> · <a href='../../../wanted.html'>Open problems</a></nav><a class='back-link learn-return-link' href='../learn.html?resume=1'>↩ Return to Learn</a><h1>Syndrome is the boundary of an error chain</h1><div class='intuition'><p class='note'><b>Claim.</b> For a surface-code Pauli error chain <code>E</code>, the fired checks are exactly its boundary <code>∂E</code>. A correction succeeds precisely when error plus correction is a trivial relative cycle.</p>
+<p>This single statement explains defect pairs, boundary nodes, matching, and logical failure.</p>
+<h2 id='1-algebra'>1. Algebra</h2>
+<p>Represent an X-error support by a binary vector <code>e_X</code>. The fired Z-checks are</p>
+<p><code>H_Z e_X</code>.</p>
+<p>Each interior check sees the parity of incident error edges. Along a chain, two incident segments cancel modulo two; only endpoints remain. The dual statement sends a Z-error vector to <code>H_X e_Z</code>.</p>
+<p>At a condensing boundary, a chain can end without a second physical check. In a decoder graph this is represented by pairing the remaining defect to a boundary node.</p>
+<h2 id='2-computed-l-3-walk'>2. Computed <code>L=3</code> walk</h2>
+<p>The shipped constructor labels the central data qubit <code>q4</code> and a middle-row crossing by <code>q3,q4,q5</code>. Direct matrix multiplication gives</p>
+<pre><code class='language-text'>single X on q4          -&gt; Z-checks {Z2, Z3}
+single Z on q4          -&gt; X-checks {X1, X4}
+single X on left q3     -&gt; Z-check  {Z2}
+X on {q3,q4}            -&gt; Z-check  {Z3}
+X on {q3,q4,q5}         -&gt; no fired checks</code></pre>
+<p>The last support is outside the X-stabilizer row space, so “no syndrome” means a logical X, not a stabilizer. The sequence shows one defect entering at the smooth boundary, walking across the patch, and disappearing at the opposite smooth boundary.</p>
+<h2 id='3-what-the-decoder-decides'>3. What the decoder decides</h2>
+<p>Given a syndrome <code>s</code>, every candidate correction <code>C</code> satisfies <code>∂C=s</code>. If the actual error is <code>E</code>, then</p>
+<p><code>∂(E+C)=s+s=0</code>.</p>
+<p>Thus <code>E+C</code> is a cycle. Recovery succeeds if that cycle is a stabilizer boundary and fails if it is a nontrivial relative homology class.</p>
+<p>Minimum-weight matching chooses low-cost pairings of syndrome endpoints. Maximum-likelihood decoding instead sums probabilities over all chains in each logical class. That distinction is why path degeneracy can separate the matching and optimal code-capacity thresholds; the exact model-dependent numbers live in the <a href='threshold-ledger.html'>threshold ledger</a>.</p>
+<h2 id='4-repeated-measurements'>4. Repeated measurements</h2>
+<p>With noisy measurements, a detector compares the same check outcome in successive rounds. Data faults create spacelike-separated detector events; measurement faults create timelike-separated events; circuit propagation can create correlated small patterns. Decoding therefore takes place in a <code>2+1</code>-dimensional detector graph.</p>
+<p>A relevant single fault has a bounded detector footprint, but not every physical fault must light a detector: a late fault can be observationally equivalent to a fault in the next round, a harmless Pauli can cancel, and some faults affect only a tracked observable. The correct invariant is that the detector error model lists the observable detector/logic signature of each fault mechanism.</p>
+<p>Ancilla faults deserve special attention. During a four-neighbor check measurement, one ancilla Pauli can propagate through later CNOTs into a two-data-qubit hook. A schedule that aligns those hooks with a shortest logical direction can reduce circuit distance even though the static check matrix still has distance <code>d</code>. Static-code distance and fault distance are different claims and must be verified separately.</p></div></body></html>

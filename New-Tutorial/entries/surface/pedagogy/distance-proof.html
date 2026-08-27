@@ -1,0 +1,28 @@
+<!doctype html><html><head><meta charset='utf-8'><meta name='viewport' content='width=device-width, initial-scale=1'><title>The unrotated planar family has distance d=L</title><link rel='stylesheet' href='../../../style.css?v=3d2fa6103434'><script defer src='../../../renderer/mathjax-config.js?v=6dc4bd4b7c05'></script><script defer src='https://cdn.jsdelivr.net/npm/mathjax@4.1.3/tex-svg.js'></script><link rel='stylesheet' href='../../../tutorial.css?v=7a0c037fa91a'></head><body><nav><a href='../../../index.html'>QEC Atlas</a> · <a href='../../../foundations/index.html'>Foundations</a> · <a href='../../../wanted.html'>Open problems</a></nav><a class='back-link learn-return-link' href='../learn.html?resume=1'>↩ Return to Learn</a><h1>The unrotated planar family has distance d=L</h1><div class='intuition'><p class='note'><b>Theorem.</b> For the code <code>HGP(rep_L, rep_L)</code> with <code>L≥2</code>, every nontrivial logical Pauli has weight at least <code>L</code>, and weight-<code>L</code> X and Z logicals exist.</p>
+<p>The proof does not infer distance from a drawing or from small-instance enumeration.</p>
+<h2 id='1-upper-bound'>1. Upper bound</h2>
+<p>Index the <code>L²</code> bit×bit block by <code>(a,b)</code>, <code>0≤a,b&lt;L</code>.</p>
+<ul><li>For fixed <code>a</code>, put X on all <code>(a,b)</code>. Each Z-check meets this row zero or two times, so the string commutes with every Z-check.</li><li>For fixed <code>b</code>, put Z on all <code>(a,b)</code>. Each X-check likewise meets this column zero or two times.</li></ul>
+<p>A row and a column intersect once, so the two strings anticommute. Neither can be a stabilizer. Both have weight <code>L</code>, proving <code>d≤L</code>.</p>
+<h2 id='2-equivalent-disjoint-representatives'>2. Equivalent disjoint representatives</h2>
+<p>There are <code>L</code> row strings and <code>L</code> column strings. Adjacent X rows differ by the product of the X-checks in the strip between them: interior qubits cancel in pairs, leaving precisely the two boundary rows. Therefore all X rows represent the same logical class. The same strip argument using Z-checks makes all Z columns equivalent.</p>
+<p>Within each family the supports are pairwise disjoint.</p>
+<h2 id='3-lower-bound'>3. Lower bound</h2>
+<p>Because <code>k=1</code>, every nontrivial logical class is represented by <code>X_L^a Z_L^b</code> with <code>(a,b)≠(0,0)</code>.</p>
+<p>If a logical <code>P</code> anticommutes with the Z class, it anticommutes with every equivalent Z-column representative: multiplying a representative by a stabilizer cannot change its commutator with a logical. Anticommutation with a pure-Z column requires <code>P</code> to have X or Y support somewhere on that column. There are <code>L</code> disjoint columns, so <code>wt(P)≥L</code>.</p>
+<p>If <code>P</code> instead anticommutes with the X class, the same argument uses the <code>L</code> disjoint rows. Every nontrivial logical anticommutes with at least one of the two conjugate classes, so every nontrivial logical has weight at least <code>L</code>. Together with the upper bound, <code>d=L</code>.</p>
+<p>This argument is the finite-patch version of a systolic proof: the disjoint representatives form <code>L</code> independent cuts that every conjugate crossing must meet.</p>
+<h2 id='4-machine-witnesses'>4. Machine witnesses</h2>
+<p>At <code>L=3</code>, <code>reproduce.py</code> asserts the following facts:</p>
+<pre><code class='language-text'>X rows logical/equivalent/disjoint: True
+Z columns logical/equivalent/disjoint: True
+logical X support: [0, 1, 2]
+logical Z support: [0, 3, 6]
+exact_distance(L=3): 3 (exact-css-enum)</code></pre>
+<p>At <code>L=4</code>, exhaustive CSS logical enumeration returns four. These are <code>verified</code> claims in <code>instances.yaml</code>.</p>
+<p>At <code>L=5</code>, exhaustive enumeration is not part of the verifier. The analytic lower bound and <a href='https://arxiv.org/abs/quant-ph/0110143'>Dennis–Kitaev–Landahl–Preskill</a> support <code>d≥5</code>; a deterministic low-weight search with <code>method=rand-lowweight-v1</code>, <code>seed=0</code>, and <code>iters=2000</code> finds a weight-five logical. The claim is therefore stored as</p>
+<pre><code class='language-yaml'>property: d
+lower: {value: 5}
+upper: {value: 5, method: rand-lowweight-v1, seed: 0, iters: 2000}
+origin: {kind: bounded, ref: dennis2002topological}</code></pre>
+<p>The word <code>bounded</code> is intentional: the theorem supplies the lower bound and the verifier reruns the upper-bound witness, but the pipeline does not call the result exhaustive.</p></div></body></html>
