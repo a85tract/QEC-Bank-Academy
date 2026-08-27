@@ -279,8 +279,13 @@ const SceneExplorer = (() => {
     const points = item.points.map(point =>
       transform(scene, canvas, shifted(point, offset))
     );
-    const highlighted = state.highlight === item.item;
-    const hasHighlight = state.highlight !== null && state.highlight !== undefined;
+    const highlights = Array.isArray(state.highlights)
+      ? state.highlights
+      : state.highlight !== null && state.highlight !== undefined
+        ? [state.highlight]
+        : [];
+    const highlighted = highlights.includes(item.item);
+    const hasHighlight = highlights.length > 0;
     context.save();
     context.globalAlpha = hasHighlight && !highlighted ? 0.12 : 1;
     context.strokeStyle = style.stroke;
@@ -311,9 +316,58 @@ const SceneExplorer = (() => {
     context.restore();
   }
 
-  function drawNodes(context, scene, canvas, ratio, offsets = [[0, 0]]) {
+  function drawNodeMark(context, point, mark, ratio) {
+    const size = 9 * ratio;
+    context.save();
+    context.lineWidth = 2.25 * ratio;
+    context.globalAlpha = 1;
+    if (mark === "error") {
+      context.strokeStyle = "#a62036";
+      context.fillStyle = "rgba(166, 32, 54, 0.14)";
+      trace(context, [
+        [point[0], point[1] - size],
+        [point[0] + size, point[1]],
+        [point[0], point[1] + size],
+        [point[0] - size, point[1]],
+      ], true);
+      context.fill();
+      context.stroke();
+    } else if (mark === "recovery") {
+      context.strokeStyle = "#087f5b";
+      context.fillStyle = "rgba(8, 127, 91, 0.13)";
+      trace(context, [
+        [point[0] - size, point[1] - size],
+        [point[0] + size, point[1] - size],
+        [point[0] + size, point[1] + size],
+        [point[0] - size, point[1] + size],
+      ], true);
+      context.fill();
+      context.stroke();
+    } else if (mark === "cancelled") {
+      context.strokeStyle = "#5f6b76";
+      context.beginPath();
+      context.arc(point[0], point[1], size, 0, 2 * Math.PI);
+      context.stroke();
+      trace(context, [
+        [point[0] - size * 0.7, point[1] + size * 0.7],
+        [point[0] + size * 0.7, point[1] - size * 0.7],
+      ]);
+      context.stroke();
+    } else if (mark === "logical") {
+      context.strokeStyle = "#6d28d9";
+      context.beginPath();
+      context.arc(point[0], point[1], size, 0, 2 * Math.PI);
+      context.stroke();
+      context.beginPath();
+      context.arc(point[0], point[1], size * 0.62, 0, 2 * Math.PI);
+      context.stroke();
+    }
+    context.restore();
+  }
+
+  function drawNodes(context, scene, canvas, state, ratio, offsets = [[0, 0]]) {
     const showLabels = scene.nodes.length <= 40 || viewState(scene).zoom >= 2.5;
-    scene.nodes.forEach(node => {
+    scene.nodes.forEach((node, nodeIndex) => {
       offsets.forEach(offset => {
         const point = transform(
           scene,
@@ -327,6 +381,8 @@ const SceneExplorer = (() => {
         context.strokeStyle = "#fff";
         context.lineWidth = ratio;
         context.stroke();
+        const mark = state.nodeMarks?.[nodeIndex];
+        if (mark) drawNodeMark(context, point, mark, ratio);
         if (showLabels && typeof context.fillText === "function") {
           context.fillStyle = "#374151";
           context.font = `${11 * ratio}px ui-monospace, monospace`;
@@ -358,14 +414,14 @@ const SceneExplorer = (() => {
           drawObject(context, scene, canvas, item, state, ratio, offset)
         );
       });
-      drawNodes(context, scene, canvas, ratio, offsets);
+      drawNodes(context, scene, canvas, state, ratio, offsets);
       context.restore();
       drawPeriodicBoundary(context, scene, canvas, ratio);
     } else {
       visibleObjects(scene, state).forEach(item =>
         drawObject(context, scene, canvas, item, state, ratio)
       );
-      drawNodes(context, scene, canvas, ratio);
+      drawNodes(context, scene, canvas, state, ratio);
     }
     context.restore();
   }
@@ -390,6 +446,28 @@ const SceneExplorer = (() => {
       });
     });
     return best;
+  }
+
+  function nearestNode(canvas, scene, mouseX, mouseY) {
+    if (!pointInPeriodicDomain(scene, canvas, [mouseX, mouseY])) return null;
+    const ratio = pixelRatio(canvas);
+    let best = null;
+    let bestDistance = (20 * ratio) ** 2;
+    scene.nodes.forEach((node, nodeIndex) => {
+      periodicOffsets(scene).forEach(offset => {
+        const point = transform(scene, canvas, shifted(node.position, offset));
+        const distance = (point[0] - mouseX) ** 2 + (point[1] - mouseY) ** 2;
+        if (distance < bestDistance) {
+          bestDistance = distance;
+          best = nodeIndex;
+        }
+      });
+    });
+    return best;
+  }
+
+  function screenPoint(scene, canvas, worldPoint) {
+    return transform(scene, canvas, worldPoint);
   }
 
   function panBy(scene, deltaX, deltaY) {
@@ -425,6 +503,19 @@ const SceneExplorer = (() => {
     view.panY = 0;
   }
 
+  function setView(scene, snapshot) {
+    if (!snapshot || typeof snapshot !== "object") return false;
+    const zoom = Number(snapshot.zoom);
+    const panX = Number(snapshot.panX);
+    const panY = Number(snapshot.panY);
+    if (![zoom, panX, panY].every(Number.isFinite)) return false;
+    const view = viewState(scene);
+    view.zoom = Math.max(scene.camera.minZoom, Math.min(scene.camera.maxZoom, zoom));
+    view.panX = panX;
+    view.panY = panY;
+    return true;
+  }
+
   function cameraStatus(scene) {
     const view = viewState(scene);
     return {
@@ -455,12 +546,28 @@ const SceneExplorer = (() => {
       filter: "all",
       hover: null,
       selected: null,
+      nodeMarks: {},
     };
+    const landing = ENTRY_DATA.lessonLanding;
+    if (
+      landing
+      && Number.isInteger(landing.focus_qubit)
+      && landing.focus_qubit >= 0
+      && landing.focus_qubit < scene.nodes.length
+    ) {
+      state.nodeMarks[landing.focus_qubit] = "error";
+    }
     const $ = selector => document.querySelector(selector);
     const activeHighlight = () => state.selected ?? state.hover;
 
     function latticeDetail(itemIndex) {
       if (itemIndex === null || itemIndex === undefined) {
+        if (landing) {
+          return (
+            `${landing.error_pauli} error imagined on q${landing.focus_qubit}. `
+            + "Select a stabilizer to inspect its exact support, then start Learn to predict the syndrome."
+          );
+        }
         return (
           "Point, tap, or focus the scene and use arrow keys to inspect "
           + "a stabilizer."
@@ -599,6 +706,7 @@ const SceneExplorer = (() => {
         round: state.round,
         filter: state.filter,
         highlight: activeHighlight(),
+        nodeMarks: state.nodeMarks,
       });
       const detail = $("[data-scene-detail]");
       if (detail) detail.textContent = itemDetail(activeHighlight());
@@ -913,11 +1021,14 @@ const SceneExplorer = (() => {
     frame,
     initEntry,
     nearestItem,
+    nearestNode,
     observeResize,
     panBy,
     render,
     resetView,
     resizeCanvas,
+    screenPoint,
+    setView,
     visibleObjects,
     zoomAt,
   };

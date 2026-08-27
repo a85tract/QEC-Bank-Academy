@@ -120,6 +120,36 @@ h3 { margin: 1.5rem 0 .55rem; font-size: 1rem; }
   font-size: 1rem;
 }
 
+.learn-launch-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .75rem;
+}
+
+.primary-action,
+.resume-action {
+  display: inline-block;
+  border: 1px solid var(--accent);
+  border-radius: 999px;
+  padding: .65rem 1rem;
+  font-weight: 730;
+  text-decoration: none;
+}
+
+.primary-action { background: var(--accent); color: #fff; }
+.primary-action:hover { background: #0d3547; color: #fff; }
+.resume-action { background: var(--accent-soft); }
+.resume-action[hidden] { display: none; }
+.learn-launch-note { color: var(--muted); font-size: .85rem; }
+
+.learn-return-link {
+  display: inline-block;
+  margin-left: 1rem;
+  border-left: 1px solid var(--line);
+  padding-left: 1rem;
+}
+
 .landing-section {
   border-top: 1px solid var(--line);
   padding: 2.25rem 0;

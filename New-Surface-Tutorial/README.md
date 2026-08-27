@@ -1,35 +1,62 @@
-# Surface tutorial — minimal runnable site
+# Surface Tutorial — standalone package
 
-This package contains the complete generated Surface entry from the local QEC Atlas tutorial prototype:
+这是 QEC Atlas `atlas/surface` 教程的单条目、静态、GitHub Pages 可直接托管版本。
+它不是完整 Atlas 网站，也不包含其余 128 个条目的生成页面。
 
-- Surface landing and continuous Learn route;
-- all Surface Reference facets and Level-2 derivations;
-- the retained advanced Surface/HGP tour;
-- the exact circuit artifact used by the tutorial;
-- directly linked shared foundations and the Wanted board; and
-- only the CSS, JavaScript, and renderer configuration needed by those pages.
+## 包含内容
 
-The full generated Atlas site is intentionally not included. The `hgp` and `toric` relation targets are represented by explicit package-boundary pages rather than broken links or recursively bundled entries.
+- Surface landing 与完整 Reference 子树
+- 7 章、15 步的交互式 Learn route
+- Surface HGP advanced tour
+- Learn 直接调用的共享 foundations 与 Wanted 页面
+- 运行这些页面所需的 CSS、通用 widgets 与 MathJax 配置
+- `authoring/` 下的可编辑 Lesson Brief、Lesson YAML、证据说明和 circuit artifact
+- `patches/` 下相对 Atlas 基线的完整源代码 diff
 
-## Run locally
+跨到 Toric、HGP 等其他 Atlas 条目的链接不会产生 404，而会进入明确的
+`scope.html` 包边界说明。arXiv、MathJax 等外部链接保持原样。
 
-From this directory:
+## 本地运行
+
+只需要 Python 3，无需安装 Atlas 或前端依赖：
 
 ```bash
-python3 -m http.server 8000 --bind 127.0.0.1
+python3 scripts/check_package.py
+python3 scripts/serve.py --port 8879
 ```
 
-Then open <http://127.0.0.1:8000/>.
+然后打开 <http://127.0.0.1:8879/>。
 
-Do not open the HTML through `file://`; serving it over HTTP preserves browser history and local tutorial state consistently.
+不要直接双击 HTML 使用 `file://`：浏览器对 history/sessionStorage 的行为不同，
+也无法代表 GitHub Pages 的真实路径语义。
 
-## Publish on GitHub Pages
+## GitHub Pages
 
-Commit the contents of this directory at the repository root. In GitHub, enable Pages for the branch containing these files and select `/ (root)` as the publishing folder. All package links and assets are relative, so the site works under a repository subpath.
+将本目录内容放在合作者仓库根目录，在仓库设置中选择：
 
-## Scope and provenance
+1. **Settings → Pages**
+2. **Deploy from a branch**
+3. 选择目标分支与 **/(root)**
 
-- Prototype source base: QEC Atlas `b8f8f180fccfe3783a76d627bda9a6d544564adf`.
-- Package pages are static build output; no Python environment is required to view them.
-- Mathematical typesetting uses the same external MathJax CDN as the generated Atlas site. Without network access, the site remains navigable and interactive, but TeX appears untypeset.
-- Literature links remain external and require network access.
+所有站内 URL 都是项目子路径可移植的相对链接，因此同时支持：
+
+- `https://<owner>.github.io/<repo>/`
+- 自定义域名
+- 本地任意端口的静态 HTTP server
+
+## 更新静态包
+
+先在隔离的 QEC Atlas 副本中生成完整 `exports/site`，再运行：
+
+```bash
+python3 scripts/build_package.py \
+  --site /path/to/qec-atlas/exports/site \
+  --atlas-root /path/to/qec-atlas \
+  --patch /path/to/surface-prototype.diff \
+  --baseline <atlas-commit-sha> \
+  --dest .
+python3 scripts/check_package.py
+```
+
+提取器采用显式 allow-list，并在生成后重写超出包边界的本地链接；不会复制完整
+`exports/site`。`package-manifest.json` 记录基线、源补丁哈希和每个交付文件的哈希。

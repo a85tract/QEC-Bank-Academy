@@ -3,6 +3,13 @@
 .tour-header { display: flex; justify-content: space-between; gap: 2rem; align-items: start; }
 .tour-header h1 { margin: 0; }
 .tour-header p { color: #555; }
+.tour-header-actions {
+  display: grid;
+  flex: 0 0 auto;
+  gap: .35rem;
+  justify-items: end;
+}
+.tour-header-actions a { display: block; }
 .tour-grid { display: grid; grid-template-columns: minmax(0, 2fr) minmax(280px, 1fr); gap: 1rem; }
 .tour-stage, .tour-panel { background: white; border: 1px solid #ddd; border-radius: 12px; padding: 1rem; }
 .tour-stage canvas {
@@ -86,6 +93,7 @@
   .tour-grid { grid-template-columns: 1fr; }
   .tour-panel { position: static; }
   .tour-header { flex-direction: column; gap: .5rem; }
+  .tour-header-actions { justify-items: start; }
   .tour-round-control { flex-wrap: wrap; }
   .tour-round-control input[type="range"] { order: 3; flex-basis: 100%; }
   .tour-camera-help { flex-basis: 100%; margin-left: 0; }

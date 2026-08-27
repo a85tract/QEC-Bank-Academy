@@ -1,0 +1,404 @@
+schema: qec-atlas-learn-v1
+version: 1
+entry: surface
+title: "Surface code: follow the clues"
+subtitle: "Turn hidden Pauli strings into syndromes, recoveries, logical classes, and evidence-aware engineering judgments."
+landing:
+  description: >-
+    A Surface code stores one qubit nonlocally. Local parity checks reveal the
+    endpoints of an error string without revealing the encoded state; recovery
+    succeeds when the remaining string is harmless, not necessarily empty.
+  orienting_prompt: >-
+    Imagine an X error on the marked data qubit. Which blue Z checks would
+    notice it? Start Learn to commit your prediction and test changed strings.
+  focus_qubit: 4
+  error_pauli: X
+  start_label: "Start with one hidden error"
+  resume_label: "Resume your investigation"
+sources:
+  primary:
+    entry: surface
+    instance: L3
+    label: "L3 open planar patch"
+    geometry_scope: "Combinatorial incidence drawing; not a hardware coupling map."
+    origin: {kind: verified, method: "surface.build(L=3)"}
+    logical_families:
+      X:
+        - [0, 1, 2]
+        - [3, 4, 5]
+        - [6, 7, 8]
+      Z:
+        - [0, 3, 6]
+        - [1, 4, 7]
+        - [2, 5, 8]
+  transfer:
+    entry: surface
+    instance: L4
+    label: "L4 changed case"
+    geometry_scope: "Combinatorial incidence drawing; not a hardware coupling map."
+    origin: {kind: verified, method: "surface.build(L=4)"}
+    logical_families:
+      X:
+        - [0, 1, 2, 3]
+        - [4, 5, 6, 7]
+        - [8, 9, 10, 11]
+        - [12, 13, 14, 15]
+      Z:
+        - [0, 4, 8, 12]
+        - [1, 5, 9, 13]
+        - [2, 6, 10, 14]
+        - [3, 7, 11, 15]
+advanced_tour:
+  entry: surface
+  label: "Advanced HGP construction tour"
+  source: pedagogy/tour.yaml
+circuit:
+  source: circuit_memory_l3.yaml
+  id: surface-unrotated-l3-logical-x-memory
+  version: 1
+  entry: surface
+  instance: L3
+  component: x
+  origin: {kind: verified, method: "strict ancilla schedule reconciliation"}
+surgery:
+  label: "Symbolic smooth-merge Z seam"
+  observable: "Z_L^A ⊗ Z_L^B"
+  scope: >-
+    Curated algebraic seam only: it demonstrates GF(2) multiplication of seam
+    checks, not a detector model, repeated-round decoder, or fault-tolerance proof.
+  origin: {kind: curated, ref: horsman2012surface}
+  symbol_legend:
+    - {symbols: "A0, A1, A2", meaning: "the three data-edge symbols in the chosen Z logical representative on patch A"}
+    - {symbols: "B0, B1, B2", meaning: "the matching Z logical representative on patch B"}
+    - {symbols: "s0, s1", meaning: "internal seam auxiliaries; each must occur twice and cancel in the total product"}
+  checks:
+    - {id: M0, support: [A0, s0, B0]}
+    - {id: M1, support: [A1, s0, s1, B1]}
+    - {id: M2, support: [A2, s1, B2]}
+  target: [A0, A1, A2, B0, B1, B2]
+  merged_construction:
+    schema: qec-atlas-lesson-construction-v1
+    op: hgp
+    inputs:
+      H1: {generator: rep_parity, length: 3}
+      H2: {generator: rep_parity, length: 6}
+reference_bridge:
+  - area: "Identity, parameters, relations, and Level-2 derivations"
+    status: "directly bridged"
+    note: "The labs compute checks, residual classes, logical witnesses, and L3/L4 parameters; proofs and relation targets remain linked in Reference."
+  - area: "Decoder records"
+    status: "scope-audit ready"
+    note: "Learn teaches syndrome and regime comparison, not execution of every listed decoder; algorithm-specific implementation and legacy records without a structured origin kind remain honest gaps."
+  - area: "Operations and realizations"
+    status: "evidence-audit ready"
+    note: "The seam gives one logical-algebra example; preparation, readout, transversal, fold, magic-state, and hardware records must retain their own stated setup."
+  - area: "Representation ladder"
+    status: "mixed strength"
+    note: "R1/R2 are exact here; the named circuit is an artifact-specific bridge, not a general R3/R4 entry representation; R5 records are curated and not synchronized object maps."
+chapters:
+  - id: clues
+    title: "1 · Read the clues"
+    summary: "Predict syndrome from odd overlap; watch interior endpoints cancel."
+    steps:
+      - id: one-error
+        title: "One hidden action, two visible clues"
+        panel: syndrome
+        source: primary
+        pauli: X
+        preset_error: [4]
+        prompt: "Before revealing it, select every check you predict will flip."
+        explanation: >-
+          An X error anticommutes with each Z check that overlaps it on an odd
+          number of data qubits. Those flipped check outcomes form the syndrome.
+        origin: {kind: verified, method: "constructor check supports + GF(2) parity"}
+        reference: {href: "../entries/surface/decoders.html", label: "Reference · decoders and noise regimes"}
+      - id: grow-string
+        title: "Grow the string; keep only its endpoints"
+        panel: syndrome
+        source: primary
+        pauli: X
+        preset_error: [3, 4]
+        prompt: "Toggle a neighboring qubit. Predict which clue disappears before reveal."
+        explanation: >-
+          Shared checks overlap the two-error string twice, so their parity
+          returns to zero. Syndrome constrains a boundary, not a unique path.
+        origin: {kind: verified, method: "constructor check supports + GF(2) parity"}
+        reference: {href: "../entries/surface/pedagogy/syndrome-decoding.html", label: "Derivation · syndrome and decoding"}
+  - id: recovery
+    title: "2 · Recover by class"
+    summary: "Infer from syndrome, then judge the residual rather than the guess."
+    steps:
+      - id: same-syndrome
+        title: "Different paths can be equally good"
+        panel: recovery
+        source: primary
+        pauli: X
+        hidden_error: [3, 4]
+        expected_residual: stabilizer
+        require_distinct_recovery: true
+        prompt: "Only the syndrome is shown. Draw a recovery and submit its residual class."
+        explanation: >-
+          Error plus recovery is evaluated over GF(2). A stabilizer residual acts
+          trivially on encoded information even when recovery differs from error.
+        origin: {kind: verified, method: "CSS syndrome and row-space classification"}
+        reference: {href: "../entries/surface/pedagogy/derivations.html", label: "Derivation · stabilizer equivalence"}
+      - id: logical-failure
+        title: "Zero syndrome can still hide a logical failure"
+        panel: recovery
+        source: primary
+        pauli: X
+        hidden_error: [0, 1]
+        expected_residual: logical
+        require_distinct_recovery: true
+        prompt: "Find a recovery with the shown syndrome, then inspect whether the closed residual is trivial."
+        explanation: >-
+          A boundary-to-boundary residual commutes with every check but is not a
+          stabilizer. It is a logical operator: invisible to syndrome, visible to the encoded qubit.
+        origin: {kind: verified, method: "CSS syndrome and row-space classification"}
+        reference: {href: "../entries/surface/parameters.html", label: "Reference · encoded parameters"}
+  - id: distance
+    title: "3 · Make protection global"
+    summary: "Deform representatives, cross X with Z, and read distance as minimum weight."
+    steps:
+      - id: crossing
+        title: "One protected qubit appears at a crossing"
+        panel: distance
+        source: primary
+        completion: {min_x_representatives: 2, min_z_representatives: 2, expected_weight: 3}
+        prompt: "Choose an X row and a Z column. Check their overlap and deform each within its family."
+        explanation: >-
+          Same-type representatives differ by stabilizers. A logical X and Z
+          overlap oddly, so they anticommute exactly like the encoded Pauli pair.
+        origin: {kind: verified, method: "validated logical families + GF(2) row spaces"}
+        reference: {href: "../entries/surface/pedagogy/distance-proof.html", label: "Proof · distance and logical strings"}
+      - id: transfer-l4
+        title: "Changed case: certify the L4 pattern"
+        panel: distance
+        source: transfer
+        completion: {min_x_representatives: 2, min_z_representatives: 2, expected_weight: 4}
+        prompt: "On the larger patch, choose a new crossing pair and justify why its weight changes."
+        explanation: >-
+          The visible representative weight follows the open-chain length. The
+          instance's displayed parameters retain their recorded verification origin.
+        origin: {kind: verified, method: "surface.build(L=4) + instance claims"}
+        reference: {href: "../entries/surface/parameters.html", label: "Reference · L3, L4, and bounded L5"}
+  - id: construction
+    title: "4 · Change representation"
+    summary: "Translate incidence into CSS matrices and an open-chain hypergraph product."
+    steps:
+      - id: css-row
+        title: "A visible check is a binary matrix row"
+        panel: construction
+        construction_mode: matrix
+        completion: {require_check_types: [X, Z], require_commutation_check: true, commutation_prediction: even}
+        source: primary
+        prompt: "Select a check, compare its support with the highlighted matrix row, then filter X and Z families."
+        explanation: >-
+          The two CSS matrices record the same incidence as the patch. Their
+          product vanishes over GF(2), which is the matrix statement that all stabilizers commute.
+        origin: {kind: verified, method: "constructor CheckMatrix"}
+        reference: {href: "../entries/surface/views.html", label: "Reference · representation ladder"}
+      - id: hgp-boundaries
+        title: "Open repetition factors become boundaries"
+        panel: construction
+        construction_mode: product
+        completion:
+          require_lattices: [open, periodic]
+          require_open_weights: [3, 4]
+          boundary_prediction: lower
+          factor_probe: {lattice: open, check: 1, choices: [0, 1, 2]}
+        source: primary
+        prompt: "Switch open and periodic products, then inspect a boundary check and a bulk check."
+        explanation: >-
+          `HGP(rep_L, rep_L)` copies one repetition relation while holding the
+          other factor fixed. Closing both factors removes endpoints and yields the toric sibling.
+        origin: {kind: verified, method: "validated existing tour payload"}
+        reference: {href: "../tours/surface.html", label: "Advanced · full HGP guided tour"}
+  - id: time
+    title: "5 · Measure through time"
+    summary: "Turn static stabilizers into an ancilla schedule and inspect hook propagation."
+    steps:
+      - id: schedule
+        title: "One stabilizer needs an ordered circuit"
+        panel: circuit
+        circuit_mode: schedule
+        source: primary
+        prompt: "Step the exact CNOT layers and inspect which data-check interactions occur together."
+        explanation: >-
+          Ancillas, ordering, and measurement are added machinery. They extract
+          the static check without becoming extra data qubits in the code definition.
+        origin: {kind: verified, method: "frozen L3 schedule reconciled to constructor"}
+        reference: {href: "../entries/surface/pedagogy/circuit-artifact.html", label: "Reference · named circuit artifact and R3/R4 limits"}
+      - id: hook
+        title: "Ordering can spread one ancilla fault"
+        panel: circuit
+        circuit_mode: hook
+        source: primary
+        prompt: "Activate each governed hook fixture and trace only the later CNOT propagation."
+        explanation: >-
+          A single ancilla Pauli can propagate to a correlated data pair. This
+          fixture is exact for the named schedule, but it is not a circuit-distance or threshold result.
+        origin: {kind: verified, method: "load_ancilla_memory_schedule fault fixtures"}
+        reference: {href: "../entries/surface/pedagogy/threshold-ledger.html", label: "Audit · threshold regimes"}
+  - id: operations
+    title: "6 · Operate without overclaiming"
+    summary: "Multiply a symbolic seam, then attach rounds, decoding, and provenance."
+    steps:
+      - id: seam-product
+        title: "Local seam checks multiply to a logical parity"
+        panel: surgery
+        source: primary
+        prompt: "Select all seam checks and inspect which internal seam symbols cancel in their GF(2) product."
+        explanation: >-
+          The product leaves an outer logical parity while repeated internal
+          symbols cancel. A real surgery protocol also needs repeated rounds, decoding, projection, and frame updates.
+        origin: {kind: curated, ref: horsman2012surface}
+        reference: {href: "../entries/surface/pedagogy/lattice-surgery.html", label: "Guide · lattice surgery mechanism and scope"}
+      - id: regime-audit
+        title: "A number without its regime is not evidence"
+        panel: checkpoint
+        checkpoint: threshold-regime
+        prompt: "Choose the statement that can be compared without changing model."
+        explanation: >-
+          Thresholds belong to a noise model, measurement model, circuit,
+          decoder, and normalization. Reference records several intentionally non-interchangeable regimes.
+        origin: {kind: curated, ref: dennis2002topological}
+        reference: {href: "../entries/surface/decoders.html", label: "Reference · decoder ledger"}
+      - id: operation-scope
+        title: "Audit what an operation claim actually establishes"
+        panel: checkpoint
+        checkpoint: operation-scope
+        prompt: "Identify the evidence still missing from the symbolic seam."
+        explanation: >-
+          Algebraic logical action, physical schedule, fault-tolerance proof,
+          and hardware demonstration are distinct evidence layers.
+        origin: {kind: curated, ref: horsman2012surface}
+        reference: {href: "../entries/surface/operations.html", label: "Reference · logical operations"}
+  - id: reference
+    title: "7 · Use Reference independently"
+    summary: "Translate representations and complete an evidence-aware capstone."
+    steps:
+      - id: representation-scope
+        title: "Ask what each representation preserves"
+        panel: checkpoint
+        checkpoint: representation-scope
+        prompt: "Which Reference statement respects the current mapping gaps?"
+        explanation: >-
+          R1 checks and R2 structure are exact here. The named circuit is exact
+          for one artifact, while R5 cross-model views are curated rather than synchronized object dictionaries.
+        origin: {kind: curated, ref: bombin2023unifying}
+        reference: {href: "../entries/surface/views.html", label: "Reference · R1–R5 ladder"}
+      - id: capstone
+        title: "Capstone: audit an unfamiliar Surface claim"
+        panel: capstone
+        source: transfer
+        prompt: "Complete the five structured audits and write a short explanation in your own words."
+        explanation: >-
+          Expertise means connecting a mechanism to its formal object and
+          stating the regime and missing evidence—not replaying the chapter order.
+        origin: {kind: verified, method: "lesson mastery map"}
+        reference: {href: "../entries/surface/references.html", label: "Reference · provenance keys and literature"}
+checkpoints:
+  threshold-regime:
+    evidence:
+      - {ledger: decoders, index: 0, label: "Record A · code-capacity MWPM"}
+      - {ledger: decoders, index: 2, label: "Record B · circuit-level MWPM"}
+    question: "Reference shows record A under code capacity and record B per circuit step. What is the valid first conclusion?"
+    choices:
+      - "A and B are not directly comparable: first align noise, measurement, circuit, decoder, metric, and normalization fields."
+      - "B is better because its percentage is numerically smaller."
+      - "A is a hardware guarantee because its percentage is larger."
+    answer: 0
+    success: "Yes. The displayed records change noise, measurement, circuit, metric, and normalization fields, so their percentages cannot be ranked directly."
+    retry: "Read the displayed A/B model fields. Keep noise, measurement, circuit, decoder, metric, and normalization attached to every number."
+  operation-scope:
+    evidence:
+      - {ledger: operations, index: 0, label: "Operation record · surgery CNOT"}
+    question: "What is still missing after the symbolic seam product gives the intended logical parity?"
+    choices:
+      - "Nothing; the XOR identity proves fault tolerance."
+      - "Repeated rounds, a detector/decoding model, projection interpretation, and Pauli-frame handling."
+      - "Only a prettier geometric animation."
+    answer: 1
+    success: "Correct. Logical algebra is necessary but not a complete spacetime fault-tolerance argument."
+    retry: "Separate the logical identity from its measurement schedule, decoder, and fault-distance evidence."
+  representation-scope:
+    evidence:
+      - {ledger: views, index: 0, label: "R1 · exact CSS checks"}
+      - {ledger: views, index: 5, label: "R5 · curated quon view with an explicit gap"}
+    question: "Which statement matches the governed representation status?"
+    choices:
+      - "Every R5 diagram is exactly synchronized to each selected stabilizer."
+      - "The Scene coordinates are a demonstrated processor wiring diagram."
+      - "R1/R2 mappings are exact here; the named circuit is artifact-specific; R5 explanations are curated."
+    answer: 2
+    success: "Exactly. Mapping strength and scope must travel with the representation."
+    retry: "Check the R1–R5 origin and gap labels; do not upgrade illustrative or curated material."
+  capstone-distance:
+    question: "On the L4 changed case, what supports the displayed distance-four witness?"
+    choices:
+      - "A four-qubit validated logical representative plus the instance's verified distance claim."
+      - "The Euclidean width of the canvas."
+      - "A threshold percentage from the decoder ledger."
+    answer: 0
+    success: "Right. Operator weight and the verified instance claim agree; canvas length is irrelevant."
+    retry: "Distance is Pauli weight in a nontrivial logical class, not a drawing length or threshold."
+  capstone-hardware:
+    evidence:
+      - {ledger: realizations, index: 4, label: "Unfamiliar realization · neutral-atom logical processor"}
+    question: "What may be concluded from a demonstrated logical operation on one platform?"
+    choices:
+      - "The operation is automatically fault tolerant for every preparation and decoder."
+      - "The recorded platform demonstrated the stated operation in its stated setup; omitted fault-tolerance claims remain omitted."
+      - "The Scene coordinates become that platform's coupling graph."
+    answer: 1
+    success: "Correct. A realization record is evidence for its stated setup, not a universal upgrade."
+    retry: "Keep platform, preparation, decoder, and fault-tolerance qualifications attached."
+  capstone-decoder-record:
+    evidence:
+      - {ledger: decoders, index: 1, label: "Unfamiliar record A · phenomenological MWPM"}
+      - {ledger: decoders, index: 7, label: "Unfamiliar record B · belief matching"}
+    question: "What must happen before these two decoder records can support a performance comparison?"
+    choices:
+      - "Align the detector/noise model, circuit, normalization, and reported metric; the shared word decoder is not enough."
+      - "Rank them by whichever record contains the larger percentage."
+      - "Treat correlated detector faults as independent code-capacity flips."
+    answer: 0
+    success: "Right. The records first need a common model and metric; algorithm names alone do not make results comparable."
+    retry: "Read the noise and detector assumptions on both governed records before comparing performance."
+  capstone-operation-record:
+    evidence:
+      - {ledger: operations, index: 7, label: "Unfamiliar record A · Pauli-frame update"}
+      - {ledger: operations, index: 8, label: "Unfamiliar record B · logical T"}
+    question: "Which transfer claim respects both operation records?"
+    choices:
+      - "A classical frame update proves that the T-state factory is fault tolerant."
+      - "The T record still needs a stated injection/distillation protocol and decoder; frame bookkeeping is a separate layer."
+      - "Both operations have the same physical depth because both are measurement based."
+    answer: 1
+    success: "Correct. Logical effect, resource factory, decoding, and classical frame handling are separate evidence layers."
+    retry: "Do not collapse two measurement-based records into one physical or fault-tolerance claim."
+  capstone-view-record:
+    evidence:
+      - {ledger: views, index: 5, label: "Unfamiliar record A · R5 quon"}
+      - {ledger: views, index: 6, label: "Unfamiliar record B · R5 tensor network"}
+    question: "How may these R5 records be used in an audit?"
+    choices:
+      - "As curated conceptual lenses with their own references and gaps, not as synchronized maps of the selected L4 check."
+      - "As exact processor layouts for the Scene coordinates."
+      - "As a replacement for the executable R1 check matrix."
+    answer: 0
+    success: "Exactly. R5 can explain preserved structure without silently becoming an exact object-level converter."
+    retry: "Keep the rung, origin, and explicit gap attached to each view."
+capstone:
+  tasks:
+    - {checkpoint: capstone-distance, label: "Distance and formal witness"}
+    - {checkpoint: capstone-decoder-record, label: "Unfamiliar decoder records"}
+    - {checkpoint: capstone-operation-record, label: "Unfamiliar operation records"}
+    - {checkpoint: capstone-hardware, label: "Realization scope"}
+    - {checkpoint: capstone-view-record, label: "Unfamiliar representation records"}
+  structured_pass_label: "Structured audit checks demonstrated"
+  explanation_prompt: >-
+    In 3–5 sentences, explain how an X error string produces a syndrome, when a
+    recovery is harmless, and one evidence limitation you would check before
+    transferring a Reference claim to a new hardware or noise regime.
