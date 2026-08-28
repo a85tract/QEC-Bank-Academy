@@ -1,0 +1,477 @@
+# Entry-specific lesson content over shared constructor-driven Learn machinery.
+version: 2
+tutorial_version: "2026.08-prototype"
+title: "Bivariate bicycle codes: one wrapped move to a qualified memory claim"
+subtitle: >-
+  Translate, assemble, detect, quotient, and qualify—using only the two governed
+  Atlas instances and constructor-derived feedback.
+landing:
+  title: "Make one check move before reading the dossier"
+  summary: >-
+    Begin on the small exact anchor: predict a wrapped translation, build its
+    check, use it as a syndrome, then transfer the reasoning to the gross block.
+  task: >-
+    The red solid spokes are one constructor-derived X check on the exact toric
+    anchor. Inspect its four data-qubit endpoints; the two offset point sets are
+    algebraic column blocks, not a proposed device layout.
+  lattice: toric
+  state: {lattice: toric, filter: X, highlight: 0}
+chapters:
+  - id: translate
+    title: "1 · Translate"
+    summary: "Turn polynomial symbols into finite wrapped moves."
+  - id: assemble
+    title: "2 · Assemble"
+    summary: "Build CSS checks and test the reason they commute."
+  - id: detect
+    title: "3 · Detect"
+    summary: "Use the static checks as syndromes and cosets."
+  - id: quotient
+    title: "4 · Quotient"
+    summary: "Separate local sparsity from global rank and distance."
+  - id: qualify
+    title: "5 · Qualify"
+    summary: "Cross representations and audit complete Reference claims."
+lattices:
+  toric:
+    entry: bivariate_bicycle
+    instance: toric_L3
+    label: "Exact toric anchor"
+    derive_logicals: true
+    derive_two_block_candidates: true
+  gross:
+    entry: bivariate_bicycle
+    instance: gross
+    label: "Gross finite block"
+    derive_two_block_candidates: true
+steps:
+  - id: scope-the-headline
+    chapter: translate
+    title: "Put the headline in its resource box"
+    task: >-
+      Choose the only defensible interpretation of the finite-block comparison
+      before using it as motivation.
+    hint: "Ask what was counted—and what was not."
+    narrative: >-
+      The comparison counts data qubits and static code parameters only. It does
+      not include ancillas, routing, extraction depth, decoder cost, or logical
+      operations. The headline motivates the algebra; it is not a full hardware
+      advantage claim.
+    state: {lattice: toric, filter: all, highlight: 0}
+    interaction:
+      kind: audit
+      questions:
+        - prompt: >-
+            What does the 144-data-qubit gross block (twelve logical qubits,
+            static distance 12) versus a 144-data-qubit rotated surface patch
+            (one logical qubit at distance 12) establish?
+          options:
+            - "A data-only finite-block encoding comparison"
+            - "A lower total hardware cost at equal circuit distance"
+            - "A decoder-independent threshold advantage"
+          correct: 0
+          explanation: >-
+            Only the first statement keeps the measured resource attached. The
+            comparison omits ancillas, routing, extraction depth, decoder cost,
+            logical operations, and every circuit-distance obligation.
+    origin: {kind: curated, ref: bravyi2024bicycle}
+    refs: [bravyi2024bicycle]
+    reference_links:
+      - {label: "Reference · Parameters", href: "../entries/bivariate_bicycle/parameters.html"}
+      - {label: "Derivation · Gross parameter ledger", href: "../entries/bivariate_bicycle/pedagogy/gross-parameter-ledger.html"}
+
+  - id: wrap-one-monomial
+    chapter: translate
+    title: "Make x and y act"
+    task: >-
+      Choose a check-row anchor, block, and monomial. Predict the matrix column
+      where that row gets a 1 before checking the wrapped incidence.
+    hint: "Reduce each destination coordinate modulo the corresponding order."
+    narrative: >-
+      A monomial is a permutation matrix, not a scalar placeholder. The
+      constructor fixes S[i,i+1]=1, so row anchor (i,j) and term (a,b) place a
+      nonzero at column (i+a,j+b), modulo (l,m). Acting on a column basis vector
+      moves with the opposite sign; this lab follows matrix-row incidence.
+      Transpose reverses that row move. A and B are sparse sums of these wrapped
+      incidences.
+    state: {lattice: toric, filter: X, highlight: 0}
+    interaction:
+      kind: translation
+      anchor: [2, 2]
+      block: A
+      term: [1, 0]
+      reverse: false
+    origin: {kind: verified, method: "bivariate_bicycle._poly finite-torus convention"}
+    refs: [mackay2004sparse]
+    reference_links:
+      - {label: "Reference · Intuition", href: "../entries/bivariate_bicycle/intuition.html"}
+
+  - id: assemble-a-check
+    chapter: assemble
+    title: "Assemble one X check from two blocks"
+    task: >-
+      Change the anchor and predict the row weight. Then compare the computed A
+      and B endpoints with the exact highlighted matrix row.
+    hint: "The right block begins after l×m left-block coordinates."
+    narrative: >-
+      H_X=[A|B] concatenates two algebraic coordinate blocks. The toric anchor
+      has two A terms and two B terms, so this row has four endpoints. The small
+      drawing offset only separates coincident points for reading.
+    state: {lattice: toric, filter: X, highlight: 0}
+    interaction:
+      kind: translation
+      anchor: [0, 0]
+      block: both
+      term: [0, 0]
+      reverse: false
+      assemble: true
+    origin: {kind: verified, method: "toric_L3 H_X row from constructor"}
+    refs: [mackay2004sparse]
+    reference_links:
+      - {label: "Reference · Formal IR", href: "../entries/bivariate_bicycle/formal-verification.html"}
+
+  - id: test-commutation
+    chapter: assemble
+    title: "Make the swapped transpose earn its place"
+    task: >-
+      Predict whether swapped or unswapped reversed blocks commute with every X
+      row. Then inspect one overlap and the full computed violation count.
+    hint: >-
+      Transpose reverses translations; swapping aligns AB with BA. Over GF(2),
+      two equal contributions cancel.
+    narrative: >-
+      H_Z=[B^T|A^T] is not decoration. Transpose reverses each torus move, the
+      swap produces AB+BA, the translation algebra makes AB=BA, and
+      characteristic two cancels the doubled term. Sparsity alone proves none
+      of this.
+    state: {lattice: toric, filter: Z, highlight: 9}
+    interaction:
+      kind: commutation
+      x_row: 0
+      z_row: 0
+      candidate: unswapped
+    origin: {kind: verified, method: "computed H_X H_Z^T over GF(2)"}
+    refs: [bravyi2024bicycle, wang2023abelian]
+    reference_links:
+      - {label: "Derivation · Polynomial chain complex", href: "../entries/bivariate_bicycle/pedagogy/polynomial-chain-complex.html"}
+
+  - id: predict-a-syndrome
+    chapter: detect
+    title: "Turn a check into an observation"
+    task: >-
+      Toggle a single Pauli error, predict which opposite-type checks fire, and
+      compute the exact static syndrome.
+    hint: "A check fires when its support overlaps the error an odd number of times."
+    narrative: >-
+      A static X error is observed by Z checks, and a static Z error by X checks.
+      The syndrome is a parity vector from the exported matrices; it is not yet
+      a detector graph or a fault-tolerant extraction record.
+    state: {lattice: toric, filter: Z, highlight: 9}
+    interaction:
+      kind: syndrome
+      error_type: X
+      preset: [0]
+      mode: detect
+    origin: {kind: verified, method: "exact CSS parity from toric_L3 matrices"}
+    refs: [mackay2004sparse]
+    reference_links:
+      - {label: "Derivation · Syndrome and decoding", href: "../entries/bivariate_bicycle/pedagogy/syndrome-circuits-and-decoding.html"}
+
+  - id: compare-a-coset
+    chapter: detect
+    title: "Change the error without changing the observation"
+    task: >-
+      Compute the current syndrome, add a same-type stabilizer, and verify that
+      the syndrome stays fixed although the support changes.
+    hint: "Every stabilizer has zero syndrome, so E and ES occupy one syndrome coset."
+    narrative: >-
+      A decoder chooses among errors compatible with the observation. Multiplying
+      by a stabilizer changes the representative but not its action on encoded
+      information. Equal syndrome is necessary, but not enough, for logical
+      equivalence.
+    state: {lattice: toric, filter: X, highlight: 0}
+    interaction:
+      kind: syndrome
+      error_type: X
+      preset: [0]
+      stabilizer_index: 0
+      mode: coset
+    origin: {kind: verified, method: "GF(2) syndrome and row-space computation"}
+    refs: [roffe2020decoding]
+    reference_links:
+      - {label: "Reference · Decoders", href: "../entries/bivariate_bicycle/decoders.html"}
+
+  - id: classify-a-logical-cycle
+    chapter: detect
+    title: "Find a logical class beyond the stabilizer space"
+    task: >-
+      Start from a derived toric logical support, alter it if you wish, and
+      classify the result as detectable, stabilizer-trivial, or logical.
+    hint: >-
+      For the preset X error, zero Z-check syndrome makes a cocycle. X-check
+      row-space membership decides whether it is a stabilizer coboundary.
+    narrative: >-
+      In the primal complex, a zero-syndrome Z error is a cycle and a Z
+      stabilizer is a boundary. In the dual complex, a zero-syndrome X error is
+      a cocycle and an X stabilizer is a coboundary. Either Pauli is logical when
+      it is closed but outside its same-type stabilizer row space. This lab starts
+      with an X cocycle. The exact basis is derived only for the small anchor—the
+      gross logical action remains an honest gap.
+    state: {lattice: toric, filter: all, highlight: 0}
+    interaction:
+      kind: syndrome
+      error_type: X
+      preset_logical: {pair: 0, pauli: x}
+      mode: classify
+    origin: {kind: verified, method: "qeclib.logicals.logical_basis + GF(2) row-space"}
+    refs: [lin2023twoblock]
+    reference_links:
+      - {label: "Derivation · Polynomial chain complex", href: "../entries/bivariate_bicycle/pedagogy/polynomial-chain-complex.html"}
+
+  - id: derive-the-anchor
+    chapter: quotient
+    title: "Derive local weight and global k separately"
+    task: >-
+      Predict the highlighted check weight, rank-based k, and distance evidence
+      status for the exact toric anchor; then ask the matrices.
+    hint: "For CSS checks, k=n−rank(H_X)−rank(H_Z)."
+    narrative: >-
+      Polynomial term count controls this row's weight. Matrix dependencies
+      control rank. The remaining quotient dimension controls k. Exact distance
+      is a third computation, available here because the anchor is small.
+    state: {lattice: toric, filter: X, highlight: 0}
+    interaction:
+      kind: rank
+      check_type: X
+      check_index: 0
+    origin: {kind: verified, method: "constructor supports, GF(2) rank, exact-css-enum"}
+    refs: [mackay2004sparse]
+    reference_links:
+      - {label: "Reference · Parameters", href: "../entries/bivariate_bicycle/parameters.html"}
+
+  - id: transfer-to-gross
+    chapter: quotient
+    title: "Transfer the derivation to gross"
+    task: >-
+      Predict weight and k from the gross matrices, then identify why its
+      distance statement is bounded rather than verified exact.
+    hint: >-
+      Seventy-two rows per Pauli family need not have rank seventy-two.
+    narrative: >-
+      Each gross row has three A and three B endpoints, but the two Pauli check
+      matrices each have a six-dimensional row dependency. Their ranks leave the
+      global quotient that encodes the logical qubits. Gross distance combines a
+      cited lower bound with a replayed upper witness; Learn does not relabel it.
+    state: {lattice: gross, filter: X, highlight: 0}
+    interaction:
+      kind: rank
+      check_type: X
+      check_index: 0
+    origin: {kind: verified, method: "gross constructor supports and qeclib.gf2.rank"}
+    refs: [bravyi2024bicycle, postema2025existence]
+    reference_links:
+      - {label: "Reference · Parameters", href: "../entries/bivariate_bicycle/parameters.html"}
+      - {label: "Reference · Formal IR", href: "../entries/bivariate_bicycle/formal-verification.html"}
+
+  - id: separate-protocol-layers
+    chapter: quotient
+    title: "Keep five protocol layers apart"
+    task: >-
+      Sort what the explorer computes from what would require an extraction
+      circuit, detector model, decoder experiment, or scaling study.
+    hint: "A static parity matrix does not contain time."
+    narrative: >-
+      This prototype owns the static code and exact static syndromes. It exports
+      no ancillas, CNOT order, hook propagation, detector graph, or circuit
+      distance. Decoder performance and thresholds therefore remain separate,
+      protocol-qualified evidence.
+    state: {lattice: gross, filter: all, highlight: 0}
+    interaction:
+      kind: audit
+      questions:
+        - prompt: "Which object is computed directly in this lab?"
+          options: ["Static CSS syndrome", "Circuit detector events", "Hook-error propagation"]
+          correct: 0
+          explanation: "Only the check matrices and their static parity outcomes are exported."
+        - prompt: "What must accompany a threshold value?"
+          options:
+            - "Circuit, noise model, decoder, family, and scaling observable"
+            - "Only the code distance"
+            - "Only the check weight"
+          correct: 0
+          explanation: "Without the protocol tuple, a threshold cannot be transferred."
+    origin: {kind: curated, ref: bravyi2024bicycle}
+    refs: [bravyi2024bicycle, roffe2020decoding]
+    reference_links:
+      - {label: "Reference · Decoders", href: "../entries/bivariate_bicycle/decoders.html"}
+      - {label: "Derivation · Syndrome and decoding", href: "../entries/bivariate_bicycle/pedagogy/syndrome-circuits-and-decoding.html"}
+
+  - id: translate-one-object
+    chapter: qualify
+    title: "Carry one object across representations"
+    task: >-
+      Select a check and move among polynomial, matrix-row, Tanner, and chain
+      descriptions. Then reject the inference none of those exact maps licenses.
+    hint: "A representation can preserve an object without proving every physical interpretation."
+    narrative: >-
+      The same exact check can be read as translations, a binary row, Tanner
+      incidence, or a primal/dual chain map. For Z errors, zero syndrome and
+      same-type stabilizers mean cycle and boundary; for X errors the dual terms
+      are cocycle and coboundary. A logical Pauli is the corresponding closed
+      object outside its stabilizer row space. Quotient, anyon, and cylinder
+      views add useful curated structure, but this scene does not certify a
+      device layout or a decomposition into independent toric copies.
+    state: {lattice: gross, filter: Z, highlight: 72}
+    interaction:
+      kind: representation
+      check_type: Z
+      check_index: 0
+      question:
+        prompt: "Which conclusion is not licensed by these synchronized exact views?"
+        options:
+          - "The selected row has the displayed support"
+          - "The row is an exact stabilizer generator in the displayed primal or dual chain description"
+          - "Gross is a stack of independent toric codes"
+        correct: 2
+        explanation: >-
+          The exact views preserve the selected row and its family-dependent
+          primal or dual chain role. They do not license a global decomposition
+          of gross into toric copies.
+    origin: {kind: verified, method: "one constructor row projected across exact representations"}
+    refs: [lin2023twoblock, chen2025anyon, sahay2026matching]
+    reference_links:
+      - {label: "Derivation · Representation dictionary", href: "../entries/bivariate_bicycle/pedagogy/representation-dictionary.html"}
+
+  - id: audit-decoder-claim
+    chapter: qualify
+    title: "Audit a threshold sentence"
+    task: >-
+      Choose the correction that turns an overbroad threshold sentence into a
+      claim a critical reader could reproduce.
+    hint: "Keep the family, circuit, noise, decoder, and observable attached."
+    narrative: >-
+      A reported family threshold is evidence about a specified protocol, not
+      an intrinsic scalar attached to every BB instance or every decoder.
+      Matching-cylinder reductions likewise aid a decoding problem without
+      proving global phase equivalence.
+    state: {lattice: gross, filter: all, highlight: 0}
+    interaction:
+      kind: audit
+      questions:
+        - prompt: "Which revision is defensible?"
+          options:
+            - "Every BB code has the same threshold under any decoder."
+            - "The cited family/circuit/noise/decoder study reports its stated scaling threshold."
+            - "A static syndrome proves the cited circuit threshold."
+          correct: 1
+          explanation: "The second keeps the complete experimental tuple attached."
+        - prompt: "What does a toric-cylinder matching reduction establish?"
+          options:
+            - "A decoder dictionary for selected symmetry sectors"
+            - "A global decomposition of gross into toric copies"
+            - "An exact hardware embedding"
+          correct: 0
+          explanation: "The reduction is operational and scoped, not a phase or layout identity."
+    origin: {kind: curated, ref: bravyi2024bicycle}
+    refs: [bravyi2024bicycle, sahay2026matching]
+    reference_links:
+      - {label: "Reference · Decoders", href: "../entries/bivariate_bicycle/decoders.html"}
+
+  - id: audit-operation-realization
+    chapter: qualify
+    title: "Do not turn symmetry into a gate—or a proposal into a run"
+    task: >-
+      Audit one operation claim and one realization claim. Name the missing
+      certificate in each rejected shortcut.
+    hint: "Preserving stabilizers is earlier than resolving logical action and routing."
+    narrative: >-
+      Torus translations preserve supports as a set, but an addressable gross
+      logical gate still needs the induced logical symplectic action and routing
+      cost. A realized small block does not automatically realize gross or a
+      below-threshold family experiment.
+    state: {lattice: gross, filter: Z, highlight: 73}
+    interaction:
+      kind: audit
+      questions:
+        - prompt: "What is still missing after a physical automorphism preserves the stabilizers?"
+          options:
+            - "Its induced logical action and implementation/routing certificate"
+            - "The proof that it permutes physical qubits"
+            - "The selected stabilizer support"
+          correct: 0
+          explanation: "A stabilizer automorphism does not by itself name an addressable logical gate."
+        - prompt: "What may a small demonstrated BB-related block establish?"
+          options:
+            - "That exact demonstrated block and metric"
+            - "A gross-code hardware run"
+            - "A family-wide below-threshold demonstration"
+          correct: 0
+          explanation: "Instance, platform, metric, and exclusions must stay attached."
+    origin:
+      kind: curated
+      refs: [sayginel2025automorphisms, wang2026lowoverhead]
+    refs: [sayginel2025automorphisms, wang2026lowoverhead]
+    reference_links:
+      - {label: "Reference · Logical operations", href: "../entries/bivariate_bicycle/operations.html"}
+      - {label: "Reference · Realizations", href: "../entries/bivariate_bicycle/realizations.html"}
+
+  - id: reference-capstone
+    chapter: qualify
+    title: "Graduate by reading an unfamiliar Reference row"
+    task: >-
+      Resolve all five evidence audits without returning to the tutorial prose.
+      Use the linked Reference facets, then return to this same state.
+    hint: "Ask: exact object, scope, origin, certificate, and honest gap?"
+    narrative: >-
+      Graduation is independent Reference use. Structural validity and exact
+      distance eligibility are different Formal IR obligations; the pending
+      two-block group-algebra relation is not a resolved synonym; and absent
+      circuit artifacts remain visible gaps rather than simulated data.
+    state: {lattice: gross, filter: all, highlight: 0}
+    interaction:
+      kind: audit
+      capstone: true
+      questions:
+        - prompt: "What does gross Formal IR certify here?"
+          options:
+            - "Structural reconstruction and verified matrix identities"
+            - "An exact-distance enumeration certificate"
+            - "A circuit-distance witness"
+          correct: 0
+          explanation: "Gross has structural certificates; its distance obligation is separately bounded."
+        - prompt: "How should the pending two_bga relation be read?"
+          options:
+            - "A typed unresolved target, not an identity claim"
+            - "A synonym already deep-linked to a complete entry"
+            - "Evidence that every 2BGA code is BB"
+          correct: 0
+          explanation: "Pending relation targets are honest gaps."
+        - prompt: "Which missing artifact blocks a circuit-level claim?"
+          options:
+            - "Ancilla/order/detector or circuit-distance data"
+            - "Another color for Z checks"
+            - "A larger canvas"
+          correct: 0
+          explanation: "Static incidence cannot fill time-dependent circuit evidence."
+        - prompt: "What must happen before a degree-five morphing variant is treated as a cheaper schedule for this gross block?"
+          options:
+            - "Recompute under the changed family and detector model"
+            - "Only rename the seven extraction layers as six"
+            - "Copy the gross threshold because both are called BB-related"
+          correct: 0
+          explanation: "Morphing changes the code family and detector model, so instance and protocol claims do not transfer automatically."
+        - prompt: "What does a References row marked metadata pending license?"
+          options:
+            - "The internal provenance key is retained, but title, authors, and external link remain an honest registry gap"
+            - "The cited claim is machine-verified because a key exists"
+            - "A fetch-verified negative result that no source exists"
+          correct: 0
+          explanation: "A provenance key preserves internal linkage; missing reader metadata still blocks independent source inspection from this facet."
+    origin: {kind: verified, method: "generated Reference facets, stored provenance, and visible metadata-gap states"}
+    refs: [bravyi2024bicycle, wang2023abelian, shaw2025morphing]
+    reference_links:
+      - {label: "Reference · Formal IR", href: "../entries/bivariate_bicycle/formal-verification.html"}
+      - {label: "Reference · Relations", href: "../entries/bivariate_bicycle/relations.html"}
+      - {label: "Derivation · Circuit evidence boundaries", href: "../entries/bivariate_bicycle/pedagogy/syndrome-circuits-and-decoding.html"}
+      - {label: "Derivation · Variant boundary map", href: "../entries/bivariate_bicycle/pedagogy/variant-boundary-map.html"}
+      - {label: "Reference · Bibliography", href: "../entries/bivariate_bicycle/references.html"}

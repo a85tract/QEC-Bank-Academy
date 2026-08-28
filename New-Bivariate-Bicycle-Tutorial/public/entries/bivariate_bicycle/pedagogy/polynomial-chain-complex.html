@@ -1,0 +1,86 @@
+<!doctype html><html><head><meta charset='utf-8'><meta name='viewport' content='width=device-width, initial-scale=1'><title>From torus polynomials to a CSS chain complex</title><link rel='stylesheet' href='../../../style.css?v=0b35a6da66e5'><script defer src='../../../renderer/mathjax-config.js?v=6dc4bd4b7c05'></script><script defer src='https://cdn.jsdelivr.net/npm/mathjax@4.1.3/tex-svg.js'></script></head><body><nav><a href='../../../index.html'>QEC Atlas</a> · <a href='../../../foundations/index.html'>Foundations</a> · <a href='../../../wanted.html'>Open problems</a></nav><a class='learn-return-link' data-learn-return hidden>← Return to Learn</a><script src='../../../widgets/learn-continuity.js?v=6cd18964236e'></script><h1>From torus polynomials to a CSS chain complex</h1><div class='intuition'><p>This page fixes the convention used by <code>constructor.py</code> and pays the commutation argument in full. The purpose is not just to remember the formula <span class='math-inline'>\(H_X=[A|B]\)</span>, <span class='math-inline'>\(H_Z=[B^T|A^T]\)</span>, but to see why that particular formula is the natural one.</p>
+<h2 id='1-the-regular-torus-representation'>1. The regular torus representation</h2>
+<p>Let <span class='math-inline'>\(e_{i,j}\)</span> be the standard basis vector at <span class='math-inline'>\((i,j)\in\mathbb Z_l\times\mathbb Z_m\)</span>. The constructor&#x27;s cyclic matrix <span class='math-inline'>\(S_l\)</span> has a one in row <span class='math-inline'>\(i\)</span>, column <span class='math-inline'>\(i+1\)</span>, with indices modulo <span class='math-inline'>\(l\)</span>. With the flattened index <span class='math-inline'>\(im+j\)</span>, define</p>
+<div class='math-display'>\[
+x=S_l\otimes I_m,\qquad y=I_l\otimes S_m.
+\]</div>
+<p>The first operator changes only the <span class='math-inline'>\(i\)</span> coordinate; the second changes only the <span class='math-inline'>\(j\)</span> coordinate. Therefore</p>
+<div class='math-display'>\[
+x^l=I,\qquad y^m=I,\qquad xy=yx.
+\]</div>
+<p>These matrices give the regular representation of</p>
+<div class='math-display'>\[
+R=\mathbb F_2[x,y]/(x^l-1,y^m-1).
+\]</div>
+<p>In characteristic two, <span class='math-inline'>\(x^l-1=x^l+1\)</span>, so the plus-sign convention used in some papers describes the same quotient.</p>
+<p>Every monomial <span class='math-inline'>\(x^a y^b\)</span> is a permutation matrix. Its transpose is its inverse:</p>
+<div class='math-display'>\[
+(x^a y^b)^T=x^{-a}y^{-b},
+\]</div>
+<p>with negative exponents reduced modulo <span class='math-inline'>\(l,m\)</span>. This is why transposition has a geometric meaning: it reverses a torus translation.</p>
+<h2 id='2-sparse-polynomials-give-ldpc-incidence'>2. Sparse polynomials give LDPC incidence</h2>
+<p>For a binary polynomial</p>
+<div class='math-display'>\[
+A=\sum_{(a,b)\in T_A} x^a y^b,
+\]</div>
+<p>each row contains one entry contributed by each distinct monomial. If the reduced exponent pairs in <span class='math-inline'>\(T_A\)</span> are distinct, every row and every column has weight <span class='math-inline'>\(|T_A|\)</span>. Repeated terms cancel over <span class='math-inline'>\(\mathbb F_2\)</span>; the constructor therefore reduces exponent pairs modulo the two cyclic orders before applying XOR.</p>
+<p>The gross inputs are</p>
+<div class='math-display'>\[
+A=x^3+y+y^2,\qquad B=y^3+x+x^2
+\]</div>
+<p>on <span class='math-inline'>\(l=12,m=6\)</span>. Both matrices have row and column weight three. No geometric plaquette was separately specified: the check graph is the incidence graph of these translations.</p>
+<h2 id='3-why-the-swapped-transpose-is-forced'>3. Why the swapped transpose is forced</h2>
+<p>Place two qubits at each torus site. The first <span class='math-inline'>\(lm\)</span> columns form the left data block and the second <span class='math-inline'>\(lm\)</span> columns the right block. Define</p>
+<div class='math-display'>\[
+H_X=[A\mid B].
+\]</div>
+<p>A CSS Z-check matrix must obey <span class='math-inline'>\(H_XH_Z^T=0\)</span>. Choose</p>
+<div class='math-display'>\[
+H_Z=[B^T\mid A^T].
+\]</div>
+<p>Then</p>
+<div class='math-display'>\[
+\begin{aligned}
+H_XH_Z^T
+&amp;=[A\mid B]
+  \begin{bmatrix}B\\A\end{bmatrix}\\
+&amp;=AB+BA\\
+&amp;=AB+AB\\
+&amp;=0.
+\end{aligned}
+\]</div>
+<p>The third line uses <span class='math-inline'>\(AB=BA\)</span>, which follows from the abelian torus algebra. The last line uses characteristic two.</p>
+<p>Both the transpose and the swap have jobs. Transpose reverses the Z-side incidence so that it is the dual map. The swap routes the overlap through <span class='math-inline'>\(AB+BA\)</span>. If the candidate were instead <span class='math-inline'>\([A^T|B^T]\)</span>, its product with <span class='math-inline'>\(H_X\)</span> would be <span class='math-inline'>\(A^2+B^2\)</span>, which is not constrained to vanish.</p>
+<h2 id='4-the-three-term-complex'>4. The three-term complex</h2>
+<p>The same calculation is the boundary-of-a-boundary identity in</p>
+<div class='math-display'>\[
+R
+\xrightarrow{\;\partial_2=[B;A]\;}
+R^2
+\xrightarrow{\;\partial_1=[A|B]\;}
+R.
+\]</div>
+<p>Here</p>
+<div class='math-display'>\[
+\partial_1\partial_2=AB+BA=0.
+\]</div>
+<p>In the binary CSS convention, <span class='math-inline'>\(\partial_1=H_X\)</span> and <span class='math-inline'>\(\partial_2^T=H_Z\)</span>. An X-type Pauli that commutes with every Z check is a cycle; multiplying by an X stabilizer adds a boundary. The nontrivial X-logical classes are therefore a quotient of cycles by boundaries. The Z-logical classes are the dual quotient.</p>
+<p>This is the exact place where the homological language earns its keep: “commutes with the checks” and “is a stabilizer” are different subspaces, and logical information is the gap between them. The general binary dictionary is in <a href='../../../foundations/css-chain-complexes/index.html'>CSS chain complexes</a>.</p>
+<h2 id='5-the-toric-anchor'>5. The toric anchor</h2>
+<p>Set <span class='math-inline'>\(l=m=L\)</span> and choose</p>
+<div class='math-display'>\[
+A=1+x,\qquad B=1+y.
+\]</div>
+<p>Each polynomial has two terms, so each check has weight four. The resulting complex is the periodic square-lattice toric complex in the BB column convention: two qubits per unit cell, one X check and one Z check per cell.</p>
+<p>For the shipped <span class='math-inline'>\(L=3\)</span> instance, the constructor produces two <span class='math-inline'>\(9\times18\)</span> check matrices. Both have rank eight, leaving</p>
+<div class='math-display'>\[
+k=18-8-8=2.
+\]</div>
+<p>The Atlas exact CSS enumerator finds distance three. This <code>[[18,2,3]]</code> anchor tests the shift orientation, swapped transpose, ranks, and exact-distance path on a small instance.</p>
+<p>It does not prove that an arbitrary BB block is locally Clifford equivalent to independent toric codes. <code>sahay2026matching</code> uses a symmetry reduction to obtain toric-like cylinders for decoding, while <code>chen2025anyon</code> finds topological frustration in more general BB data. Those statements concern different equivalences.</p>
+<h2 id='6-what-the-executable-artifact-certifies'>6. What the executable artifact certifies</h2>
+<p><code>pedagogy/reproduce.py</code> independently reconstructs <span class='math-inline'>\(x,y,A,B\)</span>, then checks:</p>
+<ul><li>the two periods and <span class='math-inline'>\(xy=yx\)</span>;</li><li>the exact gross polynomials;</li><li><span class='math-inline'>\(H_Z=[B^T|A^T]\)</span>;</li><li><span class='math-inline'>\(H_XH_Z^T=0\)</span>;</li><li>the two small toric ranks and exact distance.</li></ul>
+<p>The card&#x27;s construction-replay tree now binds the two exponent lists into versioned <code>bivariate_polynomial@1</code> factors and assembles them with <code>bivariate_bicycle@1</code>. The verifier compares the complete output arrays, not only ranks or row spaces, so this page&#x27;s block and translation conventions are part of the machine witness rather than an equivalence-only assertion.</p>
+<h2 id='provenance'>Provenance</h2>
+<p>The polynomial and syndrome-circuit presentation follows <code>bravyi2024bicycle</code>; the group-algebra placement follows <code>wang2023abelian</code> and <code>lin2023twoblock</code>. Every displayed matrix identity for the shipped instances is rerun locally. The general topological caveat is literature-sourced to <code>chen2025anyon</code> and <code>sahay2026matching</code>.</p></div></body></html>

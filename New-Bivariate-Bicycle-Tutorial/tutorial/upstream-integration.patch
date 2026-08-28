@@ -1,0 +1,3131 @@
+diff --git a/atlas/bivariate_bicycle/card.yaml b/atlas/bivariate_bicycle/card.yaml
+index dfb91abcc3a181f5234492433d5fb56b47652ae1..72432a301a65b7c621f67e68ee290714d6decefb 100644
+--- a/atlas/bivariate_bicycle/card.yaml
++++ b/atlas/bivariate_bicycle/card.yaml
+@@ -19,13 +19,12 @@ eczoo:
+     page_url: https://errorcorrectionzoo.org/c/qcga
+     blob_url: https://github.com/errorcorrectionzoo/eczoo_data/blob/b2437d9e2dc09284e04c66ef72ee81b7ed7bd129/codes/quantum/qubits/stabilizer/qldpc/balanced_product/lp/bb/qcga.yml
+ description: >-
+-  A translation-invariant CSS qLDPC family built from two sparse binary
+-  polynomials on a finite two-dimensional torus. Each polynomial becomes a
+-  cyclic-shift matrix; placing the two matrices in H_X=[A|B] and the swapped
+-  transposes in H_Z=[B^T|A^T] makes commutation follow from the abelian
+-  polynomial algebra. Representative finite blocks trade planar
+-  nearest-neighbor layout for a second coupling layer and encode many logical
+-  qubits at moderate distance.
++  A CSS code family built by repeating a few parity-check moves on a grid whose
++  opposite edges are identified. Each polynomial term says how far to move on
++  that wrapped grid; the same moves become sparse matrix rows. A swapped,
++  reversed copy supplies the partner checks, while a global rank defect can
++  leave several logical qubits. The two matrix blocks are algebraic coordinate
++  blocks, not by themselves a hardware layout.
+ claim_gaps:
+   - {property: d, target: wanted:fast-distance}
+ views:
+diff --git a/atlas/bivariate_bicycle/pedagogy/tour.yaml b/atlas/bivariate_bicycle/pedagogy/tour.yaml
+index 52f69aefbe90c158fb3d31ec15cadb17d23a89be..03aa5ee850b5d7fd8060df93b1622b7dbf062066 100644
+--- a/atlas/bivariate_bicycle/pedagogy/tour.yaml
++++ b/atlas/bivariate_bicycle/pedagogy/tour.yaml
+@@ -1,50 +1,477 @@
+-# Code-specific pedagogy over shared constructor-driven lattice explorers.
+-version: 1
+-title: "Bivariate bicycle: from torus shifts to the gross memory"
+-subtitle: "Compare the exact gross incidence with a small toric anchor; no BB-specific JavaScript."
++# Entry-specific lesson content over shared constructor-driven Learn machinery.
++version: 2
++tutorial_version: "2026.08-prototype"
++title: "Bivariate bicycle codes: one wrapped move to a qualified memory claim"
++subtitle: >-
++  Translate, assemble, detect, quotient, and qualify—using only the two governed
++  Atlas instances and constructor-derived feedback.
++landing:
++  title: "Make one check move before reading the dossier"
++  summary: >-
++    Begin on the small exact anchor: predict a wrapped translation, build its
++    check, use it as a syndrome, then transfer the reasoning to the gross block.
++  task: >-
++    The red solid spokes are one constructor-derived X check on the exact toric
++    anchor. Inspect its four data-qubit endpoints; the two offset point sets are
++    algebraic column blocks, not a proposed device layout.
++  lattice: toric
++  state: {lattice: toric, filter: X, highlight: 0}
++chapters:
++  - id: translate
++    title: "1 · Translate"
++    summary: "Turn polynomial symbols into finite wrapped moves."
++  - id: assemble
++    title: "2 · Assemble"
++    summary: "Build CSS checks and test the reason they commute."
++  - id: detect
++    title: "3 · Detect"
++    summary: "Use the static checks as syndromes and cosets."
++  - id: quotient
++    title: "4 · Quotient"
++    summary: "Separate local sparsity from global rank and distance."
++  - id: qualify
++    title: "5 · Qualify"
++    summary: "Cross representations and audit complete Reference claims."
+ lattices:
+-  gross:
+-    {entry: bivariate_bicycle, instance: gross, label: "Gross [[144,12,12]]"}
+   toric:
+-    {entry: bivariate_bicycle, instance: toric_L3, label: "Toric anchor [[18,2,3]]"}
++    entry: bivariate_bicycle
++    instance: toric_L3
++    label: "Exact toric anchor"
++    derive_logicals: true
++    derive_two_block_candidates: true
++  gross:
++    entry: bivariate_bicycle
++    instance: gross
++    label: "Gross finite block"
++    derive_two_block_candidates: true
+ steps:
+-  - title: "Begin with two qubits per torus site"
+-    narrative: "The gross view contains 72 sites in each of two interleaved data layers. All 144 coordinates and all check supports come from constructor.py; the drawing is not a hand-authored lattice."
+-    state: {lattice: gross, filter: all, highlight: 0}
+-    origin: {kind: verified, method: "bivariate_bicycle.build lattice/checkmatrix export"}
+-    refs: [bravyi2024bicycle]
+-  - title: "Read one X check as six translations"
+-    narrative: "Gross X check 0 touches left-block qubits 1, 2, and 18 from A=x^3+y+y^2, then right-block qubits 75, 78, and 84 from B=y^3+x+x^2. Three plus three gives weight six."
+-    state: {lattice: gross, filter: X, highlight: 0}
+-    origin: {kind: verified, method: "gross HX row 0 support asserted in reproduce.py"}
++  - id: scope-the-headline
++    chapter: translate
++    title: "Put the headline in its resource box"
++    task: >-
++      Choose the only defensible interpretation of the finite-block comparison
++      before using it as motivation.
++    hint: "Ask what was counted—and what was not."
++    narrative: >-
++      The comparison counts data qubits and static code parameters only. It does
++      not include ancillas, routing, extraction depth, decoder cost, or logical
++      operations. The headline motivates the algebra; it is not a full hardware
++      advantage claim.
++    state: {lattice: toric, filter: all, highlight: 0}
++    interaction:
++      kind: audit
++      questions:
++        - prompt: >-
++            What does the 144-data-qubit gross block (twelve logical qubits,
++            static distance 12) versus a 144-data-qubit rotated surface patch
++            (one logical qubit at distance 12) establish?
++          options:
++            - "A data-only finite-block encoding comparison"
++            - "A lower total hardware cost at equal circuit distance"
++            - "A decoder-independent threshold advantage"
++          correct: 0
++          explanation: >-
++            Only the first statement keeps the measured resource attached. The
++            comparison omits ancillas, routing, extraction depth, decoder cost,
++            logical operations, and every circuit-distance obligation.
++    origin: {kind: curated, ref: bravyi2024bicycle}
+     refs: [bravyi2024bicycle]
+-  - title: "The swapped transpose builds the Z partner"
+-    narrative: "Gross Z check 0 touches 3, 60, 66, 76, 77, and 126. Transpose reverses every torus translation, while swapping A and B makes every X/Z overlap evaluate to AB+BA=0."
+-    state: {lattice: gross, filter: Z, highlight: 72}
+-    origin: {kind: verified, method: "gross HZ row 0 support and HX HZ-transpose check"}
++    reference_links:
++      - {label: "Reference · Parameters", href: "../entries/bivariate_bicycle/parameters.html"}
++      - {label: "Derivation · Gross parameter ledger", href: "../entries/bivariate_bicycle/pedagogy/gross-parameter-ledger.html"}
++
++  - id: wrap-one-monomial
++    chapter: translate
++    title: "Make x and y act"
++    task: >-
++      Choose a check-row anchor, block, and monomial. Predict the matrix column
++      where that row gets a 1 before checking the wrapped incidence.
++    hint: "Reduce each destination coordinate modulo the corresponding order."
++    narrative: >-
++      A monomial is a permutation matrix, not a scalar placeholder. The
++      constructor fixes S[i,i+1]=1, so row anchor (i,j) and term (a,b) place a
++      nonzero at column (i+a,j+b), modulo (l,m). Acting on a column basis vector
++      moves with the opposite sign; this lab follows matrix-row incidence.
++      Transpose reverses that row move. A and B are sparse sums of these wrapped
++      incidences.
++    state: {lattice: toric, filter: X, highlight: 0}
++    interaction:
++      kind: translation
++      anchor: [2, 2]
++      block: A
++      term: [1, 0]
++      reverse: false
++    origin: {kind: verified, method: "bivariate_bicycle._poly finite-torus convention"}
++    refs: [mackay2004sparse]
++    reference_links:
++      - {label: "Reference · Intuition", href: "../entries/bivariate_bicycle/intuition.html"}
++
++  - id: assemble-a-check
++    chapter: assemble
++    title: "Assemble one X check from two blocks"
++    task: >-
++      Change the anchor and predict the row weight. Then compare the computed A
++      and B endpoints with the exact highlighted matrix row.
++    hint: "The right block begins after l×m left-block coordinates."
++    narrative: >-
++      H_X=[A|B] concatenates two algebraic coordinate blocks. The toric anchor
++      has two A terms and two B terms, so this row has four endpoints. The small
++      drawing offset only separates coincident points for reading.
++    state: {lattice: toric, filter: X, highlight: 0}
++    interaction:
++      kind: translation
++      anchor: [0, 0]
++      block: both
++      term: [0, 0]
++      reverse: false
++      assemble: true
++    origin: {kind: verified, method: "toric_L3 H_X row from constructor"}
++    refs: [mackay2004sparse]
++    reference_links:
++      - {label: "Reference · Formal IR", href: "../entries/bivariate_bicycle/formal-verification.html"}
++
++  - id: test-commutation
++    chapter: assemble
++    title: "Make the swapped transpose earn its place"
++    task: >-
++      Predict whether swapped or unswapped reversed blocks commute with every X
++      row. Then inspect one overlap and the full computed violation count.
++    hint: >-
++      Transpose reverses translations; swapping aligns AB with BA. Over GF(2),
++      two equal contributions cancel.
++    narrative: >-
++      H_Z=[B^T|A^T] is not decoration. Transpose reverses each torus move, the
++      swap produces AB+BA, the translation algebra makes AB=BA, and
++      characteristic two cancels the doubled term. Sparsity alone proves none
++      of this.
++    state: {lattice: toric, filter: Z, highlight: 9}
++    interaction:
++      kind: commutation
++      x_row: 0
++      z_row: 0
++      candidate: unswapped
++    origin: {kind: verified, method: "computed H_X H_Z^T over GF(2)"}
+     refs: [bravyi2024bicycle, wang2023abelian]
+-  - title: "Shrink to the toric convention test"
+-    narrative: "Switch to A=1+x and B=1+y on a 3-by-3 torus. The same constructor now returns 18 qubits, two logical qubits, and exact distance three. This anchors the convention without reducing the gross block to toric copies."
++    reference_links:
++      - {label: "Derivation · Polynomial chain complex", href: "../entries/bivariate_bicycle/pedagogy/polynomial-chain-complex.html"}
++
++  - id: predict-a-syndrome
++    chapter: detect
++    title: "Turn a check into an observation"
++    task: >-
++      Toggle a single Pauli error, predict which opposite-type checks fire, and
++      compute the exact static syndrome.
++    hint: "A check fires when its support overlaps the error an odd number of times."
++    narrative: >-
++      A static X error is observed by Z checks, and a static Z error by X checks.
++      The syndrome is a parity vector from the exported matrices; it is not yet
++      a detector graph or a fault-tolerant extraction record.
++    state: {lattice: toric, filter: Z, highlight: 9}
++    interaction:
++      kind: syndrome
++      error_type: X
++      preset: [0]
++      mode: detect
++    origin: {kind: verified, method: "exact CSS parity from toric_L3 matrices"}
++    refs: [mackay2004sparse]
++    reference_links:
++      - {label: "Derivation · Syndrome and decoding", href: "../entries/bivariate_bicycle/pedagogy/syndrome-circuits-and-decoding.html"}
++
++  - id: compare-a-coset
++    chapter: detect
++    title: "Change the error without changing the observation"
++    task: >-
++      Compute the current syndrome, add a same-type stabilizer, and verify that
++      the syndrome stays fixed although the support changes.
++    hint: "Every stabilizer has zero syndrome, so E and ES occupy one syndrome coset."
++    narrative: >-
++      A decoder chooses among errors compatible with the observation. Multiplying
++      by a stabilizer changes the representative but not its action on encoded
++      information. Equal syndrome is necessary, but not enough, for logical
++      equivalence.
++    state: {lattice: toric, filter: X, highlight: 0}
++    interaction:
++      kind: syndrome
++      error_type: X
++      preset: [0]
++      stabilizer_index: 0
++      mode: coset
++    origin: {kind: verified, method: "GF(2) syndrome and row-space computation"}
++    refs: [roffe2020decoding]
++    reference_links:
++      - {label: "Reference · Decoders", href: "../entries/bivariate_bicycle/decoders.html"}
++
++  - id: classify-a-logical-cycle
++    chapter: detect
++    title: "Find a logical class beyond the stabilizer space"
++    task: >-
++      Start from a derived toric logical support, alter it if you wish, and
++      classify the result as detectable, stabilizer-trivial, or logical.
++    hint: >-
++      For the preset X error, zero Z-check syndrome makes a cocycle. X-check
++      row-space membership decides whether it is a stabilizer coboundary.
++    narrative: >-
++      In the primal complex, a zero-syndrome Z error is a cycle and a Z
++      stabilizer is a boundary. In the dual complex, a zero-syndrome X error is
++      a cocycle and an X stabilizer is a coboundary. Either Pauli is logical when
++      it is closed but outside its same-type stabilizer row space. This lab starts
++      with an X cocycle. The exact basis is derived only for the small anchor—the
++      gross logical action remains an honest gap.
+     state: {lattice: toric, filter: all, highlight: 0}
+-    origin: {kind: verified, method: "exact-css-enum on toric_L3"}
+-    refs: [mackay2004sparse, chen2025anyon]
+-  - title: "See a four-body toric X check"
+-    narrative: "The highlighted toric X row contains two terms from 1+x on the left block and two from 1+y on the right. The weight changes from six to four because sparsity follows the polynomial term count."
++    interaction:
++      kind: syndrome
++      error_type: X
++      preset_logical: {pair: 0, pauli: x}
++      mode: classify
++    origin: {kind: verified, method: "qeclib.logicals.logical_basis + GF(2) row-space"}
++    refs: [lin2023twoblock]
++    reference_links:
++      - {label: "Derivation · Polynomial chain complex", href: "../entries/bivariate_bicycle/pedagogy/polynomial-chain-complex.html"}
++
++  - id: derive-the-anchor
++    chapter: quotient
++    title: "Derive local weight and global k separately"
++    task: >-
++      Predict the highlighted check weight, rank-based k, and distance evidence
++      status for the exact toric anchor; then ask the matrices.
++    hint: "For CSS checks, k=n−rank(H_X)−rank(H_Z)."
++    narrative: >-
++      Polynomial term count controls this row's weight. Matrix dependencies
++      control rank. The remaining quotient dimension controls k. Exact distance
++      is a third computation, available here because the anchor is small.
+     state: {lattice: toric, filter: X, highlight: 0}
+-    origin: {kind: verified, method: "toric_L3 HX row 0 from constructor"}
++    interaction:
++      kind: rank
++      check_type: X
++      check_index: 0
++    origin: {kind: verified, method: "constructor supports, GF(2) rank, exact-css-enum"}
+     refs: [mackay2004sparse]
+-  - title: "Return to the rank-defect design problem"
+-    narrative: "Back on gross, 72 rows of each Pauli type have rank 66 rather than 72. The two six-dimensional deficits leave twelve logical qubits. Hovering another check changes incidence, not rank: k comes from the global quotient generated by A and B."
+-    state: {lattice: gross, filter: X, highlight: 1}
+-    origin: {kind: verified, method: "qeclib.gf2.rank on gross HX and HZ"}
+-    refs: [postema2025existence, bravyi2024bicycle]
+-  - title: "Separate the static code from its circuit"
+-    narrative: "The explorer certifies stabilizer incidence only. It does not draw ancillas, CNOT order, detectors, or hook propagation. The reported depth-seven extraction and 0.8% family threshold belong to a separate standard-circuit-noise plus BP-OSD experiment."
++    reference_links:
++      - {label: "Reference · Parameters", href: "../entries/bivariate_bicycle/parameters.html"}
++
++  - id: transfer-to-gross
++    chapter: quotient
++    title: "Transfer the derivation to gross"
++    task: >-
++      Predict weight and k from the gross matrices, then identify why its
++      distance statement is bounded rather than verified exact.
++    hint: >-
++      Seventy-two rows per Pauli family need not have rank seventy-two.
++    narrative: >-
++      Each gross row has three A and three B endpoints, but the two Pauli check
++      matrices each have a six-dimensional row dependency. Their ranks leave the
++      global quotient that encodes the logical qubits. Gross distance combines a
++      cited lower bound with a replayed upper witness; Learn does not relabel it.
++    state: {lattice: gross, filter: X, highlight: 0}
++    interaction:
++      kind: rank
++      check_type: X
++      check_index: 0
++    origin: {kind: verified, method: "gross constructor supports and qeclib.gf2.rank"}
++    refs: [bravyi2024bicycle, postema2025existence]
++    reference_links:
++      - {label: "Reference · Parameters", href: "../entries/bivariate_bicycle/parameters.html"}
++      - {label: "Reference · Formal IR", href: "../entries/bivariate_bicycle/formal-verification.html"}
++
++  - id: separate-protocol-layers
++    chapter: quotient
++    title: "Keep five protocol layers apart"
++    task: >-
++      Sort what the explorer computes from what would require an extraction
++      circuit, detector model, decoder experiment, or scaling study.
++    hint: "A static parity matrix does not contain time."
++    narrative: >-
++      This prototype owns the static code and exact static syndromes. It exports
++      no ancillas, CNOT order, hook propagation, detector graph, or circuit
++      distance. Decoder performance and thresholds therefore remain separate,
++      protocol-qualified evidence.
+     state: {lattice: gross, filter: all, highlight: 0}
++    interaction:
++      kind: audit
++      questions:
++        - prompt: "Which object is computed directly in this lab?"
++          options: ["Static CSS syndrome", "Circuit detector events", "Hook-error propagation"]
++          correct: 0
++          explanation: "Only the check matrices and their static parity outcomes are exported."
++        - prompt: "What must accompany a threshold value?"
++          options:
++            - "Circuit, noise model, decoder, family, and scaling observable"
++            - "Only the code distance"
++            - "Only the check weight"
++          correct: 0
++          explanation: "Without the protocol tuple, a threshold cannot be transferred."
+     origin: {kind: curated, ref: bravyi2024bicycle}
+     refs: [bravyi2024bicycle, roffe2020decoding]
+-  - title: "Interrogate what a symmetry actually buys"
+-    narrative: "Torus translations preserve these supports as a set, so they are physical code automorphisms. That alone does not name a logical gate: the induced action on the twelve logical Pauli pairs and the routing cost must still be computed for the chosen block."
++    reference_links:
++      - {label: "Reference · Decoders", href: "../entries/bivariate_bicycle/decoders.html"}
++      - {label: "Derivation · Syndrome and decoding", href: "../entries/bivariate_bicycle/pedagogy/syndrome-circuits-and-decoding.html"}
++
++  - id: translate-one-object
++    chapter: qualify
++    title: "Carry one object across representations"
++    task: >-
++      Select a check and move among polynomial, matrix-row, Tanner, and chain
++      descriptions. Then reject the inference none of those exact maps licenses.
++    hint: "A representation can preserve an object without proving every physical interpretation."
++    narrative: >-
++      The same exact check can be read as translations, a binary row, Tanner
++      incidence, or a primal/dual chain map. For Z errors, zero syndrome and
++      same-type stabilizers mean cycle and boundary; for X errors the dual terms
++      are cocycle and coboundary. A logical Pauli is the corresponding closed
++      object outside its stabilizer row space. Quotient, anyon, and cylinder
++      views add useful curated structure, but this scene does not certify a
++      device layout or a decomposition into independent toric copies.
++    state: {lattice: gross, filter: Z, highlight: 72}
++    interaction:
++      kind: representation
++      check_type: Z
++      check_index: 0
++      question:
++        prompt: "Which conclusion is not licensed by these synchronized exact views?"
++        options:
++          - "The selected row has the displayed support"
++          - "The row is an exact stabilizer generator in the displayed primal or dual chain description"
++          - "Gross is a stack of independent toric codes"
++        correct: 2
++        explanation: >-
++          The exact views preserve the selected row and its family-dependent
++          primal or dual chain role. They do not license a global decomposition
++          of gross into toric copies.
++    origin: {kind: verified, method: "one constructor row projected across exact representations"}
++    refs: [lin2023twoblock, chen2025anyon, sahay2026matching]
++    reference_links:
++      - {label: "Derivation · Representation dictionary", href: "../entries/bivariate_bicycle/pedagogy/representation-dictionary.html"}
++
++  - id: audit-decoder-claim
++    chapter: qualify
++    title: "Audit a threshold sentence"
++    task: >-
++      Choose the correction that turns an overbroad threshold sentence into a
++      claim a critical reader could reproduce.
++    hint: "Keep the family, circuit, noise, decoder, and observable attached."
++    narrative: >-
++      A reported family threshold is evidence about a specified protocol, not
++      an intrinsic scalar attached to every BB instance or every decoder.
++      Matching-cylinder reductions likewise aid a decoding problem without
++      proving global phase equivalence.
++    state: {lattice: gross, filter: all, highlight: 0}
++    interaction:
++      kind: audit
++      questions:
++        - prompt: "Which revision is defensible?"
++          options:
++            - "Every BB code has the same threshold under any decoder."
++            - "The cited family/circuit/noise/decoder study reports its stated scaling threshold."
++            - "A static syndrome proves the cited circuit threshold."
++          correct: 1
++          explanation: "The second keeps the complete experimental tuple attached."
++        - prompt: "What does a toric-cylinder matching reduction establish?"
++          options:
++            - "A decoder dictionary for selected symmetry sectors"
++            - "A global decomposition of gross into toric copies"
++            - "An exact hardware embedding"
++          correct: 0
++          explanation: "The reduction is operational and scoped, not a phase or layout identity."
++    origin: {kind: curated, ref: bravyi2024bicycle}
++    refs: [bravyi2024bicycle, sahay2026matching]
++    reference_links:
++      - {label: "Reference · Decoders", href: "../entries/bivariate_bicycle/decoders.html"}
++
++  - id: audit-operation-realization
++    chapter: qualify
++    title: "Do not turn symmetry into a gate—or a proposal into a run"
++    task: >-
++      Audit one operation claim and one realization claim. Name the missing
++      certificate in each rejected shortcut.
++    hint: "Preserving stabilizers is earlier than resolving logical action and routing."
++    narrative: >-
++      Torus translations preserve supports as a set, but an addressable gross
++      logical gate still needs the induced logical symplectic action and routing
++      cost. A realized small block does not automatically realize gross or a
++      below-threshold family experiment.
+     state: {lattice: gross, filter: Z, highlight: 73}
+-    origin: {kind: verified, method: "translation row-permutation identities in reproduce.py"}
+-    refs: [sayginel2025automorphisms, eberhardt2024fold]
++    interaction:
++      kind: audit
++      questions:
++        - prompt: "What is still missing after a physical automorphism preserves the stabilizers?"
++          options:
++            - "Its induced logical action and implementation/routing certificate"
++            - "The proof that it permutes physical qubits"
++            - "The selected stabilizer support"
++          correct: 0
++          explanation: "A stabilizer automorphism does not by itself name an addressable logical gate."
++        - prompt: "What may a small demonstrated BB-related block establish?"
++          options:
++            - "That exact demonstrated block and metric"
++            - "A gross-code hardware run"
++            - "A family-wide below-threshold demonstration"
++          correct: 0
++          explanation: "Instance, platform, metric, and exclusions must stay attached."
++    origin:
++      kind: curated
++      refs: [sayginel2025automorphisms, wang2026lowoverhead]
++    refs: [sayginel2025automorphisms, wang2026lowoverhead]
++    reference_links:
++      - {label: "Reference · Logical operations", href: "../entries/bivariate_bicycle/operations.html"}
++      - {label: "Reference · Realizations", href: "../entries/bivariate_bicycle/realizations.html"}
++
++  - id: reference-capstone
++    chapter: qualify
++    title: "Graduate by reading an unfamiliar Reference row"
++    task: >-
++      Resolve all five evidence audits without returning to the tutorial prose.
++      Use the linked Reference facets, then return to this same state.
++    hint: "Ask: exact object, scope, origin, certificate, and honest gap?"
++    narrative: >-
++      Graduation is independent Reference use. Structural validity and exact
++      distance eligibility are different Formal IR obligations; the pending
++      two-block group-algebra relation is not a resolved synonym; and absent
++      circuit artifacts remain visible gaps rather than simulated data.
++    state: {lattice: gross, filter: all, highlight: 0}
++    interaction:
++      kind: audit
++      capstone: true
++      questions:
++        - prompt: "What does gross Formal IR certify here?"
++          options:
++            - "Structural reconstruction and verified matrix identities"
++            - "An exact-distance enumeration certificate"
++            - "A circuit-distance witness"
++          correct: 0
++          explanation: "Gross has structural certificates; its distance obligation is separately bounded."
++        - prompt: "How should the pending two_bga relation be read?"
++          options:
++            - "A typed unresolved target, not an identity claim"
++            - "A synonym already deep-linked to a complete entry"
++            - "Evidence that every 2BGA code is BB"
++          correct: 0
++          explanation: "Pending relation targets are honest gaps."
++        - prompt: "Which missing artifact blocks a circuit-level claim?"
++          options:
++            - "Ancilla/order/detector or circuit-distance data"
++            - "Another color for Z checks"
++            - "A larger canvas"
++          correct: 0
++          explanation: "Static incidence cannot fill time-dependent circuit evidence."
++        - prompt: "What must happen before a degree-five morphing variant is treated as a cheaper schedule for this gross block?"
++          options:
++            - "Recompute under the changed family and detector model"
++            - "Only rename the seven extraction layers as six"
++            - "Copy the gross threshold because both are called BB-related"
++          correct: 0
++          explanation: "Morphing changes the code family and detector model, so instance and protocol claims do not transfer automatically."
++        - prompt: "What does a References row marked metadata pending license?"
++          options:
++            - "The internal provenance key is retained, but title, authors, and external link remain an honest registry gap"
++            - "The cited claim is machine-verified because a key exists"
++            - "A fetch-verified negative result that no source exists"
++          correct: 0
++          explanation: "A provenance key preserves internal linkage; missing reader metadata still blocks independent source inspection from this facet."
++    origin: {kind: verified, method: "generated Reference facets, stored provenance, and visible metadata-gap states"}
++    refs: [bravyi2024bicycle, wang2023abelian, shaw2025morphing]
++    reference_links:
++      - {label: "Reference · Formal IR", href: "../entries/bivariate_bicycle/formal-verification.html"}
++      - {label: "Reference · Relations", href: "../entries/bivariate_bicycle/relations.html"}
++      - {label: "Derivation · Circuit evidence boundaries", href: "../entries/bivariate_bicycle/pedagogy/syndrome-circuits-and-decoding.html"}
++      - {label: "Derivation · Variant boundary map", href: "../entries/bivariate_bicycle/pedagogy/variant-boundary-map.html"}
++      - {label: "Reference · Bibliography", href: "../entries/bivariate_bicycle/references.html"}
+diff --git a/docs/prototypes/bivariate-bicycle-learn/lesson-brief.md b/docs/prototypes/bivariate-bicycle-learn/lesson-brief.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..2568ef60f0cef2691d0ede4dd9202bf24fd74536
+--- /dev/null
++++ b/docs/prototypes/bivariate-bicycle-learn/lesson-brief.md
+@@ -0,0 +1,69 @@
++# Bivariate bicycle Learn refactor — Lesson Brief
++
++Status: **approved for the experimental local prototype on 2026-08-28**
++
++## Learner and graduation contract
++
++**Evidence.** The entry already contains a complete expert dossier, but its Learn surface is an eight-step narrated lattice tour. It exposes exact constructor-derived supports and a gross/toric instance switch, yet it does not ask the learner to predict, compute a syndrome, compare error cosets, derive a parameter, or audit unfamiliar Reference evidence. The target learner knows vectors, small binary matrices, parity, probability, qubits, Pauli X/Z, and measurement, but not polynomial QEC, chain complexes, qLDPC decoding, or BB hardware claims.
++
++**Design decision.** Graduation means the learner can, on an unfamiliar governed case:
++
++1. turn finite-torus monomials into wrapped translations, reconstruct an X or Z check, and explain exactly why the swapped-transpose CSS pair commutes;
++2. predict and compute static syndromes, compare equal-syndrome errors modulo stabilizers, and distinguish a detectable error, a stabilizer-trivial class, and a logical class on the small exact anchor, using cycle/boundary language for Z errors and dual cocycle/coboundary language for X errors;
++3. derive `n`, check weight/degree, rank-based `k`, and the applicable distance statement while distinguishing verified, bounded, and literature-supplied obligations;
++4. translate a selected formal object among polynomial, matrix, Tanner-incidence, chain-complex, and quotient language, while rejecting false equivalences to hardware geometry or independent toric copies; and
++5. use the complete Reference layer critically: qualify decoder/threshold, logical-operation, realization, variant, relation, and Formal IR claims by instance, model, certificate, and honest gap.
++
++## Teaching thesis and causal spine
++
++**Design decision.** Teaching thesis: *BB codes pack logical information by repeating sparse torus translations whose abelian algebra makes commutation automatic, then exploiting the global rank defect left by those local constraints; whether that static advantage becomes a useful memory depends on syndromes, logical cosets, circuits, decoding, connectivity, and evidence scope.* The causal verbs are **translate, assemble, detect, quotient, and qualify**.
++
++The dependency chain is:
++
++1. Begin with the motivating finite-block phenomenon: the gross block uses 144 data qubits for twelve logical qubits at static distance 12, while an equal-distance rotated surface patch uses 144 data qubits for one. State immediately that this is data-only and buys no free ancillas, routing, decoder, or logical operations.
++2. On shipped `toric_L3`, use the constructor's `S[i,i+1]=1` convention to map one check-row anchor to the nonzero column contributed by a monomial, with wraparound. Explicitly distinguish this row-incidence move from the opposite-sign action on a column basis vector. Establish two algebraic column blocks without calling the illustrative offset a physical layout.
++3. Assemble `A` and `B` into one check, reverse translations under transpose, and compare the swapped and unswapped Z candidates. The learner should discover that abelian commutation plus binary cancellation—not notation alone—makes the CSS pair commute.
++4. Use those exact checks operationally: inject a Pauli error, predict the opposite-type syndrome, add a stabilizer, and decide whether the residual class is trivial or logical. Only then introduce primal cycle/boundary language for Z errors and dual cocycle/coboundary language for X errors.
++5. Move from local sparsity to global rank. Use the inspectable toric dependency before transferring to gross: three-plus-three terms imply weight six, but ranks 66 and 66—not term count—leave `k=12`.
++6. Separate distance certificates and protocol layers. Contrast the exact toric distance with gross's cited lower bound plus replayed weight-12 upper witness, then sort static code, extraction schedule, detectors, decoder, and the protocol-qualified 0.8% family threshold.
++7. Finish by translating one selected object across exact and curated representations, then audit unfamiliar Reference records for operations, realizations, variants, relations, and Formal IR certificates without importing claims across regimes.
++
++**Rationale.** This “one wrapped check to a qualified memory claim” spine uses the smallest exact instance for prediction and independent work, while preserving gross as the motivating and transfer case. It delays specialized vocabulary until visible objects exist, and it makes the code's distinctive algebra serve operational QEC rather than becoming an isolated proof.
++
++**Rejected alternatives.** Opening with `AB+BA=0` gives a crisp commutation puzzle but makes the first encounter too symbolic and postpones why anyone wants the code. Opening with the twelve-logical rank deficit foregrounds the headline benefit, but quotient language arrives before the learner has a concrete cycle or boundary. Both remain useful moves inside the selected spine.
++
++## Bottlenecks the route must overturn
++
++**Evidence and design decision.** The route must explicitly overturn five misconceptions:
++
++- `x` and `y` are scalar placeholders rather than permutation actions on a finite torus;
++- the two column blocks or their `0.55` drawing offset are two literal planar hardware layers;
++- transpose or sparsity alone guarantees commutation, rank, or distance;
++- the toric anchor or toric-cylinder decoder makes every BB block a stack of toric codes; and
++- static `[[n,k,d]]`, a seven-layer circuit, BP-OSD, a threshold, a hardware demonstration, and an addressable logical gate are interchangeable properties of “the BB code.”
++
++## Indispensable interaction evidence
++
++**Design decision.** The implementation may group these actions into a small number of stateful labs, but the learner-controlled evidence is binding:
++
++- select a shipped instance, check-row anchor, and A/B monomial; predict the wrapped nonzero column; inspect the exact matrix/support counterpart; distinguish row incidence from column-vector action; reverse the row move under transpose;
++- choose swapped or unswapped block order and inspect selected overlap parity plus the computed full CSS commutator;
++- toggle X or Z errors, compute the governed syndrome, add a selected stabilizer, compare observations and residual logical class, distinguish primal cycle/boundary from dual cocycle/coboundary terminology, and repeat on a changed support with less guidance;
++- predict weight, rank-based `k`, and distance provenance for toric versus gross, receiving feedback from constructor matrices, GF(2) ranks, exact enumeration, and the stored bounded witness rather than hand-authored answers;
++- keep one selection synchronized across polynomial, matrix-row, Tanner, and chain-complex views; clearly label quotient/anyon/cylinder explanations that are curated rather than exact object mappings; and
++- complete an evidence audit that rejects an overbroad threshold, gate, boundary, or realization claim and explains which missing certificate prevents it.
++
++The existing gross/toric switch, X/Z filtering, exact support readout, periodic wrap view, weight-four/weight-six contrast, free exploration, origins/references, pan/zoom, and the static-circuit and automorphism-gate boundaries must survive or gain a stronger replacement. Keyboard selection, non-color encoding, meaningful resume/reset, and Learn-to-Reference return continuity are required behavior, not optional polish.
++
++## Reference coverage and honest gaps
++
++**Evidence.** The mastery map in `lesson-evidence-notes.md` covers every populated Reference surface: identity/construction, parameters, representations, Formal IR, decoders, operations, realizations, relations, derivations, references, variants, and provenance.
++
++**Design decision.** Learn will not simulate data the entry does not own. It will visibly stop at the following boundaries: no exported ancillas, CNOT order, detectors, or circuit-distance witness; no gross logical basis or resolved translation action; no replayed gross lower-distance certificate; no exact anyon, cylinder, coupling-layer, or hardware-layout mapping; and a pending `two_bga` relation target. These are graduation material as honest gaps, not omissions to conceal.
++
++## Open questions for approval
++
++1. Approve the data-only `144 for twelve versus 144 for one` comparison as the motivating phenomenon, with the resource caveat on the same screen, or prefer automatic commutation as the front door?
++2. Approve restricting quantitative exploration to the two shipped instances; arbitrary polynomial inputs would be computed examples, but they risk looking like governed Atlas claims.
++3. Approve deriving and exporting a generic logical/stabilizer basis for `toric_L3` so the syndrome lab can test logical class, while explicitly leaving the gross logical action unresolved?
++4. Treat bibliography metadata/reference-key gaps already present in deep prose as out of scope for this prototype and report them, rather than widening the experiment into a citation repair?
+diff --git a/docs/prototypes/bivariate-bicycle-learn/lesson-evidence-notes.md b/docs/prototypes/bivariate-bicycle-learn/lesson-evidence-notes.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..a0dfd9f36be04a0430e58458d448f708654246ca
+--- /dev/null
++++ b/docs/prototypes/bivariate-bicycle-learn/lesson-evidence-notes.md
+@@ -0,0 +1,43 @@
++# Bivariate bicycle Learn refactor — Evidence Notes
++
++This notebook supports the editable Lesson Brief. It is not a second design contract.
++
++## Source and interaction inventory
++
++- Formal inputs and exact lattice/check supports: `atlas/bivariate_bicycle/constructor.py`, `instances.yaml`, and `pedagogy/reproduce.py`.
++- Complete Level-1/2 explanation: `intuition.md` and all pages indexed by `pedagogy/derivations.md`.
++- Learner-visible Reference: generated parameters, views, Formal IR, decoders, operations, realizations, relations, pedagogy, and references facets.
++- Current Learn affordance: `pedagogy/tour.yaml`, rendered by `tools/site/build.py`, `widgets/tour-player.js`, `widgets/scene-explorer.js`, and `tour.css`.
++- Review calibration: `docs/reviews/2026-07-30-bivariate-bicycle-owner-gold-review.md` and `docs/reviews/2026-07-30-t28-common-findings.md`.
++
++## Mastery map
++
++| Reference capability or anchor | Learner action | Governed data and computed feedback | Transfer or capstone evidence | Existing affordance, replacement, or honest gap |
++|---|---|---|---|---|
++| Identity, construction, parameters: `l,m,a_terms,b_terms`, two column blocks, CSS definition | Map a check-row anchor to each selected monomial's nonzero column; distinguish that row incidence from opposite-sign column-vector action; assemble an exact X check and its swapped-transpose Z family | Shipped parameters, constructor `S[i,i+1]=1` convention, exact support/matrix rows, computed `H_X H_Z^T` | Reconstruct a different shipped check and diagnose why the unswapped candidate fails in general | Preserve periodic wrap, instance switch, filter, and exact support readout; label coordinate offsets illustrative |
++| Static observation and equivalence | Toggle Pauli errors, predict syndrome, add a stabilizer, compare syndrome and residual class; call Z-side closed/trivial objects cycles/boundaries and X-side dual objects cocycles/coboundaries | Exact shipped check matrices; syndrome parity; generic GF(2) row-space/logical-class computation | New toric error/recovery pair without prescribed path; gross syndrome task without claiming a gross logical basis | Current tour has no error action; replacement is required |
++| Parameters, ranks, quotient, logicals, distance | Predict weight and `k`; identify a small row dependency; separate lower and upper distance certificates | Exact toric/gross shapes and ranks; exact toric distance; stored gross bounded origin and replayed weight-12 upper witness | Explain why another term placement need not preserve `k` or `d`; audit a false `verified d=12` claim | Preserve weight-four/weight-six contrast and “incidence is not rank”; gross lower certificate remains unreplayed |
++| Representation ladder: polynomial, group algebra, CSS, chain complex, Tanner, quotient, anyon/Koszul, cylinder | Translate one selected exact object and state what each view preserves or cannot prove | Exact mapping for polynomial/matrix/Tanner/chain views; declarative origins for broader curated views | Diagnose “gross is six toric copies” and “matching cylinders prove phase equivalence” | Current dictionary is prose-only; anyon/cylinder mappings remain honest curated gaps |
++| Formal IR and certificates | Distinguish exact semantic identity/order from code equivalence; interpret branch, hash, structural validity, exact-distance eligibility | Generated Formal IR projection: gross structural validity; toric structural validity plus small exact-distance enumeration | Enter the Formal IR facet out of sequence and explain why its rows certify different things | Current Learn mentions replay but not the complete generated certificate facet |
++| Decoders and threshold | Compute a static syndrome; sort code, circuit, detectors, channel, decoder, scaling observable | Exact static syndrome; curated absence of schedule/detectors; decoder records and protocol-qualified threshold tuple | Reject “0.8% is every BB code's threshold” and state the missing experiment fields | Preserve explicit static/circuit boundary; no circuit lab without schedule data |
++| Logical operations | Track physical CNOT Pauli conjugation; test stabilizer preservation under translation; identify missing logical action/routing certificate | Exact translation row-permutation identities; claimed operation rows and applicability | Reject gross H/S or “every automorphism is a gate”; name the necessary logical symplectic calculation | Preserve automorphism/gate boundary; gross `24x24` logical action is unresolved |
++| Variants, boundaries, parent relation | Change one axis and name what must be recomputed; place BB inside abelian 2BGA without synonym collapse | Variant ledger and typed relation row with refs | Audit an open, self-dual, morphing, multivariate, or qudit claim for illegal transfer | `two_bga` target remains pending; no new variant matrices in prototype |
++| Realizations and resource scope | Compare established versus proposed status while keeping exact block, platform, counts, metric, and exclusions attached | Card realization rows and realization ledger | Explain why the Kunlun `[[18,4,4]]` point is not a gross run or below-threshold family demonstration | Data-only overhead comparison retains same-screen caveat; hardware layouts are not exported |
++| Derivations, references, provenance, and honest gaps | Follow a deep link, inspect origin/model scope, return to the same Learn state, and explain one missing certificate | Stable Reference anchors, origin records, derivation pages, navigation state | Capstone uses previously unseen Reference rows and asks for a supported correction to an overclaim | Current tour resets on reload/return; generic resume/history restoration is required. Some deep-prose reference keys lack complete reader metadata and remain reported out of scope |
++
++## Verified current-machine findings
++
++- The current BB tour supports fixed guided steps, gross/toric switching, X/Z filters, exact support selection, pan/zoom, and free exploration, but no prediction or learner answer contract.
++- Tour state is in memory and initializes at step zero; reload and return do not restore progress or lab inputs.
++- The landing copy promises “logical paths,” but the BB lattice exports no logical operators.
++- The lattice's `initialState`, `focusByFilter`, and `dimAlpha` density hints are not represented by the active Scene v2 payload, so the gross all-check view opens densely.
++- X/Z gross spokes rely primarily on color in the tour; a visible non-color legend is absent.
++- The current narrow layout stacks the visual before the explanatory task, leaving the learner to meet a dense graph before the causal prompt.
++
++## Factual boundaries to preserve
++
++- `toric_L3` is an exact `[[18,2,3]]` convention anchor, not evidence that arbitrary BB codes decompose into toric copies.
++- Gross `d=12` is bounded: literature lower bound plus machine-replayed upper witness.
++- The constructor owns static check incidence, not ancillas, gate ordering, detectors, or circuit distance.
++- Translation preservation of the stabilizer group does not identify an addressable gross logical gate.
++- The finite-block comparison is data-only; realization and decoder resources remain separate.
+diff --git a/tests/test_bb_learn.py b/tests/test_bb_learn.py
+new file mode 100644
+index 0000000000000000000000000000000000000000..402d60fcf5f86e085c625a6d2ceef3e4faf2e59b
+--- /dev/null
++++ b/tests/test_bb_learn.py
+@@ -0,0 +1,226 @@
++import json
++from pathlib import Path
++
++import pytest
++import yaml
++
++from qeclib.entry import EntryCatalog
++from tests.test_widget_data import run_widget_scenario
++from tools.site.build import DIRS, _load_tour, _tour_payload
++
++
++ROOT = Path(__file__).resolve().parent.parent
++LEARN_JS = ROOT / "tools" / "site" / "widgets" / "learn-player.js"
++SCENE_JS = ROOT / "tools" / "site" / "widgets" / "scene-explorer.js"
++TOUR_YAML = ROOT / "atlas" / "bivariate_bicycle" / "pedagogy" / "tour.yaml"
++
++
++@pytest.fixture(scope="module")
++def bb_learn_payload():
++    catalog = EntryCatalog.from_roots(DIRS)
++    tour = _load_tour("bivariate_bicycle", catalog=catalog)
++    return _tour_payload(tour, {"bivariate_bicycle": {}}, catalog=catalog)
++
++
++def test_bb_learn_contract_covers_the_approved_causal_spine():
++    tour = yaml.safe_load(TOUR_YAML.read_text())
++
++    assert tour["version"] == 2
++    assert [chapter["id"] for chapter in tour["chapters"]] == [
++        "translate",
++        "assemble",
++        "detect",
++        "quotient",
++        "qualify",
++    ]
++    assert len(tour["steps"]) == 14
++    assert {step["interaction"]["kind"] for step in tour["steps"]} == {
++        "audit",
++        "commutation",
++        "rank",
++        "representation",
++        "syndrome",
++        "translation",
++    }
++    assert all(step.get("task") and step.get("origin") for step in tour["steps"])
++    assert tour["lattices"]["toric"]["derive_logicals"] is True
++    assert tour["lattices"]["gross"].get("derive_logicals") is not True
++
++
++def test_bb_learn_review_regressions_keep_feedback_and_evidence_actionable():
++    tour = yaml.safe_load(TOUR_YAML.read_text())
++    steps = {step["id"]: step for step in tour["steps"]}
++    audit_questions = []
++    for step in tour["steps"]:
++        interaction = step["interaction"]
++        audit_questions.extend(interaction.get("questions", []))
++        if interaction.get("question"):
++            audit_questions.append(interaction["question"])
++
++    assert all(question.get("explanation") for question in audit_questions)
++    assert "Change the anchor" in steps["assemble-a-check"]["task"]
++    assert "predict the row weight" in steps["assemble-a-check"]["task"]
++    assert "cocycle" in steps["classify-a-logical-cycle"]["narrative"]
++    assert "coboundary" in steps["classify-a-logical-cycle"]["narrative"]
++    assert steps["audit-operation-realization"]["origin"]["refs"] == [
++        "sayginel2025automorphisms",
++        "wang2026lowoverhead",
++    ]
++    assert len(steps["reference-capstone"]["interaction"]["questions"]) == 5
++    assert any(
++        link["href"].endswith("syndrome-circuits-and-decoding.html")
++        for link in steps["reference-capstone"]["reference_links"]
++    )
++
++    player = LEARN_JS.read_text()
++    assert "metadata: {...controls.dataset}" in player
++    assert "controls.dataset.baselineSyndrome" in player
++    assert 'remote.completed.forEach' in player
++    assert 'completed.size === tour.steps.length' in player
++    assert "ker(∂₂ᵀ) contains cocycles" in player
++    assert "im(∂₁ᵀ) contains coboundaries" in player
++
++
++def test_bb_learn_payload_derives_formal_feedback_without_hand_authored_answers(
++    bb_learn_payload,
++):
++    toric = bb_learn_payload["lattices"]["toric"]["formal"]
++    gross = bb_learn_payload["lattices"]["gross"]["formal"]
++
++    assert (toric["n"], toric["k"], toric["ranks"]) == (
++        18,
++        2,
++        {"X": 8, "Z": 8},
++    )
++    assert len(toric["logicalPairs"]) == 2
++    assert (gross["n"], gross["k"], gross["ranks"]) == (
++        144,
++        12,
++        {"X": 66, "Z": 66},
++    )
++    assert gross["logicalPairs"] == []
++    for formal in (toric, gross):
++        assert formal["twoBlockCandidates"]["swappedZChecks"] == formal["zChecks"]
++        assert len(formal["twoBlockCandidates"]["unswappedZChecks"]) == len(
++            formal["xChecks"]
++        )
++
++
++def test_bb_learn_widget_recomputes_translation_commutation_and_error_classes(
++    bb_learn_payload,
++):
++    formal = bb_learn_payload["lattices"]["toric"]["formal"]
++    result = run_widget_scenario(
++        LEARN_JS,
++        scenario=f"""
++const formal = {json.dumps(formal)};
++const logicalSupport = formal.logicalPairs[0].x.xSupport.length
++  ? formal.logicalPairs[0].x.xSupport
++  : formal.logicalPairs[0].x.zSupport;
++emit({{
++  wrapped: AtlasLearnPlayer.translationDestination([2, 2], [1, 0], 3, 3),
++  reversed: AtlasLearnPlayer.translationDestination([0, 0], [1, 0], 3, 3, true),
++  swappedViolations: AtlasLearnPlayer.commutationViolations(
++    formal.xChecks,
++    formal.twoBlockCandidates.swappedZChecks
++  ).count,
++  unswappedViolations: AtlasLearnPlayer.commutationViolations(
++    formal.xChecks,
++    formal.twoBlockCandidates.unswappedZChecks
++  ).count,
++  single: AtlasLearnPlayer.classifyError("X", [0], formal).kind,
++  stabilizer: AtlasLearnPlayer.classifyError("X", formal.xChecks[0], formal).kind,
++  logical: AtlasLearnPlayer.classifyError("X", logicalSupport, formal),
++}});
++""",
++    )
++
++    assert result["wrapped"] == [0, 2]
++    assert result["reversed"] == [2, 0]
++    assert result["swappedViolations"] == 0
++    assert result["unswappedViolations"] == 18
++    assert result["single"] == "detectable"
++    assert result["stabilizer"] == "stabilizer"
++    assert result["logical"]["kind"] == "logical"
++    assert result["logical"]["logical"] == ["X̅1"]
++
++
++def test_scene_widget_uses_non_color_pauli_encoding():
++    result = run_widget_scenario(
++        SCENE_JS,
++        scenario=r"""
++const canvas = new FakeCanvas(760, 560, {left: 0, top: 0, width: 760, height: 560});
++const scene = {
++  schema: "qec-atlas-scene-v2",
++  dimension: 2,
++  origin: {kind: "verified", method: "fixture"},
++  coordinateSystem: {kind: "cartesian", origin: [0, 0]},
++  camera: {fit: "contain", padding: 0.08, minZoom: 0.5, maxZoom: 8},
++  layers: [{id: "checks", label: "Checks", kind: "checks", defaultVisible: true}],
++  nodes: [],
++  frames: [{
++    id: "lattice",
++    mode: "lattice",
++    objects: [
++      {id: "x", kind: "segment", points: [[0, 0], [1, 0]], style: "X", layer: "checks", item: 0},
++      {id: "z", kind: "segment", points: [[0, 1], [1, 1]], style: "Z", layer: "checks", item: 1},
++    ],
++  }],
++};
++SceneExplorer.render(canvas, scene, {mode: "lattice", filter: "all"});
++emit(canvas.context.strokes.map(stroke => ({color: stroke.strokeStyle, dash: stroke.lineDash})));
++""",
++    )
++
++    assert result == [
++        {"color": "#c73737", "dash": []},
++        {"color": "#2563a8", "dash": [14, 10]},
++    ]
++
++
++def test_bb_learn_site_projection_and_reference_continuity(repository_site_path):
++    site = repository_site_path
++    landing = (site / "entries" / "bivariate_bicycle.html").read_text()
++    learn = (site / "tours" / "bivariate_bicycle.html").read_text()
++    parameters = (
++        site / "entries" / "bivariate_bicycle" / "parameters.html"
++    ).read_text()
++    formal = (
++        site / "entries" / "bivariate_bicycle" / "formal-verification.html"
++    ).read_text()
++    relations = (
++        site / "entries" / "bivariate_bicycle" / "relations.html"
++    ).read_text()
++    wanted = (site / "wanted.html").read_text()
++    surface_tour = (site / "tours" / "surface.html").read_text()
++
++    assert "Make one check move before reading the dossier" in landing
++    assert "Visual instance: toric_L3" in landing
++    assert "data-learn-start" in landing and "data-learn-resume" in landing
++    assert "learn-continuity.js" in landing
++    assert learn.count("data-learn-step=") == 14
++    assert learn.count("class='learn-route-anchor'") == 14
++    assert "Prediction lab" in learn
++    assert "learn-player.js" in learn and "learn-continuity.js" in learn
++    assert "tour-player.js" not in learn
++    assert "data-learn-return" in parameters and "learn-continuity.js" in parameters
++    assert "Structural validity" in formal
++    assert "No exact-distance certificate is present in this row." in formal
++    assert "Small exact-distance enumeration" in formal
++    assert "Exact static distance is certified for this row." in formal
++    assert "Full certificate ID" in formal
++    assert "../../wanted.html#pending-relation-two-bga" in relations
++    assert "id='pending-relation-two-bga'" in wanted
++    assert "learn-player.js" not in surface_tour
++    assert "learn-continuity.js" not in surface_tour
++    assert not (
++        site
++        / "entries"
++        / "bivariate_bicycle"
++        / "pedagogy"
++        / "lesson-brief.html"
++    ).exists()
++    assert "bivariate_bicycle" not in LEARN_JS.read_text()
++    assert 'grid-template-areas: "panel" "stage" "map"' in (
++        ROOT / "tools" / "site" / "tour.css"
++    ).read_text()
+diff --git a/tests/test_site.py b/tests/test_site.py
+index 616dd488a44d646ec4c3735d6498c39195aa8166..a0e5fd6781f860023e433d10fcd1616c1163453e 100644
+--- a/tests/test_site.py
++++ b/tests/test_site.py
+@@ -726,6 +726,7 @@ def test_relations_link_resolved_and_mark_pending():
+     assert "data-relation-state='resolved'" in out
+     assert "data-relation-state='pending'" in out
+     assert "<code>future_code</code> <span class='chip'>pending</span>" in out
++    assert "href='../../wanted.html#pending-relation-future-code'" in out
+     assert "href='../future_code.html'" not in out
+     assert "tillich2009quantum" in out
+ 
+@@ -760,12 +761,16 @@ def test_batch_02_incoming_relation_page_delta_is_exactly_bounded():
+     assert changed.keys() == expected_targets.keys()
+     for page_identity, target in expected_targets.items():
+         before, after = changed[page_identity]
++        pending_target = (
++            f"<a class='gap-link' href='../../wanted.html#pending-relation-{target.replace('_', '-')}'><code>{target}</code> "
++            "<span class='chip'>pending</span></a>"
++        )
+         expected_after = before.replace(
+             "data-relation-state='pending'",
+             "data-relation-state='resolved'",
+             1,
+         ).replace(
+-            f"<code>{target}</code> <span class='chip'>pending</span>",
++            pending_target,
+             f"<a href='../{target}.html'>{target}</a>",
+             1,
+         )
+@@ -1874,6 +1879,8 @@ def test_five_one_three_published_site_closes_projection_and_asset_contracts(
+     } == {
+         "renderer/mathjax-config.js",
+         "widgets/lattice-explorer.js",
++        "widgets/learn-continuity.js",
++        "widgets/learn-player.js",
+         "widgets/scene-explorer.js",
+         "widgets/schedule-explorer.js",
+         "widgets/tour-player.js",
+diff --git a/tests/test_widget_data.py b/tests/test_widget_data.py
+index 300b55661cf793d1e72a1f2300044cc5d216cc39..5c252ebd2f5fcf3cfd028d0e1948df38aa0d39ee 100644
+--- a/tests/test_widget_data.py
++++ b/tests/test_widget_data.py
+@@ -118,6 +118,7 @@ class FakeCanvas extends FakeElement {
+           strokeStyle: this.strokeStyle,
+           alpha: this.globalAlpha,
+           lineWidth: this.lineWidth,
++          lineDash: [...(this.lineDash || [])],
+         });
+       },
+       fillText() {},
+@@ -127,13 +128,16 @@ class FakeCanvas extends FakeElement {
+           strokeStyle: this.strokeStyle,
+           lineWidth: this.lineWidth,
+           globalAlpha: this.globalAlpha,
++          lineDash: [...(this.lineDash || [])],
+         });
+       },
+       restore() {
+         const state = this.saved.pop();
+         if (state) Object.assign(this, state);
+       },
+-      setLineDash() {},
++      setLineDash(value) {
++        this.lineDash = [...value];
++      },
+       clip() {},
+       setTransform() {},
+     };
+diff --git a/tools/site/build.py b/tools/site/build.py
+index cb70f053e2b78fbd332fb2020af822ef6383f6be..aab7e9e19ac6a9b9c1b4387a3aa5ec77c5dc7a8b 100644
+--- a/tools/site/build.py
++++ b/tools/site/build.py
+@@ -13,8 +13,10 @@ from pathlib import Path, PurePosixPath
+ 
+ ROOT = Path(__file__).resolve().parent.parent.parent
+ sys.path.insert(0, str(ROOT))
++from qeclib import gf2  # noqa: E402
+ from qeclib.exports import schedule_data, write_site_data  # noqa: E402
+ from qeclib.entry import EntryCatalog, load_entry  # noqa: E402
++from qeclib.logicals import logical_basis  # noqa: E402
+ from qeclib.scene import scene_data, validate_scene  # noqa: E402
+ import yaml  # noqa: E402
+ 
+@@ -882,24 +884,38 @@ def _repository_link_targets(documents, targets):
+                 mirrored[normalized] = source_path
+     return mirrored
+ 
+-def _write_document(document, targets, out=OUT):
++def _learn_return_html(depth):
++    return (
++        "<a class='learn-return-link' data-learn-return hidden>← Return to Learn</a>"
++        f"<script src='{_asset_url('widgets/learn-continuity.js', depth)}'></script>"
++    )
++
++
++def _write_document(document, targets, out=OUT, learn_entry_id=None):
+     output = _document_url(document)
++    depth = len(PurePosixPath(output).parent.parts)
++    learn_return = _learn_return_html(depth) if learn_entry_id else ""
+     body = (
+-        f"<h1>{esc(document['title'])}</h1>"
++        f"{learn_return}<h1>{esc(document['title'])}</h1>"
+         f"<div class='intuition'>{_md_html(document['markdown'], source=document['source'], output=output, targets=targets)}</div>"
+     )
+     path = out / output
+     path.parent.mkdir(parents=True, exist_ok=True)
+-    depth = len(PurePosixPath(output).parent.parts)
+     path.write_text(page(document["title"], body, depth=depth, math=True))
+ 
+-def _relation_html(relation, entry_ids, target_prefix=""):
++def _relation_html(relation, entry_ids, target_prefix="", wanted_prefix=""):
+     target = relation["target"]
+     if target in entry_ids:
+         rendered_target = f"<a href='{esc(target_prefix + target)}.html'>{esc(target)}</a>"
+         state = "resolved"
+     else:
+-        rendered_target = f"<code>{esc(target)}</code> <span class='chip'>pending</span>"
++        wanted_href = (
++            f"{wanted_prefix}wanted.html#pending-relation-{_slug(target)}"
++        )
++        rendered_target = (
++            f"<a class='gap-link' href='{esc(wanted_href)}'>"
++            f"<code>{esc(target)}</code> <span class='chip'>pending</span></a>"
++        )
+         state = "pending"
+     details = f"<p>{esc(relation['how'])}</p>" if relation.get("how") else ""
+     refs = _refs_html(relation.get("refs", []))
+@@ -925,8 +941,8 @@ def _load_tour(entry_id, catalog=None):
+     if path is None:
+         return None
+     tour = yaml.safe_load(path.read_text())
+-    if not isinstance(tour, dict) or tour.get("version") != 1:
+-        raise ValueError(f"{path}: tour version must be 1")
++    if not isinstance(tour, dict) or tour.get("version") not in {1, 2}:
++        raise ValueError(f"{path}: tour version must be 1 or 2")
+     if not isinstance(tour.get("title"), str) or not tour["title"].strip():
+         raise ValueError(f"{path}: tour title must be non-empty")
+     lattices = tour.get("lattices")
+@@ -939,6 +955,14 @@ def _load_tour(entry_id, catalog=None):
+             raise ValueError(f"{path}: lattice '{key}' needs entry and label")
+         if "instance" in spec and not isinstance(spec["instance"], str):
+             raise ValueError(f"{path}: lattice '{key}' instance must be a label")
++        if "derive_logicals" in spec and not isinstance(spec["derive_logicals"], bool):
++            raise ValueError(f"{path}: lattice '{key}' derive_logicals must be boolean")
++        if "derive_two_block_candidates" in spec and not isinstance(
++            spec["derive_two_block_candidates"], bool
++        ):
++            raise ValueError(
++                f"{path}: lattice '{key}' derive_two_block_candidates must be boolean"
++            )
+     steps = tour.get("steps")
+     if not isinstance(steps, list) or len(steps) < 5:
+         raise ValueError(f"{path}: guided tour needs at least five steps")
+@@ -971,10 +995,138 @@ def _load_tour(entry_id, catalog=None):
+         origin = step.get("origin")
+         if not isinstance(origin, dict) or origin.get("kind") not in {"verified", "curated"}:
+             raise ValueError(f"{path}: step {i} needs a verified or curated origin")
+-        if origin["kind"] == "curated" and not origin.get("ref"):
+-            raise ValueError(f"{path}: curated step {i} needs an origin ref")
++        if origin["kind"] == "curated":
++            origin_refs = origin.get("refs")
++            if not origin.get("ref") and not (
++                isinstance(origin_refs, list)
++                and origin_refs
++                and all(isinstance(ref, str) and ref for ref in origin_refs)
++            ):
++                raise ValueError(f"{path}: curated step {i} needs origin ref(s)")
++        if tour["version"] == 2:
++            if not isinstance(step.get("id"), str) or not re.fullmatch(
++                r"[a-z0-9][a-z0-9-]*", step["id"]
++            ):
++                raise ValueError(f"{path}: Learn step {i} needs a stable id")
++            if not isinstance(step.get("chapter"), str) or not step["chapter"].strip():
++                raise ValueError(f"{path}: Learn step {i} needs a chapter")
++            if not isinstance(step.get("task"), str) or not step["task"].strip():
++                raise ValueError(f"{path}: Learn step {i} needs an explicit task")
++            interaction = step.get("interaction")
++            if not isinstance(interaction, dict) or interaction.get("kind") not in {
++                "audit",
++                "commutation",
++                "rank",
++                "representation",
++                "syndrome",
++                "translation",
++            }:
++                raise ValueError(f"{path}: Learn step {i} has an invalid interaction")
++            for link in step.get("reference_links", []):
++                if (
++                    not isinstance(link, dict)
++                    or not isinstance(link.get("label"), str)
++                    or not isinstance(link.get("href"), str)
++                    or link["href"].startswith(("/", "javascript:"))
++                ):
++                    raise ValueError(f"{path}: Learn step {i} has an unsafe Reference link")
++    if tour["version"] == 2:
++        step_ids = [step["id"] for step in steps]
++        if len(step_ids) != len(set(step_ids)):
++            raise ValueError(f"{path}: Learn step ids must be unique")
++        chapters = tour.get("chapters")
++        if not isinstance(chapters, list) or not chapters:
++            raise ValueError(f"{path}: Learn v2 needs chapters")
++        chapter_ids = {chapter.get("id") for chapter in chapters if isinstance(chapter, dict)}
++        if None in chapter_ids or any(step["chapter"] not in chapter_ids for step in steps):
++            raise ValueError(f"{path}: Learn steps must reference declared chapters")
++        landing = tour.get("landing")
++        if (
++            not isinstance(landing, dict)
++            or landing.get("lattice") not in lattices
++            or not isinstance(landing.get("task"), str)
++        ):
++            raise ValueError(f"{path}: Learn v2 needs a governed landing orientation")
+     return tour
+ 
++
++def _tour_formal_payload(
++    checkmatrix,
++    *,
++    derive_logicals=False,
++    derive_two_block_candidates=False,
++):
++    if checkmatrix is None or not checkmatrix.is_css():
++        return None
++    hx, hz = checkmatrix.to_css()
++    formal = {
++        "n": checkmatrix.n,
++        "k": checkmatrix.k,
++        "ranks": {"X": gf2.rank(hx), "Z": gf2.rank(hz)},
++        "xChecks": [
++            [int(index) for index in row.nonzero()[0]]
++            for row in hx
++        ],
++        "zChecks": [
++            [int(index) for index in row.nonzero()[0]]
++            for row in hz
++        ],
++        "logicalPairs": [],
++        "origin": {
++            "kind": "verified",
++            "method": "CheckMatrix.to_css + qeclib.gf2.rank",
++        },
++    }
++    if derive_logicals:
++        for pair_index, (logical_x, logical_z) in enumerate(logical_basis(checkmatrix)):
++            pair = {"id": pair_index}
++            for key, pauli in (("x", logical_x), ("z", logical_z)):
++                vector = pauli.symplectic()
++                pair[key] = {
++                    "xSupport": [
++                        index for index, value in enumerate(vector[: checkmatrix.n])
++                        if int(value)
++                    ],
++                    "zSupport": [
++                        index for index, value in enumerate(vector[checkmatrix.n :])
++                        if int(value)
++                    ],
++                }
++            formal["logicalPairs"].append(pair)
++        formal["logicalOrigin"] = {
++            "kind": "verified",
++            "method": "qeclib.logicals.logical_basis",
++        }
++    if derive_two_block_candidates:
++        block_size = checkmatrix.n // 2
++        if checkmatrix.n % 2 or hx.shape != (block_size, 2 * block_size):
++            raise ValueError(
++                "two-block commutation candidates require an r × 2r CSS X matrix"
++            )
++        unswapped = []
++        for row in range(block_size):
++            support = [
++                column
++                for column in range(block_size)
++                if int(hx[column, row])
++            ]
++            support.extend(
++                block_size + column
++                for column in range(block_size)
++                if int(hx[column, block_size + row])
++            )
++            unswapped.append(support)
++        formal["twoBlockCandidates"] = {
++            "swappedZChecks": formal["zChecks"],
++            "unswappedZChecks": unswapped,
++            "origin": {
++                "kind": "verified",
++                "method": "transpose each H_X column block; compare swapped order",
++            },
++        }
++    return formal
++
++
+ def _tour_payload(tour, entries_by_id, catalog=None):
+     lattices = {}
+     for key, spec in tour["lattices"].items():
+@@ -984,6 +1136,8 @@ def _tour_payload(tour, entries_by_id, catalog=None):
+         lattice = source.get("lattice")
+         schedule = source.get("schedule")
+         scene = source.get("scene")
++        instance_data = None
++        built_checkmatrix = None
+         if spec.get("instance"):
+             if catalog is not None:
+                 entry = catalog.require(spec["entry"])
+@@ -1011,6 +1165,8 @@ def _tour_payload(tour, entries_by_id, catalog=None):
+                 else entry.build(**instance.get("params", {}))
+             )
+             lattice = built.get("lattice")
++            built_checkmatrix = built.get("checkmatrix")
++            instance_data = instance
+             schedule = schedule_data(
+                 built.get("schedule"),
+                 lattice,
+@@ -1043,7 +1199,7 @@ def _tour_payload(tour, entries_by_id, catalog=None):
+                 "detail data: "
+                 f"{spec['entry']}"
+             )
+-        lattices[key] = {
++        lattice_payload = {
+             "entry": spec["entry"],
+             "instance": spec.get("instance"),
+             "label": spec["label"],
+@@ -1051,6 +1207,21 @@ def _tour_payload(tour, entries_by_id, catalog=None):
+             "schedule": schedule,
+             "scene": scene,
+         }
++        if tour["version"] == 2:
++            lattice_payload.update(
++                {
++                    "params": (instance_data or {}).get("params", {}),
++                    "claims": (instance_data or {}).get("claims", []),
++                    "formal": _tour_formal_payload(
++                        built_checkmatrix,
++                        derive_logicals=bool(spec.get("derive_logicals")),
++                        derive_two_block_candidates=bool(
++                            spec.get("derive_two_block_candidates")
++                        ),
++                    ),
++                }
++            )
++        lattices[key] = lattice_payload
+     default_lattice = next(iter(lattices))
+     for i, step in enumerate(tour["steps"]):
+         state = step.get("state", {})
+@@ -1107,8 +1278,124 @@ def _tour_payload(tour, entries_by_id, catalog=None):
+             raise ValueError(f"tour step {i} highlights a missing item")
+     return {"tour": tour, "lattices": lattices}
+ 
++
++def _learn_page(entry_data, payload):
++    tour = payload["tour"]
++    entry_id = entry_data["card"]["id"]
++    encoded = json.dumps(payload).replace("</", "<\\/")
++    style_url = _asset_url("style.css", 1)
++    tour_style_url = _asset_url("tour.css", 1)
++    scene_script_url = _asset_url("widgets/scene-explorer.js", 1)
++    continuity_script_url = _asset_url("widgets/learn-continuity.js", 1)
++    tour_script_url = _asset_url("widgets/learn-player.js", 1)
++
++    step_buttons = []
++    steps_by_chapter = {}
++    for step in tour["steps"]:
++        steps_by_chapter.setdefault(step["chapter"], []).append(step)
++    for chapter in tour["chapters"]:
++        chapter_steps = "".join(
++            "<li><button type='button' data-learn-step='{}'>"
++            "<span class='learn-step-marker' aria-hidden='true'></span>{}</button></li>".format(
++                esc(step["id"]), esc(step["title"])
++            )
++            for step in steps_by_chapter.get(chapter["id"], [])
++        )
++        step_buttons.append(
++            "<li class='learn-chapter' data-learn-chapter='{}'>"
++            "<p><span>{}</span>{}</p><ol>{}</ol></li>".format(
++                esc(chapter["id"]),
++                esc(chapter["title"]),
++                (
++                    f"<small>{esc(chapter['summary'])}</small>"
++                    if chapter.get("summary")
++                    else ""
++                ),
++                chapter_steps,
++            )
++        )
++
++    lattice_buttons = "".join(
++        f"<button type='button' data-tour-lattice='{esc(key)}'>"
++        f"{esc(spec['label'])}</button>"
++        for key, spec in tour["lattices"].items()
++    )
++    pauli_types = {
++        check.get("type")
++        for source in payload["lattices"].values()
++        for check in (source.get("lattice") or {}).get("checks", [])
++    }
++    filter_buttons = (
++        "<button type='button' data-tour-filter='all'>all</button>"
++        + "".join(
++            f"<button type='button' data-tour-filter='{pauli}'>{pauli}</button>"
++            for pauli in ("X", "Y", "Z")
++            if pauli in pauli_types
++        )
++    )
++    route_anchors = "".join(
++        f"<span class='learn-route-anchor' id='step={esc(step['id'])}' "
++        "aria-hidden='true'></span>"
++        for step in tour["steps"]
++    )
++
++    return f"""<!doctype html><html><head><meta charset='utf-8'>
++<meta name='viewport' content='width=device-width,initial-scale=1'>
++<title>{esc(tour['title'])}</title>
++<link rel='stylesheet' href='{style_url}'><link rel='stylesheet' href='{tour_style_url}'></head>
++<body class='tour-body learn-body' data-learn-entry='{esc(entry_id)}'
++ data-learn-version='{esc(tour.get('tutorial_version', '1'))}'>
++<main class='tour-shell learn-shell'>{route_anchors}
++<header class='tour-header learn-header'><div><p class='eyebrow'>Learn · interactive tutorial</p>
++<h1>{esc(tour['title'])}</h1><p>{esc(tour.get('subtitle', ''))}</p></div>
++<div class='learn-header-actions'><a href='../entries/{esc(entry_id)}.html'>← Entry landing</a>
++<a href='../entries/{esc(entry_id)}/parameters.html' data-learn-reference>Reference</a>
++<button type='button' class='button-link' data-learn-start-over>Start over</button></div></header>
++<div class='learn-overall-status' aria-live='polite'><span data-learn-overall-progress></span>
++<div class='learn-progress-track' aria-hidden='true'><span data-learn-progress-bar></span></div></div>
++<section class='learn-grid'>
++<nav class='learn-map' aria-label='Tutorial map'><h2>Your route</h2>
++<ol>{''.join(step_buttons)}</ol></nav>
++<aside class='tour-panel learn-panel' aria-label='Current learning task'>
++<div class='tour-progress' data-tour-progress></div><p class='eyebrow' data-learn-chapter-label></p>
++<h2 data-tour-title></h2><p class='learn-task' data-learn-task></p>
++<details class='learn-hint' data-learn-hint-wrap><summary>Need a hint?</summary>
++<p data-learn-hint></p></details>
++<div class='learn-explanation' data-learn-explanation hidden>
++<p data-tour-narrative></p><p class='tour-origin' data-tour-origin></p>
++<p class='tour-refs' data-tour-refs></p></div>
++<div class='learn-reference-links' data-learn-reference-links></div>
++<div class='tour-actions'><button type='button' data-tour-prev>← Previous</button>
++<button type='button' data-tour-next>Next →</button></div></aside>
++<div class='tour-stage learn-stage'>
++<section class='learn-lab' aria-labelledby='learn-lab-title'><div class='learn-lab-heading'>
++<p class='eyebrow'>Prediction lab</p><h2 id='learn-lab-title' data-learn-lab-title></h2></div>
++<div class='learn-controls' data-learn-controls></div>
++<div class='learn-feedback' data-learn-feedback aria-live='polite'></div>
++<div class='learn-lab-actions'><button type='button' data-learn-reset-lab>Reset this lab</button></div></section>
++<div class='tour-toolbar learn-scene-toolbar'><span>Formal instance:</span>{lattice_buttons}
++<span data-tour-filter-control><span>Pauli:</span>{filter_buttons}</span></div>
++<div class='tour-camera-controls' aria-label='Scene navigation'><span>Scene:</span>
++<button type='button' data-tour-zoom-out aria-label='Zoom out'>−</button>
++<output data-tour-camera-status aria-live='polite'>100%</output>
++<button type='button' data-tour-zoom-in aria-label='Zoom in'>+</button>
++<button type='button' data-tour-camera-reset>Reset view</button>
++<span class='tour-camera-help'>Drag to pan · arrows select · +/- zoom</span></div>
++<canvas data-tour-canvas width='760' height='560' tabindex='0'
++ aria-label='Governed BB code scene; use arrow keys to move between visible checks'></canvas>
++<div class='tour-check-detail' data-tour-check-detail aria-live='polite'></div>
++<div class='learn-legend' aria-label='Pauli legend'><span class='legend-x'>X · solid red</span>
++<span class='legend-z'>Z · dashed blue</span><span>Black points · data qubits</span></div>
++</div></section></main>
++<script>const TOUR_DATA={encoded};</script>
++<script src='{scene_script_url}'></script><script src='{continuity_script_url}'></script>
++<script src='{tour_script_url}'></script></body></html>"""
++
++
+ def _tour_page(entry_data, payload):
+     tour = payload["tour"]
++    if tour.get("version") == 2:
++        return _learn_page(entry_data, payload)
+     encoded = json.dumps(payload).replace("</", "<\\/")
+     style_url = _asset_url("style.css", 1)
+     tour_style_url = _asset_url("tour.css", 1)
+@@ -1336,19 +1623,47 @@ def _operation_html(operation):
+ 
+ 
+ def _formal_unification_html(linkset):
++    certificate_labels = {
++        "structural-validity": (
++            "Structural validity",
++            "reconstructs the canonical checks and verifies CSS validity plus governed n and k",
++        ),
++        "small-exact-distance-enumeration": (
++            "Small exact-distance enumeration",
++            "certifies the exact static distance for this eligible finite instance",
++        ),
++    }
+     rows = []
+     for instance in linkset["instances"]:
+-        certificate_items = "".join(
+-            f"<li><code title='{esc(certificate)}'>{esc(certificate.split(':')[2])}</code></li>"
++        certificate_kinds = [
++            certificate.split(":")[2]
+             for certificate in instance["certificate_ids"]
++        ]
++        certificate_items = []
++        for certificate, kind in zip(instance["certificate_ids"], certificate_kinds):
++            label, meaning = certificate_labels.get(
++                kind,
++                (kind.replace("-", " ").title(), "see the governed certificate identifier"),
++            )
++            certificate_items.append(
++                f"<li><b>{esc(label)}</b> — {esc(meaning)}"
++                f"<details class='formal-id'><summary>Full certificate ID</summary>"
++                f"<code>{esc(certificate)}</code></details></li>"
++            )
++        distance_scope = (
++            "Exact static distance is certified for this row."
++            if "small-exact-distance-enumeration" in certificate_kinds
++            else "No exact-distance certificate is present in this row."
+         )
+         semantic_hash = instance["semantic_hash"]
+         rows.append(
+             "<tr>"
+             f"<td>{esc(instance['label'])}</td>"
+             f"<td><span class='chip'>{esc(instance['branch'])}</span></td>"
+-            f"<td><code title='{esc(semantic_hash)}'>{esc(semantic_hash[:16])}…</code></td>"
+-            f"<td><ul class='compact-list'>{certificate_items}</ul></td>"
++            f"<td><details class='formal-id'><summary><code>{esc(semantic_hash[:16])}…</code>"
++            f"</summary><code>{esc(semantic_hash)}</code></details></td>"
++            f"<td><ul class='compact-list'>{''.join(certificate_items)}</ul></td>"
++            f"<td>{esc(distance_scope)}</td>"
+             "</tr>"
+         )
+     return (
+@@ -1357,7 +1672,8 @@ def _formal_unification_html(linkset):
+         "exact-distance certificates are additive; claims outside Lean Complete "
+         "v1 keep their existing evidence origin.</p>"
+         "<div class='table-wrap'><table><thead><tr><th>Instance</th>"
+-        "<th>Native branch</th><th>Semantic hash</th><th>Certificates</th>"
++        "<th>Native branch</th><th>Semantic hash</th><th>Certificates and meaning</th>"
++        "<th>Distance scope</th>"
+         "</tr></thead><tbody>" + "".join(rows) + "</tbody></table></div>"
+     )
+ 
+@@ -1460,7 +1776,12 @@ def _entry_facet_specs(data, entry_ids=None):
+             "title": "Relations",
+             "summary": "Typed links to constructions, relatives, and pending entries.",
+             "body": "<ul class='detail-list'>" + "".join(
+-                _relation_html(relation, entry_ids, target_prefix="../")
++                _relation_html(
++                    relation,
++                    entry_ids,
++                    target_prefix="../",
++                    wanted_prefix="../../",
++                )
+                 for relation in card["relations"]
+             ) + "</ul>",
+         })
+@@ -1522,13 +1843,14 @@ def _entry_facet_specs(data, entry_ids=None):
+         })
+     return specs
+ 
+-def _entry_facet_pages(data, entry_ids=None):
++def _entry_facet_pages(data, entry_ids=None, learn_entry_id=None):
+     card = data["card"]
+     canonical_name = _canonical_name(card)
+     pages = {}
+     for facet in _entry_facet_specs(data, entry_ids=entry_ids):
+         body = (
+-            "<article class='facet-page'>"
++            (_learn_return_html(2) if learn_entry_id else "")
++            + "<article class='facet-page'>"
+             f"<a class='back-link' href='../{esc(card['id'])}.html'>"
+             f"← {esc(canonical_name)}</a>"
+             f"<header class='facet-header'><p class='eyebrow'>Entry facet</p>"
+@@ -1542,7 +1864,7 @@ def _entry_facet_pages(data, entry_ids=None):
+         )
+     return pages
+ 
+-def _entry_menu_html(data, entry_ids=None, has_tour=False):
++def _entry_menu_html(data, entry_ids=None, tour=None):
+     card = data["card"]
+     items = []
+     intuition = next((
+@@ -1556,11 +1878,16 @@ def _entry_menu_html(data, entry_ids=None, has_tour=False):
+             "Intuition",
+             "The one-sitting conceptual guide: what the code is and why it works.",
+         ))
+-    if has_tour:
++    if tour:
++        learn_v2 = tour.get("version") == 2
+         items.append((
+             f"../tours/{card['id']}.html",
+-            "Guided tour",
+-            "A step-by-step interactive walkthrough of the exported code data.",
++            "Learn" if learn_v2 else "Guided tour",
++            (
++                "A continuous, stateful path from one wrapped translation to independent Reference use."
++                if learn_v2
++                else "A step-by-step interactive walkthrough of the exported code data."
++            ),
+         ))
+     for facet in _entry_facet_specs(data, entry_ids=entry_ids):
+         items.append((
+@@ -1714,12 +2041,15 @@ def _scene_visual_html(data):
+             "<button type='button' data-scene-round-next aria-label='Next round'>→</button>"
+             "</div>"
+         )
++    orienting_task = data.get("learn_orienting_task") or (
++        "Inspect constructor-derived qubits, stabilizers, and logical paths without "
++        "leaving the entry."
++    )
+     return (
+         "<section class='landing-section orienting-view' aria-labelledby='orienting-view-title'>"
+         "<div class='section-heading'><p class='eyebrow'>One orienting visual</p>"
+         "<h2 id='orienting-view-title'>Orienting view</h2>"
+-        "<p>Inspect constructor-derived qubits, stabilizers, and logical paths without "
+-        f"leaving the entry. {instance_note}</p></div>"
++        f"<p>{esc(orienting_task)} {instance_note}</p></div>"
+         f"<div class='scene-toolbar' aria-label='Scene controls'>{mode_controls}"
+         f"{filter_controls}</div>"
+         f"{round_control}"
+@@ -1780,7 +2110,28 @@ def _essential_parameters_html(card, instances):
+     parameter_parts.append("</section>")
+     return "".join(parameter_parts)
+ 
+-def entry_page(data, entry_ids=None, has_tour=False):
++def _learn_entry_actions_html(card, tour):
++    first_step = tour["steps"][0]["id"]
++    entry_id = card["id"]
++    tutorial_version = tour.get("tutorial_version", "1")
++    return (
++        "<section class='landing-section learn-entry-action' "
++        f"data-learn-entry='{esc(entry_id)}' data-learn-version='{esc(tutorial_version)}'>"
++        "<div><p class='eyebrow'>Learn the mechanism</p>"
++        f"<h2>{esc(tour['landing']['title'])}</h2>"
++        f"<p>{esc(tour['landing']['summary'])}</p>"
++        f"<p class='learn-scope-note'><span class='chip tier'>{esc(card.get('tier', '?'))}</span> "
++        "Learn builds causal control; Reference remains the complete expert dossier.</p></div>"
++        "<div class='learn-entry-actions'>"
++        f"<a class='primary-action' data-learn-start href='../tours/{esc(entry_id)}.html#step={esc(first_step)}'>"
++        "Start learning</a>"
++        f"<a class='primary-action' data-learn-resume hidden href='../tours/{esc(entry_id)}.html'>Resume</a>"
++        "<button type='button' class='button-link' data-learn-start-over hidden>Start over</button>"
++        f"<a href='{esc(entry_id)}/parameters.html'>Open Reference</a></div></section>"
++    )
++
++
++def entry_page(data, entry_ids=None, tour=None, tour_payload=None):
+     card, instances = data["card"], data["instances"]
+     canonical_name = _canonical_name(card)
+     entry_ids = set() if entry_ids is None else set(entry_ids)
+@@ -1793,27 +2144,46 @@ def entry_page(data, entry_ids=None, has_tour=False):
+             "<strong>Description pending.</strong> This entry's plain-language opening "
+             "has not yet passed the Reader Contract.</p>"
+         )
++    learn_v2 = bool(tour and tour.get("version") == 2 and tour_payload)
++    display_data = data
++    if learn_v2:
++        landing = tour["landing"]
++        landing_source = tour_payload["lattices"][landing["lattice"]]
++        display_data = {
++            **data,
++            "scene": landing_source["scene"],
++            "lattice": landing_source["lattice"],
++            "schedule": landing_source["schedule"],
++            "visual_instance": landing_source["instance"],
++            "learn_orienting_task": landing["task"],
++        }
+     body = [
+         "<main class='entry-landing'>",
+         f"<header class='entry-header'><p class='eyebrow'>{esc(card['kind'])}</p>"
+         f"<h1>{esc(canonical_name)}</h1>{description_html}</header>",
+-        _tier_scope_html(card),
+-        _orienting_visual_html(data),
++        _learn_entry_actions_html(card, tour) if learn_v2 else _tier_scope_html(card),
++        _orienting_visual_html(display_data),
+         _essential_parameters_html(card, instances),
+-        _entry_menu_html(data, entry_ids=entry_ids, has_tour=has_tour),
++        _entry_menu_html(data, entry_ids=entry_ids, tour=tour),
+         "</main>",
+     ]
+-    if data.get("scene") and data["scene"].get("dimension") == 2:
++    if display_data.get("scene") and display_data["scene"].get("dimension") == 2:
+         scene_payload = {
+-            "scene": data["scene"],
+-            "lattice": data.get("lattice"),
+-            "schedule": data.get("schedule"),
+-            "visual_instance": data.get("visual_instance"),
++            "scene": display_data["scene"],
++            "lattice": display_data.get("lattice"),
++            "schedule": display_data.get("schedule"),
++            "visual_instance": display_data.get("visual_instance"),
+         }
++        if learn_v2:
++            scene_payload["initialState"] = tour.get("landing", {}).get("state", {})
+         body.extend([
+             f"<script>const ENTRY_DATA = {json.dumps(scene_payload)};</script>",
+             f"<script src='{_asset_url('widgets/scene-explorer.js', 1)}'></script>",
+         ])
++    if learn_v2:
++        body.append(
++            f"<script src='{_asset_url('widgets/learn-continuity.js', 1)}'></script>"
++        )
+     return page(canonical_name, "".join(body), depth=1)
+ 
+ 
+@@ -1899,25 +2269,52 @@ def build(catalog=None, export_root=None):
+         for entry_id in entry_ids
+         if (tour := _load_tour(entry_id, catalog=catalog)) is not None
+     }
++    tour_payloads = {
++        entry_id: _tour_payload(tour, entries_by_id, catalog=catalog)
++        for entry_id, tour in tours.items()
++    }
++    learn_entries = {
++        entry_id for entry_id, tour in tours.items()
++        if tour.get("version") == 2
++    }
+     (out / "tours").mkdir(parents=True, exist_ok=True)
+     for entry_id, tour in tours.items():
+-        payload = _tour_payload(tour, entries_by_id, catalog=catalog)
+         (out / "tours" / f"{entry_id}.html").write_text(
+-            _tour_page(entries_by_id[entry_id], payload)
++            _tour_page(entries_by_id[entry_id], tour_payloads[entry_id])
+         )
+     for document in foundation_documents:
+         _write_document(document, targets, out=out)
+     for data in entries:
+         for document in data.get("documents", []):
+-            _write_document(document, targets, out=out)
++            _write_document(
++                document,
++                targets,
++                out=out,
++                learn_entry_id=(
++                    data["card"]["id"]
++                    if data["card"]["id"] in learn_entries
++                    else None
++                ),
++            )
+         entry_dir = out / "entries" / data["card"]["id"]
+         entry_dir.mkdir(parents=True, exist_ok=True)
+         for filename, content in _entry_facet_pages(
+-            data, entry_ids=entry_ids
++            data,
++            entry_ids=entry_ids,
++            learn_entry_id=(
++                data["card"]["id"]
++                if data["card"]["id"] in learn_entries
++                else None
++            ),
+         ).items():
+             (entry_dir / filename).write_text(content)
+         (out / "entries" / f"{data['card']['id']}.html").write_text(
+-            entry_page(data, entry_ids=entry_ids, has_tour=data["card"]["id"] in tours)
++            entry_page(
++                data,
++                entry_ids=entry_ids,
++                tour=tours.get(data["card"]["id"]),
++                tour_payload=tour_payloads.get(data["card"]["id"]),
++            )
+         )
+ 
+     foundation_links = []
+@@ -1938,6 +2335,30 @@ def build(catalog=None, export_root=None):
+                   f"<span class='chip'>{esc(it['status'])}</span></h2>"
+                   f"<p>{esc(it['statement'])}</p><p><b>Why:</b> {esc(it['why_it_matters'])}</p>"
+                   f"<p><b>Current proxy:</b> {esc(it['current_proxy'])}</p></section>")
++    pending_relations = {}
++    for data in entries:
++        source_id = data["card"]["id"]
++        for relation in data["card"].get("relations", []):
++            target = relation["target"]
++            if target not in entry_ids:
++                pending_relations.setdefault(target, set()).add(source_id)
++    if pending_relations:
++        relation_items = []
++        for target, source_ids in sorted(pending_relations.items()):
++            sources = ", ".join(
++                f"<a href='entries/{esc(source_id)}/relations.html'>{esc(source_id)}</a>"
++                for source_id in sorted(source_ids)
++            )
++            relation_items.append(
++                f"<li id='pending-relation-{_slug(target)}'><code>{esc(target)}</code> "
++                f"<span class='chip'>pending entry</span> · referenced by {sources}</li>"
++            )
++        wb.append(
++            "<section id='pending-relations'><h2>Pending relation targets</h2>"
++            "<p>These typed relation endpoints are intentionally unresolved. "
++            "They are gaps to fill, not aliases or broken identity claims.</p>"
++            "<ul class='detail-list'>" + "".join(relation_items) + "</ul></section>"
++        )
+     (out / "wanted.html").write_text(page("Open problems", "".join(wb)))
+     print(f"site: {len(entries)} entry pages -> {out}")
+     return out
+diff --git a/tools/site/style.css b/tools/site/style.css
+index b884615f2a8d842926a88115bb59cc2e8ac9ad6a..0762ff31db4d41011e59e46e1bb07e11b40f570d 100644
+--- a/tools/site/style.css
++++ b/tools/site/style.css
+@@ -125,6 +125,46 @@ h3 { margin: 1.5rem 0 .55rem; font-size: 1rem; }
+   padding: 2.25rem 0;
+ }
+ 
++.learn-entry-action {
++  display: grid;
++  grid-template-columns: minmax(0, 1fr) auto;
++  gap: 2rem;
++  align-items: center;
++  border: 1px solid #bdd5cc;
++  border-radius: 14px;
++  padding: 1.25rem 1.35rem;
++  background: linear-gradient(135deg, #f4fbf8, #eef5f6);
++}
++.learn-entry-action h2 { margin: .18rem 0 .4rem; }
++.learn-entry-action p { max-width: 700px; margin: .35rem 0; }
++.learn-scope-note { color: var(--muted); font-size: .86rem; }
++.learn-entry-actions { display: flex; min-width: 210px; flex-direction: column; gap: .55rem; align-items: stretch; }
++.learn-entry-actions a, .learn-entry-actions button {
++  border: 1px solid #9ebbb0;
++  border-radius: 999px;
++  padding: .55rem .85rem;
++  background: #fff;
++  text-align: center;
++  text-decoration: none;
++}
++.learn-entry-actions .primary-action { border-color: #176b53; background: #176b53; color: #fff; font-weight: 720; }
++.button-link { display: inline-block; }
++.learn-return-link {
++  display: inline-block;
++  position: sticky;
++  z-index: 2;
++  top: .5rem;
++  margin: .7rem 0 1rem;
++  border: 1px solid #a9c3b9;
++  border-radius: 999px;
++  padding: .38rem .75rem;
++  background: rgba(255, 255, 255, .94);
++  font-size: .86rem;
++  font-weight: 680;
++  text-decoration: none;
++}
++.learn-return-link[hidden] { display: none; }
++
+ .section-heading {
+   max-width: 690px;
+   margin-bottom: 1.25rem;
+@@ -527,6 +567,13 @@ pre {
+ 
+ code { font-size: .92em; }
+ 
++.formal-id { margin-top: .35rem; }
++.formal-id summary { cursor: pointer; }
++.formal-id code {
++  overflow-wrap: anywhere;
++  word-break: break-word;
++}
++
+ @media (max-width: 680px) {
+   body { padding: 0 1rem 3rem; }
+   nav { margin-bottom: 2rem; }
+@@ -534,4 +581,6 @@ code { font-size: .92em; }
+   .parameter-definitions div { grid-template-columns: 1fr; gap: .15rem; }
+   .schedule-round-control input[type="range"] { order: 4; width: 100%; }
+   .scene-camera-controls > span { flex-basis: 100%; margin-left: 0; }
++  .learn-entry-action { grid-template-columns: 1fr; gap: 1rem; }
++  .learn-entry-actions { min-width: 0; }
+ }
+diff --git a/tools/site/tour.css b/tools/site/tour.css
+index b7d8dfbeeea2f3c260d5b3613106c1c1f99ac800..ea4d4dc186a2b2183dc958b0a828d07d76759324 100644
+--- a/tools/site/tour.css
++++ b/tools/site/tour.css
+@@ -91,3 +91,147 @@
+   .tour-camera-help { flex-basis: 100%; margin-left: 0; }
+   .tour-actions button { flex: 1; }
+ }
++
++/* Learn v2 */
++.learn-body { color: #16242c; background: #f3f6f5; }
++.learn-shell { max-width: 1460px; padding: 1rem 1.25rem 3rem; }
++.learn-route-anchor { position: absolute; top: 0; width: 1px; height: 1px; overflow: hidden; }
++.learn-header {
++  align-items: center;
++  margin-bottom: .8rem;
++  border-bottom: 1px solid #d7dfdc;
++  padding-bottom: 1rem;
++}
++.learn-header h1 { max-width: 900px; margin: .15rem 0 .35rem; font-size: clamp(1.7rem, 3vw, 2.6rem); }
++.learn-header p:last-child { max-width: 820px; margin: 0; }
++.learn-header-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: .55rem; align-items: center; }
++.learn-header-actions a, .learn-header-actions button { white-space: nowrap; }
++.learn-overall-status {
++  display: grid;
++  grid-template-columns: auto minmax(120px, 260px);
++  justify-content: end;
++  gap: .8rem;
++  align-items: center;
++  margin-bottom: .8rem;
++  color: #53635f;
++  font-size: .82rem;
++}
++.learn-progress-track { height: .42rem; overflow: hidden; border-radius: 999px; background: #dfe6e3; }
++.learn-progress-track span { display: block; width: 0; height: 100%; background: #177258; transition: width 180ms ease; }
++.learn-grid {
++  display: grid;
++  grid-template-columns: minmax(180px, 230px) minmax(440px, 1fr) minmax(290px, 350px);
++  grid-template-areas: "map stage panel";
++  gap: .9rem;
++  align-items: start;
++}
++.learn-map {
++  grid-area: map;
++  position: sticky;
++  top: .7rem;
++  margin: 0;
++  border: 1px solid #d6dfdc;
++  border-radius: 12px;
++  padding: .85rem;
++  background: #fbfcfb;
++}
++.learn-map h2 { margin: 0 0 .7rem; font-size: 1rem; }
++.learn-map > ol, .learn-chapter ol { margin: 0; padding: 0; list-style: none; }
++.learn-chapter { margin-bottom: .8rem; }
++.learn-chapter > p { margin: 0 0 .35rem; color: #283b35; font-size: .8rem; font-weight: 750; }
++.learn-chapter > p span { display: block; }
++.learn-chapter > p small { display: block; margin-top: .1rem; color: #6b7773; font-size: .72rem; font-weight: 450; line-height: 1.35; }
++.learn-chapter button {
++  display: grid;
++  width: 100%;
++  grid-template-columns: .65rem 1fr;
++  gap: .45rem;
++  align-items: start;
++  margin: .15rem 0;
++  border: 0;
++  border-radius: 7px;
++  padding: .36rem .4rem;
++  color: #53635f;
++  text-align: left;
++  line-height: 1.3;
++}
++.learn-chapter button[aria-current="step"] { background: #e6f2ed; color: #134c3d; font-weight: 720; }
++.learn-step-marker { width: .56rem; height: .56rem; margin-top: .22rem; border: 1px solid #9aa9a4; border-radius: 50%; }
++.learn-chapter button.is-complete .learn-step-marker { border-color: #177258; background: #177258; box-shadow: inset 0 0 0 2px #fff; }
++.learn-stage { grid-area: stage; min-width: 0; }
++.learn-panel { grid-area: panel; top: .7rem; border-color: #cbd8d3; }
++.learn-panel .eyebrow { margin-top: .35rem; }
++.learn-task { border-left: 3px solid #177258; padding: .65rem .75rem; background: #eef7f3; color: #183d32; font-weight: 620; }
++.learn-hint { margin-top: .7rem; border: 1px solid #dce4e1; border-radius: 8px; padding: .55rem .65rem; background: #fbfcfb; }
++.learn-hint summary { color: #3f5d53; cursor: pointer; font-weight: 650; }
++.learn-hint p { margin: .45rem 0 0; color: #52645e; font-size: .9rem; }
++.learn-explanation { margin-top: .8rem; border-top: 1px solid #dce4e1; padding-top: .7rem; }
++.learn-explanation[hidden] { display: none; }
++.learn-reference-links { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: .8rem; }
++.learn-reference-link { border: 1px solid #b9cec6; border-radius: 999px; padding: .25rem .55rem; font-size: .77rem; text-decoration: none; }
++.learn-lab { margin-bottom: .85rem; border: 1px solid #b9d0c7; border-radius: 10px; padding: .85rem; background: #f8fcfa; }
++.learn-lab-heading { display: flex; justify-content: space-between; gap: 1rem; align-items: baseline; }
++.learn-lab-heading h2 { margin: 0; font-size: 1.08rem; }
++.learn-controls { display: flex; flex-wrap: wrap; gap: .65rem; align-items: end; margin-top: .75rem; }
++.learn-control-field { display: grid; min-width: 125px; gap: .25rem; color: #52625d; font-size: .78rem; }
++.learn-control-label { font-weight: 680; }
++.learn-control-field input, .learn-control-field select {
++  min-height: 2.25rem;
++  border: 1px solid #aebeb8;
++  border-radius: 7px;
++  padding: .32rem .45rem;
++  background: #fff;
++  color: #172b24;
++  font: inherit;
++  font-size: .88rem;
++}
++.learn-check-button { border-color: #176b53; background: #176b53; color: #fff; font-weight: 700; }
++.learn-check-button:hover { background: #0f5944; color: #fff; }
++.learn-feedback { flex-basis: 100%; margin-top: .75rem; border-radius: 8px; padding: .65rem .75rem; background: #edf1ef; color: #40524c; font-size: .9rem; }
++.learn-feedback.is-correct, .learn-answer-note.is-correct { background: #e5f5eb; color: #175c36; }
++.learn-feedback.is-incorrect, .learn-answer-note.is-incorrect { background: #fff2df; color: #745015; }
++.learn-lab-actions { display: flex; justify-content: flex-end; margin-top: .55rem; }
++.learn-lab-actions button { border: 0; color: #5c6c66; text-decoration: underline; }
++.learn-question { flex-basis: 100%; margin: 0; border: 1px solid #d4dfdb; border-radius: 8px; padding: .7rem; }
++.learn-question legend { padding: 0 .3rem; color: #243a33; font-size: .9rem; font-weight: 700; }
++.learn-choice { display: flex; gap: .5rem; align-items: start; margin: .35rem 0; color: #384a44; font-size: .88rem; }
++.learn-choice input { margin-top: .25rem; }
++.learn-answer-note { margin: .45rem 0 0; border-radius: 6px; padding: .4rem .5rem; color: #697671; font-size: .8rem; }
++.learn-support-readout { flex-basis: 100%; border-radius: 7px; padding: .5rem .6rem; background: #edf3f0; font-family: ui-monospace, monospace; font-size: .8rem; }
++.learn-qubit-grid { display: grid; width: 100%; max-height: 160px; grid-template-columns: repeat(auto-fill, minmax(2.25rem, 1fr)); gap: .28rem; overflow-y: auto; border: 1px solid #d8e1de; border-radius: 8px; padding: .45rem; background: #fff; }
++.learn-qubit-toggle { border-radius: 6px; padding: .22rem; font-family: ui-monospace, monospace; }
++.learn-qubit-toggle[aria-pressed="true"] { border-color: #8d2727; background: #fae6e6; color: #7b1d1d; font-weight: 750; }
++.learn-representation-tabs { display: flex; flex-basis: 100%; flex-wrap: wrap; gap: .35rem; }
++.learn-representation-tabs button[aria-pressed="true"] { border-color: #176b53; background: #e5f2ed; }
++.learn-representation-view { flex-basis: 100%; min-height: 4rem; border-left: 3px solid #607e73; padding: .65rem .75rem; background: #eef3f1; font-family: ui-monospace, monospace; font-size: .84rem; }
++.learn-scene-toolbar { margin-top: .2rem; }
++.learn-legend { display: flex; flex-wrap: wrap; gap: .85rem; margin-top: .65rem; color: #5d6b67; font-size: .78rem; }
++.learn-legend span::before { display: inline-block; width: 1.6rem; margin-right: .35rem; border-top: 3px solid #222; content: ""; vertical-align: middle; }
++.learn-legend .legend-x::before { border-color: #bd2f2f; }
++.learn-legend .legend-z::before { border-color: #2767b0; border-top-style: dashed; }
++
++@media (max-width: 1080px) {
++  .learn-grid {
++    grid-template-columns: minmax(170px, 220px) minmax(0, 1fr);
++    grid-template-areas: "map panel" "map stage";
++  }
++  .learn-panel { position: static; }
++}
++
++@media (max-width: 760px) {
++  .learn-shell { padding: .7rem; }
++  .learn-grid { grid-template-columns: 1fr; grid-template-areas: "panel" "stage" "map"; }
++  .learn-map { position: static; }
++  .learn-header { align-items: flex-start; }
++  .learn-header-actions { justify-content: flex-start; }
++  .learn-overall-status { grid-template-columns: 1fr; justify-content: stretch; }
++  .learn-panel { padding: .85rem; }
++  .learn-stage { padding: .7rem; }
++  .learn-lab-heading { display: block; }
++  .learn-lab-heading h2 { margin-top: .15rem; }
++  .learn-control-field { flex: 1 1 42%; min-width: 115px; }
++  .learn-check-button { flex: 1 1 100%; min-height: 2.6rem; }
++  .learn-scene-toolbar > span:first-child { flex-basis: 100%; }
++  .learn-stage canvas { min-height: 310px; object-fit: contain; }
++  .learn-map > ol { display: grid; grid-template-columns: 1fr; }
++}
+diff --git a/tools/site/widgets/learn-continuity.js b/tools/site/widgets/learn-continuity.js
+new file mode 100644
+index 0000000000000000000000000000000000000000..3516a6a6c996d2d7aa357167243298de0b5305f0
+--- /dev/null
++++ b/tools/site/widgets/learn-continuity.js
+@@ -0,0 +1,120 @@
++/* Shared continuity for Learn v2 routes and their Reference pages. */
++const AtlasLearnContinuity = (() => {
++  "use strict";
++
++  const body = document.body;
++  const params = new URLSearchParams(window.location.search);
++  const landing = document.querySelector("[data-learn-entry]");
++  const entry = body?.dataset.learnEntry
++    || landing?.dataset.learnEntry
++    || params.get("learn_entry")
++    || "";
++  const version = body?.dataset.learnVersion
++    || landing?.dataset.learnVersion
++    || params.get("learn_version")
++    || "1";
++  const storageKey = entry ? `qec-atlas:learn:${entry}:v${version}` : "";
++
++  function load() {
++    if (!storageKey) return null;
++    try {
++      const value = JSON.parse(window.localStorage.getItem(storageKey));
++      return value && typeof value === "object" ? value : null;
++    } catch (_error) {
++      return null;
++    }
++  }
++
++  function save(value) {
++    if (!storageKey) return;
++    try {
++      window.localStorage.setItem(storageKey, JSON.stringify({
++        ...value,
++        entry,
++        version,
++        updatedAt: new Date().toISOString(),
++      }));
++    } catch (_error) {
++      // Learn remains fully usable when storage is unavailable.
++    }
++  }
++
++  function clear() {
++    if (!storageKey) return;
++    try {
++      window.localStorage.removeItem(storageKey);
++    } catch (_error) {
++      // A blocked storage backend should not block a manual restart.
++    }
++  }
++
++  function rootPath() {
++    const marker = "/entries/";
++    const index = window.location.pathname.indexOf(marker);
++    if (index >= 0) return window.location.pathname.slice(0, index + 1);
++    const tourMarker = "/tours/";
++    const tourIndex = window.location.pathname.indexOf(tourMarker);
++    if (tourIndex >= 0) return window.location.pathname.slice(0, tourIndex + 1);
++    return "/";
++  }
++
++  function learnHref(stepId = null) {
++    const suffix = stepId ? `#step=${encodeURIComponent(stepId)}` : "";
++    return `${rootPath()}tours/${encodeURIComponent(entry)}.html${suffix}`;
++  }
++
++  function referenceHref(href, stepId) {
++    const target = new URL(href, window.location.href);
++    target.searchParams.set("from", "learn");
++    target.searchParams.set("learn_entry", entry);
++    target.searchParams.set("learn_version", version);
++    if (stepId) target.searchParams.set("learn_step", stepId);
++    return `${target.pathname}${target.search}${target.hash}`;
++  }
++
++  function initialiseLanding() {
++    const start = document.querySelector("[data-learn-start]");
++    const resume = document.querySelector("[data-learn-resume]");
++    const restart = document.querySelector("[data-learn-start-over]");
++    if (!start || !resume || !restart) return;
++    const stored = load();
++    if (stored?.stepId) {
++      resume.href = learnHref(stored.stepId);
++      resume.textContent = stored.finished ? "Review completed tutorial" : "Resume learning";
++      resume.hidden = false;
++      restart.hidden = false;
++      start.textContent = "Review from the beginning";
++    }
++    restart.addEventListener("click", () => {
++      clear();
++      window.location.assign(start.href);
++    });
++  }
++
++  function initialiseReferenceReturn() {
++    if (params.get("from") !== "learn") return;
++    const returnLink = document.querySelector("[data-learn-return]");
++    if (!returnLink || !entry) return;
++    const stored = load();
++    const stepId = params.get("learn_step") || stored?.stepId || null;
++    returnLink.href = learnHref(stepId);
++    returnLink.textContent = stepId
++      ? "← Return to the same Learn step"
++      : "← Return to Learn";
++    returnLink.hidden = false;
++  }
++
++  initialiseLanding();
++  initialiseReferenceReturn();
++
++  return {
++    clear,
++    entry,
++    learnHref,
++    load,
++    referenceHref,
++    save,
++    storageKey,
++    version,
++  };
++})();
+diff --git a/tools/site/widgets/learn-player.js b/tools/site/widgets/learn-player.js
+new file mode 100644
+index 0000000000000000000000000000000000000000..b0d54b247ed1e348123564b2b803c637ecd15856
+--- /dev/null
++++ b/tools/site/widgets/learn-player.js
+@@ -0,0 +1,1037 @@
++/* Generic Learn v2 player. Lesson content is declarative; computations use
++   constructor-exported matrices, lattice supports, claims, and Scene v2 data. */
++const AtlasLearnPlayer = (() => {
++  "use strict";
++
++  const mod = (value, order) => ((value % order) + order) % order;
++
++  function translationDestination(anchor, term, l, m, reverse = false) {
++    const sign = reverse ? -1 : 1;
++    return [
++      mod(anchor[0] + sign * term[0], l),
++      mod(anchor[1] + sign * term[1], m),
++    ];
++  }
++
++  function parityIntersection(left, right) {
++    const rightSet = new Set(right);
++    return left.reduce((value, item) => value ^ Number(rightSet.has(item)), 0);
++  }
++
++  function syndromeFor(errorSupport, checkRows) {
++    return checkRows.map(row => parityIntersection(errorSupport, row));
++  }
++
++  function xorSupport(left, right) {
++    const support = new Set(left);
++    right.forEach(item => {
++      if (support.has(item)) support.delete(item);
++      else support.add(item);
++    });
++    return [...support].sort((a, b) => a - b);
++  }
++
++  function inRowSpace(support, rows, n) {
++    const basis = new Map();
++    const reduce = values => {
++      const vector = new Uint8Array(n);
++      values.forEach(index => { vector[index] ^= 1; });
++      for (let pivot = 0; pivot < n; pivot += 1) {
++        if (!vector[pivot]) continue;
++        if (!basis.has(pivot)) return {vector, pivot};
++        const row = basis.get(pivot);
++        for (let column = pivot; column < n; column += 1) {
++          vector[column] ^= row[column];
++        }
++      }
++      return {vector, pivot: -1};
++    };
++    rows.forEach(row => {
++      const reduced = reduce(row);
++      if (reduced.pivot >= 0) basis.set(reduced.pivot, reduced.vector);
++    });
++    return reduce(support).pivot < 0;
++  }
++
++  function classifyError(errorType, support, formal) {
++    const syndromeRows = errorType === "X" ? formal.zChecks : formal.xChecks;
++    const stabilizerRows = errorType === "X" ? formal.xChecks : formal.zChecks;
++    const syndrome = syndromeFor(support, syndromeRows);
++    const fired = syndrome.flatMap((value, index) => value ? [index] : []);
++    if (fired.length) return {kind: "detectable", fired, syndrome, logical: []};
++    if (inRowSpace(support, stabilizerRows, formal.n)) {
++      return {kind: "stabilizer", fired, syndrome, logical: []};
++    }
++    const logical = [];
++    (formal.logicalPairs || []).forEach(pair => {
++      const opposite = errorType === "X" ? pair.z.zSupport : pair.x.xSupport;
++      if (parityIntersection(support, opposite)) {
++        logical.push(`${errorType}̅${pair.id + 1}`);
++      }
++    });
++    return {kind: "logical", fired, syndrome, logical};
++  }
++
++  function commutationViolations(xRows, zRows) {
++    const pairs = [];
++    xRows.forEach((xRow, xIndex) => {
++      zRows.forEach((zRow, zIndex) => {
++        if (parityIntersection(xRow, zRow)) pairs.push([xIndex, zIndex]);
++      });
++    });
++    return {count: pairs.length, pairs};
++  }
++
++  function init() {
++    if (
++      typeof TOUR_DATA === "undefined"
++      || TOUR_DATA.tour?.version !== 2
++      || typeof SceneExplorer === "undefined"
++    ) return;
++    const canvas = document.querySelector("[data-tour-canvas]");
++    if (!canvas) return;
++
++    const tour = TOUR_DATA.tour;
++    const sourceKeys = Object.keys(TOUR_DATA.lattices);
++    const $ = selector => document.querySelector(selector);
++    const continuity = typeof AtlasLearnContinuity === "undefined"
++      ? null
++      : AtlasLearnContinuity;
++    const stored = continuity?.load() || {};
++    const completed = new Set(
++      Array.isArray(stored.completed)
++        ? stored.completed.filter(id => tour.steps.some(step => step.id === id))
++        : []
++    );
++    const labStates = stored.labStates && typeof stored.labStates === "object"
++      ? {...stored.labStates}
++      : {};
++    const state = {
++      step: 0,
++      lattice: sourceKeys[0],
++      mode: "lattice",
++      filter: "all",
++      highlight: null,
++      hover: null,
++      selected: null,
++    };
++
++    const source = () => TOUR_DATA.lattices[state.lattice];
++    const step = () => tour.steps[state.step];
++    const formal = () => source().formal;
++    const activeHighlight = () => state.selected ?? state.hover ?? state.highlight;
++
++    function make(tag, className = "", text = "") {
++      const node = document.createElement(tag);
++      if (className) node.className = className;
++      if (text !== "") node.textContent = text;
++      return node;
++    }
++
++    function labelledControl(label, control) {
++      const wrapper = make("label", "learn-control-field");
++      wrapper.append(make("span", "learn-control-label", label), control);
++      return wrapper;
++    }
++
++    function option(value, label = value) {
++      const node = document.createElement("option");
++      node.value = String(value);
++      node.textContent = String(label);
++      return node;
++    }
++
++    function integerInput(value, min, max) {
++      const input = document.createElement("input");
++      input.type = "number";
++      input.min = String(min);
++      input.max = String(max);
++      input.step = "1";
++      input.value = String(value);
++      return input;
++    }
++
++    function actionButton(label, handler, className = "") {
++      const button = make("button", className, label);
++      button.type = "button";
++      button.addEventListener("click", handler);
++      return button;
++    }
++
++    function captureLabState() {
++      const controls = $("[data-learn-controls]");
++      const feedback = $("[data-learn-feedback]");
++      if (!controls || !controls.children.length) return;
++      labStates[step().id] = {
++        lattice: state.lattice,
++        filter: state.filter,
++        metadata: {...controls.dataset},
++        fields: [...controls.querySelectorAll("input, select")].map(control => ({
++          value: control.value,
++          checked: Boolean(control.checked),
++          type: control.type || control.tagName.toLowerCase(),
++        })),
++        qubits: [...controls.querySelectorAll("[data-qubit]")].flatMap(button => (
++          button.getAttribute("aria-pressed") === "true"
++            ? [Number(button.dataset.qubit)]
++            : []
++        )),
++        activeView: controls.querySelector("[data-view][aria-pressed='true']")?.dataset.view || null,
++        notes: [...controls.querySelectorAll(".learn-answer-note")].map(note => ({
++          text: note.textContent,
++          className: note.className,
++        })),
++        feedback: {
++          text: feedback?.textContent || "",
++          className: feedback?.className || "learn-feedback",
++        },
++      };
++    }
++
++    function restoreLabState(stepId) {
++      const saved = labStates[stepId];
++      const controls = $("[data-learn-controls]");
++      if (!saved || !controls) return;
++      Object.entries(saved.metadata || {}).forEach(([key, value]) => {
++        controls.dataset[key] = value;
++      });
++      const fields = [...controls.querySelectorAll("input, select")];
++      fields.forEach((control, index) => {
++        const value = saved.fields?.[index];
++        if (!value) return;
++        if (control.type === "radio" || control.type === "checkbox") {
++          control.checked = value.checked;
++        } else {
++          control.value = value.value;
++        }
++        const eventType = control.tagName === "SELECT" ? "change" : "input";
++        control.dispatchEvent(new Event(eventType, {bubbles: true}));
++      });
++      const selectedQubits = new Set(saved.qubits || []);
++      controls.querySelectorAll("[data-qubit]").forEach(button => {
++        const desired = selectedQubits.has(Number(button.dataset.qubit));
++        const current = button.getAttribute("aria-pressed") === "true";
++        if (desired !== current) button.click();
++      });
++      if (saved.activeView) {
++        [...controls.querySelectorAll("[data-view]")]
++          .find(button => button.dataset.view === saved.activeView)
++          ?.click();
++      }
++      [...controls.querySelectorAll(".learn-answer-note")].forEach((note, index) => {
++        const value = saved.notes?.[index];
++        if (!value) return;
++        note.textContent = value.text;
++        note.className = value.className;
++      });
++      const feedback = $("[data-learn-feedback]");
++      if (feedback && saved.feedback) {
++        feedback.textContent = saved.feedback.text;
++        feedback.className = saved.feedback.className;
++      }
++    }
++
++    function persist({replace = false, capture = true} = {}) {
++      if (capture) captureLabState();
++      const remote = replace ? {} : continuity?.load() || {};
++      if (!replace && Array.isArray(remote.completed)) {
++        remote.completed.forEach(id => {
++          if (tour.steps.some(candidate => candidate.id === id)) completed.add(id);
++        });
++      }
++      const mergedLabStates = replace
++        ? {...labStates}
++        : {...(remote.labStates || {}), ...labStates};
++      Object.assign(labStates, mergedLabStates);
++      continuity?.save({
++        stepId: step().id,
++        completed: [...completed],
++        finished: completed.size === tour.steps.length,
++        labStates: mergedLabStates,
++      });
++    }
++
++    function report(correct, message) {
++      const feedback = $("[data-learn-feedback]");
++      feedback.className = `learn-feedback ${correct ? "is-correct" : "is-incorrect"}`;
++      feedback.textContent = message;
++      if (correct) completed.add(step().id);
++      persist();
++      renderChrome();
++    }
++
++    function originText(origin) {
++      if (origin.kind === "verified") return `Origin: verified (${origin.method})`;
++      const refs = Array.isArray(origin.refs) ? origin.refs : [origin.ref];
++      return `Origin: curated (${refs.filter(Boolean).join(", ")})`;
++    }
++
++    function defaultMode(key) {
++      const modes = new Set(TOUR_DATA.lattices[key].scene.frames.map(frame => frame.mode));
++      return ["lattice", "incidence", "construction", "schedule", "data", "logical"]
++        .find(mode => modes.has(mode));
++    }
++
++    function itemDetail(index) {
++      if (index === null || index === undefined) {
++        return "Point at a visible check, click to pin it, or use the arrow keys to select one.";
++      }
++      const check = source().lattice?.checks[index];
++      if (!check) return "The selected scene item has no static check payload.";
++      return `${check.type}-check ${index}; weight ${check.support.length}; support {${check.support.join(", ")}}.`;
++    }
++
++    function updateCameraStatus() {
++      const output = $("[data-tour-camera-status]");
++      if (!output) return;
++      const status = SceneExplorer.cameraStatus(source().scene);
++      output.textContent = status.label;
++      output.setAttribute("aria-label", `Scene zoom ${status.label}`);
++    }
++
++    function renderScene() {
++      SceneExplorer.render(canvas, source().scene, {
++        mode: state.mode,
++        round: 0,
++        filter: state.filter,
++        highlight: activeHighlight(),
++      });
++      $("[data-tour-check-detail]").textContent = itemDetail(activeHighlight());
++      updateCameraStatus();
++      document.querySelectorAll("[data-tour-filter]").forEach(button => {
++        button.setAttribute("aria-pressed", button.dataset.tourFilter === state.filter);
++      });
++      document.querySelectorAll("[data-tour-lattice]").forEach(button => {
++        button.setAttribute("aria-pressed", button.dataset.tourLattice === state.lattice);
++      });
++    }
++
++    function renderReferenceLinks() {
++      const holder = $("[data-learn-reference-links]");
++      holder.replaceChildren();
++      (step().reference_links || []).forEach(link => {
++        const anchor = make("a", "learn-reference-link", `${link.label} ↗`);
++        anchor.href = continuity
++          ? continuity.referenceHref(link.href, step().id)
++          : link.href;
++        anchor.addEventListener("click", () => persist());
++        holder.append(anchor);
++      });
++      document.querySelectorAll("[data-learn-reference]").forEach(anchor => {
++        const rawHref = anchor.getAttribute("href");
++        if (continuity && rawHref) {
++          anchor.href = continuity.referenceHref(rawHref, step().id);
++        }
++        anchor.onclick = () => persist();
++      });
++    }
++
++    function renderChrome() {
++      const current = step();
++      const done = completed.has(current.id);
++      $("[data-tour-progress]").textContent = `Step ${state.step + 1} of ${tour.steps.length}`;
++      $("[data-tour-title]").textContent = current.title;
++      $("[data-learn-task]").textContent = current.task;
++      $("[data-learn-chapter-label]").textContent = tour.chapters.find(
++        chapter => chapter.id === current.chapter
++      )?.title || current.chapter;
++      const hintWrap = $("[data-learn-hint-wrap]");
++      hintWrap.hidden = !current.hint;
++      $("[data-learn-hint]").textContent = current.hint || "";
++      const explanation = $("[data-learn-explanation]");
++      explanation.hidden = !done;
++      $("[data-tour-narrative]").textContent = current.narrative;
++      $("[data-tour-origin]").textContent = originText(current.origin);
++      $("[data-tour-refs]").textContent = current.refs?.length
++        ? `References: ${current.refs.join(", ")}`
++        : "";
++      $("[data-tour-prev]").disabled = state.step === 0;
++      const next = $("[data-tour-next]");
++      const lastStep = state.step === tour.steps.length - 1;
++      const graduated = completed.size === tour.steps.length;
++      next.disabled = !done || (lastStep && !graduated);
++      next.textContent = lastStep
++        ? graduated
++          ? "Graduated ✓"
++          : `${tour.steps.length - completed.size} labs remain`
++        : "Next →";
++      const percentage = Math.round(100 * completed.size / tour.steps.length);
++      $("[data-learn-overall-progress]").textContent = (
++        `${completed.size} of ${tour.steps.length} labs complete · ${percentage}%`
++      );
++      $("[data-learn-progress-bar]").style.width = `${percentage}%`;
++      document.querySelectorAll("[data-learn-step]").forEach(button => {
++        const id = button.dataset.learnStep;
++        const active = id === current.id;
++        button.setAttribute("aria-current", active ? "step" : "false");
++        button.classList.toggle("is-complete", completed.has(id));
++      });
++      renderReferenceLinks();
++    }
++
++    function renderAudit(interaction) {
++      const controls = $("[data-learn-controls]");
++      const questions = interaction.questions || [];
++      const records = [];
++      questions.forEach((question, questionIndex) => {
++        const fieldset = make("fieldset", "learn-question");
++        fieldset.append(make("legend", "", question.prompt));
++        const radios = question.options.map((label, optionIndex) => {
++          const wrapper = make("label", "learn-choice");
++          const input = document.createElement("input");
++          input.type = "radio";
++          input.name = `${step().id}-${questionIndex}`;
++          input.value = String(optionIndex);
++          wrapper.append(input, make("span", "", label));
++          fieldset.append(wrapper);
++          return input;
++        });
++        const note = make("p", "learn-answer-note");
++        fieldset.append(note);
++        controls.append(fieldset);
++        records.push({question, radios, note});
++      });
++      controls.append(actionButton("Check my audit", () => {
++        let complete = true;
++        let correct = true;
++        records.forEach(record => {
++          const selected = record.radios.find(input => input.checked);
++          if (!selected) {
++            complete = false;
++            record.note.textContent = "Choose one answer.";
++            record.note.className = "learn-answer-note is-incorrect";
++            return;
++          }
++          const matches = Number(selected.value) === record.question.correct;
++          correct = correct && matches;
++          const explanation = record.question.explanation || (
++            matches
++              ? "That conclusion matches what the synchronized evidence licenses."
++              : "Keep exact object mappings separate from broader physical interpretations."
++          );
++          record.note.textContent = matches
++            ? `Correct. ${explanation}`
++            : `Not yet. ${explanation}`;
++          record.note.className = `learn-answer-note ${matches ? "is-correct" : "is-incorrect"}`;
++        });
++        if (!complete) report(false, "Complete every evidence decision before checking.");
++        else if (correct) report(true, "Audit passed. The claim keeps its scope, evidence, and missing obligations attached.");
++        else report(false, "At least one inference still overreaches the available evidence.");
++      }, "learn-check-button"));
++    }
++
++    function termsFor(block) {
++      const params = source().params;
++      return block === "B" ? params.b_terms : params.a_terms;
++    }
++
++    function supportFromTerms(anchor, terms, blockOffset, reverse = false) {
++      return terms.reduce((support, term) => {
++        const destination = translationDestination(
++          anchor,
++          term,
++          source().params.l,
++          source().params.m,
++          reverse
++        );
++        const index = destination[0] * source().params.m + destination[1] + blockOffset;
++        return xorSupport(support, [index]);
++      }, []);
++    }
++
++    function renderTranslation(interaction) {
++      const controls = $("[data-learn-controls]");
++      const params = source().params;
++      const anchorX = integerInput(interaction.anchor?.[0] || 0, 0, params.l - 1);
++      const anchorY = integerInput(interaction.anchor?.[1] || 0, 0, params.m - 1);
++      controls.append(
++        labelledControl("Anchor x", anchorX),
++        labelledControl("Anchor y", anchorY)
++      );
++      if (interaction.assemble) {
++        const predictedWeight = integerInput(0, 0, formal().n);
++        controls.append(labelledControl("Predicted row weight", predictedWeight));
++        controls.append(actionButton("Assemble and compare", () => {
++          const anchor = [Number(anchorX.value), Number(anchorY.value)];
++          const blockSize = params.l * params.m;
++          const support = xorSupport(
++            supportFromTerms(anchor, params.a_terms, 0),
++            supportFromTerms(anchor, params.b_terms, blockSize)
++          );
++          const rowIndex = anchor[0] * params.m + anchor[1];
++          const exact = formal().xChecks[rowIndex];
++          state.highlight = rowIndex;
++          state.filter = "X";
++          state.selected = null;
++          renderScene();
++          const matches = JSON.stringify(support) === JSON.stringify(exact);
++          const correct = Number(predictedWeight.value) === exact.length && matches;
++          report(correct, correct
++            ? `Verified H_X row ${rowIndex}: A|B support {${exact.join(", ")}} and weight ${exact.length}.`
++            : `A contributes ${params.a_terms.length} endpoints and B contributes ${params.b_terms.length}; after binary cancellation the exact support is {${exact.join(", ")}}, so the row weight is ${exact.length}. The two blocks are coordinates, not device layers.`);
++        }, "learn-check-button"));
++        return;
++      }
++
++      const block = document.createElement("select");
++      ["A", "B"].forEach(value => block.append(option(value)));
++      block.value = interaction.block || "A";
++      const term = document.createElement("select");
++      const direction = document.createElement("select");
++      direction.append(option("forward", "row incidence (+ exponent)"));
++      direction.append(option("reverse", "transposed row incidence (− exponent)"));
++      direction.value = interaction.reverse ? "reverse" : "forward";
++      const predictedX = integerInput(0, 0, params.l - 1);
++      const predictedY = integerInput(0, 0, params.m - 1);
++
++      function updateTerms() {
++        term.replaceChildren();
++        termsFor(block.value).forEach((value, index) => {
++          term.append(option(index, `x^${value[0]} y^${value[1]}`));
++        });
++        const requested = termsFor(block.value).findIndex(value => (
++          value[0] === interaction.term?.[0] && value[1] === interaction.term?.[1]
++        ));
++        term.value = String(Math.max(0, requested));
++      }
++      block.addEventListener("change", updateTerms);
++      updateTerms();
++      controls.append(
++        labelledControl("Polynomial block", block),
++        labelledControl("Monomial", term),
++        labelledControl("Direction", direction),
++        labelledControl("Predict destination x", predictedX),
++        labelledControl("Predict destination y", predictedY)
++      );
++      controls.append(actionButton("Check wrapped move", () => {
++        const anchor = [Number(anchorX.value), Number(anchorY.value)];
++        const selectedTerm = termsFor(block.value)[Number(term.value)];
++        const reverse = direction.value === "reverse";
++        const destination = translationDestination(
++          anchor, selectedTerm, params.l, params.m, reverse
++        );
++        const correct = Number(predictedX.value) === destination[0]
++          && Number(predictedY.value) === destination[1];
++        const wrapped = (
++          anchor[0] + (reverse ? -1 : 1) * selectedTerm[0] !== destination[0]
++          || anchor[1] + (reverse ? -1 : 1) * selectedTerm[1] !== destination[1]
++        );
++        const polynomialColumn = destination[0] * params.m + destination[1];
++        const blockSize = params.l * params.m;
++        const cssColumn = reverse
++          ? polynomialColumn + (block.value === "A" ? blockSize : 0)
++          : polynomialColumn + (block.value === "B" ? blockSize : 0);
++        const matrixNote = reverse
++          ? `The transposed ${block.value} move occupies H_Z column ${cssColumn}.`
++          : `The ${block.value} block of H_X records column ${cssColumn}.`;
++        report(correct, correct
++          ? `Correct row incidence: anchor (${anchor.join(",")}) → nonzero column (${destination.join(",")})${wrapped ? " with wraparound" : ""}. ${matrixNote}`
++          : `For this row-incidence convention, compute (${anchor[0]} ${reverse ? "−" : "+"} ${selectedTerm[0]}) mod ${params.l} and (${anchor[1]} ${reverse ? "−" : "+"} ${selectedTerm[1]}) mod ${params.m}. The nonzero column coordinate is (${destination.join(",")}); column-vector action would use the opposite direction.`);
++      }, "learn-check-button"));
++    }
++
++    function renderCommutation(interaction) {
++      const controls = $("[data-learn-controls]");
++      const candidates = formal().twoBlockCandidates;
++      const candidate = document.createElement("select");
++      candidate.append(option("swapped", "[Bᵀ | Aᵀ] (swapped)"));
++      candidate.append(option("unswapped", "[Aᵀ | Bᵀ] (unswapped)"));
++      candidate.value = interaction.candidate || "swapped";
++      const xRow = integerInput(interaction.x_row || 0, 0, formal().xChecks.length - 1);
++      const zRow = integerInput(interaction.z_row || 0, 0, formal().zChecks.length - 1);
++      const prediction = document.createElement("select");
++      prediction.append(option("commutes", "commutes for every row pair"));
++      prediction.append(option("violates", "has at least one odd overlap"));
++      controls.append(
++        labelledControl("Z construction", candidate),
++        labelledControl("Inspect X row", xRow),
++        labelledControl("Inspect Z row", zRow),
++        labelledControl("Prediction", prediction)
++      );
++      controls.append(actionButton("Compute selected overlap and full commutator", () => {
++        const zRows = candidate.value === "swapped"
++          ? candidates.swappedZChecks
++          : candidates.unswappedZChecks;
++        const xIndex = Number(xRow.value);
++        const zIndex = Number(zRow.value);
++        const intersection = formal().xChecks[xIndex].filter(index => zRows[zIndex].includes(index));
++        const violations = commutationViolations(formal().xChecks, zRows);
++        const predictsCommutes = prediction.value === "commutes";
++        const correct = predictsCommutes === (violations.count === 0);
++        state.filter = "Z";
++        state.highlight = formal().xChecks.length + zIndex;
++        state.selected = null;
++        renderScene();
++        report(correct, (
++          `Selected overlap {${intersection.join(", ") || "∅"}} has parity ${intersection.length % 2}; `
++          + `${violations.count} odd row-pair violation${violations.count === 1 ? "" : "s"} across the full matrix. `
++          + (correct ? "Your prediction matches the computed commutator." : "Revise which construction commutes globally.")
++        ));
++      }, "learn-check-button"));
++    }
++
++    function renderSyndrome(interaction) {
++      const controls = $("[data-learn-controls]");
++      if (!formal()) {
++        controls.append(make("p", "empty-state", "No exact CSS matrix is exported for this instance."));
++        return;
++      }
++      const errorType = document.createElement("select");
++      errorType.append(option("X", "X error (observed by Z checks)"));
++      errorType.append(option("Z", "Z error (observed by X checks)"));
++      errorType.value = interaction.error_type || "X";
++      controls.append(labelledControl("Error Pauli", errorType));
++      let support = interaction.preset ? [...interaction.preset] : [];
++      if (interaction.preset_logical) {
++        const pair = formal().logicalPairs[interaction.preset_logical.pair];
++        const pauli = pair?.[interaction.preset_logical.pauli];
++        support = [...(pauli?.xSupport?.length ? pauli.xSupport : pauli?.zSupport || [])];
++      }
++      const supportReadout = make("output", "learn-support-readout");
++      const qubitArea = make("div", "learn-qubit-grid");
++      const qubitButtons = [];
++      const refreshSupport = () => {
++        supportReadout.textContent = `Error support {${support.join(", ") || "∅"}}`;
++        qubitButtons.forEach(button => {
++          button.setAttribute("aria-pressed", support.includes(Number(button.dataset.qubit)));
++        });
++      };
++      for (let index = 0; index < formal().n; index += 1) {
++        const button = actionButton(String(index), () => {
++          support = support.includes(index)
++            ? support.filter(value => value !== index)
++            : [...support, index].sort((a, b) => a - b);
++          refreshSupport();
++        }, "learn-qubit-toggle");
++        button.dataset.qubit = String(index);
++        button.setAttribute("aria-label", `Toggle qubit ${index}`);
++        qubitArea.append(button);
++        qubitButtons.push(button);
++      }
++      controls.append(supportReadout, qubitArea);
++      refreshSupport();
++
++      if (interaction.mode === "coset") {
++        const stabilizerIndex = integerInput(
++          interaction.stabilizer_index || 0,
++          0,
++          formal().xChecks.length - 1
++        );
++        controls.append(labelledControl("Same-type stabilizer row", stabilizerIndex));
++        controls.append(actionButton("1 · Compute current syndrome", () => {
++          const result = classifyError(errorType.value, support, formal());
++          controls.dataset.baselineSyndrome = result.syndrome.join("");
++          report(false, `Baseline fired checks: {${result.fired.join(", ") || "∅"}}. Now add a stabilizer and compare.`);
++        }));
++        controls.append(actionButton("2 · Add stabilizer and compare", () => {
++          const baseline = controls.dataset.baselineSyndrome || null;
++          if (baseline === null) {
++            report(false, "Compute the baseline syndrome first.");
++            return;
++          }
++          const rows = errorType.value === "X" ? formal().xChecks : formal().zChecks;
++          support = xorSupport(support, rows[Number(stabilizerIndex.value)]);
++          refreshSupport();
++          const result = classifyError(errorType.value, support, formal());
++          const same = result.syndrome.join("") === baseline;
++          const stabilizerTerm = errorType.value === "X" ? "coboundary" : "boundary";
++          report(same, same
++            ? `Syndrome unchanged: fired checks {${result.fired.join(", ") || "∅"}}. The support changed by a stabilizer ${stabilizerTerm}.`
++            : "The syndrome changed; inspect the selected same-type stabilizer row.");
++        }, "learn-check-button"));
++        return;
++      }
++
++      const prediction = document.createElement("select");
++      prediction.append(option("detectable", "detectable (nonzero syndrome)"));
++      prediction.append(option("stabilizer", "stabilizer-trivial zero-syndrome Pauli"));
++      prediction.append(option("logical", "logical zero-syndrome Pauli"));
++      controls.append(labelledControl("Predict classification", prediction));
++      controls.append(actionButton("Compute syndrome and class", () => {
++        const result = classifyError(errorType.value, support, formal());
++        const correct = prediction.value === result.kind;
++        const logical = result.logical.length
++          ? ` Logical signature: ${result.logical.join(", ")}.`
++          : result.kind === "logical"
++            ? " Logical basis is intentionally not exported for this instance."
++            : "";
++        const closedTerm = errorType.value === "X" ? "cocycle" : "cycle";
++        const stabilizerTerm = errorType.value === "X" ? "coboundary" : "boundary";
++        const reason = result.kind === "detectable"
++          ? `${result.fired.length} opposite-type checks fire, so the syndrome is nonzero.`
++          : result.kind === "stabilizer"
++            ? `The syndrome is zero and the support reduces into the same-type stabilizer row space: a ${stabilizerTerm}.`
++            : `The syndrome is zero, but the support is outside the same-type stabilizer row space: a ${closedTerm} that is not a ${stabilizerTerm}.`;
++        report(correct, (
++          `Fired opposite-type checks: {${result.fired.join(", ") || "∅"}}. `
++          + `${reason} Classification: ${result.kind}.${logical} `
++          + (correct ? "Your prediction matches." : "Revise the prediction and try a changed support.")
++        ));
++      }, "learn-check-button"));
++    }
++
++    function distanceOrigin() {
++      const claim = (source().claims || []).find(item => item.property === "d");
++      return claim?.origin?.kind || "unknown";
++    }
++
++    function renderRank(interaction) {
++      const controls = $("[data-learn-controls]");
++      const rows = interaction.check_type === "Z" ? formal().zChecks : formal().xChecks;
++      const row = rows[interaction.check_index || 0];
++      const weight = integerInput(0, 0, formal().n);
++      const encoded = integerInput(0, 0, formal().n);
++      const provenance = document.createElement("select");
++      ["verified", "bounded", "claimed"].forEach(value => provenance.append(option(value)));
++      controls.append(
++        labelledControl("Predicted check weight", weight),
++        labelledControl("Predicted k", encoded),
++        labelledControl("Distance evidence", provenance)
++      );
++      controls.append(actionButton("Ask the matrices and claims", () => {
++        const expectedK = formal().n - formal().ranks.X - formal().ranks.Z;
++        const expectedOrigin = distanceOrigin();
++        const correct = Number(weight.value) === row.length
++          && Number(encoded.value) === expectedK
++          && provenance.value === expectedOrigin;
++        report(correct, (
++          `Computed: n=${formal().n}, ranks (${formal().ranks.X}, ${formal().ranks.Z}), `
++          + `k=${formal().n}−${formal().ranks.X}−${formal().ranks.Z}=${expectedK}; `
++          + `selected weight=${row.length}; d origin=${expectedOrigin}. `
++          + (correct ? "All three obligations are separated correctly." : "At least one prediction confuses term count, rank, or provenance.")
++        ));
++      }, "learn-check-button"));
++    }
++
++    function renderRepresentation(interaction) {
++      const controls = $("[data-learn-controls]");
++      const type = document.createElement("select");
++      type.append(option("X"), option("Z"));
++      type.value = interaction.check_type || "X";
++      const index = integerInput(interaction.check_index || 0, 0, formal().xChecks.length - 1);
++      const view = make("div", "learn-representation-view");
++      const viewButtons = make("div", "learn-representation-tabs");
++      const views = ["polynomial", "matrix", "Tanner", "chain", "curated boundary"];
++      function syncScene() {
++        const rows = type.value === "X" ? formal().xChecks : formal().zChecks;
++        index.max = String(rows.length - 1);
++        index.value = String(Math.max(0, Math.min(rows.length - 1, Number(index.value))));
++        state.filter = type.value;
++        state.highlight = (type.value === "X" ? 0 : formal().xChecks.length) + Number(index.value);
++        state.hover = null;
++        state.selected = null;
++        renderScene();
++      }
++      function showView(name) {
++        const rows = type.value === "X" ? formal().xChecks : formal().zChecks;
++        const selected = rows[Math.max(0, Math.min(rows.length - 1, Number(index.value)))] || [];
++        const params = source().params;
++        const terms = type.value === "X"
++          ? `A=${JSON.stringify(params.a_terms)}, B=${JSON.stringify(params.b_terms)}`
++          : `Bᵀ and Aᵀ reverse the same term translations`;
++        const messages = {
++          polynomial: `${type.value} family: ${terms}. Row index fixes the torus anchor.`,
++          matrix: `Binary row support {${selected.join(", ")}}; weight ${selected.length}.`,
++          Tanner: `One ${type.value}-check node is adjacent exactly to data nodes {${selected.join(", ")}}.`,
++          chain: type.value === "X"
++            ? `For X errors, ker(∂₂ᵀ) contains cocycles and im(∂₁ᵀ) contains coboundaries. This X-check row of ∂₁=[A|B], viewed as a column of ∂₁ᵀ, is a coboundary generator in the dual complex.`
++            : `For Z errors, ker(∂₁) contains cycles and im(∂₂) contains boundaries. This Z-check row ∂₂ᵀ=[Bᵀ|Aᵀ], transposed back to a column of ∂₂, is a boundary generator in the primal complex.`,
++          "curated boundary": "Quotient, anyon, cylinder, coupling-layer, and hardware readings require additional scoped evidence; this exact row does not identify them by itself.",
++        };
++        view.textContent = messages[name];
++        [...viewButtons.children].forEach(button => {
++          button.setAttribute("aria-pressed", button.dataset.view === name);
++        });
++        syncScene();
++      }
++      views.forEach(name => {
++        const button = actionButton(name, () => showView(name));
++        button.dataset.view = name;
++        viewButtons.append(button);
++      });
++      controls.append(
++        labelledControl("Check family", type),
++        labelledControl("Row index", index),
++        viewButtons,
++        view
++      );
++      type.addEventListener("change", () => showView("matrix"));
++      index.addEventListener("input", () => showView("matrix"));
++      showView("polynomial");
++      renderAudit({questions: [interaction.question]});
++    }
++
++    function renderLab() {
++      const current = step();
++      const controls = $("[data-learn-controls]");
++      const feedback = $("[data-learn-feedback]");
++      controls.replaceChildren();
++      feedback.className = "learn-feedback";
++      feedback.textContent = completed.has(current.id)
++        ? "Completed earlier. Re-run the computation or continue when ready."
++        : "Make a prediction, then ask the governed data.";
++      $("[data-learn-lab-title]").textContent = `${current.title} · ${source().label}`;
++      const interaction = current.interaction;
++      if (interaction.kind === "audit") renderAudit(interaction);
++      else if (interaction.kind === "translation") renderTranslation(interaction);
++      else if (interaction.kind === "commutation") renderCommutation(interaction);
++      else if (interaction.kind === "syndrome") renderSyndrome(interaction);
++      else if (interaction.kind === "rank") renderRank(interaction);
++      else if (interaction.kind === "representation") renderRepresentation(interaction);
++      restoreLabState(current.id);
++    }
++
++    function stepIndexFromHash() {
++      const params = new URLSearchParams(window.location.hash.replace(/^#/, ""));
++      const id = params.get("step");
++      return tour.steps.findIndex(candidate => candidate.id === id);
++    }
++
++    function applyStep(index, historyMode = "push") {
++      const previousControls = $("[data-learn-controls]");
++      if (previousControls?.children.length) {
++        captureLabState();
++        persist({capture: false});
++      }
++      state.step = Math.max(0, Math.min(tour.steps.length - 1, index));
++      const next = step().state || {};
++      state.lattice = next.lattice || sourceKeys[0];
++      state.mode = next.mode || defaultMode(state.lattice);
++      state.filter = next.filter || "all";
++      const saved = labStates[step().id];
++      if (saved?.lattice && sourceKeys.includes(saved.lattice)) {
++        state.lattice = saved.lattice;
++        state.mode = defaultMode(state.lattice);
++      }
++      if (["all", "X", "Y", "Z"].includes(saved?.filter)) {
++        state.filter = saved.filter;
++      }
++      state.highlight = Number.isInteger(next.highlight) ? next.highlight : null;
++      state.hover = null;
++      state.selected = null;
++      const hash = `#step=${encodeURIComponent(step().id)}`;
++      if (historyMode === "push" && window.location.hash !== hash) {
++        window.history.pushState({learnStep: step().id}, "", hash);
++      } else if (historyMode === "replace" && window.location.hash !== hash) {
++        window.history.replaceState({learnStep: step().id}, "", hash);
++      }
++      renderScene();
++      renderChrome();
++      renderLab();
++      persist({capture: false});
++      window.scrollTo?.({top: 0, behavior: historyMode === "push" ? "smooth" : "auto"});
++    }
++
++    $("[data-tour-prev]").addEventListener("click", () => applyStep(state.step - 1));
++    $("[data-tour-next]").addEventListener("click", () => {
++      if (completed.has(step().id) && state.step < tour.steps.length - 1) {
++        applyStep(state.step + 1);
++      }
++    });
++    document.querySelectorAll("[data-learn-step]").forEach(button => {
++      button.addEventListener("click", () => {
++        const index = tour.steps.findIndex(candidate => candidate.id === button.dataset.learnStep);
++        if (index >= 0) applyStep(index);
++      });
++    });
++    document.querySelectorAll("[data-tour-filter]").forEach(button => {
++      button.addEventListener("click", () => {
++        state.filter = button.dataset.tourFilter;
++        state.highlight = null;
++        state.hover = null;
++        state.selected = null;
++        renderScene();
++      });
++    });
++    document.querySelectorAll("[data-tour-lattice]").forEach(button => {
++      button.addEventListener("click", () => {
++        state.lattice = button.dataset.tourLattice;
++        state.mode = defaultMode(state.lattice);
++        state.highlight = null;
++        state.hover = null;
++        state.selected = null;
++        completed.delete(step().id);
++        delete labStates[step().id];
++        renderScene();
++        renderChrome();
++        renderLab();
++        persist({replace: true, capture: false});
++      });
++    });
++    $("[data-learn-reset-lab]").addEventListener("click", () => {
++      completed.delete(step().id);
++      delete labStates[step().id];
++      renderChrome();
++      renderLab();
++      persist({replace: true, capture: false});
++    });
++    $("[data-learn-start-over]").addEventListener("click", () => {
++      completed.clear();
++      Object.keys(labStates).forEach(id => { delete labStates[id]; });
++      $("[data-learn-controls]").replaceChildren();
++      continuity?.clear();
++      applyStep(0, "replace");
++    });
++    const controlsRoot = $("[data-learn-controls]");
++    ["input", "change", "click"].forEach(eventType => {
++      controlsRoot.addEventListener(eventType, () => {
++        window.setTimeout(() => persist(), 0);
++      });
++    });
++
++    function changeZoom(factor, point = null) {
++      SceneExplorer.zoomAt(
++        source().scene,
++        canvas,
++        point || [canvas.width / 2, canvas.height / 2],
++        factor
++      );
++      state.hover = null;
++      renderScene();
++    }
++    $("[data-tour-zoom-in]").addEventListener("click", () => changeZoom(1.25));
++    $("[data-tour-zoom-out]").addEventListener("click", () => changeZoom(0.8));
++    $("[data-tour-camera-reset]").addEventListener("click", () => {
++      SceneExplorer.resetView(source().scene);
++      state.hover = null;
++      renderScene();
++    });
++
++    function pointItem(event) {
++      const point = SceneExplorer.eventPoint(canvas, event);
++      if (point === null) return null;
++      return SceneExplorer.nearestItem(
++        canvas,
++        source().scene,
++        {mode: state.mode, round: 0, filter: state.filter},
++        point[0],
++        point[1]
++      );
++    }
++
++    let drag = null;
++    canvas.addEventListener("pointerdown", event => {
++      if (event.button !== undefined && event.button !== 0) return;
++      const point = SceneExplorer.eventPoint(canvas, event);
++      if (point === null) return;
++      canvas.focus();
++      drag = {
++        pointerId: event.pointerId,
++        startX: event.clientX,
++        startY: event.clientY,
++        lastPoint: point,
++        moved: false,
++      };
++      canvas.setPointerCapture?.(event.pointerId);
++    });
++    canvas.addEventListener("pointermove", event => {
++      if (drag) {
++        const point = SceneExplorer.eventPoint(canvas, event);
++        if (point === null) return;
++        if (Math.hypot(event.clientX - drag.startX, event.clientY - drag.startY) >= 4) {
++          drag.moved = true;
++        }
++        if (drag.moved) {
++          SceneExplorer.panBy(
++            source().scene,
++            point[0] - drag.lastPoint[0],
++            point[1] - drag.lastPoint[1]
++          );
++          drag.lastPoint = point;
++          state.hover = null;
++          renderScene();
++        }
++        return;
++      }
++      if (event.pointerType === "touch") return;
++      const next = pointItem(event);
++      if (next !== state.hover) {
++        state.hover = next;
++        renderScene();
++      }
++    });
++    canvas.addEventListener("pointerup", event => {
++      if (!drag) return;
++      if (!drag.moved) {
++        const item = pointItem(event);
++        state.selected = state.selected === item ? null : item;
++        state.hover = null;
++        renderScene();
++      }
++      if (canvas.hasPointerCapture?.(event.pointerId)) {
++        canvas.releasePointerCapture(event.pointerId);
++      }
++      drag = null;
++    });
++    canvas.addEventListener("pointercancel", () => { drag = null; });
++    canvas.addEventListener("pointerleave", () => {
++      if (!drag && state.hover !== null) {
++        state.hover = null;
++        renderScene();
++      }
++    });
++    canvas.addEventListener("wheel", event => {
++      const point = SceneExplorer.eventPoint(canvas, event);
++      if (point === null) return;
++      event.preventDefault();
++      changeZoom(Math.exp(-event.deltaY * 0.0015), point);
++    }, {passive: false});
++    canvas.addEventListener("keydown", event => {
++      if (["+", "="].includes(event.key)) {
++        event.preventDefault();
++        changeZoom(1.25);
++        return;
++      }
++      if (event.key === "-") {
++        event.preventDefault();
++        changeZoom(0.8);
++        return;
++      }
++      if (event.key === "0") {
++        event.preventDefault();
++        SceneExplorer.resetView(source().scene);
++        renderScene();
++        return;
++      }
++      const direction = {ArrowLeft: -1, ArrowUp: -1, ArrowRight: 1, ArrowDown: 1}[event.key];
++      if (!direction) return;
++      event.preventDefault();
++      const visible = (source().lattice?.checks || []).flatMap((check, index) => (
++        state.filter === "all" || check.type === state.filter ? [index] : []
++      ));
++      if (!visible.length) return;
++      const current = visible.indexOf(state.selected ?? state.highlight);
++      state.selected = visible[mod(current + direction, visible.length)];
++      state.hover = null;
++      renderScene();
++    });
++    SceneExplorer.observeResize(canvas, () => {
++      state.hover = null;
++      renderScene();
++    });
++
++    const handleHistory = () => {
++      const index = stepIndexFromHash();
++      if (index >= 0 && index !== state.step) applyStep(index, "none");
++    };
++    window.addEventListener("popstate", handleHistory);
++
++    let initial = stepIndexFromHash();
++    if (initial < 0 && stored.stepId) {
++      initial = tour.steps.findIndex(candidate => candidate.id === stored.stepId);
++    }
++    applyStep(initial >= 0 ? initial : 0, "replace");
++  }
++
++  document.addEventListener("DOMContentLoaded", init);
++  return {
++    init,
++    classifyError,
++    commutationViolations,
++    inRowSpace,
++    parityIntersection,
++    syndromeFor,
++    translationDestination,
++    xorSupport,
++  };
++})();
+diff --git a/tools/site/widgets/scene-explorer.js b/tools/site/widgets/scene-explorer.js
+index 14b23b123af1b6d4273791335df03e4c466d89ae..4c5e5b9a953349a1322515cb9c868b2fc7db82a5 100644
+--- a/tools/site/widgets/scene-explorer.js
++++ b/tools/site/widgets/scene-explorer.js
+@@ -4,9 +4,9 @@ const SceneExplorer = (() => {
+   "use strict";
+ 
+   const STYLES = {
+-    X: {stroke: "#c73737", fill: "rgba(199, 55, 55, 0.20)"},
+-    Y: {stroke: "#9a6700", fill: "rgba(154, 103, 0, 0.18)"},
+-    Z: {stroke: "#2563a8", fill: "rgba(37, 99, 168, 0.20)"},
++    X: {stroke: "#c73737", fill: "rgba(199, 55, 55, 0.20)", dash: []},
++    Y: {stroke: "#9a6700", fill: "rgba(154, 103, 0, 0.18)", dash: [2, 4]},
++    Z: {stroke: "#2563a8", fill: "rgba(37, 99, 168, 0.20)", dash: [7, 5]},
+     mixed: {stroke: "#6b7280", fill: "rgba(107, 114, 128, 0.16)"},
+     neutral: {stroke: "#6b7280", fill: "rgba(107, 114, 128, 0.12)"},
+   };
+@@ -288,6 +288,7 @@ const SceneExplorer = (() => {
+     context.lineCap = "round";
+     context.lineJoin = "round";
+     context.lineWidth = (highlighted ? 4.5 : 2.25) * ratio;
++    context.setLineDash((style.dash || []).map(length => length * ratio));
+     if (item.kind === "spokes") {
+       const center = points[0];
+       points.slice(1).forEach(endpoint => {
+@@ -303,6 +304,7 @@ const SceneExplorer = (() => {
+       const hit = transform(scene, canvas, shifted(item.hitPoint, offset));
+       context.beginPath();
+       context.arc(hit[0], hit[1], 8 * ratio, 0, 2 * Math.PI);
++      context.setLineDash([]);
+       context.strokeStyle = "#111827";
+       context.lineWidth = 1.5 * ratio;
+       context.globalAlpha = 0.8;
+@@ -447,14 +449,17 @@ const SceneExplorer = (() => {
+     const lattice = ENTRY_DATA.lattice || {};
+     const schedule = ENTRY_DATA.schedule || {};
+     const modes = scene.frames.map(itemFrame => itemFrame.mode);
++    const declared = ENTRY_DATA.initialState || {};
+     const initialMode = ["lattice", "construction", "incidence", "schedule", "data"]
+       .find(mode => modes.includes(mode)) || modes[0];
+     const state = {
+-      mode: initialMode,
+-      round: 0,
+-      filter: "all",
++      mode: modes.includes(declared.mode) ? declared.mode : initialMode,
++      round: Number.isInteger(declared.round) ? declared.round : 0,
++      filter: ["all", "X", "Y", "Z"].includes(declared.filter)
++        ? declared.filter
++        : "all",
+       hover: null,
+-      selected: null,
++      selected: Number.isInteger(declared.highlight) ? declared.highlight : null,
+     };
+     const $ = selector => document.querySelector(selector);
+     const activeHighlight = () => state.selected ?? state.hover;
