@@ -1,0 +1,1079 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="从零开始理解七量子比特三角形 color code：面检查、综合征、等价误差、解码、逻辑失败、噪声模型与证据边界。">
+  <title>COLOR / CODE — 七个点如何守住一个量子比特</title>
+  <style>
+    :root {
+      --ink: #15241c;
+      --muted: #5f6b63;
+      --paper: #f1ede3;
+      --panel: #fffdf7;
+      --panel-2: #e8e2d5;
+      --line: #c9c2b4;
+      --deep: #173c2e;
+      --acid: #dfff66;
+      --red: #d84f49;
+      --green: #2a8765;
+      --blue: #3f67bf;
+      --gold: #b47b18;
+      --shadow: 0 18px 55px rgba(30, 47, 37, .11);
+      --radius: 20px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 8% 4%, rgba(223,255,102,.32), transparent 24rem),
+        linear-gradient(90deg, rgba(21,36,28,.025) 1px, transparent 1px),
+        linear-gradient(rgba(21,36,28,.025) 1px, transparent 1px),
+        var(--paper);
+      background-size: auto, 24px 24px, 24px 24px, auto;
+      font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Noto Sans CJK SC", sans-serif;
+      line-height: 1.65;
+    }
+
+    button, input { font: inherit; }
+    button { color: inherit; }
+    a { color: inherit; text-underline-offset: 4px; }
+    a:hover { text-decoration-thickness: 2px; }
+    :focus-visible { outline: 3px solid var(--blue); outline-offset: 3px; }
+
+    .skip-link {
+      position: fixed;
+      z-index: 1000;
+      left: 1rem;
+      top: -5rem;
+      padding: .7rem 1rem;
+      background: var(--acid);
+      border: 2px solid var(--ink);
+      border-radius: 999px;
+      font-weight: 800;
+    }
+    .skip-link:focus { top: 1rem; }
+
+    .topbar {
+      position: sticky;
+      z-index: 100;
+      top: 0;
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      min-height: 58px;
+      padding: .65rem clamp(1rem, 4vw, 4rem);
+      color: #f8f6ef;
+      background: rgba(21,36,28,.95);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(255,255,255,.13);
+    }
+    .brand { font-weight: 900; letter-spacing: .1em; white-space: nowrap; }
+    .topbar nav { display: flex; gap: 1.1rem; margin-left: auto; }
+    .topbar nav a { color: #f8f6ef; font-size: .88rem; text-decoration: none; opacity: .76; }
+    .topbar nav a:hover { opacity: 1; }
+    .progress-track { position: absolute; left: 0; right: 0; bottom: 0; height: 3px; background: rgba(255,255,255,.12); }
+    .progress-bar { width: 0; height: 100%; background: var(--acid); }
+
+    main { overflow: clip; }
+    .wrap { width: min(1180px, calc(100% - 2rem)); margin-inline: auto; }
+    .hero {
+      display: grid;
+      grid-template-columns: 1.2fr .8fr;
+      align-items: end;
+      min-height: 78vh;
+      padding: clamp(4rem, 9vw, 8rem) 0 4rem;
+      border-bottom: 1px solid var(--line);
+    }
+    .kicker, .eyebrow {
+      margin: 0 0 .8rem;
+      color: var(--green);
+      font-size: .75rem;
+      font-weight: 900;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+    h1, h2, h3, p { margin-top: 0; }
+    h1 {
+      max-width: 820px;
+      margin-bottom: 1.5rem;
+      font-size: clamp(3.2rem, 8.8vw, 8.2rem);
+      font-weight: 900;
+      letter-spacing: -.075em;
+      line-height: .82;
+    }
+    h1 .slash { color: var(--red); }
+    .lede { max-width: 700px; margin-bottom: 1.8rem; color: #35443b; font-size: clamp(1.05rem, 2vw, 1.3rem); }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: .75rem; }
+    .button, button.button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: .5rem;
+      min-height: 44px;
+      padding: .68rem 1rem;
+      border: 2px solid var(--ink);
+      border-radius: 999px;
+      color: var(--ink);
+      background: var(--panel);
+      font-weight: 800;
+      text-decoration: none;
+      cursor: pointer;
+      box-shadow: 3px 3px 0 var(--ink);
+      transition: transform .16s ease, box-shadow .16s ease, background .16s ease;
+    }
+    .button:hover { transform: translate(-1px,-1px); box-shadow: 5px 5px 0 var(--ink); }
+    .button:active { transform: translate(2px,2px); box-shadow: 1px 1px 0 var(--ink); }
+    .button.primary { background: var(--acid); }
+    .button.ghost { background: transparent; box-shadow: none; }
+    .button.small { min-height: 36px; padding: .45rem .75rem; border-width: 1.5px; box-shadow: 2px 2px 0 var(--ink); font-size: .84rem; }
+    .hero-index { align-self: stretch; display: flex; align-items: flex-end; justify-content: flex-end; }
+    .index-card {
+      width: min(350px, 100%);
+      padding: 1.4rem;
+      color: #f8f6ef;
+      background: var(--deep);
+      border-radius: 30px 30px 4px 30px;
+      box-shadow: var(--shadow);
+      transform: rotate(1.5deg);
+    }
+    .index-card strong { display: block; color: var(--acid); font-size: 4.4rem; letter-spacing: -.07em; line-height: 1; }
+    .index-card p { margin: .35rem 0 0; color: #dce6df; }
+    .index-card .formula { margin-top: 1.2rem; padding-top: 1rem; border-top: 1px solid rgba(255,255,255,.2); font: 700 .9rem ui-monospace, SFMono-Regular, Menlo, monospace; }
+
+    .section { padding: clamp(4.5rem, 8vw, 8rem) 0; border-bottom: 1px solid var(--line); }
+    .section-head { display: grid; grid-template-columns: .65fr 1.35fr; gap: 2rem; margin-bottom: 2.5rem; }
+    .section-no { color: var(--muted); font: 800 1rem ui-monospace, SFMono-Regular, Menlo, monospace; }
+    h2 { max-width: 900px; margin-bottom: .8rem; font-size: clamp(2.2rem, 5vw, 4.6rem); letter-spacing: -.055em; line-height: 1; }
+    .section-intro { max-width: 800px; color: var(--muted); font-size: 1.05rem; }
+    h3 { margin-bottom: .65rem; font-size: 1.25rem; letter-spacing: -.02em; line-height: 1.25; }
+    .card {
+      padding: 1.25rem;
+      background: rgba(255,253,247,.86);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: 0 7px 26px rgba(30,47,37,.055);
+    }
+    .three-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+    .primer-card { position: relative; min-height: 230px; overflow: hidden; }
+    .primer-card .big { display: block; margin-bottom: .8rem; color: var(--deep); font-size: 3.4rem; font-weight: 900; letter-spacing: -.06em; line-height: 1; }
+    .primer-card:nth-child(2) { background: var(--deep); color: #f8f6ef; }
+    .primer-card:nth-child(2) .big { color: var(--acid); }
+    .primer-card:nth-child(2) p { color: #d7e0da; }
+    .primer-card:nth-child(3)::after {
+      content: "?";
+      position: absolute;
+      right: -1rem;
+      bottom: -3rem;
+      color: rgba(63,103,191,.13);
+      font-size: 12rem;
+      font-weight: 900;
+      line-height: 1;
+    }
+    .plain-note { margin-top: 1rem; padding: 1rem 1.2rem; background: #f9f3d8; border-left: 5px solid var(--gold); border-radius: 0 12px 12px 0; }
+
+    .map-legend { display: flex; flex-wrap: wrap; gap: .6rem; margin-bottom: 1.25rem; }
+    .legend-chip { display: inline-flex; align-items: center; gap: .45rem; padding: .35rem .65rem; background: var(--panel); border: 1px solid var(--line); border-radius: 999px; font-size: .86rem; font-weight: 750; }
+    .swatch { width: 16px; height: 16px; border: 2px solid var(--ink); border-radius: 4px; }
+    .swatch.red { background: repeating-linear-gradient(45deg, #f5b6b2 0 4px, #d84f49 4px 6px); }
+    .swatch.green { background: radial-gradient(#1a664b 1.5px, #b9ddcf 1.5px); background-size: 5px 5px; }
+    .swatch.blue { background: repeating-linear-gradient(0deg, #afc5f3 0 4px, #3f67bf 4px 6px); }
+
+    .studio-grid { display: grid; grid-template-columns: minmax(0, .92fr) minmax(420px, 1.08fr); gap: 1.2rem; align-items: start; }
+    .lesson-rail { display: grid; gap: .8rem; }
+    .lesson-card { padding: 1.2rem; border: 1px solid var(--line); border-radius: 18px; background: rgba(255,255,255,.43); }
+    .lesson-card .step { display: inline-block; margin-bottom: .5rem; padding: .15rem .45rem; color: #f8f6ef; background: var(--deep); border-radius: 999px; font-size: .72rem; font-weight: 900; letter-spacing: .08em; }
+    .lesson-card p:last-child { margin-bottom: 0; }
+    .lesson-card details { margin-top: .8rem; }
+    summary { cursor: pointer; font-weight: 800; }
+    .workbench {
+      position: sticky;
+      top: 76px;
+      overflow: hidden;
+      background: var(--panel);
+      border: 2px solid var(--ink);
+      border-radius: 24px;
+      box-shadow: 8px 8px 0 var(--ink);
+    }
+    .bench-head { display: flex; align-items: center; gap: 1rem; padding: .8rem 1rem; color: #fff; background: var(--deep); }
+    .bench-head strong { letter-spacing: .04em; }
+    .model-tag { margin-left: auto; padding: .23rem .55rem; color: var(--ink); background: var(--acid); border-radius: 999px; font-size: .72rem; font-weight: 900; }
+    .bench-body { display: grid; grid-template-columns: 1.08fr .92fr; }
+    .lattice-wrap { padding: .8rem; border-right: 1px solid var(--line); }
+    .lattice {
+      position: relative;
+      width: 100%;
+      max-width: 500px;
+      aspect-ratio: 1 / .93;
+      margin-inline: auto;
+      border-radius: 16px;
+      background: #f7f3e9;
+    }
+    .lattice svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+    .face { stroke-width: 2.2; transition: opacity .2s ease, filter .2s ease, stroke-width .2s ease; }
+    .face-red { fill: url(#redPattern); stroke: var(--red); }
+    .face-green { fill: url(#greenPattern); stroke: var(--green); }
+    .face-blue { fill: url(#bluePattern); stroke: var(--blue); }
+    .face.violated { stroke: #111; stroke-width: 5; filter: drop-shadow(0 0 7px rgba(216,79,73,.55)); }
+    .face-label { font-size: 5px; font-weight: 900; text-anchor: middle; fill: var(--ink); pointer-events: none; }
+    .qubit {
+      position: absolute;
+      left: var(--x);
+      top: var(--y);
+      display: grid;
+      place-items: center;
+      width: 48px;
+      height: 48px;
+      padding: 0;
+      border: 3px solid var(--ink);
+      border-radius: 50%;
+      background: var(--panel);
+      font-weight: 900;
+      cursor: pointer;
+      box-shadow: 3px 3px 0 var(--ink);
+      transform: translate(-50%,-50%);
+      transition: transform .15s ease, background .15s ease, color .15s ease;
+    }
+    .qubit:hover { transform: translate(-50%,-50%) scale(1.08); }
+    .qubit .qnum { font-size: .8rem; }
+    .qubit .qerror { position: absolute; right: -10px; top: -10px; display: none; place-items: center; width: 25px; height: 25px; color: #fff; background: var(--red); border: 2px solid var(--ink); border-radius: 50%; font: 900 .78rem ui-monospace, monospace; }
+    .qubit.has-error { color: #fff; background: var(--deep); }
+    .qubit.has-error .qerror { display: grid; }
+    .face-caption { position: absolute; padding: .12rem .36rem; border: 1.5px solid var(--ink); border-radius: 5px; background: rgba(255,253,247,.86); font-size: .68rem; font-weight: 900; pointer-events: none; transform: translate(-50%,-50%); }
+
+    .controls { padding: 1rem; }
+    .control-group + .control-group { margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--line); }
+    .control-label { display: block; margin-bottom: .48rem; color: var(--muted); font-size: .72rem; font-weight: 900; letter-spacing: .09em; text-transform: uppercase; }
+    .tool-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: .4rem; }
+    .tool-button { min-height: 40px; border: 1.5px solid var(--ink); border-radius: 10px; background: #fff; font: 900 1rem ui-monospace, monospace; cursor: pointer; }
+    .tool-button[aria-pressed="true"] { color: #fff; background: var(--deep); box-shadow: inset 0 0 0 2px var(--acid); }
+    .quick-row { display: flex; flex-wrap: wrap; gap: .42rem; }
+    .stab-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: .42rem; }
+    .stab-grid .button { border-radius: 10px; }
+    .syndrome { padding: 1rem; border-top: 1px solid var(--line); background: #eee8dc; }
+    .syndrome-row { display: grid; grid-template-columns: 1.45fr repeat(3, .55fr); gap: .4rem; align-items: stretch; }
+    .syndrome-row + .syndrome-row { margin-top: .45rem; }
+    .syndrome-title { display: flex; flex-direction: column; justify-content: center; padding: .5rem .6rem; font-size: .76rem; line-height: 1.25; }
+    .syndrome-title strong { font-size: .84rem; }
+    .check-light { display: grid; place-items: center; min-height: 48px; padding: .25rem; border: 1.5px solid var(--line); border-radius: 10px; background: var(--panel); font-size: .7rem; text-align: center; }
+    .check-light .sign { display: block; font: 900 1.12rem ui-monospace, monospace; }
+    .check-light.bad { color: #fff; background: var(--red); border-color: var(--ink); }
+    .diagnosis { display: flex; align-items: flex-start; gap: .65rem; margin-top: .7rem; padding: .7rem; border-radius: 12px; background: var(--panel); border: 1px solid var(--line); }
+    .diag-dot { flex: 0 0 auto; width: 12px; height: 12px; margin-top: .38rem; border: 2px solid var(--ink); border-radius: 50%; background: var(--green); }
+    .diagnosis.warning .diag-dot { background: var(--gold); }
+    .diagnosis.failure .diag-dot { background: var(--red); }
+    .diagnosis strong { display: block; font-size: .9rem; }
+    .diagnosis span { display: block; color: var(--muted); font-size: .78rem; line-height: 1.4; }
+    .decoder-trace { min-height: 2.8em; margin: .7rem 0 0; color: var(--muted); font: 700 .76rem/1.45 ui-monospace, SFMono-Regular, Menlo, monospace; }
+    .event-log { min-height: 2.6em; margin: 0; padding: .65rem 1rem; color: #dce6df; background: #10291f; font: 650 .74rem/1.45 ui-monospace, SFMono-Regular, Menlo, monospace; }
+
+    .quiz-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 2rem; }
+    .quiz-card { display: flex; flex-direction: column; }
+    .quiz-card .scenario { color: var(--deep); font: 900 1.5rem ui-monospace, monospace; }
+    .answers { display: grid; gap: .45rem; margin-top: auto; }
+    .answer { width: 100%; padding: .6rem .7rem; border: 1.5px solid var(--ink); border-radius: 10px; background: transparent; text-align: left; cursor: pointer; }
+    .answer:hover { background: #edf3e8; }
+    .answer.correct { background: #cce8d7; }
+    .answer.wrong { background: #f4c7c2; }
+    .quiz-feedback { min-height: 3em; margin: .65rem 0 0; color: var(--muted); font-size: .82rem; }
+
+    .history-grid, .noise-grid { display: grid; grid-template-columns: .85fr 1.15fr; gap: 1.2rem; }
+    .scenario-buttons { display: grid; gap: .55rem; }
+    .scenario-button { width: 100%; justify-content: flex-start; border-radius: 12px; box-shadow: none; }
+    .scenario-button[aria-pressed="true"] { background: var(--acid); }
+    .timeline-card { padding: 1.4rem; color: #f6f4ed; background: var(--deep); border-radius: var(--radius); }
+    .round-strip, .detector-strip { display: grid; grid-template-columns: repeat(5, 1fr); gap: .55rem; }
+    .round { padding: .7rem .25rem; border: 1px solid rgba(255,255,255,.25); border-radius: 12px; text-align: center; }
+    .round .time { display: block; color: #a8b7ae; font-size: .7rem; }
+    .round .value { display: block; font: 900 1.35rem ui-monospace, monospace; }
+    .round.minus { color: var(--acid); border-color: var(--acid); }
+    .detector-strip { margin-top: .8rem; }
+    .detector { padding: .35rem; border-radius: 999px; background: rgba(255,255,255,.08); font-size: .72rem; text-align: center; }
+    .detector.on { color: var(--ink); background: var(--acid); font-weight: 900; }
+    .timeline-explain { margin: 1rem 0 0; color: #cbd6cf; font-size: .85rem; }
+
+    .chart-card { padding: 1.3rem; background: var(--panel); border: 2px solid var(--ink); border-radius: var(--radius); }
+    .metric-row { display: grid; grid-template-columns: repeat(2, 1fr); gap: .8rem; margin-bottom: 1rem; }
+    .metric { padding: .8rem; background: #ebe6da; border-radius: 12px; }
+    .metric span { display: block; color: var(--muted); font-size: .72rem; }
+    .metric strong { display: block; margin-top: .1rem; font-size: 1.55rem; letter-spacing: -.04em; }
+    .slider-wrap label { display: flex; justify-content: space-between; gap: 1rem; font-weight: 800; }
+    input[type="range"] { width: 100%; accent-color: var(--deep); }
+    .chart { width: 100%; height: auto; margin-top: 1rem; overflow: visible; }
+    .chart text { fill: var(--muted); font-size: 10px; }
+    .model-box { margin-top: 1rem; padding: 1rem; background: #f9f3d8; border: 1px solid #d8c47f; border-radius: 14px; }
+    .model-box ul { margin: .5rem 0 0; padding-left: 1.2rem; }
+
+    .formal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .math-card { background: #122a20; color: #f7f4eb; }
+    .math-card p { color: #cad5ce; }
+    .matrix {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: .25rem;
+      max-width: 500px;
+      margin: 1rem 0;
+      padding: .7rem;
+      border-left: 3px solid var(--acid);
+      border-right: 3px solid var(--acid);
+      font: 800 .92rem ui-monospace, SFMono-Regular, Menlo, monospace;
+      text-align: center;
+    }
+    .equation { overflow-x: auto; padding: .8rem; color: var(--acid); background: rgba(0,0,0,.18); border-radius: 10px; font: 750 .9rem/1.6 ui-monospace, SFMono-Regular, Menlo, monospace; white-space: nowrap; }
+    .term-list { display: grid; gap: .6rem; }
+    .term { display: grid; grid-template-columns: 130px 1fr; gap: .8rem; padding-bottom: .6rem; border-bottom: 1px solid var(--line); }
+    .term:last-child { border-bottom: 0; }
+    .term dt { font-weight: 900; }
+    .term dd { margin: 0; color: var(--muted); }
+
+    .audit-table { width: 100%; border-collapse: collapse; background: var(--panel); border: 1px solid var(--line); }
+    .audit-table th, .audit-table td { padding: .9rem; border-bottom: 1px solid var(--line); vertical-align: top; text-align: left; }
+    .audit-table th { color: #f7f4eb; background: var(--deep); font-size: .78rem; letter-spacing: .04em; }
+    .audit-table td:first-child { width: 17%; font-weight: 900; }
+    .audit-table td:nth-child(2) { width: 28%; }
+    .audit-table tr:last-child td { border-bottom: 0; }
+    .scope-tag { display: inline-block; margin-top: .35rem; padding: .15rem .42rem; color: var(--ink); background: var(--acid); border: 1px solid var(--ink); border-radius: 999px; font-size: .68rem; font-weight: 900; }
+    .source-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: .8rem; margin-top: 1.3rem; }
+    .source { padding: 1rem; background: rgba(255,255,255,.5); border: 1px solid var(--line); border-radius: 14px; }
+    .source a { font-weight: 900; }
+    .source p { margin: .35rem 0 0; color: var(--muted); font-size: .84rem; }
+
+    .finish { padding: 5rem 0; color: #f6f4ed; background: var(--deep); }
+    .finish-grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: 2rem; align-items: center; }
+    .finish h2 { color: var(--acid); }
+    .finish p { color: #d5dfd8; }
+    .checklist { padding: 1.2rem; color: var(--ink); background: var(--panel); border-radius: var(--radius); }
+    .checklist li { margin-bottom: .55rem; }
+    .tiny { color: var(--muted); font-size: .78rem; }
+    footer { padding: 2rem 0; color: var(--muted); background: #0f221a; font-size: .8rem; }
+    footer .wrap { display: flex; justify-content: space-between; gap: 1rem; }
+
+    @media (max-width: 980px) {
+      .hero, .section-head, .studio-grid, .history-grid, .noise-grid, .finish-grid { grid-template-columns: 1fr; }
+      .hero { min-height: auto; }
+      .hero-index { justify-content: flex-start; }
+      .index-card { transform: none; }
+      .workbench { position: relative; top: 0; order: -1; }
+      .formal-grid { grid-template-columns: 1fr; }
+      .quiz-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 720px) {
+      .topbar nav { display: none; }
+      .three-grid, .source-list { grid-template-columns: 1fr; }
+      .bench-body { grid-template-columns: 1fr; }
+      .lattice-wrap { border-right: 0; border-bottom: 1px solid var(--line); }
+      .qubit { width: 42px; height: 42px; }
+      .audit-table, .audit-table tbody, .audit-table tr, .audit-table td { display: block; }
+      .audit-table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+      .audit-table tr { padding: .8rem; border-bottom: 1px solid var(--line); }
+      .audit-table td { width: 100% !important; padding: .35rem; border: 0; }
+      footer .wrap { flex-direction: column; }
+    }
+    @media (max-width: 460px) {
+      .wrap { width: min(100% - 1rem, 1180px); }
+      h1 { font-size: 3.4rem; }
+      .workbench { border-radius: 16px; box-shadow: 4px 4px 0 var(--ink); }
+      .syndrome-row { grid-template-columns: 1.25fr repeat(3, .6fr); }
+      .check-light { font-size: .62rem; }
+      .face-caption { font-size: .58rem; }
+      .term { grid-template-columns: 1fr; gap: .15rem; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition-duration: .001ms !important; animation-duration: .001ms !important; animation-iteration-count: 1 !important; }
+    }
+    @media print {
+      .topbar, .hero-actions, .controls, .quick-row, .quiz-grid, .scenario-buttons, input[type="range"] { display: none !important; }
+      body { background: white; }
+      .workbench { position: static; box-shadow: none; }
+      .section { break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">跳到正文</a>
+  <header class="topbar">
+    <div class="brand">COLOR / CODE</div>
+    <nav aria-label="章节导航">
+      <a href="#map">地图</a>
+      <a href="#lab">工作台</a>
+      <a href="#history">时间</a>
+      <a href="#formal">形式化</a>
+      <a href="#audit">证据</a>
+    </nav>
+    <div class="progress-track" aria-hidden="true"><div class="progress-bar" id="progressBar"></div></div>
+  </header>
+
+  <main id="main">
+    <div class="wrap">
+      <section class="hero" aria-labelledby="hero-title">
+        <div>
+          <p class="kicker">零量子基础 · 可操纵 · 可审计</p>
+          <h1 id="hero-title">七个点<br>守住一个<br><span class="slash">量子比特</span></h1>
+          <p class="lede">Color code 的核心不是“颜色”，而是一组局部问题：每张面只问奇偶，不偷看被保护的信息。你将亲手制造误差、读综合征、欺骗解码器，并看见一次逻辑失败如何悄无声息地穿过检查。</p>
+          <div class="hero-actions">
+            <a class="button primary" href="#lab">进入七比特工作台 ↓</a>
+            <a class="button ghost" href="#audit">先看证据边界</a>
+          </div>
+        </div>
+        <div class="hero-index" aria-label="教程使用的编码参数">
+          <div class="index-card">
+            <span>最小完整 color code</span>
+            <strong>[[7,1,3]]</strong>
+            <p>7 个物理量子比特，编码 1 个逻辑量子比特，距离 3。</p>
+            <div class="formula">3 张面 × (X 检查 + Z 检查) = 6 个约束</div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <section class="section" id="before">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="section-no">00 / 先补三块地基</div>
+          <div>
+            <h2>我们不直接“看”量子信息。</h2>
+            <p class="section-intro">直接测量一个未知量子态会扰动它。纠错的办法是问一些更克制的问题：某一组量子比特的翻转次数是偶数还是奇数？答案只有 +1 或 −1，却足以暴露局部错误。</p>
+          </div>
+        </div>
+        <div class="three-grid">
+          <article class="card primer-card">
+            <span class="big">0 / 1</span>
+            <h3>普通比特</h3>
+            <p>像一张正反面卡片。翻一次，0 变 1；再翻一次，又回到 0。这里只需要会数奇数和偶数。</p>
+          </article>
+          <article class="card primer-card">
+            <span class="big">α|0⟩+β|1⟩</span>
+            <h3>量子比特</h3>
+            <p>它可处于 0 与 1 的组合。α、β 是组合方式；本教程不会要求你计算它们。关键是：保护它们，而不是读出它们。</p>
+          </article>
+          <article class="card primer-card">
+            <span class="big">±1</span>
+            <h3>检查（stabilizer）</h3>
+            <p>检查只返回“符合规则”(+1) 或“违反规则”(−1)。这些答案合在一起叫综合征（syndrome）。</p>
+          </article>
+        </div>
+        <div class="plain-note"><strong>三个误差字母：</strong> X 是“0/1 翻转”分量，Z 是“相位翻转”分量，Y 同时含有 X 与 Z 分量。暂时把它们当作三种不同墨迹即可。</div>
+      </div>
+    </section>
+
+    <section class="section" id="map">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="section-no">01 / 地图先于术语</div>
+          <div>
+            <h2>点存数据，面负责盘问。</h2>
+            <p class="section-intro">七个量子比特放在顶点。红 R、绿 G、蓝 B 三张面各触碰四个点；纹理与字母让颜色不是唯一线索。每张面都问两次：一次用 X 检查捕捉 Z 分量，一次用 Z 检查捕捉 X 分量。</p>
+          </div>
+        </div>
+        <div class="map-legend" aria-label="图例">
+          <span class="legend-chip"><span class="swatch red"></span>R 面 · 斜纹 · {1,2,3,4}</span>
+          <span class="legend-chip"><span class="swatch green"></span>G 面 · 点纹 · {2,3,5,6}</span>
+          <span class="legend-chip"><span class="swatch blue"></span>B 面 · 横纹 · {3,4,6,7}</span>
+        </div>
+        <div class="three-grid">
+          <article class="card"><h3>为什么三色？</h3><p>在更大的 2D color code 晶格中，每个内部顶点有三条边相遇，面可以用三种颜色着色，且共享一条边的相邻面不同色。</p></article>
+          <article class="card"><h3>什么被编码？</h3><p>六个独立的“+1 规则”从七个量子比特的巨大状态空间中圈出一个二维子空间；这个子空间恰好容纳一个逻辑量子比特。</p></article>
+          <article class="card"><h3>什么仍然隐藏？</h3><p>检查告诉我们哪里违反了规则，却不告诉 α、β，也通常不唯一指出真实误差。纠错依赖的是误差类别，而不是完整侦探报告。</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="lab">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="section-no">02 / 核心工作台</div>
+          <div>
+            <h2>制造错误，然后只看它留下的影子。</h2>
+            <p class="section-intro">选择 X、Z 或 Y 墨迹，再点击任意编号点。面变粗表示至少一个对应检查为 −1；真正要读的是下方六盏检查灯。</p>
+          </div>
+        </div>
+
+        <div class="studio-grid">
+          <div class="lesson-rail">
+            <article class="lesson-card">
+              <span class="step">A · ERROR → SYNDROME</span>
+              <h3>先试 Z₅，再试 X₂，最后试 Y₃</h3>
+              <p>Z₅ 只触碰 G 面，所以只有 G 的 X 检查翻成 −1。X₂ 触碰 R、G 两面，所以两张面的 Z 检查翻转。Y₃ 位于三面交会处，又同时含 X 与 Z，于是六盏灯全灭。</p>
+            </article>
+            <article class="lesson-card">
+              <span class="step">B · EQUIVALENCE</span>
+              <h3>不同墨迹，也能有同一影子</h3>
+              <p>点“等价对：Z₅ ↔ Z₂Z₃Z₆”。两者相差整个 G 面的 Z 稳定子，因此综合征相同，对逻辑信息的作用也相同。这叫退化（degeneracy）。</p>
+              <details><summary>为什么乘一个面不改变答案？</summary><p>每对面重叠 0、2 或 4 个点，都是偶数。模 2 世界里，偶数次反对易抵消，所以所有稳定子彼此对易。</p></details>
+            </article>
+            <article class="lesson-card">
+              <span class="step">C · DECODING</span>
+              <h3>解码器猜“最轻”的解释</h3>
+              <p>在当前理想模型里，每个非零 3 位综合征都对应一个单点。点“运行最小权重解码器”，它会独立处理 X 与 Z 分量。注意：它猜得合理，不代表猜中了真实历史。</p>
+            </article>
+            <article class="lesson-card">
+              <span class="step">D · LOGICAL FAILURE</span>
+              <h3>让检查全部通过，却把信息改掉</h3>
+              <p>装入“双错误陷阱 Z₁Z₂”，再运行解码器。综合征 010 看起来像 Z₅，于是校正后留下 Z₁Z₂Z₅：灯全亮，但它是一个逻辑 Z。距离 3 的代码能保证纠正任意 1 个错误，不保证纠正 2 个。</p>
+            </article>
+          </div>
+
+          <div class="workbench" aria-label="七比特 color code 交互工作台">
+            <div class="bench-head"><strong>七比特工作台</strong><span class="model-tag">理想数据误差 · 完美检查</span></div>
+            <div class="bench-body">
+              <div class="lattice-wrap">
+                <div class="lattice" id="lattice" aria-label="三角形 color code 晶格">
+                  <svg viewBox="0 0 100 93" role="img" aria-labelledby="latticeTitle latticeDesc">
+                    <title id="latticeTitle">七比特三角形 color code</title>
+                    <desc id="latticeDesc">三张带不同纹理的四边形面，七个可操作量子比特位于顶点。</desc>
+                    <defs>
+                      <pattern id="redPattern" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="5" height="5" fill="#f4cbc8"></rect><rect width="1.4" height="5" fill="#d84f49" opacity=".7"></rect></pattern>
+                      <pattern id="greenPattern" width="5" height="5" patternUnits="userSpaceOnUse"><rect width="5" height="5" fill="#c6e2d7"></rect><circle cx="1.4" cy="1.4" r=".65" fill="#2a8765"></circle></pattern>
+                      <pattern id="bluePattern" width="5" height="5" patternUnits="userSpaceOnUse"><rect width="5" height="5" fill="#cbd7ef"></rect><rect y="0" width="5" height="1.2" fill="#3f67bf" opacity=".7"></rect></pattern>
+                    </defs>
+                    <polygon class="face face-red" data-face="R" points="50,7 28,47 50,58 72,47"></polygon>
+                    <polygon class="face face-green" data-face="G" points="28,47 8,87 50,87 50,58"></polygon>
+                    <polygon class="face face-blue" data-face="B" points="72,47 50,58 50,87 92,87"></polygon>
+                  </svg>
+                  <span class="face-caption" style="left:50%;top:32%">R · 斜纹</span>
+                  <span class="face-caption" style="left:31%;top:71%">G · 点纹</span>
+                  <span class="face-caption" style="left:69%;top:71%">B · 横纹</span>
+                  <button class="qubit" data-q="1" style="--x:50%;--y:7%" aria-label="量子比特 1，无错误"><span class="qnum">q1</span><span class="qerror">I</span></button>
+                  <button class="qubit" data-q="2" style="--x:28%;--y:47%" aria-label="量子比特 2，无错误"><span class="qnum">q2</span><span class="qerror">I</span></button>
+                  <button class="qubit" data-q="3" style="--x:50%;--y:58%" aria-label="量子比特 3，无错误"><span class="qnum">q3</span><span class="qerror">I</span></button>
+                  <button class="qubit" data-q="4" style="--x:72%;--y:47%" aria-label="量子比特 4，无错误"><span class="qnum">q4</span><span class="qerror">I</span></button>
+                  <button class="qubit" data-q="5" style="--x:8%;--y:87%" aria-label="量子比特 5，无错误"><span class="qnum">q5</span><span class="qerror">I</span></button>
+                  <button class="qubit" data-q="6" style="--x:50%;--y:87%" aria-label="量子比特 6，无错误"><span class="qnum">q6</span><span class="qerror">I</span></button>
+                  <button class="qubit" data-q="7" style="--x:92%;--y:87%" aria-label="量子比特 7，无错误"><span class="qnum">q7</span><span class="qerror">I</span></button>
+                </div>
+              </div>
+              <div class="controls">
+                <div class="control-group">
+                  <span class="control-label">1 · 选择要叠加的误差</span>
+                  <div class="tool-row" role="group" aria-label="误差工具">
+                    <button class="tool-button" data-tool="I" aria-pressed="false" title="擦除该点误差">I</button>
+                    <button class="tool-button" data-tool="X" aria-pressed="false">X</button>
+                    <button class="tool-button" data-tool="Z" aria-pressed="true">Z</button>
+                    <button class="tool-button" data-tool="Y" aria-pressed="false">Y</button>
+                  </div>
+                </div>
+                <div class="control-group">
+                  <span class="control-label">2 · 快速场景</span>
+                  <div class="quick-row">
+                    <button class="button small" data-preset="single">随机单误差</button>
+                    <button class="button small" data-preset="equivalent">等价对</button>
+                    <button class="button small" data-preset="trap">双错误陷阱</button>
+                    <button class="button small" id="undoBtn">撤销</button>
+                    <button class="button small" id="clearBtn">清空</button>
+                  </div>
+                </div>
+                <div class="control-group">
+                  <span class="control-label">3 · 乘一个稳定子（综合征应不变）</span>
+                  <div class="stab-grid">
+                    <button class="button small" data-stab="Z-R">Z<sub>R</sub></button>
+                    <button class="button small" data-stab="Z-G">Z<sub>G</sub></button>
+                    <button class="button small" data-stab="Z-B">Z<sub>B</sub></button>
+                    <button class="button small" data-stab="X-R">X<sub>R</sub></button>
+                    <button class="button small" data-stab="X-G">X<sub>G</sub></button>
+                    <button class="button small" data-stab="X-B">X<sub>B</sub></button>
+                  </div>
+                </div>
+                <div class="control-group">
+                  <button class="button primary" id="decodeBtn">运行最小权重解码器 →</button>
+                  <p class="decoder-trace" id="decoderTrace">等待综合征。解码器只看六盏灯，不知道真实误差历史。</p>
+                </div>
+              </div>
+            </div>
+            <div class="syndrome">
+              <div class="syndrome-row">
+                <div class="syndrome-title"><strong>X 面检查</strong><span>捕捉 Z / Y 分量</span></div>
+                <div class="check-light" data-check="X-R"><span>R / 斜纹</span><span class="sign">+1</span></div>
+                <div class="check-light" data-check="X-G"><span>G / 点纹</span><span class="sign">+1</span></div>
+                <div class="check-light" data-check="X-B"><span>B / 横纹</span><span class="sign">+1</span></div>
+              </div>
+              <div class="syndrome-row">
+                <div class="syndrome-title"><strong>Z 面检查</strong><span>捕捉 X / Y 分量</span></div>
+                <div class="check-light" data-check="Z-R"><span>R / 斜纹</span><span class="sign">+1</span></div>
+                <div class="check-light" data-check="Z-G"><span>G / 点纹</span><span class="sign">+1</span></div>
+                <div class="check-light" data-check="Z-B"><span>B / 横纹</span><span class="sign">+1</span></div>
+              </div>
+              <div class="diagnosis" id="diagnosis"><span class="diag-dot"></span><div><strong>代码空间内：没有可见错误</strong><span>六个检查都是 +1；当前算符为恒等 I。</span></div></div>
+            </div>
+            <p class="event-log" id="eventLog" aria-live="polite">提示：先选择 Z，再点击 q5。</p>
+          </div>
+        </div>
+
+        <div class="quiz-grid" aria-label="综合征预测练习">
+          <article class="card quiz-card" data-quiz="rg">
+            <p class="eyebrow">预测 01</p><div class="scenario">X₂</div><h3>哪些 Z 检查变 −1？</h3>
+            <div class="answers"><button class="answer" data-choice="rg">R 与 G</button><button class="answer" data-choice="b">只有 B</button><button class="answer" data-choice="all">R、G、B</button></div>
+            <p class="quiz-feedback" aria-live="polite">先看 q2 属于哪些面。</p>
+          </article>
+          <article class="card quiz-card" data-quiz="g">
+            <p class="eyebrow">预测 02</p><div class="scenario">Z₅</div><h3>哪些 X 检查变 −1？</h3>
+            <div class="answers"><button class="answer" data-choice="g">只有 G</button><button class="answer" data-choice="rb">R 与 B</button><button class="answer" data-choice="all">R、G、B</button></div>
+            <p class="quiz-feedback" aria-live="polite">q5 只属于一张面。</p>
+          </article>
+          <article class="card quiz-card" data-quiz="same">
+            <p class="eyebrow">预测 03</p><div class="scenario">Z₁Z₂</div><h3>它冒充哪个单误差？</h3>
+            <div class="answers"><button class="answer" data-choice="z5">Z₅</button><button class="answer" data-choice="z3">Z₃</button><button class="answer" data-choice="none">谁也不像</button></div>
+            <p class="quiz-feedback" aria-live="polite">把两个 3 位综合征逐位相加；1+1 按偶数记 0。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="history">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="section-no">03 / 把时间加回来</div>
+          <div>
+            <h2>一次坏读数，不等于一次数据错误。</h2>
+            <p class="section-intro">真实机器要重复测量检查。解码器常看相邻轮次是否变化：dₜ = mₜ ⊕ mₜ₋₁。持续的数据错误通常制造一次变化；单轮测量毛刺通常制造前后两次变化。这里忽略最终边界读出，只展示中间因果。</p>
+          </div>
+        </div>
+        <div class="history-grid">
+          <div class="scenario-buttons" role="group" aria-label="时间历史场景">
+            <button class="button scenario-button" data-history="none" aria-pressed="true">全程正常</button>
+            <button class="button scenario-button" data-history="data" aria-pressed="false">t2→t3 之间发生数据 Z 错误</button>
+            <button class="button scenario-button" data-history="measure" aria-pressed="false">只有 t3 的检查读数翻错</button>
+            <button class="button scenario-button" data-history="both" aria-pressed="false">数据错误 + t3 读数也翻错</button>
+            <div class="model-box"><strong>模型升级：现象学噪声</strong><p>现在数据与测量都可能错，但还没有展开具体门电路。检查读数被当作一个抽象的、可独立出错的过程。</p></div>
+          </div>
+          <div class="timeline-card">
+            <p class="eyebrow" style="color:var(--acid)">某一张面的五轮读数 mₜ</p>
+            <div class="round-strip" id="roundStrip" aria-label="五轮检查读数"></div>
+            <p class="eyebrow" style="color:var(--acid);margin-top:1rem">相邻变化 dₜ</p>
+            <div class="detector-strip" id="detectorStrip" aria-label="五轮探测事件"></div>
+            <p class="timeline-explain" id="timelineExplain" aria-live="polite">没有读数变化，因此没有 detector event。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="noise">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="section-no">04 / 小代码的精确曲线</div>
+          <div>
+            <h2>距离 3：一处必救，两处可能误救。</h2>
+            <p class="section-intro">下面不是阈值图。它精确枚举 2⁷=128 种 X 错误图样：每个数据量子比特独立以概率 p 发生 X，检查永远正确，只做一轮最小权重解码。拖动 p，看七比特码的逻辑失败率与“一个裸物理比特直接失败率 p”比较。</p>
+          </div>
+        </div>
+        <div class="noise-grid">
+          <div>
+            <div class="model-box">
+              <strong>本图的合同条款</strong>
+              <ul>
+                <li>仅 X 数据误差；各点独立同分布。</li>
+                <li>综合征测量完美；无门、无泄漏、无串扰。</li>
+                <li>一次纠错；解码器选匹配综合征的单点。</li>
+                <li>只描述 [[7,1,3]]，不能推出可扩展阈值。</li>
+              </ul>
+            </div>
+            <p class="plain-note"><strong>关键判断：</strong> 如果有人拿这条曲线证明“硬件已经低于阈值”，证据不成立。阈值必须比较一族不断增大距离的代码，并明确电路、噪声与解码器。</p>
+          </div>
+          <div class="chart-card">
+            <div class="slider-wrap">
+              <label for="pSlider"><span>单点 X 错误概率 p</span><output id="pOutput">5.0%</output></label>
+              <input id="pSlider" type="range" min="0" max="25" step="0.1" value="5" aria-describedby="modelSummary">
+            </div>
+            <div class="metric-row">
+              <div class="metric"><span>裸物理比特失败</span><strong id="physicalMetric">5.000%</strong></div>
+              <div class="metric"><span>逻辑失败（精确枚举）</span><strong id="logicalMetric">—</strong></div>
+            </div>
+            <svg class="chart" id="noiseChart" viewBox="0 0 520 250" role="img" aria-labelledby="chartTitle chartDesc">
+              <title id="chartTitle">七比特 color code 理想 X 噪声曲线</title>
+              <desc id="chartDesc">横轴是物理 X 错误率，纵轴是失败概率，比较裸物理比特和逻辑比特。</desc>
+              <line x1="48" y1="210" x2="500" y2="210" stroke="#8e978f"></line>
+              <line x1="48" y1="18" x2="48" y2="210" stroke="#8e978f"></line>
+              <g id="gridLines"></g>
+              <path id="physicalPath" fill="none" stroke="#8d8d86" stroke-width="3" stroke-dasharray="7 6"></path>
+              <path id="logicalPath" fill="none" stroke="#173c2e" stroke-width="4"></path>
+              <circle id="physicalDot" r="5" fill="#8d8d86"></circle>
+              <circle id="logicalDot" r="6" fill="#d84f49" stroke="#15241c" stroke-width="2"></circle>
+              <text x="382" y="85">裸物理 p</text><text x="333" y="188">[[7,1,3]] 逻辑</text>
+              <text x="238" y="242">物理错误率 p</text>
+              <text x="-135" y="14" transform="rotate(-90)">失败概率</text>
+            </svg>
+            <p class="tiny" id="modelSummary">曲线由浏览器内精确枚举生成，不使用随机抽样。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="formal">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="section-no">05 / 现在再给它名字</div>
+          <div>
+            <h2>你已经操作过这些公式里的每个对象。</h2>
+            <p class="section-intro">下面的 1 表示“这张面触碰这个量子比特”。所有加法都按奇偶计算：1+1=0。H 同时描述 X 面与 Z 面，这是 color code 的 X/Z 对称性。</p>
+          </div>
+        </div>
+        <div class="formal-grid">
+          <article class="card math-card">
+            <p class="eyebrow" style="color:var(--acid)">Parity-check matrix</p>
+            <h3>H<sub>X</sub> = H<sub>Z</sub> = H</h3>
+            <div class="matrix" aria-label="三行七列校验矩阵">
+              <span>1</span><span>1</span><span>1</span><span>1</span><span>0</span><span>0</span><span>0</span>
+              <span>0</span><span>1</span><span>1</span><span>0</span><span>1</span><span>1</span><span>0</span>
+              <span>0</span><span>0</span><span>1</span><span>1</span><span>0</span><span>1</span><span>1</span>
+            </div>
+            <p>三行依次是 R、G、B 面。每行重量 4；任意两行重叠 2 个位置。</p>
+            <div class="equation">H<sub>X</sub> H<sub>Z</sub><sup>T</sup> = H H<sup>T</sup> = 0 (mod 2)</div>
+            <p class="tiny">这正是 X 稳定子与 Z 稳定子对易的二进制条件。</p>
+          </article>
+          <article class="card">
+            <p class="eyebrow">Syndrome equations</p>
+            <h3>灯是矩阵乘法的结果</h3>
+            <p>把误差拆成 X 分量 e<sub>X</sub> 与 Z 分量 e<sub>Z</sub>。Y 在两边都记 1：</p>
+            <div class="equation" style="color:var(--ink);background:#ebe6da">s<sub>X</sub> = H<sub>Z</sub> e<sub>X</sub><sup>T</sup><br>s<sub>Z</sub> = H<sub>X</sub> e<sub>Z</sub><sup>T</sup></div>
+            <p>这里 s<sub>X</sub> 是“X 误差分量的综合征”，由 Z 检查读出；s<sub>Z</sub> 反之。文献的下标习惯可能按误差或按检查命名，阅读时务必看定义。</p>
+          </article>
+          <article class="card">
+            <p class="eyebrow">Code parameters</p>
+            <h3>为什么是 [[7,1,3]]？</h3>
+            <dl class="term-list">
+              <div class="term"><dt>n = 7</dt><dd>七个物理量子比特。</dd></div>
+              <div class="term"><dt>k = 1</dt><dd>rank(H)=3，所以 k=7−3−3=1。</dd></div>
+              <div class="term"><dt>d = 3</dt><dd>最轻的非平凡逻辑算符重 3，例如 X₅X₆X₇ 或 Z₅Z₆Z₇。</dd></div>
+              <div class="term"><dt>t = 1</dt><dd>保证可纠正 ⌊(d−1)/2⌋=1 个任意位置的 Pauli 错误。</dd></div>
+            </dl>
+          </article>
+          <article class="card">
+            <p class="eyebrow">Logical operators & decoding</p>
+            <h3>零综合征不等于“什么也没发生”</h3>
+            <p>X<sub>L</sub>=X₁X₂X₃X₄X₅X₆X₇，Z<sub>L</sub>=Z₁…Z₇。乘 R 面稳定子后，它们分别等价于边界上的 X₅X₆X₇、Z₅Z₆Z₇，因此距离是 3。</p>
+            <p><strong>正确的解码目标：</strong>在给定综合征和噪声模型下，选择概率最大的稳定子陪集（equivalence class），而不只是寻找某个看起来最像的具体误差。本工作台的“单点最小权重”只是小代码、理想模型下的特例。</p>
+          </article>
+        </div>
+        <div class="three-grid" style="margin-top:1rem">
+          <article class="card"><h3>理想数据误差</h3><p>只有数据点会错，检查完美。核心工作台和精确曲线使用此模型。</p></article>
+          <article class="card"><h3>现象学测量噪声</h3><p>数据和抽象读数都可错，需要时间维度与 detector events。时间实验使用此层。</p></article>
+          <article class="card"><h3>电路级 / 硬件噪声</h3><p>把制备、双比特门、测量、空闲、泄漏、串扰和相关性展开。真正的硬件阈值与资源估计必须在这一层审计。</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="audit">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="section-no">06 / 证据审计</div>
+          <div>
+            <h2>任何数字都要带着模型一起走。</h2>
+            <p class="section-intro">“Color code 的阈值是多少？”没有一个脱离晶格族、噪声、综合征电路和解码器的单一答案。下面把常见事实放回各自的合同条款。</p>
+          </div>
+        </div>
+        <table class="audit-table">
+          <thead><tr><th>主张</th><th>适用范围</th><th>可以说什么 / 不能说什么</th></tr></thead>
+          <tbody>
+            <tr><td>≈ 8.7%<br><span class="scope-tag">数值阈值</span></td><td>六角 color-code 家族；X、Z 分量各自通过二元对称信道；综合征无测量误差；投影到三个 surface code 后用完美匹配解码。</td><td>可说：该论文在这个 code-capacity 风格模型中得到相位错误阈值约 8.7%。不可把它叫作电路级硬件阈值。</td></tr>
+            <tr><td>0.082(3)%<br><span class="scope-tag">电路级估计</span></td><td>4.8.8 color codes，论文给定的容错综合征提取、整数规划解码、二维邻接架构与物理噪声模型。</td><td>可说：完整电路细节会显著改变阈值。不可与 8.7% 直接排名而不说明模型差异。</td></tr>
+            <tr><td>七离子演示<br><span class="scope-tag">2014 实验</span></td><td>一个 [[7,1,3]] 逻辑量子比特；演示任意位置的单 X、Z、Y 错误检测与逻辑 Clifford 操作。</td><td>可说：它实现了最小完整 color code。不可据此断言已有可扩展、重复循环且低于阈值的量子存储器。</td></tr>
+            <tr><td>Λ<sub>3/5</sub>=1.56(4)<br><span class="scope-tag">2025 实验</span></td><td>超导处理器上的距离 3 与 5 color code；多轮纠错，神经网络解码器；论文报告 ε₅=0.0110(2)。</td><td>可说：增大距离在该装置与流程中抑制了逻辑错误，模拟支持低于阈值。不可把 Λ 当作普适阈值。</td></tr>
+          </tbody>
+        </table>
+        <div class="source-list" aria-label="一手来源">
+          <article class="source"><a href="https://arxiv.org/abs/quant-ph/0605138" target="_blank" rel="noreferrer">Bombin & Martin-Delgado, 2006 ↗</a><p>Color code 的奠基工作：三色晶格与拓扑 Clifford 操作。</p></article>
+          <article class="source"><a href="https://arxiv.org/abs/1403.5426" target="_blank" rel="noreferrer">Nigg et al., 2014 ↗</a><p>本教程七比特编号、六个稳定子与单错误综合征的直接来源。</p></article>
+          <article class="source"><a href="https://arxiv.org/abs/1308.6207" target="_blank" rel="noreferrer">Delfosse, 2014 ↗</a><p>投影到三个 surface code 的解码方法与约 8.7% 模型内阈值。</p></article>
+          <article class="source"><a href="https://arxiv.org/abs/1108.5738" target="_blank" rel="noreferrer">Landahl, Anderson & Rice, 2011 ↗</a><p>4.8.8 color code 的容错电路、解码与 0.082(3)% 电路级估计。</p></article>
+          <article class="source"><a href="https://www.nature.com/articles/s41586-023-06927-3" target="_blank" rel="noreferrer">Bluvstein et al., 2023 ↗</a><p>中性原子逻辑处理器；明确讨论 d=3 color code、稳定子与横向 Clifford 门。</p></article>
+          <article class="source"><a href="https://www.nature.com/articles/s41586-025-09061-4" target="_blank" rel="noreferrer">Google Quantum AI, 2025 ↗</a><p>超导 color code 从距离 3 扩展到 5 的逻辑错误抑制与逻辑操作。</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="finish">
+      <div class="wrap finish-grid">
+        <div>
+          <p class="eyebrow" style="color:var(--acid)">END / 你现在该会什么</p>
+          <h2>Color code 是一张会回答奇偶问题的拓扑地图。</h2>
+          <p>颜色组织局部检查；综合征暴露错误与稳定子的对易关系；解码选择等价类；逻辑失败则是“所有局部问题都答对了，全球信息却已改变”。这条因果链比记住任何单个阈值更重要。</p>
+          <a class="button primary" href="#lab">返回工作台再制造一次逻辑失败 ↑</a>
+        </div>
+        <div class="checklist">
+          <strong>离开前自检</strong>
+          <ol>
+            <li>能否不看答案，预测 X₂、Z₅、Y₃ 的六位综合征？</li>
+            <li>能否解释 Z₅ 与 Z₂Z₃Z₆ 为什么等价？</li>
+            <li>能否让解码器把两个 Z 错误误修成逻辑 Z？</li>
+            <li>能否区分一次测量毛刺与持续数据错误的时间图样？</li>
+            <li>看到“8.7%”时，能否立刻追问晶格、噪声、测量与解码器？</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer><div class="wrap"><span>自包含交互教程 · 无外部脚本依赖</span><span id="selfTestStatus">机制自检：等待运行</span></div></footer>
+
+  <script>
+    (() => {
+      'use strict';
+
+      const H = [
+        [1, 1, 1, 1, 0, 0, 0],
+        [0, 1, 1, 0, 1, 1, 0],
+        [0, 0, 1, 1, 0, 1, 1]
+      ];
+      const faces = { R: [0,1,2,3], G: [1,2,4,5], B: [2,3,5,6] };
+      const pauliBits = { I:[0,0], X:[1,0], Z:[0,1], Y:[1,1] };
+      const bitsPauli = { '00':'I', '10':'X', '01':'Z', '11':'Y' };
+      let errors = Array(7).fill('I');
+      let selectedTool = 'Z';
+      let undoStack = [];
+
+      const dot = (a,b) => a.reduce((sum, value, i) => sum ^ (value & b[i]), 0);
+      const syndromeForVector = vector => H.map(row => dot(row, vector));
+      const pauliFromBits = (x,z) => bitsPauli[`${x}${z}`];
+      const compose = (a,b) => {
+        const [ax,az] = pauliBits[a], [bx,bz] = pauliBits[b];
+        return pauliFromBits(ax ^ bx, az ^ bz);
+      };
+      const components = pattern => ({
+        x: pattern.map(p => pauliBits[p][0]),
+        z: pattern.map(p => pauliBits[p][1])
+      });
+      const calcSyndrome = pattern => {
+        const {x,z} = components(pattern);
+        return { x: syndromeForVector(x), z: syndromeForVector(z) };
+      };
+      const bitString = bits => bits.join('');
+      const isZero = bits => bits.every(v => v === 0);
+      const sameBits = (a,b) => a.every((v,i) => v === b[i]);
+      const inRowSpan = vector => {
+        for (let mask=0; mask<8; mask++) {
+          const candidate = Array(7).fill(0);
+          H.forEach((row,r) => { if ((mask >> r) & 1) row.forEach((v,i) => candidate[i] ^= v); });
+          if (sameBits(candidate, vector)) return true;
+        }
+        return false;
+      };
+      const classify = pattern => {
+        const syn = calcSyndrome(pattern);
+        const {x,z} = components(pattern);
+        const empty = pattern.every(p => p === 'I');
+        if (!isZero(syn.x) || !isZero(syn.z)) return {kind:'detected', title:'代码空间外：检查发现异常', detail:`X 分量综合征 ${bitString(syn.x)}；Z 分量综合征 ${bitString(syn.z)}。`};
+        if (empty) return {kind:'clean', title:'代码空间内：没有可见错误', detail:'六个检查都是 +1；当前算符为恒等 I。'};
+        const logicalX = !inRowSpan(x);
+        const logicalZ = !inRowSpan(z);
+        if (!logicalX && !logicalZ) return {kind:'clean', title:'代码空间内：仅差一个稳定子', detail:'图样非空，但它属于稳定子群；对逻辑信息等效于什么也没做。'};
+        const label = logicalX && logicalZ ? 'Y' : logicalX ? 'X' : 'Z';
+        return {kind:'failure', title:`逻辑失败：不可见的 ${label}ₗ`, detail:'六个检查全为 +1，但算符不属于稳定子群；它改变了被编码的信息。'};
+      };
+      const saveUndo = () => { undoStack.push(errors.slice()); if (undoStack.length > 30) undoStack.shift(); };
+      const setErrors = (pattern, message) => { saveUndo(); errors = pattern.slice(); render(); log(message); };
+      const log = message => { document.getElementById('eventLog').textContent = message; };
+
+      function render() {
+        const syn = calcSyndrome(errors);
+        document.querySelectorAll('.qubit').forEach(button => {
+          const index = Number(button.dataset.q) - 1;
+          const error = errors[index];
+          button.classList.toggle('has-error', error !== 'I');
+          button.querySelector('.qerror').textContent = error;
+          button.setAttribute('aria-label', `量子比特 ${index+1}，当前${error === 'I' ? '无错误' : '误差 ' + error}；点击${selectedTool === 'I' ? '擦除' : '叠加 ' + selectedTool}`);
+        });
+        ['R','G','B'].forEach((faceName, i) => {
+          const zBad = syn.x[i] === 1;
+          const xBad = syn.z[i] === 1;
+          const face = document.querySelector(`.face[data-face="${faceName}"]`);
+          face.classList.toggle('violated', zBad || xBad);
+          updateCheck(`Z-${faceName}`, zBad);
+          updateCheck(`X-${faceName}`, xBad);
+        });
+        const result = classify(errors);
+        const box = document.getElementById('diagnosis');
+        box.className = 'diagnosis' + (result.kind === 'detected' ? ' warning' : result.kind === 'failure' ? ' failure' : '');
+        box.querySelector('strong').textContent = result.title;
+        box.querySelector('span:last-child').textContent = result.detail;
+      }
+
+      function updateCheck(key, bad) {
+        const light = document.querySelector(`[data-check="${key}"]`);
+        light.classList.toggle('bad', bad);
+        light.querySelector('.sign').textContent = bad ? '−1' : '+1';
+        light.setAttribute('aria-label', `${key} 检查：${bad ? '违反，负一' : '通过，正一'}`);
+      }
+
+      document.querySelectorAll('.tool-button').forEach(button => button.addEventListener('click', () => {
+        selectedTool = button.dataset.tool;
+        document.querySelectorAll('.tool-button').forEach(b => b.setAttribute('aria-pressed', String(b === button)));
+        render();
+        log(selectedTool === 'I' ? '橡皮已选中：点击量子比特可清除该点误差。' : `已选 ${selectedTool}：点击任意量子比特叠加该 Pauli 分量。`);
+      }));
+
+      document.querySelectorAll('.qubit').forEach(button => button.addEventListener('click', () => {
+        const index = Number(button.dataset.q) - 1;
+        saveUndo();
+        errors[index] = selectedTool === 'I' ? 'I' : compose(errors[index], selectedTool);
+        document.getElementById('decoderTrace').textContent = '状态已改变；解码器尚未运行。';
+        render();
+        log(`q${index+1} 现在是 ${errors[index]}。相同 Pauli 叠加两次会抵消。`);
+      }));
+
+      document.getElementById('clearBtn').addEventListener('click', () => {
+        setErrors(Array(7).fill('I'), '工作台已清空：六个检查应全部回到 +1。');
+        document.getElementById('decoderTrace').textContent = '等待综合征。';
+      });
+      document.getElementById('undoBtn').addEventListener('click', () => {
+        if (!undoStack.length) return log('没有可撤销的操作。');
+        errors = undoStack.pop(); render(); log('已撤销上一步。');
+      });
+
+      document.querySelectorAll('[data-preset]').forEach(button => button.addEventListener('click', () => {
+        const type = button.dataset.preset;
+        if (type === 'single') {
+          const pattern = Array(7).fill('I');
+          const q = Math.floor(Math.random()*7);
+          const p = ['X','Z','Y'][Math.floor(Math.random()*3)];
+          pattern[q] = p;
+          setErrors(pattern, `已装入随机单误差 ${p}${q+1}。尝试先预测再解码。`);
+        } else if (type === 'equivalent') {
+          setErrors(['I','Z','Z','I','I','Z','I'], '已装入 Z₂Z₃Z₆。它与 Z₅ 相差 G 面稳定子，二者综合征均为 010。');
+        } else {
+          setErrors(['Z','Z','I','I','I','I','I'], '已装入 Z₁Z₂：综合征 010 会冒充 Z₅。现在运行解码器。');
+        }
+        document.getElementById('decoderTrace').textContent = '预设已装入；等待解码。';
+      }));
+
+      document.querySelectorAll('[data-stab]').forEach(button => button.addEventListener('click', () => {
+        const [pauli,face] = button.dataset.stab.split('-');
+        const before = calcSyndrome(errors);
+        saveUndo();
+        faces[face].forEach(index => { errors[index] = compose(errors[index], pauli); });
+        const after = calcSyndrome(errors);
+        const unchanged = bitString(before.x) === bitString(after.x) && bitString(before.z) === bitString(after.z);
+        render();
+        log(`乘了 ${pauli}${face} 稳定子：综合征${unchanged ? '保持不变 ✓' : '发生变化（机制错误）'}。误差图样不同，但逻辑作用等价。`);
+      }));
+
+      const findQubitForSyndrome = bits => {
+        if (isZero(bits)) return -1;
+        for (let q=0; q<7; q++) if (H.every((row,r) => row[q] === bits[r])) return q;
+        return -1;
+      };
+
+      document.getElementById('decodeBtn').addEventListener('click', () => {
+        const syn = calcSyndrome(errors);
+        const qx = findQubitForSyndrome(syn.x);
+        const qz = findQubitForSyndrome(syn.z);
+        const correction = Array(7).fill('I');
+        if (qx >= 0) correction[qx] = compose(correction[qx], 'X');
+        if (qz >= 0) correction[qz] = compose(correction[qz], 'Z');
+        const xText = qx >= 0 ? `${bitString(syn.x)} → X${qx+1}` : '000 → 无 X 校正';
+        const zText = qz >= 0 ? `${bitString(syn.z)} → Z${qz+1}` : '000 → 无 Z 校正';
+        saveUndo();
+        errors = errors.map((p,i) => compose(p, correction[i]));
+        render();
+        const result = classify(errors);
+        document.getElementById('decoderTrace').textContent = `X 分量: ${xText} ｜ Z 分量: ${zText} ｜ ${result.title}`;
+        log(`解码器只根据综合征施加 ${correction.map((p,i)=>p!=='I'?p+(i+1):'').filter(Boolean).join('、') || '无校正'}。请查看校正后的逻辑分类。`);
+      });
+
+      document.querySelectorAll('.quiz-card').forEach(card => {
+        const answer = card.dataset.quiz;
+        card.querySelectorAll('.answer').forEach(button => button.addEventListener('click', () => {
+          const correct = button.dataset.choice === answer || (answer === 'same' && button.dataset.choice === 'z5');
+          card.querySelectorAll('.answer').forEach(b => b.classList.remove('correct','wrong'));
+          button.classList.add(correct ? 'correct' : 'wrong');
+          card.querySelector('.quiz-feedback').textContent = correct
+            ? (answer === 'rg' ? '正确：q2 属于 R、G；X 只触发对应的 Z 检查。' : answer === 'g' ? '正确：q5 只在 G 面；Z 只触发 G 的 X 检查。' : '正确：100 ⊕ 110 = 010，正是 q5 那一列。')
+            : '还差一步。先找这个点属于哪些面，再记住 X 错误由 Z 检查捕捉、Z 错误由 X 检查捕捉。';
+        }));
+      });
+
+      const historyData = {
+        none: {m:[0,0,0,0,0], text:'没有读数变化，因此没有 detector event。'},
+        data: {m:[0,0,1,1,1], text:'数据错误持续存在：t3 出现一次变化，之后读数保持 −1。若加入最终数据边界，还会有相应的边界事件。'},
+        measure: {m:[0,0,1,0,0], text:'单轮测量毛刺只活一轮：进入毛刺与离开毛刺各制造一次变化，因此 t3、t4 成对亮起。'},
+        both: {m:[0,0,0,1,1], text:'数据本来让 t3 变 −1，但 t3 的测量又翻了一次，两个错误在该轮抵消；变化被推迟到 t4。这说明真实解码依赖整个时空图样。'}
+      };
+      function renderHistory(key) {
+        const item = historyData[key];
+        const detectors = item.m.map((value,i) => value ^ (i === 0 ? 0 : item.m[i-1]));
+        document.getElementById('roundStrip').innerHTML = item.m.map((v,i) => `<div class="round ${v?'minus':''}"><span class="time">t${i+1}</span><span class="value">${v?'−1':'+1'}</span></div>`).join('');
+        document.getElementById('detectorStrip').innerHTML = detectors.map((v,i) => `<div class="detector ${v?'on':''}">d${i+1} · ${v?'变化':'—'}</div>`).join('');
+        document.getElementById('timelineExplain').textContent = item.text;
+      }
+      document.querySelectorAll('[data-history]').forEach(button => button.addEventListener('click', () => {
+        document.querySelectorAll('[data-history]').forEach(b => b.setAttribute('aria-pressed', String(b === button)));
+        renderHistory(button.dataset.history);
+      }));
+
+      const logicalFailureForX = vector => {
+        const syn = syndromeForVector(vector);
+        const q = findQubitForSyndrome(syn);
+        const residual = vector.slice();
+        if (q >= 0) residual[q] ^= 1;
+        return !inRowSpan(residual);
+      };
+      const exactLogicalRate = p => {
+        let total = 0;
+        for (let mask=0; mask<128; mask++) {
+          const vector = Array.from({length:7}, (_,i) => (mask >> i) & 1);
+          const weight = vector.reduce((a,b) => a+b, 0);
+          const probability = Math.pow(p,weight) * Math.pow(1-p,7-weight);
+          if (logicalFailureForX(vector)) total += probability;
+        }
+        return total;
+      };
+      const chart = {left:48, right:500, top:18, bottom:210, max:.25};
+      const cx = p => chart.left + (chart.right-chart.left) * p/chart.max;
+      const cy = p => chart.bottom - (chart.bottom-chart.top) * p/chart.max;
+      const curvePath = fn => Array.from({length:101},(_,i) => i*.0025).map((p,i) => `${i?'L':'M'}${cx(p).toFixed(2)},${cy(fn(p)).toFixed(2)}`).join(' ');
+      function initChart() {
+        const grid = [];
+        for (let i=0;i<=5;i++) {
+          const v=i*.05, x=cx(v), y=cy(v);
+          grid.push(`<line x1="${x}" y1="${chart.top}" x2="${x}" y2="${chart.bottom}" stroke="#ded8ca"></line><text x="${x-9}" y="226">${Math.round(v*100)}%</text>`);
+          grid.push(`<line x1="${chart.left}" y1="${y}" x2="${chart.right}" y2="${y}" stroke="#ded8ca"></line><text x="9" y="${y+4}">${Math.round(v*100)}%</text>`);
+        }
+        document.getElementById('gridLines').innerHTML = grid.join('');
+        document.getElementById('physicalPath').setAttribute('d', curvePath(p=>p));
+        document.getElementById('logicalPath').setAttribute('d', curvePath(exactLogicalRate));
+      }
+      function updateNoise() {
+        const p = Number(document.getElementById('pSlider').value)/100;
+        const logical = exactLogicalRate(p);
+        document.getElementById('pOutput').value = `${(p*100).toFixed(1)}%`;
+        document.getElementById('physicalMetric').textContent = `${(p*100).toFixed(3)}%`;
+        document.getElementById('logicalMetric').textContent = `${(logical*100).toFixed(3)}%`;
+        document.getElementById('physicalDot').setAttribute('cx',cx(p));
+        document.getElementById('physicalDot').setAttribute('cy',cy(p));
+        document.getElementById('logicalDot').setAttribute('cx',cx(p));
+        document.getElementById('logicalDot').setAttribute('cy',cy(logical));
+      }
+      document.getElementById('pSlider').addEventListener('input', updateNoise);
+
+      const progressBar = document.getElementById('progressBar');
+      const updateProgress = () => {
+        const max = document.documentElement.scrollHeight - window.innerHeight;
+        progressBar.style.width = `${max > 0 ? Math.min(100, window.scrollY/max*100) : 0}%`;
+      };
+      window.addEventListener('scroll', updateProgress, {passive:true});
+
+      function selfTest() {
+        const failures = [];
+        const check = (condition,label) => { if (!condition) failures.push(label); };
+        check(bitString(syndromeForVector([1,0,0,0,0,0,0])) === '100','q1 column');
+        check(bitString(syndromeForVector([0,1,0,0,0,0,0])) === '110','q2 column');
+        check(bitString(syndromeForVector([0,0,1,0,0,0,0])) === '111','q3 column');
+        check(H.every((row,i) => H.every((other,j) => dot(row,other) === 0)),'HHt=0');
+        check(inRowSpan([1,1,1,1,0,0,0]),'face stabilizer in span');
+        check(!inRowSpan([0,0,0,0,1,1,1]),'weight-3 logical outside span');
+        check(logicalFailureForX([1,1,0,0,0,0,0]),'two-error trap fails');
+        check(Math.abs(exactLogicalRate(0)) < 1e-12,'p=0');
+        const status = document.getElementById('selfTestStatus');
+        status.textContent = failures.length ? `机制自检：失败 (${failures.join(', ')})` : '机制自检：8 / 8 通过';
+        status.style.color = failures.length ? '#ff8f87' : '#dfff66';
+        document.documentElement.dataset.selfTest = failures.length ? 'fail' : 'pass';
+      }
+
+      initChart(); updateNoise(); renderHistory('none'); render(); selfTest(); updateProgress();
+      window.__COLOR_CODE_CORE__ = {H, syndromeForVector, exactLogicalRate, logicalFailureForX, inRowSpan};
+    })();
+  </script>
+</body>
+</html>

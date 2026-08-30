@@ -1,0 +1,767 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#f4efe5">
+  <title>会呼吸的量子记忆｜Honeycomb Code 交互教程</title>
+  <style>
+    :root {
+      --ink: #17201f;
+      --muted: #5e6965;
+      --paper: #f4efe5;
+      --paper-2: #fffdf7;
+      --line: #d4cab8;
+      --c0: #d4573b;
+      --c1: #167f72;
+      --c2: #3e62a8;
+      --gold: #c6912e;
+      --danger: #a32d2d;
+      --success: #146c52;
+      --shadow: 0 18px 50px rgba(44, 39, 31, .09);
+      --radius: 22px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 14% 4%, rgba(212, 87, 59, .09), transparent 22rem),
+        radial-gradient(circle at 90% 20%, rgba(62, 98, 168, .08), transparent 25rem),
+        var(--paper);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+      line-height: 1.72;
+      text-rendering: optimizeLegibility;
+    }
+    a { color: #245aa5; text-underline-offset: 3px; }
+    button, select, input { font: inherit; }
+    button { touch-action: manipulation; }
+    :focus-visible { outline: 3px solid #111; outline-offset: 3px; }
+    .skip {
+      position: fixed; left: 12px; top: -80px; z-index: 100;
+      background: var(--ink); color: white; padding: 10px 15px; border-radius: 10px;
+    }
+    .skip:focus { top: 12px; }
+
+    .topbar {
+      position: sticky; top: 0; z-index: 20;
+      display: flex; align-items: center; gap: 16px;
+      min-height: 62px; padding: 8px max(18px, calc((100vw - 1180px)/2));
+      background: rgba(244, 239, 229, .92);
+      border-bottom: 1px solid rgba(100, 90, 70, .18);
+      backdrop-filter: blur(14px);
+    }
+    .brand { font-weight: 850; letter-spacing: -.02em; white-space: nowrap; }
+    .brand span { color: var(--c0); }
+    .route { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; flex: 1; }
+    .route a {
+      color: var(--muted); text-decoration: none; white-space: nowrap;
+      padding: 7px 10px; border-radius: 999px; font-size: .86rem;
+    }
+    .route a:hover { background: rgba(23, 32, 31, .06); color: var(--ink); }
+    .progress-wrap { width: 112px; display: grid; gap: 4px; font-size: .72rem; color: var(--muted); }
+    .progress-track { height: 5px; border-radius: 5px; background: #ded6c7; overflow: hidden; }
+    .progress-fill { width: 0; height: 100%; background: var(--ink); transition: width .3s ease; }
+
+    main { overflow: hidden; }
+    .hero {
+      min-height: calc(100vh - 62px); max-width: 1180px; margin: auto;
+      display: grid; grid-template-columns: 1.05fr .95fr; align-items: center; gap: 55px;
+      padding: 76px 26px 64px;
+    }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 9px; padding: 7px 11px;
+      border: 1px solid var(--line); border-radius: 999px; font-size: .8rem; font-weight: 750;
+      letter-spacing: .06em; text-transform: uppercase; background: rgba(255,255,255,.42);
+    }
+    .eyebrow::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--c0); box-shadow: 14px 0 var(--c1), 28px 0 var(--c2); margin-right: 28px; }
+    h1 { margin: 24px 0 20px; font-size: clamp(3rem, 7.2vw, 6.6rem); line-height: .94; letter-spacing: -.065em; }
+    h1 em { display: block; color: transparent; -webkit-text-stroke: 2px var(--ink); font-style: normal; }
+    .lede { max-width: 670px; font-size: clamp(1.06rem, 1.5vw, 1.28rem); color: var(--muted); }
+    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 30px; }
+    .button, button.button {
+      border: 1px solid var(--ink); border-radius: 999px; padding: 11px 17px;
+      background: var(--ink); color: white; text-decoration: none; font-weight: 760; cursor: pointer;
+      box-shadow: 0 5px 0 rgba(23,32,31,.15); transition: transform .15s ease, box-shadow .15s ease;
+    }
+    .button:hover { transform: translateY(-2px); box-shadow: 0 7px 0 rgba(23,32,31,.13); }
+    .button.secondary { background: transparent; color: var(--ink); box-shadow: none; }
+    .button.small { font-size: .88rem; padding: 8px 13px; }
+    .hero-visual { position: relative; min-height: 500px; display: grid; place-items: center; }
+    .pulse-card {
+      width: min(470px, 88vw); aspect-ratio: 1; border-radius: 50%; position: relative;
+      background: #1b2322; color: white; box-shadow: 0 42px 100px rgba(20,28,27,.25);
+      display: grid; place-items: center;
+    }
+    .pulse-card::before, .pulse-card::after {
+      content: ""; position: absolute; border-radius: 50%; inset: 12%; border: 1px solid rgba(255,255,255,.2);
+    }
+    .pulse-card::after { inset: 27%; border-style: dashed; }
+    .pulse-core { text-align: center; z-index: 2; }
+    .pulse-core strong { display: block; font-size: clamp(4.2rem, 10vw, 7.7rem); line-height: 1; letter-spacing: -.07em; }
+    .pulse-core span { font-family: var(--mono); color: #cad4cf; font-size: .78rem; }
+    .orbit { position: absolute; inset: 0; animation: spin 18s linear infinite; }
+    .orbit i { position: absolute; width: 34px; height: 34px; border: 5px solid #1b2322; border-radius: 50%; }
+    .orbit i:nth-child(1) { background: var(--c0); top: 7%; left: 46%; }
+    .orbit i:nth-child(2) { background: var(--c1); top: 70%; left: 8%; }
+    .orbit i:nth-child(3) { background: var(--c2); top: 70%; right: 8%; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .hero-note {
+      position: absolute; right: -5px; bottom: 5%; max-width: 230px;
+      background: var(--paper-2); border: 1px solid var(--line); padding: 14px 16px; border-radius: 14px;
+      box-shadow: var(--shadow); transform: rotate(2deg); font-size: .86rem;
+    }
+
+    .section { padding: 90px 24px; }
+    .section-inner { max-width: 1120px; margin: auto; }
+    .section.dark { background: #19211f; color: #f7f2e9; }
+    .section.blueprint { background: #e8edf3; }
+    .kicker { font-family: var(--mono); text-transform: uppercase; letter-spacing: .09em; font-size: .78rem; color: var(--c0); font-weight: 800; }
+    .dark .kicker { color: #ff987d; }
+    h2 { margin: 10px 0 18px; max-width: 850px; font-size: clamp(2.2rem, 5vw, 4.3rem); line-height: 1.06; letter-spacing: -.045em; }
+    h3 { margin: 0 0 9px; font-size: 1.28rem; letter-spacing: -.02em; }
+    p { margin: 0 0 1em; }
+    .intro { max-width: 800px; color: var(--muted); font-size: 1.08rem; }
+    .dark .intro, .dark .muted { color: #bfc9c4; }
+    .muted { color: var(--muted); }
+    .tiny { font-size: .8rem; }
+    .mono { font-family: var(--mono); }
+
+    .scope-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 40px; }
+    .scope-card { background: rgba(255,255,255,.5); border: 1px solid var(--line); border-radius: 18px; padding: 22px; }
+    .scope-card b { font-size: 1.8rem; display: block; line-height: 1; margin-bottom: 16px; }
+    .scope-card p { font-size: .91rem; color: var(--muted); margin: 0; }
+    .scope-card.warn { background: #272f2d; color: white; border-color: #424b48; }
+    .scope-card.warn p { color: #bec7c2; }
+    .primer {
+      margin-top: 24px; display: grid; grid-template-columns: 1.05fr .95fr; gap: 24px;
+      padding: 26px; border: 1px solid var(--line); border-radius: 20px; background: #fffaf0;
+    }
+    .primer-list { display: grid; gap: 12px; }
+    .primer-item { display: grid; grid-template-columns: 34px 1fr; gap: 11px; align-items: start; }
+    .primer-item b:first-child { width: 30px; height: 30px; display: grid; place-items: center; border-radius: 50%; color: white; background: var(--ink); font: 800 .78rem var(--mono); }
+    .primer-item p { margin: 0; color: var(--muted); font-size: .9rem; }
+    .parity-toy { border-left: 1px solid var(--line); padding-left: 24px; }
+    .toy-bits { display: grid; grid-template-columns: 1fr auto 1fr; gap: 10px; align-items: center; margin: 15px 0; }
+    .toy-bit { min-height: 76px; border: 2px solid var(--ink); border-radius: 14px; background: white; font: 850 1.5rem var(--mono); cursor: pointer; }
+    .toy-times { font: 800 1.4rem var(--mono); }
+    .toy-meter { display: flex; justify-content: space-between; align-items: center; padding: 13px; border-radius: 12px; background: #17201f; color: white; }
+    .toy-meter strong { font: 850 1.8rem var(--mono); }
+    .caveat { margin-top: 12px; padding: 10px 12px; border-radius: 10px; background: #f0e8d8; color: #5f5547; font-size: .78rem; }
+
+    .lab-shell {
+      margin-top: 42px; border: 1px solid var(--line); border-radius: var(--radius);
+      background: var(--paper-2); box-shadow: var(--shadow); overflow: hidden;
+    }
+    .dark .lab-shell { color: var(--ink); }
+    .lab-head { display: flex; justify-content: space-between; gap: 20px; padding: 19px 23px; border-bottom: 1px solid var(--line); background: #eee7da; }
+    .lab-head p { margin: 0; color: var(--muted); font-size: .88rem; }
+    .lab-tag { font-family: var(--mono); font-size: .72rem; font-weight: 800; white-space: nowrap; }
+    .lab-grid { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(280px, .65fr); }
+    .stage { min-height: 470px; padding: 20px; border-right: 1px solid var(--line); display: grid; place-items: center; background: #fbf8f0; }
+    .panel { padding: 24px; }
+    .panel-block { padding: 16px 0; border-bottom: 1px solid var(--line); }
+    .panel-block:first-child { padding-top: 0; }
+    .panel-block:last-child { border: 0; padding-bottom: 0; }
+    .segmented { display: grid; grid-template-columns: repeat(3, 1fr); gap: 7px; }
+    .segmented button, .chip, .icon-button {
+      border: 1px solid #bdb3a2; background: #fffdf7; color: var(--ink); border-radius: 10px; padding: 9px;
+      cursor: pointer; font-weight: 730;
+    }
+    .segmented button[aria-pressed="true"], .chip[aria-pressed="true"] { color: white; background: var(--ink); border-color: var(--ink); }
+    .legend { display: grid; gap: 8px; font-size: .83rem; }
+    .legend span { display: flex; align-items: center; gap: 9px; }
+    .line-swatch { display: inline-block; width: 36px; height: 0; border-top: 4px solid; }
+    .line-swatch.r0 { border-color: var(--c0); }
+    .line-swatch.r1 { border-color: var(--c1); border-top-style: dashed; }
+    .line-swatch.r2 { border-color: var(--c2); border-top-style: dotted; }
+    .status-box { padding: 13px; border-radius: 12px; background: #edf1ed; font-size: .88rem; }
+    .edge-info code { font-family: var(--mono); font-size: 1rem; font-weight: 800; }
+    #lattice { width: 100%; height: auto; max-height: 480px; }
+    .hex-face { stroke: #c9bfaf; stroke-width: 1; }
+    .face-label { font: 700 13px var(--mono); fill: #5b625f; text-anchor: middle; dominant-baseline: central; pointer-events: none; }
+    .edge-line { stroke-width: 2.5; transition: stroke-width .18s ease, opacity .18s ease; }
+    .edge-hit { stroke: transparent; stroke-width: 16; cursor: pointer; }
+    .edge-group { opacity: .38; }
+    .edge-group.active { opacity: 1; }
+    .edge-group.active .edge-line { stroke-width: 6; }
+    .edge-group.selected .edge-line { stroke: #111 !important; stroke-width: 7; }
+    .qubit { fill: #fffdf7; stroke: #17201f; stroke-width: 2.2; pointer-events: none; }
+
+    .concept-strip { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; margin-top: 30px; }
+    .concept { padding: 21px; border-top: 3px solid var(--ink); background: rgba(255,255,255,.35); }
+    .concept .num { font-family: var(--mono); color: var(--c0); font-size: .78rem; }
+
+    .plaquette-layout { display: grid; grid-template-columns: .85fr 1.15fr; gap: 30px; align-items: center; padding: 34px; }
+    .hex-ring { width: 320px; height: 300px; position: relative; margin: auto; }
+    .hex-center {
+      position: absolute; left: 80px; top: 70px; width: 160px; height: 160px;
+      clip-path: polygon(25% 7%, 75% 7%, 100% 50%, 75% 93%, 25% 93%, 0 50%);
+      background: #efe8da; display: grid; place-items: center; text-align: center; padding: 30px;
+    }
+    .hex-center b { display: block; font-size: 2.4rem; line-height: 1; }
+    .outcome {
+      position: absolute; width: 58px; height: 58px; border-radius: 50%; border: 2px solid var(--ink);
+      background: white; color: var(--ink); font: 850 1.08rem var(--mono); cursor: pointer;
+    }
+    .outcome[data-i="0"] { left: 131px; top: 4px; }
+    .outcome[data-i="1"] { right: 20px; top: 69px; }
+    .outcome[data-i="2"] { right: 20px; bottom: 44px; }
+    .outcome[data-i="3"] { left: 131px; bottom: 0; }
+    .outcome[data-i="4"] { left: 20px; bottom: 44px; }
+    .outcome[data-i="5"] { left: 20px; top: 69px; }
+    .outcome.neg { background: var(--ink); color: white; }
+    .round-mini { position: absolute; font: 700 .66rem var(--mono); color: var(--muted); pointer-events: none; transform: translate(-50%, -50%); }
+    .round-mini[data-i="0"] { left: 160px; top: 68px; }
+    .round-mini[data-i="1"] { left: 242px; top: 113px; }
+    .round-mini[data-i="2"] { left: 242px; top: 205px; }
+    .round-mini[data-i="3"] { left: 160px; top: 246px; }
+    .round-mini[data-i="4"] { left: 78px; top: 205px; }
+    .round-mini[data-i="5"] { left: 78px; top: 113px; }
+    .equation { font-family: var(--mono); background: #17201f; color: white; padding: 14px 16px; border-radius: 12px; overflow-x: auto; }
+    .result-large { display: flex; align-items: center; gap: 17px; margin: 18px 0; }
+    .result-large strong { font: 850 3.5rem var(--mono); line-height: 1; }
+    .detector { border-left: 5px solid var(--success); padding: 12px 14px; background: #e9f3ed; border-radius: 7px 12px 12px 7px; }
+    .detector.event { border-color: var(--danger); background: #fae9e4; }
+    label.select-label { display: grid; gap: 5px; font-size: .83rem; font-weight: 750; }
+    select, input[type="text"] { border: 1px solid #aaa092; border-radius: 10px; background: white; padding: 9px 10px; color: var(--ink); }
+
+    .timeline { margin-top: 38px; display: grid; grid-template-columns: repeat(4, 1fr); position: relative; gap: 16px; }
+    .timeline::before { content:""; position:absolute; top: 37px; left: 8%; right: 8%; height: 3px; background: #c5bbab; }
+    .time-card { position: relative; z-index: 1; background: var(--paper-2); border: 1px solid var(--line); padding: 16px; border-radius: 16px; min-height: 185px; }
+    .time-dot { width: 28px; height: 28px; background: var(--paper-2); border: 6px solid var(--ink); border-radius: 50%; margin-bottom: 16px; }
+    .time-card.error .time-dot { border-color: var(--c0); }
+    .time-card h3 { font: 800 .84rem var(--mono); }
+    .time-card button { width: 100%; margin-top: 8px; }
+    .answer-row { margin-top: 22px; display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+    .feedback { min-height: 1.5em; font-weight: 720; }
+
+    .decoder-grid { display: grid; grid-template-columns: 1.2fr .8fr; }
+    #torus { width: 100%; height: auto; border-radius: 14px; background: #14201e; }
+    .decoder-stage { padding: 28px; border-right: 1px solid var(--line); background: #e8e2d5; }
+    .decoder-panel { padding: 28px; }
+    .case-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
+    .case-tabs button { flex: 1; min-width: 96px; }
+    .route-choice { display: grid; gap: 9px; margin: 17px 0; }
+    .route-choice button { text-align: left; }
+    .verdict { padding: 16px; border: 1px solid var(--line); border-radius: 14px; background: #f4f0e7; }
+    .verdict.success { border-color: #4d866f; background: #eaf5ee; }
+    .verdict.fail { border-color: #bd6a5b; background: #fae9e4; }
+    .topology-note { display:flex; gap: 10px; align-items:flex-start; font-size:.84rem; color:var(--muted); }
+    .topology-note b { color: var(--ink); }
+
+    .formal-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 18px; margin-top: 38px; }
+    .formal-card { background: #fffdf8; border: 1px solid #c3ceda; padding: 25px; border-radius: 18px; }
+    .formal-card.wide { grid-column: 1/-1; }
+    .formula { font: 600 .94rem/1.7 var(--mono); background: #17212b; color: #ecf4ff; padding: 16px; border-radius: 11px; overflow-x: auto; }
+    .term { display: inline-block; background: #dfe8f3; color: #23374d; padding: 1px 7px; border-radius: 6px; font: 700 .82rem var(--mono); }
+    .isg-table { width: 100%; border-collapse: collapse; font-size: .9rem; }
+    .isg-table th, .isg-table td { text-align: left; padding: 10px; border-bottom: 1px solid #ccd5df; }
+    .isg-table th { font-family: var(--mono); font-size: .74rem; text-transform: uppercase; }
+
+    .commute-lab { display: grid; grid-template-columns: 1fr auto 1fr; gap: 12px; align-items: end; margin-top: 17px; }
+    .commute-lab label { display: grid; gap: 5px; font-size: .78rem; font-weight: 800; }
+    .commute-result { margin-top: 14px; min-height: 54px; padding: 12px; border-radius: 11px; background: #eef2f7; }
+
+    .models { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 34px; }
+    .model-card { border: 1px solid #3e4946; border-radius: 16px; padding: 18px; background: #202a28; cursor: pointer; color: white; text-align: left; }
+    .model-card[aria-pressed="true"] { border-color: #ffb39f; box-shadow: inset 0 0 0 2px #ffb39f; }
+    .model-card b { display: block; font: 800 .83rem var(--mono); color: #ffb39f; margin-bottom: 12px; }
+    .model-card strong { font-size: 1.6rem; display: block; line-height: 1.2; }
+    .model-card span { color: #bcc8c3; font-size: .8rem; }
+    .audit-console { margin-top: 20px; display: grid; grid-template-columns: .75fr 1.25fr; gap: 20px; background: #f5f0e6; color: var(--ink); padding: 26px; border-radius: 18px; }
+    input[type="range"] { width: 100%; accent-color: var(--c0); }
+    .gauge { position: relative; height: 18px; background: #d8d6ce; border-radius: 20px; margin: 18px 0 8px; overflow: hidden; }
+    .threshold-band { position: absolute; height: 100%; background: repeating-linear-gradient(135deg, #e5a12e 0 7px, #f5c761 7px 14px); }
+    .p-marker { position: absolute; width: 4px; height: 100%; background: #111; }
+    .audit-state { padding: 13px; border-radius: 12px; background: white; border: 1px solid var(--line); }
+
+    .quiz-list { display: grid; gap: 16px; margin: 32px 0; }
+    .question { border: 1px solid var(--line); border-radius: 16px; background: var(--paper-2); padding: 20px; }
+    .question fieldset { border: 0; padding: 0; margin: 0; }
+    .question legend { font-weight: 800; margin-bottom: 11px; }
+    .options { display: grid; gap: 8px; }
+    .options label { display: flex; gap: 9px; align-items: flex-start; padding: 8px; border-radius: 9px; }
+    .options label:hover { background: #f1ebdf; }
+    .quiz-result { font-size: 1.15rem; font-weight: 780; min-height: 2em; }
+
+    .source-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 14px; margin-top: 28px; }
+    .source { border-top: 1px solid #4b5652; padding: 18px 0; }
+    .source b { display: block; margin-bottom: 6px; }
+    .source p { color: #bfc9c4; font-size: .84rem; margin: 0; }
+    .source a { color: #b9d7ff; }
+    .boundary { margin-top: 30px; padding: 18px; border: 1px solid #4a5652; border-radius: 14px; color: #d2d9d6; }
+    .checkpoint { display: inline-flex; align-items: center; gap: 8px; margin-top: 24px; }
+    .checkpoint.done { background: var(--success); border-color: var(--success); }
+
+    footer { padding: 30px 24px 55px; text-align: center; color: var(--muted); font-size: .82rem; background: #19211f; }
+
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; padding-top: 50px; }
+      .hero-visual { min-height: 430px; }
+      .hero-note { right: 4%; }
+      .scope-grid, .models { grid-template-columns: repeat(2,1fr); }
+      .lab-grid, .decoder-grid, .plaquette-layout, .audit-console, .primer { grid-template-columns: 1fr; }
+      .parity-toy { border-left: 0; border-top: 1px solid var(--line); padding: 20px 0 0; }
+      .stage, .decoder-stage { border-right: 0; border-bottom: 1px solid var(--line); }
+      .concept-strip { grid-template-columns: 1fr; }
+      .timeline { grid-template-columns: repeat(2,1fr); }
+      .timeline::before { display: none; }
+      .progress-wrap { display: none; }
+    }
+    @media (max-width: 620px) {
+      .topbar { padding-inline: 12px; }
+      .brand { font-size: .86rem; }
+      .route a { font-size: .76rem; }
+      .section { padding: 66px 16px; }
+      .hero { padding-inline: 18px; }
+      .scope-grid, .models, .formal-grid, .source-grid, .timeline { grid-template-columns: 1fr; }
+      .formal-card.wide { grid-column: auto; }
+      .lab-head { flex-direction: column; }
+      .stage { min-height: 330px; padding: 8px; }
+      .plaquette-layout { padding: 22px 10px; }
+      .hex-ring { transform: scale(.87); margin: -15px auto; }
+      .commute-lab { grid-template-columns: 1fr; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; }
+      .orbit { animation: none; }
+    }
+    @media print {
+      .topbar, .hero-actions, .checkpoint, button { display: none !important; }
+      .hero { min-height: auto; }
+      .section { break-inside: avoid; padding-block: 32px; }
+      body { background: white; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#main">跳到正文</a>
+  <nav class="topbar" aria-label="课程导航">
+    <div class="brand">HONEYCOMB<span>•</span>LAB</div>
+    <div class="route">
+      <a href="#map">地图</a><a href="#pulse">测量脉冲</a><a href="#syndrome">症状</a><a href="#decode">译码</a><a href="#formal">形式层</a><a href="#audit">证据审计</a>
+    </div>
+    <div class="progress-wrap" aria-label="学习进度"><span id="progressText">0 / 5 实验</span><div class="progress-track"><div class="progress-fill" id="progressFill"></div></div></div>
+  </nav>
+
+  <main id="main">
+    <header class="hero">
+      <div>
+        <span class="eyebrow">从零开始 · 可操作 · 可审计</span>
+        <h1>会呼吸的<em>量子记忆</em></h1>
+        <p class="lede">大多数纠错码像一座固定的城墙。Honeycomb code 更像一支按 0 → 1 → 2 节拍巡逻的队伍：每次只检查一对邻居，却从跨时间的记录里拼出六体约束，并在不断变化的瞬时码空间里守住两个逻辑量子比特。</p>
+        <div class="hero-actions"><a class="button" href="#map">开始第一轮</a><a class="button secondary" href="#formal">我想先看公式</a></div>
+      </div>
+      <div class="hero-visual" aria-label="三步测量周期示意">
+        <div class="pulse-card">
+          <div class="orbit" aria-hidden="true"><i></i><i></i><i></i></div>
+          <div class="pulse-core"><strong>0·1·2</strong><span>MEASURE → INFER → COMPARE</span></div>
+        </div>
+        <div class="hero-note"><b>本教程里的“honeycomb code”</b><br>特指 Hastings–Haah 2021 年提出的动态 / Floquet 量子纠错码，而不是把 Kitaev honeycomb 哈密顿量本身当作纠错协议。</div>
+      </div>
+    </header>
+
+    <section class="section" id="map">
+      <div class="section-inner">
+        <div class="kicker">00 · 先看任务，不背术语</div>
+        <h2>我们真正要保护的，不是某一个格点。</h2>
+        <p class="intro">一个物理量子比特很脆弱；编码把信息分散到整张网格。测量只询问“两个邻居在某个 Pauli 方向上的奇偶关系”，不直接读取被保护的逻辑信息。错误留下的不是身份证，而是一组可见的<span class="term">detector events</span>；译码器猜最可能的错误链。</p>
+        <div class="scope-grid">
+          <article class="scope-card"><b>顶点</b><p>每个蜂窝顶点放 1 个物理量子比特。</p></article>
+          <article class="scope-card"><b>边</b><p>每条边测一个两体检查：XX、YY 或 ZZ。</p></article>
+          <article class="scope-card"><b>面</b><p>六条边的记录合成一个 weight-6 plaquette stabilizer。</p></article>
+          <article class="scope-card warn"><b>隐藏</b><p>逻辑量子态与具体错误链都不会被检查直接读出；只看到兼容它们的症状。</p></article>
+        </div>
+        <div class="primer">
+          <div>
+            <h3>30 秒量子生存包</h3>
+            <div class="primer-list">
+              <div class="primer-item"><b>Q</b><p><strong>量子比特不是藏着 0 或 1 的小盒子。</strong>它可以对不同问题给出统计结果；测量会改变它，不能把所有问题的答案同时抄下来。</p></div>
+              <div class="primer-item"><b>P</b><p><strong>X、Y、Z 是三类 Pauli 问题。</strong>它们不是空间里的普通箭头。对同一量子比特，某些问题不兼容；代数里用“反对易”记录这种冲突。</p></div>
+              <div class="primer-item"><b>⊗</b><p><strong>PP 是联合问题。</strong>例如 ZZ 只返回两个量子比特的 Z-parity 为 +1 或 −1，不必分别泄露每个量子比特的 Z 结果。</p></div>
+            </div>
+          </div>
+          <div class="parity-toy">
+            <h3>热身 · 只看乘积</h3>
+            <p class="tiny muted">点击两个数。偶数个 −1 的乘积是 +1；奇数个 −1 的乘积是 −1。</p>
+            <div class="toy-bits"><button class="toy-bit" data-toy="0" aria-label="第一个经典数，当前正一">+1</button><span class="toy-times">×</span><button class="toy-bit" data-toy="1" aria-label="第二个经典数，当前正一">+1</button></div>
+            <div class="toy-meter"><span>联合 parity</span><strong id="toyResult">+1</strong></div>
+            <div class="caveat"><b>边界：</b>这只是乘积规则的经典影子，不是量子态模拟。真实量子系统不能假定 X、Y、Z 三类答案早已同时存在。</div>
+          </div>
+        </div>
+        <div class="concept-strip">
+          <article class="concept"><span class="num">VISIBLE</span><h3>可见</h3><p>每次两体测量的 ±1 结果，以及从结果乘积得到的面算符值。</p></article>
+          <article class="concept"><span class="num">HIDDEN</span><h3>不可见</h3><p>单独的量子振幅、真实错误路径、被编码的逻辑态。</p></article>
+          <article class="concept"><span class="num">INFERRED</span><h3>推断</h3><p>症状变化的端点、最可能的恢复链、是否发生了不可收缩的逻辑绕圈。</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section dark" id="pulse">
+      <div class="section-inner">
+        <div class="kicker">01 · 让蜂窝跳起来</div>
+        <h2>方向决定测什么；数字决定何时测。</h2>
+        <p class="intro">每条边同时有两种标签。几何方向给出 Pauli 类型 x/y/z → XX/YY/ZZ；面三染色诱导出的 0/1/2 标签给出测量轮次。它们是两套独立标签，不能混为一谈。</p>
+        <div class="lab-shell">
+          <div class="lab-head"><div><b>实验 1 · 测量脉冲</b><p>切换轮次，观察每个顶点每轮恰好参加一次两体检查。</p></div><span class="lab-tag">RELATION: ROUND → ACTIVE CHECKS</span></div>
+          <div class="lab-grid">
+            <div class="stage"><svg id="lattice" viewBox="0 0 680 430" role="img" aria-labelledby="latticeTitle latticeDesc"><title id="latticeTitle">蜂窝码局部窗口</title><desc id="latticeDesc">顶点是量子比特，边按轮次标签以实线、虚线、点线区分。当前轮次的边被加粗。</desc></svg></div>
+            <aside class="panel">
+              <div class="panel-block"><h3>当前脉冲</h3><div class="segmented" id="roundControls" aria-label="选择测量轮次"><button aria-pressed="true" data-round="0">轮 0</button><button aria-pressed="false" data-round="1">轮 1</button><button aria-pressed="false" data-round="2">轮 2</button></div><button class="button secondary small" id="autoPulse" style="margin-top:10px">自动播放</button></div>
+              <div class="panel-block"><h3>非颜色图例</h3><div class="legend"><span><i class="line-swatch r0"></i>轮 0 · 实线</span><span><i class="line-swatch r1"></i>轮 1 · 长虚线</span><span><i class="line-swatch r2"></i>轮 2 · 点线</span></div></div>
+              <div class="panel-block edge-info"><h3>边探针</h3><p id="edgeInfo">点击或用 Tab 聚焦一条边，查看它的两套标签。</p></div>
+              <div class="panel-block"><div class="status-box" id="roundStatus" aria-live="polite">轮 0：只测标签 0 的边。每个顶点恰好连接一条当前活跃边。</div></div>
+            </aside>
+          </div>
+        </div>
+        <button class="button checkpoint" data-checkpoint="0">✓ 我能区分“Pauli 类型”和“轮次标签”</button>
+      </div>
+    </section>
+
+    <section class="section" id="syndrome">
+      <div class="section-inner">
+        <div class="kicker">02 · 六个随机数如何说真话</div>
+        <h2>单次结果可以随机；它们的乘积却受约束。</h2>
+        <p class="intro">一个 type-a 六边形周围只有另外两种轮次标签。连续测完这两类边，就能把 6 个两体结果相乘，推断该面的 plaquette stabilizer。与上一次推断值比较，变化才叫 detector event。</p>
+        <div class="lab-shell">
+          <div class="lab-head"><div><b>实验 2 · 面症状合成器</b><p>点击圆形结果在 +1 / −1 间切换；观察乘积与 detector event。</p></div><span class="lab-tag">RELATION: CHECK HISTORY → DETECTOR</span></div>
+          <div class="plaquette-layout">
+            <div>
+              <label class="select-label">选择面的类型
+                <select id="faceType"><option value="0">type 0 面</option><option value="1">type 1 面</option><option value="2">type 2 面</option></select>
+              </label>
+              <div class="hex-ring" id="hexRing" aria-label="六条边的测量结果">
+                <div class="hex-center"><div><span class="tiny mono">PLAQUETTE</span><b id="faceLabel">W₀</b><span class="tiny" id="inferredAt">轮 1 + 2 推断</span></div></div>
+                <button class="outcome" data-i="0" aria-label="边 1 结果，当前正一">+1</button><span class="round-mini" data-i="0"></span>
+                <button class="outcome" data-i="1" aria-label="边 2 结果，当前正一">+1</button><span class="round-mini" data-i="1"></span>
+                <button class="outcome" data-i="2" aria-label="边 3 结果，当前正一">+1</button><span class="round-mini" data-i="2"></span>
+                <button class="outcome" data-i="3" aria-label="边 4 结果，当前正一">+1</button><span class="round-mini" data-i="3"></span>
+                <button class="outcome" data-i="4" aria-label="边 5 结果，当前正一">+1</button><span class="round-mini" data-i="4"></span>
+                <button class="outcome" data-i="5" aria-label="边 6 结果，当前正一">+1</button><span class="round-mini" data-i="5"></span>
+              </div>
+            </div>
+            <div>
+              <p class="equation" id="productEquation">W₀ = (+1)×(+1)×(+1)×(+1)×(+1)×(+1)</p>
+              <div class="result-large"><span>当前推断值</span><strong id="productResult">+1</strong></div>
+              <label class="select-label">同一面上一次的推断值
+                <select id="previousValue"><option value="1">+1</option><option value="-1">−1</option></select>
+              </label>
+              <div class="detector" id="detectorResult" aria-live="polite" style="margin-top:16px"><b>没有 detector event</b><br><span class="tiny">两次推断相同。注意：这不证明“绝对没有错误”，只说明这个 detector 没变。</span></div>
+              <p class="muted tiny" style="margin-top:16px">关键限定：理想稳态中 plaquette stabilizer 属于每一轮的 ISG。真实电路常把多次测量结果组合成 detector；具体组合长度取决于电路实现，不能把这里的 6 个抽象边结果直接当作硬件门数。</p>
+            </div>
+          </div>
+        </div>
+
+        <h3 style="margin-top:54px">现在跟踪论文中的一个精确错误案例</h3>
+        <p class="intro">轮 0 刚结束后发生单量子比特 X 错误。按 Hastings–Haah 的简化错误模型，它造成两个跨时空的症状变化。先预测每个时刻“有 / 没有事件”，再核对。</p>
+        <div class="timeline" id="errorTimeline">
+          <article class="time-card error"><div class="time-dot"></div><h3>轮 0 之后</h3><p>一个 X 错误发生。它本身不可见。</p></article>
+          <article class="time-card"><div class="time-dot"></div><h3>轮 r+1</h3><p>新推断 type-2 面。</p><button class="chip" aria-pressed="false" data-predict="0">预测：无事件</button></article>
+          <article class="time-card"><div class="time-dot"></div><h3>轮 r+2</h3><p>新推断 type-0 面。</p><button class="chip" aria-pressed="false" data-predict="1">预测：无事件</button></article>
+          <article class="time-card"><div class="time-dot"></div><h3>轮 r+3</h3><p>新推断 type-1 面。</p><button class="chip" aria-pressed="false" data-predict="2">预测：无事件</button></article>
+        </div>
+        <div class="answer-row"><button class="button small" id="checkTimeline">核对预测</button><span class="feedback" id="timelineFeedback" aria-live="polite"></span></div>
+        <button class="button checkpoint" data-checkpoint="1">✓ 我能从跨轮记录读出 detector event</button>
+      </div>
+    </section>
+
+    <section class="section" id="decode" style="background:#e8e2d5">
+      <div class="section-inner">
+        <div class="kicker">03 · 症状不是错误的照片</div>
+        <h2>同样的两个端点，可能藏着不同的路径。</h2>
+        <p class="intro">译码器得到的是错误链的边界，而不是错误链本身。恢复链只需连接相同端点；真正决定成败的是“真实错误链 ⊕ 恢复链”是否形成不可收缩的绕圈。</p>
+        <div class="lab-shell">
+          <div class="lab-head"><div><b>实验 3 · 环面上的两条恢复路</b><p>矩形左右边粘在一起、上下边也粘在一起；虚线为教学中揭示的真实错误。</p></div><span class="lab-tag">RELATION: SYNDROME → HOMOLOGY CLASS</span></div>
+          <div class="decoder-grid">
+            <div class="decoder-stage"><svg id="torus" viewBox="0 0 600 320" role="img" aria-labelledby="torusTitle torusDesc"><title id="torusTitle">环面译码示意</title><desc id="torusDesc">矩形的对边周期粘合。两个检测事件由真实错误路径连接，用户选择一条恢复路径。</desc></svg><p class="topology-note"><b>读图：</b><span>● 是 detector event；橙色虚线是真实错误（真实译码时未知）；白色实线是你的恢复。边界箭头表示周期粘合。</span></p></div>
+            <aside class="decoder-panel">
+              <div class="case-tabs" id="caseTabs"><button class="chip" aria-pressed="true" data-case="local">近端点</button><button class="chip" aria-pressed="false" data-case="tie">等长歧义</button><button class="chip" aria-pressed="false" data-case="time">测量噪声</button></div>
+              <h3 id="caseTitle">案例 A · 一条明显的短路</h3><p class="muted" id="caseText">真实错误走中间短路。两个候选恢复都解释相同端点，但只有同一同调类能成功。</p>
+              <div class="route-choice" id="routeChoices"><button class="chip" aria-pressed="false" data-route="direct">恢复 A：直接连接</button><button class="chip" aria-pressed="false" data-route="wrap">恢复 B：跨边界连接</button></div>
+              <div class="verdict" id="decodeVerdict" aria-live="polite"><b>等待选择恢复链</b><p class="tiny" style="margin:5px 0 0">译码不是“消灭红线”，而是让合成后的闭链属于平凡同调类。</p></div>
+            </aside>
+          </div>
+        </div>
+        <button class="button checkpoint" data-checkpoint="2">✓ 我能用“端点 + 同调类”判断逻辑失败</button>
+      </div>
+    </section>
+
+    <section class="section blueprint" id="formal">
+      <div class="section-inner">
+        <div class="kicker">04 · 把你已经看见的现象写成数学</div>
+        <h2>术语现在不是门槛，而是压缩包。</h2>
+        <p class="intro">下面的每个符号都对应前面可操作的对象。默认几何是周期边界的环面；平面边界需要修改测量时序与译码图，不在这个局部演示里偷偷混用。</p>
+        <div class="formal-grid">
+          <article class="formal-card"><h3>1. 两体检查与三步日程</h3><p>顶点集合 V 放量子比特。边 e=(u,v) 有方向标签 α(e)∈{x,y,z} 与轮次标签 c(e)∈{0,1,2}。</p><div class="formula">Cₑ = σᵅ(e)ᵤ σᵅ(e)ᵥ<br>Mᵣ = { Cₑ : c(e)=r mod 3 }</div><p class="tiny muted">相邻且共享一个顶点的不同 Pauli 检查反对易，因此不能把所有边同时当成固定 stabilizer 测量。</p></article>
+          <article class="formal-card"><h3>2. 面算符与 detector</h3><p>对六边形 p，沿边界相乘得到 weight-6 面算符（整体相位选成 Hermitian）：</p><div class="formula">Wₚ ∝ ∏ₑ∈∂p Cₑ<br>[Wₚ, Cₑ] = 0<br>dₚ(t) = [1 − sₚ(t)sₚ(t−3)] / 2</div><p class="tiny muted">这里 sₚ∈{±1}；dₚ=1 表示相隔一个三步周期的推断发生变化。</p></article>
+          <article class="formal-card wide"><h3>3. 瞬时 stabilizer 群为什么留下两个逻辑量子比特</h3><table class="isg-table"><thead><tr><th>时刻</th><th>ISG 生成元（忽略符号）</th><th>发生了什么</th></tr></thead><tbody><tr><td>初始</td><td>{I}</td><td>尚未建立码空间</td></tr><tr><td>轮 0 后</td><td>type-0 checks</td><td>每对活跃边成为一个约束</td></tr><tr><td>轮 1 后</td><td>type-1 checks + type-2 plaquettes</td><td>首次推断一类面</td></tr><tr><td>轮 2 后</td><td>type-2 checks + type-2、0 plaquettes</td><td>第二类面进入 ISG</td></tr><tr><td>r ≥ 3</td><td>当轮 checks + 全部 plaquettes</td><td>稳态，ISG 以 3 轮为周期</td></tr></tbody></table><p style="margin-top:14px">环面有 nₚ 个面、2nₚ 个物理量子比特。稳态 ISG 秩为 2nₚ−2，所以码空间维数 2²=4，即保护 <b>2 个逻辑量子比特</b>。若忽略测量顺序把所有 checks 当成 subsystem gauge group，则反而没有逻辑量子比特——时间顺序就是编码的一部分。</p></article>
+          <article class="formal-card"><h3>4. 逻辑算符会演化</h3><p>内逻辑算符是沿环面不可收缩回路的 checks 乘积，与所有 checks 对易，代表可保持不变的长环。外逻辑算符的代表随轮次改变。</p><div class="formula">measurement period = 3<br>outer-logical period = 6<br>e ↔ m each subround</div><p class="tiny muted">每三轮，外逻辑代表会乘上一个平行的内逻辑算符（忽略符号）；再过三轮才返回。随机测量符号必须保留在 classical Pauli frame 中。</p></article>
+          <article class="formal-card"><h3>5. 距离与译码目标</h3><p>环面上的码距随系统线性尺寸增长。译码图在 2+1 维时空中分成两个同构于剪切简单立方晶格的连通分量；MWPM 寻找最可能的 1-chain。</p><div class="formula">given ∂E = detector events<br>find R with ∂R = ∂E<br>success ⇔ [E ⊕ R] = 0 in homology</div><p class="tiny muted">“最短”只在独立同分布近似下等价于“最可能”；相关错误需要加权或相关译码。</p></article>
+          <article class="formal-card wide"><h3>实验 4 · Pauli 对易计算器</h3><p>输入等长的 I/X/Y/Z 字符串。每个位置若两者都是非 I 且不同，就贡献一次反对易；贡献次数为奇数时整体反对易。</p><div class="commute-lab"><label>算符 A<input id="pauliA" type="text" value="XXIIII" maxlength="12" inputmode="text" aria-label="Pauli 算符 A"></label><button class="button small" id="computeCommute">计算</button><label>算符 B<input id="pauliB" type="text" value="IYYIII" maxlength="12" inputmode="text" aria-label="Pauli 算符 B"></label></div><div class="commute-result" id="commuteResult" aria-live="polite">默认例子在第 2 个量子比特上 X 对 Y，只有 1 次局部反对易，所以整体 <b>反对易</b>。</div></article>
+        </div>
+        <button class="button checkpoint" data-checkpoint="3">✓ 我能把图上的对象映射到标准数学</button>
+      </div>
+    </section>
+
+    <section class="section dark" id="audit">
+      <div class="section-inner">
+        <div class="kicker">05 · 阈值不是一个属于代码的常数</div>
+        <h2>先问噪声模型，再谈“性能好不好”。</h2>
+        <p class="intro">阈值会随门集、测量实现、相关性、边界、译码器与报告口径变化。下面数字来自 Gidney 等人的 Monte Carlo 研究；它们是模型内估计区间，不是任何 honeycomb 硬件的保证书。</p>
+        <div class="models" id="modelCards">
+          <button class="model-card" aria-pressed="true" data-model="proof"><b>IDEAL / PROOF</b><strong>pₜₕ &gt; 0</strong><span>独立 Pauli + 完美检查测量的简化模型；原论文证明存在正阈值，不报通用数值。</span></button>
+          <button class="model-card" aria-pressed="false" data-model="sd6"><b>SD6</b><strong>0.2–0.3%</strong><span>标准 6-step CNOT 电路级退极化模型；相关 MWPM 数值估计。</span></button>
+          <button class="model-card" aria-pressed="false" data-model="si1000"><b>SI1000</b><strong>0.10–0.15%</strong><span>超导启发、测量相对更吵的电路级模型。</span></button>
+          <button class="model-card" aria-pressed="false" data-model="em3"><b>EM3</b><strong>1.5–2.0%</strong><span>原生两体纠缠测量模型；p 合并了结果翻转与相关数据退极化。</span></button>
+        </div>
+        <div class="audit-console">
+          <div><h3>假设扫描器</h3><label for="pSlider">设定物理错误参数 p：<b id="pValue">0.10%</b></label><input id="pSlider" type="range" min="0" max="2.5" step="0.01" value="0.10"><div class="gauge" aria-hidden="true"><div class="threshold-band" id="thresholdBand"></div><div class="p-marker" id="pMarker"></div></div><div class="tiny muted">黑线：你的 p　斜纹：论文估计的 crossing 区间</div></div>
+          <div><div class="audit-state" id="auditState" aria-live="polite"><b>证明模型不提供数值 crossing。</b><p class="tiny" style="margin:5px 0 0">它说明足够低噪声下存在一个可纠错区，而不是允许把任意百分比代进去做硬件预测。</p></div><p class="tiny muted" style="margin-top:14px">还要追问：p 是否独立？空闲、复位、测量各自多吵？两体测量是否产生相关误差？报告的是每 subround、每 code cell 还是每逻辑操作？是否使用相关译码？</p></div>
+        </div>
+        <div class="boundary"><b>实现边界</b><br>本页精确演示的是周期环面 bulk 机制。实验硬件通常需要平面补丁；平面 honeycomb code 会加入边界、修改测量顺序，并出现可在边界终止的新错误路径。2022 年平面基准研究给出 SD6 / SI1000 / EM3 约 7000 / 50000 / 900 个物理量子比特的 teraquop 投影（p=10⁻³），但这依赖外推、目标口径和具体电路，不能当作已实现的硬件数字。</div>
+        <button class="button checkpoint" data-checkpoint="4">✓ 我会先审计模型，再引用阈值与资源数</button>
+      </div>
+    </section>
+
+    <section class="section" id="quiz">
+      <div class="section-inner">
+        <div class="kicker">06 · 最后检查：你是否真的掌握了因果链</div>
+        <h2>四问闭环</h2>
+        <form id="quizForm" class="quiz-list">
+          <article class="question"><fieldset><legend>1. 为什么不能把单个两体测量结果 −1 直接叫作错误？</legend><div class="options"><label><input type="radio" name="q1" value="a"> 因为仪器永远输出随机数</label><label><input type="radio" name="q1" value="b"> 因为单个结果可随机，受约束的是跨结果乘积与跨时间变化</label><label><input type="radio" name="q1" value="c"> 因为 −1 代表逻辑态为 1</label></div></fieldset></article>
+          <article class="question"><fieldset><legend>2. 三步测量周期结束后，外逻辑算符是否已经返回原代表？</legend><div class="options"><label><input type="radio" name="q2" value="a"> 是，所有对象周期都是 3</label><label><input type="radio" name="q2" value="b"> 否；ISG 周期 3，但外逻辑演化周期 6</label></div></fieldset></article>
+          <article class="question"><fieldset><legend>3. 恢复链连接了正确端点，却仍发生逻辑失败，最可能的原因是？</legend><div class="options"><label><input type="radio" name="q3" value="a"> 恢复链和真实链合成了不可收缩环</label><label><input type="radio" name="q3" value="b"> 恢复链经过的边太多，所以测量值变成 −1</label><label><input type="radio" name="q3" value="c"> 两个 detector event 必须分别删除</label></div></fieldset></article>
+          <article class="question"><fieldset><legend>4. “Honeycomb code 阈值是 2%”这句话缺少什么？</legend><div class="options"><label><input type="radio" name="q4" value="a"> 只缺代码距离</label><label><input type="radio" name="q4" value="b"> 缺噪声模型、门集、译码器、边界与报告口径</label><label><input type="radio" name="q4" value="c"> 什么也不缺</label></div></fieldset></article>
+        </form>
+        <button class="button" id="gradeQuiz">提交答案</button><p class="quiz-result" id="quizResult" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <section class="section dark" id="sources">
+      <div class="section-inner">
+        <div class="kicker">来源与可追溯性</div><h2>每个重要边界都有出处。</h2>
+        <div class="source-grid">
+          <article class="source"><b>Hastings &amp; Haah (2021), “Dynamically Generated Logical Qubits”</b><p>原始定义：顶点量子比特、两体 XX/YY/ZZ checks、0→1→2 日程、ISG、两个动态逻辑量子比特、时空译码图与正阈值证明。<a href="https://doi.org/10.22331/q-2021-10-19-564" target="_blank" rel="noreferrer">Quantum 5, 564</a></p></article>
+          <article class="source"><b>Gidney et al. (2021/2026 v4), “A Fault-Tolerant Honeycomb Memory”</b><p>相关 MWPM、SD6 / SI1000 / EM3 模型、阈值区间与周期环面资源投影。<a href="https://arxiv.org/abs/2108.10457" target="_blank" rel="noreferrer">arXiv:2108.10457</a></p></article>
+          <article class="source"><b>Haah &amp; Hastings (2022), “Boundaries for the Honeycomb Code”</b><p>说明平面边界为何不是简单裁剪环面，并给出边界与修改后的测量日程。<a href="https://doi.org/10.22331/q-2022-04-12-693" target="_blank" rel="noreferrer">Quantum 6, 693</a></p></article>
+          <article class="source"><b>Gidney, Newman &amp; McEwen (2022), “Benchmarking the Planar Honeycomb Code”</b><p>平面补丁电路、Monte Carlo 阈值、公开数据和 teraquop 资源外推。<a href="https://arxiv.org/abs/2202.11845" target="_blank" rel="noreferrer">arXiv:2202.11845</a></p></article>
+        </div>
+        <div class="boundary"><b>术语口径</b><br>部分后续文献把不同的 honeycomb/Floquet 变体也简称 “honeycomb code”（例如改变面算符或 Pauli 日程的版本）。本教程的默认对象始终是 Hastings–Haah 构造；引用别的变体时必须重新声明 checks、schedule、noise model 与 decoder。</div>
+      </div>
+    </section>
+  </main>
+  <footer>自包含交互教程 · 无网络依赖 · 键盘可操作 · 支持 reduced-motion · 最后校准：2026-08-31</footer>
+
+  <script>
+    (() => {
+      'use strict';
+      const $ = (s, root=document) => root.querySelector(s);
+      const $$ = (s, root=document) => [...root.querySelectorAll(s)];
+      const mod = (n,m) => ((n%m)+m)%m;
+
+      // ---------- Progress ----------
+      const completed = new Set();
+      function updateProgress() {
+        const n = completed.size;
+        $('#progressText').textContent = `${n} / 5 实验`;
+        $('#progressFill').style.width = `${n*20}%`;
+      }
+      $$('.checkpoint').forEach(btn => {
+        btn.dataset.original = btn.textContent;
+        btn.addEventListener('click', () => {
+          const id = btn.dataset.checkpoint;
+          if (completed.has(id)) completed.delete(id); else completed.add(id);
+          btn.classList.toggle('done', completed.has(id));
+          btn.textContent = completed.has(id) ? '✓ 已掌握（点击撤销）' : btn.dataset.original;
+          updateProgress();
+        });
+      });
+
+      // ---------- Classical parity warm-up (explicitly not a state simulation) ----------
+      const toyValues = [1, 1];
+      $$('[data-toy]').forEach(btn => btn.addEventListener('click', () => {
+        const i = Number(btn.dataset.toy);
+        toyValues[i] *= -1;
+        btn.textContent = toyValues[i] === 1 ? '+1' : '−1';
+        btn.setAttribute('aria-label', `第${i===0?'一':'二'}个经典数，当前${toyValues[i]===1?'正一':'负一'}`);
+        $('#toyResult').textContent = toyValues[0] * toyValues[1] === 1 ? '+1' : '−1';
+      }));
+
+      // ---------- Honeycomb lattice ----------
+      const svgNS = 'http://www.w3.org/2000/svg';
+      const lattice = $('#lattice');
+      const faces = [];
+      for (let q=-3; q<=3; q++) for (let r=-2; r<=2; r++) {
+        const x = 340 + q*78;
+        const y = 215 + Math.sqrt(3)*52*(r+q/2);
+        if (x > 25 && x < 655 && y > 25 && y < 405) faces.push({q,r,x,y,c:mod(q-r,3)});
+      }
+      const dirs = [[1,0],[0,1],[-1,1],[-1,0],[0,-1],[1,-1]];
+      const faceLayer = document.createElementNS(svgNS,'g');
+      const edgeLayer = document.createElementNS(svgNS,'g');
+      const vertexLayer = document.createElementNS(svgNS,'g');
+      lattice.append(faceLayer, edgeLayer, vertexLayer);
+      const vertexMap = new Map();
+      const edgeMap = new Map();
+      const faceColors = ['rgba(212,87,59,.10)','rgba(22,127,114,.10)','rgba(62,98,168,.10)'];
+      const edgeColors = ['#d4573b','#167f72','#3e62a8'];
+      const dashes = ['', '13 8', '2 7'];
+      faces.forEach(f => {
+        const pts = Array.from({length:6},(_,i) => {
+          const a = i*Math.PI/3;
+          return [f.x+52*Math.cos(a), f.y+52*Math.sin(a)];
+        });
+        const poly = document.createElementNS(svgNS,'polygon');
+        poly.setAttribute('points', pts.map(p=>p.join(',')).join(' '));
+        poly.setAttribute('fill',faceColors[f.c]); poly.setAttribute('class','hex-face');
+        faceLayer.append(poly);
+        const t = document.createElementNS(svgNS,'text');
+        t.setAttribute('x',f.x); t.setAttribute('y',f.y); t.setAttribute('class','face-label'); t.textContent=f.c;
+        faceLayer.append(t);
+        pts.forEach(p => vertexMap.set(`${p[0].toFixed(1)},${p[1].toFixed(1)}`,p));
+        pts.forEach((p,i) => {
+          const p2=pts[(i+1)%6];
+          const k1=`${p[0].toFixed(1)},${p[1].toFixed(1)}`, k2=`${p2[0].toFixed(1)},${p2[1].toFixed(1)}`;
+          const key=[k1,k2].sort().join('|');
+          if (edgeMap.has(key)) return;
+          const [dq,dr]=dirs[i];
+          const neighborC=mod((f.q+dq)-(f.r+dr),3);
+          const round=3-f.c-neighborC;
+          const dx=p2[0]-p[0], dy=p2[1]-p[1];
+          const pauli=Math.abs(dy)<1 ? 'Z' : (dx*dy>0 ? 'X' : 'Y');
+          edgeMap.set(key,{p,p2,round,pauli});
+        });
+      });
+      edgeMap.forEach((e,key) => {
+        const g=document.createElementNS(svgNS,'g'); g.setAttribute('class',`edge-group r${e.round}`); g.dataset.round=e.round;
+        g.setAttribute('tabindex','0'); g.setAttribute('role','button');
+        g.setAttribute('aria-label',`轮次 ${e.round}，${e.pauli}${e.pauli} 检查`);
+        const line=document.createElementNS(svgNS,'line'); line.setAttribute('x1',e.p[0]); line.setAttribute('y1',e.p[1]); line.setAttribute('x2',e.p2[0]); line.setAttribute('y2',e.p2[1]); line.setAttribute('class','edge-line'); line.setAttribute('stroke',edgeColors[e.round]); if(dashes[e.round]) line.setAttribute('stroke-dasharray',dashes[e.round]);
+        const hit=line.cloneNode(); hit.setAttribute('class','edge-hit'); hit.removeAttribute('stroke-dasharray');
+        g.append(line,hit); edgeLayer.append(g);
+        const select=()=>{ $$('.edge-group',lattice).forEach(x=>x.classList.remove('selected')); g.classList.add('selected'); $('#edgeInfo').innerHTML=`这条边的<b>轮次标签是 ${e.round}</b>；方向标签是 <code>${e.pauli.toLowerCase()}</code>，所以测量算符为 <code>${e.pauli}${e.pauli}</code>。`; };
+        g.addEventListener('click',select); g.addEventListener('keydown',ev=>{if(ev.key==='Enter'||ev.key===' '){ev.preventDefault();select();}});
+      });
+      vertexMap.forEach(p => { const c=document.createElementNS(svgNS,'circle'); c.setAttribute('cx',p[0]);c.setAttribute('cy',p[1]);c.setAttribute('r',5);c.setAttribute('class','qubit');vertexLayer.append(c); });
+      let currentRound=0, pulseTimer=null;
+      function setRound(r){
+        currentRound=Number(r); $$('.edge-group',lattice).forEach(g=>g.classList.toggle('active',Number(g.dataset.round)===currentRound));
+        $$('#roundControls button').forEach(b=>b.setAttribute('aria-pressed',String(Number(b.dataset.round)===currentRound)));
+        $('#roundStatus').textContent=`轮 ${currentRound}：只测标签 ${currentRound} 的边。每个顶点恰好连接一条当前活跃边。`;
+      }
+      setRound(0);
+      $$('#roundControls button').forEach(b=>b.addEventListener('click',()=>setRound(b.dataset.round)));
+      $('#autoPulse').addEventListener('click',()=>{
+        if(pulseTimer){clearInterval(pulseTimer);pulseTimer=null;$('#autoPulse').textContent='自动播放';return;}
+        $('#autoPulse').textContent='暂停'; pulseTimer=setInterval(()=>setRound((currentRound+1)%3),950);
+      });
+
+      // ---------- Plaquette inference ----------
+      const outcomes=Array(6).fill(1);
+      function renderPlaquette(){
+        const a=Number($('#faceType').value), prev=mod(a+1,3), now=mod(a+2,3);
+        $('#faceLabel').textContent=`W${['₀','₁','₂'][a]}`;
+        $('#inferredAt').textContent=`轮 ${prev} + ${now} 推断`;
+        $$('.round-mini').forEach((s,i)=>s.textContent=`轮 ${i%2===0?prev:now}`);
+        const product=outcomes.reduce((x,y)=>x*y,1);
+        $('#productEquation').textContent=`W${['₀','₁','₂'][a]} = ${outcomes.map(v=>v===1?'(+1)':'(−1)').join('×')}`;
+        $('#productResult').textContent=product===1?'+1':'−1';
+        const previous=Number($('#previousValue').value), event=previous!==product;
+        const box=$('#detectorResult'); box.classList.toggle('event',event);
+        box.innerHTML=event?'<b>● detector event</b><br><span class="tiny">同一面的两次推断不同：d=1。译码器会把它当作错误链的一个端点。</span>':'<b>没有 detector event</b><br><span class="tiny">两次推断相同。注意：这不证明“绝对没有错误”，只说明这个 detector 没变。</span>';
+      }
+      $$('.outcome').forEach(btn=>btn.addEventListener('click',()=>{const i=Number(btn.dataset.i);outcomes[i]*=-1;btn.textContent=outcomes[i]===1?'+1':'−1';btn.classList.toggle('neg',outcomes[i]===-1);btn.setAttribute('aria-label',`边 ${i+1} 结果，当前${outcomes[i]===1?'正一':'负一'}`);renderPlaquette();}));
+      $('#faceType').addEventListener('change',renderPlaquette); $('#previousValue').addEventListener('change',renderPlaquette); renderPlaquette();
+
+      // ---------- Timeline prediction ----------
+      const predictions=[false,false,false];
+      $$('[data-predict]').forEach(btn=>btn.addEventListener('click',()=>{const i=Number(btn.dataset.predict);predictions[i]=!predictions[i];btn.setAttribute('aria-pressed',String(predictions[i]));btn.textContent=`预测：${predictions[i]?'有事件':'无事件'}`;}));
+      $('#checkTimeline').addEventListener('click',()=>{
+        const target=[true,false,true], ok=predictions.every((v,i)=>v===target[i]);
+        $('#timelineFeedback').textContent=ok?'正确：type-2 与 type-1 各出现一个事件，中间 type-0 因两个 constituent checks 同时翻转而抵消。':'再试一次：论文案例的两个事件出现在 r+1 的 type-2 面与 r+3 的 type-1 面；r+2 没有事件。';
+        $('#timelineFeedback').style.color=ok?'var(--success)':'var(--danger)';
+      });
+
+      // ---------- Torus decoder ----------
+      const torus=$('#torus');
+      const cases={
+        local:{title:'案例 A · 一条明显的短路',text:'真实错误走中间短路。两个候选恢复都解释相同端点，但只有同一同调类能成功。',events:[[170,160],[390,160]],truth:'direct',time:false},
+        tie:{title:'案例 B · 两条路一样长',text:'端点正好相隔半个周期宽度。直接路与跨边界路等长；症状本身无法区分，先验噪声与相关信息决定权重。',events:[[190,160],[410,160]],truth:'wrap',time:false},
+        time:{title:'案例 C · 测量记录翻转',text:'把竖直方向改读成时间：一次错误记录可产生沿时间分离的事件。真实译码图是 2+1 维，而不是只看一张空间快照。',events:[[300,90],[300,235]],truth:'direct',time:true}
+      };
+      let currentCase='local';
+      function line(x1,y1,x2,y2,attrs={}){const l=document.createElementNS(svgNS,'line');for(const[k,v]of Object.entries({x1,y1,x2,y2,...attrs}))l.setAttribute(k,v);return l;}
+      function drawTorus(choice=null){
+        torus.innerHTML=''; const c=cases[currentCase];
+        for(let x=80;x<=520;x+=55)torus.append(line(x,45,x,275,{stroke:'#31433f','stroke-width':1}));
+        for(let y=50;y<=270;y+=55)torus.append(line(70,y,530,y,{stroke:'#31433f','stroke-width':1}));
+        const border=document.createElementNS(svgNS,'rect');border.setAttribute('x',60);border.setAttribute('y',35);border.setAttribute('width',480);border.setAttribute('height',250);border.setAttribute('rx',15);border.setAttribute('fill','none');border.setAttribute('stroke','#8ea39d');border.setAttribute('stroke-width',2);torus.append(border);
+        [[42,160,'←'],[558,160,'→'],[300,24,'↑'],[300,302,'↓']].forEach(([x,y,t])=>{const tx=document.createElementNS(svgNS,'text');tx.setAttribute('x',x);tx.setAttribute('y',y);tx.setAttribute('fill','#9fb4ad');tx.setAttribute('font-size',20);tx.setAttribute('text-anchor','middle');tx.textContent=t;torus.append(tx);});
+        const [a,b]=c.events;
+        const truthColor='#ff896d';
+        if(c.time){
+          torus.append(line(a[0],a[1],b[0],b[1],{stroke:truthColor,'stroke-width':7,'stroke-dasharray':'10 8'}));
+          const tt=document.createElementNS(svgNS,'text');tt.setAttribute('x',328);tt.setAttribute('y',166);tt.setAttribute('fill','#cad8d3');tt.setAttribute('font-size',13);tt.textContent='时间 →';tt.setAttribute('transform','rotate(90 328 166)');torus.append(tt);
+        } else if(c.truth==='direct') torus.append(line(a[0],a[1],b[0],b[1],{stroke:truthColor,'stroke-width':7,'stroke-dasharray':'10 8'}));
+        else {torus.append(line(a[0],a[1],60,a[1],{stroke:truthColor,'stroke-width':7,'stroke-dasharray':'10 8'}));torus.append(line(540,b[1],b[0],b[1],{stroke:truthColor,'stroke-width':7,'stroke-dasharray':'10 8'}));}
+        if(choice){
+          if(choice==='direct') torus.append(line(a[0],a[1],b[0],b[1],{stroke:'#fff','stroke-width':4}));
+          else {torus.append(line(a[0],a[1],60,a[1],{stroke:'#fff','stroke-width':4}));torus.append(line(540,b[1],b[0],b[1],{stroke:'#fff','stroke-width':4}));}
+        }
+        c.events.forEach(([x,y])=>{const cc=document.createElementNS(svgNS,'circle');cc.setAttribute('cx',x);cc.setAttribute('cy',y);cc.setAttribute('r',11);cc.setAttribute('fill','#ffd06a');cc.setAttribute('stroke','#111');cc.setAttribute('stroke-width',3);torus.append(cc);});
+      }
+      function setCase(id){currentCase=id;const c=cases[id];$('#caseTitle').textContent=c.title;$('#caseText').textContent=c.text;$$('#caseTabs button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.case===id)));$$('#routeChoices button').forEach(b=>b.setAttribute('aria-pressed','false'));$('#routeChoices').style.display=c.time?'none':'grid';const v=$('#decodeVerdict');v.className='verdict';v.innerHTML=c.time?'<b>这是时间样错误边</b><p class="tiny" style="margin:5px 0 0">一次测量结果翻转会污染使用该记录的 detector；在译码图中表现为沿时间方向连接事件的边。</p>':'<b>等待选择恢复链</b><p class="tiny" style="margin:5px 0 0">译码不是“消灭红线”，而是让合成后的闭链属于平凡同调类。</p>';drawTorus();}
+      $$('#caseTabs button').forEach(b=>b.addEventListener('click',()=>setCase(b.dataset.case)));
+      $$('#routeChoices button').forEach(b=>b.addEventListener('click',()=>{const route=b.dataset.route,c=cases[currentCase],success=route===c.truth;$$('#routeChoices button').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));drawTorus(route);const v=$('#decodeVerdict');v.className=`verdict ${success?'success':'fail'}`;v.innerHTML=success?'<b>✓ 逻辑成功：合成闭链可收缩</b><p class="tiny" style="margin:5px 0 0">真实错误与恢复属于同一同调类；它们的异或不绕环面。</p>':'<b>× 逻辑失败：残差绕了环面一圈</b><p class="tiny" style="margin:5px 0 0">端点虽然全部配对，合成闭链却是不可收缩的逻辑算符。症状已消失，但逻辑信息被翻转。</p>';}));
+      setCase('local');
+
+      // ---------- Pauli commutation ----------
+      function computePauli(){
+        let a=$('#pauliA').value.toUpperCase().replace(/\s/g,''),b=$('#pauliB').value.toUpperCase().replace(/\s/g,'');
+        $('#pauliA').value=a;$('#pauliB').value=b;
+        if(!a||a.length!==b.length||!/^[IXYZ]+$/.test(a+b)){ $('#commuteResult').innerHTML='<b>输入无效。</b> 请使用等长且只含 I/X/Y/Z 的字符串。';return; }
+        const sites=[];for(let i=0;i<a.length;i++)if(a[i]!=='I'&&b[i]!=='I'&&a[i]!==b[i])sites.push(i+1);
+        const anti=sites.length%2===1;
+        $('#commuteResult').innerHTML=`局部反对易出现在位置 ${sites.length?sites.join('、'):'（无）'}，共 ${sites.length} 次；奇偶性为 ${sites.length%2}，所以整体 <b>${anti?'反对易 AB=−BA':'对易 AB=BA'}</b>。`;
+      }
+      $('#computeCommute').addEventListener('click',computePauli);['#pauliA','#pauliB'].forEach(id=>$(id).addEventListener('keydown',e=>{if(e.key==='Enter')computePauli();}));
+
+      // ---------- Noise audit ----------
+      const modelData={proof:{lo:null,hi:null,label:'证明模型'},sd6:{lo:.2,hi:.3,label:'SD6'},si1000:{lo:.1,hi:.15,label:'SI1000'},em3:{lo:1.5,hi:2,label:'EM3'}};
+      let currentModel='proof';
+      function renderAudit(){
+        const p=Number($('#pSlider').value),m=modelData[currentModel],max=2.5;
+        $('#pValue').textContent=`${p.toFixed(2)}%`;$('#pMarker').style.left=`${Math.min(100,p/max*100)}%`;
+        if(m.lo==null){$('#thresholdBand').style.display='none';$('#auditState').innerHTML='<b>证明模型不提供数值 crossing。</b><p class="tiny" style="margin:5px 0 0">它说明足够低噪声下存在一个可纠错区，而不是允许把任意百分比代进去做硬件预测。</p>';return;}
+        $('#thresholdBand').style.display='block';$('#thresholdBand').style.left=`${m.lo/max*100}%`;$('#thresholdBand').style.width=`${(m.hi-m.lo)/max*100}%`;
+        let title,text;
+        if(p<m.lo){title='低于论文估计区间';text='在同一电路、噪声与译码设置下，增大码距应进入逻辑错误受抑制区；这仍不是对具体器件的认证。';}
+        else if(p<=m.hi){title='位于有限尺寸 crossing 区间';text='不同码距曲线在这里交叉；有限样本、有限距离与拟合口径造成区间而非精确常数。';}
+        else{title='高于论文估计区间';text='在该模型与译码器下，增加码距通常不会带来期望的指数抑制。';}
+        $('#auditState').innerHTML=`<b>${m.label} · ${title}</b><p class="tiny" style="margin:5px 0 0">${text}</p>`;
+      }
+      $$('#modelCards button').forEach(b=>b.addEventListener('click',()=>{currentModel=b.dataset.model;$$('#modelCards button').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));renderAudit();}));
+      $('#pSlider').addEventListener('input',renderAudit);renderAudit();
+
+      // ---------- Quiz ----------
+      $('#gradeQuiz').addEventListener('click',()=>{
+        const key={q1:'b',q2:'b',q3:'a',q4:'b'};let score=0,missing=0;
+        Object.entries(key).forEach(([q,a])=>{const checked=$(`input[name="${q}"]:checked`);if(!checked)missing++;else if(checked.value===a)score++;});
+        const out=$('#quizResult');
+        if(missing){out.textContent=`还有 ${missing} 题未作答。`;out.style.color='var(--danger)';return;}
+        out.textContent=score===4?'4 / 4：你已经能从测量日程一路推理到逻辑失败，并知道如何审计性能声明。':`${score} / 4：回到相关实验再操作一次；真正的目标是解释因果链，而不是记答案。`;
+        out.style.color=score===4?'var(--success)':'var(--danger)';
+      });
+
+      // Stop autoplay when not visible, and never start it automatically.
+      document.addEventListener('visibilitychange',()=>{if(document.hidden&&pulseTimer){clearInterval(pulseTimer);pulseTimer=null;$('#autoPulse').textContent='自动播放';}});
+    })();
+  </script>
+</body>
+</html>
