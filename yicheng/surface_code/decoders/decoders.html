@@ -5095,53 +5095,60 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
   }
 
   /* Union–Find decoder (Delfosse–Nickerson shape, whole-edge growth): grow odd clusters until every cluster is even
-     or touches the boundary, then peel a spanning forest. Returns growth history for animation. */
-  function decodePlanarUF(lat, defects, kind) {
+     or touches the boundary, then peel a spanning forest. With record=true it returns a step-by-step history:
+     {kind:'start'|'grow'|'forest'|'peel'|'done', edges, nodes, clusters:[{root, nodes, parity, boundary}], ...}. */
+  function decodePlanarUF(lat, defects, kind, record) {
     const G = checkGraph(lat, kind);
     const B = G.B;
     const parent = [...Array(G.nNodes).keys()];
     const find = (x) => { while (parent[x] !== x) { parent[x] = parent[parent[x]]; x = parent[x]; } return x; };
-    const union = (a, b) => { a = find(a); b = find(b); if (a !== b) parent[b] = a; };
+    const union = (a, b) => { a = find(a); b = find(b); if (a !== b) { parent[b] = a; return true; } return false; };
     const isDefect = new Uint8Array(G.nNodes);
     defects.forEach((k) => { isDefect[k] = 1; });
     const inCluster = new Uint8Array(G.nNodes);
     defects.forEach((k) => { inCluster[k] = 1; });
     const edgeIn = new Uint8Array(G.edges.length);
     const history = [];
-    const snapshot = (label) => history.push({
-      label,
-      edges: [...edgeIn].map((v, i) => (v ? i : -1)).filter((i) => i >= 0),
-      nodes: [...inCluster].map((v, i) => (v ? i : -1)).filter((i) => i >= 0),
-    });
     const roots = () => { const s = new Set(); for (let v = 0; v < G.nNodes; v++) if (inCluster[v]) s.add(find(v)); return s; };
     const parity = (r) => { let s = 0; for (let v = 0; v < G.nNodes; v++) if (inCluster[v] && find(v) === r) s ^= isDefect[v]; return s; };
     const touchesBoundary = (r) => inCluster[B] === 1 && find(B) === r;
-    snapshot('start');
-    let guard = 0, grew = true;
+    const clusterList = () => [...roots()].map((r) => ({ root: r, nodes: [...Array(G.nNodes).keys()].filter((v) => inCluster[v] && find(v) === r), parity: parity(r), boundary: touchesBoundary(r) }));
+    const snapshot = (kind_, extra) => { if (!record) return; history.push(Object.assign({ kind: kind_, label: kind_,
+      edges: [...edgeIn].map((v, i) => (v ? i : -1)).filter((i) => i >= 0),
+      nodes: [...inCluster].map((v, i) => (v ? i : -1)).filter((i) => i >= 0),
+      clusters: clusterList() }, extra || {})); };
+    snapshot('start', { round: 0 });
+    let guard = 0, grew = true, round = 0;
     while (grew && guard++ < 1000) {
       grew = false;
       const odd = [...roots()].filter((r) => parity(r) === 1 && !touchesBoundary(r));
       if (!odd.length) break;
+      const oddSets = odd.map((r) => [...Array(G.nNodes).keys()].filter((v) => inCluster[v] && find(v) === r));
       const newEdges = [];
       for (const r of odd)
         for (let v = 0; v < G.nNodes; v++) {
           if (!inCluster[v] || find(v) !== r) continue;
           for (const ei of G.adj[v]) if (!edgeIn[ei]) newEdges.push(ei);
         }
+      let merges = 0, hitBoundary = 0; const added = [];
       for (const ei of newEdges) {
         if (edgeIn[ei]) continue;
-        edgeIn[ei] = 1; grew = true;
+        edgeIn[ei] = 1; grew = true; added.push(ei);
         const e = G.edges[ei];
+        const wasB = inCluster[B];
         inCluster[e.a] = 1; inCluster[e.b] = 1;
-        union(e.a, e.b);
+        if (union(e.a, e.b)) merges++;
+        if (!wasB && inCluster[B]) hitBoundary++;
       }
-      snapshot('grow');
+      round++;
+      snapshot('grow', { round, grown: oddSets, added, merges, hitBoundary });
     }
     /* peeling */
     const correction = [];
     const visited = new Uint8Array(G.nNodes);
     const def = Uint8Array.from(isDefect);
     const treeEdges = [];
+    const plan = []; // [{u, ei, par}] in peel order (leaves first)
     for (const r of roots()) {
       const start = touchesBoundary(r) ? B : r;
       if (visited[start]) continue;
@@ -5162,12 +5169,22 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
       for (let i = order.length - 1; i > 0; i--) {
         const u = order[i], ei = parentEdge[u];
         if (ei < 0) continue;
-        const e = G.edges[ei], par = e.a === u ? e.b : e.a;
-        if (def[u]) { correction.push(e.q); def[u] = 0; if (par !== B) def[par] ^= 1; }
+        const e = G.edges[ei];
+        plan.push({ u, ei, par: e.a === u ? e.b : e.a });
       }
     }
-    snapshot('peeled');
-    return { correction: [...new Set(correction)].sort((a, b) => a - b), history, graph: G, treeEdges, exact: false };
+    const treeSet = new Set(treeEdges);
+    const dropped = [...edgeIn].map((v, i) => (v && !treeSet.has(i) ? i : -1)).filter((i) => i >= 0);
+    snapshot('forest', { treeEdges: treeEdges.slice(), dropped, defects: [...def].map((v, i) => (v ? i : -1)).filter((i) => i >= 0), correction: [] });
+    for (const { u, ei, par } of plan) {
+      const e = G.edges[ei];
+      const kept = def[u] === 1;
+      if (kept) { correction.push(e.q); def[u] = 0; if (par !== B) def[par] ^= 1; }
+      snapshot('peel', { treeEdges: treeEdges.slice(), dropped, edge: ei, leaf: u, par, kept, correction: correction.slice(), defects: [...def].map((v, i) => (v ? i : -1)).filter((i) => i >= 0) });
+    }
+    const corr = [...new Set(correction)].sort((a, b) => a - b);
+    snapshot('done', { treeEdges: treeEdges.slice(), dropped, correction: corr, defects: [] });
+    return { correction: corr, history, graph: G, treeEdges, exact: false };
   }
 
   /* Uniform wrapper used by the comparison Monte-Carlo. */
@@ -5553,41 +5570,67 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
     let err = new Set(), res = null, step = 0, p = 0.08;
     const wrap = div('canvas-wrap'); Fr.body.appendChild(wrap);
     const view = new TQ.LatticeView(wrap, lat, { clickables: null, showStars: 'defects', showPlaqs: 'none', showErrors: false, height: (w) => Math.min(w, 420) });
+    const q2edge = (ei) => res.graph.edges[ei].q;
+    const starName = (v) => (v === res.graph.B ? bilingual('边界', 'the boundary') : 'S' + v);
+    const setList = (arr) => arr.map((v) => starName(v)).join('、');
     function paint() {
       if (!res) return;
-      const snap = res.history[Math.min(step, res.history.length - 1)];
-      const last = step >= res.history.length - 1;
-      const edgesQ = snap.edges.map((ei) => res.graph.edges[ei].q);
-      const hl = new Map(edgesQ.map((q) => [q, { color: cssVar('--cx-soft2'), width: 9 }]));
-      if (last) for (const q of res.correction) hl.set(q, { color: cssVar('--good'), width: 5 });
+      const H = res.history, snap = H[Math.min(step, H.length - 1)], last = step >= H.length - 1;
+      const hl = new Map();
+      for (const ei of snap.edges) hl.set(q2edge(ei), { color: cssVar('--cx-soft2'), width: 9 });
+      if (snap.kind === 'grow' && snap.added) for (const ei of snap.added) hl.set(q2edge(ei), { color: cssVar('--cx'), width: 9 });
+      if (snap.treeEdges) {
+        for (const ei of snap.dropped) hl.set(q2edge(ei), { color: cssVar('--line2'), width: 4, dash: [4, 4] });
+        for (const ei of snap.treeEdges) hl.set(q2edge(ei), { color: cssVar('--cx-soft2'), width: 7 });
+      }
+      if (snap.correction) for (const q of snap.correction) hl.set(q, { color: cssVar('--good'), width: 5 });
+      if (snap.kind === 'peel') hl.set(q2edge(snap.edge), { color: cssVar('--cd'), width: 6, dash: [3, 3] });
       view.hlEdges = hl;
-      view.hlStars = new Map(snap.nodes.filter((v) => v < res.graph.B).map((v) => [v, true]));
-      view.errZ = last ? new Set(err) : new Set(err);
+      const defs = snap.defects ? snap.defects : snap.nodes.filter((v) => v < res.graph.B && res.graph && TQ.lattice.syndrome(lat, [...err], []).starDefects.includes(v));
+      view.hlStars = new Map(defs.filter((v) => v < res.graph.B).map((v) => [v, true]));
+      view.errZ = new Set(err);
       view.opts.showErrors = last;
       view.draw();
-      const residual = P().xorSet([...err], res.correction);
-      const fail = lat.logicals.X.some((Lg) => P().overlapParity(residual, Lg));
-      const ex = B3().decodePlanarExact(lat, TQ.lattice.syndrome(lat, [...err], []).starDefects, 'star', 16);
-      const exFail = lat.logicals.X.some((Lg) => P().overlapParity(P().xorSet([...err], ex.correction), Lg));
-      Fr.setReadout(bilingual(
-        (last ? '<b>剥皮完成。</b>修复重量 ' + res.correction.length + '，' + (fail ? '<span class="no">逻辑错误</span>' : '<span class="ok">成功</span>') + '；同一症状下最小重量匹配' + (exFail ? '也失败' : '成功') + '（重量 ' + ex.weight + '）。' : '第 ' + step + ' 步（' + snap.label + '）：簇共覆盖 ' + snap.edges.length + ' 条边、' + snap.nodes.length + ' 个检查。奇数簇继续长一层；变偶或碰到边界的簇停下。'),
-        (last ? '<b>Peeling done.</b> Repair weight ' + res.correction.length + ', ' + (fail ? '<span class="no">logical error</span>' : '<span class="ok">success</span>') + '; on the same syndrome minimum-weight matching ' + (exFail ? 'fails too' : 'succeeds') + ' (weight ' + ex.weight + ').' : 'Step ' + step + ' (' + snap.label + '): clusters cover ' + snap.edges.length + ' edges and ' + snap.nodes.length + ' checks. Odd clusters grow one more layer; clusters that turn even or touch a boundary stop.')));
+      const k = step + 1, total = H.length, head = bilingual('第 ' + k + '/' + total + ' 步　', 'Step ' + k + '/' + total + '　');
+      if (snap.kind === 'start') {
+        Fr.setReadout(head + bilingual('<b>起点。</b>' + snap.clusters.length + ' 个警报各自是一个只含一个缺陷的簇——缺陷数为奇数，所以都要生长。规则：<b>奇数</b>簇（且没碰到边界）每轮向外长一层，把所有邻边和邻检查收进来；两簇相遇就<b>合并</b>（并查集的 union）；变成偶数或碰到边界的簇停下。',
+          '<b>Start.</b> Each of the ' + snap.clusters.length + ' alarms is its own cluster holding one defect — an odd count, so every cluster must grow. Rule: an <b>odd</b> cluster (not touching the boundary) grows one layer per round, absorbing all adjacent edges and checks; clusters that meet <b>merge</b> (union-find’s union); a cluster that turns even or touches the boundary stops.'));
+      } else if (snap.kind === 'grow') {
+        const stopped = snap.clusters.filter((c) => c.parity === 0 || c.boundary).length, going = snap.clusters.length - stopped;
+        Fr.setReadout(head + bilingual('<b>第 ' + snap.round + ' 轮生长。</b>' + snap.grown.length + ' 个奇数簇各长一层（新加入的边为深橙色，共 ' + snap.added.length + ' 条）；本轮发生 ' + snap.merges + ' 次合并' + (snap.hitBoundary ? '，有簇碰到边界' : '') + '。现在共 ' + snap.clusters.length + ' 个簇：' + stopped + ' 个已停下（偶数或靠边），' + going + ' 个仍是奇数、下一轮继续长。',
+          '<b>Growth round ' + snap.round + '.</b> ' + snap.grown.length + ' odd cluster(s) grew one layer (new edges in dark amber, ' + snap.added.length + ' in all); ' + snap.merges + ' merge(s) this round' + (snap.hitBoundary ? ', and a cluster reached the boundary' : '') + '. Now ' + snap.clusters.length + ' cluster(s): ' + stopped + ' stopped (even or at the boundary), ' + going + ' still odd and growing next round.'));
+      } else if (snap.kind === 'forest') {
+        Fr.setReadout(head + bilingual('<b>生长结束，改剥皮。</b>每个簇现在要么缺陷数为偶数，要么挨着边界，所以簇内一定存在一条修复。做法：在每个簇里取一棵<b>生成树</b>（边界簇以边界为根），把会形成圈的边丢掉（灰虚线，共 ' + snap.dropped.length + ' 条），剩下 ' + snap.treeEdges.length + ' 条树边。然后从叶子往根一条一条剥。',
+          '<b>Growth over; now peel.</b> Every cluster is now even or touches the boundary, so a repair exists inside it. Method: take a <b>spanning tree</b> of each cluster (rooted at the boundary for boundary clusters), discard edges that would close a cycle (grey dashes, ' + snap.dropped.length + ' of them), keeping ' + snap.treeEdges.length + ' tree edges. Then peel from the leaves toward the root, one edge at a time.'));
+      } else if (snap.kind === 'peel') {
+        Fr.setReadout(head + bilingual('<b>剥一条边</b>（红虚线）：叶子 ' + starName(snap.leaf) + (snap.kept ? ' 带着缺陷 → <b>保留</b>这条边进修复（绿），缺陷传给父节点 ' + starName(snap.par) + '（父节点的奇偶翻转）。' : ' 没有缺陷 → <b>丢掉</b>这条边。') + ' 剩余缺陷 ' + snap.defects.length + ' 个；修复已含 ' + snap.correction.length + ' 条边。',
+          '<b>Peel one edge</b> (red dashes): leaf ' + starName(snap.leaf) + (snap.kept ? ' carries a defect → <b>keep</b> this edge in the repair (green) and hand the defect to its parent ' + starName(snap.par) + ' (flipping the parent’s parity).' : ' carries no defect → <b>drop</b> this edge.') + ' Defects left: ' + snap.defects.length + '; repair so far: ' + snap.correction.length + ' edge(s).'));
+      } else {
+        const residual = P().xorSet([...err], res.correction);
+        const fail = lat.logicals.X.some((Lg) => P().overlapParity(residual, Lg));
+        const ex = B3().decodePlanarExact(lat, TQ.lattice.syndrome(lat, [...err], []).starDefects, 'star', 16);
+        const exFail = lat.logicals.X.some((Lg) => P().overlapParity(P().xorSet([...err], ex.correction), Lg));
+        Fr.setReadout(head + bilingual('<b>剥皮完成。</b>修复重量 ' + res.correction.length + '，' + (fail ? '<span class="no">逻辑错误</span>' : '<span class="ok">成功</span>') + '；同一症状下最小重量匹配' + (exFail ? '也失败' : '成功') + '（重量 ' + ex.weight + '）。蓝色是真实错误，绿色是修复。',
+          '<b>Peeling done.</b> Repair weight ' + res.correction.length + ', ' + (fail ? '<span class="no">logical error</span>' : '<span class="ok">success</span>') + '; on the same syndrome minimum-weight matching ' + (exFail ? 'fails too' : 'succeeds') + ' (weight ' + ex.weight + '). Blue = true errors, green = repair.'));
+      }
+      btnPrev.disabled = step === 0; btnNext.disabled = last;
     }
     function newRound() {
       err = new Set(); for (let q = 0; q < lat.n; q++) if (Math.random() < p) err.add(q);
-      const defs = TQ.lattice.syndrome(lat, [...err], []).starDefects;
-      if (!defs.length) { err.add(Math.floor(Math.random() * lat.n)); }
-      res = B3().decodePlanarUF(lat, TQ.lattice.syndrome(lat, [...err], []).starDefects, 'star');
+      let defs = TQ.lattice.syndrome(lat, [...err], []).starDefects;
+      if (!defs.length) { err.add(Math.floor(Math.random() * lat.n)); defs = TQ.lattice.syndrome(lat, [...err], []).starDefects; }
+      res = B3().decodePlanarUF(lat, defs, 'star', true);
       step = 0; paint();
     }
     const sl = slider(0.03, 0.16, 0.01, p, (v) => { p = v; }, (v) => 'p = ' + v.toFixed(2));
+    const btnPrev = U().btn('上一步', 'Back', '', () => { if (step > 0) { step--; paint(); } });
+    const btnNext = U().btn('下一步', 'Step', 'primary', () => { if (res && step < res.history.length - 1) { step++; paint(); } });
     Fr.controls.append(
-      U().btn('新症状', 'New syndrome', 'primary', newRound),
-      U().btn('下一步', 'Step', '', () => { if (res && step < res.history.length - 1) { step++; paint(); } }),
+      U().btn('新症状', 'New syndrome', '', newRound), btnPrev, btnNext,
       U().btn('一口气跑完', 'Run to the end', '', () => { if (res) { step = res.history.length - 1; paint(); } }),
       U().label('错误率', 'error rate'), sl.el, sl.pill
     );
-    legend(el, [{ color: cssVar('--cd'), dot: true, zh: '警报', en: 'alarm' }, { color: cssVar('--cx-soft2'), zh: '簇覆盖的边', en: 'edges inside clusters' }, { color: cssVar('--good'), zh: '剥皮得到的修复', en: 'repair from peeling' }, { color: cssVar('--cz'), zh: '真实错误（结束时揭晓）', en: 'true errors (revealed at the end)' }]);
+    legend(el, [{ color: cssVar('--cd'), dot: true, zh: '当前缺陷（红点）；红虚线 = 正在剥的边', en: 'current defects (red dots); red dashes = edge being peeled' }, { color: cssVar('--cx-soft2'), zh: '簇覆盖的边 / 生成树边；深橙 = 本轮新加入', en: 'cluster edges / tree edges; dark amber = added this round' }, { color: cssVar('--line2'), zh: '成圈而被丢弃的边（灰虚线）', en: 'edges dropped for closing a cycle (grey dashes)' }, { color: cssVar('--good'), zh: '剥皮得到的修复', en: 'repair from peeling' }, { color: cssVar('--cz'), zh: '真实错误（结束时揭晓）', en: 'true errors (revealed at the end)' }]);
     newRound();
   }
   U().reg('unionfind', wUnionFind);
