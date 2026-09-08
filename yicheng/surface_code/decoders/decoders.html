@@ -1086,10 +1086,16 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
     <p class="zh">现代的译码器把它做到了极致：Fowler 的并行版本让每个警报只看局部邻域；Higgott 的 PyMatching 成为开源标配；2023 年的 Sparse Blossom 每核每秒可以处理上百万个错误——这已经能跟上真实芯片每微秒一轮的症状节拍。<span class="ref" data-ref="b3c6" data-sec="6">第 6 章</span>会说为什么「跟得上」这件事本身决定了机器能不能造出来。</p>
     <p class="en">Modern decoders push it to the limit: Fowler's parallel version lets each alarm look only at its neighbourhood; Higgott's PyMatching became the open-source standard; and 2023's Sparse Blossom handles over a million errors per second per core — fast enough to keep pace with a real chip's one-round-per-microsecond syndrome beat. <span class="ref" data-ref="b3c6" data-sec="6">Chapter 6</span> explains why keeping pace decides whether the machine can be built at all.</p>
   </div>
+  <div class="prose">
+    <p class="zh">下面的实验台把两种算法放在<b>同一份症状</b>上逐步回放。「贪心」每一步只做一件事：在剩下的警报里找全局最近的一对（或最近的边界），连上、移除、再找。「开花算法」按 Edmonds 的原始设计运行：每个点带一个<span class="term">对偶变量<span class="tip">dual variable，记作 y<sub>v</sub>：算法给每个点分配的一个数，画成以该点为中心的菱形半径。它不是物理量，而是「这个点已经争取到多少配对预算」的记账。</span></span> y<sub>v</sub>（菱形半径），一条边的<span class="term">松弛<span class="tip">slack：w − y<sub>u</sub> − y<sub>v</sub>，边的权重减去两端的对偶变量；始终 ≥ 0，等于 0 的边叫「紧边」，只有紧边可以进入匹配。</span></span>是 w − y<sub>u</sub> − y<sub>v</sub>；<b>外点</b>（橙）生长、<b>内点</b>（蓝）收缩，直到某条边变<b>紧</b>：连到自由点就长树，连到另一棵树就<b>增广</b>，连回同一棵树就形成奇圈——<b>收缩成花</b>；花的对偶归零时再<b>展开</b>。每一步的旁白都会告诉你算法此刻在做哪件事、为什么。跑到最后，它给出的重量与<span class="ref" data-ref="b3c3" data-sec="3">第 3 章</span>暴力枚举的最优值逐次核对。</p>
+    <p class="en">The bench below replays both algorithms step by step on <b>the same syndrome</b>. “Greedy” does one thing per step: among the remaining alarms take the globally closest pair (or the closest boundary), connect it, remove it, repeat. “Blossom” runs Edmonds' original design: every node carries a <span class="term">dual variable<span class="tip">Written y<sub>v</sub>: a number the algorithm assigns to each node, drawn as the radius of a diamond centred on it. Not a physical quantity — it is bookkeeping for “how much pairing budget this node has earned so far”.</span></span> y<sub>v</sub> (the diamond radius), an edge's <span class="term">slack<span class="tip">w − y<sub>u</sub> − y<sub>v</sub>, the edge weight minus the two dual variables; always ≥ 0, and an edge with slack 0 is “tight” — only tight edges may enter the matching.</span></span> is w − y<sub>u</sub> − y<sub>v</sub>; <b>outer</b> nodes (amber) grow and <b>inner</b> nodes (blue) shrink until some edge becomes <b>tight</b>: to a free node it grows the tree, to another tree it <b>augments</b>, back into the same tree it closes an odd cycle — <b>shrink it into a blossom</b>; when a blossom's dual returns to zero, <b>expand</b> it. Each step's caption tells you what the algorithm is doing at that moment and why. At the end its weight is checked against the brute-force optimum of <span class="ref" data-ref="b3c3" data-sec="3">Chapter 3</span>.</p>
+  </div>
+  <div class="prose"><p class="zh muted small">记号：w = 边的权重（两个警报间的格点距离，或到最近边界的距离）；y<sub>u</sub>、y<sub>v</sub> = 两端点的对偶变量；δ = 一次生长的步长，取「下一件事发生」所需的最小值；z<sub>B</sub> = 一朵花 B 自己的对偶变量，外花加 2δ、内花减 2δ，归零即展开。</p><p class="en muted small">Notation: w = edge weight (lattice distance between two alarms, or to the nearest boundary); y<sub>u</sub>, y<sub>v</sub> = the dual variables at its ends; δ = one growth increment, the smallest amount until the next event; z<sub>B</sub> = a blossom B's own dual variable, +2δ for outer blossoms and −2δ for inner ones, expanded when it reaches zero.</p></div>
+  <div id="matchsteps" data-widget="matchsteps"></div>
   <div class="note note-honest">
     <span class="note-tag"><span class="zh">诚实说明</span><span class="en">Honesty box</span></span>
-    <p class="zh">本页没有实现开花算法。实验台里的「最轻配法」用的是一种小规模精确法：把「还剩哪些警报没配」编成一个二进制数，对 2<sup>m</sup> 个状态逐个算最优——m ≤ 16 时瞬间完成，超过就退回贪心（<span class="ref" data-ref="b3c3" data-sec="3">第 3 章</span>）。它给出的<b>答案</b>与开花算法完全一样，只是不能扩展到几百个警报。<a href="../../surface_code/intuition/intuition-hs.html#ch5">《Surface Code · 高中数学版》的译码游戏</a>用的正是同一段代码，这就是它在警报稠密时「退化为贪心」的原因。</p>
-    <p class="en">This page does not implement the blossom algorithm. The bench's “lightest pairing” uses a small-scale exact method: encode “which alarms remain unpaired” as a binary number and solve all 2<sup>m</sup> states in turn — instant for m ≤ 16, falling back to greedy beyond (<span class="ref" data-ref="b3c3" data-sec="3">Ch. 3</span>). Its <b>answers</b> coincide exactly with the blossom algorithm's; it simply cannot scale to hundreds of alarms. <a href="../../surface_code/intuition/intuition-hs.html#ch5">The decoding game of “The Surface Code · High-School Edition”</a> runs this same code, which is why it “degrades to greedy” when alarms are dense.</p>
+    <p class="zh">上面的「算法逐步回放」实现的是带对偶变量的 Edmonds 开花算法（为演示而写，只处理最多十来个警报）。其余实验台里的「最轻配法」用的是另一种小规模精确法：把「还剩哪些警报没配」编成一个二进制数，对 2<sup>m</sup> 个状态逐个算最优——m ≤ 16 时瞬间完成，超过就退回贪心（<span class="ref" data-ref="b3c3" data-sec="3">第 3 章</span>）。两种方法给出的<b>答案</b>完全一样（回放结束时会逐次核对），只是枚举法不能扩展到几百个警报。<a href="../../surface_code/intuition/intuition-hs.html#ch5">《Surface Code · 高中数学版》的译码游戏</a>用的正是同一段代码，这就是它在警报稠密时「退化为贪心」的原因。</p>
+    <p class="en">The “algorithm step-through” above implements Edmonds' blossom algorithm with dual variables (written for demonstration; it handles a dozen alarms at most). The other benches' “lightest pairing” uses a different small-scale exact method: encode “which alarms remain unpaired” as a binary number and solve all 2<sup>m</sup> states in turn — instant for m ≤ 16, falling back to greedy beyond (<span class="ref" data-ref="b3c3" data-sec="3">Ch. 3</span>). The two methods' <b>answers</b> coincide exactly (the player checks this at the end of every run); enumeration simply cannot scale to hundreds of alarms. <a href="../../surface_code/intuition/intuition-hs.html#ch5">The decoding game of “The Surface Code · High-School Edition”</a> runs this same code, which is why it “degrades to greedy” when alarms are dense.</p>
   </div>
   <div class="note note-key">
     <span class="note-tag"><span class="zh">关键想法</span><span class="en">Key idea</span></span>
@@ -1126,6 +1132,8 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
 
   <h3 id="s3-1"><span class="sec-no">3.1</span><span class="zh">贪心：就近配对，及其陷阱</span><span class="en">Greed: nearest-first pairing, and its trap</span></h3>
   <div class="prose">
+    <p class="zh">贪心算法一步一步怎么走，<a href="#matchsteps">2.3 节的算法回放</a>里选「贪心」就能逐步看到；这里看它输在哪。</p>
+    <p class="en">To watch greedy run step by step, choose “greedy” in <a href="#matchsteps">the algorithm player of §2.3</a>; here we see where it loses.</p>
     <p class="zh">最省事的译码器是<span class="term">贪心配对<span class="tip">greedy pairing：反复找出当前距离最近的两个警报配成一对（平面上也可与边界比较），直到警报用完。每一步都最优，整体未必。</span></span>：反复把当前最近的两个警报配对。它每一步都在做局部最优的事，但局部最优之和不是全局最优。最小的反例只需四个警报排成一线，间距依次为 3、2、3：贪心先配中间那对（重量 2），剩下两端只能互配（重量 8），总重量 10；而最优是两头各配一对，3 + 3 = 6。一般地，间距 a、b、c 且 b 最小时，贪心给 a + 2b + c，最优给 a + c，多付了 2b。</p>
     <p class="en">The laziest decoder is <span class="term">greedy pairing<span class="tip">Repeatedly pair the two alarms currently closest (on the plane, also compare with the boundary) until none remain. Each step is optimal; the whole need not be.</span></span>: repeatedly pair the two closest alarms. Every step is locally optimal, but a sum of local optima is not a global optimum. The smallest counterexample is four alarms on a line with gaps 3, 2, 3: greed pairs the middle two first (weight 2), leaving the ends to pair with each other (weight 8), total 10; the optimum pairs each end, 3 + 3 = 6. In general, with gaps a, b, c and b the smallest, greed pays a + 2b + c against the optimum a + c — an overpayment of 2b.</p>
   </div>
@@ -1416,7 +1424,8 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
     <tr><td class="mono" style="font-size:17px">Z̄　X̄</td><td><span class="zh">字母上加横线，读「Z 杠」「X 杠」</span><span class="en">Letter with a bar, read “Z-bar”, “X-bar”</span></td><td><span class="zh">逻辑算符：横跨贴片的 Z 串 / X 串；译码失败的残留正是它。</span><span class="en">Logical operators: a Z / X string spanning the patch; a failed decode leaves exactly this.</span></td></tr>
     <tr><td class="mono" style="font-size:17px">⇒　⇔</td><td><span class="zh">读「推出」「当且仅当」</span><span class="en">Read “implies”, “if and only if”</span></td><td><span class="zh">单向 / 双向的逻辑推导。</span><span class="en">One-way / two-way logical implication.</span></td></tr>
     <tr><td class="mono" style="font-size:17px">≈　≤　≥</td><td><span class="zh">读「约等于」「小于等于」「大于等于」</span><span class="en">Read “approximately”, “at most”, “at least”</span></td><td><span class="zh">近似相等；不超过；不少于。</span><span class="en">Nearly equal; no more than; no less than.</span></td></tr>
-  </table></div>
+      <tr><td class="mono" style="font-size:17px">y<sub>v</sub>　δ　z<sub>B</sub></td><td><span class="zh">读「对偶变量」「步长」「花的对偶」</span><span class="en">Read “dual variable”, “step”, “blossom dual”</span></td><td><span class="zh">开花算法的记账量：y<sub>v</sub> 是点 v 的对偶变量（菱形半径），边紧当且仅当 w = y<sub>u</sub> + y<sub>v</sub>；δ 是一次生长的步长；z<sub>B</sub> ≥ 0 是花 B 的对偶，归零即展开（2.3 节回放）。</span><span class="en">The blossom algorithm's bookkeeping: y<sub>v</sub> is node v's dual variable (diamond radius), an edge is tight iff w = y<sub>u</sub> + y<sub>v</sub>; δ is one growth increment; z<sub>B</sub> ≥ 0 is blossom B's dual, expanded when it reaches zero (§2.3 player).</span></td></tr>
+</table></div>
 
   <h3><span class="zh">本教程新增词汇</span><span class="en">New terms in this tutorial</span></h3>
   <div class="table-wrap">
@@ -5778,6 +5787,494 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
     Fr.setReadout(bilingual('点「快速跑」。三种译码器各自对 d = 3、5、7 的表面码做同样的「加噪 → 译码 → 判定」实验。', 'Press “Quick run”. Three decoders each run the same noise → decode → verdict experiment on d = 3, 5, 7 surface codes.'));
   }
   U().reg('decodercompare', wDecoderCompare);
+})(typeof window !== 'undefined' ? window : globalThis);
+
+/* TQ.blossom — Edmonds' minimum-weight perfect matching (primal–dual blossom algorithm) with a
+   step recorder, plus a greedy-matching recorder, for the decoders tutorial's algorithm player.
+   Headless-safe: no DOM access. Weights are finite non-negative numbers or Infinity (no edge). */
+(function (root) {
+  const TQ = (root.TQ = root.TQ || {});
+  const EPS = 1e-9;
+  const FREE = 0, OUTER = 1, INNER = 2;
+
+  /* n even; W[i][j] symmetric, Infinity = no edge. Returns {pairs, weight, steps}. Each step is a
+     plain snapshot: {type, ...payload, y:[...], match:[...], labels:[...] (per vertex: label of its
+     top pseudonode), blossoms:[{id, verts:[...], z, label}], tree:[[x, w], ...] (parent edges of
+     labelled pseudonodes), hl:[u, v] | null}. */
+  function minWeightPerfectMatching(n, W, init) {
+    const match = new Array(n).fill(-1);
+    const y = new Array(n).fill(0);
+    // y starts at 0: every slack equals the edge weight, so the first thing the algorithm does is grow.
+    // (Weights are non-negative, so this dual solution is feasible.) An optional initial matching may be
+    // supplied; its edges must be tight at y = 0, i.e. have weight 0 (the boundary–boundary edges).
+    for (const [a, b] of init || []) {
+      if (!(Math.abs(W[a][b]) < EPS)) throw new Error('initial matching edge is not tight');
+      match[a] = b; match[b] = a;
+    }
+
+    const bl = new Map(); // id -> {children, edges, base, z, alive}
+    const parentOf = new Map(); // vertex/blossom id -> enclosing blossom id or -1
+    for (let v = 0; v < n; v++) parentOf.set(v, -1);
+    let nextId = n;
+    const label = new Map(), treeParent = new Map(), parentEdge = new Map(), rootOf = new Map();
+    const steps = [];
+
+    const par = (x) => (parentOf.has(x) ? parentOf.get(x) : -1);
+    function top(v) { let x = v; while (par(x) !== -1) x = par(x); return x; }
+    function verts(P) { return P < n ? [P] : bl.get(P).children.flatMap(verts); }
+    const base = (P) => (P < n ? P : bl.get(P).base);
+    const contains = (c, x) => verts(c).includes(x);
+    function topLevel() {
+      const out = new Set();
+      for (let v = 0; v < n; v++) out.add(top(v));
+      return [...out];
+    }
+    const slack = (u, v) => W[u][v] - y[u] - y[v];
+
+    function snapshot(type, payload) {
+      const tops = topLevel();
+      const labels = new Array(n).fill(FREE);
+      for (const P of tops) for (const v of verts(P)) labels[v] = label.get(P) || FREE;
+      const blossoms = [];
+      for (const [id, b] of bl) if (b.alive) blossoms.push({ id, verts: verts(id), z: b.z, label: label.get(top(id)) || FREE, top: top(id) === id });
+      const tree = [];
+      for (const P of tops) if (parentEdge.get(P) && label.get(P)) tree.push(parentEdge.get(P).slice());
+      steps.push(Object.assign({ type, y: y.slice(), match: match.slice(), labels, blossoms, tree, hl: null }, payload || {}));
+    }
+
+    /* ---- rotate blossom B so that vertex x becomes its base; re-match its interior ---- */
+    function rotate(B, x) {
+      if (B < n) return;
+      const b = bl.get(B);
+      const k = b.children.length;
+      const t = b.children.findIndex((c) => contains(c, x));
+      if (t > 0) {
+        b.children = b.children.slice(t).concat(b.children.slice(0, t));
+        b.edges = b.edges.slice(t).concat(b.edges.slice(0, t));
+      }
+      for (let i = 1; i < k; i += 2) {
+        const [a, c] = b.edges[i];
+        rotate(b.children[i], a);
+        rotate(b.children[i + 1], c);
+        match[a] = c; match[c] = a;
+      }
+      rotate(b.children[0], x);
+      b.base = x;
+    }
+
+    /* ---- grow: free pseudonode Pv (via vertex v) hangs off outer vertex u ---- */
+    function grow(Pv, v, u) {
+      const Pu = top(u);
+      label.set(Pv, INNER); parentEdge.set(Pv, [v, u]); treeParent.set(Pv, Pu); rootOf.set(Pv, rootOf.get(Pu));
+      const bv = base(Pv), w = match[bv], Pw = top(w);
+      label.set(Pw, OUTER); parentEdge.set(Pw, [w, bv]); treeParent.set(Pw, Pv); rootOf.set(Pw, rootOf.get(Pu));
+      snapshot('grow', { hl: [u, v], grown: [Pv, Pw], matchedEdge: [bv, w] });
+    }
+
+    /* ---- augment along the two tree paths joined by tight edge (u, v) ---- */
+    function augPath(P, x) {
+      rotate(P, x);
+      if (!parentEdge.get(P)) return;
+      const I = treeParent.get(P);
+      const [xi, w] = parentEdge.get(I);
+      const Q = treeParent.get(I);
+      rotate(I, xi);
+      match[xi] = w; match[w] = xi;
+      augPath(Q, w);
+    }
+    function augment(Pu, u, Pv, v) {
+      const before = match.slice();
+      augPath(Pu, u); augPath(Pv, v);
+      match[u] = v; match[v] = u;
+      const changed = [];
+      for (let i = 0; i < n; i++) if (match[i] !== before[i]) changed.push(i);
+      for (const P of topLevel()) { label.delete(P); treeParent.delete(P); parentEdge.delete(P); rootOf.delete(P); }
+      snapshot('augment', { hl: [u, v], changed });
+    }
+
+    /* ---- shrink: outer Pu, Pv in the same tree joined by tight edge (u, v) ---- */
+    function pathToRoot(P) { const out = [P]; while (treeParent.get(out[out.length - 1]) != null) out.push(treeParent.get(out[out.length - 1])); return out; }
+    function shrink(Pu, u, Pv, v) {
+      const pu = pathToRoot(Pu), pv = pathToRoot(Pv), setV = new Set(pv);
+      const L = pu.find((P) => setV.has(P));
+      const upU = pu.slice(0, pu.indexOf(L)), upV = pv.slice(0, pv.indexOf(L));
+      const seq = [L].concat(upU.reverse(), upV);
+      const k = seq.length;
+      const edges = [];
+      for (let i = 0; i < k; i++) {
+        const A = seq[i], B = seq[(i + 1) % k];
+        if (A === Pu && B === Pv) edges.push([u, v]);
+        else if (treeParent.get(B) === A) { const [x, w] = parentEdge.get(B); edges.push([w, x]); }
+        else if (treeParent.get(A) === B) { const [x, w] = parentEdge.get(A); edges.push([x, w]); }
+        else throw new Error('shrink: broken cycle');
+      }
+      const id = nextId++;
+      bl.set(id, { children: seq, edges, base: base(L), z: 0, alive: true });
+      for (const c of seq) parentOf.set(c, id);
+      parentOf.set(id, -1);
+      label.set(id, OUTER); treeParent.set(id, treeParent.get(L)); parentEdge.set(id, parentEdge.get(L)); rootOf.set(id, rootOf.get(L));
+      for (const P of topLevel()) if (P !== id && seq.includes(treeParent.get(P))) treeParent.set(P, id);
+      for (const c of seq) { label.delete(c); treeParent.delete(c); parentEdge.delete(c); rootOf.delete(c); }
+      snapshot('shrink', { hl: [u, v], blossom: id, cycle: seq.map(verts) });
+    }
+
+    /* ---- expand an inner blossom whose dual has reached zero ---- */
+    function expand(B) {
+      const b = bl.get(B);
+      const k = b.children.length;
+      const [x, w] = parentEdge.get(B);
+      const Q = treeParent.get(B), R = rootOf.get(B);
+      const t = b.children.findIndex((c) => contains(c, x));
+      const path = [];
+      if (t % 2 === 1) { for (let i = t; i < k; i++) path.push(i); path.push(0); }
+      else { for (let i = t; i >= 0; i--) path.push(i); }
+      const bBase = b.base, outerChild = top(match[bBase]);
+      for (const c of b.children) { parentOf.set(c, -1); label.delete(c); treeParent.delete(c); parentEdge.delete(c); rootOf.delete(c); }
+      b.alive = false; parentOf.delete(B); label.delete(B); treeParent.delete(B); parentEdge.delete(B); rootOf.delete(B);
+      const edgeBetween = (i, j) => { // children indices adjacent on the cycle -> [a in ch[i], b in ch[j]]
+        if ((i + 1) % k === j) return b.edges[i].slice();
+        const [a, c] = b.edges[j]; return [c, a];
+      };
+      let pe = [x, w], prevOuter = Q;
+      for (let idx = 0; idx < path.length; idx++) {
+        const c = b.children[path[idx]];
+        if (idx % 2 === 0) { label.set(c, INNER); parentEdge.set(c, pe); treeParent.set(c, prevOuter); rootOf.set(c, R); }
+        else {
+          const prev = b.children[path[idx - 1]];
+          const [a, bb] = edgeBetween(path[idx - 1], path[idx]); // matched edge prev->c
+          label.set(c, OUTER); parentEdge.set(c, [bb, a]); treeParent.set(c, prev); rootOf.set(c, R);
+          prevOuter = c;
+          if (idx + 1 < path.length) { const [a2, b2] = edgeBetween(path[idx], path[idx + 1]); pe = [b2, a2]; }
+        }
+      }
+      treeParent.set(outerChild, b.children[path[path.length - 1]]);
+      snapshot('expand', { hl: null, blossom: B, cycle: b.children.map(verts) });
+    }
+
+    /* ---- one stage: build a forest from the unmatched pseudonodes and search ---- */
+    function stage() {
+      const tops = topLevel();
+      for (const P of tops) { label.delete(P); treeParent.delete(P); parentEdge.delete(P); rootOf.delete(P); }
+      const roots = tops.filter((P) => match[base(P)] === -1);
+      if (!roots.length) return false;
+      for (const P of roots) { label.set(P, OUTER); rootOf.set(P, P); }
+      snapshot('stage', { roots: roots.map(verts) });
+      for (let guard = 0; guard < 100000; guard++) {
+        let acted = false;
+        scan: for (let u = 0; u < n; u++) {
+          const Pu = top(u);
+          if (label.get(Pu) !== OUTER) continue;
+          for (let v = 0; v < n; v++) {
+            if (!(W[u][v] < Infinity)) continue;
+            const Pv = top(v);
+            if (Pv === Pu || slack(u, v) > EPS) continue;
+            const lv = label.get(Pv) || FREE;
+            if (lv === FREE) { grow(Pv, v, u); acted = true; break scan; }
+            if (lv === OUTER) {
+              if (rootOf.get(Pu) !== rootOf.get(Pv)) { augment(Pu, u, Pv, v); return true; }
+              shrink(Pu, u, Pv, v); acted = true; break scan;
+            }
+          }
+        }
+        if (acted) continue;
+        for (const P of topLevel()) if (P >= n && label.get(P) === INNER && bl.get(P).z < EPS) { expand(P); acted = true; break; }
+        if (acted) continue;
+        // dual adjustment
+        let d1 = Infinity, d2 = Infinity, d3 = Infinity;
+        for (let u = 0; u < n; u++) {
+          const Pu = top(u); if (label.get(Pu) !== OUTER) continue;
+          for (let v = 0; v < n; v++) {
+            if (!(W[u][v] < Infinity)) continue;
+            const Pv = top(v); if (Pv === Pu) continue;
+            const lv = label.get(Pv) || FREE, s = slack(u, v);
+            if (lv === FREE) d1 = Math.min(d1, s);
+            else if (lv === OUTER) d2 = Math.min(d2, s / 2);
+          }
+        }
+        for (const P of topLevel()) if (P >= n && label.get(P) === INNER) d3 = Math.min(d3, bl.get(P).z / 2);
+        const delta = Math.min(d1, d2, d3);
+        if (!isFinite(delta)) throw new Error('no perfect matching exists');
+        for (const P of topLevel()) {
+          const l = label.get(P) || FREE;
+          if (l === OUTER) { for (const v of verts(P)) y[v] += delta; if (P >= n) bl.get(P).z += 2 * delta; }
+          else if (l === INNER) { for (const v of verts(P)) y[v] -= delta; if (P >= n) bl.get(P).z -= 2 * delta; }
+        }
+        snapshot('dual', { delta, which: delta === d1 ? 'free' : delta === d2 ? 'outer' : 'blossom' });
+      }
+      throw new Error('stage did not terminate');
+    }
+
+    snapshot('init', { preMatched: (init || []).length });
+    while (stage()) { /* next stage */ }
+    const pairs = [];
+    let weight = 0;
+    for (let v = 0; v < n; v++) if (match[v] > v) { pairs.push([v, match[v]]); weight += W[v][match[v]]; }
+    snapshot('done', { pairs: pairs.map((p) => p.slice()), weight });
+    return { pairs, weight, steps };
+  }
+
+  /* Planar syndrome graph with a boundary: m alarms + m virtual boundary nodes (node m+i belongs to alarm i,
+     weight bdist(i)); virtual nodes are joined to each other at weight 0 so unused ones pair off for free. */
+  function planarInstance(m, dist, bdist) {
+    const n = 2 * m;
+    const W = Array.from({ length: n }, () => new Array(n).fill(Infinity));
+    for (let i = 0; i < m; i++) {
+      for (let j = i + 1; j < m; j++) W[i][j] = W[j][i] = dist(i, j);
+      W[i][m + i] = W[m + i][i] = bdist(i);
+      for (let j = i + 1; j < m; j++) W[m + i][m + j] = W[m + j][m + i] = 0;
+    }
+    return W;
+  }
+  /* Pair the boundary nodes among themselves at zero cost before the search starts (valid initial matching:
+     those edges have weight 0 and are tight at y = 0). With m odd one boundary node stays unmatched. */
+  function boundaryPreMatch(m) {
+    const out = [];
+    for (let i = 0; i + 1 < m; i += 2) out.push([m + i, m + i + 1]);
+    return out;
+  }
+  /* Map a perfect matching on the 2m-node graph back to alarm pairs [[i, j]] with j = -1 for the boundary. */
+  function toAlarmPairs(pairs, m) {
+    const out = [];
+    for (const [a, b] of pairs) {
+      if (a < m && b < m) out.push([a, b]);
+      else if (a < m) out.push([a, -1]);
+      else if (b < m) out.push([b, -1]);
+    }
+    return out;
+  }
+
+  /* Greedy matching with a step recorder: at each step pair the globally closest remaining alarm pair,
+     or send an alarm to its boundary if that is closer. Steps: {type:'pick', pair:[i, j], weight,
+     candidates:[{pair, weight}], alive:[...]} and a final {type:'done', pairs, weight}. */
+  function greedySteps(m, dist, bdist) {
+    const alive = new Array(m).fill(true);
+    const pairs = [], steps = [];
+    let remaining = m, weight = 0;
+    while (remaining > 0) {
+      const cands = [];
+      for (let i = 0; i < m; i++) {
+        if (!alive[i]) continue;
+        cands.push({ pair: [i, -1], weight: bdist(i) });
+        for (let j = i + 1; j < m; j++) if (alive[j]) cands.push({ pair: [i, j], weight: dist(i, j) });
+      }
+      // ties: prefer an alarm–alarm pair over the boundary (as the book's greedy decoder does), then lowest indices
+      cands.sort((a, b) => a.weight - b.weight || (a.pair[1] < 0) - (b.pair[1] < 0) || a.pair[0] - b.pair[0] || a.pair[1] - b.pair[1]);
+      const best = cands[0];
+      const ties = cands.filter((c) => Math.abs(c.weight - best.weight) < EPS).length;
+      steps.push({ type: 'pick', pair: best.pair.slice(), weight: best.weight, ties, candidates: cands.slice(0, 6), alive: alive.slice(), pairsSoFar: pairs.map((p) => p.slice()) });
+      pairs.push(best.pair.slice());
+      weight += best.weight;
+      alive[best.pair[0]] = false; remaining--;
+      if (best.pair[1] >= 0) { alive[best.pair[1]] = false; remaining--; }
+    }
+    steps.push({ type: 'done', pairs: pairs.map((p) => p.slice()), weight, alive: alive.slice(), pairsSoFar: pairs.map((p) => p.slice()) });
+    return { pairs, weight, steps };
+  }
+
+  TQ.blossom = { minWeightPerfectMatching, planarInstance, boundaryPreMatch, toAlarmPairs, greedySteps, FREE, OUTER, INNER };
+})(typeof window !== 'undefined' ? window : globalThis);
+
+/* Widget: matchsteps — step-through player for two matching algorithms on the same syndrome:
+   greedy (closest pair first) and Edmonds' blossom algorithm (primal–dual MWPM). */
+(function (root) {
+  const TQ = (root.TQ = root.TQ || {});
+  if (!root.document) return;
+  const doc = root.document;
+  const U = () => TQ.ui, LAT = () => TQ.lattice, DEC = () => TQ.decoder, P = () => TQ.pauli, B3 = () => TQ.b3, BL = () => TQ.blossom;
+  const cssVar = (name) => getComputedStyle(doc.documentElement).getPropertyValue(name).trim();
+  const bi = (zh, en) => '<span class="zh">' + zh + '</span><span class="en">' + en + '</span>';
+  function div(cls) { const d = doc.createElement('div'); if (cls) d.className = cls; return d; }
+  function legend(el, items) {
+    const lg = div('legend');
+    for (const it of items) {
+      const s = doc.createElement('span'); s.className = 'li';
+      s.innerHTML = '<span class="' + (it.dot ? 'dot' : 'sw') + '" style="background:' + it.color + '"></span>' + bi(it.zh, it.en);
+      lg.appendChild(s);
+    }
+    el.appendChild(lg);
+  }
+  const fmtNum = (x) => (Math.abs(x - Math.round(x)) < 1e-9 ? String(Math.round(x)) : (Math.round(x * 4) / 4).toString());
+
+  function wMatchSteps(el) {
+    const Fr = U().frame(el, { titleZh: '算法逐步回放：贪心 vs 开花（MWPM）', titleEn: 'Algorithm step-through: greedy vs blossom (MWPM)', onReset: newRound });
+    const lat = LAT().buildPlanar(5), G = lat.G;
+    let err = new Set(), defects = [], nodes = [], m = 0, W = null, algo = 'blossom', p = 0.07;
+    let runs = { greedy: null, blossom: null }, stepIdx = 0, showDual = true, brute = null;
+    const wrap = div('canvas-wrap'); Fr.body.appendChild(wrap);
+    const view = new TQ.LatticeView(wrap, lat, { clickables: null, showStars: 'defects', showPlaqs: 'none', showErrors: false, height: (w) => Math.min(w, 440) });
+    const baseDraw = view.draw.bind(view);
+    view.draw = function () { baseDraw(); overlay(); };
+
+    const dist = (i, j) => DEC().planarCheckDist(nodes[i], nodes[j]);
+    const bdist = (i) => DEC().planarBoundaryDist(nodes[i], G, 'star');
+    const alarmName = (i) => (i < 0 ? bi('边界', 'boundary') : i < m ? 'A' + (i + 1) : bi('A' + (i - m + 1) + ' 的边界节点', "A" + (i - m + 1) + "'s boundary node"));
+    function pos(i, met) { // vertex i of the 2m-node graph -> canvas position
+      if (i < m) return view._pp(nodes[i].x, nodes[i].y, met);
+      const s = nodes[i - m];
+      const down = (s.y + 1) / 2 <= (G - s.y) / 2;
+      return view._pp(s.x, down ? -1 : G, met);
+    }
+    function steps() { return runs[algo] ? runs[algo].steps : []; }
+    function snap() { const st = steps(); return st.length ? st[Math.min(stepIdx, st.length - 1)] : null; }
+    const isLast = () => stepIdx >= steps().length - 1;
+
+    function diamond(ctx, c, r) { ctx.beginPath(); ctx.moveTo(c.x, c.y - r); ctx.lineTo(c.x + r, c.y); ctx.lineTo(c.x, c.y + r); ctx.lineTo(c.x - r, c.y); ctx.closePath(); }
+    function line(ctx, a, b, color, width, dash) { ctx.save(); ctx.strokeStyle = color; ctx.lineWidth = width; ctx.setLineDash(dash || []); ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke(); ctx.restore(); }
+    function hull(pts) { // Andrew monotone chain
+      const s = pts.slice().sort((a, b) => a.x - b.x || a.y - b.y); if (s.length < 3) return s;
+      const cross = (o, a, b) => (a.x - o.x) * (b.y - o.y) - (a.y - o.y) * (b.x - o.x);
+      const lo = [], up = [];
+      for (const q of s) { while (lo.length >= 2 && cross(lo[lo.length - 2], lo[lo.length - 1], q) <= 0) lo.pop(); lo.push(q); }
+      for (const q of s.reverse()) { while (up.length >= 2 && cross(up[up.length - 2], up[up.length - 1], q) <= 0) up.pop(); up.push(q); }
+      return lo.slice(0, -1).concat(up.slice(0, -1));
+    }
+    function overlay() {
+      const ctx = view.box.ctx, met = view._metrics(), C = U().colors(), s = snap();
+      const mono = cssVar('--f-mono');
+      // rough boundaries where Z-chains may end (construction y = -1 and y = G → display x)
+      for (const yb of [-1, G]) { const a = view._pp(-1, yb, met), b = view._pp(G, yb, met); line(ctx, a, b, C.cd, 1.2, [4, 4]); }
+      ctx.font = '11px ' + mono; ctx.fillStyle = C.ink3; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      const yA = view._pp(-1, -1, met).y - 12;
+      for (const yb of [-1, G]) { const q = view._pp(-1, yb, met); ctx.fillText(U().T({ zh: '边界', en: 'boundary' }), q.x, yA); }
+      // alarm labels
+      ctx.font = 'bold 11px ' + mono; ctx.fillStyle = C.ink;
+      for (let i = 0; i < m; i++) { const q = pos(i, met); ctx.fillText('A' + (i + 1), q.x + 11, q.y - 11); }
+      if (!s) return;
+      if (algo === 'blossom') overlayBlossom(ctx, met, C, s);
+      else overlayGreedy(ctx, met, C, s);
+    }
+    function overlayBlossom(ctx, met, C, s) {
+      const unit = 2 * met.hcell; // one check step = two construction-grid units
+      const n = 2 * m;
+      const finished = s.type === 'done';
+      // boundary nodes: small hollow squares on the boundary line
+      for (let i = 0; i < m; i++) { const q = pos(m + i, met); ctx.save(); ctx.strokeStyle = C.line2; ctx.lineWidth = 1.2; ctx.strokeRect(q.x - 4, q.y - 4, 8, 8); ctx.restore(); }
+      if (showDual && !finished) {
+        for (let v = 0; v < n; v++) {
+          const r = s.y[v] * unit; if (r <= 0.5) continue;
+          const lab = s.labels[v];
+          ctx.save(); diamond(ctx, pos(v, met), r);
+          ctx.fillStyle = lab === 1 ? C.cxSoft : lab === 2 ? C.czSoft : C.grid; ctx.fill();
+          ctx.strokeStyle = lab === 1 ? C.cx : lab === 2 ? C.cz : C.line2; ctx.lineWidth = 1.2; ctx.setLineDash(v >= m ? [3, 3] : []); ctx.stroke(); ctx.restore();
+        }
+      }
+      // blossoms: hull around members (top-level ones solid, nested dotted); hidden once the run is done
+      for (const b of (finished ? [] : s.blossoms.filter((bb) => bb.verts.some((v) => v < m)))) {
+        const pts = b.verts.map((v) => pos(v, met)); const h = hull(pts);
+        ctx.save(); ctx.strokeStyle = C.cd; ctx.lineWidth = b.top ? 2 : 1; ctx.setLineDash(b.top ? [] : [2, 4]); ctx.lineJoin = 'round';
+        if (h.length >= 3) { ctx.beginPath(); h.forEach((q, i) => (i ? ctx.lineTo(q.x, q.y) : ctx.moveTo(q.x, q.y))); ctx.closePath(); ctx.stroke(); }
+        else if (h.length === 2) line(ctx, h[0], h[1], C.cd, 2, []);
+        const cx = pts.reduce((a, q) => a + q.x, 0) / pts.length, cy = pts.reduce((a, q) => a + q.y, 0) / pts.length;
+        ctx.fillStyle = C.cd; ctx.font = '11px ' + cssVar('--f-mono'); ctx.textAlign = 'center';
+        ctx.fillText('B' + (b.id - n + 1) + (b.top ? ' z=' + fmtNum(b.z) : ''), cx, cy - 4); ctx.restore();
+      }
+      // tree edges
+      if (!finished) for (const [x, w] of s.tree) if (x < m || w < m) line(ctx, pos(x, met), pos(w, met), C.ink3, 1.2, [5, 4]);
+      // matched edges
+      for (let v = 0; v < n; v++) { const u = s.match[v]; if (u > v && !(v >= m && u >= m)) line(ctx, pos(v, met), pos(u, met), C.good, 4, []); }
+      // highlighted edge
+      if (s.hl) line(ctx, pos(s.hl[0], met), pos(s.hl[1], met), C.cd, 3, [2, 3]);
+    }
+    function overlayGreedy(ctx, met, C, s) {
+      for (const [i, j] of s.pairsSoFar) line(ctx, pos(i, met), j < 0 ? pos(m + i, met) : pos(j, met), C.good, 4, []);
+      if (s.type === 'pick') {
+        for (const c of s.candidates.slice(1, 4)) { const [i, j] = c.pair; line(ctx, pos(i, met), j < 0 ? pos(m + i, met) : pos(j, met), C.line2, 1.2, [3, 3]); }
+        const [i, j] = s.pair; line(ctx, pos(i, met), j < 0 ? pos(m + i, met) : pos(j, met), C.cd, 3, [2, 3]);
+      }
+    }
+
+    /* ---- narration ---- */
+    const pairTxt = (i, j) => alarmName(i) + '–' + alarmName(j < 0 ? -1 : j);
+    function narrate() {
+      const s = snap(); if (!s) return;
+      const st = steps(), k = stepIdx + 1, total = st.length;
+      const head = bi('第 ' + k + '/' + total + ' 步', 'Step ' + k + '/' + total) + '　';
+      if (algo === 'greedy') {
+        if (s.type === 'pick') {
+          const [i, j] = s.pair;
+          Fr.setReadout(head + bi('<b>贪心：</b>在剩下的警报里找全局最近的一对（或最近的边界）：' + pairTxt(i, j) + '，距离 <b>' + fmtNum(s.weight) + '</b>' + (s.ties > 1 ? '（有 ' + s.ties + ' 个候选并列最近，按编号取第一个）' : '') + '。连上、从候选里移除，再找下一对。灰色虚线是落选的次优候选。',
+            '<b>Greedy:</b> among the remaining alarms take the globally closest pair (or the closest boundary): ' + pairTxt(i, j) + ', distance <b>' + fmtNum(s.weight) + '</b>' + (s.ties > 1 ? ' (' + s.ties + ' candidates tie; the lowest index wins)' : '') + '. Connect it, remove it from the pool, repeat. Grey dashes are the runner-up candidates.'));
+        } else finishText(head, s.weight, s.pairs);
+        return;
+      }
+      const d = (v) => fmtNum(s.y[v]);
+      switch (s.type) {
+        case 'init': Fr.setReadout(head + bi('<b>初始化。</b>症状图有 ' + m + ' 个警报，每个再配一个「边界节点」（小方块，连到它最近的边界，权重 = 到边界的距离；边界节点之间的边权重为 0，所以先把它们两两配好' + (m % 2 ? '，剩一个待配' : '') + '）。每个点带一个<b>对偶变量</b> y（画成菱形半径），初值 0，于是每条边的<b>松弛</b> w − y<sub>u</sub> − y<sub>v</sub> = w ≥ 0。算法的规则：只沿松弛为 0（「紧」）的边配对，所以第一步一定是生长。',
+          '<b>Initialise.</b> The syndrome graph has ' + m + ' alarms, each with a “boundary node” (small square, joined to its nearest boundary, weight = that distance; boundary nodes are joined to each other at weight 0, so they are paired up first' + (m % 2 ? ', one left over' : '') + '). Every node carries a <b>dual variable</b> y (drawn as a diamond radius), initially 0, so every edge has <b>slack</b> w − y<sub>u</sub> − y<sub>v</sub> = w ≥ 0. The rule of the game: only edges with zero slack (“tight”) may be matched, so the first move must be growth.')); break;
+        case 'stage': Fr.setReadout(head + bi('<b>新一轮。</b>还没配上的 ' + s.roots.length + ' 个点各自成为一棵树的根，标为<b>外点</b>（橙色）。外点会生长；已配上且不在树里的点是「自由点」。',
+          '<b>New stage.</b> The ' + s.roots.length + ' still-unmatched nodes each become the root of a tree, labelled <b>outer</b> (amber). Outer nodes grow; matched nodes not yet in any tree are “free”.')); break;
+        case 'dual': Fr.setReadout(head + bi('<b>生长 δ = ' + fmtNum(s.delta) + '。</b>所有外点的 y 加 δ（菱形变大），内点（蓝）的 y 减 δ，外花的对偶 z 加 2δ、内花减 2δ。δ 取到第一件要发生的事：' + ({ free: '某条外点—自由点的边变紧', outer: '两个外点的菱形相碰（边变紧）', blossom: '一朵内花的 z 归零' })[s.which] + '。',
+          '<b>Grow by δ = ' + fmtNum(s.delta) + '.</b> Every outer node’s y rises by δ (diamonds enlarge), inner (blue) nodes fall by δ, outer blossoms gain 2δ in z and inner blossoms lose 2δ. δ is the first event to occur: ' + ({ free: 'an outer–free edge becomes tight', outer: 'two outer diamonds touch (edge tight)', blossom: "an inner blossom's z reaches zero" })[s.which] + '.')); break;
+        case 'grow': Fr.setReadout(head + bi('<b>长树。</b>紧边 ' + pairTxt(s.hl[0], s.hl[1]) + ' 把一个自由点挂进树里，它成为<b>内点</b>（蓝）；它原来的配对伙伴（绿边另一端）跟着进树，成为<b>外点</b>。树边画成灰虚线。',
+          '<b>Grow the tree.</b> The tight edge ' + pairTxt(s.hl[0], s.hl[1]) + ' pulls a free node into the tree as an <b>inner</b> node (blue); its matched partner (other end of the green edge) follows as an <b>outer</b> node. Tree edges are grey dashes.')); break;
+        case 'shrink': Fr.setReadout(head + bi('<b>收缩成花。</b>紧边 ' + pairTxt(s.hl[0], s.hl[1]) + ' 连接了<b>同一棵树</b>里的两个外点，形成一个奇数长度的圈——沿它翻转匹配会卡住。Edmonds 的办法：把整个圈（' + s.cycle.length + ' 个成员）缩成一个点，一朵「花」B' + (s.blossom - 2 * m + 1) + '，当作外点继续生长（红色轮廓）。',
+          '<b>Shrink a blossom.</b> The tight edge ' + pairTxt(s.hl[0], s.hl[1]) + ' joins two outer nodes of the <b>same tree</b>, closing an odd cycle — flipping the matching along it would stall. Edmonds’ remedy: contract the whole cycle (' + s.cycle.length + ' members) into one node, a “blossom” B' + (s.blossom - 2 * m + 1) + ', and keep growing it as an outer node (red outline).')); break;
+        case 'expand': Fr.setReadout(head + bi('<b>展开。</b>内花 B' + (s.blossom - 2 * m + 1) + ' 的对偶 z 已归零，不能再收缩它了：把圈展开，圈上从入口到基点的那条交替路径重新标记内/外，其余成员变成自由点。',
+          '<b>Expand.</b> Inner blossom B' + (s.blossom - 2 * m + 1) + ' has z = 0 and cannot shrink further: unfold the cycle, relabel the alternating path from its entry to its base as inner/outer, and release the other members as free nodes.')); break;
+        case 'augment': Fr.setReadout(head + bi('<b>增广。</b>紧边 ' + pairTxt(s.hl[0], s.hl[1]) + ' 连接了<b>两棵不同的树</b>：从一个根到另一个根出现一条「非匹配—匹配—非匹配…」交替路径。把路径上的匹配翻转，配对数加一，涉及 ' + s.changed.length + ' 个点。这一轮结束，所有标记清空。',
+          '<b>Augment.</b> The tight edge ' + pairTxt(s.hl[0], s.hl[1]) + ' joins <b>two different trees</b>: an alternating path unmatched–matched–unmatched… now runs root to root. Flip the matching along it, gaining one pair and touching ' + s.changed.length + ' nodes. The stage ends and all labels are cleared.')); break;
+        case 'done': finishText(head, s.weight, BL().toAlarmPairs(s.pairs, m)); break;
+      }
+    }
+    function finishText(head, weight, pairs) {
+      const corr = B3().pairsToCorrection(lat, nodes, pairs, 'star');
+      const residual = P().xorSet([...err], corr);
+      const fail = lat.logicals.X.some((Lg) => P().overlapParity(residual, Lg));
+      const other = algo === 'blossom' ? runs.greedy : runs.blossom;
+      const cmp = algo === 'blossom'
+        ? bi('与暴力枚举的最优重量 ' + fmtNum(brute.weight) + ' ' + (Math.abs(brute.weight - weight) < 1e-9 ? '<span class="ok">一致 ✓</span>' : '<span class="no">不一致 ✗</span>') + '；同一症状下贪心得到 ' + fmtNum(other.weight) + '。',
+            'Brute-force optimum ' + fmtNum(brute.weight) + ': ' + (Math.abs(brute.weight - weight) < 1e-9 ? '<span class="ok">agrees ✓</span>' : '<span class="no">disagrees ✗</span>') + '; greedy on the same syndrome gives ' + fmtNum(other.weight) + '.')
+        : bi('最优（开花算法）重量 ' + fmtNum(other.weight) + (Math.abs(other.weight - weight) < 1e-9 ? '，这次贪心恰好也是最轻的。' : '，贪心多付了 ' + fmtNum(weight - other.weight) + '。'),
+            'The optimum (blossom) weighs ' + fmtNum(other.weight) + (Math.abs(other.weight - weight) < 1e-9 ? '; greedy happens to be lightest too.' : '; greedy overpays by ' + fmtNum(weight - other.weight) + '.'));
+      Fr.setReadout(head + bi('<b>完成。</b>配对：' + pairs.map(([i, j]) => pairTxt(i, j)).join('，') + '；总重量 <b>' + fmtNum(weight) + '</b>。', '<b>Done.</b> Pairs: ' + pairs.map(([i, j]) => pairTxt(i, j)).join(', ') + '; total weight <b>' + fmtNum(weight) + '</b>. ') + cmp
+        + bi(' 修复链（绿）已画在格点上，真实错误（蓝）揭晓：' + (fail ? '<span class="no">逻辑错误</span>' : '<span class="ok">成功</span>') + '。', ' The repair (green) is drawn on the lattice and the true errors (blue) revealed: ' + (fail ? '<span class="no">logical error</span>' : '<span class="ok">success</span>') + '.'));
+      view.hlEdges = new Map(corr.map((q) => [q, { color: cssVar('--good'), width: 5 }]));
+      view.opts.showErrors = true; view.errZ = new Set(err);
+    }
+    function paint() {
+      const s = snap();
+      view.hlEdges = new Map(); view.opts.showErrors = false; view.errZ = new Set(err);
+      if (s && (s.type === 'done')) narrate(); else narrate();
+      view.draw();
+      btnPrev.disabled = stepIdx === 0; btnNext.disabled = isLast();
+    }
+    function newRound() {
+      err = new Set();
+      for (let attempt = 0; attempt < 50; attempt++) {
+        err = new Set(); for (let q = 0; q < lat.n; q++) if (Math.random() < p) err.add(q);
+        defects = LAT().syndrome(lat, [...err], []).starDefects;
+        if (defects.length >= 2 && defects.length <= 10) break;
+      }
+      if (defects.length < 2) { err.add(Math.floor(Math.random() * lat.n)); defects = LAT().syndrome(lat, [...err], []).starDefects; }
+      nodes = defects.map((k) => lat.stars[k]); m = nodes.length;
+      W = BL().planarInstance(m, dist, bdist);
+      runs.blossom = BL().minWeightPerfectMatching(2 * m, W, BL().boundaryPreMatch(m));
+      // zero-weight bookkeeping moves purely among boundary nodes are invisible in the picture: skip them
+      runs.blossom.steps = runs.blossom.steps.filter((s) => !(s.hl && s.hl[0] >= m && s.hl[1] >= m));
+      runs.greedy = BL().greedySteps(m, dist, bdist);
+      const bf = DEC().optimalMatch(nodes, dist, bdist);
+      brute = { pairs: bf, weight: B3().pairingWeight(bf, dist, bdist) };
+      stepIdx = 0; paint();
+    }
+    const seg = U().seg([{ id: 'greedy', zh: '贪心', en: 'greedy' }, { id: 'blossom', zh: '开花算法（MWPM）', en: 'blossom (MWPM)' }], algo, (v) => { algo = v; stepIdx = 0; paint(); });
+    const btnPrev = U().btn('上一步', 'Back', '', () => { if (stepIdx > 0) { stepIdx--; paint(); } });
+    const btnNext = U().btn('下一步', 'Step', 'primary', () => { if (!isLast()) { stepIdx++; paint(); } });
+    const btnEnd = U().btn('一口气跑完', 'Run to the end', '', () => { stepIdx = steps().length - 1; paint(); });
+    const btnDual = U().btn('隐藏对偶菱形', 'Hide dual diamonds', '', function () { showDual = !showDual; this.innerHTML = showDual ? bi('隐藏对偶菱形', 'Hide dual diamonds') : bi('显示对偶菱形', 'Show dual diamonds'); view.draw(); });
+    const sl = (function () { const s = doc.createElement('input'); s.type = 'range'; s.min = '0.03'; s.max = '0.14'; s.step = '0.01'; s.value = String(p); const pv = doc.createElement('span'); pv.className = 'pill-count'; pv.textContent = 'p = ' + p.toFixed(2); s.addEventListener('input', () => { p = +s.value; pv.textContent = 'p = ' + p.toFixed(2); }); return { el: s, pill: pv }; })();
+    Fr.controls.append(U().label('算法：', 'algorithm:'), seg.el, btnPrev, btnNext, btnEnd);
+    const row2 = div('controls'); el.insertBefore(row2, Fr.readout);
+    row2.append(U().btn('新症状', 'New syndrome', '', newRound), U().label('错误率', 'error rate'), sl.el, sl.pill, btnDual);
+    legend(el, [
+      { color: cssVar('--cd'), dot: true, zh: '警报 A1…（红点）；红虚线 = 边界 / 当前触发的紧边', en: 'alarms A1… (red dots); red dashes = boundary / the tight edge just triggered' },
+      { color: cssVar('--cx-soft2'), zh: '外点的对偶菱形（生长）', en: 'outer node dual diamond (growing)' },
+      { color: cssVar('--cz-soft2'), zh: '内点的对偶菱形（收缩）', en: 'inner node dual diamond (shrinking)' },
+      { color: cssVar('--good'), zh: '当前匹配 / 最终修复链', en: 'current matching / final repair' },
+      { color: cssVar('--ink3'), zh: '树边（灰虚线）；红轮廓 = 花', en: 'tree edges (grey dashes); red outline = blossom' },
+    ]);
+    newRound();
+  }
+  U().reg('matchsteps', wMatchSteps);
 })(typeof window !== 'undefined' ? window : globalThis);
 </script>
 </body>
