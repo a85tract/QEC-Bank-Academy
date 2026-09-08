@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Surface Code · 高中数学版</title>
-<meta name="tq-title-zh" content="Surface Code · 高中数学版">
-<meta name="tq-title-en" content="The Surface Code · High-School Edition">
+<title>Surface Code · 条目总览</title>
+<meta name="tq-title-zh" content="Surface Code · 条目总览">
+<meta name="tq-title-en" content="Surface Code · Entry Overview">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500..700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Serif+SC:wght@600;700&display=swap">
 <style>
 /* ============================================================
@@ -879,10 +879,24 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
 </style>
 </head>
 <body>
+<style>
+.facet-grid { list-style: none; padding: 0; margin: 1.4em 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 14px; max-width: 900px; }
+.facet-grid li { margin: 0; }
+.facet-card { display: flex; flex-direction: column; gap: 8px; height: 100%; padding: 16px 18px; border: 1px solid var(--line2); border-radius: 14px; background: var(--bg2); box-shadow: var(--shadow); color: var(--ink); text-decoration: none; transition: border-color .15s, transform .15s; }
+.facet-card:hover { border-color: var(--cz); transform: translateY(-1px); }
+.facet-card .fc-title { color: inherit; text-decoration: none; display: flex; justify-content: space-between; align-items: baseline; font-weight: 600; font-size: 16.5px; }
+.facet-card .fc-title:hover { color: var(--cz-ink); }
+.facet-card .fc-title .arrow { color: var(--ink3); font-family: var(--f-mono); }
+.facet-card .fc-desc { color: var(--ink2); font-size: 14px; line-height: 1.55; }
+.facet-card .fc-meta { margin-top: auto; font-family: var(--f-mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink3); }
+.facet-card .fc-meta .lvl { color: var(--cz-ink); border: 1px solid var(--cz); background: var(--cz-soft); border-radius: 999px; padding: 1.5px 8px; margin-right: 6px; }
+.facet-card .fc-meta .lvl.hs { color: var(--cx-ink); border-color: var(--cx); background: var(--cx-soft); }
+.facet-card .fc-meta .lvl.ref { color: var(--good); border-color: var(--good); background: var(--good-soft); }
+</style>
 <header class="topbar">
   <a class="brand" href="#top">
     <svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true"><g stroke="currentColor" stroke-width="1.4" fill="none"><path d="M3 7h16M3 15h16M7 4v14M15 4v14"/><path d="M3 4v3M19 4v3M3 15v3M19 15v3" stroke-dasharray="2 2"/></g><circle cx="11" cy="11" r="2.1" fill="var(--cd)" stroke="none"/></svg>
-    <span class="zh">Surface Code · 高中数学版</span><span class="en">The Surface Code · High-School Edition</span>
+    <span class="zh">Surface Code · 条目总览</span><span class="en">Surface Code · Entry Overview</span>
   </a>
   <span class="spacer"></span>
   <div class="lang-switch" role="group" aria-label="Language">
@@ -895,22 +909,22 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
 <div class="hero" id="top">
   <div class="hero-canvas" data-widget="herosurface" aria-hidden="true"></div>
   <div class="hero-inner">
-    <div class="eyebrow"><span class="zh">互动教程 · 高中数学版 · 第二册 / 共两册</span><span class="en">Interactive tutorial · High-school edition · Book 2 of 2</span></div>
+    <div class="eyebrow"><span class="zh">Atlas 条目导读 · Surface Code</span><span class="en">Atlas entry guide · Surface code</span></div>
     <h1>
-      <span class="zh">剪开环面，得到<br><span class="accent">Surface Code</span></span>
-      <span class="en">Cut the torus open:<br>the <span class="accent">Surface Code</span></span>
+      <span class="zh">Surface Code：<br>十一个<span class="accent">侧面</span>，各有一篇</span>
+      <span class="en">The surface code:<br>eleven <span class="accent">facets</span>, one guide each</span>
     </h1>
     <p class="lede">
-      <span class="zh">环面码优雅，芯片却是平的。本册把环面剪开铺平：两种边界如何分工、错误链如何借边界遁形、一轮完整纠错如何运转；最后是压轴的「阈值」——你先用排列组合与等比数列亲手证出一个下界，再让浏览器现场用蒙特卡洛把真值测出来。</span>
-      <span class="en">The toric code is elegant; chips are flat. This book cuts the torus open and lays it flat: how the two boundary types divide the labour, how error chains vanish through an edge, how a full correction cycle runs — then the threshold finale: you first prove a lower bound by counting and geometric series, then let your browser measure the true value by Monte-Carlo.</span>
+      <span class="zh">QEC Atlas 把每个码条目拆成十一个「侧面」：直觉、导览、表示阶梯、参数与实例、形式化证书、译码器、逻辑操作、用例与实现、关系、推导与指南、参考文献。每个侧面回答一个问题，细节只在一次点击之外。这一页是 Surface Code 条目的目录：每张卡片通向一篇互动教程，格式相同、可切换中英文、所有模拟都在浏览器本地运行。</span>
+      <span class="en">The QEC Atlas splits every code entry into eleven facets: intuition, guided tour, representation ladder, parameters and instances, formal certificates, decoders, logical operations, use cases and realizations, relations, derivations and guides, references. Each answers one question; detail stays one click away. This page is the table of contents for the surface-code entry: every card opens one interactive tutorial in the same format, switchable between Chinese and English, with all simulations running locally in your browser.</span>
     </p>
     <div class="promise">
-      <span class="zh">前置：第一册《从高考数学到 Toric Code》。<span class="ref" data-ref="s0" data-sec="0">第 0 章</span>有速查回顾。</span>
-      <span class="en">Prerequisite: Book 1, “From High-School Math to the Toric Code”. <span class="ref" data-ref="s0" data-sec="0">Chapter 0</span> holds the express recap.</span>
+      <span class="zh">从哪里开始：第一次读，走「直觉」；想核对某个数字或某条引用，直接去对应侧面。Atlas 原始条目页：<a href="../../../exports/site/entries/surface.html">在 Atlas 中查看 →</a></span>
+      <span class="en">Where to start: first time, take “Intuition”; to check a number or a citation, go straight to that facet. The Atlas entry itself: <a href="../../../exports/site/entries/surface.html">Open in the Atlas →</a></span>
     </div>
     <div class="cta-row">
-      <a class="btn primary" href="#ch0"><span class="zh">开始 ↓</span><span class="en">Begin ↓</span></a>
-      <span class="muted small"><span class="zh">全程约 40–60 分钟 · 译码游戏 + 实时阈值实验 · 更慢的路线见零基础版 <a href="https://claude.ai/code/artifact/2d6b3117-9776-44ab-bb5f-3b0f31be2c25">《从 Toric Code 到 Surface Code》（零基础版）→</a></span><span class="en">About 40–60 minutes · decoding game + live threshold experiment · slower route: <a href="https://claude.ai/code/artifact/2d6b3117-9776-44ab-bb5f-3b0f31be2c25">“From Toric Code to Surface Code” (no-prerequisites edition) →</a></span></span>
+      <a class="btn primary" href="#facets"><span class="zh">选择侧面 ↓</span><span class="en">Choose a facet ↓</span></a>
+      <span class="muted small"><span class="zh">系列目录：<a href="../index.html">全部码与教程 →</a></span><span class="en">Series index: <a href="../index.html">all codes and tutorials →</a></span></span>
     </div>
   </div>
 </div>
@@ -918,368 +932,122 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
 <div class="layout">
   <nav class="rail" aria-label="chapters">
     <p class="rail-title"><span class="zh">目录</span><span class="en">Contents</span></p>
-    <a href="#ch0"><span class="n">0</span><span class="zh">速查回顾</span><span class="en">Express recap</span></a>
-    <a href="#ch1"><span class="n">1</span><span class="zh">剪开环面</span><span class="en">Cutting the torus</span></a>
-    <a href="#ch2"><span class="n">2</span><span class="zh">两种边界与 k = 1</span><span class="en">Two boundaries & k = 1</span></a>
-    <a href="#ch3"><span class="n">3</span><span class="zh">边界上的链与逻辑串</span><span class="en">Boundary chains & logicals</span></a>
-    <a href="#ch4"><span class="n">4</span><span class="zh">纠错循环与辅助比特</span><span class="en">The cycle & the ancilla</span></a>
-    <a href="#ch5"><span class="n">5</span><span class="zh">译码游戏</span><span class="en">The decoding game</span></a>
-    <a href="#ch6"><span class="n">6</span><span class="zh">阈值：证明与实测</span><span class="en">The threshold: proof & measurement</span></a>
-    <a href="#tail"><span class="n">∎</span><span class="zh">尾声 · 词汇表</span><span class="en">Epilogue · Glossary</span></a>
+    <a href="#facets"><span class="n">1</span><span class="zh">十一个侧面</span><span class="en">The eleven facets</span></a>
+    <a href="#order"><span class="n">2</span><span class="zh">建议阅读顺序</span><span class="en">Suggested order</span></a>
+    <a href="#tail"><span class="n">∎</span><span class="zh">关于这套教程</span><span class="en">About these guides</span></a>
   </nav>
   <main>
     <details class="toc-mobile">
       <summary><span class="zh">目录</span><span class="en">Contents</span></summary>
       <nav>
-        <a href="#ch0"><span class="n">0</span><span class="zh">速查回顾</span><span class="en">Express recap</span></a>
-        <a href="#ch1"><span class="n">1</span><span class="zh">剪开环面</span><span class="en">Cutting the torus</span></a>
-        <a href="#ch2"><span class="n">2</span><span class="zh">两种边界与 k = 1</span><span class="en">Two boundaries & k = 1</span></a>
-        <a href="#ch3"><span class="n">3</span><span class="zh">边界上的链与逻辑串</span><span class="en">Boundary chains & logicals</span></a>
-        <a href="#ch4"><span class="n">4</span><span class="zh">纠错循环与辅助比特</span><span class="en">The cycle & the ancilla</span></a>
-        <a href="#ch5"><span class="n">5</span><span class="zh">译码游戏</span><span class="en">The decoding game</span></a>
-        <a href="#ch6"><span class="n">6</span><span class="zh">阈值：证明与实测</span><span class="en">The threshold: proof & measurement</span></a>
-        <a href="#tail"><span class="n">∎</span><span class="zh">尾声 · 词汇表</span><span class="en">Epilogue · Glossary</span></a>
+        <a href="#facets"><span class="n">1</span><span class="zh">十一个侧面</span><span class="en">The eleven facets</span></a>
+        <a href="#order"><span class="n">2</span><span class="zh">建议阅读顺序</span><span class="en">Suggested order</span></a>
+        <a href="#tail"><span class="n">∎</span><span class="zh">关于这套教程</span><span class="en">About these guides</span></a>
       </nav>
     </details>
 
-<section class="chapter" id="ch0">
+<section class="chapter" id="facets">
   <div class="ch-head">
-    <div class="ch-no"><span class="zh">第 0 章</span><span class="en">Chapter 0</span></div>
-    <h2><span class="zh">速查回顾：六条随身公式</span><span class="en">Express recap: six formulas to carry</span></h2>
+    <div class="ch-no"><span class="zh">渐进披露</span><span class="en">Progressive disclosure</span></div>
+    <h2><span class="zh">探索这个码</span><span class="en">Explore this code</span></h2>
     <p class="ch-lede">
-      <span class="zh">第一册的全部装备压缩成六条。任何一条觉得生疏，就回第一册对应章节重修；正文里引用定义的橙色虚线（含「第一册 X.X 节」）点一下即可原地弹出该定义的小卡片；希腊字母与新符号（浅灰点线）点一下会告诉你它怎么读，页尾附符号读音表。<a href="https://claude.ai/code/artifact/23586271-b1e6-46fe-8cb9-e85f8a84095f">打开第一册（高中数学版）→</a></span>
-      <span class="en">Book 1's entire kit compressed to six lines. If any feels rusty, revisit its chapter — and amber dashed citations (including “Book 1 §x.x”) pop up a small in-place card restating the cited definition; Greek letters and novel symbols (faint grey dotted) click to reveal how they are read, with a full table at the end. <a href="https://claude.ai/code/artifact/23586271-b1e6-46fe-8cb9-e85f8a84095f">Open Book 1 (high-school edition) →</a></span>
+      <span class="zh">选你想回答的问题。标签说明每篇的定位：<b>零基础</b>版只假定初中算术；<b>高中数学</b>版用排列组合、对数与矩阵走得更快；<b>条目导读</b>假定你已读过直觉篇，直接对照 Atlas 的机器验证数据讲。</span>
+      <span class="en">Choose the question you want answered. The tags mark each guide's level: <b>no prerequisites</b> assumes only school arithmetic; <b>high-school math</b> moves faster with counting, logarithms and matrices; <b>entry guide</b> assumes the intuition book and walks the Atlas's machine-verified data directly.</span>
     </p>
   </div>
-  <div class="formula center tall">
-    ① |<span class="sym" data-sym="psi">ψ</span>⟩ = a|0⟩+b|1⟩ = <span class="mx c1"><i>a</i><i>b</i></span>, |a|²+|b|²=1　·　② <span class="opx">X</span> = <span class="mx c2"><i>0</i><i>1</i><i>1</i><i>0</i></span>, <span class="opz">Z</span> = <span class="mx c2"><i>1</i><i>0</i><i>0</i><i>−1</i></span>, <span class="opx">X</span><span class="opz">Z</span> = −<span class="opz">Z</span><span class="opx">X</span><br>
-    ③ PQ = (−1)<sup>c</sup>QP <span class="dim">(c = X↔Z <span class="zh">碰撞格数</span><span class="en">collision cells</span>)</span>　·　④ P± = (I±S)/2, p± = |P±<span class="sym" data-sym="psi">ψ</span>|²<br>
-    ⑤ <span class="zh">编码态</span><span class="en">encoded states</span>: S<span class="sym" data-sym="psi">ψ</span> = <span class="sym" data-sym="psi">ψ</span> (∀S <span class="zh">于清单</span><span class="en">on the list</span>), k = n − #<span class="zh">独立检查</span><span class="en">independent</span>　·　⑥ <span class="zh">警报 <span class="sym" data-sym="iff">⇔</span> 反对易</span><span class="en">alarm <span class="sym" data-sym="iff">⇔</span> anticommute</span>
-  </div>
-  <div class="prose">
-    <p class="zh">环面码速览：L×L 周期网格，边上比特（n = 2L²）；星 A<sub>v</sub> = XXXX 与面 B<sub>p</sub> = ZZZZ 因「角连两边」全体对易；<span class="sym" data-sym="prod">∏</span>A = <span class="sym" data-sym="prod">∏</span>B = I 两条恒等式给 k = 2；Z-错误连成链，症状 = 链的端点（<span class="sym" data-sym="partial">∂</span>链）；可收缩闭圈 = 面检查乘积 = 恒等，缠绕圈 = 逻辑算符 Z̄、X̄，交叉一次故反对易；码距 d = L。两副眼镜与沙盘，一分钟热身：</p>
-    <p class="en">The toric code at a glance: an L×L periodic grid with qubits on edges (n = 2L²); stars A<sub>v</sub> = XXXX and plaquettes B<sub>p</sub> = ZZZZ all commuting by “a corner touches two sides”; the identities <span class="sym" data-sym="prod">∏</span>A = <span class="sym" data-sym="prod">∏</span>B = I give k = 2; Z errors form chains with syndrome = endpoints (<span class="sym" data-sym="partial">∂</span>chain); contractible closed loops = products of plaquettes = identity, winding loops = the logicals Z̄, X̄, crossing once hence anticommuting; distance d = L. One minute of warm-up with the two lenses and the sandbox:</p>
-  </div>
-  <div data-widget="twolens"></div>
-  <div data-widget="toricsandbox" data-size="4"></div>
-  <div class="ch-nav">
-    <span></span>
-    <a href="#ch1"><span class="zh">下一章</span><span class="en">Next</span><b><span class="zh">1 · 剪开环面</span><span class="en">1 · Cutting the torus</span></b></a>
-  </div>
+  <ul class="facet-grid">
+    <li><div class="facet-card">
+      <a class="fc-title" href="intuition/intuition.html"><span><span class="zh">直觉</span><span class="en">Intuition</span></span><span class="arrow">→</span></a>
+      <span class="fc-desc"><span class="zh">一次读完的概念导览：剪开环面、两种边界、纠错循环、译码游戏、现场测阈值。另有<a href="intuition/intuition-hs.html">高中数学版</a>。</span><span class="en">The one-sitting conceptual guide: cut the torus open, two boundaries, the correction cycle, the decoding game, a live threshold. Also in a <a href="intuition/intuition-hs.html">high-school edition</a>.</span></span>
+      <span class="fc-meta"><span class="lvl"><span class="zh">零基础</span><span class="en">no prerequisites</span></span><span class="lvl hs"><span class="zh">高中数学</span><span class="en">high-school</span></span></span>
+    </div></li>
+    <li><div class="facet-card">
+      <a class="fc-title" href="tour/tour.html"><span><span class="zh">导览</span><span class="en">Guided tour</span></span><span class="arrow">→</span></a>
+      <span class="fc-desc"><span class="zh">跟着 Atlas 导出的 L=3 数据走一遍：两条重复码链如何相乘成 13 个比特、12 条检查和一个逻辑比特。</span><span class="en">Walk the Atlas's exported L=3 data step by step: how two repetition chains multiply into 13 qubits, 12 checks and one logical qubit.</span></span>
+      <span class="fc-meta"><span class="lvl ref"><span class="zh">条目导读</span><span class="en">entry guide</span></span></span>
+    </div></li>
+    <li><div class="facet-card">
+      <a class="fc-title" href="views/views.html"><span><span class="zh">表示阶梯</span><span class="en">Representation ladder</span></span><span class="arrow">→</span></a>
+      <span class="fc-desc"><span class="zh">从 R1 可执行的检查矩阵到 R5 跨模型词典：超图积、链复形、随机键 Ising、ZX、quon、PEPS，各带出处标签。</span><span class="en">From R1 executable check matrices to R5 cross-model dictionaries: hypergraph product, chain complex, random-bond Ising, ZX, quon, PEPS, each with its provenance label.</span></span>
+      <span class="fc-meta"><span class="lvl ref"><span class="zh">条目导读</span><span class="en">entry guide</span></span></span>
+    </div></li>
+    <li><div class="facet-card">
+      <a class="fc-title" href="parameters/parameters.html"><span><span class="zh">参数与实例</span><span class="en">Parameters &amp; instances</span></span><span class="arrow">→</span></a>
+      <span class="fc-desc"><span class="zh">家族变量 L 与三个交付实例 [[13,1,3]]、[[25,1,4]]、[[41,1,5]]；为什么 L=5 的距离是 bounded 而不是 verified。</span><span class="en">The family variable L and the three shipped instances [[13,1,3]], [[25,1,4]], [[41,1,5]]; why the L=5 distance is bounded rather than verified.</span></span>
+      <span class="fc-meta"><span class="lvl ref"><span class="zh">条目导读</span><span class="en">entry guide</span></span></span>
+    </div></li>
+    <li><div class="facet-card">
+      <a class="fc-title" href="formal-verification/formal-verification.html"><span><span class="zh">形式化 IR 与证书</span><span class="en">Formal IR &amp; certificates</span></span><span class="arrow">→</span></a>
+      <span class="fc-desc"><span class="zh">每个实例的语义哈希与 Lean 检查过的证书类别；机器到底核实了什么、没核实什么，以及如何自己复现。</span><span class="en">Each instance's semantic hash and Lean-checked certificate classes; what the machine actually verified, what it did not, and how to reproduce it yourself.</span></span>
+      <span class="fc-meta"><span class="lvl ref"><span class="zh">条目导读</span><span class="en">entry guide</span></span></span>
+    </div></li>
+    <li><div class="facet-card">
+      <a class="fc-title" href="decoders/decoders.html"><span><span class="zh">译码器</span><span class="en">Decoders</span></span><span class="arrow">→</span></a>
+      <span class="fc-desc"><span class="zh">从配对游戏到译码器：最小重量完美匹配、贪心为何会输、并查集、时空译码，以及把每个阈值数字放回它自己的模型。</span><span class="en">From the pairing game to decoders: minimum-weight perfect matching, why greed loses, union-find, spacetime decoding, and filing every threshold number under its own model.</span></span>
+      <span class="fc-meta"><span class="lvl hs"><span class="zh">高中数学</span><span class="en">high-school</span></span></span>
+    </div></li>
+    <li><div class="facet-card">
+      <a class="fc-title" href="operations/operations.html"><span><span class="zh">逻辑操作</span><span class="en">Logical operations</span></span><span class="arrow">→</span></a>
+      <span class="fc-desc"><span class="zh">剪开、缝合：用格点手术做逻辑门。测乘积算符、合并与分裂、两次合并做一个 CNOT、为什么要维持 d 轮。</span><span class="en">Cut and stitch: logical gates by lattice surgery. Measuring a product operator, merge and split, a CNOT from two merges, why a merge is held for d rounds.</span></span>
+      <span class="fc-meta"><span class="lvl hs"><span class="zh">高中数学</span><span class="en">high-school</span></span></span>
+    </div></li>
+    <li><div class="facet-card">
+      <a class="fc-title" href="realizations/realizations.html"><span><span class="zh">用例与实现</span><span class="en">Use cases &amp; realizations</span></span><span class="arrow">→</span></a>
+      <span class="fc-desc"><span class="zh">它适合哪种硬件，以及实验室已经做到了什么：Google 2023 与 Willow 2024、祖冲之 2.1、可重构中性原子——每个数字带误差与限定。</span><span class="en">Which hardware it fits, and what labs have shown: Google 2023 and Willow 2024, Zuchongzhi 2.1, reconfigurable neutral atoms, every number with its error bar and qualifier.</span></span>
+      <span class="fc-meta"><span class="lvl ref"><span class="zh">条目导读</span><span class="en">entry guide</span></span></span>
+    </div></li>
+    <li><div class="facet-card">
+      <a class="fc-title" href="relations/relations.html"><span><span class="zh">关系</span><span class="en">Relations</span></span><span class="arrow">→</span></a>
+      <span class="fc-desc"><span class="zh">Atlas 记录的两条类型化关系：两条重复码的超图积、与环面码同一体相；以及文献里那些尚未成为关系的亲戚。</span><span class="en">The two typed relations the Atlas records: hypergraph product of two repetition codes, same bulk phase as the toric code; and the literature relatives not yet promoted to relations.</span></span>
+      <span class="fc-meta"><span class="lvl ref"><span class="zh">条目导读</span><span class="en">entry guide</span></span></span>
+    </div></li>
+    <li><div class="facet-card">
+      <a class="fc-title" href="pedagogy/pedagogy.html"><span><span class="zh">推导与指南</span><span class="en">Derivations &amp; guides</span></span><span class="arrow">→</span></a>
+      <span class="fc-desc"><span class="zh">五个完整推导：超图积给出平面贴片、距离恰为 L、症状是错误链的边界、缝合线测出逻辑奇偶、阈值账本；外加自测题。</span><span class="en">Five complete derivations: the hypergraph product gives the planar patch, distance is exactly L, syndrome is the boundary of an error chain, a seam measures logical parity, the threshold ledger; plus a self-test.</span></span>
+      <span class="fc-meta"><span class="lvl ref"><span class="zh">条目导读</span><span class="en">entry guide</span></span></span>
+    </div></li>
+    <li><div class="facet-card">
+      <a class="fc-title" href="references/references.html"><span><span class="zh">参考文献</span><span class="en">References</span></span><span class="arrow">→</span></a>
+      <span class="fc-desc"><span class="zh">带出处键的读者版书目，按「它回答哪个问题」分组，并说明每条引用在 Atlas 里支撑了哪条论断。</span><span class="en">The reader-facing bibliography with provenance keys, grouped by the question each answers, noting which Atlas claim every citation supports.</span></span>
+      <span class="fc-meta"><span class="lvl ref"><span class="zh">条目导读</span><span class="en">entry guide</span></span></span>
+    </div></li>
+  </ul>
 </section>
 
-<section class="chapter" id="ch1">
+<section class="chapter" id="order">
   <div class="ch-head">
-    <div class="ch-no"><span class="zh">第 1 章</span><span class="en">Chapter 1</span></div>
-    <h2><span class="zh">剪开环面</span><span class="en">Cutting the torus open</span></h2>
-    <p class="ch-lede">
-      <span class="zh">周期边界要求最右一列与最左一列直接连线——对平面芯片是工艺灾难。剪开是必然的；问题只在于剪开的代价，以及如何优雅地收边。</span>
-      <span class="en">Periodic boundaries demand direct wiring from the rightmost column to the leftmost — a fabrication disaster on planar chips. Cutting is inevitable; the only questions are its price, and how to hem the cut elegantly.</span>
-    </p>
+    <div class="ch-no"><span class="zh">路线</span><span class="en">Routes</span></div>
+    <h2><span class="zh">建议阅读顺序</span><span class="en">Suggested order</span></h2>
   </div>
   <div class="prose">
-    <p class="zh">代价清单先摆出来。环面的 k = 2 依赖两条恒等式 <span class="sym" data-sym="prod">∏</span>A<sub>v</sub> = <span class="sym" data-sym="prod">∏</span>B<sub>p</sub> = I，而恒等式依赖「每条边恰被两颗星、两块面分享」的完美均匀——剪开边缘后立刻失效。此外边缘的检查会缺腿：是把缺腿检查扔掉、还是收编？三步手术看全程；注意第 ③ 步的收边分工——它不是美化，而是设计：</p>
-    <p class="en">Price list first. The torus's k = 2 rested on the identities <span class="sym" data-sym="prod">∏</span>A<sub>v</sub> = <span class="sym" data-sym="prod">∏</span>B<sub>p</sub> = I, which rested on the perfect uniformity “every edge shared by exactly two stars and two faces” — dead on arrival at a cut edge. Rim checks also lose legs: discard them or enlist them? Watch the three-step surgery, and mind step ③'s division of labour — it is design, not cosmetics:</p>
-  </div>
-  <div data-widget="cutopen"></div>
-  <div class="ch-nav">
-    <a href="#ch0"><span class="zh">上一章</span><span class="en">Back</span><b><span class="zh">0 · 速查回顾</span><span class="en">0 · Express recap</span></b></a>
-    <a href="#ch2"><span class="zh">下一章</span><span class="en">Next</span><b><span class="zh">2 · 两种边界与 k = 1</span><span class="en">2 · Two boundaries & k = 1</span></b></a>
-  </div>
-</section>
-
-<section class="chapter" id="ch2">
-  <div class="ch-head">
-    <div class="ch-no"><span class="zh">第 2 章</span><span class="en">Chapter 2</span></div>
-    <h2><span class="zh">两种边界，与一个完全平方</span><span class="en">Two boundaries, and one perfect square</span></h2>
-    <p class="ch-lede">
-      <span class="zh">收边方案：左右两侧保留悬挂半边、只截断面检查（毛/粗糙边界）；上下两侧收干净、只截断星检查（光/光滑边界）。然后重新记账——答案是一个漂亮的完全平方。</span>
-      <span class="en">The hemming plan: left/right keep dangling half-edges and truncate only faces (the rough boundary); top/bottom are hemmed clean and truncate only stars (the smooth boundary). Then redo the ledger — the answer is a perfect square.</span>
-    </p>
-  </div>
-  <div class="formula center"><span class="zh">内部</span><span class="en">bulk</span>: A<sub>v</sub> = <span class="opx">XXXX</span>, B<sub>p</sub> = <span class="opz">ZZZZ</span>　·　<span class="zh">光边界（上下）</span><span class="en">smooth (top/bottom)</span>: A<sub>v</sub> = <span class="opx">XXX</span>　·　<span class="zh">毛边界（左右）</span><span class="en">rough (left/right)</span>: B<sub>p</sub> = <span class="opz">ZZZ</span></div>
-  <div class="prose">
-    <p class="zh">对易定理安然无恙：「角连两边」是纯局部论证，三腿检查照样适用（可在下方开启检查显示逐对核验）。记账用尺寸参数 d：</p>
-    <p class="en">The commutation theorem survives intact: “a corner touches two sides” is purely local and applies to three-leg checks unchanged (toggle the checks below and verify pair by pair). The ledger, with size parameter d:</p>
-  </div>
-  <div data-widget="planarcount"></div>
-  <div class="formula center">n = d² + (d−1)²,　#A = #B = d(d−1)　·　<span class="zh">独立性：<span class="sym" data-sym="prod">∏</span>A 在每条悬边剩一个 X ≠ I（悬边只属一颗星），<span class="sym" data-sym="prod">∏</span>B 同理 <span class="sym" data-sym="implies">⇒</span> 无恒等式</span><span class="en">independence: <span class="sym" data-sym="prod">∏</span>A leaves a lone X on every dangler (each dangler meets one star only), likewise <span class="sym" data-sym="prod">∏</span>B <span class="sym" data-sym="implies">⇒</span> no identities</span></div>
-  <div class="formula center">k = d² + (d−1)² − 2d(d−1) = (d − (d−1))² = <b>1</b>　<span class="dim">(<span class="zh">完全平方公式 (x−y)² = x² − 2xy + y²，x = d，y = d−1</span><span class="en">the perfect square (x−y)² = x² − 2xy + y² with x = d, y = d−1</span>)</span></div>
-  <div class="note note-key">
-    <span class="note-tag"><span class="zh">关键想法</span><span class="en">Key idea</span></span>
-    <p class="zh">环面的两条「白送恒等式」被边界没收，k 从 2 落到 1——但恰好落在 1 而非 0，对任何 d 成立。这块平面版图就是<b>表面码</b>：一块存单个逻辑比特、保护力随 d 增长的贴片。</p>
-    <p class="en">The boundary confiscates the torus's two free identities and k falls from 2 to exactly 1 — never 0 — for every d. This planar patch is the <b>surface code</b>: a tile storing one logical qubit with protection growing in d.</p>
-  </div>
-  <div class="quiz" data-quiz>
-    <div class="quiz-head"><span class="chip"><span class="zh">检查站</span><span class="en">Checkpoint</span></span><span class="q-title"><span class="zh">第 2 章</span><span class="en">Chapter 2</span></span></div>
-    <div class="quiz-body">
-      <div class="q-text"><span class="zh">d = 11 的表面码需要多少数据比特？（不含辅助比特）</span><span class="en">How many data qubits does a d = 11 surface code need (ancillas excluded)?</span></div>
-      <div class="q-opts">
-        <button class="q-opt" data-ok><span class="zh">221 —— 11² + 10² = 121 + 100</span><span class="en">221 — 11² + 10² = 121 + 100</span></button>
-        <button class="q-opt"><span class="zh">121 —— d²</span><span class="en">121 — d²</span></button>
-        <button class="q-opt"><span class="zh">242 —— 2d²</span><span class="en">242 — 2d²</span></button>
-      </div>
-      <div class="q-fb ok"><p class="zh">对。再加 220 条检查各配一个辅助比特（<span class="ref" data-ref="s4" data-sec="4">第 4 章</span>），一个 d=11 逻辑比特约需 441 个物理比特——「上千物理比特换一个好逻辑比特」的说法正是这样长出来的。（顺带：45° 旋转版图能省到 d² = 121 个数据比特，见尾声。）</p><p class="en">Right. Add one ancilla per check (220 of them, <span class="ref" data-ref="s4" data-sec="4">Ch. 4</span>) and a d=11 logical qubit costs ≈441 physical ones — exactly how “a thousand physical per good logical” claims arise. (Aside: the 45°-rotated layout thrifts to d² = 121 data qubits; see the epilogue.)</p></div>
-      <div class="q-fb no"><p class="zh">n = d² + (d−1)²，代入 d = 11。</p><p class="en">n = d² + (d−1)² at d = 11.</p></div>
-    </div>
-  </div>
-  <div class="ch-nav">
-    <a href="#ch1"><span class="zh">上一章</span><span class="en">Back</span><b><span class="zh">1 · 剪开环面</span><span class="en">1 · Cutting the torus</span></b></a>
-    <a href="#ch3"><span class="zh">下一章</span><span class="en">Next</span><b><span class="zh">3 · 边界上的链与逻辑串</span><span class="en">3 · Boundary chains & logicals</span></b></a>
-  </div>
-</section>
-
-<section class="chapter" id="ch3">
-  <div class="ch-head">
-    <div class="ch-no"><span class="zh">第 3 章</span><span class="en">Chapter 3</span></div>
-    <h2><span class="zh">终止在边界上的链，与横跨的逻辑串</span><span class="en">Chains dying on boundaries, and spanning logicals</span></h2>
-    <p class="ch-lede">
-      <span class="zh">环面上症状必然成对（<span class="sym" data-sym="partial">∂</span>链 有偶数个点）。平面打破了这条铁律：链的端点若落在合适的边界上，那里没有检查可报警——警报凭空少一个。这既改写译码规则，也给了逻辑算符新的form。</span>
-      <span class="en">On the torus, syndromes come in pairs (<span class="sym" data-sym="partial">∂</span>chain has even size). The plane breaks that law: let a chain end on the right kind of boundary and no check exists there to alarm — one alarm simply vanishes. This rewrites decoding, and re-houses the logical operators.</span>
-    </p>
-  </div>
-  <div class="prose">
-    <p class="zh">机理照旧是碰撞定理：Z-链的端点警报来自「被奇数次碰到的星」。让链一路画到左侧<b>悬边</b>并停在那里——悬边外侧本该有的下一颗星根本不存在，于是那一端零警报。分工严格：Z-链只能死在<b>毛</b>边界（左右）；把端点搭到光边界的边上，那里的三腿星照样报警。X-链镜像：只能死在<b>光</b>边界（上下）。在沙盘里验证两种命运：</p>
-    <p class="en">The mechanism is still the collision theorem: a Z-chain's endpoint alarm is “a star struck an odd number of times”. Draw the chain onto a left-side <b>dangler</b> and stop — the next star beyond the dangler's tip simply does not exist, so that end alarms nothing. The division is strict: Z-chains may die only on the <b>rough</b> boundary (left/right); land an endpoint on a smooth-boundary edge and its three-leg star alarms as usual. X-chains mirror: they die only on the <b>smooth</b> boundary (top/bottom). Verify both fates in the sandbox:</p>
-  </div>
-  <div class="formula center"><span class="zh">警报数 = 不在「己方」边界上的端点数</span><span class="en">#alarms = #endpoints not on the chain's own boundary</span></div>
-  <div data-widget="planarsandbox"></div>
-  <div class="prose">
-    <p class="zh">推到极端：两端<b>都</b>死在毛边界的 Z-串——从最左悬边横穿到最右悬边。零警报、通过全部检查；它是检查的乘积吗？用对易性审计：这条横跨串与竖跨的 X̄-串（上光边界到下光边界）<b>恰好交叉一次</b>，反对易；而任何面检查的乘积都与 X̄ 对易（X̄ 与每块面共享 0 或 2 边）。反对易 ≠ 对易——矛盾，故它不是乘积。按定义，它就是<b>逻辑算符 Z̄</b>；同一论证给出 X̄，且二者反对易——恰好一对，与 k = 1 吻合。最短横跨用 d 条边 <span class="sym" data-sym="implies">⇒</span> 码距 d。</p>
-    <p class="en">Push to the extreme: a Z-string dying on the rough boundary at <b>both</b> ends — leftmost dangler clean across to a rightmost one. Zero alarms, passes every check; is it a product of checks? Audit with commutation: this spanning string crosses the vertical X̄-string (smooth top to smooth bottom) <b>exactly once</b> — anticommutes; yet any product of face checks commutes with X̄ (X̄ shares 0 or 2 edges with every face). Anticommuting ≠ commuting — contradiction, so it is no product. By definition it is the <b>logical Z̄</b>; the same argument yields X̄, and the two anticommute — exactly one pair, matching k = 1. The shortest crossing uses d edges <span class="sym" data-sym="implies">⇒</span> distance d.</p>
-  </div>
-  <div class="formula center">Z̄: <span class="zh">毛→毛（左↔右）的 Z-串</span><span class="en">rough→rough Z-string (left↔right)</span>　·　X̄: <span class="zh">光→光（上↔下）的 X-串</span><span class="en">smooth→smooth X-string (top↔bottom)</span>　·　X̄Z̄ = −Z̄X̄　·　d<sub>Z</sub> = d<sub>X</sub> = d</div>
-  <div data-widget="logicaldraw"></div>
-  <details class="fold">
-    <summary><span class="zh">学名一瞥：相对同调</span><span class="en">A glimpse of the scholarly name: relative homology</span></summary>
-    <div class="fold-body">
-      <p class="zh">环面上逻辑类由「绕不绕」分类（H₁ 同调）；平面贴片上则由「跨不跨到指定边界」分类——数学家称为<b>相对于边界的同调</b> H₁(曲面, 边界)。「Z-链允许终止于毛边界」正是「相对」二字的含义。表面码文献里 boundary conditions 的一切花样（多块毛/光边界、洞、缺角）都在这套语言里统一。</p>
-      <p class="en">On the torus, logical classes are sorted by winding (H₁ homology); on the patch, by whether a chain spans to designated boundaries — <b>homology relative to the boundary</b>, H₁(surface, boundary). “Z-chains may terminate on the rough boundary” is exactly what “relative” means. Every boundary-condition variation in the surface-code literature (multiple rough/smooth segments, holes, notches) unifies in this language.</p>
-    </div>
-  </details>
-  <div class="quiz" data-quiz>
-    <div class="quiz-head"><span class="chip"><span class="zh">检查站</span><span class="en">Checkpoint</span></span><span class="q-title"><span class="zh">第 3 章</span><span class="en">Chapter 3</span></span></div>
-    <div class="quiz-body">
-      <div class="q-text"><span class="zh">一条 Z-链两端都搭在<b>光</b>边界（上、下各一端），中途不触毛边界。警报几处？</span><span class="en">A Z-chain with both ends on the <b>smooth</b> boundary (one top, one bottom), never touching the rough sides. How many alarms?</span></div>
-      <div class="q-opts">
-        <button class="q-opt"><span class="zh">0 —— 两端都在边界上</span><span class="en">0 — both ends are on a boundary</span></button>
-        <button class="q-opt" data-ok><span class="zh">2 —— 光边界不赦免 Z-链：两端的三腿星各报一次警</span><span class="en">2 — the smooth boundary grants Z-chains no pardon: each end's three-leg star alarms</span></button>
-        <button class="q-opt"><span class="zh">1 —— 边界吃掉一半</span><span class="en">1 — boundaries eat half</span></button>
-      </div>
-      <div class="q-fb ok"><p class="zh">对。「在边界上」不够，必须是<b>己方</b>边界：Z 对毛、X 对光。这个不对称正是两种边界存在的意义——否则逻辑串会被任意短链冒充。</p><p class="en">Right. “On a boundary” is not enough — it must be the chain's <b>own</b> kind: Z↔rough, X↔smooth. That asymmetry is the whole point of having two boundary types — otherwise any short chain could impersonate a logical.</p></div>
-      <div class="q-fb no"><p class="zh">光边界处被截断的是<b>星</b>吗？不——那里星还在（三腿），Z-链端点照样撞响它。回看 <span class="ref" data-ref="postulates" data-sec="3.1" data-book="toricHs">3.1</span> 的分工表。</p><p class="en">Is the <b>star</b> what's missing at a smooth boundary? No — stars survive there (three-legged), and a Z endpoint still strikes one. Revisit <span class="ref" data-ref="postulates" data-sec="3.1" data-book="toricHs">§3.1</span>'s division of labour.</p></div>
-    </div>
-  </div>
-  <div class="ch-nav">
-    <a href="#ch2"><span class="zh">上一章</span><span class="en">Back</span><b><span class="zh">2 · 两种边界与 k = 1</span><span class="en">2 · Two boundaries & k = 1</span></b></a>
-    <a href="#ch4"><span class="zh">下一章</span><span class="en">Next</span><b><span class="zh">4 · 纠错循环与辅助比特</span><span class="en">4 · The cycle & the ancilla</span></b></a>
-  </div>
-</section>
-
-<section class="chapter" id="ch4">
-  <div class="ch-head">
-    <div class="ch-no"><span class="zh">第 4 章</span><span class="en">Chapter 4</span></div>
-    <h2><span class="zh">纠错循环，与真正去测量的那位</span><span class="en">The cycle, and the one who actually measures</span></h2>
-    <p class="ch-lede">
-      <span class="zh">装配成机器：出错 → 测全部检查 → 配对（允许配到边界）→ 修复，循环不休。再打开一直合着的黑盒：芯片上「测量一条检查」由谁执行、怎样执行。</span>
-      <span class="en">Assembled as a machine: err → measure all checks → match (boundaries allowed) → repair, forever. Then we open the box kept shut: who on the chip performs “measuring a check”, and how.</span>
-    </p>
-  </div>
-  <div class="prose">
-    <p class="zh">先看整机。译码器现在多一种配法：把警报「嫁给」最近的己方边界（<span class="ref" data-ref="postulates" data-sec="3.1" data-book="toricHs">3.1</span> 的单警报正需要它）。修复后残留 = 错误<span class="sym" data-sym="oplus">⊕</span>修复，闭合或贴边；无害当且仅当它不含横跨串。看四拍循环自动运转：</p>
-    <p class="en">The whole machine first. The decoder gains one new move: marrying an alarm to the nearest boundary of its own kind (exactly what <span class="ref" data-ref="postulates" data-sec="3.1" data-book="toricHs">§3.1</span>'s lone alarms require). The residual = error <span class="sym" data-sym="oplus">⊕</span> repair is closed or boundary-anchored; harmless iff it contains no spanning string. Watch the four beats run:</p>
-  </div>
-  <div data-widget="cycleanim"></div>
-  <div class="prose">
-    <p class="zh">谁去测 B<sub>p</sub> = ZZZZ？没有仪器能一口气读四比特联合奇偶。工程答案：给每条检查配一个<span class="term">辅助比特<span class="tip">ancilla：不存数据、专职收集一条检查的奇偶并被读出的量子比特。芯片上数据比特与辅助比特约一比一。</span></span>。以 Z-检查为例：辅助比特制备为 |0⟩，与四个数据比特依次做一个「受控翻转」两比特门（CNOT，数据为控制端），最后单独测量辅助比特——它的 0/1 恰好携带四者的联合奇偶，而数据比特全程未被直接测量。</p>
-    <p class="en">Who measures B<sub>p</sub> = ZZZZ? No instrument reads a four-qubit joint parity in one gulp. Engineering's answer: give every check its own <span class="term">ancilla<span class="tip">A qubit storing no data, dedicated to collecting one check's parity and being read out. Chips carry roughly one ancilla per data qubit.</span></span>. For a Z-check: prepare the ancilla in |0⟩, apply a “controlled flip” two-qubit gate (CNOT, data as control) with each of the four data qubits in turn, then measure the ancilla alone — its 0/1 carries exactly the four-fold joint parity, while no data qubit is ever measured directly.</p>
-  </div>
-  <figure class="fig">
-    <div class="fig-frame">
-      <svg viewBox="0 0 560 300" role="img" aria-label="辅助比特依次与四个数据比特作 CNOT，再被单独读出 / The ancilla CNOTs with the four data qubits, then is read out alone" style="max-width:100%;height:auto;color:var(--ink)">
-        <g stroke="var(--line2)" stroke-width="2" fill="none"><rect x="90" y="60" width="180" height="180" rx="4"/></g>
-        <g fill="var(--cz)"><circle cx="180" cy="60" r="9"/><circle cx="180" cy="240" r="9"/><circle cx="90" cy="150" r="9"/><circle cx="270" cy="150" r="9"/></g>
-        <g font-family="monospace" font-size="12.5" fill="currentColor">
-          <text x="180" y="42" text-anchor="middle">q1</text><text x="66" y="154" text-anchor="middle">q2</text>
-          <text x="294" y="154" text-anchor="middle">q3</text><text x="180" y="266" text-anchor="middle">q4</text>
-        </g>
-        <circle cx="180" cy="150" r="13" fill="var(--cd)"/>
-        <text x="180" y="186" text-anchor="middle" font-family="monospace" font-size="12.5" fill="currentColor"><tspan class="zh">辅助 |0⟩</tspan><tspan class="en">ancilla |0⟩</tspan></text>
-        <g stroke="var(--cd)" stroke-width="1.8" fill="none" opacity="0.85">
-          <path d="M180 137 L180 74"/><path d="M167 150 L104 150"/><path d="M193 150 L256 150"/><path d="M180 163 L180 226"/>
-        </g>
-        <g font-family="monospace" font-size="11.5" fill="var(--cd)">
-          <text x="188" y="100">①</text><text x="132" y="143">②</text><text x="222" y="143">③</text><text x="188" y="210">④</text>
-        </g>
-        <g transform="translate(380,110)">
-          <rect x="0" y="0" width="120" height="80" rx="10" fill="none" stroke="currentColor" stroke-width="2"/>
-          <path d="M20 62 A40 40 0 0 1 100 62" fill="none" stroke="currentColor" stroke-width="2"/>
-          <line x1="60" y1="62" x2="92" y2="26" stroke="var(--cd)" stroke-width="2.5"/>
-          <text x="60" y="106" text-anchor="middle" font-family="monospace" font-size="12.5" fill="currentColor">±1</text>
-        </g>
-        <path d="M300 150 L370 150" stroke="currentColor" stroke-width="1.8" marker-end="url(#arrh2)"/>
-        <defs><marker id="arrh2" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="currentColor"/></marker></defs>
-        <text x="335" y="138" text-anchor="middle" font-family="monospace" font-size="11.5" fill="currentColor"><tspan class="zh">只读辅助</tspan><tspan class="en">read ancilla</tspan></text>
-      </svg>
-    </div>
-    <figcaption><span class="fno">图 4.1</span>
-      <span class="zh">测量一条面检查：辅助比特按 ①②③④ 与数据比特各做一次 CNOT（数据为控制端），再单独读出。净效果 = 投影测量 P± = (I±B<sub>p</sub>)/2。星形检查同构（辅助比特制备/测量于 ± 基）。</span>
-      <span class="en">Measuring one plaquette: the ancilla CNOTs once with each data qubit (data as control) in order ①②③④, then is read out alone. Net effect = the projective measurement P± = (I±B<sub>p</sub>)/2. Star checks are isomorphic (ancilla prepared/measured in the ± basis).</span>
-    </figcaption>
-  </figure>
-  <details class="fold">
-    <summary><span class="zh">CNOT 的 4×4 矩阵，与「为什么净效果恰是 P±」</span><span class="en">CNOT's 4×4 matrix, and why the net effect is exactly P±</span></summary>
-    <div class="fold-body">
-      <p class="zh">在基 {|00⟩,|01⟩,|10⟩,|11⟩}（控制位在前）下，CNOT 把 |10⟩↔|11⟩ 对调、其余不动：</p>
-      <p class="en">In the basis {|00⟩,|01⟩,|10⟩,|11⟩} (control first), CNOT swaps |10⟩↔|11⟩ and fixes the rest:</p>
-      <div class="formula center tall">CNOT = <span class="mx c4"><i>1</i><i>0</i><i>0</i><i>0</i><i>0</i><i>1</i><i>0</i><i>0</i><i>0</i><i>0</i><i>0</i><i>1</i><i>0</i><i>0</i><i>1</i><i>0</i></span></div>
-      <p class="zh">四次 CNOT 后，辅助位读数 = 四个控制位之和 mod 2（逐分量核对即可）。对叠加态按线性逐分量作用：读出辅助位 = 按「奇偶 = 0 还是 1」把数据态分组取舍——这正是<span class="ref" data-ref="projector" data-sec="4.3" data-book="toricHs">第一册 4.3 节</span>投影测量的定义。一条值得记住的工程注脚：CNOT 顺序与布线若设计不当，辅助比特自己的错误会传播成数据上的关联错误（hook error）——真实芯片对 ①②③④ 的次序极其讲究。</p>
-      <p class="en">After four CNOTs the ancilla's reading = the sum of the four control bits mod 2 (check component-wise). On superpositions everything acts linearly component by component, so reading the ancilla keeps the data components of one parity and discards the other — precisely <span class="ref" data-ref="projector" data-sec="4.3" data-book="toricHs">Book 1 §4.3's</span> projective measurement. One engineering footnote worth keeping: with careless CNOT ordering or wiring, the ancilla's own faults propagate into correlated data errors (“hook errors”) — real chips are fastidious about the ①②③④ order.</p>
-    </div>
-  </details>
-  <div class="note note-honest">
-    <span class="note-tag"><span class="zh">诚实说明</span><span class="en">Honesty box</span></span>
-    <p class="zh">辅助比特与读出仪都会出错——症状本身可能是假警报。对策与其说新颖不如说执拗：<b>连测 d 轮</b>，把警报「在时间轴上的闪变」也当作链的端点，在空间×时间的三维格点上做同一个配对问题。无新思想，加一个维度；真实设备因此以微秒节拍反复测量。（这也是文献里「circuit-level 阈值 ≈ 0.5%–1%，远低于本章理想值」的主因。）</p>
-    <p class="en">Ancillas and readout err too — a syndrome can itself be a false alarm. The remedy is less novel than stubborn: <b>measure d rounds in a row</b> and treat alarms' flickers along the time axis as chain endpoints as well, solving the same matching problem on a 3-D space×time lattice. No new idea, one more dimension; hence real devices re-measure on a microsecond beat. (Also the main reason literature's “circuit-level threshold ≈ 0.5%–1%” sits far below this chapter's idealized value.)</p>
-  </div>
-  <div class="ch-nav">
-    <a href="#ch3"><span class="zh">上一章</span><span class="en">Back</span><b><span class="zh">3 · 边界上的链与逻辑串</span><span class="en">3 · Boundary chains & logicals</span></b></a>
-    <a href="#ch5"><span class="zh">下一章</span><span class="en">Next</span><b><span class="zh">5 · 译码游戏</span><span class="en">5 · The decoding game</span></b></a>
-  </div>
-</section>
-
-<section class="chapter" id="ch5">
-  <div class="ch-head">
-    <div class="ch-no"><span class="zh">第 5 章</span><span class="en">Chapter 5</span></div>
-    <h2><span class="zh">译码游戏 · 平面版</span><span class="en">The decoding game, planar</span></h2>
-    <p class="ch-lede">
-      <span class="zh">只见症状、不见链。两两配对，或把靠边的警报推给边界；清零即宣判：残留横跨则败。目标函数其实只有一个——总修复长度最短（最小重量完美匹配的直觉版）。</span>
-      <span class="en">Syndromes only, chains unseen. Pair alarms, or push edge-huggers to the boundary; the verdict lands when alarms clear: spanning residual = loss. There is really one objective — minimize total repair length (the intuitive form of minimum-weight perfect matching).</span>
-    </p>
-  </div>
-  <div data-widget="decodergame2"></div>
-  <div class="prose">
-    <p class="zh">调高 p 玩几轮，你会体感到两件事：警报密度随 p 线性涨，而「配错所酿成的横跨」增长得快得多——像在预演一条相变曲线。它就是下一章。</p>
-    <p class="en">Raise p for a few rounds and two things become tactile: alarm density grows linearly in p, while spanning accidents from mispairing grow far faster — a rehearsal of a phase-transition curve. It is the next chapter.</p>
-  </div>
-  <div class="ch-nav">
-    <a href="#ch4"><span class="zh">上一章</span><span class="en">Back</span><b><span class="zh">4 · 纠错循环与辅助比特</span><span class="en">4 · The cycle & the ancilla</span></b></a>
-    <a href="#ch6"><span class="zh">下一章</span><span class="en">Next</span><b><span class="zh">6 · 阈值：证明与实测</span><span class="en">6 · The threshold: proof & measurement</span></b></a>
-  </div>
-</section>
-
-<section class="chapter" id="ch6">
-  <div class="ch-head">
-    <div class="ch-no"><span class="zh">第 6 章</span><span class="en">Chapter 6</span></div>
-    <h2><span class="zh">阈值：先证一个下界，再当场实测</span><span class="en">The threshold: prove a bound, then measure it live</span></h2>
-    <p class="ch-lede">
-      <span class="zh">「码越大越好」有一条临界线。这一章先只用排列组合、二项式定理与等比数列，证出这条线确实存在并给出下界；然后打开蒙特卡洛，把它的真实位置测出来。这是全套教程数学上的最高峰——也完全在你的装备射程内。</span>
-      <span class="en">“Bigger is better” has a critical line. This chapter first proves the line exists — with nothing but counting, the binomial theorem and geometric series — and pins a lower bound; then opens the Monte-Carlo and measures where it truly sits. The mathematical summit of the whole series — entirely within your kit's range.</span>
-    </p>
-  </div>
-
-  <h3 id="s6-1"><span class="sec-no">6.1</span><span class="zh">定理与证明</span><span class="en">The theorem and its proof</span></h3>
-  <div class="prose">
-    <p class="zh">两件记号先备好：路径的长度用 <span class="sym" data-sym="ell">ℓ</span> 表示（花体小写 L，读「ell」，免得和 1、I 混淆）；给某条具体路径起名用 <span class="sym" data-sym="gamma">γ</span>（希腊字母，读「伽马」）。<b>模型</b>：每轮里每个比特独立以概率 p 遭 Z 错误；测症状、（近似最优地）配对修复；若残留含横跨串则本轮失败，记失败概率 P<sub>L</sub>(d, p)。<b>定理</b>：p &lt; 1/36 时，P<sub>L</sub>(d, p) 随 d 指数衰减。四步证明：</p>
-    <p class="en">Two notations first: path length is written <span class="sym" data-sym="ell">ℓ</span> (a script lowercase L, read “ell”, so it can't be mistaken for 1 or I); a specific path gets the name <span class="sym" data-sym="gamma">γ</span> (Greek, read “GAM-ma”). <b>Model</b>: each round every qubit independently suffers a Z error with probability p; syndromes are measured and (near-optimally) matched; the round fails if the residual contains a spanning string — probability P<sub>L</sub>(d, p). <b>Theorem</b>: for p &lt; 1/36, P<sub>L</sub>(d, p) decays exponentially in d. Four steps:</p>
-  </div>
-  <div class="formula center tall">
-    <span class="zh">① 失败 <span class="sym" data-sym="implies">⇒</span> 存在一条左右横跨的路径 <span class="sym" data-sym="gamma">γ</span>（长 <span class="sym" data-sym="ell">ℓ</span> ≥ d），其边至少一半出了错</span><span class="en">① failure <span class="sym" data-sym="implies">⇒</span> some left–right spanning path <span class="sym" data-sym="gamma">γ</span> (length <span class="sym" data-sym="ell">ℓ</span> ≥ d) has errors on at least half its edges</span><br>
-    <span class="zh">② 计数：长 <span class="sym" data-sym="ell">ℓ</span> 的不回头横跨路径 ≤ d·3<sup><span class="sym" data-sym="ell">ℓ</span></sup> 条（起点 ≤ d 个，每步至多 3 个去向）</span><span class="en">② counting: non-backtracking spanning paths of length <span class="sym" data-sym="ell">ℓ</span> number ≤ d·3<sup><span class="sym" data-sym="ell">ℓ</span></sup> (≤ d starts, ≤ 3 continuations per step)</span><br>
-    <span class="zh">③ 单条路径：P(≥ <span class="sym" data-sym="ell">ℓ</span>/2 条边出错) ≤ C(<span class="sym" data-sym="ell">ℓ</span>,<span class="sym" data-sym="ceil">⌈</span><span class="sym" data-sym="ell">ℓ</span>/2<span class="sym" data-sym="ceil">⌉</span>)·p<sup><span class="sym" data-sym="ell">ℓ</span>/2</sup> ≤ 2<sup><span class="sym" data-sym="ell">ℓ</span></sup> p<sup><span class="sym" data-sym="ell">ℓ</span>/2</sup>　（<span class="sym" data-sym="ceil">⌈</span>·<span class="sym" data-sym="ceil">⌉</span> = 向上取整；<span class="sym" data-sym="sigma">∑</span><sub>k</sub>C(<span class="sym" data-sym="ell">ℓ</span>,k) = 2<sup><span class="sym" data-sym="ell">ℓ</span></sup>，二项式定理）</span><span class="en">③ one path: P(≥ <span class="sym" data-sym="ell">ℓ</span>/2 edges errored) ≤ C(<span class="sym" data-sym="ell">ℓ</span>,<span class="sym" data-sym="ceil">⌈</span><span class="sym" data-sym="ell">ℓ</span>/2<span class="sym" data-sym="ceil">⌉</span>)·p<sup><span class="sym" data-sym="ell">ℓ</span>/2</sup> ≤ 2<sup><span class="sym" data-sym="ell">ℓ</span></sup> p<sup><span class="sym" data-sym="ell">ℓ</span>/2</sup>　(<span class="sym" data-sym="ceil">⌈</span>·<span class="sym" data-sym="ceil">⌉</span> = round up; <span class="sym" data-sym="sigma">∑</span><sub>k</sub>C(<span class="sym" data-sym="ell">ℓ</span>,k) = 2<sup><span class="sym" data-sym="ell">ℓ</span></sup>, the binomial theorem)</span><br>
-    <span class="zh">④ 全体路径求和（联合上界 + 等比数列）：</span><span class="en">④ sum over all paths (union bound + geometric series):</span><br>
-    P<sub>L</sub> ≤ <span class="sym" data-sym="sigma">∑</span><sub><span class="sym" data-sym="ell">ℓ</span>≥d</sub> d·3<sup><span class="sym" data-sym="ell">ℓ</span></sup>·2<sup><span class="sym" data-sym="ell">ℓ</span></sup>·p<sup><span class="sym" data-sym="ell">ℓ</span>/2</sup> = d·<span class="sym" data-sym="sigma">∑</span><sub><span class="sym" data-sym="ell">ℓ</span>≥d</sub> (6√p)<sup><span class="sym" data-sym="ell">ℓ</span></sup> = <b>d·(6√p)<sup>d</sup> / (1 − 6√p)</b>　<span class="dim">(<span class="zh">当</span><span class="en">for</span> 6√p &lt; 1)</span>
-  </div>
-  <div class="prose">
-    <p class="zh">读结论：只要 6√p &lt; 1，即 <b>p &lt; 1/36 ≈ 2.8%</b>，括号 (6√p)<sup>d</sup> 就随 d 指数式坍塌——前面的因子 d 拦不住它。阈值存在，且至少 2.8%。证明里每件工具——不回头路径的计数、C(n,k) 的二项式和、公比小于 1 的等比数列——都来自你的高中书包。</p>
-    <p class="en">Reading it: whenever 6√p &lt; 1, i.e. <b>p &lt; 1/36 ≈ 2.8%</b>, the factor (6√p)<sup>d</sup> collapses exponentially in d — the prefactor d cannot save it. A threshold exists, and it is at least 2.8%. Every tool in the proof — counting non-backtracking paths, the binomial sum for C(n,k), a geometric series with ratio below 1 — comes from your high-school satchel.</p>
+    <p class="zh"><b>第一次接触。</b>先读 Toric Code 的直觉篇（<a href="../toric_code/intuition/intuition.html">零基础版</a> 或 <a href="../toric_code/intuition/intuition-hs.html">高中数学版</a>），再读本条目的<a href="intuition/intuition.html">直觉</a>；之后按<a href="tour/tour.html">导览</a> → <a href="parameters/parameters.html">参数与实例</a> → <a href="decoders/decoders.html">译码器</a> → <a href="operations/operations.html">逻辑操作</a>走，就把「存住」和「计算」两半都走完了。</p>
+    <p class="en"><b>First contact.</b> Start with the toric-code intuition book (<a href="../toric_code/intuition/intuition.html">no-prerequisites</a> or <a href="../toric_code/intuition/intuition-hs.html">high-school</a> edition), then this entry's <a href="intuition/intuition.html">Intuition</a>; continue <a href="tour/tour.html">Guided tour</a> → <a href="parameters/parameters.html">Parameters</a> → <a href="decoders/decoders.html">Decoders</a> → <a href="operations/operations.html">Logical operations</a>, and both halves, storage and computation, are covered.</p>
+    <p class="zh"><b>核对一个论断。</b>数字在<a href="parameters/parameters.html">参数与实例</a>与<a href="realizations/realizations.html">用例与实现</a>；证明在<a href="pedagogy/pedagogy.html">推导与指南</a>；机器核实的范围在<a href="formal-verification/formal-verification.html">形式化证书</a>；出处在<a href="references/references.html">参考文献</a>。</p>
+    <p class="en"><b>Checking a claim.</b> Numbers live in <a href="parameters/parameters.html">Parameters</a> and <a href="realizations/realizations.html">Realizations</a>; proofs in <a href="pedagogy/pedagogy.html">Derivations</a>; the machine-verified scope in <a href="formal-verification/formal-verification.html">Formal certificates</a>; sources in <a href="references/references.html">References</a>.</p>
+    <p class="zh"><b>往更大的码走。</b><a href="relations/relations.html">关系</a>篇通向环面码与超图积；系列里的 <a href="../bb_code/intuition/intuition.html">BB 码</a> 与 <a href="../qldpc/intuition/intuition.html">qLDPC 码</a> 两篇教程接着讲高码率的量子 LDPC 码。</p>
+    <p class="en"><b>Toward bigger codes.</b> <a href="relations/relations.html">Relations</a> leads to the toric code and the hypergraph product; the series' <a href="../bb_code/intuition/intuition.html">BB codes</a> and <a href="../qldpc/intuition/intuition.html">qLDPC codes</a> tutorials continue with high-rate quantum LDPC codes.</p>
   </div>
   <div class="note note-honest">
-    <span class="note-tag"><span class="zh">诚实说明</span><span class="en">Honesty box</span></span>
-    <p class="zh">两处坦白。① 第 ① 步的「至少一半」是对最优配对译码的启发式刻画（严格版本见 Dennis–Kitaev–Landahl–Preskill 2002，思路相同、记账更细）。② 联合上界大手大脚地重复计数，所以 1/36 只是<b>下界</b>；真实阈值（最优配对、完美测量）≈ <b>10.3%</b>。下界证明「存在」，实验测「位置」——这正是接下来要做的。</p>
-    <p class="en">Two confessions. ① Step ①'s “at least half” is a heuristic portrait of optimal matching (the rigorous version is Dennis–Kitaev–Landahl–Preskill 2002 — same idea, finer bookkeeping). ② The union bound double-counts generously, so 1/36 is only a <b>lower bound</b>; the true threshold (optimal matching, perfect measurement) is ≈ <b>10.3%</b>. The bound proves existence; experiment finds the location — which is next.</p>
-  </div>
-
-  <h3 id="s6-2"><span class="sec-no">6.2</span><span class="zh">当场实测</span><span class="en">Measure it now</span></h3>
-  <div data-widget="threshold"></div>
-  <div class="prose">
-    <p class="zh">左端曲线按 d=7 &lt; d=5 &lt; d=3 分层且间距近似等比——这正是压制律 P<sub>L</sub> ≈ A·(p/p<sub>th</sub>)<sup><span class="sym" data-sym="ceil">⌈</span>d/2<span class="sym" data-sym="ceil">⌉</span></sup> 的指纹：d 每增加 2，失败率乘一次同一因子 p/p<sub>th</sub>。交叉带即阈值（本页译码器在警报稠密时退化，故略低于 10.3% 的文献值）。这条压制律就是造大规模量子计算机的全部经济学：p 压到 p<sub>th</sub> 之下若干倍后，逻辑错误率随 d <b>指数</b>下降，而成本只随 d² <b>多项式</b>上升。</p>
-    <p class="en">The left-end curves stack d=7 &lt; d=5 &lt; d=3 with near-constant ratios — the fingerprint of the suppression law P<sub>L</sub> ≈ A·(p/p<sub>th</sub>)<sup><span class="sym" data-sym="ceil">⌈</span>d/2<span class="sym" data-sym="ceil">⌉</span></sup>: each +2 in d multiplies failure by the same factor p/p<sub>th</sub>. The crossing band is the threshold (this page's decoder degrades when alarms crowd, so it sits somewhat below the literature's 10.3%). This law is the entire economics of scalable quantum computing: push p a few-fold below p<sub>th</sub>, and logical errors fall <b>exponentially</b> in d while cost rises only <b>polynomially</b>, as d².</p>
-    <p class="zh">现实进展（截至本册编写时）：2023 年 Google 首次在硬件上验证 d=5 优于 d=3；2024 年底 Willow 芯片达成 d=7、每加大一号逻辑错误率约减半——首次明确运行在阈值之下；随后中性原子、离子阱等平台相继展示低于阈值的行为，另有多个团队研发比表面码更省比特的 qLDPC 码。你刚在浏览器里画出的那族曲线，正在真实实验室里逐条落地。</p>
-    <p class="en">Reality check (as of this writing): in 2023 Google first verified d=5 beating d=3 on hardware; in late 2024 the Willow chip reached d=7 with failure roughly halving per size step — the first clear below-threshold operation; neutral-atom and trapped-ion platforms have since shown below-threshold behaviour too, while several teams develop qLDPC codes thriftier than the surface code. The family of curves you just drew in a browser is landing, one by one, in real laboratories.</p>
-  </div>
-
-  <div class="quiz" data-quiz>
-    <div class="quiz-head"><span class="chip"><span class="zh">检查站</span><span class="en">Checkpoint</span></span><span class="q-title"><span class="zh">第 6 章</span><span class="en">Chapter 6</span></span></div>
-    <div class="quiz-body">
-      <div class="q-text"><span class="zh">芯片运行在 p = p<sub>th</sub>/4。按压制律，要把逻辑错误率再压低至少 1000 倍，d 大约需要增加多少？</span><span class="en">A chip runs at p = p<sub>th</sub>/4. By the suppression law, how much must d grow to cut logical errors by at least another 1000×?</span></div>
-      <div class="q-opts">
-        <button class="q-opt"><span class="zh">+2 —— 一步到位</span><span class="en">+2 — one step suffices</span></button>
-        <button class="q-opt" data-ok><span class="zh">+10 —— 每 +2 乘一次 1/4，需 (1/4)ᵏ ≤ 1/1000，k = 5 步</span><span class="en">+10 — each +2 multiplies by 1/4; (1/4)ᵏ ≤ 1/1000 needs k = 5 steps</span></button>
-        <button class="q-opt"><span class="zh">×1000 —— 错误率与 d 成反比</span><span class="en">×1000 — error rate is inversely proportional to d</span></button>
-      </div>
-      <div class="q-fb ok"><p class="zh">对：4⁵ = 1024 ≥ 1000。数据比特代价从 d² + (d−1)² 的量级看不过几百个——千倍纠错力换几百比特，这笔账正是表面码统治工程路线图的原因。</p><p class="en">Right: 4⁵ = 1024 ≥ 1000. The data-qubit price, at the d² + (d−1)² scale, is a few hundred — a thousandfold protection for hundreds of qubits: the arithmetic behind the surface code's grip on engineering roadmaps.</p></div>
-      <div class="q-fb no"><p class="zh">压制律里 d 每 +2，整体乘一次 (p/p_th) = 1/4；解 (1/4)ᵏ ≤ 10⁻³。</p><p class="en">In the law, each +2 in d multiplies once by (p/p_th) = 1/4; solve (1/4)ᵏ ≤ 10⁻³.</p></div>
-    </div>
-  </div>
-
-  <div class="ch-nav">
-    <a href="#ch5"><span class="zh">上一章</span><span class="en">Back</span><b><span class="zh">5 · 译码游戏</span><span class="en">5 · The decoding game</span></b></a>
-    <a href="#tail"><span class="zh">下一章</span><span class="en">Next</span><b><span class="zh">尾声 · 词汇表与去处</span><span class="en">Epilogue · Glossary & onward</span></b></a>
+    <span class="note-tag"><span class="zh">范围说明</span><span class="en">Scope note</span></span>
+    <p class="zh">Atlas 的构造器覆盖的是<b>未旋转的平面</b>族 [[2L²−2L+1, 1, L]]。条目导读各篇里的参数、证书与推导都针对这个子族；旋转版、XZZX、缺陷编码等属于更宽的 Surface Code 集合，在「关系」篇中单独说明。</p>
+    <p class="en">The Atlas constructor covers the <b>unrotated planar</b> family [[2L²−2L+1, 1, L]]. Parameters, certificates and derivations in the entry guides refer to that subfamily; rotated, XZZX and defect encodings belong to the broader surface-code collection and are treated separately in “Relations”.</p>
   </div>
 </section>
 
 <section class="chapter" id="tail">
   <div class="ch-head">
     <div class="ch-no"><span class="zh">尾声</span><span class="en">Epilogue</span></div>
-    <h2><span class="zh">两册终点，三条继续走的路</span><span class="en">End of the pair — three roads onward</span></h2>
+    <h2><span class="zh">关于这套教程</span><span class="en">About these guides</span></h2>
   </div>
   <div class="prose">
-    <p class="zh">从矩阵乘法那个不肯交换的 −1，到亲手证出并实测的阈值：你已握有稳定子纠错的完整语言——公设、投影、碰撞定理、同调类、配对译码、压制律。当代论文的三条延伸路：<b>其一，更省的版图</b>：把网格旋转 45° 裁边即「旋转表面码」，同码距只用 d² 个数据比特，是实验室的实际部署版。<b>其二，逻辑门</b>：存住只是仓库，还要运算——拼接与切分两块贴片的「格点手术」（lattice surgery）承担 CNOT 类操作，配合为顽固门准备的「魔法态蒸馏」构成通用计算，这是当前工程化的主战场。<b>其三，更省的码</b>：qLDPC 家族用更巧的检查图谱把编码率提升一个量级，是近年最活跃的理论前沿。入口文献均列于下。</p>
-    <p class="en">From the −1 that refused to commute, to a threshold you proved and then measured: you now hold stabilizer error correction's full language — postulates, projectors, the collision theorem, homology classes, matching decoders, the suppression law. Three roads current papers extend: <b>one, thriftier layouts</b> — rotate the grid 45° and trim to get the “rotated surface code”, same distance from only d² data qubits, the version labs actually deploy. <b>Two, logical gates</b> — storage is a warehouse; computation merges and splits patches via “lattice surgery” for CNOT-class operations, joined by magic-state distillation for the stubborn gates: today's main engineering front. <b>Three, thriftier codes</b> — the qLDPC family lifts encoding rates by an order of magnitude with cleverer check graphs, the liveliest theory frontier of recent years. Entry points below.</p>
-  </div>
-  <div class="note note-key">
-    <span class="note-tag"><span class="zh">同系列</span><span class="en">The series</span></span>
-    <p class="zh">第一册（高中数学版）：<a href="https://claude.ai/code/artifact/23586271-b1e6-46fe-8cb9-e85f8a84095f">打开第一册（高中数学版）→</a>　零基础版两册：<a href="https://claude.ai/code/artifact/9301bfa3-78be-48cd-b520-89d5feeb8a5a">《从 1+1 到 Toric Code》（零基础版）→</a>　<a href="https://claude.ai/code/artifact/2d6b3117-9776-44ab-bb5f-3b0f31be2c25">《从 Toric Code 到 Surface Code》（零基础版）→</a></p>
-    <p class="en">Book 1 (high-school edition): <a href="https://claude.ai/code/artifact/23586271-b1e6-46fe-8cb9-e85f8a84095f">Open Book 1 (high-school edition) →</a>　The no-prerequisites pair: <a href="https://claude.ai/code/artifact/9301bfa3-78be-48cd-b520-89d5feeb8a5a">“From 1+1 to the Toric Code” (no-prerequisites edition) →</a>　<a href="https://claude.ai/code/artifact/2d6b3117-9776-44ab-bb5f-3b0f31be2c25">“From Toric Code to Surface Code” (no-prerequisites edition) →</a></p>
-  </div>
-
-  <h3 id="symtable"><span class="zh">符号与读法</span><span class="en">Symbols & how to read them</span></h3>
-  <div class="table-wrap"><table class="glossary"><tr><th><span class="zh">符号</span><span class="en">Symbol</span></th><th><span class="zh">名称与读法</span><span class="en">Name & how to read it</span></th><th><span class="zh">在本书中的含义</span><span class="en">Meaning in this book</span></th></tr><tr><td class="mono" style="font-size:17px">ψ</td><td><span class="zh">希腊字母，读「普西」（psai）</span><span class="en">Greek letter, read “psy” (rhymes with “sigh”)</span></td><td><span class="zh">物理学的百年老习惯：用 ψ 给一个量子状态起名。|ψ⟩ 就是「名叫 ψ 的那个状态」——它不是未知数，只是个名字，相当于「小明」。</span><span class="en">A century-old physics habit: ψ names a quantum state. |ψ⟩ is “the state called ψ” — not an unknown, just a name.</span></td></tr><tr><td class="mono" style="font-size:17px">γ</td><td><span class="zh">希腊字母，读「伽马」（gamma）</span><span class="en">Greek letter, read “GAM-ma”</span></td><td><span class="zh">本书用它给一条路径起名：「路径 γ」就是「这条名叫 γ 的路」。</span><span class="en">Used here to name a path: “the path γ” is just “the path called γ”.</span></td></tr><tr><td class="mono" style="font-size:17px">Σ　∑</td><td><span class="zh">大写希腊字母，读「西格玛」（sigma）</span><span class="en">Capital Greek letter, read “SIG-ma”</span></td><td><span class="zh">求和记号：把后面的各项全部<b>加</b>起来，下标注明从哪一项加到哪一项。∑<sub>ℓ≥d</sub> 即「对每个不小于 d 的 ℓ 各算一项，全部相加」。</span><span class="en">The summation sign: <b>add up</b> all the terms that follow; the subscript says which terms. ∑<sub>ℓ≥d</sub> means “one term for every ℓ ≥ d, all added”.</span></td></tr><tr><td class="mono" style="font-size:17px">∏</td><td><span class="zh">大写希腊字母 π，读「派」（pi）</span><span class="en">Capital Greek π, read “pie”</span></td><td><span class="zh">连乘记号：把后面的东西全部<b>乘</b>起来——∑ 的乘法版。∏<sub>v</sub> A<sub>v</sub> 即「所有星形检查的乘积」。</span><span class="en">The product sign: <b>multiply</b> everything that follows — the multiplicative sibling of ∑. ∏<sub>v</sub> A<sub>v</sub> = “the product of all star checks”.</span></td></tr><tr><td class="mono" style="font-size:17px">∂</td><td><span class="zh">弯体 d，读「偏」（英文 partial 或 round-d）</span><span class="en">A curly d, read “partial” (or “round-d”)</span></td><td><span class="zh">本书里它表示「取边界」：∂p = 围住面 p 的那 4 条边；∂链 = 链的端点集。</span><span class="en">Here it means “take the boundary”: ∂p = the 4 edges rimming face p; ∂chain = the chain's endpoint set.</span></td></tr><tr><td class="mono" style="font-size:17px">⊕</td><td><span class="zh">圆圈加，读「异或」或「圆圈加」</span><span class="en">A circled plus, read “X-OR” or “o-plus”</span></td><td><span class="zh">合并两组东西、成对相消：同一条边出现两次就抵消（因为 Z·Z = I）；对 0/1 就是「模 2 加法」。</span><span class="en">Merge two collections with pairwise cancellation: anything appearing twice cancels (since Z·Z = I); on 0/1 it is addition mod 2.</span></td></tr><tr><td class="mono" style="font-size:17px">ℓ</td><td><span class="zh">花体小写 L，读「ell」</span><span class="en">A script lowercase L, read “ell”</span></td><td><span class="zh">就是小写 l，写成花体只为不和数字 1、大写 I 混淆。本书中表示一条路径的长度。</span><span class="en">Just the letter l, written in script so it can't be mistaken for 1 or I. Here: the length of a path.</span></td></tr><tr><td class="mono" style="font-size:17px">⌈　⌉</td><td><span class="zh">直角括号，读「向上取整」（ceiling）</span><span class="en">Square-cornered brackets, read “ceiling”</span></td><td><span class="zh">⌈x⌉ = 不小于 x 的最小整数：⌈2.1⌉ = 3、⌈3⌉ = 3。⌈d/2⌉ 即「d 的一半，不足则进一」。</span><span class="en">⌈x⌉ = the smallest integer not below x: ⌈2.1⌉ = 3, ⌈3⌉ = 3. So ⌈d/2⌉ is “half of d, rounded up”.</span></td></tr><tr><td class="mono" style="font-size:17px">∎</td><td><span class="zh">实心小方块，读「证毕」（Q.E.D.）</span><span class="en">A filled square, read “Q.E.D.”</span></td><td><span class="zh">数学家在证明末尾盖的小方章：到此证完，无需再言。</span><span class="en">The mathematician's end-of-proof stamp: done, nothing more to say.</span></td></tr><tr><td class="mono" style="font-size:17px">⇒</td><td><span class="zh">双线箭头，读「推出 / 则」</span><span class="en">A double arrow, read “implies”</span></td><td><span class="zh">A ⇒ B：由 A 可以得出 B。</span><span class="en">A ⇒ B: from A one may conclude B.</span></td></tr><tr><td class="mono" style="font-size:17px">⇔</td><td><span class="zh">双向双线箭头，读「当且仅当」</span><span class="en">A two-way double arrow, read “if and only if”</span></td><td><span class="zh">A ⇔ B：A 与 B 同真同假，互为充要条件——是一条双向的「推出」。</span><span class="en">A ⇔ B: A and B stand or fall together — an implication running both ways.</span></td></tr><tr><td class="mono" style="font-size:17px">X̄　Z̄</td><td><span class="zh">字母头上一横，读「X bar / Z bar」</span><span class="en">An overbar, read “X-bar / Z-bar”</span></td><td><span class="zh">一横 = 「逻辑版」：X̄ 是作用在被保护的<b>逻辑</b>比特上的 X，由许多物理操作组成（本书中 = 缠绕圈 / 横跨串）。</span><span class="en">The bar means “logical edition”: X̄ is the X acting on the protected <b>logical</b> qubit, built from many physical operations (here: winding loops / spanning strings).</span></td></tr><tr><td class="mono" style="font-size:17px">±</td><td><span class="zh">读「正负」</span><span class="en">Read “plus-minus”</span></td><td><span class="zh">±1 = 「+1 或 −1」两个可能取值；本书每条检查的答案都是这两个之一。</span><span class="en">±1 = the two possible values “+1 or −1”; every check in this book answers with one of them.</span></td></tr><tr><td class="mono" style="font-size:17px">√</td><td><span class="zh">读「根号」</span><span class="en">Read “square root”</span></td><td><span class="zh">√A = 面积为 A 的正方形的边长；(√A)² = A；常客：1/√2 ≈ 0.71。</span><span class="en">√A = the side of a square of area A; (√A)² = A; frequent guest: 1/√2 ≈ 0.71.</span></td></tr><tr><td class="mono" style="font-size:17px">|·⟩</td><td><span class="zh">竖线加右尖括号，读「刻特」（ket）</span><span class="en">A bar with a right angle bracket, read “ket”</span></td><td><span class="zh">|0⟩ = 「贴着标签 0 的状态」：给量子状态套的礼盒括号，本质是基向量的名字。</span><span class="en">|0⟩ = “the state labelled 0”: gift-wrap for quantum states — really just a basis vector's name.</span></td></tr><tr><td class="mono" style="font-size:17px">≈</td><td><span class="zh">读「约等于」</span><span class="en">Read “approximately equals”</span></td><td><span class="zh">两边近似相等。</span><span class="en">The two sides are nearly equal.</span></td></tr><tr><td class="mono" style="font-size:17px">≠</td><td><span class="zh">读「不等于」</span><span class="en">Read “not equal”</span></td><td><span class="zh">两边不相等。</span><span class="en">The two sides differ.</span></td></tr><tr><td class="mono" style="font-size:17px">≤　≥</td><td><span class="zh">读「小于等于 / 大于等于」</span><span class="en">Read “at most / at least”</span></td><td><span class="zh">不超过 / 不少于。</span><span class="en">No more than / no less than.</span></td></tr></table></div>
-
-  <h3><span class="zh">本册新增词汇</span><span class="en">New terms in this book</span></h3>
-  <div class="table-wrap">
-    <table class="glossary">
-      <tr><th><span class="zh">术语</span><span class="en">Term</span></th><th><span class="zh">定义</span><span class="en">Definition</span></th></tr>
-      <tr><td><span class="zh">表面码</span><span class="en">surface code</span></td><td><span class="zh">剪开环面、以两种边界收边的平面稳定子码；任意 d 存 1 个逻辑比特，d_X = d_Z = d。</span><span class="en">The planar stabilizer code hemmed by two boundary types; one logical qubit at any d, with d_X = d_Z = d.</span></td></tr>
-      <tr><td><span class="zh">毛（粗糙）/ 光（光滑）边界</span><span class="en">rough / smooth boundary</span></td><td><span class="zh">悬边+三腿面检查（左右）/ 无悬边+三腿星检查（上下）；各自赦免 Z-链 / X-链的端点。</span><span class="en">Danglers + 3-leg faces (left/right) / no danglers + 3-leg stars (top/bottom); pardoning Z-chain / X-chain endpoints respectively.</span></td></tr>
-      <tr><td><span class="zh">横跨串 / 相对同调</span><span class="en">spanning string / relative homology</span></td><td><span class="zh">两端死在己方边界的串 = 平面上的逻辑算符；其分类语言为 H₁(曲面, 边界)。</span><span class="en">A string dying on its own boundaries at both ends = the planar logical operator; classified by H₁(surface, boundary).</span></td></tr>
-      <tr><td><span class="zh">辅助比特 / CNOT</span><span class="en">ancilla / CNOT</span></td><td><span class="zh">替一条检查收集奇偶的专职比特；CNOT 为其收集动作的两比特门（4×4 置换矩阵）。</span><span class="en">The qubit collecting one check's parity; CNOT is its collecting two-qubit gate (a 4×4 permutation matrix).</span></td></tr>
-      <tr><td><span class="zh">阈值 p<sub>th</sub> / 压制律</span><span class="en">threshold p<sub>th</sub> / suppression law</span></td><td><span class="zh">诸尺寸失败曲线的交点；其下 P_L ≈ A(p/p_th)^<span class="sym" data-sym="ceil">⌈</span>d/2<span class="sym" data-sym="ceil">⌉</span>，d 每 +2 乘一次 p/p_th。</span><span class="en">Where the size-curves cross; below it P_L ≈ A(p/p_th)^<span class="sym" data-sym="ceil">⌈</span>d/2<span class="sym" data-sym="ceil">⌉</span> — each +2 in d multiplies by p/p_th.</span></td></tr>
-      <tr><td><span class="zh">联合上界（Peierls 式论证）</span><span class="en">union bound (Peierls argument)</span></td><td><span class="zh">P(存在坏事) ≤ <span class="sym" data-sym="sigma">Σ</span> P(单件坏事)；配合路径计数与等比数列给出 p_th ≥ 1/36。</span><span class="en">P(some bad event) ≤ <span class="sym" data-sym="sigma">Σ</span> P(each); with path counting and geometric series it gives p_th ≥ 1/36.</span></td></tr>
-      <tr><td><span class="zh">旋转表面码 / 格点手术 / qLDPC</span><span class="en">rotated code / lattice surgery / qLDPC</span></td><td><span class="zh">三条去路：45° 省料版图；贴片拼切实现逻辑门；高编码率新码族。</span><span class="en">The three roads: the 45° thrifty layout; logical gates by patch merging; high-rate modern code families.</span></td></tr>
-    </table>
-  </div>
-
-  <h3><span class="zh">延伸阅读</span><span class="en">Further reading</span></h3>
-  <ul class="reading">
-    <li><b>E. Dennis, A. Kitaev, A. Landahl, J. Preskill, “Topological quantum memory” (2002)</b><br><span class="r-what"><span class="zh"><span class="ref" data-ref="unionbound" data-sec="6.1">6.1 节</span>论证的严格版；时空配对与阈值理论的源头。arXiv: quant-ph/0110143</span><span class="en">The rigorous edition of <span class="ref" data-ref="unionbound" data-sec="6.1">§6.1</span>; the source of spacetime matching and threshold theory. arXiv: quant-ph/0110143</span></span></li>
-    <li><b>A. Fowler, M. Mariantoni, J. Martinis, A. Cleland, “Surface codes: Towards practical large-scale quantum computation” (2012)</b><br><span class="r-what"><span class="zh">工程全书：旋转版图、电路级噪声、hook error、开销核算。arXiv: 1208.0928</span><span class="en">The engineering compendium: rotated layouts, circuit-level noise, hook errors, overhead audits. arXiv: 1208.0928</span></span></li>
-    <li><b>D. Horsman, A. Fowler, S. Devitt, R. Van Meter, “Surface code quantum computing by lattice surgery” (2012)</b><br><span class="r-what"><span class="zh">路二入口：贴片拼切做逻辑门。arXiv: 1111.4022</span><span class="en">Road two's entrance: logical gates by merging patches. arXiv: 1111.4022</span></span></li>
-    <li><b>Google Quantum AI, Nature 2023 与 Nature 2024（Willow）</b><br><span class="r-what"><span class="zh">「加大更好」与「低于阈值」两座硬件里程碑的原始报告。</span><span class="en">The primary reports of the “bigger is better” and “below threshold” hardware milestones.</span></span></li>
-    <li><b>N. Breuckmann, J. Eberhardt, “Quantum low-density parity-check codes” (2021)</b><br><span class="r-what"><span class="zh">路三综述。arXiv: 2103.06309</span><span class="en">Road three's survey. arXiv: 2103.06309</span></span></li>
-  </ul>
-
-  <div class="note note-honest">
-    <span class="note-tag"><span class="zh">诚实总账</span><span class="en">The honesty ledger</span></span>
-    <p class="zh">全册简化五项，一次结清：① 互动实验只演示实振幅切片（框架含复相位，结论不变）；② 除<span class="ref" data-ref="s4" data-sec="4">第 4 章</span>的讨论外假设测量完美（现实解法：d 轮时空配对）；③ 页面译码器在警报稠密时退化为贪心（文献标准为 MWPM / Union-Find）；④ <span class="ref" data-ref="unionbound" data-sec="6.1">6.1</span> 的「至少一半」为启发式（严格版见 DKLP 2002）；⑤ 展示的是未旋转版图（部署版为 45° 旋转、d² 数据比特）。以上无一影响任何定性结论与所有数量级论断。</p>
-    <p class="en">Five simplifications, settled in one bill: ① interactive benches show the real-amplitude slice (the framework carries complex phases; conclusions unchanged); ② measurements assumed perfect outside <span class="ref" data-ref="s4" data-sec="4">Ch. 4</span>'s discussion (reality: d rounds of spacetime matching); ③ this page's decoder degrades to greedy in dense-alarm regimes (literature standard: MWPM / Union-Find); ④ <span class="ref" data-ref="unionbound" data-sec="6.1">§6.1</span>'s “at least half” is heuristic (rigor: DKLP 2002); ⑤ the layout shown is unrotated (deployments rotate 45° for d² data qubits). None of these touches any qualitative conclusion or order-of-magnitude claim.</p>
+    <p class="zh">每一篇都是单个 HTML 文件，共用同一套设计系统与交互框架：右上角切换中英文，左侧目录随滚动高亮，橙色虚线引用点开即弹出定义卡片，所有格点实验与蒙特卡洛都在你的浏览器本地运行，不上传任何数据。数字与引用一律沿用 Atlas 的出处标签：<span class="mono">verified</span>、<span class="mono">bounded</span>、<span class="mono">claimed</span>、<span class="mono">demonstrated</span>、<span class="mono">proposed</span>。</p>
+    <p class="en">Each guide is a single HTML file sharing one design system and interaction framework: switch language top right, the left rail follows your scroll, amber dashed citations pop up definition cards, and every lattice experiment and Monte-Carlo runs locally in your browser with nothing uploaded. Numbers and citations keep the Atlas provenance labels: <span class="mono">verified</span>, <span class="mono">bounded</span>, <span class="mono">claimed</span>, <span class="mono">demonstrated</span>, <span class="mono">proposed</span>.</p>
   </div>
 </section>
 
 <footer class="footer">
-  <p><span class="zh">《Surface Code · 高中数学版》 · 互动教程 · 第二册 —— 同系列：《从高考数学到 Toric Code》与零基础版两册</span><span class="en">“The Surface Code · High-School Edition” · Book 2 — series: “From High-School Math to the Toric Code” and the no-prerequisites pair</span></p>
-  <p class="small"><span class="zh">页面内所有模拟（含阈值蒙特卡洛）均在你的浏览器本地运行。</span><span class="en">All simulations on this page, the threshold Monte-Carlo included, run locally in your browser.</span></p>
+  <p><span class="zh">《Surface Code · 条目总览》 · QEC Atlas 条目导读 —— 系列目录：<a href="../index.html">全部码与教程</a></span><span class="en">“Surface Code · Entry Overview” · QEC Atlas entry guides — series index: <a href="../index.html">all codes and tutorials</a></span></p>
+  <p class="small"><span class="zh">页面内所有模拟均在你的浏览器本地运行。</span><span class="en">All simulations on these pages run locally in your browser.</span></p>
 </footer>
 </main>
 </div>
@@ -4624,7 +4392,7 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
     ht3: { zh: ['第 3 章 · ℂ² 量子比特', '三公设、泡利矩阵、本征值语言、XZ=−ZX、两副眼镜、危机。'], en: ['Ch. 3 · The qubit in ℂ²', 'Three postulates, Pauli matrices, eigenvalue language, XZ=−ZX, two lenses, the crisis.'] },
     ht4: { zh: ['第 4 章 · 寄存器与稳定子', '张量积、碰撞定理、投影测量 P±=(I±S)/2、对半定理、三比特码、任务书。'], en: ['Ch. 4 · Registers & stabilizers', 'Tensor products, the collision theorem, projectors P±=(I±S)/2, the halving theorem, the 3-qubit code, the brief.'] },
     ht5: { zh: ['第 5 章 · Toric Code', '对易定理、k=2 与欧拉示性数、症状=∂链、同调类、配对译码、d=L。'], en: ['Ch. 5 · The toric code', 'The commutation theorem, k=2 & Euler characteristic, syndrome=∂chain, homology classes, matching decoders, d=L.'] },
-    s0: { zh: ['第 0 章 · 回顾', '第一册的全部装备：状态与测量、X/Z、碰撞规则、稳定子、环面码要点。'], en: ['Ch. 0 · Recap', 'Book 1\'s full kit: states & measurement, X/Z, the collision rule, stabilizers, the toric essentials.'] },
+    s0: { zh: ['第 0 章 · 回顾', 'Toric Code 教程的全部装备：状态与测量、X/Z、碰撞规则、稳定子、环面码要点。'], en: ['Ch. 0 · Recap', 'The toric-code tutorial\'s full kit: states & measurement, X/Z, the collision rule, stabilizers, the toric essentials.'] },
     s1: { zh: ['第 1 章 · 剪开环面', '平面芯片容不下绕回连线；剪开会杀死 ∏=I 恒等式，边缘检查缺腿。'], en: ['Ch. 1 · Cutting the torus', 'Planar chips forbid wrap wiring; cutting kills the ∏=I identities and de-legs rim checks.'] },
     s2: { zh: ['第 2 章 · 两种边界', '毛边界（左右，悬边，B=ZZZ）与光边界（上下，A=XXX）；k = (d−(d−1))² = 1。'], en: ['Ch. 2 · Two boundaries', 'Rough (left/right, danglers, B=ZZZ) and smooth (top/bottom, A=XXX); k = (d−(d−1))² = 1.'] },
     s3: { zh: ['第 3 章 · 边界与逻辑串', '链可死在己方边界；两端皆死 = 横跨串 = 逻辑算符，d_Z = d_X = d。'], en: ['Ch. 3 · Boundaries & logicals', 'Chains may die on their own boundary; dying at both ends = a spanning string = a logical, d_Z = d_X = d.'] },
@@ -4651,7 +4419,8 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
       const anchor = '#' + (sec.includes('.') ? 's' + sec.replace(/\./g, '-') : 'ch' + sec);
       if (book) {
         const url = (TQ.LINKS || {})[book];
-        if (url) jump = '<a href="' + url + anchor + '" target="_blank" rel="noopener">' + (lang === 'en' ? 'Open in Book 1 ↗' : '在第一册中打开 ↗') + '</a>';
+        const bt = (TQ.BOOKTITLES || {})[book] || { zh: '来源教程', en: 'the source tutorial' };
+        if (url) jump = '<a href="' + url + anchor + '">' + (lang === 'en' ? 'Open in ' + bt.en + ' ↗' : '在' + bt.zh + '中打开 ↗') + '</a>';
       } else if (doc.querySelector(anchor)) {
         jump = '<a href="' + anchor + '" data-jump>' + (lang === 'en' ? 'Go to the original ↗' : '跳到原文 ↗') + '</a>';
       }
@@ -4660,7 +4429,7 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
     pop.className = 'refpop';
     pop.setAttribute('role', 'dialog');
     pop.innerHTML =
-      '<div class="rp-head"><span class="rp-sec">' + (sec ? '§' + sec : '↩') + (book ? (lang === 'en' ? ' · Book 1' : ' · 第一册') : '') + '</span>' +
+      '<div class="rp-head"><span class="rp-sec">' + (sec ? '§' + sec : '↩') + (book ? ' · ' + ((((TQ.BOOKTITLES || {})[book]) || {})[lang] || book) : '') + '</span>' +
       '<span class="rp-title">' + t + '</span><button class="rp-x" aria-label="close">×</button></div>' +
       '<div class="rp-body">' + b + '</div>' + (jump ? '<div class="rp-foot">' + jump + '</div>' : '');
     doc.body.appendChild(pop);
@@ -4679,7 +4448,7 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
     popFor = el;
   }
   /* symbol how-to-read cards */
-  TQ.SYMDATA = TQ.SYMDATA || JSON.parse('{"psi":{"m":["ψ"],"zh":["希腊字母，读「普西」（psai）","物理学的百年老习惯：用 ψ 给一个量子状态起名。|ψ⟩ 就是「名叫 ψ 的那个状态」——它不是未知数，只是个名字，相当于「小明」。"],"en":["Greek letter, read “psy” (rhymes with “sigh”)","A century-old physics habit: ψ names a quantum state. |ψ⟩ is “the state called ψ” — not an unknown, just a name."]},"alpha":{"m":["α"],"zh":["希腊字母，读「阿尔法」（alpha）","希腊字母表的第一个，惯用作第一个系数。本书中：逻辑 0̄ 成分的振幅。"],"en":["Greek letter, read “AL-fa”","First letter of the Greek alphabet, customary for a first coefficient. Here: the amplitude of the logical-0̄ part."]},"beta":{"m":["β"],"zh":["希腊字母，读「贝塔」（beta）","希腊字母表的第二个，惯用作第二个系数。本书中：逻辑 1̄ 成分的振幅。注意 α²+β²=1。"],"en":["Greek letter, read “BAY-ta”","Second Greek letter, customary for a second coefficient. Here: the amplitude of the logical-1̄ part, with α²+β²=1."]},"gamma":{"m":["γ"],"zh":["希腊字母，读「伽马」（gamma）","本书用它给一条路径起名：「路径 γ」就是「这条名叫 γ 的路」。"],"en":["Greek letter, read “GAM-ma”","Used here to name a path: “the path γ” is just “the path called γ”."]},"delta":{"m":["δ"],"zh":["希腊字母，读「德尔塔」（delta）","本书只用它组成 δ<sub>ij</sub>（克罗内克 δ）：一个「同或不同」的开关——i = j 时取 1，否则取 0。"],"en":["Greek letter, read “DEL-ta”","Used here only inside δ<sub>ij</sub> (the Kronecker delta): a same-or-different switch — 1 when i = j, else 0."]},"lambda":{"m":["λ"],"zh":["希腊字母，读「拉姆达」（lambda）","本征值的惯用名：Mv = λv 里那个「整体伸缩的倍数」。本书的本征值只有 +1 与 −1。"],"en":["Greek letter, read “LAM-da”","The customary name for an eigenvalue: the stretch factor in Mv = λv. In this book eigenvalues are only ±1."]},"chi":{"m":["χ"],"zh":["希腊字母，读「凯」（kai）——不是英文 x","欧拉示性数的专用名：χ = V − E + F，只由曲面本身决定（环面 χ = 0）。"],"en":["Greek letter, read “kai” — not the letter x","Reserved for the Euler characteristic: χ = V − E + F, fixed by the surface alone (torus: χ = 0)."]},"theta":{"m":["θ"],"zh":["希腊字母，读「西塔」（theta）","惯用来表示一个角度；e<sup>iθ</sup> 是「转过 θ 角」的相位因子。"],"en":["Greek letter, read “THAY-ta”","Customary for an angle; e<sup>iθ</sup> is the phase factor “rotated by θ”."]},"sigma":{"m":["Σ","∑"],"zh":["大写希腊字母，读「西格玛」（sigma）","求和记号：把后面的各项全部<b>加</b>起来，下标注明从哪一项加到哪一项。∑<sub>ℓ≥d</sub> 即「对每个不小于 d 的 ℓ 各算一项，全部相加」。"],"en":["Capital Greek letter, read “SIG-ma”","The summation sign: <b>add up</b> all the terms that follow; the subscript says which terms. ∑<sub>ℓ≥d</sub> means “one term for every ℓ ≥ d, all added”."]},"prod":{"m":["∏"],"zh":["大写希腊字母 π，读「派」（pi）","连乘记号：把后面的东西全部<b>乘</b>起来——∑ 的乘法版。∏<sub>v</sub> A<sub>v</sub> 即「所有星形检查的乘积」。"],"en":["Capital Greek π, read “pie”","The product sign: <b>multiply</b> everything that follows — the multiplicative sibling of ∑. ∏<sub>v</sub> A<sub>v</sub> = “the product of all star checks”."]},"partial":{"m":["∂"],"zh":["弯体 d，读「偏」（英文 partial 或 round-d）","本书里它表示「取边界」：∂p = 围住面 p 的那 4 条边；∂链 = 链的端点集。"],"en":["A curly d, read “partial” (or “round-d”)","Here it means “take the boundary”: ∂p = the 4 edges rimming face p; ∂chain = the chain\'s endpoint set."]},"oplus":{"m":["⊕"],"zh":["圆圈加，读「异或」或「圆圈加」","合并两组东西、成对相消：同一条边出现两次就抵消（因为 Z·Z = I）；对 0/1 就是「模 2 加法」。"],"en":["A circled plus, read “X-OR” or “o-plus”","Merge two collections with pairwise cancellation: anything appearing twice cancels (since Z·Z = I); on 0/1 it is addition mod 2."]},"otimes":{"m":["⊗"],"zh":["圆圈乘，读「张量积」（tensor）","把两个系统并成一个的记号：基标签并排写、振幅相乘、维数相乘。"],"en":["A circled times, read “tensor”","The glue joining two systems into one: labels concatenate, amplitudes multiply, dimensions multiply."]},"ell":{"m":["ℓ"],"zh":["花体小写 L，读「ell」","就是小写 l，写成花体只为不和数字 1、大写 I 混淆。本书中表示一条路径的长度。"],"en":["A script lowercase L, read “ell”","Just the letter l, written in script so it can\'t be mistaken for 1 or I. Here: the length of a path."]},"ceil":{"m":["⌈","⌉"],"zh":["直角括号，读「向上取整」（ceiling）","⌈x⌉ = 不小于 x 的最小整数：⌈2.1⌉ = 3、⌈3⌉ = 3。⌈d/2⌉ 即「d 的一半，不足则进一」。"],"en":["Square-cornered brackets, read “ceiling”","⌈x⌉ = the smallest integer not below x: ⌈2.1⌉ = 3, ⌈3⌉ = 3. So ⌈d/2⌉ is “half of d, rounded up”."]},"bbC":{"m":["ℂ"],"zh":["双线体大写 C，读「复数集」","全体复数组成的集合。ℂ² 读「C 二」：由两个复数组成的向量的全体——量子比特状态的家。"],"en":["Double-struck C, read “the complex numbers”","The set of all complex numbers. ℂ² (“C-two”) is the set of vectors with two complex entries — where qubit states live."]},"bbR":{"m":["ℝ"],"zh":["双线体大写 R，读「实数集」","全体实数组成的集合。"],"en":["Double-struck R, read “the real numbers”","The set of all real numbers."]},"bbZ":{"m":["ℤ"],"zh":["双线体大写 Z，读「整数集」","全体整数。ℤ₂ 读「Z 二」：只剩 0 和 1 的「模 2 / 奇偶」算术——1+1=0 的世界。"],"en":["Double-struck Z, read “the integers”","All whole numbers. ℤ₂ (“Z-two”) is arithmetic mod 2 — the 0/1 world where 1+1=0."]},"transpose":{"m":["ᵀ"],"zh":["上标 T，读「转置」（transpose）","「把横着写的竖起来」：(a, b)ᵀ 表示列向量——为了排版省地方的写法，含义不变。"],"en":["A superscript T, read “transpose”","“Stand the row up”: (a, b)ᵀ denotes the column vector — a space-saving notation, same object."]},"belongs":{"m":["∈","∋"],"zh":["读「属于」","e ∈ S：e 是集合 S 的一员。反着写的 e ∋ v 用在 ∏<sub>e∋v</sub> 里：「所有碰到顶点 v 的边 e」。"],"en":["Read “belongs to / element of”","e ∈ S: e is a member of the set S. The mirrored e ∋ v in ∏<sub>e∋v</sub> reads “all edges e touching vertex v”."]},"qed":{"m":["∎"],"zh":["实心小方块，读「证毕」（Q.E.D.）","数学家在证明末尾盖的小方章：到此证完，无需再言。"],"en":["A filled square, read “Q.E.D.”","The mathematician\'s end-of-proof stamp: done, nothing more to say."]},"implies":{"m":["⇒"],"zh":["双线箭头，读「推出 / 则」","A ⇒ B：由 A 可以得出 B。"],"en":["A double arrow, read “implies”","A ⇒ B: from A one may conclude B."]},"iff":{"m":["⇔"],"zh":["双向双线箭头，读「当且仅当」","A ⇔ B：A 与 B 同真同假，互为充要条件——是一条双向的「推出」。"],"en":["A two-way double arrow, read “if and only if”","A ⇔ B: A and B stand or fall together — an implication running both ways."]},"bra":{"m":["⟨"],"zh":["左尖括号（bra-ket 记号）","⟨u|v⟩ 读「u 内积 v」：两个向量的点乘（复数情形第一个向量先取共轭）。"],"en":["The left angle bracket (bra-ket notation)","⟨u|v⟩ reads “u inner-product v”: the dot product of two vectors (conjugating the first in the complex case)."]},"macron":{"m":["X̄","Z̄"],"zh":["字母头上一横，读「X bar / Z bar」","一横 = 「逻辑版」：X̄ 是作用在被保护的<b>逻辑</b>比特上的 X，由许多物理操作组成（本书中 = 缠绕圈 / 横跨串）。"],"en":["An overbar, read “X-bar / Z-bar”","The bar means “logical edition”: X̄ is the X acting on the protected <b>logical</b> qubit, built from many physical operations (here: winding loops / spanning strings)."]},"pm":{"m":["±"],"zh":["读「正负」","±1 = 「+1 或 −1」两个可能取值；本书每条检查的答案都是这两个之一。"],"en":["Read “plus-minus”","±1 = the two possible values “+1 or −1”; every check in this book answers with one of them."]},"sqrt":{"m":["√"],"zh":["读「根号」","√A = 面积为 A 的正方形的边长；(√A)² = A；常客：1/√2 ≈ 0.71。"],"en":["Read “square root”","√A = the side of a square of area A; (√A)² = A; frequent guest: 1/√2 ≈ 0.71."]},"ket":{"m":["⟩"],"zh":["竖线加右尖括号，读「刻特」（ket）","|0⟩ = 「贴着标签 0 的状态」：给量子状态套的礼盒括号，本质是基向量的名字。"],"en":["A bar with a right angle bracket, read “ket”","|0⟩ = “the state labelled 0”: gift-wrap for quantum states — really just a basis vector\'s name."]},"approx":{"m":["≈"],"zh":["读「约等于」","两边近似相等。"],"en":["Read “approximately equals”","The two sides are nearly equal."]},"neq":{"m":["≠"],"zh":["读「不等于」","两边不相等。"],"en":["Read “not equal”","The two sides differ."]},"leq":{"m":["≤","≥"],"zh":["读「小于等于 / 大于等于」","不超过 / 不少于。"],"en":["Read “at most / at least”","No more than / no less than."]}}');
+  TQ.SYMDATA = TQ.SYMDATA || JSON.parse('{"psi":{"m":["ψ"],"zh":["希腊字母，读「普西」（psai）","物理学的百年老习惯：用 ψ 给一个量子状态起名。|ψ⟩ 就是「名叫 ψ 的那个状态」——它不是未知数，只是个名字，相当于「小明」。"],"en":["Greek letter, read “psy” (rhymes with “sigh”)","A century-old physics habit: ψ names a quantum state. |ψ⟩ is “the state called ψ” — not an unknown, just a name."]},"alpha":{"m":["α"],"zh":["希腊字母，读「阿尔法」（alpha）","希腊字母表的第一个，惯用作第一个系数。这里：逻辑 0̄ 成分的振幅。"],"en":["Greek letter, read “AL-fa”","First letter of the Greek alphabet, customary for a first coefficient. Here: the amplitude of the logical-0̄ part."]},"beta":{"m":["β"],"zh":["希腊字母，读「贝塔」（beta）","希腊字母表的第二个，惯用作第二个系数。这里：逻辑 1̄ 成分的振幅。注意 α²+β²=1。"],"en":["Greek letter, read “BAY-ta”","Second Greek letter, customary for a second coefficient. Here: the amplitude of the logical-1̄ part, with α²+β²=1."]},"gamma":{"m":["γ"],"zh":["希腊字母，读「伽马」（gamma）","这里用它给一条路径起名：「路径 γ」就是「这条名叫 γ 的路」。"],"en":["Greek letter, read “GAM-ma”","Used here to name a path: “the path γ” is just “the path called γ”."]},"delta":{"m":["δ"],"zh":["希腊字母，读「德尔塔」（delta）","这里只用它组成 δ<sub>ij</sub>（克罗内克 δ）：一个「同或不同」的开关——i = j 时取 1，否则取 0。"],"en":["Greek letter, read “DEL-ta”","Used here only inside δ<sub>ij</sub> (the Kronecker delta): a same-or-different switch — 1 when i = j, else 0."]},"lambda":{"m":["λ"],"zh":["希腊字母，读「拉姆达」（lambda）","本征值的惯用名：Mv = λv 里那个「整体伸缩的倍数」。这里的本征值只有 +1 与 −1。"],"en":["Greek letter, read “LAM-da”","The customary name for an eigenvalue: the stretch factor in Mv = λv. Here eigenvalues are only ±1."]},"chi":{"m":["χ"],"zh":["希腊字母，读「凯」（kai）——不是英文 x","欧拉示性数的专用名：χ = V − E + F，只由曲面本身决定（环面 χ = 0）。"],"en":["Greek letter, read “kai” — not the letter x","Reserved for the Euler characteristic: χ = V − E + F, fixed by the surface alone (torus: χ = 0)."]},"theta":{"m":["θ"],"zh":["希腊字母，读「西塔」（theta）","惯用来表示一个角度；e<sup>iθ</sup> 是「转过 θ 角」的相位因子。"],"en":["Greek letter, read “THAY-ta”","Customary for an angle; e<sup>iθ</sup> is the phase factor “rotated by θ”."]},"sigma":{"m":["Σ","∑"],"zh":["大写希腊字母，读「西格玛」（sigma）","求和记号：把后面的各项全部<b>加</b>起来，下标注明从哪一项加到哪一项。∑<sub>ℓ≥d</sub> 即「对每个不小于 d 的 ℓ 各算一项，全部相加」。"],"en":["Capital Greek letter, read “SIG-ma”","The summation sign: <b>add up</b> all the terms that follow; the subscript says which terms. ∑<sub>ℓ≥d</sub> means “one term for every ℓ ≥ d, all added”."]},"prod":{"m":["∏"],"zh":["大写希腊字母 π，读「派」（pi）","连乘记号：把后面的东西全部<b>乘</b>起来——∑ 的乘法版。∏<sub>v</sub> A<sub>v</sub> 即「所有星形检查的乘积」。"],"en":["Capital Greek π, read “pie”","The product sign: <b>multiply</b> everything that follows — the multiplicative sibling of ∑. ∏<sub>v</sub> A<sub>v</sub> = “the product of all star checks”."]},"partial":{"m":["∂"],"zh":["弯体 d，读「偏」（英文 partial 或 round-d）","这里它表示「取边界」：∂p = 围住面 p 的那 4 条边；∂链 = 链的端点集。"],"en":["A curly d, read “partial” (or “round-d”)","Here it means “take the boundary”: ∂p = the 4 edges rimming face p; ∂chain = the chain\'s endpoint set."]},"oplus":{"m":["⊕"],"zh":["圆圈加，读「异或」或「圆圈加」","合并两组东西、成对相消：同一条边出现两次就抵消（因为 Z·Z = I）；对 0/1 就是「模 2 加法」。"],"en":["A circled plus, read “X-OR” or “o-plus”","Merge two collections with pairwise cancellation: anything appearing twice cancels (since Z·Z = I); on 0/1 it is addition mod 2."]},"otimes":{"m":["⊗"],"zh":["圆圈乘，读「张量积」（tensor）","把两个系统并成一个的记号：基标签并排写、振幅相乘、维数相乘。"],"en":["A circled times, read “tensor”","The glue joining two systems into one: labels concatenate, amplitudes multiply, dimensions multiply."]},"ell":{"m":["ℓ"],"zh":["花体小写 L，读「ell」","就是小写 l，写成花体只为不和数字 1、大写 I 混淆。这里表示一条路径的长度。"],"en":["A script lowercase L, read “ell”","Just the letter l, written in script so it can\'t be mistaken for 1 or I. Here: the length of a path."]},"ceil":{"m":["⌈","⌉"],"zh":["直角括号，读「向上取整」（ceiling）","⌈x⌉ = 不小于 x 的最小整数：⌈2.1⌉ = 3、⌈3⌉ = 3。⌈d/2⌉ 即「d 的一半，不足则进一」。"],"en":["Square-cornered brackets, read “ceiling”","⌈x⌉ = the smallest integer not below x: ⌈2.1⌉ = 3, ⌈3⌉ = 3. So ⌈d/2⌉ is “half of d, rounded up”."]},"bbC":{"m":["ℂ"],"zh":["双线体大写 C，读「复数集」","全体复数组成的集合。ℂ² 读「C 二」：由两个复数组成的向量的全体——量子比特状态的家。"],"en":["Double-struck C, read “the complex numbers”","The set of all complex numbers. ℂ² (“C-two”) is the set of vectors with two complex entries — where qubit states live."]},"bbR":{"m":["ℝ"],"zh":["双线体大写 R，读「实数集」","全体实数组成的集合。"],"en":["Double-struck R, read “the real numbers”","The set of all real numbers."]},"bbZ":{"m":["ℤ"],"zh":["双线体大写 Z，读「整数集」","全体整数。ℤ₂ 读「Z 二」：只剩 0 和 1 的「模 2 / 奇偶」算术——1+1=0 的世界。"],"en":["Double-struck Z, read “the integers”","All whole numbers. ℤ₂ (“Z-two”) is arithmetic mod 2 — the 0/1 world where 1+1=0."]},"transpose":{"m":["ᵀ"],"zh":["上标 T，读「转置」（transpose）","「把横着写的竖起来」：(a, b)ᵀ 表示列向量——为了排版省地方的写法，含义不变。"],"en":["A superscript T, read “transpose”","“Stand the row up”: (a, b)ᵀ denotes the column vector — a space-saving notation, same object."]},"belongs":{"m":["∈","∋"],"zh":["读「属于」","e ∈ S：e 是集合 S 的一员。反着写的 e ∋ v 用在 ∏<sub>e∋v</sub> 里：「所有碰到顶点 v 的边 e」。"],"en":["Read “belongs to / element of”","e ∈ S: e is a member of the set S. The mirrored e ∋ v in ∏<sub>e∋v</sub> reads “all edges e touching vertex v”."]},"qed":{"m":["∎"],"zh":["实心小方块，读「证毕」（Q.E.D.）","数学家在证明末尾盖的小方章：到此证完，无需再言。"],"en":["A filled square, read “Q.E.D.”","The mathematician\'s end-of-proof stamp: done, nothing more to say."]},"implies":{"m":["⇒"],"zh":["双线箭头，读「推出 / 则」","A ⇒ B：由 A 可以得出 B。"],"en":["A double arrow, read “implies”","A ⇒ B: from A one may conclude B."]},"iff":{"m":["⇔"],"zh":["双向双线箭头，读「当且仅当」","A ⇔ B：A 与 B 同真同假，互为充要条件——是一条双向的「推出」。"],"en":["A two-way double arrow, read “if and only if”","A ⇔ B: A and B stand or fall together — an implication running both ways."]},"bra":{"m":["⟨"],"zh":["左尖括号（bra-ket 记号）","⟨u|v⟩ 读「u 内积 v」：两个向量的点乘（复数情形第一个向量先取共轭）。"],"en":["The left angle bracket (bra-ket notation)","⟨u|v⟩ reads “u inner-product v”: the dot product of two vectors (conjugating the first in the complex case)."]},"macron":{"m":["X̄","Z̄"],"zh":["字母头上一横，读「X bar / Z bar」","一横 = 「逻辑版」：X̄ 是作用在被保护的<b>逻辑</b>比特上的 X，由许多物理操作组成（这里 = 缠绕圈 / 横跨串）。"],"en":["An overbar, read “X-bar / Z-bar”","The bar means “logical edition”: X̄ is the X acting on the protected <b>logical</b> qubit, built from many physical operations (here: winding loops / spanning strings)."]},"pm":{"m":["±"],"zh":["读「正负」","±1 = 「+1 或 −1」两个可能取值；这里每条检查的答案都是这两个之一。"],"en":["Read “plus-minus”","±1 = the two possible values “+1 or −1”; every check here answers with one of them."]},"sqrt":{"m":["√"],"zh":["读「根号」","√A = 面积为 A 的正方形的边长；(√A)² = A；常客：1/√2 ≈ 0.71。"],"en":["Read “square root”","√A = the side of a square of area A; (√A)² = A; frequent guest: 1/√2 ≈ 0.71."]},"ket":{"m":["⟩"],"zh":["竖线加右尖括号，读「刻特」（ket）","|0⟩ = 「贴着标签 0 的状态」：给量子状态套的礼盒括号，本质是基向量的名字。"],"en":["A bar with a right angle bracket, read “ket”","|0⟩ = “the state labelled 0”: gift-wrap for quantum states — really just a basis vector\'s name."]},"approx":{"m":["≈"],"zh":["读「约等于」","两边近似相等。"],"en":["Read “approximately equals”","The two sides are nearly equal."]},"neq":{"m":["≠"],"zh":["读「不等于」","两边不相等。"],"en":["Read “not equal”","The two sides differ."]},"leq":{"m":["≤","≥"],"zh":["读「小于等于 / 大于等于」","不超过 / 不少于。"],"en":["Read “at most / at least”","No more than / no less than."]}}');
   function openSym(el) {
     close();
     const d = TQ.SYMDATA[el.dataset.sym];
@@ -4745,7 +4514,8 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
   }
   if (doc.readyState === 'loading') doc.addEventListener('DOMContentLoaded', initRefs);
   else initRefs();
-  TQ.LINKS = TQ.LINKS || JSON.parse('{"toric":"https://claude.ai/code/artifact/9301bfa3-78be-48cd-b520-89d5feeb8a5a","surface":"https://claude.ai/code/artifact/2d6b3117-9776-44ab-bb5f-3b0f31be2c25","toricHs":"https://claude.ai/code/artifact/23586271-b1e6-46fe-8cb9-e85f8a84095f","surfaceHs":"https://claude.ai/code/artifact/60c27b55-b313-4b6c-8eff-af61e676548e"}');
+  TQ.LINKS = TQ.LINKS || {"toric":"../../toric_code/intuition/intuition.html","surface":"../../surface_code/intuition/intuition.html","toricHs":"../../toric_code/intuition/intuition-hs.html","surfaceHs":"../../surface_code/intuition/intuition-hs.html","decodingHs":"../../surface_code/decoders/decoders.html","surgeryHs":"../../surface_code/operations/operations.html","bbHs":"../../bb_code/intuition/intuition.html","qldpcHs":"../../qldpc/intuition/intuition.html"};
+  TQ.BOOKTITLES = TQ.BOOKTITLES || {"toric":{"zh":"《从 1+1 到 Toric Code》","en":"“From 1+1 to the Toric Code”"},"surface":{"zh":"《从 Toric Code 到 Surface Code》","en":"“From Toric Code to Surface Code”"},"toricHs":{"zh":"《从高考数学到 Toric Code》","en":"“From High-School Math to the Toric Code”"},"surfaceHs":{"zh":"《Surface Code · 高中数学版》","en":"“The Surface Code · High-School Edition”"},"decodingHs":{"zh":"《译码器 · 高中数学版》","en":"“Decoders · High-School Edition”"},"surgeryHs":{"zh":"《格点手术 · 高中数学版》","en":"“Lattice Surgery · High-School Edition”"},"bbHs":{"zh":"《BB 码 · 高中数学版》","en":"“BB Codes · High-School Edition”"},"qldpcHs":{"zh":"《qLDPC 码 · 高中数学版》","en":"“qLDPC Codes · High-School Edition”"}};
 })(typeof window !== 'undefined' ? window : globalThis);
 
 </script>
