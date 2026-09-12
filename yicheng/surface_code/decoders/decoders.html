@@ -4936,7 +4936,7 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
 
 </script>
 <script>
-/* TQ.b3 — algorithms for Book 3 (decoders). Headless-safe: no DOM access in this file.
+/* TQ.b3 — algorithms for the decoders tutorial. Headless-safe: no DOM access in this file.
    Depends on TQ.pauli, TQ.lattice, TQ.decoder from the shared engine. */
 (function (root) {
   const TQ = (root.TQ = root.TQ || {});
@@ -5287,7 +5287,7 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
     stDetectors, stDecode, stVerdict, stRandom,
   };
 })(typeof window !== 'undefined' ? window : globalThis);
-/* Book 3 (decoders) — widgets, recall cards, symbol cards, sibling links. Requires the shared engine + tq-book3-core.js. */
+/* Decoders tutorial — widgets, recall cards, symbol cards, sibling links. Requires the shared engine + tq-book3-core.js. */
 (function (root) {
   const TQ = (root.TQ = root.TQ || {});
   if (!root.document) return;

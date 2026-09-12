@@ -950,8 +950,8 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
       <span class="en">Only three old facts are needed: the commutation condition of a CSS code, the rank ledger for k, and the toric code's ledger of “two qubits per site, two identities, k = 2”. Revisit any that feels rusty; amber dashed citations pop up a definition card, faint dotted symbols tell you how they are read.</span>
     </p>
   </div>
-  <div class="formula center">① <span class="zh">CSS 码：X 检查矩阵 H<sub>X</sub> 与 Z 检查矩阵 H<sub>Z</sub> 两两对易</span><span class="en">CSS code: the X-check matrix H<sub>X</sub> and the Z-check matrix H<sub>Z</sub> commute pairwise</span> <span class="sym" data-sym="iff">⇔</span> H<sub>X</sub>H<sub>Z</sub><sup><span class="sym" data-sym="transpose">T</span></sup> = 0 <span class="dim">(<span class="zh">GF(2) 上：每一对行共享的 1 是偶数个</span><span class="en">over GF(2): every pair of rows shares an even number of 1s</span>)</span></div>
-  <div class="formula center">② k = n − <span class="sym" data-sym="rank">rank</span> H<sub>X</sub> − <span class="sym" data-sym="rank">rank</span> H<sub>Z</sub>　·　③ <span class="zh">环面码 L×L：n = 2L²，星面各 L² 条，<span class="sym" data-sym="prod">∏</span>A = <span class="sym" data-sym="prod">∏</span>B = I，独立检查 2L² − 2，k = 2</span><span class="en">toric code L×L: n = 2L², L² stars and plaquettes, <span class="sym" data-sym="prod">∏</span>A = <span class="sym" data-sym="prod">∏</span>B = I, 2L² − 2 independent checks, k = 2</span></div>
+  <div class="formula center">① <span class="zh">CSS 码：X 检查矩阵 H<sub>X</sub> 与 Z 检查矩阵 H<sub>Z</sub> 两两对易</span><span class="en">CSS code: the X-check matrix H<sub>X</sub> and the Z-check matrix H<sub>Z</sub> commute pairwise</span> <span class="sym" data-sym="iff">⇔</span> H<sub>X</sub>H<sub>Z</sub><sup><span class="sym" data-sym="transpose">T</span></sup> = 0<br><span class="dim">(<span class="zh">GF(2) 上：每一对行共享的 1 是偶数个</span><span class="en">over GF(2): every pair of rows shares an even number of 1s</span>)</span></div>
+  <div class="formula center">② k = n − <span class="sym" data-sym="rank">rank</span> H<sub>X</sub> − <span class="sym" data-sym="rank">rank</span> H<sub>Z</sub><br>③ <span class="zh">环面码 L×L：n = 2L²，星面各 L² 条，<span class="sym" data-sym="prod">∏</span>A = <span class="sym" data-sym="prod">∏</span>B = I，<br>独立检查 2L² − 2，k = 2</span><span class="en">toric code L×L: n = 2L², L² stars and plaquettes, <span class="sym" data-sym="prod">∏</span>A = <span class="sym" data-sym="prod">∏</span>B = I,<br>2L² − 2 independent checks, k = 2</span></div>
   <div class="prose"><p class="zh muted small">记号：n = 物理比特数，k = 逻辑比特数（<a href="../../toric_code/intuition/intuition-hs.html#s4-4">《从高考数学到 Toric Code》4.4 节</a>用 k 记独立检查的条数，得到 n − k 个逻辑比特；本教程起改用编码论的惯例，k 直接记逻辑比特数），d = 码距，即能骗过全部检查的最轻逻辑算符的重量（<a href="../../toric_code/intuition/intuition-hs.html#s5-8">同一教程 5.8 节</a>）。</p><p class="en muted small">Notation: n = number of physical qubits; k = number of logical qubits (<a href="../../toric_code/intuition/intuition-hs.html#s4-4">“From High-School Math to the Toric Code”, §4.4</a> used k for the number of independent checks, giving n − k logical qubits; from here on k follows the coding-theory convention and counts logical qubits); d = the code distance, the weight of the lightest logical operator that fools every check (<a href="../../toric_code/intuition/intuition-hs.html#s5-8">§5.8 there</a>).</p></div>
   <div class="prose">
     <p class="zh">第①条是<a href="../../toric_code/intuition/intuition-hs.html#s4-2">《从高考数学到 Toric Code》4.2 节的碰撞定理</a>在矩阵语言里的样子：把每条 X 检查写成一行 0/1（哪些比特上有 X），每条 Z 检查也写成一行，两行的点积（mod 2）就是碰撞数的奇偶。第②条是<a href="../../toric_code/intuition/intuition-hs.html#s4-4">同一教程 4.4 节</a>的「每条独立检查砍掉一半」，只是把「独立检查的条数」换成了它的正式名字：矩阵的秩。第③条的环面账本（<a href="../../toric_code/intuition/intuition-hs.html#s5-3">同一教程 5.3 节</a>）在本教程会以另一副面孔出现：环面码恰好是最简单的 BB 码。先到实验台上把那本账重算一遍：</p>
@@ -1041,14 +1041,14 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
     <p class="zh">把 l 个格子排成一圈，编号 0 到 l−1。「每个格子往右挪一格、最后一格绕回第 0 格」这个动作，用 l × l 的矩阵 S 记账：第 i 行只有第 i+1 列（<span class="term">mod l<span class="tip">「模 l」：数到 l 就绕回 0，所以 (l−1)+1 ≡ 0 (mod l)。</span></span>）是 1。这样的矩阵每行每列恰有一个 1，叫<span class="term">置换矩阵<span class="tip">permutation matrix：每行每列恰有一个 1 的方阵；它作用在向量上只是重排分量的顺序。置换矩阵的转置是它的逆。</span></span>。S² 是挪两格，S<sup>l</sup> = I 是转一整圈回到原地，而 Sᵀ 的 1 在第 i 行第 i−1 列：往左挪一格，即 S<sup>−1</sup>。</p>
     <p class="en">Arrange l sites in a ring numbered 0 to l−1. The move “every site steps right, the last wraps to site 0” is bookkept by an l × l matrix S whose row i has its only 1 in column i+1 (<span class="term">mod l<span class="tip">“modulo l”: counting wraps back to 0 at l, so (l−1)+1 ≡ 0 (mod l).</span></span>). A matrix with exactly one 1 per row and column is a <span class="term">permutation matrix<span class="tip">A square matrix with exactly one 1 in each row and column; acting on a vector it merely reorders the components. Its transpose is its inverse.</span></span>. S² steps twice, S<sup>l</sup> = I is a full turn, and Sᵀ has its 1 in column i−1 of row i: one step left, i.e. S<sup>−1</sup>.</p>
   </div>
-  <div class="formula center">S<sub>l</sub>[i][(i+1) mod l] = 1　·　S<sup>l</sup> = I　·　Sᵀ = S<sup>−1</sup>　·　<span class="zh">l = 3 时</span><span class="en">for l = 3</span>: S = <span class="mono">[0 1 0; 0 0 1; 1 0 0]</span></div>
+  <div class="formula center">S<sub>l</sub>[i][(i+1) mod l] = 1<br>S<sup>l</sup> = I<br>Sᵀ = S<sup>−1</sup><br><span class="zh">l = 3 时</span><span class="en">for l = 3</span>: S = <span class="mono">[0 1 0; 0 0 1; 1 0 0]</span></div>
 
   <h3 id="s2-2"><span class="sec-no">2.2</span><span class="zh">两个方向：x = S<sub>l</sub> ⊗ I<sub>m</sub>，y = I<sub>l</sub> ⊗ S<sub>m</sub></span><span class="en">Two directions: x = S<sub>l</sub> ⊗ I<sub>m</sub>, y = I<sub>l</sub> ⊗ S<sub>m</sub></span></h3>
   <div class="prose">
     <p class="zh">现在换成 l × m 的环面，格子 (i, j) 编号为 im + j（先数行再数列），共 lm 个。「只动第一个坐标」的平移写成 x <span class="sym" data-sym="dfn">≔</span> S<sub>l</sub> <span class="sym" data-sym="otimes">⊗</span> I<sub>m</sub>，「只动第二个坐标」写成 y ≔ I<sub>l</sub> <span class="sym" data-sym="otimes">⊗</span> S<sub>m</sub>。这里的 ⊗ 是<span class="term">克罗内克积<span class="tip">Kronecker product：A ⊗ B 把 A 的每个元素 a 换成整块 a·B。(A ⊗ B)(C ⊗ D) = AC ⊗ BD，所以只动不同坐标的两个平移一定对易。</span></span>：把 S<sub>l</sub> 的每个元素放大成一整块 I<sub>m</sub>（或 0）。你不需要记它的公式，只需要记它的意思：x 让 (i, j) 变成 (i+1, j)，y 让它变成 (i, j+1)。于是三件事显而易见：x<sup>l</sup> = I，y<sup>m</sup> = I，以及最重要的 <b>xy = yx</b>——先右后上和先上后右到达同一个格子。</p>
     <p class="en">Now take an l × m torus with site (i, j) numbered im + j (rows first, then columns), lm sites in all. The translation “move only the first coordinate” is x <span class="sym" data-sym="dfn">≔</span> S<sub>l</sub> <span class="sym" data-sym="otimes">⊗</span> I<sub>m</sub>, “move only the second” is y ≔ I<sub>l</sub> <span class="sym" data-sym="otimes">⊗</span> S<sub>m</sub>. Here ⊗ is the <span class="term">Kronecker product<span class="tip">A ⊗ B replaces every entry a of A by the whole block a·B. (A ⊗ B)(C ⊗ D) = AC ⊗ BD, so two translations moving different coordinates must commute.</span></span>: every entry of S<sub>l</sub> blown up into a block I<sub>m</sub> (or 0). You need not memorise the formula, only its meaning: x turns (i, j) into (i+1, j), y into (i, j+1). Three facts follow at once: x<sup>l</sup> = I, y<sup>m</sup> = I, and above all <b>xy = yx</b> — right-then-up and up-then-right land on the same site.</p>
   </div>
-  <div class="formula center">x<sup>a</sup>y<sup>b</sup>: (i, j) <span class="sym" data-sym="implies">⇒</span> (i+a, j+b)　·　x<sup>l</sup> = y<sup>m</sup> = I　·　xy = yx　·　(x<sup>a</sup>y<sup>b</sup>)ᵀ = x<sup>−a</sup>y<sup>−b</sup></div>
+  <div class="formula center">x<sup>a</sup>y<sup>b</sup>: (i, j) <span class="sym" data-sym="implies">⇒</span> (i+a, j+b)<br>x<sup>l</sup> = y<sup>m</sup> = I<br>xy = yx<br>(x<sup>a</sup>y<sup>b</sup>)ᵀ = x<sup>−a</sup>y<sup>−b</sup></div>
 
   <h3 id="s2-3"><span class="sec-no">2.3</span><span class="zh">多项式 = 几个平移叠加 = 稀疏矩阵</span><span class="en">A polynomial = a few translations added = a sparse matrix</span></h3>
   <div class="prose">
@@ -1107,7 +1107,7 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
     <p class="zh">在 l × m 环面的每个格子上放<b>两个</b>数据比特，分成左层 L 和右层 R，共 n = 2lm 个。每个格子配一条 X 检查和一条 Z 检查（各 lm 条）。格子 (i, j) 上的 X 检查作用于：A 的每一项 x<sup>a</sup>y<sup>b</sup> 指向的左层比特 (i+a, j+b)，以及 B 的每一项指向的右层比特。用矩阵写，就是把 A 和 B 并排：H<sub>X</sub> = [A | B]，前 lm 列是左层、后 lm 列是右层。Z 检查用交换了位置的转置：H<sub>Z</sub> = [Bᵀ | Aᵀ]——Bᵀ 的每一项反向平移到左层，Aᵀ 的每一项反向平移到右层。</p>
     <p class="en">Place <b>two</b> data qubits on every site of the l × m torus, a left layer L and a right layer R, n = 2lm in all. Each site carries one X check and one Z check (lm of each). The X check at site (i, j) acts on the left-layer qubits (i+a, j+b) pointed to by each term x<sup>a</sup>y<sup>b</sup> of A, and on the right-layer qubits pointed to by each term of B. In matrix form, A and B sit side by side: H<sub>X</sub> = [A | B], the first lm columns being the left layer and the last lm the right. The Z checks use the swapped transposes: H<sub>Z</sub> = [Bᵀ | Aᵀ] — each term of Bᵀ translates backwards into the left layer, each term of Aᵀ backwards into the right.</p>
   </div>
-  <div class="formula center">H<sub>X</sub> = [ A | B ],　H<sub>Z</sub> = [ Bᵀ | Aᵀ ]　·　n = 2lm　·　<span class="zh">检查重量</span><span class="en">check weight</span> = |A| + |B|　<span class="dim">(<span class="zh">|A| = A 的项数</span><span class="en">|A| = number of terms of A</span>)</span>　·　<span class="zh">每个比特被 |A| 条 X 检查和 |B| 条 Z 检查碰到（或反之）</span><span class="en">each qubit meets |A| X checks and |B| Z checks (or vice versa)</span></div>
+  <div class="formula center">H<sub>X</sub> = [ A | B ],　H<sub>Z</sub> = [ Bᵀ | Aᵀ ]<br>n = 2lm<br><span class="zh">检查重量</span><span class="en">check weight</span> = |A| + |B|　<span class="dim">(<span class="zh">|A| = A 的项数</span><span class="en">|A| = number of terms of A</span>)</span><br><span class="zh">每个比特被 |A| 条 X 检查和 |B| 条 Z 检查碰到（或反之）</span><span class="en">each qubit meets |A| X checks and |B| Z checks (or vice versa)</span></div>
   <div class="prose">
     <p class="zh">先看最简单的例子。取 A = 1 + x，B = 1 + y：X 检查在 (i, j) 碰左层的 (i, j)、(i+1, j) 和右层的 (i, j)、(i, j+1)，共四腿。把左层比特画在横边上、右层比特画在竖边上，这恰好是<a href="../../toric_code/intuition/intuition-hs.html#s5-1">环面码教程里的星形检查</a>；Z 检查同理是面检查。所以 <b>BB(1 + x, 1 + y) 就是 L × L 环面码</b>：本页对 l = m = 3 算出 [[18,2,3]]，和<a href="../../toric_code/intuition/intuition-hs.html#s5-3">那里的账本</a>一致。在实验台上把预设切到 toric_L3，点一条检查看它的四条腿：</p>
     <p class="en">Start with the simplest example. Take A = 1 + x, B = 1 + y: the X check at (i, j) touches left-layer (i, j), (i+1, j) and right-layer (i, j), (i, j+1), four legs. Draw left-layer qubits on horizontal edges and right-layer qubits on vertical edges and this is exactly <a href="../../toric_code/intuition/intuition-hs.html#s5-1">the toric tutorial's star check</a>; the Z check is likewise a plaquette. So <b>BB(1 + x, 1 + y) is the L × L toric code</b>: this page computes [[18,2,3]] for l = m = 3, matching <a href="../../toric_code/intuition/intuition-hs.html#s5-3">that ledger</a>. Switch the bench's preset to toric_L3 and click a check to see its four legs:</p>
@@ -1119,7 +1119,7 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
     <p class="zh">CSS 条件要求 H<sub>X</sub>H<sub>Z</sub>ᵀ = 0（第 0 章①）。分块相乘：</p>
     <p class="en">The CSS condition demands H<sub>X</sub>H<sub>Z</sub>ᵀ = 0 (Ch. 0, ①). Multiply block by block:</p>
   </div>
-  <div class="formula center">H<sub>X</sub>H<sub>Z</sub><sup>T</sup> = [A | B] · [B ; A] = AB + BA = AB + AB = 2AB = 0　<span class="dim">(<span class="zh">用 AB = BA，再用 1 + 1 = 0</span><span class="en">using AB = BA, then 1 + 1 = 0</span>)</span></div>
+  <div class="formula center">H<sub>X</sub>H<sub>Z</sub><sup>T</sup> = [A | B]<br>[B ; A] = AB + BA = AB + AB = 2AB = 0　<span class="dim">(<span class="zh">用 AB = BA，再用 1 + 1 = 0</span><span class="en">using AB = BA, then 1 + 1 = 0</span>)</span></div>
   <div class="prose">
     <p class="zh">两步各用一条事实。第一步 AB = BA：A 与 B 都是 x、y 的多项式，而 xy = yx（<span class="ref" data-ref="monomial" data-sec="2.2">2.2</span>），所以任意两个这样的多项式相乘顺序无关——这是把检查「算」在阿贝尔（可交换）的环上的全部回报。第二步 AB + AB = 0 是 GF(2) 的 1 + 1 = 0。于是<b>任何</b> l、m、A、B 都给出一个合法的 CSS 码，不需要像<a href="../../toric_code/intuition/intuition-hs.html#s5-1">环面码教程</a>那样逐对数碰撞。</p>
     <p class="en">Each step uses one fact. Step one, AB = BA: A and B are polynomials in x and y, and xy = yx (<span class="ref" data-ref="monomial" data-sec="2.2">§2.2</span>), so any two such polynomials multiply in either order — the entire reward for computing checks over an abelian (commutative) ring. Step two, AB + AB = 0, is GF(2)'s 1 + 1 = 0. Hence <b>every</b> l, m, A, B yields a legitimate CSS code, with no pairwise collision count as in <a href="../../toric_code/intuition/intuition-hs.html#s5-1">the toric tutorial</a>.</p>
@@ -1175,7 +1175,7 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
     <p class="zh">按第 0 章②，k = n − rank H<sub>X</sub> − rank H<sub>Z</sub> = 2lm − rank[A | B] − rank[Bᵀ | Aᵀ]。两个秩其实相等：转置不改变秩，而 [Bᵀ | Aᵀ] 只是把所有平移倒过来的 [B | A]——把 x 换成 x<sup>−1</sup>、y 换成 y<sup>−1</sup> 是环上的一个「改名」，不改变任何维数；再把两块交换位置也不改变秩。所以 rank H<sub>Z</sub> = rank H<sub>X</sub> <span class="sym" data-sym="dfn">≕</span> r，k = 2(lm − r)。lm − r 叫秩的亏损：lm 条 X 检查里有多少条是多余的。</p>
     <p class="en">By Chapter 0, ②, k = n − rank H<sub>X</sub> − rank H<sub>Z</sub> = 2lm − rank[A | B] − rank[Bᵀ | Aᵀ]. The two ranks are actually equal: transposition preserves rank, and [Bᵀ | Aᵀ] is just [B | A] with every translation reversed — replacing x by x<sup>−1</sup> and y by y<sup>−1</sup> is a “renaming” on the ring that changes no dimension; swapping the two blocks changes no rank either. So rank H<sub>Z</sub> = rank H<sub>X</sub> <span class="sym" data-sym="dfn">≕</span> r and k = 2(lm − r). The number lm − r is the rank deficit: how many of the lm X checks are redundant.</p>
   </div>
-  <div class="formula center">k = 2lm − 2r = 2(lm − r)　·　gross: lm = 72, r = 66 <span class="sym" data-sym="implies">⇒</span> k = 2 × 6 = <b>12</b>　·　toric_L3: lm = 9, r = 8 <span class="sym" data-sym="implies">⇒</span> k = 2</div>
+  <div class="formula center">k = 2lm − 2r = 2(lm − r)<br>gross: lm = 72, r = 66 <span class="sym" data-sym="implies">⇒</span> k = 2 × 6 = <b>12</b><br>toric_L3: lm = 9, r = 8 <span class="sym" data-sym="implies">⇒</span> k = 2</div>
 
   <h3 id="s4-2"><span class="sec-no">4.2</span><span class="zh">亏损是一个商空间的维数</span><span class="en">The deficit is the dimension of a quotient</span></h3>
   <div class="prose">
@@ -1239,8 +1239,8 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
   <a id="entry-toric_L3"></a>
   <h3 id="s5-1"><span class="sec-no">5.1</span><span class="zh">toric_L3 [[18,2,3]]：检验约定的锚点</span><span class="en">toric_L3 [[18,2,3]]: the anchor that tests the conventions</span></h3>
   <div class="prose">
-    <p class="zh">l = m = 3，A = 1 + x，B = 1 + y。每条检查四腿，两个秩各 8，k = 18 − 16 = 2，穷举得 d = 3——<a href="../../toric_code/intuition/intuition-hs.html#ch5">环面码教程</a>里的环面码原封不动。它在 Atlas 的 bivariate_bicycle 条目里作为第二个实例存在，用途是「校准」：任何关于移位方向、转置约定、两块顺序的疏忽，都会在这个小例子上立刻露馅（例如把转置忘掉，k 会变成 0）。它也是 BB 码「与环面码同源」这句话的字面证明。</p>
-    <p class="en">l = m = 3, A = 1 + x, B = 1 + y. Four-leg checks, both ranks 8, k = 18 − 16 = 2, exhaustive d = 3 — <a href="../../toric_code/intuition/intuition-hs.html#ch5">the toric tutorial's</a> toric code verbatim. It lives in the Atlas's bivariate_bicycle entry as the second instance, serving as calibration: any slip in shift direction, transpose convention or block order shows up at once on this tiny example (forget the transpose and k becomes 0). It is also the literal proof that BB codes descend from the toric code.</p>
+    <p class="zh">l = m = 3，A = 1 + x，B = 1 + y。每条检查四腿，两个秩各 8，k = 18 − 16 = 2，穷举得 d = 3——<a href="../../toric_code/intuition/intuition-hs.html#ch5">环面码教程</a>里的环面码原封不动。它在 Atlas 的 bivariate_bicycle 条目里作为第二个实例存在，用途是「校准」：任何关于移位方向、转置约定、两块顺序的疏忽，都会在这个小例子上立刻露馅（例如把转置忘掉，检查就不再两两对易）。它也是 BB 码「与环面码同源」这句话的字面证明。</p>
+    <p class="en">l = m = 3, A = 1 + x, B = 1 + y. Four-leg checks, both ranks 8, k = 18 − 16 = 2, exhaustive d = 3 — <a href="../../toric_code/intuition/intuition-hs.html#ch5">the toric tutorial's</a> toric code verbatim. It lives in the Atlas's bivariate_bicycle entry as the second instance, serving as calibration: any slip in shift direction, transpose convention or block order shows up at once on this tiny example (forget the transpose and the checks stop commuting). It is also the literal proof that BB codes descend from the toric code.</p>
   </div>
 
   <a id="entry-bicycle"></a><a id="entry-bb5"></a>
@@ -4928,7 +4928,7 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
 <script>
 /* TQ.ldpc — GF(2) linear algebra, hypergraph-product and bivariate-bicycle constructors, logical-operator search,
    belief propagation with ordered-statistics post-processing, and an expander-graph demo. Headless-safe (no DOM).
-   Shared by Book 5 (BB codes) and Book 6 (qLDPC codes). Matrices are arrays of Uint8Array rows. */
+   Shared by the BB-code tutorials and the qLDPC tutorials. Matrices are arrays of Uint8Array rows. */
 (function (root) {
   const TQ = (root.TQ = root.TQ || {});
 
@@ -5230,7 +5230,7 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
     cycleGraph, randomRegularGraph, bfsBalls, edgeBoundary,
   };
 })(typeof window !== 'undefined' ? window : globalThis);
-/* Shared widgets for Book 5 (BB codes) and Book 6 (qLDPC codes). Requires the shared engine (TQ.ui) + tq-ldpc-core.js. */
+/* Shared widgets for the BB-code tutorials and the qLDPC tutorials. Requires the shared engine (TQ.ui) + tq-ldpc-core.js. */
 (function (root) {
   const TQ = (root.TQ = root.TQ || {});
   if (!root.document) return;
@@ -5430,7 +5430,7 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
     const KIND = { verified: ['已验证', 'verified'], claimed: ['文献声称', 'claimed'], bounded: ['上下界相符', 'bounded'] };
     const results = {};
     function render() {
-      let html = '<table class="glossary" style="font-variant-numeric:tabular-nums"><tr><th>' + bi('码', 'code') + '</th><th>l × m</th><th>A</th><th>B</th><th>n</th><th>rank</th><th>k</th><th>d</th><th>' + bi('证据', 'evidence') + '</th><th>n/k</th><th>k·d²/n</th><th>' + bi('本页搜索', 'this page') + '</th></tr>';
+      let html = '<table class="glossary" style="font-variant-numeric:tabular-nums;max-width:none;white-space:nowrap;font-size:13px"><tr><th>' + bi('码', 'code') + '</th><th>l × m</th><th>A</th><th>B</th><th>n</th><th>rank</th><th>k</th><th>d</th><th>' + bi('证据', 'evidence') + '</th><th>n/k</th><th>k·d²/n</th><th>' + bi('本页搜索', 'this page') + '</th></tr>';
       for (const [key, pr] of Object.entries(L().BB_PRESETS)) {
         const r = results[key];
         html += '<tr><td>' + pr.label + '</td><td>' + pr.l + ' × ' + pr.m + '</td><td>' + termsToPoly(pr.a, 'x', 'y') + '</td><td>' + termsToPoly(pr.b, 'x', 'y') + '</td>';
@@ -5646,7 +5646,7 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
   }
   U().reg('bpdemo', wBpDemo);
 })(typeof window !== 'undefined' ? window : globalThis);
-/* Book 5 (BB codes) — recall cards, symbol cards, sibling links. */
+/* the BB-code tutorials — recall cards, symbol cards, sibling links. */
 (function (root) {
   const TQ = (root.TQ = root.TQ || {});
   if (!root.document) return;

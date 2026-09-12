@@ -4889,7 +4889,7 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
 
 </script>
 <script>
-/* TQ.b4 — algorithms for Book 4 (lattice surgery). Headless-safe: no DOM access in this file.
+/* TQ.b4 — algorithms for the operations tutorial. Headless-safe: no DOM access in this file.
    Depends on TQ.pauli and TQ.lattice from the shared engine. Construction coordinates follow the engine's
    buildPlanar: data at x+y even, X-stars at (even x, odd y), Z-plaquettes at (odd x, even y);
    rough boundaries at y = 0 and y = Gy−1, smooth boundaries at x = 0 and x = Gx−1. */
@@ -5026,7 +5026,7 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
 
   TQ.b4 = { binom, buildPlanarRect, rankLedger, mergeGeometry, ops3, measure, embed, applyPauliCT, cnot4, runSurgeryCnot, majorityFail };
 })(typeof window !== 'undefined' ? window : globalThis);
-/* Book 4 (lattice surgery) — widgets, recall cards, symbol cards, sibling links. Requires the shared engine + tq-book4-core.js. */
+/* Operations tutorial — widgets, recall cards, symbol cards, sibling links. Requires the shared engine + tq-book4-core.js. */
 (function (root) {
   const TQ = (root.TQ = root.TQ || {});
   if (!root.document) return;
