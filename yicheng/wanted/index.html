@@ -990,7 +990,7 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
     </div></li>
     <li><div class="facet-card">
       <a class="fc-title" href="decoders-3d-fracton/decoders-3d-fracton.html"><span><span class="zh">有些码还没有「标准译码器」</span><span class="en">Some codes still have no standard decoder</span></span><span class="arrow">→</span></a>
-      <span class="fc-desc"><span class="zh">表面码的译码是给成对出现、可以移动的警报配对；有些三维码和分形子码的警报不能单独移动，配对游戏失效。Atlas 里写着 none-known 的条目因此无法进入任何性能对比表。</span><span class="en">Surface-code decoding pairs up alarms that come in pairs and can move; in some 3D and fracton codes alarms cannot move alone and the matching game breaks. Entries marked none-known in the Atlas therefore cannot enter any performance comparison.</span></span>
+      <span class="fc-desc"><span class="zh">表面码的译码是给成对出现、可以移动的警报配对；有些三维码和分形子码的警报不能单独移动，配对游戏失效。Atlas 里写着 none-known 的条目因此在电路级性能对比里是空行。</span><span class="en">Surface-code decoding pairs up alarms that come in pairs and can move; in some 3D and fracton codes alarms cannot move alone and the matching game breaks. Entries marked none-known in the Atlas therefore leave empty rows in the circuit-level performance comparison.</span></span>
       <span class="fc-meta"><span class="lvl"><span class="zh">open-research</span><span class="en">open-research</span></span></span>
     </div></li>
     <li><div class="facet-card">
@@ -1000,7 +1000,7 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
     </div></li>
     <li><div class="facet-card">
       <a class="fc-title" href="qldpc-circuit-decoding/qldpc-circuit-decoding.html"><span><span class="zh">从理想症状到真实电路</span><span class="en">From ideal syndromes to real circuits</span></span><span class="arrow">→</span></a>
-      <span class="fc-desc"><span class="zh">纸上的译码假定每个检查结果都是对的；真机里帮忙测量的比特自己也会错，还会漏电、串扰。这个问题要给稀疏非几何 qLDPC 码一套可重放的「电路级」译码与基准流程，否则它们的存储性能没法和别人比。</span><span class="en">Decoding on paper assumes every check result is right; on hardware the helper qubits that measure them also fail, leak and cross-talk. This problem asks for a replayable circuit-level decoding and benchmark workflow for sparse nongeometric qLDPC codes, without which their memory performance cannot be compared with anyone's.</span></span>
+      <span class="fc-desc"><span class="zh">纸上的译码假定每个检查结果都是对的；真机里帮忙测量的比特自己也会错，还会泄漏（跑出 0/1 之外）、串扰。这个问题要给稀疏非几何 qLDPC 码一套可重放的「电路级」译码与基准流程，否则它们的存储性能没法和别人比。</span><span class="en">Decoding on paper assumes every check result is right; on hardware the helper qubits that measure them also fail, leak and cross-talk. This problem asks for a replayable circuit-level decoding and benchmark workflow for sparse nongeometric qLDPC codes, without which their memory performance cannot be compared with anyone's.</span></span>
       <span class="fc-meta"><span class="lvl eng"><span class="zh">hard-engineering</span><span class="en">hard-engineering</span></span></span>
     </div></li>
     <li><div class="facet-card">
