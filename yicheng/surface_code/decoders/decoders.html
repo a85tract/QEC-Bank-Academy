@@ -190,6 +190,16 @@ sub, sup { line-height: 0; }
 }
 .topbar .brand svg { display: block; }
 .topbar .spacer { flex: 1; }
+.topbar .back {
+  font-size: 13px;
+  color: var(--ink2);
+  text-decoration: none;
+  white-space: nowrap;
+  padding: 4px 8px;
+  border-radius: 999px;
+}
+.topbar .back:hover { color: var(--ink); background: var(--bg2); }
+@media (max-width: 640px) { .topbar .back { display: none; } }
 .progress-track {
   position: absolute;
   left: 0; right: 0; bottom: -1px;
@@ -885,6 +895,7 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
     <span class="zh">译码器 · 高中数学版</span><span class="en">Decoders · High-School Edition</span>
   </a>
   <span class="spacer"></span>
+  <a class="back" href="../index.html"><span class="zh">← 条目总览</span><span class="en">← Entry overview</span></a>
   <div class="lang-switch" role="group" aria-label="Language">
     <button type="button" data-lang="zh" aria-pressed="true">中文</button>
     <button type="button" data-lang="en" aria-pressed="false">EN</button>
@@ -1465,6 +1476,7 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
 <footer class="footer">
   <p><span class="zh">《译码器 · 高中数学版》 · 互动教程 —— 同系列：《从高考数学到 Toric Code》《Surface Code · 高中数学版》《格点手术 · 高中数学版》</span><span class="en">“Decoders · High-School Edition” — series: “From High-School Math to the Toric Code”, “The Surface Code · High-School Edition”, “Lattice Surgery · High-School Edition”</span></p>
   <p class="small"><span class="zh">页面内所有模拟（含译码器对比的蒙特卡洛）均在你的浏览器本地运行。</span><span class="en">All simulations on this page, the decoder-comparison Monte-Carlo included, run locally in your browser.</span></p>
+  <p class="small"><span class="zh">返回：<a href="../index.html">Surface Code · 条目总览</a> · <a href="../../index.html">全部码与教程</a></span><span class="en">Back to: <a href="../index.html">Surface Code · Entry overview</a> · <a href="../../index.html">all codes and tutorials</a></span></p>
 </footer>
 </main>
 </div>
@@ -5346,7 +5358,8 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
     for (const it of items) {
       const s = doc.createElement('span');
       s.className = 'li';
-      s.innerHTML = '<span class="' + (it.dot ? 'dot' : 'sw') + '" style="background:' + it.color + '"></span><span class="zh">' + it.zh + '</span><span class="en">' + it.en + '</span>';
+      const sw = it.ring ? '<span class="dot" style="border:2.5px solid ' + it.color + ';background:transparent"></span>' : '<span class="' + (it.dot ? 'dot' : 'sw') + '" style="background:' + it.color + '"></span>';
+      s.innerHTML = sw + '<span class="zh">' + it.zh + '</span><span class="en">' + it.en + '</span>';
       lg.appendChild(s);
     }
     el.appendChild(lg);
@@ -5685,8 +5698,9 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
       const events = B3().stDetectors(L, T, dataErr, measErr);
       for (const [i, t] of events) {
         const pc = posCheck(i, t, g);
-        ctx.fillStyle = C.cdSoft; ctx.beginPath(); ctx.arc(pc.x, pc.y, 12, 0, 7); ctx.fill();
-        ctx.fillStyle = C.cd; ctx.beginPath(); ctx.arc(pc.x, pc.y, 6.5, 0, 7); ctx.fill();
+        // a ring, not a filled dot: the marker underneath (amber = measurement error) must stay visible
+        ctx.fillStyle = C.cdSoft; ctx.beginPath(); ctx.arc(pc.x, pc.y, 14, 0, 7); ctx.fill();
+        ctx.strokeStyle = C.cd; ctx.lineWidth = 3; ctx.setLineDash([]); ctx.beginPath(); ctx.arc(pc.x, pc.y, 10.5, 0, 7); ctx.stroke();
       }
       ctx.fillStyle = C.ink2; ctx.font = '600 12px ' + cssVar('--f-body'); ctx.textAlign = 'center'; ctx.textBaseline = 'top';
       ctx.fillText(U().T({ zh: '横向：' + L + ' 个数据比特（方块）与 ' + (L - 1) + ' 条检查（圆点）　·　纵向：时间', en: 'across: ' + L + ' data bits (squares) and ' + (L - 1) + ' checks (circles) · up: time' }), w / 2, h - 22);
@@ -5706,7 +5720,7 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
     function readout() {
       const events = B3().stDetectors(L, T, dataErr, measErr);
       if (!decoded) {
-        Fr.setReadout(bilingual('数据错误 ' + dataErr.size + ' 个（蓝方块），测量错误 ' + measErr.size + ' 个（橙圆点），亮起的探测器 ' + events.length + ' 个。点击方块或圆点切换错误，然后按「译码」。', dataErr.size + ' data errors (blue squares), ' + measErr.size + ' measurement errors (amber circles), ' + events.length + ' detectors lit. Click squares or circles to toggle errors, then press “Decode”.'));
+        Fr.setReadout(bilingual('数据错误 ' + dataErr.size + ' 个（蓝方块），测量错误 ' + measErr.size + ' 个（橙圆点），亮起的探测器 ' + events.length + ' 个（红圈）。点击方块或圆点切换错误，然后按「译码」。', dataErr.size + ' data errors (blue squares), ' + measErr.size + ' measurement errors (amber circles), ' + events.length + ' detectors lit (rings). Click squares or circles to toggle errors, then press “Decode”.'));
         return;
       }
       const v = B3().stVerdict(L, dataErr, decoded.flips);
@@ -5732,7 +5746,7 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
       U().label('数据错误率', 'data error rate'), sp.el, sp.pill, U().label('测量错误率', 'measurement error rate'), sq.el, sq.pill
     );
     const row2 = div('controls'); el.insertBefore(row2, Fr.readout); row2.append(seg.el);
-    legend(el, [{ color: cssVar('--cz'), zh: '数据错误（方块）', en: 'data error (square)' }, { color: cssVar('--cx'), dot: true, zh: '测量错误（圆点）', en: 'measurement error (circle)' }, { color: cssVar('--cd'), dot: true, zh: '亮起的探测器', en: 'lit detector' }, { color: cssVar('--good'), zh: '配对', en: 'matching' }]);
+    legend(el, [{ color: cssVar('--cz'), zh: '数据错误（方块）', en: 'data error (square)' }, { color: cssVar('--cx'), dot: true, zh: '测量错误（圆点）', en: 'measurement error (circle)' }, { color: cssVar('--cd'), ring: true, zh: '亮起的探测器（红圈）', en: 'lit detector (ring)' }, { color: cssVar('--good'), zh: '配对', en: 'matching' }]);
     clear();
   }
   U().reg('spacetime', wSpacetime);
