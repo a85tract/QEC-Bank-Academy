@@ -1304,10 +1304,25 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
   </div>
   <div class="formula center">P(+1) = a₀₀² + a₁₁²　·　P(−1) = a₀₁² + a₁₀²　·　<span class="zh">测后：只留答案组，再整体归一</span><span class="en">after: keep the answer's group, renormalize</span></div>
   <div class="prose">
-    <p class="zh">在下面的实验台亲手确认两件大事。<b>第一件</b>：制备「<span class="term">贝尔态<span class="tip">(|00⟩+|11⟩)/√2 —— 两个量子比特最著名的纠缠状态：各自单看完全随机，合起来却完美相关。</span></span>」(|00⟩+|11⟩)/√2，测 Z₁Z₂——答案必然 +1，而且<b>状态原封不动</b>：一次没有任何破坏的测量！<b>第二件</b>：制备 |++⟩（四个成分各 ½），测 Z₁Z₂——这回答案五五开，若得 +1，剩下的恰好是贝尔态：检查不仅温柔，还会<b>亲手织出纠缠</b>。</p>
-    <p class="en">Confirm two big facts on the bench below. <b>First</b>: prepare the “<span class="term">Bell state<span class="tip">(|00⟩+|11⟩)/√2 — the most famous entangled state of two qubits: each alone is perfectly random, together perfectly correlated.</span></span>” (|00⟩+|11⟩)/√2 and measure Z₁Z₂ — the answer is +1 with certainty, and <b>the state is untouched</b>: a measurement with zero damage! <b>Second</b>: prepare |++⟩ (four components of ½) and measure Z₁Z₂ — now the answer is 50/50, and if you get +1 what remains is exactly the Bell state: the check is not only gentle, it <b>weaves entanglement with its own hands</b>.</p>
+    <p class="zh">在下面的实验台亲手确认三件事。<b>第一件</b>：制备「<span class="term">贝尔态<span class="tip">(|00⟩+|11⟩)/√2 —— 两个量子比特最著名的纠缠状态：各自单看完全随机，合起来却完美相关。</span></span>」(|00⟩+|11⟩)/√2，测 Z₁Z₂——答案必然 +1，而且<b>状态原封不动</b>：一次没有任何破坏的测量！<b>第二件</b>：制备 |++⟩（四个成分各 ½），测 Z₁Z₂——这回答案五五开，若得 +1，剩下的恰好是贝尔态：检查不仅温柔，还会<b>亲手织出纠缠</b>。<b>第三件</b>：还是贝尔态，这回按「测 X₁X₂」——答案同样必然 +1，状态同样原封不动。这一件没法从柱子上看出来，实验台下面专门讲为什么。</p>
+    <p class="en">Confirm three facts on the bench below. <b>First</b>: prepare the “<span class="term">Bell state<span class="tip">(|00⟩+|11⟩)/√2 — the most famous entangled state of two qubits: each alone is perfectly random, together perfectly correlated.</span></span>” (|00⟩+|11⟩)/√2 and measure Z₁Z₂ — the answer is +1 with certainty, and <b>the state is untouched</b>: a measurement with zero damage! <b>Second</b>: prepare |++⟩ (four components of ½) and measure Z₁Z₂ — now the answer is 50/50, and if you get +1 what remains is exactly the Bell state: the check is not only gentle, it <b>weaves entanglement with its own hands</b>. <b>Third</b>: back to the Bell state, but press “Measure X₁X₂” this time — again +1 for sure, and again the state stays put. You can't read this one off the bars, so the reason comes right after the bench.</p>
   </div>
   <div data-widget="twoqubit"></div>
+  <div class="prose">
+    <p class="zh">第三件凭什么成立？柱状图帮不上忙：它画的是 0/1 眼镜下的四个振幅，而 <span class="opx">X₁X₂</span> 问的是「两个比特在 +/− 眼镜下一样吗」。有两种看法，结论一样。</p>
+    <p class="en">Why does the third fact hold? The bars can't help: they show the four amplitudes in the 0/1 lens, while <span class="opx">X₁X₂</span> asks “are the two qubits equal in the +/− lens?”. There are two ways to see it, and they agree.</p>
+    <p class="zh"><b>看法一：换副眼镜重写。</b>用 <span class="ref" data-ref="twolens" data-sec="3.4">3.4 节</span>的公式，|0⟩ 在 +/− 眼镜下读出 c₊ = c₋ = 1/√2，|1⟩ 读出 c₊ = 1/√2、c₋ = −1/√2，也就是 |0⟩ = (|+⟩+|−⟩)/√2，|1⟩ = (|+⟩−|−⟩)/√2。把它们代进贝尔态乘开：|00⟩ 和 |11⟩ 各贡献四项，其中 |+−⟩ 和 |−+⟩ 一个带正号、一个带负号，正好抵消，剩下的是：</p>
+    <p class="en"><b>View one: rewrite it in the other lens.</b> By <span class="ref" data-ref="twolens" data-sec="3.4">§3.4</span>'s formula, |0⟩ reads c₊ = c₋ = 1/√2 in the +/− lens, and |1⟩ reads c₊ = 1/√2, c₋ = −1/√2. In other words |0⟩ = (|+⟩+|−⟩)/√2 and |1⟩ = (|+⟩−|−⟩)/√2. Put these into the Bell state and multiply out: |00⟩ and |11⟩ each give four terms, and the |+−⟩ and |−+⟩ terms come once with a plus sign and once with a minus sign, so they cancel. What is left:</p>
+  </div>
+  <div class="formula center">(|00⟩ + |11⟩)/√2 = (|++⟩ + |−−⟩)/√2</div>
+  <div class="prose">
+    <p class="zh">戴上 +/− 眼镜，贝尔态也只含「两位一样」的两个成分，落选组 {+−, −+} 的振幅是 0。这和第一件是同一个道理，只是换了副眼镜：答案必然 +1，也没有什么可删的。</p>
+    <p class="en">Through the +/− lens, the Bell state again holds only the two “equal” components; the losing group {+−, −+} has amplitude 0. It is the first fact all over again, seen through the other lens: the answer is surely +1, and there is nothing to delete.</p>
+    <p class="zh"><b>看法二：看操作本身。</b><span class="opx">X₁X₂</span> 把两个比特同时翻转，也就是把成分成对交换：|00⟩↔|11⟩，|01⟩↔|10⟩。贝尔态里 |00⟩ 和 |11⟩ 的振幅都是 1/√2，换完还是一模一样：X₁X₂ 作用后，状态纹丝不动。这为什么就意味着「必然 +1」？因为在 +/− 眼镜下，X₁X₂ 放过「一样」的成分（|++⟩、|−−⟩），却给「不一样」的成分变号（|+−⟩ → −|+−⟩），正像 Z₁Z₂ 给 01、10 变号。一个状态被它作用后毫无变化，里面就不可能藏着「不一样」的成分。</p>
+    <p class="en"><b>View two: look at the operation itself.</b> <span class="opx">X₁X₂</span> flips both qubits at once, which swaps the components in pairs: |00⟩↔|11⟩ and |01⟩↔|10⟩. In the Bell state, |00⟩ and |11⟩ both have amplitude 1/√2, so after the swap nothing has changed: X₁X₂ leaves the state exactly as it was. Why does that mean “surely +1”? In the +/− lens, X₁X₂ leaves the “equal” components (|++⟩, |−−⟩) alone and flips the sign of the “unequal” ones (|+−⟩ → −|+−⟩), just as Z₁Z₂ flips the sign of 01 and 10. If a state comes through X₁X₂ unchanged, it can't be hiding any “unequal” part.</p>
+    <p class="zh">两组结果正好互为镜像，可以在实验台上逐个验证：|00⟩ 测 Z₁Z₂ 必然 +1，测 X₁X₂ 却五五开；|++⟩ 反过来，测 X₁X₂ 必然 +1，测 Z₁Z₂ 五五开。贝尔态是两副眼镜下同时「一样」的那一个，<span class="ref" data-ref="stabilizer" data-sec="4.4">4.4 节</span>还会倒过来证明：只有它是。</p>
+    <p class="en">The results mirror each other, and you can check each one on the bench: |00⟩ gives Z₁Z₂ = +1 for sure but X₁X₂ is 50/50; |++⟩ is the other way round, X₁X₂ = +1 for sure and Z₁Z₂ 50/50. The Bell state is “equal” in both lenses at once, and <span class="ref" data-ref="stabilizer" data-sec="4.4">§4.4</span> will run the argument backwards to show it is the only such state.</p>
+  </div>
   <div class="prose">
     <p class="zh">同样的把戏在另一副眼镜里也有一份：「测量 <span class="opx">X₁X₂</span>」问的是「两个比特在 +/− 眼镜下一样吗」。一切规则镜像照搬。我们的工具箱就此配齐：Z-型检查守 0/1 眼镜，X-型检查守 +/− 眼镜。</p>
     <p class="en">The same trick exists in the other lens: “measure <span class="opx">X₁X₂</span>” asks “are the two qubits equal in the +/− lens?”, with mirrored rules. Our toolbox is complete: Z-type checks guard the 0/1 lens, X-type checks guard the +/− lens.</p>
@@ -1502,6 +1517,78 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
     <p class="en">The X side has two as well: X-loops running in the “across-edges” direction (the dashed paths through face centres), one horizontal, one vertical. For a pair (X̄, Z̄) to form a genuine logical qubit, one final inspection: <b>logical X̄ must anticommute with logical Z̄</b> (that's what X and Z of any true qubit do, <span class="ref" data-ref="anticommute" data-sec="3.5">§3.5</span>). Count collisions: a vertical X̄-loop and a horizontal Z̄₁-loop cross on a torus <b>exactly once</b> — odd, anticommute ✓. With the vertical Z̄₂ it runs parallel, crossing 0 times — commute ✓. Two matched pairs, each in place:</p>
   </div>
   <div class="formula center">X̄₁Z̄₁ = −Z̄₁X̄₁　·　X̄₁Z̄₂ = +Z̄₂X̄₁　<span class="dim">(<span class="zh">交叉数 1 与 0</span><span class="en">crossing numbers 1 and 0</span>)</span>　<span class="sym" data-sym="implies">⇒</span>　<span class="zh">恰好 2 个逻辑量子比特，与 <span class="ref" data-ref="count2" data-sec="5.3">5.3</span> 的账目吻合</span><span class="en">exactly 2 logical qubits — matching <span class="ref" data-ref="count2" data-sec="5.3">§5.3</span>'s ledger</span></div>
+  <figure class="fig">
+    <div class="fig-frame">
+      <svg viewBox="0 0 580 590" role="img" aria-label="4×4 环面上的四条逻辑圈与交叉数 / the four logical loops on a 4×4 torus and their crossing counts" style="max-width:100%;height:auto;color:var(--ink);font-family:var(--f-body)">
+      <text x="140" y="30" text-anchor="middle" font-size="13" fill="var(--ink2)"><tspan class="zh">(a) Z̄₁、Z̄₂：沿边走的 Z-圈</tspan><tspan class="en">(a) Z̄₁, Z̄₂: Z-loops along edges</tspan></text>
+      <g stroke="var(--line2)" stroke-width="1.5" fill="none">
+      <path d="M60 70H220M60 70V230"/>
+      <path d="M60 110H220M100 70V230"/>
+      <path d="M60 150H220M140 70V230"/>
+      <path d="M60 190H220M180 70V230"/>
+      <path d="M60 230H220M220 70V230"/>
+      </g>
+      <g fill="var(--ink3)"><circle cx="80" cy="70" r="2"/><circle cx="60" cy="90" r="2"/><circle cx="80" cy="110" r="2"/><circle cx="100" cy="90" r="2"/><circle cx="80" cy="150" r="2"/><circle cx="140" cy="90" r="2"/><circle cx="80" cy="190" r="2"/><circle cx="180" cy="90" r="2"/><circle cx="80" cy="230" r="2"/><circle cx="220" cy="90" r="2"/><circle cx="120" cy="70" r="2"/><circle cx="60" cy="130" r="2"/><circle cx="120" cy="110" r="2"/><circle cx="100" cy="130" r="2"/><circle cx="120" cy="150" r="2"/><circle cx="140" cy="130" r="2"/><circle cx="120" cy="190" r="2"/><circle cx="180" cy="130" r="2"/><circle cx="120" cy="230" r="2"/><circle cx="220" cy="130" r="2"/><circle cx="160" cy="70" r="2"/><circle cx="60" cy="170" r="2"/><circle cx="160" cy="110" r="2"/><circle cx="100" cy="170" r="2"/><circle cx="160" cy="150" r="2"/><circle cx="140" cy="170" r="2"/><circle cx="160" cy="190" r="2"/><circle cx="180" cy="170" r="2"/><circle cx="160" cy="230" r="2"/><circle cx="220" cy="170" r="2"/><circle cx="200" cy="70" r="2"/><circle cx="60" cy="210" r="2"/><circle cx="200" cy="110" r="2"/><circle cx="100" cy="210" r="2"/><circle cx="200" cy="150" r="2"/><circle cx="140" cy="210" r="2"/><circle cx="200" cy="190" r="2"/><circle cx="180" cy="210" r="2"/><circle cx="200" cy="230" r="2"/><circle cx="220" cy="210" r="2"/></g>
+      <g stroke="var(--ink2)" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M55 213L60 206L65 213"/><path d="M215 213L220 206L225 213"/><path d="M74 65L79 70L74 75M80 65L85 70L80 75"/><path d="M74 225L79 230L74 235M80 225L85 230L80 235"/></g>
+      <path d="M60 110H220" stroke="var(--cz)" stroke-width="4" stroke-linecap="round"/><path d="M48 110H60M220 110H232" stroke="var(--cz)" stroke-width="4" opacity="0.45"/>
+      <path d="M180 70V230" stroke="var(--cz)" stroke-width="4" stroke-linecap="round"/><path d="M180 58V70M180 230V242" stroke="var(--cz)" stroke-width="4" opacity="0.45"/>
+      <text x="238" y="115" text-anchor="start" font-size="15" fill="var(--cz-ink)" font-weight="600">Z̄₁</text>
+      <text x="180" y="262" text-anchor="middle" font-size="15" fill="var(--cz-ink)" font-weight="600">Z̄₂</text>
+      <text x="440" y="30" text-anchor="middle" font-size="13" fill="var(--ink2)"><tspan class="zh">(b) X̄₁、X̄₂：穿过面心的 X-圈</tspan><tspan class="en">(b) X̄₁, X̄₂: X-loops through faces</tspan></text>
+      <g stroke="var(--line2)" stroke-width="1.5" fill="none">
+      <path d="M360 70H520M360 70V230"/>
+      <path d="M360 110H520M400 70V230"/>
+      <path d="M360 150H520M440 70V230"/>
+      <path d="M360 190H520M480 70V230"/>
+      <path d="M360 230H520M520 70V230"/>
+      </g>
+      <g fill="var(--ink3)"><circle cx="380" cy="70" r="2"/><circle cx="360" cy="90" r="2"/><circle cx="380" cy="110" r="2"/><circle cx="400" cy="90" r="2"/><circle cx="380" cy="150" r="2"/><circle cx="440" cy="90" r="2"/><circle cx="380" cy="190" r="2"/><circle cx="480" cy="90" r="2"/><circle cx="380" cy="230" r="2"/><circle cx="520" cy="90" r="2"/><circle cx="420" cy="70" r="2"/><circle cx="360" cy="130" r="2"/><circle cx="420" cy="110" r="2"/><circle cx="400" cy="130" r="2"/><circle cx="420" cy="150" r="2"/><circle cx="440" cy="130" r="2"/><circle cx="420" cy="190" r="2"/><circle cx="480" cy="130" r="2"/><circle cx="420" cy="230" r="2"/><circle cx="520" cy="130" r="2"/><circle cx="460" cy="70" r="2"/><circle cx="360" cy="170" r="2"/><circle cx="460" cy="110" r="2"/><circle cx="400" cy="170" r="2"/><circle cx="460" cy="150" r="2"/><circle cx="440" cy="170" r="2"/><circle cx="460" cy="190" r="2"/><circle cx="480" cy="170" r="2"/><circle cx="460" cy="230" r="2"/><circle cx="520" cy="170" r="2"/><circle cx="500" cy="70" r="2"/><circle cx="360" cy="210" r="2"/><circle cx="500" cy="110" r="2"/><circle cx="400" cy="210" r="2"/><circle cx="500" cy="150" r="2"/><circle cx="440" cy="210" r="2"/><circle cx="500" cy="190" r="2"/><circle cx="480" cy="210" r="2"/><circle cx="500" cy="230" r="2"/><circle cx="520" cy="210" r="2"/></g>
+      <g stroke="var(--ink2)" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M355 213L360 206L365 213"/><path d="M515 213L520 206L525 213"/><path d="M374 65L379 70L374 75M380 65L385 70L380 75"/><path d="M374 225L379 230L374 235M380 225L385 230L380 235"/></g>
+      <path d="M420 58V242" stroke="var(--cx)" stroke-width="3.5" stroke-dasharray="7 5" fill="none"/><g fill="var(--bg2)" stroke="var(--cx)" stroke-width="1.6"><circle cx="420" cy="90" r="3.2"/><circle cx="420" cy="130" r="3.2"/><circle cx="420" cy="170" r="3.2"/><circle cx="420" cy="210" r="3.2"/></g>
+      <path d="M348 170H532" stroke="var(--cx)" stroke-width="3.5" stroke-dasharray="7 5" fill="none"/><g fill="var(--bg2)" stroke="var(--cx)" stroke-width="1.6"><circle cx="380" cy="170" r="3.2"/><circle cx="420" cy="170" r="3.2"/><circle cx="460" cy="170" r="3.2"/><circle cx="500" cy="170" r="3.2"/></g>
+      <text x="420" y="262" text-anchor="middle" font-size="15" fill="var(--cx-ink)" font-weight="600">X̄₁</text>
+      <text x="538" y="175" text-anchor="start" font-size="15" fill="var(--cx-ink)" font-weight="600">X̄₂</text>
+      <text x="140" y="330" text-anchor="middle" font-size="13" fill="var(--ink2)"><tspan class="zh">(c) 数交叉：X̄₁ 对 Z̄₁、Z̄₂</tspan><tspan class="en">(c) Count crossings: X̄₁ vs Z̄₁, Z̄₂</tspan></text>
+      <g stroke="var(--line2)" stroke-width="1.5" fill="none">
+      <path d="M60 370H220M60 370V530"/>
+      <path d="M60 410H220M100 370V530"/>
+      <path d="M60 450H220M140 370V530"/>
+      <path d="M60 490H220M180 370V530"/>
+      <path d="M60 530H220M220 370V530"/>
+      </g>
+      <g fill="var(--ink3)"><circle cx="80" cy="370" r="2"/><circle cx="60" cy="390" r="2"/><circle cx="80" cy="410" r="2"/><circle cx="100" cy="390" r="2"/><circle cx="80" cy="450" r="2"/><circle cx="140" cy="390" r="2"/><circle cx="80" cy="490" r="2"/><circle cx="180" cy="390" r="2"/><circle cx="80" cy="530" r="2"/><circle cx="220" cy="390" r="2"/><circle cx="120" cy="370" r="2"/><circle cx="60" cy="430" r="2"/><circle cx="120" cy="410" r="2"/><circle cx="100" cy="430" r="2"/><circle cx="120" cy="450" r="2"/><circle cx="140" cy="430" r="2"/><circle cx="120" cy="490" r="2"/><circle cx="180" cy="430" r="2"/><circle cx="120" cy="530" r="2"/><circle cx="220" cy="430" r="2"/><circle cx="160" cy="370" r="2"/><circle cx="60" cy="470" r="2"/><circle cx="160" cy="410" r="2"/><circle cx="100" cy="470" r="2"/><circle cx="160" cy="450" r="2"/><circle cx="140" cy="470" r="2"/><circle cx="160" cy="490" r="2"/><circle cx="180" cy="470" r="2"/><circle cx="160" cy="530" r="2"/><circle cx="220" cy="470" r="2"/><circle cx="200" cy="370" r="2"/><circle cx="60" cy="510" r="2"/><circle cx="200" cy="410" r="2"/><circle cx="100" cy="510" r="2"/><circle cx="200" cy="450" r="2"/><circle cx="140" cy="510" r="2"/><circle cx="200" cy="490" r="2"/><circle cx="180" cy="510" r="2"/><circle cx="200" cy="530" r="2"/><circle cx="220" cy="510" r="2"/></g>
+      <g stroke="var(--ink2)" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M55 513L60 506L65 513"/><path d="M215 513L220 506L225 513"/><path d="M74 365L79 370L74 375M80 365L85 370L80 375"/><path d="M74 525L79 530L74 535M80 525L85 530L80 535"/></g>
+      <path d="M60 410H220" stroke="var(--cz)" stroke-width="4" stroke-linecap="round"/><path d="M48 410H60M220 410H232" stroke="var(--cz)" stroke-width="4" opacity="0.45"/>
+      <path d="M180 370V530" stroke="var(--cz)" stroke-width="4" stroke-linecap="round"/><path d="M180 358V370M180 530V542" stroke="var(--cz)" stroke-width="4" opacity="0.45"/>
+      <path d="M120 358V542" stroke="var(--cx)" stroke-width="3.5" stroke-dasharray="7 5" fill="none"/><g fill="var(--bg2)" stroke="var(--cx)" stroke-width="1.6"><circle cx="120" cy="390" r="3.2"/><circle cx="120" cy="430" r="3.2"/><circle cx="120" cy="470" r="3.2"/><circle cx="120" cy="510" r="3.2"/></g>
+      <path d="M100 410H140" stroke="var(--cd)" stroke-width="6" stroke-linecap="round"/>
+      <circle cx="120" cy="410" r="11" fill="none" stroke="var(--cd)" stroke-width="2"/>
+      <path d="M131 406L234 362" stroke="var(--cd)" stroke-width="1.3" fill="none"/>
+      <text x="238" y="352" text-anchor="start" font-size="12.5" fill="var(--cd)" font-weight="600"><tspan class="zh">X̄₁ 与 Z̄₁ 共用 1 条边</tspan><tspan class="en">X̄₁ and Z̄₁ share 1 edge</tspan></text>
+      <text x="238" y="369" text-anchor="start" font-size="12.5" fill="var(--cd)" font-weight="600"><tspan class="zh">交叉 1 → 反对易</tspan><tspan class="en">1 crossing → anticommute</tspan></text>
+      <text x="238" y="415" text-anchor="start" font-size="15" fill="var(--cz-ink)" font-weight="600">Z̄₁</text>
+      <text x="194" y="562" text-anchor="start" font-size="15" fill="var(--cz-ink)" font-weight="600">Z̄₂</text>
+      <text x="120" y="562" text-anchor="middle" font-size="15" fill="var(--cx-ink)" font-weight="600">X̄₁</text>
+      <text x="238" y="490" text-anchor="start" font-size="12.5" fill="var(--ink2)" font-weight="600"><tspan class="zh">X̄₁ 与 Z̄₂ 平行</tspan><tspan class="en">X̄₁ runs beside Z̄₂</tspan></text>
+      <text x="238" y="507" text-anchor="start" font-size="12.5" fill="var(--ink2)" font-weight="600"><tspan class="zh">交叉 0 → 对易</tspan><tspan class="en">0 crossings → commute</tspan></text>
+      <text x="470" y="330" text-anchor="middle" font-size="13" fill="var(--ink2)"><tspan class="zh">(d) 甜甜圈上的两根橡皮筋</tspan><tspan class="en">(d) Two rubber bands on a donut</tspan></text>
+      <ellipse cx="470" cy="470" rx="92" ry="52" fill="var(--bg3)" stroke="var(--ink2)" stroke-width="1.6"/>
+      <path d="M430 464Q470 490 510 464" fill="none" stroke="var(--ink2)" stroke-width="1.6"/>
+      <path d="M438 471Q470 454 502 471" fill="none" stroke="var(--ink2)" stroke-width="1.6"/>
+      <ellipse cx="470" cy="472" rx="68" ry="34" fill="none" stroke="var(--cz)" stroke-width="3"/>
+      <path d="M470 483C481 491 481 514 470 522" fill="none" stroke="var(--cz)" stroke-width="3"/>
+      <path d="M470 483C459 491 459 514 470 522" fill="none" stroke="var(--cz)" stroke-width="2" stroke-dasharray="3 3" opacity="0.6"/>
+      <text x="470" y="406" text-anchor="middle" font-size="12.5" fill="var(--cz-ink)"><tspan class="zh">绕着洞转一圈</tspan><tspan class="en">once around the hole</tspan></text>
+      <text x="470" y="544" text-anchor="middle" font-size="12.5" fill="var(--cz-ink)"><tspan class="zh">绕着管子转一圈</tspan><tspan class="en">once around the tube</tspan></text>
+      <text x="470" y="570" text-anchor="middle" font-size="12.5" fill="var(--ink2)"><tspan class="zh">哪根都收不成一个点</tspan><tspan class="en">neither can shrink to a point</tspan></text>
+      </svg>
+    </div>
+    <figcaption>
+      <span class="fno"><span class="zh">图 5.6</span><span class="en">Fig. 5.6</span></span>
+      <span class="zh">4×4 的环面，把四条逻辑圈摊开来看。方格边上标着相同箭头的两条边界是黏在一起的：左边就是右边，上边就是下边，所以每条线走出一侧，就从对侧走回来。(a) 两条 Z̄ 沿边走（实线）；(b) 两条 X̄ 从面心到面心穿行（虚线），每一步横穿一条边；(c) 把 X̄₁ 和两条 Z̄ 叠在一起数共用的边：和 Z̄₁ 恰好共用 1 条（粉圈），和 Z̄₂ 一条也不共用。这就是上面那行 X̄₁Z̄₁ = −Z̄₁X̄₁ · X̄₁Z̄₂ = +Z̄₂X̄₁ 里的「1」和「0」。(d) 同样两种绕法，搬到甜甜圈上就是两根怎么也收不紧的橡皮筋。</span>
+      <span class="en">The four logical loops on a 4×4 torus, laid flat. Borders marked with the same arrows are glued together: the left edge is the right edge, the top is the bottom, so a line leaving one side comes back in on the other. (a) The two Z̄ loops run along edges (solid). (b) The two X̄ loops hop from face centre to face centre (dashed), crossing one edge per hop. (c) Lay X̄₁ over both Z̄ loops and count shared edges: exactly 1 with Z̄₁ (pink ring), none with Z̄₂. Those are the “1” and “0” in the line above, X̄₁Z̄₁ = −Z̄₁X̄₁ · X̄₁Z̄₂ = +Z̄₂X̄₁. (d) The same two windings on a donut: two rubber bands you can never pull tight.</span>
+    </figcaption>
+  </figure>
   <div class="note note-honest">
     <span class="note-tag"><span class="zh">诚实说明</span><span class="en">Honesty box</span></span>
     <p class="zh">「可收缩 / 缠绕」这类性质叫做<b>拓扑</b>性质：随便揉捏变形都不改变。逻辑信息存在「圈绕不绕」里，而噪声只会制造局部的小链——够不着「绕一整圈」这种全局属性。这就是「拓扑保护」的全部含义，也是本教程标题里那个词的兑现。顺带一提：那些成对出现、沿链端移动的警报点，物理学家叫它们<b>任意子（anyon）</b>——在我们的故事里，你已经与它们玩了一整章。</p>
@@ -2543,6 +2630,8 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
       this.hlEdges = new Map(); // id -> {color, width, dash}
       this.hlStars = new Map(); // k -> color
       this.hlPlaqs = new Map();
+      this.haloEdges = new Set(); // edges drawn under everything as a wide pink halo (e.g. a residual loop)
+      this.starTags = new Map(); // k -> short text label drawn beside the star (e.g. alarm names A, B, C)
       this.hover = null; // {type:'edge'|'star'|'plaq', id}
       this.phase = 0;
       this._raf = null;
@@ -2772,6 +2861,21 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
         }
       }
 
+      // halo edges (under the chains, so blue / green stay readable on top)
+      for (const id of this.haloEdges) {
+        if (skipEdge(id)) continue;
+        for (const s of this.edgeSegs(id, m)) {
+          ctx.beginPath();
+          ctx.moveTo(s.x1, s.y1);
+          ctx.lineTo(s.x2, s.y2);
+          ctx.strokeStyle = C.cd;
+          ctx.globalAlpha = 0.45;
+          ctx.lineWidth = 15;
+          ctx.stroke();
+          ctx.globalAlpha = 1;
+        }
+      }
+
       // Z error chains (on edges)
       for (const id of this.opts.showErrors ? this.errZ : []) {
         for (const s of this.edgeSegs(id, m)) {
@@ -2901,6 +3005,22 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
           ctx.restore();
         }
       });
+
+      // star tags (short names beside vertices)
+      if (this.starTags.size) {
+        ctx.font = '700 13px ' + getComputedStyle(document.body).getPropertyValue('--f-mono');
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        const off = this.lat.type === 'toric' ? Math.min(16, m.cell * 0.3) : Math.min(16, m.hcell * 0.6);
+        for (const [k, t] of this.starTags) {
+          const p = this.starPos(k, m);
+          ctx.lineWidth = 3.5;
+          ctx.strokeStyle = C.bg2;
+          ctx.strokeText(t, p.x + off, p.y - off);
+          ctx.fillStyle = C.cd;
+          ctx.fillText(t, p.x + off, p.y - off);
+        }
+      }
 
       // labels
       if (this.opts.labels.stars || this.opts.labels.plaqs || this.opts.labels.edges) {
@@ -3628,10 +3748,12 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
       const r = Math.random() < m.pPlus ? +1 : -1;
       const pShown = r > 0 ? m.pPlus : 1 - m.pPlus;
       const same = JSON.stringify(m.project(r)) === JSON.stringify(st);
+      const bell = Math.abs(st[0] - st[3]) < 1e-9 && Math.abs(Math.abs(st[0]) - R2) < 1e-9;
+      const hint = bell && xmask === 0b11 && r > 0;
       st = m.project(r);
       log(
-        '测 ' + name + '（' + zhWhat + '）→ 结果 <b>' + (r > 0 ? '+1' : '−1') + '</b>（这一结果的概率 ' + pct(pShown) + '）' + (same ? '。<span class="ok">状态一点没变！</span>' : '。状态只保留了与答案一致的部分'),
-        'measured ' + name + ' (' + enWhat + ') → outcome <b>' + (r > 0 ? '+1' : '−1') + '</b> (probability ' + pct(pShown) + ')' + (same ? '. <span class="ok">State untouched!</span>' : '. State keeps only the matching part')
+        '测 ' + name + '（' + zhWhat + '）→ 结果 <b>' + (r > 0 ? '+1' : '−1') + '</b>（这一结果的概率 ' + pct(pShown) + '）' + (same ? '。<span class="ok">状态一点没变！</span>' : '。状态只保留了与答案一致的部分') + (hint ? '<br>柱子上看不出 +/− 眼镜下的「一样」，为什么是必然 +1？见实验台下方的「看法一 / 看法二」。' : ''),
+        'measured ' + name + ' (' + enWhat + ') → outcome <b>' + (r > 0 ? '+1' : '−1') + '</b> (probability ' + pct(pShown) + ')' + (same ? '. <span class="ok">State untouched!</span>' : '. State keeps only the matching part') + (hint ? '<br>The bars can\'t show “equal in the +/− lens”, so why a sure +1? See “view one / view two” just below the bench.' : '')
       );
       upd();
     }
@@ -4224,6 +4346,10 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
       });
       const lat = isToric ? LAT().buildToric(5) : LAT().buildPlanar(5);
       let err = new Set(), corr = new Set(), sel = null, over = false, streak = 0, best = 0, p = 0.08;
+      // per-round bookkeeping for the feedback: the round's alarms (named A, B, C…),
+      // the pairs the reader made, and whether the auto button finished the round for them
+      let alarms = [], tags = new Map(), userPairs = [], assisted = false;
+      const goodCol = () => getComputedStyle(doc.documentElement).getPropertyValue('--good').trim();
       const view = latView(F, lat, {
         clickables: 'stars',
         showStars: 'defects', showPlaqs: 'none',
@@ -4238,21 +4364,94 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
           const path = isToric
             ? DEC().toricPathStars(lat, lat.stars[sel], lat.stars[k])
             : DEC().planarPath(lat, lat.stars[sel], lat.stars[k], 'star');
+          userPairs.push([sel, k]);
           applyCorr(path);
         },
       });
+      /* the minimum-weight decoder's repair for this round's full set of alarms */
+      function decoderCorr() {
+        return isToric ? DEC().decodeToric(lat, alarms, 'star') : DEC().decodePlanar(lat, alarms, 'star');
+      }
+      /* its pairing, as pairs of star ids (torus only; same matching decodeToric uses) */
+      function decoderPairs() {
+        if (!isToric || alarms.length < 2 || alarms.length > 14 || alarms.length % 2) return null;
+        const nodes = alarms.map((k) => lat.stars[k]);
+        return DEC().optimalMatch(nodes, (i, j) => DEC().toricDist(nodes[i], nodes[j], lat.L), null)
+          .map(([i, j]) => [alarms[i], alarms[j]]);
+      }
+      function isLogical(residual) {
+        return lat.logicals.X.some((Lg) => P().overlapParity(residual, Lg));
+      }
+      function steps(a, b) { return DEC().toricDist(lat.stars[a], lat.stars[b], lat.L); }
+      function pairName(pr) { return tags.get(pr[0]) + '–' + tags.get(pr[1]); }
+      function pairKey(pr) { return pr[0] < pr[1] ? pr[0] + ',' + pr[1] : pr[1] + ',' + pr[0]; }
+      /* "you paired A–C (4 steps); the shorter choice was A–B (1 step)" — torus only */
+      function pairHint() {
+        if (!isToric || assisted) return ['', ''];
+        const dp = decoderPairs();
+        if (!dp || userPairs.length !== dp.length) return ['', ''];
+        const dk = new Set(dp.map(pairKey)), uk = new Set(userPairs.map(pairKey));
+        const mine = userPairs.filter((pr) => !dk.has(pairKey(pr)));
+        const theirs = dp.filter((pr) => !uk.has(pairKey(pr)));
+        if (!mine.length) return ['', ''];
+        const tot = (list) => list.reduce((s, pr) => s + steps(pr[0], pr[1]), 0);
+        const listZh = (list) => list.map((pr) => pairName(pr) + '（' + steps(pr[0], pr[1]) + ' 步）').join('、');
+        const listEn = (list) => list.map((pr) => pairName(pr) + ' (' + steps(pr[0], pr[1]) + (steps(pr[0], pr[1]) === 1 ? ' step)' : ' steps)')).join(', ');
+        const a = tot(userPairs), b = tot(dp);
+        return [
+          '<br>问题出在配对上：你配了 ' + listZh(mine) + '；最小权译码器配的是 ' + listZh(theirs) + '。全部修复链加起来，你走了 ' + a + ' 步，它只走 ' + b + ' 步。',
+          '<br>The trouble is the pairing: you paired ' + listEn(mine) + '; the minimum-weight decoder paired ' + listEn(theirs) + '. Over all repair chains you used ' + a + ' steps; it used only ' + b + '.',
+        ];
+      }
+      /* show the true errors (blue), a repair chain (green) and optionally a pink halo */
+      function reveal(chain, halo) {
+        view.opts.showErrors = true;
+        view.errZ = new Set(err);
+        view.hlEdges = new Map([...chain].map((e) => [e, { color: goodCol(), width: 5 }]));
+        view.haloEdges = new Set(halo);
+        view.hlStars = new Map();
+        view.starTags = new Map(tags);
+        view.draw();
+      }
       function autoDecode() {
-        if (over) return;
+        if (over) { replay(); return; }
+        assisted = true;
         const defs = view.syndrome().starDefects;
         const c = isToric ? DEC().decodeToric(lat, defs, 'star') : DEC().decodePlanar(lat, defs, 'star');
         corr = new Set(P().xorSet([...corr], c));
         syncState();
         finish();
       }
+      /* after a round: clear the reader's repair and replay the decoder on the SAME errors */
+      function replay() {
+        const c = decoderCorr();
+        corr = new Set(c);
+        const res = P().xorSet([...err], c);
+        const f = isLogical(res);
+        reveal(c, res);
+        const dp = decoderPairs();
+        const pz = dp && dp.length ? '它配的是 ' + dp.map(pairName).join('、') + '。' : '';
+        const pe = dp && dp.length ? 'It paired ' + dp.map(pairName).join(', ') + '. ' : '';
+        const wz = isToric ? '缠绕整个环面' : '从一条边界横跨到对面';
+        const we = isToric ? 'winds around the torus' : 'spans from one boundary to the other';
+        let zh, en;
+        if (f) {
+          zh = '<span class="no">示范：最小权译码器在同一份错误上也输了。</span>' + pz + '绿色 = 它的修复；粉色光晕 = 错误 ⊕ 它的修复，同样' + wz + '。这一局的错误本身就太长了：真实错误连到了' + (isToric ? '半圈' : '半程') + '以上，最短的配法恰好把它补成了' + (isToric ? '一整圈' : '一条横跨的串') + '。';
+          en = '<span class="no">Replay: the minimum-weight decoder loses on these same errors too.</span> ' + pe + 'Green = its repair; the pink halo = error ⊕ its repair, which also ' + we + '. The error itself was too long this round: it already reached more than halfway, so the shortest pairing completed it into ' + (isToric ? 'a full loop' : 'a spanning string') + '.';
+        } else if (!res.length) {
+          zh = '<span class="ok">示范：最小权译码器在同一份错误上赢了。</span>' + pz + '绿色 = 它的修复，和蓝色的真实错误完全重合：错误 ⊕ 修复什么都不剩。';
+          en = '<span class="ok">Replay: the minimum-weight decoder wins on these same errors.</span> ' + pe + 'Green = its repair, and it lands exactly on the blue errors: error ⊕ repair leaves nothing at all.';
+        } else {
+          zh = '<span class="ok">示范：最小权译码器在同一份错误上赢了。</span>' + pz + '绿色 = 它的修复；粉色光晕 = 错误 ⊕ 它的修复。剩下的只是几个小圈，每个都能收缩成一点，所以什么也没改写。对照你刚才的配法，看看哪一对不一样。';
+          en = '<span class="ok">Replay: the minimum-weight decoder wins on these same errors.</span> ' + pe + 'Green = its repair; the pink halo = error ⊕ its repair. All that is left are small loops, each of which can shrink to a point, so nothing got rewritten. Compare with your pairing and spot the pair that differs.';
+        }
+        F.setReadout('<span class="zh">' + zh + '　点「新回合」再来。</span><span class="en">' + en + ' Press “New round” to play again.</span>');
+      }
       el.__game = { get err() { return err; }, get corr() { return corr; }, view, newRound: () => newRound(), auto: autoDecode };
       const bndBtn = U().btn('把选中的警报连到最近边界', 'Pair selected alarm to nearest boundary', '', () => {
         if (sel === null || over) return;
         const path = DEC().planarBoundaryPath(lat, lat.stars[sel], 'star');
+        userPairs.push([sel, -1]);
         applyCorr(path);
       });
       function applyCorr(path) {
@@ -4267,10 +4466,13 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
         view.errZ = new Set(P().xorSet([...err], [...corr]));
       }
       function paint() {
-        view.hlEdges = new Map([...corr].map((e) => [e, { color: getComputedStyle(doc.documentElement).getPropertyValue('--good').trim(), width: 5 }]));
+        view.hlEdges = new Map([...corr].map((e) => [e, { color: goodCol(), width: 5 }]));
         view.hlStars = sel !== null ? new Map([[sel, true]]) : new Map();
+        view.haloEdges = new Set();
+        const live = new Set(view.syndrome().starDefects);
+        view.starTags = new Map([...tags].filter(([k]) => live.has(k)));
         view.draw();
-        const defs = view.syndrome().starDefects.length;
+        const defs = live.size;
         F.setReadout(
           '<span class="zh">连胜 <b>' + streak + '</b>（最佳 ' + best + '）　·　剩余警报 <b>' + defs + '</b>' + (sel !== null ? '　·　已选中一个警报，点击另一个完成配对' + (isToric ? '' : '，或点下方按钮连到边界') : '　·　点击一个警报开始配对') + '</span>' +
           '<span class="en">streak <b>' + streak + '</b> (best ' + best + ') · alarms left <b>' + defs + '</b>' + (sel !== null ? ' · one alarm selected — click another to pair' + (isToric ? '' : ', or use the boundary button') : ' · click an alarm to start pairing') + '</span>'
@@ -4280,24 +4482,58 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
       function finish() {
         over = true;
         const residual = P().xorSet([...err], [...corr]);
-        const fail = lat.logicals.X.some((Lg) => P().overlapParity(residual, Lg));
-        if (fail) { streak = 0; } else { streak++; best = Math.max(best, streak); }
-        // reveal
-        view.opts.showErrors = true;
-        view.errZ = new Set(err);
-        view.hlEdges = new Map([...corr].map((e) => [e, { color: getComputedStyle(doc.documentElement).getPropertyValue('--good').trim(), width: 5 }]));
-        view.draw();
-        F.setReadout(fail
-          ? '<span class="zh"><span class="no">这回合失败了。</span>蓝色 = 真实错误，绿色 = 你的修复。二者合起来形成了' + (isToric ? '一条<b>缠绕整个环面</b>的圈' : '一条<b>横跨两条边界</b>的串') + ' —— 恰好是逻辑算符，信息被改写。连胜清零。点「新回合」再来！</span><span class="en"><span class="no">Round lost.</span> Blue = true errors, green = your repair. Together they form ' + (isToric ? 'a loop <b>winding around the torus</b>' : 'a string <b>spanning both boundaries</b>') + ' — exactly a logical operator; the data got rewritten. Streak reset. “New round” to retry!</span>'
-          : '<span class="zh"><span class="ok">成功！</span>蓝 + 绿合成的圈都是可收缩的平凡圈 —— 你的修复不必和错误一模一样，只要「合起来平凡」就赢。连胜 <b>' + streak + '</b>！</span><span class="en"><span class="ok">Success!</span> Blue + green together form only trivial contractible loops — the repair need not equal the error, it only needs to be trivial in combination. Streak <b>' + streak + '</b>!</span>');
+        const fail = isLogical(residual);
+        // would the minimum-weight decoder have lost on this very error set?
+        const decFail = isLogical(P().xorSet([...err], decoderCorr()));
+        const unwinnable = fail && decFail;
+        if (fail && !unwinnable) { streak = 0; } else if (!fail) { streak++; best = Math.max(best, streak); }
+        reveal(corr, fail ? residual : []);
+        const wz = isToric ? '一条<b>缠绕整个环面</b>的圈' : '一条<b>横跨两条边界</b>的串';
+        const we = isToric ? 'a loop <b>winding around the torus</b>' : 'a string <b>spanning both boundaries</b>';
+        let zh, en;
+        if (assisted && fail) {
+          // the round was closed by the demo button: the green chain is (partly) the decoder's, not the reader's
+          const mixed = userPairs.length > 0;
+          zh = '<span class="no">这回合由「自动译码」收尾，还是输了。</span>蓝色 = 真实错误，绿色 = 修复（' + (mixed ? '你先配的几对 + 译码器补的' : '译码器的配对') + '），粉色光晕 = 错误 ⊕ 修复：' + wz + '，信息被改写。' +
+            (decFail
+              ? '最小权译码器独自面对这份错误也会输：真实错误已经连到了' + (isToric ? '半圈' : '半程') + '以上，从警报看，从另一侧绕过来的短链反而更像真相。这种局没有稳妥的赢法，正是 5.8 节要讲的事：网格越大，这样的局越罕见。<b>连胜保留</b>（记作无解局）。'
+              : '译码器独自面对这份错误本来能赢，是前面的配对把它带偏了。连胜清零。') +
+            '点「新回合」再来。';
+          en = '<span class="no">Closed by “Auto-decode”, and still lost.</span> Blue = true errors, green = the repair (' + (mixed ? 'your first pairs plus what the decoder added' : 'the decoder’s pairing') + '), pink halo = error ⊕ repair: ' + we + ', so the data got rewritten. ' +
+            (decFail
+              ? 'The minimum-weight decoder loses on these errors even on its own: the true error already reaches more than ' + (isToric ? 'half way around' : 'half way across') + ', so from the alarms the short chain around the other side looks more like the truth. No safe way to win such a round; that is what §5.8 is about: the bigger the grid, the rarer they get. <b>Streak kept</b> (counted as unwinnable).'
+              : 'On its own the decoder would have won this one; the earlier pairs led it astray. Streak reset.') +
+            ' Press “New round” to try again.';
+        } else if (unwinnable) {
+          zh = '<span class="no">这回合输了，但不怪你。</span>蓝色 = 真实错误，绿色 = 你的修复，粉色光晕 = 二者合起来剩下的部分：' + wz + '，信息被改写。可是最小权译码器（永远挑总长最短的配法）在同一份错误上<b>也会输</b>：真实错误已经连到了' + (isToric ? '半圈' : '半程') + '以上，从警报看，从另一侧绕过来的短链反而更像真相。这种局没有稳妥的赢法，它正是 5.8 节要讲的事：网格越大，这样的局越罕见。<b>连胜保留</b>（记作无解局）。点「自动译码（示范）」可以亲眼看译码器怎么输；点「新回合」再来。';
+          en = '<span class="no">Round lost, but not your fault.</span> Blue = true errors, green = your repair, pink halo = what the two leave behind together: ' + we + ', so the data got rewritten. But the minimum-weight decoder (which always picks the shortest total pairing) <b>loses on these same errors too</b>: the true error already reaches more than halfway ' + (isToric ? 'around' : 'across') + ', so from the alarms alone the short chain from the other side looks like the likelier story. No sensible strategy wins a round like this; it is exactly what §5.8 is about, and bigger grids make such rounds rarer. <b>Streak kept</b> (counted as an unwinnable round). Press “Auto-decode (demo)” to watch the decoder lose, or “New round” to play on.';
+        } else if (fail) {
+          const [hz, he] = pairHint();
+          zh = '<span class="no">这回合失败了。</span>蓝色 = 真实错误，绿色 = 你的修复，粉色光晕 = 二者合起来剩下的部分（错误 ⊕ 修复）。其中有' + wz + '——恰好是逻辑算符，信息被改写。连胜清零。' + hz +
+            '<br>经验法则：配对时优先选离得近的警报，走最短的路。如果你的修复链和真实错误连起来' + (isToric ? '横穿了整整一排（或一列），就是绕了一圈' : '从一条边界连到了另一条，就是横跨了') + '。' +
+            '<br>想对照？点「自动译码（示范）」，看最小权译码器在<b>同一份错误</b>上怎么配；点「新回合」再来。';
+          en = '<span class="no">Round lost.</span> Blue = true errors, green = your repair, pink halo = what the two leave behind together (error ⊕ repair). In it is ' + we + ' — exactly a logical operator; the data got rewritten. Streak reset.' + he +
+            '<br>Rule of thumb: pair alarms that are close together, along the shortest path. If your repair chains plus the true errors ' + (isToric ? 'run across a whole row (or column), you have gone all the way around' : 'join one boundary to the other, you have spanned the patch') + '.' +
+            '<br>Want to compare? Press “Auto-decode (demo)” to see how the minimum-weight decoder pairs <b>these same errors</b>, or “New round” to retry.';
+        } else {
+          const lucky = decFail
+            ? ['　顺带一提：最小权译码器在这份错误上反而会输，你这回的配法赌赢了。', ' Fun fact: the minimum-weight decoder would have lost on these errors; your pairing beat it this time.']
+            : ['', ''];
+          zh = '<span class="ok">成功！</span>蓝 + 绿合成的圈都是可收缩的平凡圈 —— 你的修复不必和错误一模一样，只要「合起来平凡」就赢。连胜 <b>' + streak + '</b>！' + lucky[0];
+          en = '<span class="ok">Success!</span> Blue + green together form only trivial contractible loops — the repair need not equal the error, it only needs to be trivial in combination. Streak <b>' + streak + '</b>!' + lucky[1];
+        }
+        F.setReadout('<span class="zh">' + zh + '</span><span class="en">' + en + '</span>');
       }
       function newRound() {
         err = new Set(); corr = new Set(); sel = null; over = false;
+        userPairs = []; assisted = false;
         for (let q = 0; q < lat.n; q++) if (Math.random() < p) err.add(q);
         view.opts.showErrors = false;
         syncState();
         if (!view.syndrome().starDefects.length && err.size === 0) { err.add(Math.floor(Math.random() * lat.n)); syncState(); }
-        if (!view.syndrome().starDefects.length && err.size) { finish(); return; }
+        alarms = view.syndrome().starDefects.slice();
+        tags = new Map(alarms.map((k, i) => [k, i < 26 ? String.fromCharCode(65 + i) : String(i + 1)]));
+        if (!alarms.length && err.size) { finish(); return; }
         paint();
       }
       const slider = doc.createElement('input');
@@ -4314,6 +4550,7 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
         { swatch: SW.defect, zh: '警报（点它配对）', en: 'alarm (click to pair)' },
         { swatch: SW.corr, zh: '你的修复链', en: 'your repair chain' },
         { swatch: SW.zchain, zh: '真实错误（回合结束才揭晓）', en: 'true errors (revealed at round end)' },
+        { swatch: '<span class="sw" style="background:var(--cd);opacity:.5"></span>', zh: '错误 ⊕ 修复剩下的圈（输了或看示范时显示）', en: 'loops left by error ⊕ repair (shown on a loss or in the replay)' },
       ]);
       newRound();
     };
