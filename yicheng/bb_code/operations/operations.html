@@ -5136,7 +5136,7 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
     const t = doc.createElement('input'); t.type = 'text'; t.value = value; t.style.cssText = 'font-family:var(--f-mono);font-size:12.5px;padding:4px 6px;border:1px solid var(--line2);border-radius:6px;background:var(--bg2);color:var(--ink);width:' + (width || 150) + 'px';
     t.addEventListener('change', () => onChange(t.value)); return t;
   }
-  const parseTerms = (str) => str.split(/[;\s]+/).filter(Boolean).map((t) => t.split(',').map(Number)).filter((p) => p.length === 2 && p.every((v) => Number.isInteger(v)));
+  const parseTerms = (str) => { const v = (str.match(/-?\d+/g) || []).map(Number); if (v.length % 2) return []; const t = []; for (let k = 0; k < v.length; k += 2) t.push([v[k], v[k + 1]]); return t; };
   const termsToPoly = (terms, vx, vy) => terms.map(([a, b]) => { const p = (a ? vx + (a > 1 ? '<sup>' + a + '</sup>' : '') : '') + (b ? vy + (b > 1 ? '<sup>' + b + '</sup>' : '') : ''); return p || '1'; }).join(' + ');
   const termsToText = (terms) => terms.map((t) => t.join(',')).join(' ');
   function paramsLine(P, extra) { return 'n = <b>' + P.n + '</b>, rank H<sub>X</sub> = ' + P.rankX + ', rank H<sub>Z</sub> = ' + P.rankZ + ', k = n − ' + P.rankX + ' − ' + P.rankZ + ' = <b>' + P.k + '</b>' + (extra || ''); }

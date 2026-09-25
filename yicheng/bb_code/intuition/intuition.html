@@ -5818,9 +5818,9 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
   }
   function textInput(value, width, onChange) {
     const t = doc.createElement('input'); t.type = 'text'; t.value = value; t.style.cssText = 'font-family:var(--f-mono);font-size:12.5px;padding:4px 6px;border:1px solid var(--line2);border-radius:6px;background:var(--bg2);color:var(--ink);width:' + (width || 150) + 'px';
-    t.addEventListener('change', () => onChange(t.value)); return t;
+    t.addEventListener('input', () => onChange(t.value)); return t;
   }
-  const parseTerms = (str) => str.split(/[;\s]+/).filter(Boolean).map((t) => t.split(',').map(Number)).filter((p) => p.length === 2 && p.every((v) => Number.isInteger(v)));
+  const parseTerms = (str) => { const v = (str.match(/-?\d+/g) || []).map(Number); if (v.length % 2) return []; const t = []; for (let k = 0; k < v.length; k += 2) t.push([v[k], v[k + 1]]); return t; };
   const termsToPoly = (terms, vx, vy) => terms.map(([a, b]) => { const p = (a ? vx + (a > 1 ? '<sup>' + a + '</sup>' : '') : '') + (b ? vy + (b > 1 ? '<sup>' + b + '</sup>' : '') : ''); return p || '1'; }).join(' + ');
   const termsToText = (terms) => terms.map((t) => t.join(',')).join(' ');
   function paramsLine(P, extra) { return 'n = <b>' + P.n + '</b>, rank H<sub>X</sub> = ' + P.rankX + ', rank H<sub>Z</sub> = ' + P.rankZ + ', k = n − ' + P.rankX + ' − ' + P.rankZ + ' = <b>' + P.k + '</b>' + (extra || ''); }
@@ -5901,16 +5901,18 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
       ctx.fillText(U().T({ zh: (transposed ? 'Aᵀ' : 'A') + ' 的 ' + N + '×' + N + ' 矩阵（每行 ' + terms.length + ' 个 1）', en: (transposed ? 'Aᵀ' : 'A') + ' as a ' + N + '×' + N + ' matrix (' + terms.length + ' ones per row)' }), mx + side / 2, my + side + 6);
     }
     box.canvas.addEventListener('click', (ev) => { const q = U().evtPos(box.canvas, ev), g = metrics(); let best = null, bd = 14; for (let i = 0; i < l; i++) for (let j = 0; j < m; j++) { const p = pos(i, j, g); const d = Math.hypot(p.x - q.x, p.y - q.y); if (d < bd) { bd = d; best = [i, j]; } } if (best) { src = best; box.redraw(); readout(); } });
-    const inp = textInput(termsToText(terms), 170, (v) => { const t = parseTerms(v); if (t.length) { terms = t; box.redraw(); readout(); } });
+    const echo = doc.createElement('span'); echo.style.cssText = 'font-family:var(--f-mono);font-size:12.5px;color:var(--ink2);margin-right:6px';
+    const showEcho = (t) => { echo.style.color = t.length ? 'var(--ink2)' : 'var(--bad)'; echo.innerHTML = t.length ? '= ' + termsToPoly(t, 'x', 'y') : bi('数字要两个一组：a,b', 'numbers go in pairs: a,b'); };
+    const inp = textInput(termsToText(terms), 170, (v) => { const t = parseTerms(v); showEcho(t); if (t.length) { terms = t; box.redraw(); readout(); } });
     const sl = slider(3, 12, 1, l, (v) => { l = Math.round(v); box.redraw(); readout(); }, (v) => 'l = ' + v), sm = slider(3, 12, 1, m, (v) => { m = Math.round(v); box.redraw(); readout(); }, (v) => 'm = ' + v);
     const seg = U().seg([{ id: 'A', zh: 'A（正向平移）', en: 'A (translations)' }, { id: 'AT', zh: 'Aᵀ（反向平移）', en: 'Aᵀ (reversed)' }], 'A', (v) => { transposed = v === 'AT'; box.redraw(); readout(); });
-    F.controls.append(U().label('多项式的项 (a,b)：', 'terms (a,b):'), inp, sl.el, sl.pill, sm.el, sm.pill);
+    F.controls.append(U().label('多项式的项 (a,b)：', 'terms (a,b):'), inp, echo, sl.el, sl.pill, sm.el, sm.pill);
     const row2 = div('controls'); el.insertBefore(row2, F.readout); row2.append(seg.el);
     function readout() {
       F.setReadout(bi('A = ' + termsToPoly(terms, 'x', 'y') + '，环面 ' + l + ' × ' + m + '。红点是起点 (' + src[0] + ',' + src[1] + ')，每个单项式 x<sup>a</sup>y<sup>b</sup> 把它平移到 (i+a, j+b)（虚线表示绕回）。这 ' + terms.length + ' 个终点就是矩阵这一行里 1 的位置；转置把每次平移倒过来走。点击任意格点换起点。', 'A = ' + termsToPoly(terms, 'x', 'y') + ' on a ' + l + ' × ' + m + ' torus. The red dot is the source (' + src[0] + ',' + src[1] + '); each monomial x<sup>a</sup>y<sup>b</sup> translates it to (i+a, j+b) (dashed = wrapped around). Those ' + terms.length + ' targets are the ones in this row of the matrix; the transpose walks every translation backwards. Click any site to change the source.'));
     }
-    function reset() { l = 6; m = 6; terms = [[3, 0], [0, 1], [0, 2]]; src = [1, 1]; inp.value = termsToText(terms); box.redraw(); readout(); }
-    readout();
+    function reset() { l = 6; m = 6; terms = [[3, 0], [0, 1], [0, 2]]; src = [1, 1]; inp.value = termsToText(terms); showEcho(terms); box.redraw(); readout(); }
+    showEcho(terms); readout();
   }
   U().reg('polyshift', wPolyShift);
 
