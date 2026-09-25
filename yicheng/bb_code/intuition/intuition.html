@@ -1264,6 +1264,79 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
     <p class="en">Arrange l sites in a ring numbered 0 to l−1. The move “every site steps right, the last wraps to site 0” is bookkept by an l × l matrix S whose row i has its only 1 in column i+1 (<span class="term">mod l<span class="tip">“modulo l”: counting wraps back to 0 at l, so (l−1)+1 ≡ 0 (mod l).</span></span>). A matrix with exactly one 1 per row and column is a <span class="term">permutation matrix<span class="tip">A square matrix with exactly one 1 in each row and column; acting on a vector it merely reorders the components. Its transpose is its inverse.</span></span>. S² steps twice, S<sup>l</sup> = I is a full turn, and Sᵀ has its 1 in column i−1 of row i: one step left, i.e. S<sup>−1</sup>.</p>
   </div>
   <div class="formula center">S<sub>l</sub>[i][(i+1) mod l] = 1<br>S<sup>l</sup> = I<br>Sᵀ = S<sup>−1</sup><br><span class="zh">l = 3 时</span><span class="en">for l = 3</span>: S = <span class="mono">[0 1 0; 0 0 1; 1 0 0]</span></div>
+  <figure class="fig">
+    <div class="fig-frame">
+      <svg viewBox="0 0 760 232" role="img" aria-label="l 个格子排成一圈，循环移位是 l × l 的置换矩阵：l = 2 与 l = 3 / l sites in a ring; the cyclic shift is an l × l permutation matrix: l = 2 and l = 3" style="max-width:100%;height:auto;color:var(--ink);font-family:var(--f-body)">
+<defs>
+<marker id="f21-cx" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9 z" fill="var(--cx)"/></marker>
+<marker id="f21-cz" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9 z" fill="var(--cz)"/></marker>
+<marker id="f21-cd" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9 z" fill="var(--cd)"/></marker>
+<marker id="f21-ink2" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9 z" fill="var(--ink2)"/></marker>
+</defs>
+<text x="190" y="26" text-anchor="middle" font-size="12.5" fill="var(--ink2)"><tspan class="zh">(a) l = 2：两个格子</tspan><tspan class="en">(a) l = 2: two sites</tspan></text>
+<line x1="65" y1="104" x2="98" y2="104" stroke="var(--ink2)" stroke-width="1.8" marker-end="url(#f21-ink2)"/>
+<path d="M114,119 C124,166 40,166 50,121" fill="none" stroke="var(--cd)" stroke-width="1.8" stroke-dasharray="5 4" marker-end="url(#f21-cd)"/>
+<text x="82.0" y="170" text-anchor="middle" font-size="10.5" fill="var(--cd)"><tspan class="zh">绕回</tspan><tspan class="en">wraps</tspan></text>
+<circle cx="50" cy="104" r="13" fill="var(--bg2)" stroke="var(--ink3)" stroke-width="1.3"/>
+<text x="50" y="108.2" text-anchor="middle" font-size="12" fill="var(--ink)" font-weight="600" font-family="var(--f-mono)">0</text>
+<circle cx="114" cy="104" r="13" fill="var(--bg2)" stroke="var(--ink3)" stroke-width="1.3"/>
+<text x="114" y="108.2" text-anchor="middle" font-size="12" fill="var(--ink)" font-weight="600" font-family="var(--f-mono)">1</text>
+<text x="238.0" y="54.0" text-anchor="middle" font-size="12" fill="var(--ink)" font-weight="600"><tspan class="zh">S<tspan baseline-shift="sub" font-size="9">2</tspan>（2 × 2）</tspan><tspan class="en">S<tspan baseline-shift="sub" font-size="9">2</tspan> (2 × 2)</tspan></text>
+<text x="224.0" y="98.0" text-anchor="middle" font-size="12.6" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<rect x="238" y="80.0" width="28" height="28" fill="var(--cz)"/>
+<text x="252.0" y="98.0" text-anchor="middle" font-size="14.0" fill="var(--bg2)" font-weight="700" font-family="var(--f-mono)">1</text>
+<rect x="210" y="108.0" width="28" height="28" fill="var(--cd)"/>
+<text x="224.0" y="126.0" text-anchor="middle" font-size="14.0" fill="var(--bg2)" font-weight="700" font-family="var(--f-mono)">1</text>
+<text x="252.0" y="126.0" text-anchor="middle" font-size="12.6" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<g stroke="var(--line)" stroke-width="0.8"><line x1="210" y1="80.0" x2="266" y2="80.0"/><line x1="210" y1="80.0" x2="210" y2="136.0"/><line x1="210" y1="108.0" x2="266" y2="108.0"/><line x1="238" y1="80.0" x2="238" y2="136.0"/><line x1="210" y1="136.0" x2="266" y2="136.0"/><line x1="266" y1="80.0" x2="266" y2="136.0"/></g>
+<rect x="210" y="80.0" width="56" height="56" fill="none" stroke="var(--ink3)" stroke-width="1.4"/>
+<text x="224.0" y="74.0" text-anchor="middle" font-size="10" fill="var(--ink3)" font-family="var(--f-mono)">0</text>
+<text x="202" y="97.5" text-anchor="middle" font-size="10" fill="var(--ink3)" font-family="var(--f-mono)">0</text>
+<text x="252.0" y="74.0" text-anchor="middle" font-size="10" fill="var(--ink3)" font-family="var(--f-mono)">1</text>
+<text x="202" y="125.5" text-anchor="middle" font-size="10" fill="var(--ink3)" font-family="var(--f-mono)">1</text>
+<text x="190" y="196" text-anchor="middle" font-size="11.5" fill="var(--ink2)" font-weight="600"><tspan class="zh">2 个格子 → 2 × 2 的矩阵</tspan><tspan class="en">2 sites → a 2 × 2 matrix</tspan></text>
+<text x="570" y="26" text-anchor="middle" font-size="12.5" fill="var(--ink2)"><tspan class="zh">(b) l = 3：三个格子</tspan><tspan class="en">(b) l = 3: three sites</tspan></text>
+<line x1="445" y1="104" x2="478" y2="104" stroke="var(--ink2)" stroke-width="1.8" marker-end="url(#f21-ink2)"/>
+<line x1="509" y1="104" x2="542" y2="104" stroke="var(--ink2)" stroke-width="1.8" marker-end="url(#f21-ink2)"/>
+<path d="M558,119 C568,166 420,166 430,121" fill="none" stroke="var(--cd)" stroke-width="1.8" stroke-dasharray="5 4" marker-end="url(#f21-cd)"/>
+<text x="494.0" y="170" text-anchor="middle" font-size="10.5" fill="var(--cd)"><tspan class="zh">绕回</tspan><tspan class="en">wraps</tspan></text>
+<circle cx="430" cy="104" r="13" fill="var(--bg2)" stroke="var(--ink3)" stroke-width="1.3"/>
+<text x="430" y="108.2" text-anchor="middle" font-size="12" fill="var(--ink)" font-weight="600" font-family="var(--f-mono)">0</text>
+<circle cx="494" cy="104" r="13" fill="var(--bg2)" stroke="var(--ink3)" stroke-width="1.3"/>
+<text x="494" y="108.2" text-anchor="middle" font-size="12" fill="var(--ink)" font-weight="600" font-family="var(--f-mono)">1</text>
+<circle cx="558" cy="104" r="13" fill="var(--bg2)" stroke="var(--ink3)" stroke-width="1.3"/>
+<text x="558" y="108.2" text-anchor="middle" font-size="12" fill="var(--ink)" font-weight="600" font-family="var(--f-mono)">2</text>
+<text x="670.0" y="40.0" text-anchor="middle" font-size="12" fill="var(--ink)" font-weight="600"><tspan class="zh">S<tspan baseline-shift="sub" font-size="9">3</tspan>（3 × 3）</tspan><tspan class="en">S<tspan baseline-shift="sub" font-size="9">3</tspan> (3 × 3)</tspan></text>
+<text x="642.0" y="84.0" text-anchor="middle" font-size="12.6" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<rect x="656" y="66.0" width="28" height="28" fill="var(--cz)"/>
+<text x="670.0" y="84.0" text-anchor="middle" font-size="14.0" fill="var(--bg2)" font-weight="700" font-family="var(--f-mono)">1</text>
+<text x="698.0" y="84.0" text-anchor="middle" font-size="12.6" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="642.0" y="112.0" text-anchor="middle" font-size="12.6" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="670.0" y="112.0" text-anchor="middle" font-size="12.6" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<rect x="684" y="94.0" width="28" height="28" fill="var(--cz)"/>
+<text x="698.0" y="112.0" text-anchor="middle" font-size="14.0" fill="var(--bg2)" font-weight="700" font-family="var(--f-mono)">1</text>
+<rect x="628" y="122.0" width="28" height="28" fill="var(--cd)"/>
+<text x="642.0" y="140.0" text-anchor="middle" font-size="14.0" fill="var(--bg2)" font-weight="700" font-family="var(--f-mono)">1</text>
+<text x="670.0" y="140.0" text-anchor="middle" font-size="12.6" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="698.0" y="140.0" text-anchor="middle" font-size="12.6" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<g stroke="var(--line)" stroke-width="0.8"><line x1="628" y1="66.0" x2="712" y2="66.0"/><line x1="628" y1="66.0" x2="628" y2="150.0"/><line x1="628" y1="94.0" x2="712" y2="94.0"/><line x1="656" y1="66.0" x2="656" y2="150.0"/><line x1="628" y1="122.0" x2="712" y2="122.0"/><line x1="684" y1="66.0" x2="684" y2="150.0"/><line x1="628" y1="150.0" x2="712" y2="150.0"/><line x1="712" y1="66.0" x2="712" y2="150.0"/></g>
+<rect x="628" y="66.0" width="84" height="84" fill="none" stroke="var(--ink3)" stroke-width="1.4"/>
+<text x="642.0" y="60.0" text-anchor="middle" font-size="10" fill="var(--ink3)" font-family="var(--f-mono)">0</text>
+<text x="620" y="83.5" text-anchor="middle" font-size="10" fill="var(--ink3)" font-family="var(--f-mono)">0</text>
+<text x="670.0" y="60.0" text-anchor="middle" font-size="10" fill="var(--ink3)" font-family="var(--f-mono)">1</text>
+<text x="620" y="111.5" text-anchor="middle" font-size="10" fill="var(--ink3)" font-family="var(--f-mono)">1</text>
+<text x="698.0" y="60.0" text-anchor="middle" font-size="10" fill="var(--ink3)" font-family="var(--f-mono)">2</text>
+<text x="620" y="139.5" text-anchor="middle" font-size="10" fill="var(--ink3)" font-family="var(--f-mono)">2</text>
+<text x="570" y="196" text-anchor="middle" font-size="11.5" fill="var(--ink2)" font-weight="600"><tspan class="zh">3 个格子 → 3 × 3 的矩阵</tspan><tspan class="en">3 sites → a 3 × 3 matrix</tspan></text>
+<line x1="380" y1="44" x2="380" y2="204" stroke="var(--line)" stroke-width="1"/>
+<text x="380" y="224" text-anchor="middle" font-size="11" fill="var(--ink3)"><tspan class="zh">行号 = 出发的格子，列号 = 到达的格子；第 i 行的 1 在第 i+1 列</tspan><tspan class="en">row = the site you start from, column = the site you land on; row i has its 1 in column i+1</tspan></text>
+</svg>
+    </div>
+    <figcaption>
+      <span class="zh"><span class="fno">图 2.1</span>　循环移位的尺寸由格子数决定：l 个格子就是 l × l 的方阵，因为每一行对应一个出发的格子，每一列对应一个到达的格子。蓝色的 1 是「往右挪一格」，粉色的 1 是最后一格绕回第 0 格。这两个就是下一节 2 × 3 小例子的零件：S<sub>2</sub> 管第一个坐标，S<sub>3</sub> 管第二个。</span>
+      <span class="en"><span class="fno">Fig. 2.1</span>　The size of a cyclic shift is set by the number of sites: l sites give an l × l square matrix, because each row is a starting site and each column a landing site. Blue 1s are “step right”; the pink 1 is the last site wrapping to site 0. These two are the parts for the 2 × 3 example in the next section: S<sub>2</sub> for the first coordinate, S<sub>3</sub> for the second.</span>
+    </figcaption>
+  </figure>
 
   <h3 id="s2-2"><span class="sec-no">2.2</span><span class="zh">两个方向：x = S<sub>l</sub> ⊗ I<sub>m</sub>，y = I<sub>l</sub> ⊗ S<sub>m</sub></span><span class="en">Two directions: x = S<sub>l</sub> ⊗ I<sub>m</sub>, y = I<sub>l</sub> ⊗ S<sub>m</sub></span></h3>
   <div class="prose">
@@ -1271,6 +1344,274 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
     <p class="en">Now take an l × m torus with site (i, j) numbered im + j (rows first, then columns), lm sites in all. The translation “move only the first coordinate” is x <span class="sym" data-sym="dfn">≔</span> S<sub>l</sub> <span class="sym" data-sym="otimes">⊗</span> I<sub>m</sub>, “move only the second” is y ≔ I<sub>l</sub> <span class="sym" data-sym="otimes">⊗</span> S<sub>m</sub>. Here ⊗ is the <span class="term">Kronecker product<span class="tip">A ⊗ B replaces every entry a of A by the whole block a·B. (A ⊗ B)(C ⊗ D) = AC ⊗ BD, so two translations moving different coordinates must commute.</span></span>: every entry of S<sub>l</sub> blown up into a block I<sub>m</sub> (or 0). You need not memorise the formula, only its meaning: x turns (i, j) into (i+1, j), y into (i, j+1). Three facts follow at once: x<sup>l</sup> = I, y<sup>m</sup> = I, and above all <b>xy = yx</b> — right-then-up and up-then-right land on the same site.</p>
   </div>
   <div class="formula center">x<sup>a</sup>y<sup>b</sup>: (i, j) <span class="sym" data-sym="implies">⇒</span> (i+a, j+b)<br>x<sup>l</sup> = y<sup>m</sup> = I<br>xy = yx<br>(x<sup>a</sup>y<sup>b</sup>)ᵀ = x<sup>−a</sup>y<sup>−b</sup></div>
+  <figure class="fig">
+    <div class="fig-frame">
+      <svg viewBox="0 0 760 500" role="img" aria-label="2 × 3 环面上有 6 个格子，x 与 y 各是 6 × 6 的矩阵，相加仍是 6 × 6 / a 2 × 3 torus has 6 sites; x and y are each 6 × 6 matrices, and their sum is still 6 × 6" style="max-width:100%;height:auto;color:var(--ink);font-family:var(--f-body)">
+<defs>
+<marker id="f22-cx" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9 z" fill="var(--cx)"/></marker>
+<marker id="f22-cz" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9 z" fill="var(--cz)"/></marker>
+<marker id="f22-cd" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9 z" fill="var(--cd)"/></marker>
+<marker id="f22-ink2" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9 z" fill="var(--ink2)"/></marker>
+</defs>
+<text x="101.0" y="26" text-anchor="middle" font-size="12.5" fill="var(--ink2)"><tspan class="zh">(a) x：每个格子往右一格</tspan><tspan class="en">(a) x: every site steps right</tspan></text>
+<line x1="85" y1="176" x2="116" y2="176" stroke="var(--cx)" stroke-width="1.8" marker-end="url(#f22-cx)"/>
+<line x1="85" y1="130" x2="116" y2="130" stroke="var(--cx)" stroke-width="1.8" marker-end="url(#f22-cx)"/>
+<line x1="85" y1="84" x2="116" y2="84" stroke="var(--cx)" stroke-width="1.8" marker-end="url(#f22-cx)"/>
+<line x1="147" y1="176" x2="170" y2="176" stroke="var(--cx)" stroke-width="1.8" stroke-dasharray="5 4" marker-end="url(#f22-cx)"/>
+<line x1="32" y1="176" x2="54" y2="176" stroke="var(--cx)" stroke-width="1.8" stroke-dasharray="5 4" marker-end="url(#f22-cx)"/>
+<line x1="147" y1="130" x2="170" y2="130" stroke="var(--cx)" stroke-width="1.8" stroke-dasharray="5 4" marker-end="url(#f22-cx)"/>
+<line x1="32" y1="130" x2="54" y2="130" stroke="var(--cx)" stroke-width="1.8" stroke-dasharray="5 4" marker-end="url(#f22-cx)"/>
+<line x1="147" y1="84" x2="170" y2="84" stroke="var(--cx)" stroke-width="1.8" stroke-dasharray="5 4" marker-end="url(#f22-cx)"/>
+<line x1="32" y1="84" x2="54" y2="84" stroke="var(--cx)" stroke-width="1.8" stroke-dasharray="5 4" marker-end="url(#f22-cx)"/>
+<circle cx="70" cy="176" r="13" fill="var(--bg2)" stroke="var(--ink3)" stroke-width="1.3"/>
+<text x="70" y="180.2" text-anchor="middle" font-size="12" fill="var(--ink)" font-weight="600" font-family="var(--f-mono)">0</text>
+<text x="86" y="197" text-anchor="start" font-size="9.5" fill="var(--ink3)" font-family="var(--f-mono)">(0,0)</text>
+<circle cx="70" cy="130" r="13" fill="var(--bg2)" stroke="var(--ink3)" stroke-width="1.3"/>
+<text x="70" y="134.2" text-anchor="middle" font-size="12" fill="var(--ink)" font-weight="600" font-family="var(--f-mono)">1</text>
+<text x="86" y="151" text-anchor="start" font-size="9.5" fill="var(--ink3)" font-family="var(--f-mono)">(0,1)</text>
+<circle cx="70" cy="84" r="13" fill="var(--bg2)" stroke="var(--ink3)" stroke-width="1.3"/>
+<text x="70" y="88.2" text-anchor="middle" font-size="12" fill="var(--ink)" font-weight="600" font-family="var(--f-mono)">2</text>
+<text x="86" y="105" text-anchor="start" font-size="9.5" fill="var(--ink3)" font-family="var(--f-mono)">(0,2)</text>
+<circle cx="132" cy="176" r="13" fill="var(--bg2)" stroke="var(--ink3)" stroke-width="1.3"/>
+<text x="132" y="180.2" text-anchor="middle" font-size="12" fill="var(--ink)" font-weight="600" font-family="var(--f-mono)">3</text>
+<text x="148" y="197" text-anchor="start" font-size="9.5" fill="var(--ink3)" font-family="var(--f-mono)">(1,0)</text>
+<circle cx="132" cy="130" r="13" fill="var(--bg2)" stroke="var(--ink3)" stroke-width="1.3"/>
+<text x="132" y="134.2" text-anchor="middle" font-size="12" fill="var(--ink)" font-weight="600" font-family="var(--f-mono)">4</text>
+<text x="148" y="151" text-anchor="start" font-size="9.5" fill="var(--ink3)" font-family="var(--f-mono)">(1,1)</text>
+<circle cx="132" cy="84" r="13" fill="var(--bg2)" stroke="var(--ink3)" stroke-width="1.3"/>
+<text x="132" y="88.2" text-anchor="middle" font-size="12" fill="var(--ink)" font-weight="600" font-family="var(--f-mono)">5</text>
+<text x="148" y="105" text-anchor="start" font-size="9.5" fill="var(--ink3)" font-family="var(--f-mono)">(1,2)</text>
+<text x="321.0" y="26" text-anchor="middle" font-size="12.5" fill="var(--ink2)"><tspan class="zh">(b) y：每个格子往上一格</tspan><tspan class="en">(b) y: every site steps up</tspan></text>
+<line x1="290" y1="161" x2="290" y2="146" stroke="var(--cz)" stroke-width="1.8" marker-end="url(#f22-cz)"/>
+<line x1="290" y1="115" x2="290" y2="100" stroke="var(--cz)" stroke-width="1.8" marker-end="url(#f22-cz)"/>
+<line x1="290" y1="69" x2="290" y2="50" stroke="var(--cz)" stroke-width="1.8" stroke-dasharray="5 4" marker-end="url(#f22-cz)"/>
+<line x1="290" y1="210" x2="290" y2="192" stroke="var(--cz)" stroke-width="1.8" stroke-dasharray="5 4" marker-end="url(#f22-cz)"/>
+<line x1="352" y1="161" x2="352" y2="146" stroke="var(--cz)" stroke-width="1.8" marker-end="url(#f22-cz)"/>
+<line x1="352" y1="115" x2="352" y2="100" stroke="var(--cz)" stroke-width="1.8" marker-end="url(#f22-cz)"/>
+<line x1="352" y1="69" x2="352" y2="50" stroke="var(--cz)" stroke-width="1.8" stroke-dasharray="5 4" marker-end="url(#f22-cz)"/>
+<line x1="352" y1="210" x2="352" y2="192" stroke="var(--cz)" stroke-width="1.8" stroke-dasharray="5 4" marker-end="url(#f22-cz)"/>
+<circle cx="290" cy="176" r="13" fill="var(--bg2)" stroke="var(--ink3)" stroke-width="1.3"/>
+<text x="290" y="180.2" text-anchor="middle" font-size="12" fill="var(--ink)" font-weight="600" font-family="var(--f-mono)">0</text>
+<text x="306" y="197" text-anchor="start" font-size="9.5" fill="var(--ink3)" font-family="var(--f-mono)">(0,0)</text>
+<circle cx="290" cy="130" r="13" fill="var(--bg2)" stroke="var(--ink3)" stroke-width="1.3"/>
+<text x="290" y="134.2" text-anchor="middle" font-size="12" fill="var(--ink)" font-weight="600" font-family="var(--f-mono)">1</text>
+<text x="306" y="151" text-anchor="start" font-size="9.5" fill="var(--ink3)" font-family="var(--f-mono)">(0,1)</text>
+<circle cx="290" cy="84" r="13" fill="var(--bg2)" stroke="var(--ink3)" stroke-width="1.3"/>
+<text x="290" y="88.2" text-anchor="middle" font-size="12" fill="var(--ink)" font-weight="600" font-family="var(--f-mono)">2</text>
+<text x="306" y="105" text-anchor="start" font-size="9.5" fill="var(--ink3)" font-family="var(--f-mono)">(0,2)</text>
+<circle cx="352" cy="176" r="13" fill="var(--bg2)" stroke="var(--ink3)" stroke-width="1.3"/>
+<text x="352" y="180.2" text-anchor="middle" font-size="12" fill="var(--ink)" font-weight="600" font-family="var(--f-mono)">3</text>
+<text x="368" y="197" text-anchor="start" font-size="9.5" fill="var(--ink3)" font-family="var(--f-mono)">(1,0)</text>
+<circle cx="352" cy="130" r="13" fill="var(--bg2)" stroke="var(--ink3)" stroke-width="1.3"/>
+<text x="352" y="134.2" text-anchor="middle" font-size="12" fill="var(--ink)" font-weight="600" font-family="var(--f-mono)">4</text>
+<text x="368" y="151" text-anchor="start" font-size="9.5" fill="var(--ink3)" font-family="var(--f-mono)">(1,1)</text>
+<circle cx="352" cy="84" r="13" fill="var(--bg2)" stroke="var(--ink3)" stroke-width="1.3"/>
+<text x="352" y="88.2" text-anchor="middle" font-size="12" fill="var(--ink)" font-weight="600" font-family="var(--f-mono)">5</text>
+<text x="368" y="105" text-anchor="start" font-size="9.5" fill="var(--ink3)" font-family="var(--f-mono)">(1,2)</text>
+<rect x="505" y="44" width="236" height="150" rx="8" fill="var(--bg3)" stroke="var(--line)" stroke-width="1"/>
+<text x="521" y="72" text-anchor="start" font-size="11.5" fill="var(--ink2)"><tspan class="zh">格子：l × m = 2 × 3 = <tspan font-weight="700" fill="var(--ink)">6 个</tspan></tspan><tspan class="en">sites: l × m = 2 × 3 = <tspan font-weight="700" fill="var(--ink)">6</tspan></tspan></text>
+<text x="521" y="94" text-anchor="start" font-size="11.5" fill="var(--ink2)"><tspan class="zh">编号：(i, j) → 3i + j</tspan><tspan class="en">numbering: (i, j) → 3i + j</tspan></text>
+<text x="521" y="116" text-anchor="start" font-size="11.5" fill="var(--ink2)"><tspan class="zh">平移：6 个格子各搬一次家</tspan><tspan class="en">a translation moves all 6 sites</tspan></text>
+<text x="521" y="138" text-anchor="start" font-size="11.5" fill="var(--ink2)"><tspan class="zh">行 = 出发格子，6 行</tspan><tspan class="en">rows = starting sites: 6</tspan></text>
+<text x="521" y="160" text-anchor="start" font-size="11.5" fill="var(--ink2)"><tspan class="zh">列 = 到达格子，6 列</tspan><tspan class="en">columns = landing sites: 6</tspan></text>
+<text x="521" y="182" text-anchor="start" font-size="11.5" fill="var(--ink2)"><tspan class="zh">⇒ 单项式是 <tspan font-weight="700" fill="var(--ink)">6 × 6</tspan>，不是 2 × 3</tspan><tspan class="en">⇒ a monomial is <tspan font-weight="700" fill="var(--ink)">6 × 6</tspan>, not 2 × 3</tspan></text>
+<line x1="20" y1="232" x2="740" y2="232" stroke="var(--line)" stroke-width="1"/>
+<text x="125.0" y="262" text-anchor="middle" font-size="12.5" fill="var(--ink)" font-weight="600">(c) x = S<tspan baseline-shift="sub" font-size="9">2</tspan> ⊗ I<tspan baseline-shift="sub" font-size="9">3</tspan></text>
+<text x="77.5" y="303.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="96.5" y="303.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="115.5" y="303.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<rect x="125" y="290" width="19" height="19" fill="var(--cx)"/>
+<text x="134.5" y="303.5" text-anchor="middle" font-size="9.5" fill="var(--bg2)" font-weight="700" font-family="var(--f-mono)">1</text>
+<text x="153.5" y="303.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="172.5" y="303.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="77.5" y="322.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="96.5" y="322.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="115.5" y="322.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="134.5" y="322.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<rect x="144" y="309" width="19" height="19" fill="var(--cx)"/>
+<text x="153.5" y="322.5" text-anchor="middle" font-size="9.5" fill="var(--bg2)" font-weight="700" font-family="var(--f-mono)">1</text>
+<text x="172.5" y="322.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="77.5" y="341.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="96.5" y="341.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="115.5" y="341.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="134.5" y="341.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="153.5" y="341.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<rect x="163" y="328" width="19" height="19" fill="var(--cx)"/>
+<text x="172.5" y="341.5" text-anchor="middle" font-size="9.5" fill="var(--bg2)" font-weight="700" font-family="var(--f-mono)">1</text>
+<rect x="68" y="347" width="19" height="19" fill="var(--cx)"/>
+<text x="77.5" y="360.5" text-anchor="middle" font-size="9.5" fill="var(--bg2)" font-weight="700" font-family="var(--f-mono)">1</text>
+<text x="96.5" y="360.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="115.5" y="360.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="134.5" y="360.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="153.5" y="360.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="172.5" y="360.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="77.5" y="379.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<rect x="87" y="366" width="19" height="19" fill="var(--cx)"/>
+<text x="96.5" y="379.5" text-anchor="middle" font-size="9.5" fill="var(--bg2)" font-weight="700" font-family="var(--f-mono)">1</text>
+<text x="115.5" y="379.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="134.5" y="379.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="153.5" y="379.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="172.5" y="379.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="77.5" y="398.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="96.5" y="398.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<rect x="106" y="385" width="19" height="19" fill="var(--cx)"/>
+<text x="115.5" y="398.5" text-anchor="middle" font-size="9.5" fill="var(--bg2)" font-weight="700" font-family="var(--f-mono)">1</text>
+<text x="134.5" y="398.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="153.5" y="398.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="172.5" y="398.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<g stroke="var(--line)" stroke-width="0.8"><line x1="68" y1="290" x2="182" y2="290"/><line x1="68" y1="290" x2="68" y2="404"/><line x1="68" y1="309" x2="182" y2="309"/><line x1="87" y1="290" x2="87" y2="404"/><line x1="68" y1="328" x2="182" y2="328"/><line x1="106" y1="290" x2="106" y2="404"/><line x1="68" y1="347" x2="182" y2="347"/><line x1="125" y1="290" x2="125" y2="404"/><line x1="68" y1="366" x2="182" y2="366"/><line x1="144" y1="290" x2="144" y2="404"/><line x1="68" y1="385" x2="182" y2="385"/><line x1="163" y1="290" x2="163" y2="404"/><line x1="68" y1="404" x2="182" y2="404"/><line x1="182" y1="290" x2="182" y2="404"/></g>
+<g stroke="var(--ink3)" stroke-width="1.4"><line x1="68" y1="347" x2="182" y2="347"/><line x1="125" y1="290" x2="125" y2="404"/></g>
+<rect x="68" y="290" width="114" height="114" fill="none" stroke="var(--ink3)" stroke-width="1.4"/>
+<text x="77.5" y="284" text-anchor="middle" font-size="10" fill="var(--ink3)" font-family="var(--f-mono)">0</text>
+<text x="60" y="303.0" text-anchor="middle" font-size="10" fill="var(--ink3)" font-family="var(--f-mono)">0</text>
+<text x="96.5" y="284" text-anchor="middle" font-size="10" fill="var(--ink3)" font-family="var(--f-mono)">1</text>
+<text x="60" y="322.0" text-anchor="middle" font-size="10" fill="var(--ink3)" font-family="var(--f-mono)">1</text>
+<text x="115.5" y="284" text-anchor="middle" font-size="10" fill="var(--ink3)" font-family="var(--f-mono)">2</text>
+<text x="60" y="341.0" text-anchor="middle" font-size="10" fill="var(--ink3)" font-family="var(--f-mono)">2</text>
+<text x="134.5" y="284" text-anchor="middle" font-size="10" fill="var(--ink3)" font-family="var(--f-mono)">3</text>
+<text x="60" y="360.0" text-anchor="middle" font-size="10" fill="var(--ink3)" font-family="var(--f-mono)">3</text>
+<text x="153.5" y="284" text-anchor="middle" font-size="10" fill="var(--ink3)" font-family="var(--f-mono)">4</text>
+<text x="60" y="379.0" text-anchor="middle" font-size="10" fill="var(--ink3)" font-family="var(--f-mono)">4</text>
+<text x="172.5" y="284" text-anchor="middle" font-size="10" fill="var(--ink3)" font-family="var(--f-mono)">5</text>
+<text x="60" y="398.0" text-anchor="middle" font-size="10" fill="var(--ink3)" font-family="var(--f-mono)">5</text>
+<text x="125.0" y="428" text-anchor="middle" font-size="11.5" fill="var(--ink2)" font-weight="600" font-family="var(--f-mono)">6 × 6</text>
+<text x="125.0" y="448" text-anchor="middle" font-size="11.5" fill="var(--ink2)" font-weight="600"><tspan class="zh">每行 1 个 1</tspan><tspan class="en">one 1 per row</tspan></text>
+<text x="380.0" y="262" text-anchor="middle" font-size="12.5" fill="var(--ink)" font-weight="600">(d) y = I<tspan baseline-shift="sub" font-size="9">2</tspan> ⊗ S<tspan baseline-shift="sub" font-size="9">3</tspan></text>
+<text x="332.5" y="303.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<rect x="342" y="290" width="19" height="19" fill="var(--cz)"/>
+<text x="351.5" y="303.5" text-anchor="middle" font-size="9.5" fill="var(--bg2)" font-weight="700" font-family="var(--f-mono)">1</text>
+<text x="370.5" y="303.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="389.5" y="303.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="408.5" y="303.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="427.5" y="303.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="332.5" y="322.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="351.5" y="322.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<rect x="361" y="309" width="19" height="19" fill="var(--cz)"/>
+<text x="370.5" y="322.5" text-anchor="middle" font-size="9.5" fill="var(--bg2)" font-weight="700" font-family="var(--f-mono)">1</text>
+<text x="389.5" y="322.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="408.5" y="322.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="427.5" y="322.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<rect x="323" y="328" width="19" height="19" fill="var(--cz)"/>
+<text x="332.5" y="341.5" text-anchor="middle" font-size="9.5" fill="var(--bg2)" font-weight="700" font-family="var(--f-mono)">1</text>
+<text x="351.5" y="341.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="370.5" y="341.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="389.5" y="341.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="408.5" y="341.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="427.5" y="341.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="332.5" y="360.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="351.5" y="360.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="370.5" y="360.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="389.5" y="360.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<rect x="399" y="347" width="19" height="19" fill="var(--cz)"/>
+<text x="408.5" y="360.5" text-anchor="middle" font-size="9.5" fill="var(--bg2)" font-weight="700" font-family="var(--f-mono)">1</text>
+<text x="427.5" y="360.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="332.5" y="379.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="351.5" y="379.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="370.5" y="379.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="389.5" y="379.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="408.5" y="379.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<rect x="418" y="366" width="19" height="19" fill="var(--cz)"/>
+<text x="427.5" y="379.5" text-anchor="middle" font-size="9.5" fill="var(--bg2)" font-weight="700" font-family="var(--f-mono)">1</text>
+<text x="332.5" y="398.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="351.5" y="398.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="370.5" y="398.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<rect x="380" y="385" width="19" height="19" fill="var(--cz)"/>
+<text x="389.5" y="398.5" text-anchor="middle" font-size="9.5" fill="var(--bg2)" font-weight="700" font-family="var(--f-mono)">1</text>
+<text x="408.5" y="398.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="427.5" y="398.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<g stroke="var(--line)" stroke-width="0.8"><line x1="323" y1="290" x2="437" y2="290"/><line x1="323" y1="290" x2="323" y2="404"/><line x1="323" y1="309" x2="437" y2="309"/><line x1="342" y1="290" x2="342" y2="404"/><line x1="323" y1="328" x2="437" y2="328"/><line x1="361" y1="290" x2="361" y2="404"/><line x1="323" y1="347" x2="437" y2="347"/><line x1="380" y1="290" x2="380" y2="404"/><line x1="323" y1="366" x2="437" y2="366"/><line x1="399" y1="290" x2="399" y2="404"/><line x1="323" y1="385" x2="437" y2="385"/><line x1="418" y1="290" x2="418" y2="404"/><line x1="323" y1="404" x2="437" y2="404"/><line x1="437" y1="290" x2="437" y2="404"/></g>
+<g stroke="var(--ink3)" stroke-width="1.4"><line x1="323" y1="347" x2="437" y2="347"/><line x1="380" y1="290" x2="380" y2="404"/></g>
+<rect x="323" y="290" width="114" height="114" fill="none" stroke="var(--ink3)" stroke-width="1.4"/>
+<text x="332.5" y="284" text-anchor="middle" font-size="10" fill="var(--ink3)" font-family="var(--f-mono)">0</text>
+<text x="315" y="303.0" text-anchor="middle" font-size="10" fill="var(--ink3)" font-family="var(--f-mono)">0</text>
+<text x="351.5" y="284" text-anchor="middle" font-size="10" fill="var(--ink3)" font-family="var(--f-mono)">1</text>
+<text x="315" y="322.0" text-anchor="middle" font-size="10" fill="var(--ink3)" font-family="var(--f-mono)">1</text>
+<text x="370.5" y="284" text-anchor="middle" font-size="10" fill="var(--ink3)" font-family="var(--f-mono)">2</text>
+<text x="315" y="341.0" text-anchor="middle" font-size="10" fill="var(--ink3)" font-family="var(--f-mono)">2</text>
+<text x="389.5" y="284" text-anchor="middle" font-size="10" fill="var(--ink3)" font-family="var(--f-mono)">3</text>
+<text x="315" y="360.0" text-anchor="middle" font-size="10" fill="var(--ink3)" font-family="var(--f-mono)">3</text>
+<text x="408.5" y="284" text-anchor="middle" font-size="10" fill="var(--ink3)" font-family="var(--f-mono)">4</text>
+<text x="315" y="379.0" text-anchor="middle" font-size="10" fill="var(--ink3)" font-family="var(--f-mono)">4</text>
+<text x="427.5" y="284" text-anchor="middle" font-size="10" fill="var(--ink3)" font-family="var(--f-mono)">5</text>
+<text x="315" y="398.0" text-anchor="middle" font-size="10" fill="var(--ink3)" font-family="var(--f-mono)">5</text>
+<text x="380.0" y="428" text-anchor="middle" font-size="11.5" fill="var(--ink2)" font-weight="600" font-family="var(--f-mono)">6 × 6</text>
+<text x="380.0" y="448" text-anchor="middle" font-size="11.5" fill="var(--ink2)" font-weight="600"><tspan class="zh">每行 1 个 1</tspan><tspan class="en">one 1 per row</tspan></text>
+<text x="635.0" y="262" text-anchor="middle" font-size="12.5" fill="var(--ink)" font-weight="600">(e) x + y</text>
+<text x="587.5" y="303.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<rect x="597" y="290" width="19" height="19" fill="var(--cz)"/>
+<text x="606.5" y="303.5" text-anchor="middle" font-size="9.5" fill="var(--bg2)" font-weight="700" font-family="var(--f-mono)">1</text>
+<text x="625.5" y="303.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<rect x="635" y="290" width="19" height="19" fill="var(--cx)"/>
+<text x="644.5" y="303.5" text-anchor="middle" font-size="9.5" fill="var(--bg2)" font-weight="700" font-family="var(--f-mono)">1</text>
+<text x="663.5" y="303.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="682.5" y="303.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="587.5" y="322.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="606.5" y="322.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<rect x="616" y="309" width="19" height="19" fill="var(--cz)"/>
+<text x="625.5" y="322.5" text-anchor="middle" font-size="9.5" fill="var(--bg2)" font-weight="700" font-family="var(--f-mono)">1</text>
+<text x="644.5" y="322.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<rect x="654" y="309" width="19" height="19" fill="var(--cx)"/>
+<text x="663.5" y="322.5" text-anchor="middle" font-size="9.5" fill="var(--bg2)" font-weight="700" font-family="var(--f-mono)">1</text>
+<text x="682.5" y="322.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<rect x="578" y="328" width="19" height="19" fill="var(--cz)"/>
+<text x="587.5" y="341.5" text-anchor="middle" font-size="9.5" fill="var(--bg2)" font-weight="700" font-family="var(--f-mono)">1</text>
+<text x="606.5" y="341.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="625.5" y="341.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="644.5" y="341.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="663.5" y="341.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<rect x="673" y="328" width="19" height="19" fill="var(--cx)"/>
+<text x="682.5" y="341.5" text-anchor="middle" font-size="9.5" fill="var(--bg2)" font-weight="700" font-family="var(--f-mono)">1</text>
+<rect x="578" y="347" width="19" height="19" fill="var(--cx)"/>
+<text x="587.5" y="360.5" text-anchor="middle" font-size="9.5" fill="var(--bg2)" font-weight="700" font-family="var(--f-mono)">1</text>
+<text x="606.5" y="360.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="625.5" y="360.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="644.5" y="360.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<rect x="654" y="347" width="19" height="19" fill="var(--cz)"/>
+<text x="663.5" y="360.5" text-anchor="middle" font-size="9.5" fill="var(--bg2)" font-weight="700" font-family="var(--f-mono)">1</text>
+<text x="682.5" y="360.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="587.5" y="379.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<rect x="597" y="366" width="19" height="19" fill="var(--cx)"/>
+<text x="606.5" y="379.5" text-anchor="middle" font-size="9.5" fill="var(--bg2)" font-weight="700" font-family="var(--f-mono)">1</text>
+<text x="625.5" y="379.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="644.5" y="379.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="663.5" y="379.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<rect x="673" y="366" width="19" height="19" fill="var(--cz)"/>
+<text x="682.5" y="379.5" text-anchor="middle" font-size="9.5" fill="var(--bg2)" font-weight="700" font-family="var(--f-mono)">1</text>
+<text x="587.5" y="398.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="606.5" y="398.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<rect x="616" y="385" width="19" height="19" fill="var(--cx)"/>
+<text x="625.5" y="398.5" text-anchor="middle" font-size="9.5" fill="var(--bg2)" font-weight="700" font-family="var(--f-mono)">1</text>
+<rect x="635" y="385" width="19" height="19" fill="var(--cz)"/>
+<text x="644.5" y="398.5" text-anchor="middle" font-size="9.5" fill="var(--bg2)" font-weight="700" font-family="var(--f-mono)">1</text>
+<text x="663.5" y="398.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="682.5" y="398.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<g stroke="var(--line)" stroke-width="0.8"><line x1="578" y1="290" x2="692" y2="290"/><line x1="578" y1="290" x2="578" y2="404"/><line x1="578" y1="309" x2="692" y2="309"/><line x1="597" y1="290" x2="597" y2="404"/><line x1="578" y1="328" x2="692" y2="328"/><line x1="616" y1="290" x2="616" y2="404"/><line x1="578" y1="347" x2="692" y2="347"/><line x1="635" y1="290" x2="635" y2="404"/><line x1="578" y1="366" x2="692" y2="366"/><line x1="654" y1="290" x2="654" y2="404"/><line x1="578" y1="385" x2="692" y2="385"/><line x1="673" y1="290" x2="673" y2="404"/><line x1="578" y1="404" x2="692" y2="404"/><line x1="692" y1="290" x2="692" y2="404"/></g>
+<g stroke="var(--ink3)" stroke-width="1.4"><line x1="578" y1="347" x2="692" y2="347"/><line x1="635" y1="290" x2="635" y2="404"/></g>
+<rect x="578" y="290" width="114" height="114" fill="none" stroke="var(--ink3)" stroke-width="1.4"/>
+<text x="587.5" y="284" text-anchor="middle" font-size="10" fill="var(--ink3)" font-family="var(--f-mono)">0</text>
+<text x="570" y="303.0" text-anchor="middle" font-size="10" fill="var(--ink3)" font-family="var(--f-mono)">0</text>
+<text x="606.5" y="284" text-anchor="middle" font-size="10" fill="var(--ink3)" font-family="var(--f-mono)">1</text>
+<text x="570" y="322.0" text-anchor="middle" font-size="10" fill="var(--ink3)" font-family="var(--f-mono)">1</text>
+<text x="625.5" y="284" text-anchor="middle" font-size="10" fill="var(--ink3)" font-family="var(--f-mono)">2</text>
+<text x="570" y="341.0" text-anchor="middle" font-size="10" fill="var(--ink3)" font-family="var(--f-mono)">2</text>
+<text x="644.5" y="284" text-anchor="middle" font-size="10" fill="var(--ink3)" font-family="var(--f-mono)">3</text>
+<text x="570" y="360.0" text-anchor="middle" font-size="10" fill="var(--ink3)" font-family="var(--f-mono)">3</text>
+<text x="663.5" y="284" text-anchor="middle" font-size="10" fill="var(--ink3)" font-family="var(--f-mono)">4</text>
+<text x="570" y="379.0" text-anchor="middle" font-size="10" fill="var(--ink3)" font-family="var(--f-mono)">4</text>
+<text x="682.5" y="284" text-anchor="middle" font-size="10" fill="var(--ink3)" font-family="var(--f-mono)">5</text>
+<text x="570" y="398.0" text-anchor="middle" font-size="10" fill="var(--ink3)" font-family="var(--f-mono)">5</text>
+<text x="635.0" y="428" text-anchor="middle" font-size="11.5" fill="var(--ink2)" font-weight="600" font-family="var(--f-mono)">6 × 6</text>
+<text x="635.0" y="448" text-anchor="middle" font-size="11.5" fill="var(--ink2)" font-weight="600"><tspan class="zh">每行 2 个 1 · 仍是 6 × 6</tspan><tspan class="en">two 1s per row · still 6 × 6</tspan></text>
+<text x="250" y="355.0" text-anchor="middle" font-size="24" fill="var(--ink2)">+</text>
+<text x="505" y="355.0" text-anchor="middle" font-size="24" fill="var(--ink2)">=</text>
+<text x="380" y="488" text-anchor="middle" font-size="11" fill="var(--ink3)"><tspan class="zh">粗线把矩阵切成 3 × 3 的块：x 的块是 I<tspan baseline-shift="sub" font-size="8">3</tspan>（放在 S<tspan baseline-shift="sub" font-size="8">2</tspan> 的 1 处），y 的块是 S<tspan baseline-shift="sub" font-size="8">3</tspan>（放在 I<tspan baseline-shift="sub" font-size="8">2</tspan> 的 1 处）</tspan><tspan class="en">Thick lines cut each matrix into 3 × 3 blocks: x has blocks I<tspan baseline-shift="sub" font-size="8">3</tspan> where S<tspan baseline-shift="sub" font-size="8">2</tspan> has 1s; y has blocks S<tspan baseline-shift="sub" font-size="8">3</tspan> where I<tspan baseline-shift="sub" font-size="8">2</tspan> has 1s</tspan></text>
+</svg>
+    </div>
+    <figcaption>
+      <span class="zh"><span class="fno">图 2.2</span>　l = 2、m = 3 的小例子。容易混的一点：<b>l × m 是格子的排法，不是矩阵的尺寸</b>。2 × 3 的环面上有 6 个格子，一次平移要说清这 6 个格子各自搬到哪里，所以 x、y 以及任何单项式 x<sup>a</sup>y<sup>b</sup> 都是 6 × 6 的置换矩阵（一般地是 lm × lm）。(a)(b) 虚线箭头是绕回：从右边出去从左边进来，从上边出去从下边进来。(c)(d) 格子 r 那一行的 1 落在它被搬到的格子那一列，例如 x 把 1 = (0,1) 搬到 4 = (1,1)，y 把它搬到 2 = (0,2)。(e) 尺寸相同的矩阵才能相加；x + y 仍是 6 × 6，只是每行多了一个 1——这就是下一节「多项式 = 稀疏矩阵」。</span>
+      <span class="en"><span class="fno">Fig. 2.2</span>　The small example l = 2, m = 3. The point that is easy to mix up: <b>l × m is how the sites are laid out, not the size of the matrix</b>. A 2 × 3 torus has 6 sites, and a translation must say where each of those 6 sites goes, so x, y and every monomial x<sup>a</sup>y<sup>b</sup> are 6 × 6 permutation matrices (lm × lm in general). (a)(b) Dashed arrows wrap around: out on the right and in on the left, out at the top and in at the bottom. (c)(d) Row r has its 1 in the column of the site r is moved to; e.g. x moves 1 = (0,1) to 4 = (1,1), y moves it to 2 = (0,2). (e) Only matrices of the same size can be added; x + y is still 6 × 6, just with one more 1 per row — which is the next section's “a polynomial is a sparse matrix”.</span>
+    </figcaption>
+  </figure>
 
   <h3 id="s2-3"><span class="sec-no">2.3</span><span class="zh">多项式 = 几个平移叠加 = 稀疏矩阵</span><span class="en">A polynomial = a few translations added = a sparse matrix</span></h3>
   <div class="prose">
