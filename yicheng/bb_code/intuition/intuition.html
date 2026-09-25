@@ -1253,8 +1253,8 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
     <div class="ch-no"><span class="zh">第 2 章</span><span class="en">Chapter 2</span></div>
     <h2><span class="zh">单项式是平移，多项式是稀疏矩阵</span><span class="en">A monomial is a translation, a polynomial a sparse matrix</span></h2>
     <p class="ch-lede">
-      <span class="zh">BB 码的全部输入是四个东西：两个整数 l、m 和两个多项式 A、B。这一章只做一件事：把「多项式」翻译成「矩阵」。翻译词典只有两条——x 是往右挪一格，y 是往上挪一格。</span>
-      <span class="en">A BB code's entire input is four things: two integers l, m and two polynomials A, B. This chapter does one thing: translate “polynomial” into “matrix”. The dictionary has two entries — x means step right, y means step up.</span>
+      <span class="zh">第 1 章说 BB 码的检查要「伸到几格之外」。怎么描述这样的检查？借环面码的做法：每个格子上的检查长得一模一样，只是平移到了不同位置，所以只需说清一个形状——它的腿落在哪几个偏移 (a, b) 上。每个偏移是一次平移，记作 x<sup>a</sup>y<sup>b</sup>；几个偏移加起来就是多项式。gross 码的 A = x³ + y + y² 记下的就是三条腿「右 3、上 1、上 2」，另外三条由 B 给出。于是 BB 码的全部输入是四个东西：环面的尺寸 l、m 和两个多项式 A、B。这一章建一本翻译词典，把多项式翻成矩阵；词典只有两条——x 是往右挪一格，y 是往上挪一格。平移还白送一个性质：先右后上与先上后右到达同一处，第 3 章的对易定理就靠它。</span>
+      <span class="en">Chapter 1 said a BB code's checks “reach a few sites away”. How do we describe such a check? Borrow the toric code's habit: the check on every site has the same shape, merely translated to a different place, so it is enough to state one shape — the offsets (a, b) where its legs land. Each offset is a translation, written x<sup>a</sup>y<sup>b</sup>; add a few offsets and you have a polynomial. The gross code's A = x³ + y + y² records three legs, “right 3, up 1, up 2”; B supplies the other three. So a BB code's entire input is four things: the torus size l, m and two polynomials A, B. This chapter builds the dictionary that turns polynomials into matrices, and it has two entries — x means step right, y means step up. Translations also come with a free gift: right-then-up and up-then-right land on the same site, which is all Chapter 3's commutation theorem needs.</span>
     </p>
   </div>
 
