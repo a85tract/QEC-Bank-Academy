@@ -190,6 +190,16 @@ sub, sup { line-height: 0; }
 }
 .topbar .brand svg { display: block; }
 .topbar .spacer { flex: 1; }
+.topbar .back {
+  font-size: 13px;
+  color: var(--ink2);
+  text-decoration: none;
+  white-space: nowrap;
+  padding: 4px 8px;
+  border-radius: 999px;
+}
+.topbar .back:hover { color: var(--ink); background: var(--bg2); }
+@media (max-width: 640px) { .topbar .back { display: none; } }
 .progress-track {
   position: absolute;
   left: 0; right: 0; bottom: -1px;
@@ -885,6 +895,7 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
     <span class="zh">Surface Code · 高中数学版</span><span class="en">The Surface Code · High-School Edition</span>
   </a>
   <span class="spacer"></span>
+  <a class="back" href="../index.html"><span class="zh">← 条目总览</span><span class="en">← Entry overview</span></a>
   <div class="lang-switch" role="group" aria-label="Language">
     <button type="button" data-lang="zh" aria-pressed="true">中文</button>
     <button type="button" data-lang="en" aria-pressed="false">EN</button>
@@ -1294,6 +1305,7 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
 <footer class="footer">
   <p><span class="zh">《Surface Code · 高中数学版》 · 互动教程 —— 同系列：<a href="../../toric_code/intuition/intuition-hs.html">《从高考数学到 Toric Code》</a>，以及零基础版<a href="../../toric_code/intuition/intuition.html">《从 1+1 到 Toric Code》</a>与<a href="../../surface_code/intuition/intuition.html">《从 Toric Code 到 Surface Code》</a></span><span class="en">“The Surface Code · High-School Edition” — series: <a href="../../toric_code/intuition/intuition-hs.html">“From High-School Math to the Toric Code”</a>, and the no-prerequisites editions <a href="../../toric_code/intuition/intuition.html">“From 1+1 to the Toric Code”</a> and <a href="../../surface_code/intuition/intuition.html">“From Toric Code to Surface Code”</a></span></p>
   <p class="small"><span class="zh">页面内所有模拟（含阈值蒙特卡洛）均在你的浏览器本地运行。</span><span class="en">All simulations on this page, the threshold Monte-Carlo included, run locally in your browser.</span></p>
+  <p class="small"><span class="zh">返回：<a href="../index.html">Surface Code · 条目总览</a> · <a href="../../index.html">全部码与教程</a></span><span class="en">Back to: <a href="../index.html">Surface Code · Entry overview</a> · <a href="../../index.html">all codes and tutorials</a></span></p>
 </footer>
 </main>
 </div>
