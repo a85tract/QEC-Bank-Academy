@@ -1247,8 +1247,8 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
   </div>
   <div data-widget="decodergame2"></div>
   <div class="prose">
-    <p class="zh">几盘之后，你大概会自己发现那条黄金法则：<b>近的配近的，靠边的推出去</b>——这正是最优译码器（最小总长度配对）在做的事。也试试拉高错误率滑杆：警报一多，「看起来近」的配法开始频繁酿成横跨串。这个「p 一大就救不回来」的体感，就是下一章的主角。</p>
-    <p class="en">A few rounds in, you'll likely discover the golden rule yourself: <b>pair near with near, push edge-huggers out</b> — precisely what the optimal decoder (minimum total length matching) does. Also try raising the error-rate slider: with many alarms, “looks close” pairings start brewing spanning strings. That felt sense of “past some p, it's unrescuable” is the next chapter's protagonist.</p>
+    <p class="zh">几盘之后，你大概会自己发现那条黄金法则：<b>近的配近的，靠边的推出去</b>——这正是配对译码器在做的事。它的最优版本叫「最小总长度配对」：在所有配法里，挑修复总长最短的那一种。本页的「自动译码」在警报不多（≤ 14 个）时做的正是它；警报再多，就改用只看眼前最近一对的贪心配法——第 6 章会看到这个省事办法的代价。也试试拉高错误率滑杆：警报一多，「看起来近」的配法开始频繁酿成横跨串。这个「p 一大就救不回来」的体感，就是下一章的主角。</p>
+    <p class="en">A few rounds in, you'll likely discover the golden rule yourself: <b>pair near with near, push edge-huggers out</b> — precisely what a matching decoder does. Its optimal version is minimum-total-length matching: out of every possible pairing, pick the one with the shortest total repair. This page's “Auto-decode” does exactly that when alarms are few (14 or fewer); with more, it switches to a greedy rule that only looks at the closest pair in front of it — Chapter 6 will show what that shortcut costs. Also try raising the error-rate slider: with many alarms, “looks close” pairings start brewing spanning strings. That felt sense of “past some p, it's unrescuable” is the next chapter's protagonist.</p>
   </div>
   <div class="ch-nav">
     <a href="#ch4"><span class="zh">上一章</span><span class="en">Back</span><b><span class="zh">4 · 一轮完整的纠错</span><span class="en">4 · One full correction cycle</span></b></a>
@@ -1284,8 +1284,8 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
   </div>
   <div data-widget="threshold"></div>
   <div class="prose">
-    <p class="zh">左端读图：p 很小时，三条曲线按 d=7 &lt; d=5 &lt; d=3 排列——大码稳赢，而且每加大一号，失败率大约按同一比例再打一次折（<span class="ref" data-ref="threshpaper" data-sec="6.1">6.1</span> 的公式在点头）。右端：次序整个翻转。中间的交叉带就是我们这台「贪心译码器 + 完美测量」玩具宇宙的阈值，约在百分之几到 10% 之间。</p>
-    <p class="en">Read the left end: for small p the curves stack d=7 &lt; d=5 &lt; d=3 — big codes win, and each size step cuts failure by roughly the same factor (<span class="ref" data-ref="threshpaper" data-sec="6.1">§6.1</span>'s formula nodding along). At the right end the order fully inverts. The crossing band between is the threshold of our toy universe — greedy decoder, perfect measurements — somewhere around several percent to 10%.</p>
+    <p class="zh">左端读图：p 很小时，三条曲线按 d=7 &lt; d=5 &lt; d=3 排列——大码稳赢，而且每加大一号，失败率大约按同一比例再打一次折（<span class="ref" data-ref="threshpaper" data-sec="6.1">6.1</span> 的公式在点头）。右端：次序整个翻转。中间的交叉带就是我们这台「就近配对译码器 + 完美测量」玩具宇宙的阈值，约在百分之几到 10% 之间。这台译码器在警报 ≤ 14 个时精确地找出总长最短的配法，警报更多时就当起了<span class="term">贪心译码器<span class="tip">每一步都把眼下离得最近的两个警报（或一个警报和边界）配成一对，配完就不再回头。很快，但警报一多，可能配出比最佳方案更长的总修复。</span></span>——所以它测出的阈值比文献值略低一些。</p>
+    <p class="en">Read the left end: for small p the curves stack d=7 &lt; d=5 &lt; d=3 — big codes win, and each size step cuts failure by roughly the same factor (<span class="ref" data-ref="threshpaper" data-sec="6.1">§6.1</span>'s formula nodding along). At the right end the order fully inverts. The crossing band between is the threshold of our toy universe — nearest-pair decoder, perfect measurements — somewhere around several percent to 10%. With 14 alarms or fewer, the decoder finds the pairing with the exact shortest total length; with more, it becomes a <span class="term">greedy decoder<span class="tip">At each step it pairs the two alarms (or an alarm and a boundary) that are closest right now, and never goes back to reconsider. Fast, but with many alarms it can end up with a longer total repair than the best possible one.</span></span> — which is why the threshold it measures sits a little below the literature value.</p>
   </div>
   <div class="note note-honest">
     <span class="note-tag"><span class="zh">诚实说明</span><span class="en">Honesty box</span></span>
@@ -1364,8 +1364,8 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
 
   <div class="note note-honest">
     <span class="note-tag"><span class="zh">诚实总账</span><span class="en">The honesty ledger</span></span>
-    <p class="zh"><a href="../../toric_code/intuition/intuition.html#tail">《从 1+1 到 Toric Code》的三项简化</a>在这里仍然有效：全程实数振幅（Y 错误 = X、Z 同时来，两族检查都会看见它）；除 <span class="ref" data-ref="measerr" data-sec="4.3">4.3 节</span>的讨论外假设测量完美；译码器用贪心配对而非最优。此外这里新增一项：我们展示的是「未旋转」的原始版图，实验室部署的旋转版在同样的思想下更省比特。所有这些简化都不影响任何一条定性结论。</p>
-    <p class="en"><a href="../../toric_code/intuition/intuition.html#tail">The three simplifications of “From 1+1 to the Toric Code”</a> still stand: real amplitudes throughout (a Y error = X and Z at once — both check families see it); perfect measurements except for <span class="ref" data-ref="measerr" data-sec="4.3">§4.3</span>'s discussion; a greedy rather than optimal decoder. One addition here: we showed the original “unrotated” layout, while deployed rotated versions realize the same ideas with fewer qubits. None of these simplifications touches any qualitative conclusion.</p>
+    <p class="zh"><a href="../../toric_code/intuition/intuition.html#tail">《从 1+1 到 Toric Code》的三项简化</a>在这里仍然有效：全程实数振幅（Y 错误 = X、Z 同时来，两族检查都会看见它）；除 <span class="ref" data-ref="measerr" data-sec="4.3">4.3 节</span>的讨论外假设测量完美；译码器用「就近配对」，警报一多就退为贪心，而非始终最优（见 <span class="ref" data-ref="threshmeasured" data-sec="6.2">6.2</span> 术语说明）。此外这里新增一项：我们展示的是「未旋转」的原始版图，实验室部署的旋转版在同样的思想下更省比特。所有这些简化都不影响任何一条定性结论。</p>
+    <p class="en"><a href="../../toric_code/intuition/intuition.html#tail">The three simplifications of “From 1+1 to the Toric Code”</a> still stand: real amplitudes throughout (a Y error = X and Z at once — both check families see it); perfect measurements except for <span class="ref" data-ref="measerr" data-sec="4.3">§4.3</span>'s discussion; a “nearest-pair” decoder that falls back to greedy pairing when alarms are many, rather than an always-optimal one (see the <span class="ref" data-ref="threshmeasured" data-sec="6.2">§6.2</span> term note). One addition here: we showed the original “unrotated” layout, while deployed rotated versions realize the same ideas with fewer qubits. None of these simplifications touches any qualitative conclusion.</p>
   </div>
 </section>
 
@@ -1663,8 +1663,8 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
   TQ.lattice = { buildToric, buildPlanar, syndrome };
 })(typeof window !== 'undefined' ? window : globalThis);
 
-/* TQ.decoder — a simple greedy matching decoder for the toric and planar codes.
-   Not minimum-weight-perfect-matching, but close in spirit and good enough to
+/* TQ.decoder — a matching decoder for the toric and planar codes: exact minimum-
+   weight matching up to EXACT_LIMIT alarms, greedy nearest-pair beyond. Good enough to
    show the threshold behaviour live in the browser (and honest about it in the
    tutorial text). */
 (function (root) {
@@ -4481,8 +4481,8 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
         ? 'Reading the chart: at p = 3%, d=3 fails ' + lo(0).toFixed(1) + '% of rounds while d=7 fails only ' + lo(2).toFixed(1) + '% — <b>bigger codes are safer</b>.'
         : 'Left end: for small p we expect d=7 &lt; d=3; this sample fluctuated at p = 3% (' + lo(0).toFixed(1) + '% vs ' + lo(2).toFixed(1) + '%) — press “Fine run” for more rounds.';
       F.setReadout(
-        '<span class="zh">' + openZh + (cp ? ' 而在 ≈' + cp + ' 附近三条曲线交叉；越过它，加大码反而更糟。这条分界线就是<b>阈值</b>。' : ' 继续加大轮数可以看清三条曲线交叉的位置（阈值）。') + '（本页译码器在警报较多时退化为贪心配对，阈值偏低；文献里的最优配对译码给出 ≈10.3%。）</span>' +
-        '<span class="en">' + openEn + (cp ? ' Near ≈' + cp + ' the three curves cross; beyond it, bigger codes get WORSE. That dividing line is the <b>threshold</b>.' : ' More rounds will pin down where the curves cross (the threshold).') + ' (This page’s decoder degrades to greedy pairing when alarms are many, so its threshold sits low; optimal matching in the literature gives ≈10.3%.)</span>'
+        '<span class="zh">' + openZh + (cp ? ' 而在 ≈' + cp + ' 附近三条曲线交叉；越过它，加大码反而更糟。这条分界线就是<b>阈值</b>。' : ' 继续加大轮数可以看清三条曲线交叉的位置（阈值）。') + '（本页译码器在警报超过 14 个时改用贪心就近配对，所以阈值比文献值略低；文献里的最优配对译码给出 ≈10.3%。）</span>' +
+        '<span class="en">' + openEn + (cp ? ' Near ≈' + cp + ' the three curves cross; beyond it, bigger codes get WORSE. That dividing line is the <b>threshold</b>.' : ' More rounds will pin down where the curves cross (the threshold).') + ' (This page’s decoder switches to greedy nearest-pair matching once there are more than 14 alarms, so its threshold sits a little below the literature value; optimal matching in the literature gives ≈10.3%.)</span>'
       );
     }
 
