@@ -5286,7 +5286,7 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
       for (const p of pts) {
         const x = xOf(p.n, w), y = yOf(p.k), hov = hover === p;
         ctx.beginPath(); ctx.arc(x, y, p.kind === 'bb' ? (hov ? 8 : 6) : (hov ? 5.5 : 3.5), 0, 7);
-        ctx.fillStyle = p.kind === 'bb' ? C.cd : p.kind === 'rot' ? C.cz : C.cx; ctx.fill();
+        ctx.fillStyle = p.kind === 'bb' ? C.cd : p.kind === 'rot' ? C.cz : C.good; ctx.fill(); // green, not amber: amber sits too close to the BB magenta
         if (p.kind === 'bb') { ctx.fillStyle = C.ink2; ctx.font = '600 11px ' + mono; ctx.textAlign = 'left'; ctx.textBaseline = 'middle'; ctx.fillText('d=' + p.d, x + 10, y); }
       }
     }
@@ -5298,7 +5298,7 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
       box.redraw();
     });
     box.canvas.addEventListener('pointerleave', () => { hover = null; tip.style.opacity = '0'; box.redraw(); });
-    legend(el, [{ color: cssVar('--cx'), dot: true, zh: '未旋转表面码（k = 1）', en: 'unrotated surface code (k = 1)' }, { color: cssVar('--cz'), dot: true, zh: '旋转表面码（k = 1）', en: 'rotated surface code (k = 1)' }, { color: cssVar('--cd'), dot: true, zh: 'BB 码', en: 'BB codes' }]);
+    legend(el, [{ color: cssVar('--good'), dot: true, zh: '未旋转表面码（k = 1）', en: 'unrotated surface code (k = 1)' }, { color: cssVar('--cz'), dot: true, zh: '旋转表面码（k = 1）', en: 'rotated surface code (k = 1)' }, { color: cssVar('--cd'), dot: true, zh: 'BB 码', en: 'BB codes' }]);
     F.setReadout(bi('横轴是数据比特数，纵轴是存下的逻辑比特数。表面码无论多大都贴在 k = 1 这条底线上；BB 码在 72 到 288 个比特之间存 8 到 12 个。把鼠标放在点上看 k·d²/n：表面码约为 1，gross 码是 12。', 'Horizontal: data qubits; vertical: logical qubits stored. Surface codes of every size hug the k = 1 floor; BB codes store 8 to 12 in 72 to 288 qubits. Hover a point for k·d²/n: about 1 for surface codes, 12 for the gross code.'));
   }
   U().reg('bbledgerchart', wBbLedgerChart);
