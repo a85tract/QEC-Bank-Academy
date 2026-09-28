@@ -876,6 +876,9 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
 .formula .sym { border-bottom-color: color-mix(in srgb, var(--ink3) 55%, transparent); }
 .refpop .rp-sec.rp-symchar { font-size: 17px; color: var(--ink); font-weight: 600; }
 
+
+/* 2026-09 revision: keep the "chapter" column of the stop table on one line */
+table.stops td:last-child, table.stops th:last-child { white-space: nowrap; }
 </style>
 </head>
 <body>
@@ -901,8 +904,8 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
       <span class="en">From torus shifts to the gross memory:<br>one <span class="accent">guided tour</span>, one hundred forty-four coordinates</span>
     </h1>
     <p class="lede">
-      <span class="zh">「导览」是 Atlas 给每个码条目配的一条固定路线：它不讲新理论，只把构造器真实导出的数据（坐标、检查、支撑、秩）一站一站指给你看。BB 码的这条路线有八站，标题叫「Bivariate bicycle: from torus shifts to the gross memory」。本篇沿着它走一遍，用的是 Atlas 自己算出来的 gross 实例 [[144,12,12]]：l = 12、m = 6 的环面上 A = x³ + y + y²、B = y³ + x + x²（l、m 是环面两个方向的格数，A、B 是两个三项多项式），外加一个 3 × 3 环面上的锚点 [[18,2,3]]。你会看到 144 个坐标是哪条公式算出来的，X 检查 0 的六条腿 {1, 2, 18, 75, 78, 84} 一条一条从哪一项来，Z 检查 0 的 {3, 60, 66, 76, 77, 126} 为什么是「倒着走」的，72 行检查为什么只有 66 行独立，以及导览最后两站为什么要专门说「这不是电路」「这不是门」。</span>
-      <span class="en">A “guided tour” is the fixed route the Atlas attaches to every code entry: no new theory, only the data the constructor actually exported (coordinates, checks, supports, ranks), pointed out one stop at a time. The BB-code route has eight stops and is titled “Bivariate bicycle: from torus shifts to the gross memory”. This guide walks it using the Atlas's own computed gross instance, [[144,12,12]]: A = x³ + y + y² and B = y³ + x + x² on an l = 12, m = 6 torus (l and m are the site counts in the two torus directions, A and B the two three-term polynomials), plus an anchor [[18,2,3]] on a 3 × 3 torus. You will see which formula produces the 144 coordinates, where each of X check 0's six legs {1, 2, 18, 75, 78, 84} comes from, why Z check 0's {3, 60, 66, 76, 77, 126} “walks backwards”, why 72 rows of checks have only 66 independent ones, and why the last two stops insist “this is not a circuit” and “this is not a gate”.</span>
+      <span class="zh">「导览」是 Atlas 给每个码条目配的一条固定路线：它不讲新理论，只把构造器真实导出的数据（坐标、检查、支撑、秩）一站一站指给你看。BB 码的这条路线有八站，标题叫「Bivariate bicycle: from torus shifts to the gross memory」（从环面平移到 gross 存储器；gross 是英文里「一罗」= 12 打 = 144 的旧量词，这个码有 144 个数据比特，因此得名，本篇标题里的「一罗」就是它）。本篇沿着它走一遍，用的是 Atlas 自己算出来的 gross 实例 [[144,12,12]]：l = 12、m = 6 的环面上 A = x³ + y + y²、B = y³ + x + x²（l、m 是环面两个方向的格数，A、B 是两个三项多项式），外加一个 3 × 3 环面上的锚点 [[18,2,3]]。你会看到 144 个坐标是哪条公式算出来的，X 检查 0 的六条腿 {1, 2, 18, 75, 78, 84} 一条一条从哪一项来，Z 检查 0 的 {3, 60, 66, 76, 77, 126} 为什么是「倒着走」的，72 行检查为什么只有 66 行独立，以及导览最后两站为什么要专门说「这不是电路」「这个平移对逻辑比特做了什么，要另算」。</span>
+      <span class="en">A “guided tour” is the fixed route the Atlas attaches to every code entry: no new theory, only the data the constructor actually exported (coordinates, checks, supports, ranks), pointed out one stop at a time. The BB-code route has eight stops and is titled “Bivariate bicycle: from torus shifts to the gross memory” (“gross” is the old unit of 12 dozen = 144; the code has 144 data qubits, hence the name). This guide walks it using the Atlas's own computed gross instance, [[144,12,12]]: A = x³ + y + y² and B = y³ + x + x² on an l = 12, m = 6 torus (l and m are the site counts in the two torus directions, A and B the two three-term polynomials), plus an anchor [[18,2,3]] on a 3 × 3 torus. You will see which formula produces the 144 coordinates, where each of X check 0's six legs {1, 2, 18, 75, 78, 84} comes from, why Z check 0's {3, 60, 66, 76, 77, 126} “walks backwards”, why 72 rows of checks have only 66 independent ones, and why the last two stops insist “this is not a circuit” and “what this translation does to the logical qubits must be computed separately”.</span>
     </p>
     <div class="promise">
       <span class="zh">前置：<a href="../intuition/intuition.html">《BB 码 · 高中数学版》</a>（单项式是平移、H<sub>X</sub> = [A | B] 与 H<sub>Z</sub> = [Bᵀ | Aᵀ]、k = 2 × 秩亏损、d 的两份证书）。这里新增的是<b>对账的功夫</b>：把导览每一站的高亮，还原成 <span class="mono">constructor.py</span> 里的一行公式和 <span class="mono">reproduce.py</span> 里的一条断言，并学会读每一站的出处标签。</span>
@@ -923,7 +926,7 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
     <a href="#ch3"><span class="n">3</span><span class="zh">Z 检查：倒着走，换位置</span><span class="en">Z checks: walk backwards, swap places</span></a>
     <a href="#ch4"><span class="n">4</span><span class="zh">缩到环面锚点 [[18,2,3]]</span><span class="en">Shrink to the toric anchor [[18,2,3]]</span></a>
     <a href="#ch5"><span class="n">5</span><span class="zh">72 行只有 66 行独立</span><span class="en">72 rows, only 66 independent</span></a>
-    <a href="#ch6"><span class="n">6</span><span class="zh">不是电路，不是门</span><span class="en">Not a circuit, not a gate</span></a>
+    <a href="#ch6"><span class="n">6</span><span class="zh">不是电路；逻辑作用另算</span><span class="en">Not a circuit; the logical action is computed elsewhere</span></a>
     <a href="#tail"><span class="n">∎</span><span class="zh">尾声 · 词汇表</span><span class="en">Epilogue · Glossary</span></a>
   </nav>
   <main>
@@ -935,7 +938,7 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
         <a href="#ch3"><span class="n">3</span><span class="zh">Z 检查：倒着走，换位置</span><span class="en">Z checks: walk backwards, swap places</span></a>
         <a href="#ch4"><span class="n">4</span><span class="zh">缩到环面锚点 [[18,2,3]]</span><span class="en">Shrink to the toric anchor [[18,2,3]]</span></a>
         <a href="#ch5"><span class="n">5</span><span class="zh">72 行只有 66 行独立</span><span class="en">72 rows, only 66 independent</span></a>
-        <a href="#ch6"><span class="n">6</span><span class="zh">不是电路，不是门</span><span class="en">Not a circuit, not a gate</span></a>
+        <a href="#ch6"><span class="n">6</span><span class="zh">不是电路；逻辑作用另算</span><span class="en">Not a circuit; the logical action is computed elsewhere</span></a>
         <a href="#tail"><span class="n">∎</span><span class="zh">尾声 · 词汇表</span><span class="en">Epilogue · Glossary</span></a>
       </nav>
     </details>
@@ -955,16 +958,16 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
     <p class="zh">先把八站的题目抄下来，再看每一站在 <span class="mono">tour.yaml</span> 里带的 <span class="term">出处标签<span class="tip">每一站的 origin 字段：kind 说这句话的可信方式（verified = 机器在这个仓库里现算并断言过；curated = 从一篇具体文献整理来的叙述，机器没有重算），method 或 ref 说具体是哪段代码、哪篇文献。</span></span>。八站里七站是 <span class="mono">verified</span>，只有第 ⑦ 站是 <span class="mono">curated</span>——因为它说的是电路和阈值，而 Atlas 的 BB 条目根本没有导出电路。</p>
     <p class="en">First copy down the eight stop titles, then look at the <span class="term">provenance label<span class="tip">The origin field of each stop: kind says how the statement earns trust (verified = the machine recomputed and asserted it inside this repository; curated = a narrative organised from one specific paper, not recomputed), and method or ref names the exact code or paper.</span></span> each carries in <span class="mono">tour.yaml</span>. Seven of the eight are <span class="mono">verified</span>; only stop ⑦ is <span class="mono">curated</span> — because it speaks about circuits and thresholds, and the Atlas BB entry exports no circuit at all.</p>
   </div>
-  <div class="table-wrap"><table class="glossary">
-    <tr><th><span class="zh">站</span><span class="en">Stop</span></th><th><span class="zh">题目（原文）</span><span class="en">Title (verbatim)</span></th><th><span class="zh">格点 · 高亮</span><span class="en">Lattice · highlight</span></th><th><span class="zh">出处标签与方法</span><span class="en">Provenance and method</span></th><th><span class="zh">本篇</span><span class="en">Here</span></th></tr>
-    <tr><td>①</td><td>Begin with two qubits per torus site</td><td class="mono">gross · all · 0</td><td><span class="mono">verified</span> · <span class="mono">bivariate_bicycle.build lattice/checkmatrix export</span></td><td><a href="#ch1"><span class="zh">第 1 章</span><span class="en">Ch. 1</span></a></td></tr>
-    <tr><td>②</td><td>Read one X check as six translations</td><td class="mono">gross · X · 0</td><td><span class="mono">verified</span> · <span class="mono">gross HX row 0 support asserted in reproduce.py</span></td><td><a href="#ch2"><span class="zh">第 2 章</span><span class="en">Ch. 2</span></a></td></tr>
-    <tr><td>③</td><td>The swapped transpose builds the Z partner</td><td class="mono">gross · Z · 72</td><td><span class="mono">verified</span> · <span class="mono">gross HZ row 0 support and HX HZ-transpose check</span></td><td><a href="#ch3"><span class="zh">第 3 章</span><span class="en">Ch. 3</span></a></td></tr>
-    <tr><td>④</td><td>Shrink to the toric convention test</td><td class="mono">toric · all · 0</td><td><span class="mono">verified</span> · <span class="mono">exact-css-enum on toric_L3</span></td><td><a href="#ch4"><span class="zh">第 4 章</span><span class="en">Ch. 4</span></a></td></tr>
-    <tr><td>⑤</td><td>See a four-body toric X check</td><td class="mono">toric · X · 0</td><td><span class="mono">verified</span> · <span class="mono">toric_L3 HX row 0 from constructor</span></td><td><a href="#ch4"><span class="zh">第 4 章</span><span class="en">Ch. 4</span></a></td></tr>
-    <tr><td>⑥</td><td>Return to the rank-defect design problem</td><td class="mono">gross · X · 1</td><td><span class="mono">verified</span> · <span class="mono">qeclib.gf2.rank on gross HX and HZ</span></td><td><a href="#ch5"><span class="zh">第 5 章</span><span class="en">Ch. 5</span></a></td></tr>
-    <tr><td>⑦</td><td>Separate the static code from its circuit</td><td class="mono">gross · all · 0</td><td><span class="mono">curated</span> · ref <span class="mono">bravyi2024bicycle</span></td><td><a href="#ch6"><span class="zh">第 6 章</span><span class="en">Ch. 6</span></a></td></tr>
-    <tr><td>⑧</td><td>Interrogate what a symmetry actually buys</td><td class="mono">gross · Z · 73</td><td><span class="mono">verified</span> · <span class="mono">translation row-permutation identities in reproduce.py</span></td><td><a href="#ch6"><span class="zh">第 6 章</span><span class="en">Ch. 6</span></a></td></tr>
+  <div class="table-wrap"><table class="glossary stops">
+    <tr><th><span class="zh">站</span><span class="en">Stop</span></th><th><span class="zh">题目（原文）</span><span class="en">Title (verbatim)</span></th><th><span class="zh">格点 · 类型 · 高亮编号</span><span class="en">Lattice · type · highlighted index</span></th><th><span class="zh">出处标签与方法</span><span class="en">Provenance and method</span></th><th><span class="zh">本篇</span><span class="en">Here</span></th></tr>
+    <tr><td>①</td><td><span class="zh">Begin with two qubits per torus site<br><span class="muted small">从每个环面格子上的两个比特开始</span></span><span class="en">Begin with two qubits per torus site</span></td><td class="mono">gross · all · 0</td><td><span class="mono">verified</span> · <span class="mono">bivariate_bicycle.build lattice/checkmatrix export</span></td><td><a href="#ch1"><span class="zh">第 1 章</span><span class="en">Ch. 1</span></a></td></tr>
+    <tr><td>②</td><td><span class="zh">Read one X check as six translations<br><span class="muted small">把一条 X 检查读成六次平移</span></span><span class="en">Read one X check as six translations</span></td><td class="mono">gross · X · 0</td><td><span class="mono">verified</span> · <span class="mono">gross HX row 0 support asserted in reproduce.py</span></td><td><a href="#ch2"><span class="zh">第 2 章</span><span class="en">Ch. 2</span></a></td></tr>
+    <tr><td>③</td><td><span class="zh">The swapped transpose builds the Z partner<br><span class="muted small">换位加转置，造出配对的 Z 检查</span></span><span class="en">The swapped transpose builds the Z partner</span></td><td class="mono">gross · Z · 72</td><td><span class="mono">verified</span> · <span class="mono">gross HZ row 0 support and HX HZ-transpose check</span></td><td><a href="#ch3"><span class="zh">第 3 章</span><span class="en">Ch. 3</span></a></td></tr>
+    <tr><td>④</td><td><span class="zh">Shrink to the toric convention test<br><span class="muted small">缩到环面码，检验约定</span></span><span class="en">Shrink to the toric convention test</span></td><td class="mono">toric · all · 0</td><td><span class="mono">verified</span> · <span class="mono">exact-css-enum on toric_L3</span></td><td><a href="#ch4"><span class="zh">第 4 章</span><span class="en">Ch. 4</span></a></td></tr>
+    <tr><td>⑤</td><td><span class="zh">See a four-body toric X check<br><span class="muted small">看一条四体的环面 X 检查</span></span><span class="en">See a four-body toric X check</span></td><td class="mono">toric · X · 0</td><td><span class="mono">verified</span> · <span class="mono">toric_L3 HX row 0 from constructor</span></td><td><a href="#ch4"><span class="zh">第 4 章</span><span class="en">Ch. 4</span></a></td></tr>
+    <tr><td>⑥</td><td><span class="zh">Return to the rank-defect design problem<br><span class="muted small">回到秩亏损这个设计问题</span></span><span class="en">Return to the rank-defect design problem</span></td><td class="mono">gross · X · 1</td><td><span class="mono">verified</span> · <span class="mono">qeclib.gf2.rank on gross HX and HZ</span></td><td><a href="#ch5"><span class="zh">第 5 章</span><span class="en">Ch. 5</span></a></td></tr>
+    <tr><td>⑦</td><td><span class="zh">Separate the static code from its circuit<br><span class="muted small">把静态的码和它的电路分开</span></span><span class="en">Separate the static code from its circuit</span></td><td class="mono">gross · all · 0</td><td><span class="mono">curated</span> · ref <span class="mono">bravyi2024bicycle</span></td><td><a href="#ch6"><span class="zh">第 6 章</span><span class="en">Ch. 6</span></a></td></tr>
+    <tr><td>⑧</td><td><span class="zh">Interrogate what a symmetry actually buys<br><span class="muted small">追问一个对称性到底带来什么</span></span><span class="en">Interrogate what a symmetry actually buys</span></td><td class="mono">gross · Z · 73</td><td><span class="mono">verified</span> · <span class="mono">translation row-permutation identities in reproduce.py</span></td><td><a href="#ch6"><span class="zh">第 6 章</span><span class="en">Ch. 6</span></a></td></tr>
   </table></div>
   <div class="prose">
     <p class="zh">「高亮」一列里的数字是<b>检查的编号</b>：播放器把 72 条 X 检查排在前面（编号 0–71），72 条 Z 检查排在后面（编号 72–143），所以第 ③ 站高亮的「72」就是 Z 检查 0，第 ⑧ 站的「73」就是 Z 检查 1。这个顺序不是播放器定的，而是构造器导出文件里 <span class="mono">focusByFilter: {all: 0, X: 0, Z: 72}</span> 那一行定的；<span class="mono">reproduce.py</span> 逐字核对过它。说人话：播放器只是照着构造器给的清单点名，谁排第几、有几条腿，全由构造器说了算。</p>
@@ -1317,9 +1320,9 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
 </svg>
     </div>
     <figcaption>
-      <span class="fno">图 1.1</span>
-      <span class="zh">gross 格点：12 × 6 个格子，每格两个数据比特（深色 = 左层，浅色 = 右层，向右上错开），小方块是 X 检查（琥珀）与 Z 检查（蓝）的记号。坐标与编号照 <span class="mono">constructor.py</span> 的公式画出，标出了表中几个编号。</span>
-      <span class="en">The gross lattice: 12 × 6 sites, two data qubits per site (dark = left layer, light = right layer, offset to the upper right), small squares marking the X checks (amber) and Z checks (blue). Coordinates and indices follow the formula in <span class="mono">constructor.py</span>; a few indices from the table are labelled.</span>
+      <span class="fno">1.1</span>
+      <span class="zh">gross 格点：12 × 6 个格子，每格两个数据比特——<b>实心圆 = 左层</b>（layer 0，画在 (2i, 2j)），<b>空心圆 = 右层</b>（layer 1，向右上错开 0.55）；每格还有两个小方块，橙色 = 这个格子的 X 检查，蓝色 = Z 检查。横轴 i = 0–11，纵轴 j = 0–5，走出右边缘或上边缘就从左边缘或下边缘接回（环面）。坐标与编号照 <span class="mono">constructor.py</span> 的公式画出，标出了表中几个编号。</span>
+      <span class="en">The gross lattice: 12 × 6 sites, two data qubits per site: <b>filled circle = left layer</b> (layer 0, drawn at (2i, 2j)), <b>hollow circle = right layer</b> (layer 1, offset 0.55 up and to the right); each site also carries two small squares, orange = that site's X check, blue = its Z check. The horizontal axis is i = 0–11, the vertical j = 0–5; leaving past the right or top edge re-enters at the left or bottom edge (torus). Coordinates and indices follow the formula in <span class="mono">constructor.py</span>; a few indices from the table are labelled.</span>
     </figcaption>
   </figure>
   <div class="note note-key">
@@ -1345,8 +1348,8 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
 
   <h3 id="s2-1"><span class="sec-no">2.1</span><span class="zh">读法：一项一条腿，A 管左层，B 管右层</span><span class="en">The reading rule: one term, one leg; A for the left layer, B for the right</span></h3>
   <div class="prose">
-    <p class="zh">回忆直觉教程的<a href="../intuition/intuition.html#s2-3">翻译词典</a>：单项式 x<sup>a</sup>y<sup>b</sup> 是「把格子 (i, j) 平移到 (i + a, j + b)」的置换矩阵，坐标超出范围就<span class="term">绕回<span class="tip">mod l 与 mod m：i 数到 12 绕回 0，j 数到 6 绕回 0。环面上没有「出界」，只有绕回。</span></span>。所以 H<sub>X</sub> = [A | B] 的第 s 行（s 是格子 (i, j) 的编号 i·m + j）里，1 落在这些列上：<b>A 的每一项</b> (a, b) 给出<b>左层</b>格子 (i + a, j + b) 的编号；<b>B 的每一项</b> (a, b) 给出<b>右层</b>格子 (i + a, j + b) 的编号。项数就是腿数：gross 的 |A| = |B| = 3，所以每条 X 检查恰好六条腿，三条在左层、三条在右层。</p>
-    <p class="en">Recall the intuition guide's <a href="../intuition/intuition.html#s2-3">translation dictionary</a>: the monomial x<sup>a</sup>y<sup>b</sup> is the permutation matrix “move site (i, j) to (i + a, j + b)”, <span class="term">wrapping around<span class="tip">mod l and mod m: i counts up to 12 and wraps to 0, j counts up to 6 and wraps to 0. On a torus there is no “out of bounds”, only wrapping.</span></span> when a coordinate runs off the end. So in row s of H<sub>X</sub> = [A | B] (s is the index i·m + j of site (i, j)) the 1s sit in these columns: <b>each term</b> (a, b) <b>of A</b> gives the index of the <b>left-layer</b> site (i + a, j + b); <b>each term</b> (a, b) <b>of B</b> gives the index of the <b>right-layer</b> site (i + a, j + b). Term count equals leg count: gross has |A| = |B| = 3, so every X check has exactly six legs, three in the left layer and three in the right.</p>
+    <p class="zh">回忆直觉教程的<a href="../intuition/intuition.html#s2-3">翻译词典</a>：单项式 x<sup>a</sup>y<sup>b</sup> 是「把格子 (i, j) 平移到 (i + a, j + b)」的<b>置换矩阵</b>（每行、每列恰有一个 1 的 0/1 矩阵：第 s 行唯一的 1 所在的列，就是格子 s 被送到的地方），坐标超出范围就<span class="term">绕回<span class="tip">mod l 与 mod m：i 数到 12 绕回 0，j 数到 6 绕回 0。环面上没有「出界」，只有绕回。</span></span>。所以 H<sub>X</sub> = [A | B] 的第 s 行（s 是格子 (i, j) 的编号 i·m + j）里，1 落在这些列上：<b>A 的每一项</b> (a, b) 给出<b>左层</b>格子 (i + a, j + b) 的编号；<b>B 的每一项</b> (a, b) 给出<b>右层</b>格子 (i + a, j + b) 的编号。项数就是腿数：gross 的 |A| = |B| = 3，所以每条 X 检查恰好六条腿，三条在左层、三条在右层。</p>
+    <p class="en">Recall the intuition guide's <a href="../intuition/intuition.html#s2-3">translation dictionary</a>: the monomial x<sup>a</sup>y<sup>b</sup> is the <b>permutation matrix</b> “move site (i, j) to (i + a, j + b)” (a 0/1 matrix with exactly one 1 in every row and every column: the column of the single 1 in row s is where site s is sent), <span class="term">wrapping around<span class="tip">mod l and mod m: i counts up to 12 and wraps to 0, j counts up to 6 and wraps to 0. On a torus there is no “out of bounds”, only wrapping.</span></span> when a coordinate runs off the end. So in row s of H<sub>X</sub> = [A | B] (s is the index i·m + j of site (i, j)) the 1s sit in these columns: <b>each term</b> (a, b) <b>of A</b> gives the index of the <b>left-layer</b> site (i + a, j + b); <b>each term</b> (a, b) <b>of B</b> gives the index of the <b>right-layer</b> site (i + a, j + b). Term count equals leg count: gross has |A| = |B| = 3, so every X check has exactly six legs, three in the left layer and three in the right.</p>
   </div>
   <div class="formula center">H<sub>X</sub> = [ A | B ]<br><span class="zh">X 检查 (i, j) 的腿</span><span class="en">legs of X check (i, j)</span> = {<span class="zh">左</span><span class="en">left</span> (i+a, j+b) : x<sup>a</sup>y<sup>b</sup> ∈ A}<br>　　∪ {<span class="zh">右</span><span class="en">right</span> (i+a, j+b) : x<sup>a</sup>y<sup>b</sup> ∈ B}<br><span class="zh">重量</span><span class="en">weight</span> = |A| + |B| = 3 + 3 = 6<span class="dim" style="display:block;white-space:normal;font-size:13px;line-height:1.6;margin-top:4px"><span class="zh">A、B = 两个多项式（72 × 72 的稀疏矩阵）；(a, b) = 一项的两个指数；(i, j) = 检查所在格子；|A| = A 的项数；左 / 右 = 层，编号见 1.2 的公式</span><span class="en">A, B = the two polynomials (72 × 72 sparse matrices); (a, b) = the two exponents of one term; (i, j) = the check's site; |A| = number of terms of A; left / right = layer, indices by the formula of §1.2</span></span></div>
 
@@ -1696,16 +1699,16 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
 </svg>
     </div>
     <figcaption>
-      <span class="fno">图 2.1</span>
-      <span class="zh">X 检查 0（格子 (0, 0) 的琥珀色方块）的六条腿：左层 {1, 2, 18} 来自 A 的三项，右层 {75, 78, 84} 来自 B 的三项。「往右三格」的那条腿（18）伸得最远——这就是直觉教程<a href="../intuition/intuition.html#s1-2">1.2 节</a>说的「不再挤在一个小方块里」。</span>
-      <span class="en">The six legs of X check 0 (the amber square at site (0, 0)): left layer {1, 2, 18} from the three terms of A, right layer {75, 78, 84} from the three terms of B. The “three steps right” leg (18) reaches furthest — the intuition guide's <a href="../intuition/intuition.html#s1-2">§1.2</a> “no longer crammed into one small square”.</span>
+      <span class="fno">2.1</span>
+      <span class="zh">底图同图 1.1：实心圆 = 左层比特，空心圆 = 右层比特，橙 / 蓝小方块 = 各格子的 X / Z 检查。X 检查 0（格子 (0, 0) 处放大的橙色方块）的六条腿，终点画成标了编号的橙色大圆：左层 {1, 2, 18} 来自 A 的三项，右层 {75, 78, 84} 来自 B 的三项。通到 75 的那条腿画成虚线：它从下边缘出去、从上边缘回来——在 6 格高的环面上往上三格和往下三格落在同一个格子，图上取了往下的走法。「往右三格」的那条腿（18）伸得最远——这就是直觉教程<a href="../intuition/intuition.html#s1-2">1.2 节</a>说的「不再挤在一个小方块里」。</span>
+      <span class="en">Background as in figure 1.1: filled circle = left-layer qubit, hollow circle = right-layer qubit, small orange / blue squares = each site's X / Z check. The six legs of X check 0 (the enlarged orange square at site (0, 0)), their ends drawn as numbered large orange circles: left layer {1, 2, 18} from the three terms of A, right layer {75, 78, 84} from the three terms of B. The leg to 75 is dashed: it leaves through the bottom edge and comes back through the top; on a torus 6 sites high, three steps up and three steps down land on the same site, and the figure draws the downward route. The “three steps right” leg (18) reaches furthest — the intuition guide's <a href="../intuition/intuition.html#s1-2">§1.2</a> “no longer crammed into one small square”.</span>
     </figcaption>
   </figure>
   <div class="prose">
-    <p class="zh">导览让你把鼠标挪到旁边的检查上，看「被复制的平移」怎样变化。X 检查 1 在格子 (0, 1)，按同一条规则算出 {2, 3, 19, 76, 79, 85}——恰好是 X 检查 0 的每个编号加 1，因为整个形状往上挪了一格（j 加 1），六条腿一起挪。这就是<b>平移不变</b>：72 条 X 检查是同一个六腿形状的 72 份拷贝，只是起点不同（绕回边缘时编号会跳，见第 3 章）。到实验台上试：默认高亮的正是 X 检查 0，点任何一个圆形记号换一条检查，读数会告诉你它在哪个格子。</p>
-    <p class="en">The tour asks you to hover a neighbouring check and watch “the copied translations” change. X check 1 sits at site (0, 1); the same rule gives {2, 3, 19, 76, 79, 85} — exactly X check 0 with every index increased by 1, because the whole shape moved one step up (j + 1) and all six legs moved with it. That is <b>translation invariance</b>: the 72 X checks are 72 copies of one six-leg shape with different starting points (indices jump when a leg wraps around the edge; see Chapter 3). Try it on the bench: the default highlight is X check 0; click any circular marker to switch checks, and the readout names its site.</p>
+    <p class="zh">导览让你把鼠标挪到旁边的检查上，看「被复制的平移」怎样变化。X 检查 1 在格子 (0, 1)，按同一条规则算出 {2, 3, 19, 76, 79, 85}——恰好是 X 检查 0 的每个编号加 1，因为整个形状往上挪了一格（j 加 1），六条腿一起挪。这就是<b>平移不变</b>：72 条 X 检查是同一个六腿形状的 72 份拷贝，只是起点不同（绕回边缘时编号会跳，见第 3 章）。到实验台上试：默认高亮的正是 X 检查 0，点任何一个橙色圆圈（X 检查）或蓝色方块（Z 检查）换一条检查，读数会告诉你它在哪个格子；画布下方的两行图例说明了哪种点是哪一层。</p>
+    <p class="en">The tour asks you to hover a neighbouring check and watch “the copied translations” change. X check 1 sits at site (0, 1); the same rule gives {2, 3, 19, 76, 79, 85} — exactly X check 0 with every index increased by 1, because the whole shape moved one step up (j + 1) and all six legs moved with it. That is <b>translation invariance</b>: the 72 X checks are 72 copies of one six-leg shape with different starting points (indices jump when a leg wraps around the edge; see Chapter 3). Try it on the bench: the default highlight is X check 0; click any orange circle (X check) or blue square (Z check) to switch checks, and the readout names its site; the two legend lines under the canvas say which dots belong to which layer.</p>
   </div>
-  <div data-widget="bbbuilder" data-preset="gross"></div>
+  <div data-widget="bbbuilder" data-preset="gross" id="w-bbgross"></div>
   <div class="note note-key">
     <span class="note-tag"><span class="zh">关键想法</span><span class="en">Key idea</span></span>
     <p class="zh">环面码里「星形检查 = 顶点周围四条边」是画出来的；BB 码里「X 检查 = 六次平移的落点」是算出来的。读一条检查只需三步：定格子 (i, j)，把 A 的每一项加到格子上得左层编号，把 B 的每一项加到格子上得右层编号。<span class="mono">reproduce.py</span> 不只核对第 0 行，还断言 A、B 每行每列恰好 3 个 1、H<sub>X</sub> 每行恰好 6 个 1、每列恰好 3 个 1——即每个数据比特恰被 3 条 X 检查碰到。</p>
@@ -2081,9 +2084,9 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
 </svg>
     </div>
     <figcaption>
-      <span class="fno">图 3.1</span>
-      <span class="zh">Z 检查 0（格子 (0, 0) 的蓝色方块）的六条腿。虚线表示这条腿绕过了环面的边缘：往左一格到 i = 11（66 号）、往左两格到 i = 10（60 号）、往左三格到右层 i = 9（126 号）、往下一格到右层 j = 5（77 号）、往下两格到右层 j = 4（76 号）；只有 3 号（y³）不需要绕。</span>
-      <span class="en">The six legs of Z check 0 (the blue square at site (0, 0)). Dashed legs wrap around the torus edge: one left to i = 11 (index 66), two left to i = 10 (60), three left in the right layer to i = 9 (126), one down in the right layer to j = 5 (77), two down to j = 4 (76); only index 3 (y³) needs no wrap.</span>
+      <span class="fno">3.1</span>
+      <span class="zh">底图同图 1.1：实心圆 = 左层比特，空心圆 = 右层比特，橙 / 蓝小方块 = 各格子的 X / Z 检查。Z 检查 0（格子 (0, 0) 处放大的蓝色方块）的六条腿，终点是标了编号的蓝色大圆。虚线表示这条腿绕过了环面的边缘：往左一格到 i = 11（66 号）、往左两格到 i = 10（60 号）、往左三格到右层 i = 9（126 号）、往下一格到右层 j = 5（77 号）、往下两格到右层 j = 4（76 号）；只有 3 号（y³）不需要绕。</span>
+      <span class="en">Background as in figure 1.1: filled circle = left-layer qubit, hollow circle = right-layer qubit, small orange / blue squares = each site's X / Z check. The six legs of Z check 0 (the enlarged blue square at site (0, 0)), ending on numbered large blue circles. Dashed legs wrap around the torus edge: one left to i = 11 (index 66), two left to i = 10 (60), three left in the right layer to i = 9 (126), one down in the right layer to j = 5 (77), two down to j = 4 (76); only index 3 (y³) needs no wrap.</span>
     </figcaption>
   </figure>
   <div class="prose">
@@ -2154,8 +2157,8 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
   <div class="formula center" style="line-height:1.55">H<sub>X</sub> = [ 1+x | 1+y ]<br><span class="mono">100100000 | 110000000<br>010010000 | 011000000<br>001001000 | 101000000<br>000100100 | 000110000<br>000010010 | 000011000<br>000001001 | 000101000<br>100000100 | 000000110<br>010000010 | 000000011<br>001000001 | 000000101</span></div>
   <div class="formula center" style="line-height:1.55">H<sub>Z</sub> = [ (1+y)ᵀ | (1+x)ᵀ ]<br><span class="mono">101000000 | 100000100<br>110000000 | 010000010<br>011000000 | 001000001<br>000101000 | 100100000<br>000110000 | 010010000<br>000011000 | 001001000<br>000000101 | 000100100<br>000000110 | 000010010<br>000000011 | 000001001</span></div>
   <div class="prose">
-    <p class="zh">第一行就是刚算的 {0, 3, 9, 10} 与 {0, 2, 9, 15}。每行恰四个 1；每列恰两个 1（每个比特被两条 X 检查、两条 Z 检查碰到）。把左层比特想成横边、右层比特想成竖边，X 检查就是<a href="../../toric_code/intuition/intuition-hs.html#s5-1">《从高考数学到 Toric Code》5.1 节</a>的星形算符，Z 检查就是面算符——直觉教程<a href="../intuition/intuition.html#s5-1">5.1 节</a>说的「BB(1 + x, 1 + y) 就是环面码」在这两张矩阵上是逐位成立的。</p>
-    <p class="en">The first rows are exactly the {0, 3, 9, 10} and {0, 2, 9, 15} just computed. Every row has exactly four 1s; every column exactly two (each qubit meets two X checks and two Z checks). Think of left-layer qubits as horizontal edges and right-layer qubits as vertical edges, and the X checks are the star operators of <a href="../../toric_code/intuition/intuition-hs.html#s5-1">“From High-School Math to the Toric Code”, §5.1</a>, the Z checks the face operators — the intuition guide's <a href="../intuition/intuition.html#s5-1">§5.1</a> claim “BB(1 + x, 1 + y) is the toric code” holds bit for bit on these two matrices.</p>
+    <p class="zh">第一行就是刚算的 {0, 3, 9, 10} 与 {0, 2, 9, 15}。每行恰四个 1；每列恰两个 1（每个比特被两条 X 检查、两条 Z 检查碰到）。把左层比特想成横边、右层比特想成竖边（图 4.1 之后的图 4.2 逐条画出这个对应），X 检查就是<a href="../../toric_code/intuition/intuition-hs.html#s5-1">《从高考数学到 Toric Code》5.1 节</a>的星形算符，Z 检查就是面算符——直觉教程<a href="../intuition/intuition.html#s5-1">5.1 节</a>说的「BB(1 + x, 1 + y) 就是环面码」在这两张矩阵上是逐位成立的。</p>
+    <p class="en">The first rows are exactly the {0, 3, 9, 10} and {0, 2, 9, 15} just computed. Every row has exactly four 1s; every column exactly two (each qubit meets two X checks and two Z checks). Think of left-layer qubits as horizontal edges and right-layer qubits as vertical edges (Figure 4.2, after Figure 4.1, draws this correspondence edge by edge), and the X checks are the star operators of <a href="../../toric_code/intuition/intuition-hs.html#s5-1">“From High-School Math to the Toric Code”, §5.1</a>, the Z checks the face operators — the intuition guide's <a href="../intuition/intuition.html#s5-1">§5.1</a> claim “BB(1 + x, 1 + y) is the toric code” holds bit for bit on these two matrices.</p>
   </div>
   <figure class="fig">
     <div class="fig-frame">
@@ -2233,22 +2236,115 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
 </svg>
     </div>
     <figcaption>
-      <span class="fno">图 4.1</span>
-      <span class="zh">toric_L3 的 3 × 3 环面：X 检查 0（琥珀）= {0, 3, 9, 10}，Z 检查 0（蓝）= {0, 2, 9, 15}。两者共享 0 与 9 两个比特。Z 检查的两条虚线腿（2 与 15）是绕回边缘的反向平移。</span>
-      <span class="en">The 3 × 3 torus of toric_L3: X check 0 (amber) = {0, 3, 9, 10}, Z check 0 (blue) = {0, 2, 9, 15}. They share the two qubits 0 and 9. The Z check's two dashed legs (2 and 15) are reversed translations wrapping around the edge.</span>
+      <span class="fno">4.1</span>
+      <span class="zh">toric_L3 的 3 × 3 环面（实心圆 = 左层，空心圆 = 右层，小方块 = 各格子的检查）：X 检查 0（橙）= {0, 3, 9, 10}，Z 检查 0（蓝）= {0, 2, 9, 15}。两者共享 0 与 9 两个比特。Z 检查的两条虚线腿（2 与 15）是绕回边缘的反向平移。</span>
+      <span class="en">The 3 × 3 torus of toric_L3 (filled circle = left layer, hollow circle = right layer, small squares = each site's checks): X check 0 (orange) = {0, 3, 9, 10}, Z check 0 (blue) = {0, 2, 9, 15}. They share the two qubits 0 and 9. The Z check's two dashed legs (2 and 15) are reversed translations wrapping around the edge.</span>
     </figcaption>
   </figure>
   <div class="prose">
-    <p class="zh">数字全部由机器现算：两张矩阵 9 × 18，秩各为 8（九行里有一条依赖——把九条 X 检查全乘起来是恒等，即环面码那条 <span class="sym" data-sym="prod">∏</span>A = I 的恒等式，见<a href="../../toric_code/intuition/intuition-hs.html#s5-3">同一教程 5.3 节</a>），k = 18 − 8 − 8 = 2；Atlas 的精确枚举器（方法名 <span class="mono">exact-css-enum</span>）穷举得 d = 3。所以 toric_L3 是 [[18,2,3]]，三个数字全部 <span class="mono">verified</span>。下面两个实验台：先用环面码的账本重数一遍 n、检查数与 k，再在 BB 构造器里点这条四腿检查。</p>
-    <p class="en">Every number is machine-computed: the two matrices are 9 × 18, each of rank 8 (one dependency among the nine rows — multiplying all nine X checks gives the identity, the toric code's <span class="sym" data-sym="prod">∏</span>A = I identity of <a href="../../toric_code/intuition/intuition-hs.html#s5-3">the same guide's §5.3</a>), k = 18 − 8 − 8 = 2; the Atlas exact enumerator (method name <span class="mono">exact-css-enum</span>) finds d = 3 by exhaustion. So toric_L3 is [[18,2,3]], all three numbers <span class="mono">verified</span>. Two benches follow: first recount n, the number of checks and k with the toric ledger, then click this four-leg check inside the BB constructor.</p>
+    <p class="zh"><b>从错开的两层点到环面的边。</b>图 4.1 画的是构造器的坐标：每个格子两个比特点。环面码的画法不同：比特在<b>边</b>上，检查在顶点和小方格上。把每个格子 (i, j) 看成环面码的一个<b>顶点</b>（格线的交叉点），对应规则只有两条：左层比特 (i, j)（编号 3i + j）是从顶点 (i − 1, j) 到 (i, j) 的那条<b>横边</b>；右层比特 (i, j)（编号 9 + 3i + j）是从顶点 (i, j − 1) 到 (i, j) 的那条<b>竖边</b>。坐标按 mod 3 算，所以 i = 0 的横边从顶点 (2, j) 绕回到 (0, j)。环面码里的<b>星</b>是连在一个顶点上的四条边，<b>面</b>是围成一个小方格的四条边。</p>
+    <p class="en"><b>From the two offset layers to the edges of the torus.</b> Figure 4.1 draws the constructor's coordinates: two qubit dots per site. The toric code is drawn differently: qubits sit on <b>edges</b>, checks on vertices and small squares. Read each site (i, j) as a <b>vertex</b> of the toric code (a crossing of grid lines); then two rules give the correspondence: the left-layer qubit (i, j) (index 3i + j) is the <b>horizontal edge</b> from vertex (i − 1, j) to (i, j); the right-layer qubit (i, j) (index 9 + 3i + j) is the <b>vertical edge</b> from vertex (i, j − 1) to (i, j). Coordinates are taken mod 3, so the horizontal edge with i = 0 runs from vertex (2, j) around to (0, j). In the toric code a <b>star</b> is the four edges meeting at one vertex and a <b>face</b> is the four edges around one small square.</p>
+    <p class="zh">拿一颗星来验证。X 检查 (1, 1)：A = 1 + x 给左层 (1, 1) → 4 与 (2, 1) → 7，B = 1 + y 给右层 (1, 1) → 13 与 (1, 2) → 14。按规则，4 是顶点 (0, 1)–(1, 1) 之间的横边，7 是 (1, 1)–(2, 1)，13 是 (1, 0)–(1, 1) 之间的竖边，14 是 (1, 1)–(1, 2)：四条边都以顶点 (1, 1) 为端点，正是顶点 (1, 1) 的星。再验证一块面。Z 检查 (2, 2)：Bᵀ = 1 + y⁻¹ 给左层 (2, 2) → 8 与 (2, 1) → 7，Aᵀ = 1 + x⁻¹ 给右层 (2, 2) → 17 与 (1, 2) → 14。8 是 j = 2 那条上边，7 是 j = 1 那条下边，17 是 i = 2 那条右边，14 是 i = 1 那条左边：正好围成角点为 (1, 1) 与 (2, 2) 的小方格。一般地，X 检查 (i, j) 是顶点 (i, j) 的星，Z 检查 (i, j) 是右上角为顶点 (i, j) 的面。图 4.1 的 X 检查 0 = {0, 3, 9, 10} 也是一颗星（顶点 (0, 0) 的），只是其中 0 与 9 两条边绕过了边界；Z 检查 0 = {0, 2, 9, 15} 是右上角为 (0, 0) 的面，四条边都跨在边界上。</p>
+    <p class="en">Check one star. X check (1, 1): A = 1 + x gives left (1, 1) → 4 and (2, 1) → 7, B = 1 + y gives right (1, 1) → 13 and (1, 2) → 14. By the rules, 4 is the horizontal edge between vertices (0, 1) and (1, 1), 7 joins (1, 1) and (2, 1), 13 is the vertical edge between (1, 0) and (1, 1), 14 joins (1, 1) and (1, 2): all four edges end at vertex (1, 1), so this is the star of vertex (1, 1). Now one face. Z check (2, 2): Bᵀ = 1 + y⁻¹ gives left (2, 2) → 8 and (2, 1) → 7, Aᵀ = 1 + x⁻¹ gives right (2, 2) → 17 and (1, 2) → 14. 8 is the top side at j = 2, 7 the bottom side at j = 1, 17 the right side at i = 2, 14 the left side at i = 1: together they surround the small square with corners (1, 1) and (2, 2). In general X check (i, j) is the star of vertex (i, j) and Z check (i, j) is the face whose top-right corner is vertex (i, j). X check 0 = {0, 3, 9, 10} of Figure 4.1 is also a star (of vertex (0, 0)); two of its edges, 0 and 9, wrap around the boundary. Z check 0 = {0, 2, 9, 15} is the face with top-right corner (0, 0), and all four of its edges straddle the boundary.</p>
   </div>
-  <div data-widget="counting" data-size="3"></div>
+  <figure class="fig" id="fig-4-2">
+    <div class="fig-frame">
+<svg viewBox="0 0 392 330" width="100%" role="img" style="max-width:392px;height:auto;color:var(--ink)" aria-label="toric_L3 qubits as torus edges: horizontal edges are left-layer qubits 0 to 8, vertical edges right-layer qubits 9 to 17; X check (1,1) is the star of vertex (1,1) = {4,7,13,14}; Z check (2,2) is the face with corners (1,1),(2,2) = {7,8,14,17}">
+<rect x="134" y="110" width="76" height="76" fill="var(--cz-soft)" stroke="none"/>
+<text x="184.0" y="152.0" text-anchor="middle" font-family="monospace" font-size="10" fill="var(--cz-ink)">Z(2,2)</text>
+<line x1="58" y1="262" x2="134" y2="262" stroke="var(--line2)" stroke-width="2"/>
+<line x1="58" y1="186" x2="134" y2="186" stroke="var(--cx)" stroke-width="4"/>
+<line x1="58" y1="110" x2="134" y2="110" stroke="var(--line2)" stroke-width="2"/>
+<line x1="58" y1="34" x2="134" y2="34" stroke="var(--line2)" stroke-width="2" stroke-dasharray="4 4"/>
+<line x1="134" y1="262" x2="210" y2="262" stroke="var(--line2)" stroke-width="2"/>
+<line x1="134" y1="186" x2="210" y2="186" stroke="var(--cx)" stroke-width="4"/>
+<line x1="134" y1="110" x2="210" y2="110" stroke="var(--cz)" stroke-width="4"/>
+<line x1="134" y1="34" x2="210" y2="34" stroke="var(--line2)" stroke-width="2" stroke-dasharray="4 4"/>
+<line x1="210" y1="262" x2="286" y2="262" stroke="var(--line2)" stroke-width="2"/>
+<line x1="210" y1="186" x2="286" y2="186" stroke="var(--line2)" stroke-width="2"/>
+<line x1="210" y1="110" x2="286" y2="110" stroke="var(--line2)" stroke-width="2"/>
+<line x1="210" y1="34" x2="286" y2="34" stroke="var(--line2)" stroke-width="2" stroke-dasharray="4 4"/>
+<line x1="58" y1="262" x2="58" y2="186" stroke="var(--line2)" stroke-width="2"/>
+<line x1="58" y1="186" x2="58" y2="110" stroke="var(--line2)" stroke-width="2"/>
+<line x1="58" y1="110" x2="58" y2="34" stroke="var(--line2)" stroke-width="2"/>
+<line x1="134" y1="262" x2="134" y2="186" stroke="var(--cx)" stroke-width="4"/>
+<line x1="134" y1="186" x2="134" y2="110" stroke="var(--cx)" stroke-width="4"/>
+<line x1="134" y1="110" x2="134" y2="34" stroke="var(--line2)" stroke-width="2"/>
+<line x1="210" y1="262" x2="210" y2="186" stroke="var(--line2)" stroke-width="2"/>
+<line x1="210" y1="186" x2="210" y2="110" stroke="var(--cz)" stroke-width="4"/>
+<line x1="210" y1="110" x2="210" y2="34" stroke="var(--line2)" stroke-width="2"/>
+<line x1="286" y1="262" x2="286" y2="186" stroke="var(--line2)" stroke-width="2" stroke-dasharray="4 4"/>
+<line x1="286" y1="186" x2="286" y2="110" stroke="var(--line2)" stroke-width="2" stroke-dasharray="4 4"/>
+<line x1="286" y1="110" x2="286" y2="34" stroke="var(--line2)" stroke-width="2" stroke-dasharray="4 4"/>
+<text x="96.0" y="256.0" text-anchor="middle" font-family="monospace" font-size="11" font-weight="700" fill="var(--ink)" stroke="var(--bg)" stroke-width="3" paint-order="stroke">3</text>
+<text x="96.0" y="180.0" text-anchor="middle" font-family="monospace" font-size="11" font-weight="700" fill="var(--ink)" stroke="var(--bg)" stroke-width="3" paint-order="stroke">4</text>
+<text x="96.0" y="104.0" text-anchor="middle" font-family="monospace" font-size="11" font-weight="700" fill="var(--ink)" stroke="var(--bg)" stroke-width="3" paint-order="stroke">5</text>
+<text x="96.0" y="28.0" text-anchor="middle" font-family="monospace" font-size="11" fill="var(--ink3)" stroke="var(--bg)" stroke-width="3" paint-order="stroke">3</text>
+<text x="172.0" y="256.0" text-anchor="middle" font-family="monospace" font-size="11" font-weight="700" fill="var(--ink)" stroke="var(--bg)" stroke-width="3" paint-order="stroke">6</text>
+<text x="172.0" y="180.0" text-anchor="middle" font-family="monospace" font-size="11" font-weight="700" fill="var(--ink)" stroke="var(--bg)" stroke-width="3" paint-order="stroke">7</text>
+<text x="172.0" y="104.0" text-anchor="middle" font-family="monospace" font-size="11" font-weight="700" fill="var(--ink)" stroke="var(--bg)" stroke-width="3" paint-order="stroke">8</text>
+<text x="172.0" y="28.0" text-anchor="middle" font-family="monospace" font-size="11" fill="var(--ink3)" stroke="var(--bg)" stroke-width="3" paint-order="stroke">6</text>
+<text x="248.0" y="256.0" text-anchor="middle" font-family="monospace" font-size="11" font-weight="700" fill="var(--ink)" stroke="var(--bg)" stroke-width="3" paint-order="stroke">0</text>
+<text x="248.0" y="180.0" text-anchor="middle" font-family="monospace" font-size="11" font-weight="700" fill="var(--ink)" stroke="var(--bg)" stroke-width="3" paint-order="stroke">1</text>
+<text x="248.0" y="104.0" text-anchor="middle" font-family="monospace" font-size="11" font-weight="700" fill="var(--ink)" stroke="var(--bg)" stroke-width="3" paint-order="stroke">2</text>
+<text x="248.0" y="28.0" text-anchor="middle" font-family="monospace" font-size="11" fill="var(--ink3)" stroke="var(--bg)" stroke-width="3" paint-order="stroke">0</text>
+<text x="64.0" y="228.0" text-anchor="start" font-family="monospace" font-size="11" font-weight="700" fill="var(--ink)" stroke="var(--bg)" stroke-width="3" paint-order="stroke">10</text>
+<text x="64.0" y="152.0" text-anchor="start" font-family="monospace" font-size="11" font-weight="700" fill="var(--ink)" stroke="var(--bg)" stroke-width="3" paint-order="stroke">11</text>
+<text x="64.0" y="76.0" text-anchor="start" font-family="monospace" font-size="11" font-weight="700" fill="var(--ink)" stroke="var(--bg)" stroke-width="3" paint-order="stroke">9</text>
+<text x="140.0" y="228.0" text-anchor="start" font-family="monospace" font-size="11" font-weight="700" fill="var(--ink)" stroke="var(--bg)" stroke-width="3" paint-order="stroke">13</text>
+<text x="140.0" y="152.0" text-anchor="start" font-family="monospace" font-size="11" font-weight="700" fill="var(--ink)" stroke="var(--bg)" stroke-width="3" paint-order="stroke">14</text>
+<text x="140.0" y="76.0" text-anchor="start" font-family="monospace" font-size="11" font-weight="700" fill="var(--ink)" stroke="var(--bg)" stroke-width="3" paint-order="stroke">12</text>
+<text x="216.0" y="228.0" text-anchor="start" font-family="monospace" font-size="11" font-weight="700" fill="var(--ink)" stroke="var(--bg)" stroke-width="3" paint-order="stroke">16</text>
+<text x="216.0" y="152.0" text-anchor="start" font-family="monospace" font-size="11" font-weight="700" fill="var(--ink)" stroke="var(--bg)" stroke-width="3" paint-order="stroke">17</text>
+<text x="216.0" y="76.0" text-anchor="start" font-family="monospace" font-size="11" font-weight="700" fill="var(--ink)" stroke="var(--bg)" stroke-width="3" paint-order="stroke">15</text>
+<text x="292.0" y="228.0" text-anchor="start" font-family="monospace" font-size="11" fill="var(--ink3)" stroke="var(--bg)" stroke-width="3" paint-order="stroke">10</text>
+<text x="292.0" y="152.0" text-anchor="start" font-family="monospace" font-size="11" fill="var(--ink3)" stroke="var(--bg)" stroke-width="3" paint-order="stroke">11</text>
+<text x="292.0" y="76.0" text-anchor="start" font-family="monospace" font-size="11" fill="var(--ink3)" stroke="var(--bg)" stroke-width="3" paint-order="stroke">9</text>
+<circle cx="58" cy="262" r="3.5" fill="var(--ink2)"/>
+<circle cx="58" cy="186" r="3.5" fill="var(--ink2)"/>
+<circle cx="58" cy="110" r="3.5" fill="var(--ink2)"/>
+<circle cx="58" cy="34" r="3.5" fill="var(--bg)" stroke="var(--ink3)" stroke-width="1.2"/>
+<circle cx="134" cy="262" r="3.5" fill="var(--ink2)"/>
+<circle cx="134" cy="186" r="3.5" fill="var(--ink2)"/>
+<circle cx="134" cy="110" r="3.5" fill="var(--ink2)"/>
+<circle cx="134" cy="34" r="3.5" fill="var(--bg)" stroke="var(--ink3)" stroke-width="1.2"/>
+<circle cx="210" cy="262" r="3.5" fill="var(--ink2)"/>
+<circle cx="210" cy="186" r="3.5" fill="var(--ink2)"/>
+<circle cx="210" cy="110" r="3.5" fill="var(--ink2)"/>
+<circle cx="210" cy="34" r="3.5" fill="var(--bg)" stroke="var(--ink3)" stroke-width="1.2"/>
+<circle cx="286" cy="262" r="3.5" fill="var(--bg)" stroke="var(--ink3)" stroke-width="1.2"/>
+<circle cx="286" cy="186" r="3.5" fill="var(--bg)" stroke="var(--ink3)" stroke-width="1.2"/>
+<circle cx="286" cy="110" r="3.5" fill="var(--bg)" stroke="var(--ink3)" stroke-width="1.2"/>
+<circle cx="286" cy="34" r="3.5" fill="var(--bg)" stroke="var(--ink3)" stroke-width="1.2"/>
+<circle cx="134" cy="186" r="7" fill="none" stroke="var(--cx)" stroke-width="2"/>
+<text x="126" y="200" text-anchor="end" font-family="monospace" font-size="10" fill="var(--cx-ink)">X(1,1)</text>
+<text x="58" y="284" text-anchor="middle" font-family="monospace" font-size="10.5" fill="var(--ink2)">i=0</text>
+<text x="46" y="266" text-anchor="end" font-family="monospace" font-size="10.5" fill="var(--ink2)">j=0</text>
+<text x="134" y="284" text-anchor="middle" font-family="monospace" font-size="10.5" fill="var(--ink2)">i=1</text>
+<text x="46" y="190" text-anchor="end" font-family="monospace" font-size="10.5" fill="var(--ink2)">j=1</text>
+<text x="210" y="284" text-anchor="middle" font-family="monospace" font-size="10.5" fill="var(--ink2)">i=2</text>
+<text x="46" y="114" text-anchor="end" font-family="monospace" font-size="10.5" fill="var(--ink2)">j=2</text>
+<text x="286" y="284" text-anchor="middle" font-family="monospace" font-size="10.5" fill="var(--ink2)">i=3≡0</text>
+<text x="46" y="38" text-anchor="end" font-family="monospace" font-size="10.5" fill="var(--ink2)">j=3≡0</text>
+</svg>
+    </div>
+    <figcaption>
+      <span class="fno">4.2</span>
+      <span class="zh">toric_L3 的 18 个比特画成 3 × 3 环面的 18 条边。实心点 = 顶点 (i, j)；i = 3 那一列和 j = 3 那一行是 i = 0、j = 0 的重复画法（环面上 3 ≡ 0），用空心点、虚线和灰色编号表示，每条虚线边就是另一侧同编号的那条边。横边 = 左层比特 0–8，竖边 = 右层比特 9–17，边旁的数字是比特编号。橙色粗边 = X 检查 (1, 1)，即顶点 (1, 1)（橙圈）的星 = {4, 7, 13, 14}；蓝色粗边与浅蓝方块 = Z 检查 (2, 2)，即角点 (1, 1)、(2, 2) 围成的面 = {7, 8, 14, 17}。两者共享 7 与 14 两条边（这两条画成橙色），个数为偶数，所以两条检查对易。</span>
+      <span class="en">The 18 qubits of toric_L3 drawn as the 18 edges of a 3 × 3 torus. Filled dots = vertices (i, j); the column i = 3 and the row j = 3 repeat i = 0 and j = 0 (on the torus 3 ≡ 0) and are drawn with hollow dots, dashed lines and grey labels; each dashed edge is the edge with the same number on the other side. Horizontal edges = left-layer qubits 0–8, vertical edges = right-layer qubits 9–17; the number beside an edge is its qubit index. Thick orange edges = X check (1, 1), the star of vertex (1, 1) (orange ring) = {4, 7, 13, 14}; thick blue edges and the pale blue square = Z check (2, 2), the face with corners (1, 1) and (2, 2) = {7, 8, 14, 17}. They share the two edges 7 and 14 (drawn orange), an even number, so the two checks commute.</span>
+    </figcaption>
+  </figure>
+  <div class="prose">
+    <p class="zh">数字全部由机器现算：两张矩阵 9 × 18，秩各为 8（九行里有一条依赖——把九条 X 检查全乘起来是恒等，即环面码那条 <span class="sym" data-sym="prod">∏</span>A = I 的恒等式，见<a href="../../toric_code/intuition/intuition-hs.html#s5-3">同一教程 5.3 节</a>），k = 18 − 8 − 8 = 2；Atlas 的精确枚举器（方法名 <span class="mono">exact-css-enum</span>）穷举得 d = 3。所以 toric_L3 是 [[18,2,3]]，三个数字全部 <span class="mono">verified</span>。下面两个实验台：先用环面码的账本重数一遍 n、检查数与 k（第一个实验台打开时选的是 L = 3，即这里的 3 × 3 环面：18 条边 = 18 个比特，9 颗星、9 块面；点「逐颗相乘」看九颗星乘起来为什么是恒等），再在 BB 构造器里点这条四腿检查。</p>
+    <p class="en">Every number is machine-computed: the two matrices are 9 × 18, each of rank 8 (one dependency among the nine rows — multiplying all nine X checks gives the identity, the toric code's <span class="sym" data-sym="prod">∏</span>A = I identity of <a href="../../toric_code/intuition/intuition-hs.html#s5-3">the same guide's §5.3</a>), k = 18 − 8 − 8 = 2; the Atlas exact enumerator (method name <span class="mono">exact-css-enum</span>) finds d = 3 by exhaustion. So toric_L3 is [[18,2,3]], all three numbers <span class="mono">verified</span>. Two benches follow: first recount n, the number of checks and k with the toric ledger (the first bench opens at L = 3, the 3 × 3 torus here: 18 edges = 18 qubits, 9 stars, 9 faces; press “multiply one by one” to see why the nine stars multiply to the identity), then click this four-leg check inside the BB constructor.</p>
+  </div>
+  <div data-widget="counting" data-size="3" id="w-counting"></div>
   <div data-widget="bbbuilder" data-preset="toric3"></div>
 
   <h3 id="s4-2"><span class="sec-no">4.2</span><span class="zh">锚点检验什么，不检验什么</span><span class="en">What the anchor tests, and what it does not</span></h3>
   <div class="prose">
-    <p class="zh">第 ④ 站的最后一句很谨慎：「This anchors the convention without reducing the gross block to toric copies.」两层意思。<b>检验什么</b>：约定。移位的方向（S 把第 i 格送到 i + 1 还是 i − 1）、转置有没有做、两块有没有交换、编号先数 j 还是先数 i——任何一处弄错，这个小例子都会立刻露馅：忘掉转置或两块不交换，H<sub>X</sub>H<sub>Z</sub>ᵀ 就不为零——两个秩仍是 8 + 8，可这已经不是一个合法的 CSS 码。gross 太大，肉眼看不出这些错误；toric_L3 小到能和《从高考数学到 Toric Code》里的账本逐位比对。<b>不检验什么</b>：gross 码<b>不是</b>六份环面码拼起来的。k = 12 = 6 × 2 只是一个巧合的乘法，商空间 R/(A,B) 是 6 维（见第 5 章）并不意味着有 6 个互相独立的环面。文献里有两种相关但不同的说法：Sahay 等人用对称性把<b>译码问题的一部分</b>约化到环面状的圆柱上做匹配（<span class="mono">sahay2026matching</span>，据文献扫描报告，登记待补），Chen 等人则在更一般的 BB 数据里发现「拓扑受挫」（<span class="mono">chen2025anyon</span>，同样登记待补）——前者是译码器的词典，后者说明有限 BB 码不能简单当作环面码的堆叠。这两条都记录在<a href="../views/views.html#s3-2">表示阶梯</a>侧面里。</p>
-    <p class="en">Stop ④ ends carefully: “This anchors the convention without reducing the gross block to toric copies.” Two layers of meaning. <b>What it tests</b>: conventions. The direction of the shift (does S send site i to i + 1 or i − 1), whether the transpose was applied, whether the two blocks were swapped, whether indices run through j first or i first — get any of these wrong and the small example gives you away at once: forget the transpose or skip the swap and H<sub>X</sub>H<sub>Z</sub>ᵀ is nonzero — the ranks stay 8 + 8, but it is no longer a valid CSS code. Gross is too large to see such mistakes by eye; toric_L3 is small enough to compare bit by bit against the ledger in “From High-School Math to the Toric Code”. <b>What it does not test</b>: that the gross code is <b>not</b> six toric codes glued together. k = 12 = 6 × 2 is a coincidental multiplication; the quotient R/(A,B) having dimension 6 (Chapter 5) does not mean six independent tori exist. The literature holds two related but different statements: Sahay et al. use symmetries to reduce <b>part of the decoding problem</b> to toric-like cylinders where matching applies (<span class="mono">sahay2026matching</span>, from the scout report, registration pending), while Chen et al. find “topological frustration” in more general BB data (<span class="mono">chen2025anyon</span>, also registration pending) — the former is a decoder dictionary, the latter says finite BB codes cannot simply be treated as stacks of toric codes. Both are recorded in the <a href="../views/views.html#s3-2">representation ladder</a> facet.</p>
+    <p class="zh">第 ④ 站的最后一句很谨慎：「This anchors the convention without reducing the gross block to toric copies.」两层意思。<b>检验什么</b>：约定。移位的方向（S 把第 i 格送到 i + 1 还是 i − 1）、转置有没有做、两块有没有交换、编号先数 j 还是先数 i——任何一处弄错，这个小例子都会立刻露馅：忘掉转置或两块不交换，H<sub>X</sub>H<sub>Z</sub>ᵀ 就不为零——两个秩仍是 8 + 8，可这已经不是一个合法的 CSS 码。gross 太大，肉眼看不出这些错误；toric_L3 小到能和《从高考数学到 Toric Code》里的账本逐位比对。<b>不检验什么</b>：gross 码<b>不是</b>六份环面码拼起来的。k = 12 = 6 × 2 只是一个巧合的乘法，商空间 R/(A,B) 是 6 维（见第 5 章）并不意味着有 6 个互相独立的环面。文献里有两种相关但不同的说法：Sahay 等人用对称性把<b>译码问题的一部分</b>约化到环面状的圆柱上做匹配（<span class="mono">sahay2026matching</span>，据文献扫描报告，登记待补——意思是 Atlas 的引文登记表里这篇还没有完整书目信息，题目与作者取自 Atlas 自己的文献扫描报告），Chen 等人则在更一般的 BB 数据里发现「拓扑受挫」（<span class="mono">chen2025anyon</span>，同样登记待补）——前者是译码器的词典，后者说明有限 BB 码不能简单当作环面码的堆叠。这两条都记录在<a href="../views/views.html#s3-2">表示阶梯</a>侧面里。</p>
+    <p class="en">Stop ④ ends carefully: “This anchors the convention without reducing the gross block to toric copies.” Two layers of meaning. <b>What it tests</b>: conventions. The direction of the shift (does S send site i to i + 1 or i − 1), whether the transpose was applied, whether the two blocks were swapped, whether indices run through j first or i first — get any of these wrong and the small example gives you away at once: forget the transpose or skip the swap and H<sub>X</sub>H<sub>Z</sub>ᵀ is nonzero — the ranks stay 8 + 8, but it is no longer a valid CSS code. Gross is too large to see such mistakes by eye; toric_L3 is small enough to compare bit by bit against the ledger in “From High-School Math to the Toric Code”. <b>What it does not test</b>: that the gross code is <b>not</b> six toric codes glued together. k = 12 = 6 × 2 is a coincidental multiplication; the quotient R/(A,B) having dimension 6 (Chapter 5) does not mean six independent tori exist. The literature holds two related but different statements: Sahay et al. use symmetries to reduce <b>part of the decoding problem</b> to toric-like cylinders where matching applies (<span class="mono">sahay2026matching</span>, from the scout report, registration pending: the Atlas citation registry does not yet hold full bibliographic data for it, and the title and authors come from the Atlas's own literature scan), while Chen et al. find “topological frustration” in more general BB data (<span class="mono">chen2025anyon</span>, also registration pending) — the former is a decoder dictionary, the latter says finite BB codes cannot simply be treated as stacks of toric codes. Both are recorded in the <a href="../views/views.html#s3-2">representation ladder</a> facet.</p>
   </div>
   <div class="table-wrap"><table class="glossary">
     <tr><th></th><th>gross</th><th>toric_L3</th></tr>
@@ -2285,21 +2381,21 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
 
   <h3 id="s5-1"><span class="sec-no">5.1</span><span class="zh">数一数：66 + 66 = 132，144 − 132 = 12</span><span class="en">Count: 66 + 66 = 132, 144 − 132 = 12</span></h3>
   <div class="prose">
-    <p class="zh">H<sub>X</sub> 有 72 行，但其中只有 66 行线性独立——<span class="sym" data-sym="rank">rank</span> H<sub>X</sub> = 66，意思是有 6 条 X 检查可以由其他检查相乘得到，它们不提供新信息。H<sub>Z</sub> 同样 rank = 66。直觉教程<a href="../intuition/intuition.html#s4-1">4.1 节</a>证过两个秩必然相等（转置与改名不改变秩）。CSS 码的稳定子秩是两者之和 66 + 66 = 132，因为纯 X 的行与纯 Z 的行不可能互相抵消——<span class="mono">reproduce.py</span> 直接断言了 <span class="mono">gf2.rank(checkmatrix.stab) == 132</span>。于是 k = 144 − 132 = 12。这里的 <span class="mono">gf2.rank</span> 就是第 ⑥ 站出处标签里的方法：在 GF(2) 上做高斯消元，机器现算。</p>
-    <p class="en">H<sub>X</sub> has 72 rows, but only 66 of them are linearly independent — <span class="sym" data-sym="rank">rank</span> H<sub>X</sub> = 66, meaning 6 X checks are products of other checks and carry no new information. H<sub>Z</sub> likewise has rank 66. The intuition guide's <a href="../intuition/intuition.html#s4-1">§4.1</a> proved the two ranks must be equal (transposing and renaming preserve rank). The CSS stabilizer rank is their sum, 66 + 66 = 132, because pure-X rows and pure-Z rows can never cancel each other — <span class="mono">reproduce.py</span> asserts <span class="mono">gf2.rank(checkmatrix.stab) == 132</span> directly. So k = 144 − 132 = 12. That <span class="mono">gf2.rank</span> is the method named in stop ⑥'s provenance label: Gaussian elimination over GF(2), recomputed by the machine.</p>
+    <p class="zh">H<sub>X</sub> 有 72 行，但其中只有 66 行线性独立——<span class="sym" data-sym="rank">rank</span> H<sub>X</sub> = 66，意思是有 6 条 X 检查可以由其他检查相乘得到，它们不提供新信息。H<sub>Z</sub> 同样 rank = 66。直觉教程<a href="../intuition/intuition.html#s4-1">4.1 节</a>证过两个秩必然相等（转置与改名不改变秩）。CSS 码的稳定子秩是两者之和 66 + 66 = 132，因为纯 X 的行与纯 Z 的行不可能互相抵消——<span class="mono">reproduce.py</span> 直接断言了 <span class="mono">gf2.rank(checkmatrix.stab) == 132</span>。于是 k = 144 − 132 = 12。（「k = n − 独立检查数」还要一个前提：没有哪几条检查的乘积等于 −I，否则没有状态能通过全部检查。CSS 码自动满足：全 X 的检查相乘仍是不带负号的全 X，全 Z 同理。）这里的 <span class="mono">gf2.rank</span> 就是第 ⑥ 站出处标签里的方法：在 GF(2) 上做高斯消元，机器现算。</p>
+    <p class="en">H<sub>X</sub> has 72 rows, but only 66 of them are linearly independent — <span class="sym" data-sym="rank">rank</span> H<sub>X</sub> = 66, meaning 6 X checks are products of other checks and carry no new information. H<sub>Z</sub> likewise has rank 66. The intuition guide's <a href="../intuition/intuition.html#s4-1">§4.1</a> proved the two ranks must be equal (transposing and renaming preserve rank). The CSS stabilizer rank is their sum, 66 + 66 = 132, because pure-X rows and pure-Z rows can never cancel each other — <span class="mono">reproduce.py</span> asserts <span class="mono">gf2.rank(checkmatrix.stab) == 132</span> directly. So k = 144 − 132 = 12. (“k = n − number of independent checks” also needs one precondition: no product of checks may equal −I, or no state would pass them all. CSS codes satisfy it automatically: a product of all-X checks is again all-X with no minus sign, likewise for all-Z.) That <span class="mono">gf2.rank</span> is the method named in stop ⑥'s provenance label: Gaussian elimination over GF(2), recomputed by the machine.</p>
   </div>
   <div class="formula center">rank H<sub>X</sub> = rank H<sub>Z</sub> = 66<br><span class="zh">亏损</span><span class="en">deficit</span> = 72 − 66 = 6<br>k = n − 2·66 = 144 − 132 = <b>12</b><br>toric_L3: rank = 8, <span class="zh">亏损</span><span class="en">deficit</span> = 9 − 8 = 1, k = 18 − 16 = 2<span class="dim" style="display:block;white-space:normal;font-size:13px;line-height:1.6;margin-top:4px"><span class="zh">rank = 独立行数；72 = 每种检查的行数 = lm；亏损 = 多余检查的条数 = dim R/(A,B)；n = 144 数据比特；k = 逻辑比特数 = 2 × 亏损</span><span class="en">rank = number of independent rows; 72 = rows of each check type = lm; deficit = number of redundant checks = dim R/(A,B); n = 144 data qubits; k = logical qubits = 2 × deficit</span></span></div>
   <div class="prose">
-    <p class="zh">对照环面锚点：那里 9 行只有 8 行独立，亏损 1，就是「所有星乘起来是恒等」那一条恒等式；gross 的亏损是 6，也就是有 6 条这样的恒等式，但它们不再有「全乘起来」这么简单的形状——它们是 R/(A,B) 这个 6 维<span class="term">商空间<span class="tip">把环 R 里所有形如 uA + vB 的多项式当成零之后剩下的空间，记 R/(A,B)；它的维数就是秩的亏损。直觉教程 4.2 节。</span></span>的 6 个方向（直觉教程<a href="../intuition/intuition.html#s4-2">4.2 节</a>）。<span class="mono">reproduce.py</span> 也断言了 <span class="mono">torus_size − gf2.rank(hx) == 6</span>。</p>
-    <p class="en">Compare the toric anchor: there 9 rows have only 8 independent ones, deficit 1, which is the single identity “all stars multiply to the identity”; gross has deficit 6, so there are 6 such identities, but they no longer have the simple shape “multiply everything” — they are the 6 directions of the 6-dimensional <span class="term">quotient space<span class="tip">What remains of the ring R after every polynomial of the form uA + vB is set to zero, written R/(A,B); its dimension is the rank deficit. Intuition guide §4.2.</span></span> R/(A,B) (intuition guide <a href="../intuition/intuition.html#s4-2">§4.2</a>). <span class="mono">reproduce.py</span> also asserts <span class="mono">torus_size − gf2.rank(hx) == 6</span>.</p>
+    <p class="zh">对照环面锚点：那里 9 行只有 8 行独立，亏损 1，就是「所有星乘起来是恒等」那一条恒等式；gross 的亏损是 6，也就是有 6 条这样的恒等式，但它们不再有「全乘起来」这么简单的形状——它们是 R/(A,B) 这个 6 维<span class="term">商空间<span class="tip">环 R = 所有 x、y 的多项式，按 x¹² = 1、y⁶ = 1 计算（即全部 72 × 72 的「平移组合」矩阵）。把 R 里所有形如 uA + vB 的多项式当成零之后剩下的空间，记 R/(A,B)；它的维数就是秩的亏损。直觉教程 4.2 节。</span></span>的 6 个方向（直觉教程<a href="../intuition/intuition.html#s4-2">4.2 节</a>）。<span class="mono">reproduce.py</span> 也断言了 <span class="mono">torus_size − gf2.rank(hx) == 6</span>。</p>
+    <p class="en">Compare the toric anchor: there 9 rows have only 8 independent ones, deficit 1, which is the single identity “all stars multiply to the identity”; gross has deficit 6, so there are 6 such identities, but they no longer have the simple shape “multiply everything” — they are the 6 directions of the 6-dimensional <span class="term">quotient space<span class="tip">The ring R = all polynomials in x and y, computed with x¹² = 1, y⁶ = 1 (i.e. all 72 × 72 “combinations of translations”). What remains of R after every polynomial of the form uA + vB is set to zero, written R/(A,B); its dimension is the rank deficit. Intuition guide §4.2.</span></span> R/(A,B) (intuition guide <a href="../intuition/intuition.html#s4-2">§4.2</a>). <span class="mono">reproduce.py</span> also asserts <span class="mono">torus_size − gf2.rank(hx) == 6</span>.</p>
   </div>
 
   <h3 id="s5-2"><span class="sec-no">5.2</span><span class="zh">悬停换检查，秩不变：k 是全局的</span><span class="en">Hovering changes the check, not the rank: k is global</span></h3>
   <div class="prose">
-    <p class="zh">第 ⑥ 站故意高亮 X 检查 1 而不是 0，让你看到「换一条检查，支撑变了」：X 检查 1 = {2, 3, 19, 76, 79, 85}，与 X 检查 0 的 {1, 2, 18, 75, 78, 84} 是同一个形状挪了一格。但<b>秩没有变</b>——秩不是某一条检查的性质，而是全部 72 条检查放在一起的性质：它们张成的空间有多少维。你在格点上无论盯着哪一条检查、哪个比特，都看不出 k；k 只能从 A、B 生成的<span class="term">理想<span class="tip">ideal：环 R 里所有能写成 uA + vB 的多项式的集合。[A | B] 的像就是它，秩就是它的维数。</span></span> (A, B) 占了 72 维里的多少维算出来。说人话：<b>局部看形状，全局看秩</b>。</p>
-    <p class="en">Stop ⑥ deliberately highlights X check 1 rather than 0, so you see “change the check, the support changes”: X check 1 = {2, 3, 19, 76, 79, 85}, the same shape as X check 0's {1, 2, 18, 75, 78, 84} moved one step. But <b>the rank did not change</b> — rank is not a property of one check but of all 72 checks together: how many dimensions they span. Stare at whichever check or qubit on the lattice you like, k is invisible; it can only be computed from how many of the 72 dimensions the <span class="term">ideal<span class="tip">The set of all polynomials in R of the form uA + vB. It is the image of [A | B], and the rank is its dimension.</span></span> (A, B) generated by A and B occupies. In plain words: <b>shape is local, rank is global</b>.</p>
-    <p class="zh">最有说服力的证据是直觉教程<a href="../intuition/intuition.html#s5-5">5.5 节</a>讲过的：把<b>完全相同</b>的 A、B 放到 9 × 6 的环面上（Atlas 条目 <a href="../../../../exports/site/entries/bb108.html">bb108</a>），每条检查的形状一模一样，还是六条腿，可秩亏损从 6 变成 4，k 从 12 掉到 8。形状没变，k 变了——因为 x⁹ = 1 与 x¹² = 1 是两个不同的环，同一对多项式在里面「占」的比例不同。回到第 2 章的实验台按几次「随机改一个指数」也能看到：项数不动、腿数不动，k 却在 0、2、12 之间跳。</p>
-    <p class="en">The most convincing evidence is from the intuition guide's <a href="../intuition/intuition.html#s5-5">§5.5</a>: put the <b>identical</b> A and B on a 9 × 6 torus (Atlas entry <a href="../../../../exports/site/entries/bb108.html">bb108</a>), every check has exactly the same shape, still six legs, yet the rank deficit drops from 6 to 4 and k from 12 to 8. Same shape, different k — because x⁹ = 1 and x¹² = 1 define two different rings, and the same pair of polynomials “occupies” a different share of each. Pressing “Perturb one exponent” a few times on Chapter 2's bench shows the same: term count fixed, leg count fixed, yet k jumps among 0, 2 and 12.</p>
+    <p class="zh">第 ⑥ 站故意高亮 X 检查 1 而不是 0，让你看到「换一条检查，支撑变了」：X 检查 1 = {2, 3, 19, 76, 79, 85}，与 X 检查 0 的 {1, 2, 18, 75, 78, 84} 是同一个形状挪了一格。但<b>秩没有变</b>——秩不是某一条检查的性质，而是全部 72 条检查放在一起的性质：它们张成的空间有多少维。你在格点上无论盯着哪一条检查、哪个比特，都看不出 k；k 只能从 A、B 生成的<span class="term">理想<span class="tip">ideal：环 R 里所有能写成 uA + vB 的多项式的集合。[A | B] 的像（所有能写成 [A | B] 乘某个向量的结果）就是它，秩就是它的维数。</span></span> (A, B) 占了 72 维里的多少维算出来。说人话：<b>局部看形状，全局看秩</b>。</p>
+    <p class="en">Stop ⑥ deliberately highlights X check 1 rather than 0, so you see “change the check, the support changes”: X check 1 = {2, 3, 19, 76, 79, 85}, the same shape as X check 0's {1, 2, 18, 75, 78, 84} moved one step. But <b>the rank did not change</b> — rank is not a property of one check but of all 72 checks together: how many dimensions they span. Stare at whichever check or qubit on the lattice you like, k is invisible; it can only be computed from how many of the 72 dimensions the <span class="term">ideal<span class="tip">The set of all polynomials in R of the form uA + vB. It is the image of [A | B] (everything of the form [A | B] times some vector), and the rank is its dimension.</span></span> (A, B) generated by A and B occupies. In plain words: <b>shape is local, rank is global</b>.</p>
+    <p class="zh">最有说服力的证据是直觉教程<a href="../intuition/intuition.html#s5-5">5.5 节</a>讲过的：把<b>完全相同</b>的 A、B 放到 9 × 6 的环面上（Atlas 条目 <a href="../../../../exports/site/entries/bb108.html">bb108</a>），每条检查的形状一模一样，还是六条腿，可秩亏损从 6 变成 4，k 从 12 掉到 8。形状没变，k 变了——因为 x⁹ = 1 与 x¹² = 1 是两个不同的环，同一对多项式在里面「占」的比例不同。在第 2 章的 BB 构造器上可以亲手看到：保持 gross 的两个多项式不动，把 l 的滑杆从 12 拉到 9，读数里每条检查仍是 6 条腿，k 却从 12 变成 8；或者在「A 的项」里只改一个指数：只要改完后 A 的三项在 mod 12、mod 6 之下仍互不相同，项数、腿数就都不变，k 却会跳。这个前提不能省：把 y 改成 y²，得到 A = x³ + y² + y²，两个 y² 相加为 0（1 + 1 = 0）而相消，A = x³，每条检查只剩 4 条腿。本篇的脚本在固定的 12 × 6 环面上逐个试过（B 不动）：只改 A 的一个指数、三项仍互不相同的 46 种改法里，k 只取 0、8、12；把 A 的一整项换成任意别的项（三项仍互不相同），k 只取 0、4、8、12。这些 k 值只针对 12 × 6 这一个环面。</p>
+    <p class="en">The most convincing evidence is from the intuition guide's <a href="../intuition/intuition.html#s5-5">§5.5</a>: put the <b>identical</b> A and B on a 9 × 6 torus (Atlas entry <a href="../../../../exports/site/entries/bb108.html">bb108</a>), every check has exactly the same shape, still six legs, yet the rank deficit drops from 6 to 4 and k from 12 to 8. Same shape, different k — because x⁹ = 1 and x¹² = 1 define two different rings, and the same pair of polynomials “occupies” a different share of each. You can see it yourself on Chapter 2's BB constructor: keep gross's two polynomials, drag the l slider from 12 to 9, and the readout still shows six legs per check while k drops from 12 to 8; or change a single exponent in “A terms”: as long as A's three terms stay distinct modulo 12 and 6, the term count and leg count stay the same, yet k jumps. The condition matters: changing y to y² gives A = x³ + y² + y², the two y² add to 0 (1 + 1 = 0) and cancel, so A = x³ and every check has only 4 legs. This guide's script tried every case on the fixed 12 × 6 torus (B unchanged): over the 46 single-exponent changes of A that keep three distinct terms, k is 0, 8 or 12; replacing one whole term of A by any other term (still three distinct terms), k is 0, 4, 8 or 12. These k values are for the 12 × 6 torus only.</p>
   </div>
   <div class="note note-honest">
     <span class="note-tag"><span class="zh">文献与机器的分工</span><span class="en">Literature versus machine</span></span>
@@ -2313,17 +2409,17 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
   </div>
   <div class="ch-nav">
     <a href="#ch4"><span class="zh">上一章</span><span class="en">Back</span><b><span class="zh">4 · 环面锚点</span><span class="en">4 · The toric anchor</span></b></a>
-    <a href="#ch6"><span class="zh">下一章</span><span class="en">Next</span><b><span class="zh">6 · 不是电路，不是门</span><span class="en">6 · Not a circuit, not a gate</span></b></a>
+    <a href="#ch6"><span class="zh">下一章</span><span class="en">Next</span><b><span class="zh">6 · 不是电路；逻辑作用另算</span><span class="en">6 · Not a circuit; the logical action is computed elsewhere</span></b></a>
   </div>
 </section>
 
 <section class="chapter" id="ch6">
   <div class="ch-head">
     <div class="ch-no"><span class="zh">第 6 章</span><span class="en">Chapter 6</span></div>
-    <h2><span class="zh">最后两站：静态码不是电路，对称不是门</span><span class="en">The last two stops: a static code is not a circuit, a symmetry is not a gate</span></h2>
+    <h2><span class="zh">最后两站：静态码不是电路，平移的逻辑作用要另算</span><span class="en">The last two stops: a static code is not a circuit, and what a translation does to the logical qubits is computed elsewhere</span></h2>
     <p class="ch-lede">
-      <span class="zh">前六站都在说「有什么」，最后两站专门说「没有什么」。第 ⑦ 站：播放器只认证稳定子的关联，深度 7 的电路与 0.8% 的阈值属于另一个实验。第 ⑧ 站：环面平移把所有检查的支撑映到自身，是码的自同构，但这还不是一个逻辑门。两站的出处标签不同：⑦ 是 <span class="mono">curated</span>，⑧ 是 <span class="mono">verified</span>。</span>
-      <span class="en">The first six stops say “what there is”; the last two say “what there is not”. Stop ⑦: the player certifies stabilizer incidence only; the depth-7 circuit and the 0.8% threshold belong to a separate experiment. Stop ⑧: torus translations map every check support onto the set of supports, so they are code automorphisms, but that is not yet a logical gate. The two stops carry different labels: ⑦ is <span class="mono">curated</span>, ⑧ is <span class="mono">verified</span>.</span>
+      <span class="zh">前六站都在说「有什么」，最后两站专门说「没有什么」。第 ⑦ 站：播放器只认证稳定子的关联，深度 7 的电路与 0.8% 的阈值属于另一个实验。第 ⑧ 站：环面平移把所有检查的支撑映到自身，是码的自同构；它一定对逻辑比特做了某个操作，但导览只验证了「是自同构」这一步，做的是哪个逻辑操作要另算。两站的出处标签不同：⑦ 是 <span class="mono">curated</span>，⑧ 是 <span class="mono">verified</span>。</span>
+      <span class="en">The first six stops say “what there is”; the last two say “what there is not”. Stop ⑦: the player certifies stabilizer incidence only; the depth-7 circuit and the 0.8% threshold belong to a separate experiment. Stop ⑧: torus translations map every check support onto the set of supports, so they are code automorphisms; each one does act on the logical qubits somehow, but the tour verifies only the automorphism step, and which logical operation it performs is computed elsewhere. The two stops carry different labels: ⑦ is <span class="mono">curated</span>, ⑧ is <span class="mono">verified</span>.</span>
     </p>
   </div>
 
@@ -2335,14 +2431,14 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
   <div class="table-wrap"><table class="glossary">
     <tr><th><span class="zh">条目未导出的</span><span class="en">Not exported by the entry</span></th><th><span class="zh">它是什么</span><span class="en">What it is</span></th><th><span class="zh">文献里有什么</span><span class="en">What the literature has</span></th></tr>
     <tr><td><span class="zh">辅助比特坐标</span><span class="en">ancilla coordinates</span></td><td><span class="zh">每条检查由哪个额外比特来测；gross 需要 144 个</span><span class="en">which extra qubit measures each check; gross needs 144</span></td><td rowspan="5"><span class="zh">Bravyi 等人为两层耦合给出一个 <b>7 层</b> CNOT 的提取电路（<span class="mono">bravyi2024bicycle</span>）；Shaw 与 Terhal 用「变形电路」把度从 6 降到 5、用 6 轮 CNOT（<span class="mono">shaw2025morphing</span>，据文献扫描报告，登记待补）——两者的硬件图和探测器模型都不同。「7」是那一个调度的性质，不是所有六腿矩阵的性质。</span><span class="en">Bravyi et al. give a <b>7-layer</b> CNOT extraction for the two-layer connectivity (<span class="mono">bravyi2024bicycle</span>); Shaw and Terhal use “morphing circuits” to lower the degree from 6 to 5 with 6 CNOT rounds (<span class="mono">shaw2025morphing</span>, from the scout report, registration pending) — both the hardware graph and the detector model differ. The “7” is a property of that one schedule, not of every weight-six matrix.</span></td></tr>
-    <tr><td><span class="zh">七层门序</span><span class="en">seven-layer gate order</span></td><td><span class="zh">六条腿的 CNOT 谁先谁后；顺序决定钩子错误怎么传播</span><span class="en">which of the six legs' CNOTs go first; order decides how hook errors propagate</span></td></tr>
+    <tr><td><span class="zh">七层门序</span><span class="en">seven-layer gate order</span></td><td><span class="zh">六条腿的 CNOT 谁先谁后；顺序决定<b>钩子错误</b>（辅助比特上的一个故障经过后面的 CNOT 扩散成数据比特上的两个或更多错误）怎么传播</span><span class="en">which of the six legs' CNOTs go first; order decides how <b>hook errors</b> (one fault on an ancilla spread by the later CNOTs into two or more errors on data qubits) propagate</span></td></tr>
     <tr><td><span class="zh">重置与测量操作</span><span class="en">reset and measurement operations</span></td><td><span class="zh">辅助比特何时清零、何时读出</span><span class="en">when ancillas are reset and read out</span></td></tr>
     <tr><td><span class="zh">探测器定义</span><span class="en">detector definitions</span></td><td><span class="zh">哪些读数的乘积应当确定、比较相邻两轮得到「变化」</span><span class="en">which products of readouts are deterministic; comparing consecutive rounds yields “change” events</span></td></tr>
     <tr><td><span class="zh">电路码距见证</span><span class="en">circuit-distance witness</span></td><td><span class="zh">最小的、不被探测却导致逻辑错误的故障集合有多大</span><span class="en">the size of the smallest undetected fault set that causes a logical error</span></td></tr>
   </table></div>
   <div class="prose">
-    <p class="zh">所以要分清<b>三种「距离」</b>：静态码距（数据比特上最轻的非平凡逻辑 Pauli——gross 的 12，<span class="mono">bounded</span>）；电路码距（最小的不被探测却导致逻辑失败的故障集合——可以比 12 小，取决于调度）；译码器找到的失败重量（某个具体搜索或译码器找到的最小失败——找不到不等于不存在）。0.8% 的阈值属于第三类的上一层：它是 Bravyi 等人对<b>他们那一族</b> BB 码，在<b>标准电路噪声</b>、<b>他们的深度 7 电路与探测器构造</b>、<b>BP-OSD 译码器</b>下做<b>有限尺寸标度</b>得到的估计——直觉教程<a href="../intuition/intuition.html#s6-4">6.4 节</a>的五个限定项，与《译码器 · 高中数学版》<a href="../../surface_code/decoders/decoders.html#s6-1">阈值账本规则</a>同一套读法。播放器上没有任何一个像素与这五件事有关，所以第 ⑦ 站的标签是 <span class="mono">curated</span>：它是文献叙述，不是机器重算。</p>
-    <p class="en">So keep <b>three kinds of “distance”</b> apart: the static code distance (the lightest nontrivial logical Pauli on the data qubits — gross's 12, <span class="mono">bounded</span>); the circuit distance (the smallest undetected fault set that causes a logical failure — it can be smaller than 12, depending on the schedule); and the decoder-found failure weight (the smallest failure some specific search or decoder found — not finding one does not mean none exists). The 0.8% threshold sits one level above the third kind: it is Bravyi et al.'s estimate for <b>their family</b> of BB codes under <b>standard circuit noise</b>, <b>their depth-7 circuit and detector construction</b>, the <b>BP-OSD decoder</b>, and <b>finite-size scaling</b> — the five qualifiers of the intuition guide's <a href="../intuition/intuition.html#s6-4">§6.4</a>, read with the same <a href="../../surface_code/decoders/decoders.html#s6-1">threshold-ledger rules</a> as “Decoders · High-School Edition”. Not one pixel of the player concerns any of these five things, which is why stop ⑦ is labelled <span class="mono">curated</span>: literature narrative, not machine recomputation.</p>
+    <p class="zh">所以要分清<b>三种「距离」</b>：静态码距（数据比特上最轻的非平凡逻辑 Pauli——gross 的 12，<span class="mono">bounded</span>）；电路码距（最小的不被探测却导致逻辑失败的故障集合——可以比 12 小，取决于调度）；译码器找到的失败重量（某个具体搜索或译码器找到的最小失败——找不到不等于不存在）。0.8% 的阈值和这三种距离都不是一回事：它是一整套实验流程的数字。Bravyi 等人的论文摘要（arXiv:2308.07915）原话是「an error threshold of 0.8% for the standard circuit-based noise model」，对象是<b>他们那一族</b> BB 码，条件是<b>标准电路噪声</b>（每个门、空闲、制备、读出都可能出错）、<b>他们的深度 7 电路与探测器构造</b>、<b>BP-OSD 译码器</b>（置信传播加有序统计后处理），数值由模拟得到——直觉教程<a href="../intuition/intuition.html#s6-4">6.4 节</a>的五个限定项，与《译码器 · 高中数学版》<a href="../../surface_code/decoders/decoders.html#s6-1">阈值账本规则</a>同一套读法。播放器上没有任何一个像素与这五件事有关，所以第 ⑦ 站的标签是 <span class="mono">curated</span>：它是文献叙述，不是机器重算。</p>
+    <p class="en">So keep <b>three kinds of “distance”</b> apart: the static code distance (the lightest nontrivial logical Pauli on the data qubits — gross's 12, <span class="mono">bounded</span>); the circuit distance (the smallest undetected fault set that causes a logical failure — it can be smaller than 12, depending on the schedule); and the decoder-found failure weight (the smallest failure some specific search or decoder found — not finding one does not mean none exists). The 0.8% threshold is none of these three: it is a number about a whole experimental pipeline. The abstract of Bravyi et al. (arXiv:2308.07915) says “an error threshold of 0.8% for the standard circuit-based noise model”, for <b>their family</b> of BB codes, under <b>standard circuit noise</b> (every gate, idle step, preparation and readout may fail), with <b>their depth-7 circuit and detector construction</b> and the <b>BP-OSD decoder</b> (belief propagation plus ordered-statistics post-processing), obtained from simulations — the five qualifiers of the intuition guide's <a href="../intuition/intuition.html#s6-4">§6.4</a>, read with the same <a href="../../surface_code/decoders/decoders.html#s6-1">threshold-ledger rules</a> as “Decoders · High-School Edition”. Not one pixel of the player concerns any of these five things, which is why stop ⑦ is labelled <span class="mono">curated</span>: literature narrative, not machine recomputation.</p>
   </div>
 
   <h3 id="s6-2"><span class="sec-no">6.2</span><span class="zh">平移是自同构：Z 检查 0 挪一格就是 Z 检查 1</span><span class="en">Translations are automorphisms: Z check 0 moved one step is Z check 1</span></h3>
@@ -2709,9 +2805,9 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
 </svg>
     </div>
     <figcaption>
-      <span class="fno">图 6.1</span>
-      <span class="zh">Z 检查 0（格子 (0, 0)）与 Z 检查 1（格子 (0, 1)）：同一个六腿形状往上挪了一格。五条腿的编号各加 1，第六条腿从 77（右层 j = 5）绕回 72（右层 j = 0）。</span>
-      <span class="en">Z check 0 (site (0, 0)) and Z check 1 (site (0, 1)): one six-leg shape moved one step up. Five legs' indices increase by 1; the sixth wraps from 77 (right layer, j = 5) to 72 (right layer, j = 0).</span>
+      <span class="fno">6.1</span>
+      <span class="zh">底图同图 1.1：实心圆 = 左层比特，空心圆 = 右层比特，橙 / 蓝小方块 = 各格子的 X / Z 检查。Z 检查 0（格子 (0, 0)）与 Z 检查 1（格子 (0, 1)），两个放大的蓝色方块，各自的腿以虚线或实线连到标了编号的蓝色大圆：同一个六腿形状往上挪了一格。五条腿的编号各加 1，第六条腿从 77（右层 j = 5）绕回 72（右层 j = 0）。</span>
+      <span class="en">Background as in figure 1.1: filled circle = left-layer qubit, hollow circle = right-layer qubit, small orange / blue squares = each site's X / Z check. Z check 0 (site (0, 0)) and Z check 1 (site (0, 1)), the two enlarged blue squares, each joined by solid or dashed legs to numbered large blue circles: one six-leg shape moved one step up. Five legs' indices increase by 1; the sixth wraps from 77 (right layer, j = 5) to 72 (right layer, j = 0).</span>
     </figcaption>
   </figure>
   <div class="prose">
@@ -2720,8 +2816,8 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
   </div>
   <div class="formula center">H<sub>X</sub> · diag(P, P) = P · H<sub>X</sub>　·　H<sub>Z</sub> · diag(P, P) = P · H<sub>Z</sub>　　(P = x <span class="zh">或</span><span class="en">or</span> y)<span class="dim" style="display:block;white-space:normal;font-size:13px;line-height:1.6;margin-top:4px"><span class="zh">左边 = 先平移所有比特再看检查（列被置换）；右边 = 检查被重新编号（行被置换）；两边相等 ⇔ 平移把稳定子群映到自身。成立的理由：P 与 A、B、Aᵀ、Bᵀ 都对易（它们都是 x、y 的多项式）。</span><span class="en">Left = translate all qubits, then look at the checks (columns permuted); right = the checks renumbered (rows permuted); equality ⇔ the translation maps the stabilizer group to itself. Why it holds: P commutes with A, B, Aᵀ, Bᵀ (all are polynomials in x, y).</span></span></div>
   <div class="prose">
-    <p class="zh">于是环面平移是码的<span class="term">自同构<span class="tip">automorphism：把稳定子群映到自身的物理操作（这里是比特的一个置换）。它保证码空间不变，但对逻辑比特做了什么需要另算。</span></span>。第 ⑧ 站的后半句才是重点：「That alone does not name a logical gate: the induced action on the twelve logical Pauli pairs and the routing cost must still be computed for the chosen block.」说人话：把 144 个比特整体挪一格，码空间确实回到自己——但 12 个逻辑比特被<b>怎样</b>变了？可能什么也没变（恒等），可能几个逻辑比特被互相交换或混合，也可能是某个 Clifford 门；不算出它对 24 个逻辑 Pauli（12 对 X̄、Z̄）的作用，就不能叫它「门」。而且「挪一格」在真机上是把每个比特搬到邻居的位置，或者等价地把 144 根连线全部重接——布线代价要另算。Atlas 因此只把它记为<b>物理自同构</b>（<span class="mono">verified</span>），不记为逻辑操作；直觉教程<a href="../intuition/intuition.html#s6-5">6.5 节</a>说的正是这件事，逻辑操作侧面（<a href="../operations/operations.html">逻辑操作</a>）记录的五条操作全部是 <span class="mono">claimed</span>。</p>
-    <p class="en">So torus translations are <span class="term">automorphisms<span class="tip">A physical operation (here a permutation of qubits) that maps the stabilizer group to itself. It guarantees the code space is preserved, but what it does to the logical qubits must be computed separately.</span></span> of the code. The second half of stop ⑧ is the point: “That alone does not name a logical gate: the induced action on the twelve logical Pauli pairs and the routing cost must still be computed for the chosen block.” In plain words: shift all 144 qubits one step and the code space does return to itself — but <b>how</b> were the 12 logical qubits changed? Perhaps not at all (identity), perhaps several logical qubits were swapped or mixed, perhaps it is some Clifford gate; until its action on the 24 logical Paulis (12 pairs X̄, Z̄) is computed, it cannot be called a “gate”. And “one step” on real hardware means moving every qubit to its neighbour's place, or equivalently rewiring all 144 connections — a routing cost to be accounted separately. The Atlas therefore records it only as a <b>physical automorphism</b> (<span class="mono">verified</span>), not as a logical operation; the intuition guide's <a href="../intuition/intuition.html#s6-5">§6.5</a> says exactly this, and all five operations recorded in the operations facet (<a href="../operations/operations.html">logical operations</a>) are <span class="mono">claimed</span>.</p>
+    <p class="zh">于是环面平移是码的<span class="term">自同构<span class="tip">automorphism：把稳定子群映到自身的物理操作（这里是比特的一个置换）。它保证码空间不变，但对逻辑比特做了什么需要另算。</span></span>。第 ⑧ 站的后半句才是重点：「That alone does not name a logical gate: the induced action on the twelve logical Pauli pairs and the routing cost must still be computed for the chosen block.」说人话：把 144 个比特整体挪一格，码空间确实回到自己。一个把稳定子群映回自身的比特置换，必然在 12 个逻辑比特上做某个 Clifford 操作（把每个逻辑 Pauli 变成另一个逻辑 Pauli 的操作，例如 H、S、CNOT；恒等也算一种）。问题是<b>哪一个</b>：上面的矩阵恒等式只证明码空间不变，算不出它对 24 个逻辑 Pauli（12 对 X̄、Z̄）的作用；导览和 Atlas 的证书都没有算这一步，所以在 Atlas 里，它的具体逻辑作用和实现代价都还是「未计算」。文献里算过：Bravyi 等人（arXiv:2308.07915 v2，9.2 节「Logical Gates based on Automorphisms」）选了一组以单项式编号的逻辑算符，平移 s 把编号为 n 的 X̄ 换成编号为 s·n 的 X̄（Z̄ 同理），于是每个平移都是一个逻辑 CNOT 电路（最多差一个逻辑 Pauli 修正）；作者还写道除 s = 1 外没有哪个平移作用成逻辑恒等，但对 gross 这一句不成立：逐一检验 72 个平移对全部逻辑 X̄、Z̄ 的作用，x⁶（沿长为 12 的方向平移半圈）作用成逻辑恒等，其余 70 个非恒等平移都作用非平凡（检验方法见直觉教程 6.5 节）。作者也说，还不清楚怎样把这些 CNOT 用于有用的计算。而且「挪一格」在真机上是把每个比特搬到邻居的位置，或者等价地把 144 根连线全部重接——布线代价要另算。Atlas 因此只把它记为<b>物理自同构</b>（<span class="mono">verified</span>），不记为逻辑操作；直觉教程<a href="../intuition/intuition.html#s6-5">6.5 节</a>说的正是这件事，逻辑操作侧面（<a href="../operations/operations.html">逻辑操作</a>）记录的五条操作全部是 <span class="mono">claimed</span>。</p>
+    <p class="en">So torus translations are <span class="term">automorphisms<span class="tip">A physical operation (here a permutation of qubits) that maps the stabilizer group to itself. It guarantees the code space is preserved, but what it does to the logical qubits must be computed separately.</span></span> of the code. The second half of stop ⑧ is the point: “That alone does not name a logical gate: the induced action on the twelve logical Pauli pairs and the routing cost must still be computed for the chosen block.” In plain words: shift all 144 qubits one step and the code space does return to itself. A qubit permutation that maps the stabilizer group to itself necessarily performs some Clifford operation on the 12 logical qubits (an operation that turns every logical Pauli into another logical Pauli, such as H, S, CNOT; the identity counts too). The question is <b>which one</b>: the matrix identity above proves only that the code space is preserved and cannot give the action on the 24 logical Paulis (12 pairs X̄, Z̄). Neither the tour nor the Atlas certificates compute that step, so in the Atlas its specific logical action and implementation cost remain uncomputed. The literature has computed it: Bravyi et al. (arXiv:2308.07915 v2, section 9.2 “Logical Gates based on Automorphisms”) choose logical operators labelled by monomials; a translation s turns the X̄ labelled n into the X̄ labelled s·n (likewise for Z̄), so every translation is a logical CNOT circuit (up to a logical Pauli correction); the authors also write that no translation other than s = 1 acts as the logical identity, but for gross that does not hold: checking all 72 translations on every logical X̄ and Z̄ shows that x⁶ (a half-turn along the direction of length 12) acts as the logical identity, while the other 70 nonidentity translations have a nontrivial logical action (the check is described in §6.5 of the intuition guide). The authors add that it is not yet clear how to use these CNOTs for useful computation. And “one step” on real hardware means moving every qubit to its neighbour's place, or equivalently rewiring all 144 connections — a routing cost to be accounted separately. The Atlas therefore records it only as a <b>physical automorphism</b> (<span class="mono">verified</span>), not as a logical operation; the intuition guide's <a href="../intuition/intuition.html#s6-5">§6.5</a> says exactly this, and all five operations recorded in the operations facet (<a href="../operations/operations.html">logical operations</a>) are <span class="mono">claimed</span>.</p>
   </div>
   <div class="note note-honest">
     <span class="note-tag"><span class="zh">第 ⑧ 站的两篇文献</span><span class="en">The two papers of stop ⑧</span></span>
@@ -2730,8 +2826,8 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
   </div>
   <div class="note note-key">
     <span class="note-tag"><span class="zh">关键想法</span><span class="en">Key idea</span></span>
-    <p class="zh">导览最后两站是两道防线。第一道：格点图只是矩阵的打印件，电路、探测器、阈值都在图外——「[[144,12,12]]」这串数字里没有 0.8%。第二道：对称性只保证「码空间回到自己」，不保证「逻辑比特被做了什么」——自同构到门之间还差一次计算和一份布线账。两道防线守住了，才能诚实地说 gross 码「是什么」。</p>
-    <p class="en">The tour's last two stops are two lines of defence. First: the lattice picture is a printout of a matrix; circuits, detectors and thresholds lie outside it — there is no 0.8% inside the string “[[144,12,12]]”. Second: a symmetry only guarantees “the code space returns to itself”, not “what was done to the logical qubits” — between automorphism and gate lie one more computation and one routing ledger. Only with both lines held can one honestly say what the gross code “is”.</p>
+    <p class="zh">导览最后两站是两道防线。第一道：格点图只是矩阵的打印件，电路、探测器、阈值都在图外——「[[144,12,12]]」这串数字里没有 0.8%。第二道：「平移置换检查行」这条恒等式只证明码空间回到自己，算不出逻辑比特被做了什么；这一步 Bravyi 等人在文献里算过（非平凡的逻辑 CNOT 电路），Atlas 没有重算，真机上的布线代价也要另记一笔账。两道防线守住了，才能诚实地说 gross 码「是什么」。</p>
+    <p class="en">The tour's last two stops are two lines of defence. First: the lattice picture is a printout of a matrix; circuits, detectors and thresholds lie outside it — there is no 0.8% inside the string “[[144,12,12]]”. Second: the identity “translations permute check rows” proves only that the code space returns to itself and cannot tell what was done to the logical qubits; Bravyi et al. computed that step in the literature (a nontrivial logical CNOT circuit), the Atlas does not recompute it, and the routing cost on hardware is a separate ledger. Only with both lines held can one honestly say what the gross code “is”.</p>
   </div>
   <div class="ch-nav">
     <a href="#ch5"><span class="zh">上一章</span><span class="en">Back</span><b><span class="zh">5 · 秩亏损</span><span class="en">5 · The rank defect</span></b></a>
@@ -2745,8 +2841,8 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
     <h2><span class="zh">八站走完，与十个其他侧面</span><span class="en">Eight stops done, and ten other facets</span></h2>
   </div>
   <div class="prose">
-    <p class="zh">回放整条论证：12 × 6 的环面、每格两个比特，编号 layer·72 + i·6 + j，坐标 (2i + 0.55·layer, 2j + 0.55·layer)，共 144 个（①）→ X 检查 (i, j) 的腿 = A 的每一项加到格子上给左层、B 的每一项给右层：X 检查 0 = {1, 2, 18} ∪ {75, 78, 84}，重量 3 + 3 = 6（②）→ Z 检查用 [Bᵀ | Aᵀ]：每个指数取负、两块换位置，Z 检查 0 = {3, 60, 66, 76, 77, 126}；左层算 AB、右层算 BA，整数重叠只有 0 和 2（③）→ 同一个构造器换四个输入得 toric_L3：四腿、9 × 18、秩 8、k = 2、穷举 d = 3，锁死约定但不把 gross 拆成环面（④⑤）→ 72 行秩 66，亏损 6，k = 2 × 6 = 12，悬停换检查不换秩（⑥）→ 图上只有关联，电路、探测器、0.8% 在图外（⑦）→ 平移置换检查行，是自同构不是门（⑧）。七站 <span class="mono">verified</span>，每个数字都能用 <span class="mono">reproduce.py</span> 重算；一站 <span class="mono">curated</span>，说的正是机器没算的那部分。</p>
-    <p class="en">Replay the whole argument: a 12 × 6 torus, two qubits per site, index layer·72 + i·6 + j, coordinate (2i + 0.55·layer, 2j + 0.55·layer), 144 in all (①) → the legs of X check (i, j) = each term of A added to the site for the left layer, each term of B for the right: X check 0 = {1, 2, 18} ∪ {75, 78, 84}, weight 3 + 3 = 6 (②) → Z checks use [Bᵀ | Aᵀ]: every exponent negated, the two blocks swapped, Z check 0 = {3, 60, 66, 76, 77, 126}; the left layer computes AB, the right BA, and the integer overlaps are only 0 and 2 (③) → the same constructor with four different inputs gives toric_L3: four legs, 9 × 18, rank 8, k = 2, exhaustive d = 3, pinning the conventions without splitting gross into tori (④⑤) → 72 rows of rank 66, deficit 6, k = 2 × 6 = 12, hovering changes the check but not the rank (⑥) → the picture holds incidence only; circuits, detectors and 0.8% lie outside it (⑦) → translations permute check rows: an automorphism, not a gate (⑧). Seven stops <span class="mono">verified</span>, every number recomputable with <span class="mono">reproduce.py</span>; one stop <span class="mono">curated</span>, speaking of precisely the part the machine did not compute.</p>
+    <p class="zh">回放整条论证：12 × 6 的环面、每格两个比特，编号 layer·72 + i·6 + j，坐标 (2i + 0.55·layer, 2j + 0.55·layer)，共 144 个（①）→ X 检查 (i, j) 的腿 = A 的每一项加到格子上给左层、B 的每一项给右层：X 检查 0 = {1, 2, 18} ∪ {75, 78, 84}，重量 3 + 3 = 6（②）→ Z 检查用 [Bᵀ | Aᵀ]：每个指数取负、两块换位置，Z 检查 0 = {3, 60, 66, 76, 77, 126}；左层算 AB、右层算 BA，整数重叠只有 0 和 2（③）→ 同一个构造器换四个输入得 toric_L3：四腿、9 × 18、秩 8、k = 2、穷举 d = 3，锁死约定但不把 gross 拆成环面（④⑤）→ 72 行秩 66，亏损 6，k = 2 × 6 = 12，悬停换检查不换秩（⑥）→ 图上只有关联，电路、探测器、0.8% 在图外（⑦）→ 平移置换检查行，是自同构；它的逻辑作用（Bravyi 等人算出是逻辑 CNOT 电路）不在导览的验证之内（⑧）。七站 <span class="mono">verified</span>，每个数字都能用 <span class="mono">reproduce.py</span> 重算；一站 <span class="mono">curated</span>，说的正是机器没算的那部分。</p>
+    <p class="en">Replay the whole argument: a 12 × 6 torus, two qubits per site, index layer·72 + i·6 + j, coordinate (2i + 0.55·layer, 2j + 0.55·layer), 144 in all (①) → the legs of X check (i, j) = each term of A added to the site for the left layer, each term of B for the right: X check 0 = {1, 2, 18} ∪ {75, 78, 84}, weight 3 + 3 = 6 (②) → Z checks use [Bᵀ | Aᵀ]: every exponent negated, the two blocks swapped, Z check 0 = {3, 60, 66, 76, 77, 126}; the left layer computes AB, the right BA, and the integer overlaps are only 0 and 2 (③) → the same constructor with four different inputs gives toric_L3: four legs, 9 × 18, rank 8, k = 2, exhaustive d = 3, pinning the conventions without splitting gross into tori (④⑤) → 72 rows of rank 66, deficit 6, k = 2 × 6 = 12, hovering changes the check but not the rank (⑥) → the picture holds incidence only; circuits, detectors and 0.8% lie outside it (⑦) → translations permute check rows: an automorphism, whose logical action (a logical CNOT circuit, computed by Bravyi et al.) lies outside what the tour verifies (⑧). Seven stops <span class="mono">verified</span>, every number recomputable with <span class="mono">reproduce.py</span>; one stop <span class="mono">curated</span>, speaking of precisely the part the machine did not compute.</p>
   </div>
 
   <h3 id="symtable"><span class="zh">符号与读法</span><span class="en">Symbols &amp; how to read them</span></h3>
@@ -2779,7 +2875,11 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
     <tr><td><span class="zh">锚点（anchor）</span><span class="en">anchor</span></td><td><span class="zh">用同一个构造器在能穷举的尺寸上算出的小实例，用来锁死约定；BB 的锚点是 toric_L3 [[18,2,3]]。</span><span class="en">A small instance computed by the same constructor at an exhaustively checkable size, used to pin conventions; the BB anchor is toric_L3 [[18,2,3]].</span></td></tr>
     <tr><td><span class="zh">秩亏损（rank deficit）</span><span class="en">rank deficit</span></td><td><span class="zh">lm − rank：多余检查的条数；gross 6，toric_L3 1；k 是它的两倍。</span><span class="en">lm − rank: the number of redundant checks; 6 for gross, 1 for toric_L3; k is twice it.</span></td></tr>
     <tr><td><span class="zh">静态码距 / 电路码距</span><span class="en">static / circuit distance</span></td><td><span class="zh">前者是数据比特上最轻的非平凡逻辑算符（gross 12，bounded）；后者是电路里最小的不被探测却致错的故障集合，取决于调度，条目未导出。</span><span class="en">The former is the lightest nontrivial logical on the data qubits (gross 12, bounded); the latter the smallest undetected fault set in a circuit that causes a logical error, schedule-dependent, not exported by the entry.</span></td></tr>
-    <tr><td><span class="zh">自同构（automorphism）</span><span class="en">automorphism</span></td><td><span class="zh">把稳定子群映到自身的物理置换；环面平移是 gross 的自同构（verified），但它对 12 个逻辑比特的作用在 Atlas 里未认证（文献算过），故在这里不算门。</span><span class="en">A physical permutation mapping the stabilizer group to itself; torus translations are automorphisms of gross (verified), but their action on the 12 logical qubits is not certified in the Atlas (the literature has computed it), so here they do not count as gates.</span></td></tr>
+    <tr><td><span class="zh">一罗（gross）</span><span class="en">gross</span></td><td><span class="zh">英文旧量词，12 打 = 144；[[144,12,12]] 有 144 个数据比特，所以叫 gross 码。</span><span class="en">An old English unit, 12 dozen = 144; [[144,12,12]] has 144 data qubits, hence “the gross code”.</span></td></tr>
+    <tr><td><span class="zh">置换矩阵</span><span class="en">permutation matrix</span></td><td><span class="zh">每行、每列恰有一个 1 的 0/1 矩阵；单项式 x<sup>a</sup>y<sup>b</sup> 就是把每个格子平移 (a, b) 的置换矩阵。</span><span class="en">A 0/1 matrix with exactly one 1 in every row and column; the monomial x<sup>a</sup>y<sup>b</sup> is the permutation matrix that moves every site by (a, b).</span></td></tr>
+    <tr><td><span class="zh">钩子错误（hook error）</span><span class="en">hook error</span></td><td><span class="zh">辅助比特上的一个故障被后面的 CNOT 扩散成数据比特上的多个错误；它取决于 CNOT 的先后顺序，是电路码距可能小于静态码距的原因之一。</span><span class="en">One fault on an ancilla spread by the later CNOTs into several data-qubit errors; it depends on the CNOT order and is one reason the circuit distance can fall below the static distance.</span></td></tr>
+    <tr><td><span class="zh">Clifford 门</span><span class="en">Clifford gate</span></td><td><span class="zh">把每个 Pauli 算符变成另一个 Pauli 算符的一类门（H、S、CNOT 及其组合）。</span><span class="en">A gate that maps every Pauli operator to another Pauli operator (H, S, CNOT and their combinations).</span></td></tr>
+    <tr><td><span class="zh">自同构（automorphism）</span><span class="en">automorphism</span></td><td><span class="zh">把稳定子群映到自身的物理置换；环面平移是 gross 的自同构（verified），它对 12 个逻辑比特的作用 Atlas 没有算；Bravyi 等人（arXiv:2308.07915 v2，9.2 节）算过：每个平移都是逻辑 CNOT 电路（最多差一个逻辑 Pauli 修正）；他们还说没有哪个非恒等平移作用成逻辑恒等，但本系列直接检验的结果是：对 gross，x⁶（半圈平移）作用成逻辑恒等，其余 70 个非恒等平移有非平凡的逻辑作用。</span><span class="en">A physical permutation mapping the stabilizer group to itself; torus translations are automorphisms of gross (verified), the Atlas does not compute their action on the 12 logical qubits; Bravyi et al. (arXiv:2308.07915 v2, section 9.2) did: every translation is a logical CNOT circuit, up to a logical Pauli correction; they also state that no nonidentity translation is the logical identity, but a direct check made for this series finds that on gross x⁶ (a half-turn) acts as the logical identity, while the other 70 nonidentity translations have a nontrivial logical action.</span></td></tr>
   </table></div>
 
   <h3><span class="zh">延伸阅读</span><span class="en">Further reading</span></h3>
@@ -2796,8 +2896,8 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
 
   <div class="note note-honest">
     <span class="note-tag"><span class="zh">诚实总账</span><span class="en">The honesty ledger</span></span>
-    <p class="zh">① 本篇只讨论条目交付的两个实例 gross 与 toric_L3；Table 3 的其他成员在各自的条目里。② 所有支撑、重叠计数、秩与 k 都是<b>静态检查矩阵</b>上的结论，假设测量完美；辅助比特、CNOT 顺序、探测器、钩子故障与电路码距只在第 6 章作为「未导出」列出。③ gross 的 d = 12 本页未证明：下界来自 <span class="mono">bravyi2024bicycle</span>，上界由 Atlas 的 <span class="mono">rand-lowweight-v1</span>（种子 5，2000 次）复现，标签 <span class="mono">bounded</span>；toric_L3 的 d = 3 由 <span class="mono">exact-css-enum</span> 穷举，<span class="mono">verified</span>。④ 第 ⑦ 站与 5.2 的设计张力一段是文献叙述（<span class="mono">curated</span>）；0.8% 带五个限定项，与任何码容量阈值都不可比。⑤ 八篇引用文献中只有四篇在 Atlas 登记了完整元数据，另四篇的标题与作者取自文献扫描报告，登记待补。⑥ 图 1.1–6.1 由 <span class="mono">constructor.py</span> 的坐标公式重画，编号与支撑与 <span class="mono">reproduce.py</span> 的断言逐字一致；它们是本页生成的示意图，不是播放器的截图。</p>
-    <p class="en">① This page treats only the two shipped instances gross and toric_L3; the other Table 3 members live in their own entries. ② Every support, overlap count, rank and k is a statement about the <b>static check matrices</b>, assuming perfect measurement; ancillas, CNOT order, detectors, hook faults and circuit distance appear in Chapter 6 only as “not exported”. ③ Gross's d = 12 is not proved here: the lower bound comes from <span class="mono">bravyi2024bicycle</span>, the upper bound is reproduced by the Atlas's <span class="mono">rand-lowweight-v1</span> (seed 5, 2000 iterations), label <span class="mono">bounded</span>; toric_L3's d = 3 is exhaustively enumerated by <span class="mono">exact-css-enum</span>, <span class="mono">verified</span>. ④ Stop ⑦ and the design-tension paragraph of §5.2 are literature narrative (<span class="mono">curated</span>); the 0.8% carries five qualifiers and is not comparable to any code-capacity threshold. ⑤ Of the eight cited papers only four have full metadata registered in the Atlas; the other four take titles and authors from the scout report, registration pending. ⑥ Figures 1.1–6.1 are redrawn from the coordinate formula of <span class="mono">constructor.py</span>, with indices and supports identical to the assertions in <span class="mono">reproduce.py</span>; they are illustrations generated for this page, not screenshots of the player.</p>
+    <p class="zh">① 本篇只讨论条目交付的两个实例 gross 与 toric_L3；Table 3 的其他成员在各自的条目里。② 所有支撑、重叠计数、秩与 k 都是<b>静态检查矩阵</b>上的结论，假设测量完美；辅助比特、CNOT 顺序、探测器、钩子故障与电路码距只在第 6 章作为「未导出」列出。③ gross 的 d = 12 本页未证明：下界来自 <span class="mono">bravyi2024bicycle</span>，上界由 Atlas 的 <span class="mono">rand-lowweight-v1</span>（种子 5，2000 次）复现，标签 <span class="mono">bounded</span>；toric_L3 的 d = 3 由 <span class="mono">exact-css-enum</span> 穷举，<span class="mono">verified</span>。④ 第 ⑦ 站与 5.2 的设计张力一段是文献叙述（<span class="mono">curated</span>）；0.8% 带五个限定项，与任何码容量阈值都不可比。⑤ 八篇引用文献中只有四篇在 Atlas 登记了完整元数据，另四篇的标题与作者取自文献扫描报告，登记待补。⑥ 图 1.1–6.1 由 <span class="mono">constructor.py</span> 的坐标公式重画，编号与支撑与 <span class="mono">reproduce.py</span> 的断言逐字一致；它们是本页生成的示意图，不是播放器的截图。⑦ 本篇用到的支撑、重叠计数（只有 0 和 2；X 检查 0 与 9 条 Z 检查各共享 2 个比特）、A² + B² ≠ 0、toric_L3 的两张矩阵、「不转置或不换位就不对易而秩仍是 8 + 8」、bb108 的 k = 8，以及「在 12 × 6 上只改 A 的一整项（三项仍互不相同）时 k ∈ {0, 4, 8, 12}、只改一个指数时 k ∈ {0, 8, 12}」，修订时都由脚本独立重算过；0.8% 的表述核对过 arXiv:2308.07915 的摘要。</p>
+    <p class="en">① This page treats only the two shipped instances gross and toric_L3; the other Table 3 members live in their own entries. ② Every support, overlap count, rank and k is a statement about the <b>static check matrices</b>, assuming perfect measurement; ancillas, CNOT order, detectors, hook faults and circuit distance appear in Chapter 6 only as “not exported”. ③ Gross's d = 12 is not proved here: the lower bound comes from <span class="mono">bravyi2024bicycle</span>, the upper bound is reproduced by the Atlas's <span class="mono">rand-lowweight-v1</span> (seed 5, 2000 iterations), label <span class="mono">bounded</span>; toric_L3's d = 3 is exhaustively enumerated by <span class="mono">exact-css-enum</span>, <span class="mono">verified</span>. ④ Stop ⑦ and the design-tension paragraph of §5.2 are literature narrative (<span class="mono">curated</span>); the 0.8% carries five qualifiers and is not comparable to any code-capacity threshold. ⑤ Of the eight cited papers only four have full metadata registered in the Atlas; the other four take titles and authors from the scout report, registration pending. ⑥ Figures 1.1–6.1 are redrawn from the coordinate formula of <span class="mono">constructor.py</span>, with indices and supports identical to the assertions in <span class="mono">reproduce.py</span>; they are illustrations generated for this page, not screenshots of the player. ⑦ The supports, the overlap counts (only 0 and 2; X check 0 shares 2 qubits with each of 9 Z checks), A² + B² ≠ 0, toric_L3's two matrices, “without the transpose or the swap the checks stop commuting while the ranks stay 8 + 8”, bb108's k = 8, and “on 12 × 6, replacing one whole term of A (three distinct terms kept) gives k ∈ {0, 4, 8, 12}, changing one exponent gives k ∈ {0, 8, 12}” were all recomputed independently by a script during this revision; the wording on 0.8% was checked against the abstract of arXiv:2308.07915.</p>
   </div>
 
   <div class="note note-key">
@@ -5347,50 +5447,65 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
         'Z', (v) => { mode = v; upd(); }
       );
       F.controls.append(seg.el,
-        U().btn(isToric ? '示范：可收缩的圈' : '示范：平凡closed圈', isToric ? 'Demo: contractible loop' : 'Demo: trivial loop', '', () => {
+        U().btn(isToric ? '示范：可收缩的圈' : '示范：平凡的闭合圈', isToric ? 'Demo: contractible loop' : 'Demo: trivial loop', '', () => {
           view.errZ = new Set(); view.errX = new Set();
           // boundary of a 2x1 block of plaquettes
           const s = P().xorSet(lat.plaqs[0].support, lat.plaqs[1].support);
           view.errZ = new Set(s);
-          mode = 'Z';
+          if (mode !== 'Z') seg.el.children[0].click();
           upd();
         }),
         U().btn(isToric ? '示范：缠绕圈' : '示范：跨边界串', isToric ? 'Demo: winding loop' : 'Demo: boundary-to-boundary', '', () => {
           view.errZ = new Set(lat.logicals.Z[0]); view.errX = new Set();
-          mode = 'Z';
+          if (mode !== 'Z') seg.el.children[0].click();
           upd();
         }),
         U().btn('清空', 'Clear', '', () => { view.errZ.clear(); view.errX.clear(); upd(); })
       );
+      // Both string types may be on the lattice at once (some pages ask for an X and a Z loop together),
+      // so alarms of both types are counted and each drawn type gets its own verdict.
+      function judge(type, sup) {
+        const partners = type === 'Z' ? lat.logicals.X : lat.logicals.Z;
+        const par = partners.map((Lg) => P().overlapParity(sup, Lg));
+        if (!par.some((v) => v === 1)) {
+          return {
+            zh: '<span class="ok">警报全灭</span>，而且它是<b>平凡的</b>：它恰好等于若干' + (type === 'Z' ? '面检查' : '星检查') + '的乘积，对编码信息<b>什么也不做</b>。',
+            en: '<span class="ok">No alarms</span>, and it is <b>trivial</b>: it equals a product of ' + (type === 'Z' ? 'face checks' : 'star checks') + ' and does <b>nothing</b> to the stored information.',
+          };
+        }
+        const L1 = type === 'Z' ? 'Z̄₁' : 'X̄₁', L2 = type === 'Z' ? 'Z̄₂' : 'X̄₂';
+        if (isToric) {
+          const which = par[0] && par[1] ? L1 + '·' + L2 + '（两个方向都绕）' : par[0] ? L1 + (type === 'Z' ? '（水平缠绕）' : '') : L2 + (type === 'Z' ? '（垂直缠绕）' : '');
+          const whichEn = par[0] && par[1] ? L1 + '·' + L2 + ', both directions' : par[0] ? L1 + ', direction 1' : L2 + ', direction 2';
+          return {
+            zh: '<span class="no">警报全灭，但这不是平凡圈！</span>它绕过了整个环面——这是<b>逻辑算符 ' + which + '</b>：不触发任何检查，却会改写存下来的量子信息。',
+            en: '<span class="no">No alarms, yet NOT trivial!</span> It winds around the torus (' + whichEn + ') — a <b>logical operator</b>: invisible to every check, yet it rewrites the stored quantum information.',
+          };
+        }
+        return {
+          zh: '<span class="no">警报全灭，但这不是平凡圈！</span>这条串从一条边界横跨到对面——它就是<b>逻辑算符 ' + (type === 'Z' ? 'Z̄' : 'X̄') + '</b>：不触发任何检查，却改写了存下来的量子比特。',
+          en: '<span class="no">No alarms, yet NOT trivial!</span> The string spans from one boundary to the opposite one — the <b>logical operator ' + (type === 'Z' ? 'Z̄' : 'X̄') + '</b>: invisible to every check, yet it rewrites the stored qubit.',
+        };
+      }
       function upd() {
         view.draw();
         const syn = view.syndrome();
         const zSup = [...view.errZ], xSup = [...view.errX];
-        const active = mode === 'Z' ? zSup : xSup;
-        const defects = mode === 'Z' ? syn.starDefects.length : syn.plaqDefects.length;
+        const defects = syn.starDefects.length + syn.plaqDefects.length;
         let verdictZh, verdictEn;
-        if (!active.length) {
+        if (!zSup.length && !xSup.length) {
           verdictZh = '画几条边试试。目标：不触发任何警报。';
           verdictEn = 'Draw some edges. Goal: trigger no alarms.';
         } else if (defects > 0) {
           verdictZh = '还有 <b>' + defects + '</b> 个警报亮着：串有端点。把它闭合，或' + (isToric ? '绕一整圈' : '让两端都搭到正确的边界上') + '。';
           verdictEn = '<b>' + defects + '</b> alarms still lit: the string has endpoints. Close it up, or ' + (isToric ? 'wrap it all the way around' : 'land both ends on the right boundaries') + '.';
         } else {
-          const partners = mode === 'Z' ? lat.logicals.X : lat.logicals.Z;
-          const par = partners.map((Lg) => P().overlapParity(active, Lg));
-          const wound = par.some((v) => v === 1);
-          if (!wound) {
-            verdictZh = '<span class="ok">警报全灭</span>，且这是一个<b>平凡圈</b>：它恰好等于若干' + (mode === 'Z' ? '面检查' : '星检查') + '的乘积，对编码信息<b>什么也不做</b>。';
-            verdictEn = '<span class="ok">No alarms</span>, and this is a <b>trivial loop</b>: it equals a product of ' + (mode === 'Z' ? 'face checks' : 'star checks') + ' and does <b>nothing</b> to the stored information.';
-          } else if (isToric) {
-            const which = par[0] && par[1] ? 'Z̄₁·Z̄₂（两个方向都绕）' : par[0] ? (mode === 'Z' ? 'Z̄₁（水平缠绕）' : 'X̄₁') : (mode === 'Z' ? 'Z̄₂（垂直缠绕）' : 'X̄₂');
-            const whichEn = par[0] && par[1] ? 'both directions' : par[0] ? 'direction 1' : 'direction 2';
-            verdictZh = '<span class="no">警报全灭，但这不是平凡圈！</span>它绕过了整个环面——这是<b>逻辑算符 ' + which + '</b>：不触发任何检查，却会改写存下来的量子信息。';
-            verdictEn = '<span class="no">No alarms, yet NOT trivial!</span> It winds around the torus (' + whichEn + ') — a <b>logical operator</b>: invisible to every check, yet it rewrites the stored quantum information.';
-          } else {
-            verdictZh = '<span class="no">警报全灭，但这不是平凡圈！</span>这条串从一条边界横跨到对面——它就是<b>逻辑算符 ' + (mode === 'Z' ? 'Z̄' : 'X̄') + '</b>：不触发任何检查，却改写了存下来的量子比特。';
-            verdictEn = '<span class="no">No alarms, yet NOT trivial!</span> The string spans from one boundary to the opposite one — the <b>logical operator ' + (mode === 'Z' ? 'Z̄' : 'X̄') + '</b>: invisible to every check, yet it rewrites the stored qubit.';
-          }
+          const both = zSup.length > 0 && xSup.length > 0;
+          const parts = [];
+          if (zSup.length) parts.push({ j: judge('Z', zSup), lz: 'Z 串：', le: 'Z string: ' });
+          if (xSup.length) parts.push({ j: judge('X', xSup), lz: 'X 串：', le: 'X string: ' });
+          verdictZh = parts.map((q) => (both ? q.lz : '') + q.j.zh).join('<br>');
+          verdictEn = parts.map((q) => (both ? q.le : '') + q.j.en).join('<br>');
         }
         F.setReadout('<span class="zh">' + verdictZh + '</span><span class="en">' + verdictEn + '</span>');
       }
@@ -5475,8 +5590,8 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
         view.hlEdges = new Map([...corr].map((e) => [e, { color: getComputedStyle(doc.documentElement).getPropertyValue('--good').trim(), width: 5 }]));
         view.draw();
         F.setReadout(fail
-          ? '<span class="zh"><span class="no">这回合失败了。</span>蓝色 = 真实错误，绿色 = 你的修复。二者合起来形成了' + (isToric ? '一条<b>缠绕整个环面</b>的圈' : '一条<b>横跨两条边界</b>的串') + ' —— 恰好是逻辑算符，信息被改写。连胜清零。点「新回合」再来！</span><span class="en"><span class="no">Round lost.</span> Blue = true errors, green = your repair. Together they form ' + (isToric ? 'a loop <b>winding around the torus</b>' : 'a string <b>spanning both boundaries</b>') + ' — exactly a logical operator; the data got rewritten. Streak reset. “New round” to retry!</span>'
-          : '<span class="zh"><span class="ok">成功！</span>蓝 + 绿合成的圈都是可收缩的平凡圈 —— 你的修复不必和错误一模一样，只要「合起来平凡」就赢。连胜 <b>' + streak + '</b>！</span><span class="en"><span class="ok">Success!</span> Blue + green together form only trivial contractible loops — the repair need not equal the error, it only needs to be trivial in combination. Streak <b>' + streak + '</b>!</span>');
+          ? '<span class="zh"><span class="no">这回合失败了。</span>蓝色 = 真实错误，绿色 = 你的修复。二者合起来' + (isToric ? '在某个方向上<b>缠绕环面</b>的总圈数是<b>奇数</b>' : '含有<b>奇数条</b><b>横跨两条边界</b>的串') + ' —— 合起来是一个逻辑算符，信息被改写。连胜清零。点「新回合」再来！</span><span class="en"><span class="no">Round lost.</span> Blue = true errors, green = your repair. Together they ' + (isToric ? '<b>wind around the torus</b> an <b>odd</b> total number of times in some direction' : 'contain an <b>odd number</b> of strings <b>spanning both boundaries</b>') + ' — together a logical operator; the data got rewritten. Streak reset. “New round” to retry!</span>'
+          : '<span class="zh"><span class="ok">成功！</span>蓝 + 绿合起来' + (isToric ? '在两个方向上缠绕环面的总圈数都是偶数（0 也算，两圈互相抵消）' : '横跨两条边界的串是偶数条（0 条也算，两条互相抵消）') + '—— 合起来只是一些检查的乘积。你的修复不必和错误一模一样，只要合起来是检查的乘积就赢。连胜 <b>' + streak + '</b>！</span><span class="en"><span class="ok">Success!</span> Blue + green together ' + (isToric ? 'wind around the torus an even total number of times in both directions (0 counts; two windings cancel)' : 'contain an even number of strings spanning both boundaries (0 counts; two cancel)') + ' — together just a product of checks. The repair need not equal the error; together with it, it only needs to form a product of checks. Streak <b>' + streak + '</b>!</span>');
       }
       function newRound() {
         err = new Set(); corr = new Set(); sel = null; over = false;
@@ -5522,12 +5637,12 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
         en: '① Start: the toric code. Note the stubs sticking out — they wrap to the opposite side; that is what makes it a torus.',
       },
       {
-        zh: '② 一刀剪开：删除所有绕回去的边。立刻出问题——边界上的星和面都缺了一条腿（虚线标出），检查表变得乱七八糟。',
-        en: '② Cut: delete every wrapping edge. Trouble at once — boundary stars and faces each lose a leg (dashed); the checks are mutilated.',
+        zh: '② 一刀剪开：删除所有绕回去的边（图里不再画出）。立刻出问题：沿边的星少了一条腿，四个角上的星少了两条；原来跨过剪口的面只剩两条腿，而且这两条分在贴片相对的两头，角上那一块面一条腿也不剩。检查表乱了套。',
+        en: '② Cut: delete every wrapping edge (no longer drawn). Trouble at once: the stars along the edge lose one leg and the four corner stars lose two; the faces that straddled the cut keep only two legs, on opposite sides of the patch, and the corner face keeps none. The checks are mutilated.',
       },
       {
-        zh: '③ 收拾干净：接受「三条腿」的检查作为正式成员，但分好工——左右两侧只截断<b>面</b>（并保留伸出的悬挂边），上下两侧只截断<b>星</b>。这就是<b>表面码</b>的版图：两种边界，各司其职。',
-        en: '③ Tidy up: keep the 3-leg checks as legitimate members, but divide the work — the left/right sides truncate only <b>faces</b> (keeping the dangling edges), the top/bottom truncate only <b>stars</b>. This is the <b>surface code</b> layout: two kinds of boundary, each with a job.',
+        zh: '③ 收拾干净：接受「三条腿」的检查作为正式成员，但分好工——左右两侧只截断<b>面</b>（并保留伸出的悬挂边），上下两侧只截断<b>星</b>。这就是<b>表面码</b>的版图：两种边界，各司其职。（这一帧重新画了一块 L = 4 的平面码，而不是在上一帧上修补：25 个比特、12 个星检查、12 个面检查，左右两侧带悬挂的横边。）',
+        en: '③ Tidy up: keep the 3-leg checks as legitimate members, but divide the work — the left/right sides truncate only <b>faces</b> (keeping the dangling edges), the top/bottom truncate only <b>stars</b>. This is the <b>surface code</b> layout: two kinds of boundary, each with a job. (This frame redraws an L = 4 planar code rather than patching the previous one: 25 qubits, 12 star checks and 12 face checks, with dangling horizontal edges on the left and right.)',
       },
     ];
     function render() {
@@ -5589,8 +5704,10 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
       { zh: '① 噪声落下：几条 Z 错误悄悄出现（真实设备里你看不到它们）', en: '① Noise strikes: a few Z errors appear (invisible in a real device)' },
       { zh: '② 测量所有检查：只有错误链的端点亮起警报', en: '② Measure every check: only chain endpoints raise alarms' },
       { zh: '③ 译码器配对警报，规划修复链（绿）', en: '③ The decoder pairs alarms and plans repair chains (green)' },
-      { zh: '④ 施加修复：错误 ⊕ 修复 = 平凡圈 → 警报全灭，信息完好', en: '④ Apply the repair: error ⊕ repair = trivial loops → alarms clear, data intact' },
+      { zh: '④ 施加修复：警报全灭；错误 ⊕ 修复和 X̄ 交叉偶数次 → 信息完好', en: '④ Apply the repair: alarms clear; error ⊕ repair crosses X̄ an even number of times → data intact' },
     ];
+    const PH_FAIL = { zh: '④ 施加修复：警报全灭，但错误 ⊕ 修复和 X̄ 交叉奇数次 → 逻辑错误，信息被改写', en: '④ Apply the repair: alarms clear, but error ⊕ repair crosses X̄ an odd number of times → a logical error; the data is overwritten' };
+    let lastFail = false;
     function step() {
       phase = (phase + 1) % 4;
       if (phase === 0) {
@@ -5610,16 +5727,16 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
       } else {
         const residual = P().xorSet([...err], corr);
         const fail = lat.logicals.X.some((Lg) => P().overlapParity(residual, Lg));
-        rounds++; if (!fail) saved++;
+        rounds++; if (!fail) saved++; lastFail = fail;
         view.errZ = new Set(residual.filter(() => false));
         view.errZ = new Set();
         view.hlEdges = new Map();
       }
       view.draw();
-      const tail = phase === 3 ? (U().getLang() === 'en'
-        ? ' — rounds: ' + rounds + ', data survived: ' + saved
-        : ' — 已运行 ' + rounds + ' 轮，信息幸存 ' + saved + ' 轮') : '';
-      F.setReadout('<span class="zh">' + PH[phase].zh + tail + '</span><span class="en">' + PH[phase].en + tail + '</span>');
+      const tailZh = phase === 3 ? ' — 已运行 ' + rounds + ' 轮，信息幸存 ' + saved + ' 轮' : '';
+      const tailEn = phase === 3 ? ' — rounds: ' + rounds + ', data survived: ' + saved : '';
+      const ph = phase === 3 && lastFail ? PH_FAIL : PH[phase];
+      F.setReadout('<span class="zh">' + ph.zh + tailZh + '</span><span class="en">' + ph.en + tailEn + '</span>');
     }
     function play() {
       if (timer) return;
@@ -6066,8 +6183,8 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
       en: ['Winding loops = logicals', 'Loops circling the whole torus pass every check yet are no product of checks — they rewrite logical data. Two directions give Z̄₁, Z̄₂; duals give X̄₁, X̄₂; paired loops cross once ⇒ anticommute.'],
     },
     decoder: {
-      zh: ['译码 = 配对', '只见警报不见链：把警报两两配对、沿路径修复。错误⊕修复必闭合——可收缩则完美复原，缠绕则无声逻辑错误。'],
-      en: ['Decoding = matching', 'Alarms visible, chains not: pair the alarms and repair along paths. Error ⊕ repair is always closed — contractible = perfect recovery, winding = silent logical error.'],
+      zh: ['译码 = 配对', '只见警报不见链：把警报两两配对、沿路径修复。错误⊕修复必闭合——每个方向都缠绕偶数次（0 次也算）则完美复原，某个方向缠绕奇数次则是无声的逻辑错误；同方向的两圈互相抵消。'],
+      en: ['Decoding = matching', 'Alarms visible, chains not: pair the alarms and repair along paths. Error ⊕ repair is always closed — an even number of windings in each direction (0 included) = perfect recovery, an odd number in some direction = a silent logical error; two windings in the same direction cancel.'],
     },
     dL: {
       zh: ['环面码距 d = L', '最轻的逻辑算符是最短缠绕圈（长 L），对 X、Z 对称；压垮它需约 L/2 个错误连成线。'],
@@ -6087,8 +6204,8 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
       en: ['Spanning strings = logicals', 'A string dying on its own boundary at both ends: zero alarms, no product of checks (it crosses the other direction\'s spanning string once, so they anticommute).' + F('Z̄: rough→rough · X̄: smooth→smooth · X̄Z̄ = −Z̄X̄')],
     },
     cycle: {
-      zh: ['纠错循环', '每轮四拍：噪声 → 测全部检查 → 配对（可配边界）→ 修复；失败 ⇔ 错误⊕修复含横跨串。'],
-      en: ['The correction cycle', 'Four beats per round: noise → measure all checks → match (boundaries allowed) → repair; failure ⇔ error ⊕ repair contains a spanning string.'],
+      zh: ['纠错循环', '每轮四拍：噪声 → 测全部检查 → 配对（可配边界）→ 修复；失败 ⇔ 错误⊕修复和 X̄ 交叉奇数次，也就是横跨贴片的串有奇数条（两条互相抵消，偶数条无事）。'],
+      en: ['The correction cycle', 'Four beats per round: noise → measure all checks → match (boundaries allowed) → repair; failure ⇔ error ⊕ repair crosses X̄ an odd number of times, i.e. contains an odd number of spanning strings (two cancel, so an even number is harmless).'],
     },
     ancilla: {
       zh: ['辅助比特测量', '每条检查配一个帮手比特：与 4 个数据比特依次作用后单独被读出，给出 ±1；数据比特从未被直接测量。'],
@@ -6600,7 +6717,7 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
   const fmt = (n) => Number(n).toLocaleString('en-US');
   function legend(el, items) {
     const lg = div('legend');
-    for (const it of items) { const s = doc.createElement('span'); s.className = 'li'; s.innerHTML = '<span class="' + (it.dot ? 'dot' : it.square ? 'sq' : 'sw') + '" style="background:' + it.color + '"></span>' + bi(it.zh, it.en); lg.appendChild(s); }
+    for (const it of items) { const s = doc.createElement('span'); s.className = 'li'; s.innerHTML = '<span class="' + (it.dot || it.ring ? 'dot' : it.square ? 'sq' : 'sw') + '" style="' + (it.ring ? 'background:var(--bg);box-sizing:border-box;border:2px solid ' + it.color : 'background:' + it.color) + '"></span>' + bi(it.zh, it.en); lg.appendChild(s); }
     el.appendChild(lg);
   }
   function slider(min, max, step, value, onInput, fmtFn) {
@@ -6614,7 +6731,8 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
     t.addEventListener('change', () => onChange(t.value)); return t;
   }
   const parseTerms = (str) => str.split(/[;\s]+/).filter(Boolean).map((t) => t.split(',').map(Number)).filter((p) => p.length === 2 && p.every((v) => Number.isInteger(v)));
-  const termsToPoly = (terms, vx, vy) => terms.map(([a, b]) => { const p = (a ? vx + (a > 1 ? '<sup>' + a + '</sup>' : '') : '') + (b ? vy + (b > 1 ? '<sup>' + b + '</sup>' : '') : ''); return p || '1'; }).join(' + ');
+  const expSup = (e) => (e === 1 ? '' : '<sup>' + String(e).replace('-', '−') + '</sup>');
+  const termsToPoly = (terms, vx, vy) => terms.map(([a, b]) => { const p = (a ? vx + expSup(a) : '') + (b ? vy + expSup(b) : ''); return p || '1'; }).join(' + ');
   const termsToText = (terms) => terms.map((t) => t.join(',')).join(' ');
   function paramsLine(P, extra) { return 'n = <b>' + P.n + '</b>, rank H<sub>X</sub> = ' + P.rankX + ', rank H<sub>Z</sub> = ' + P.rankZ + ', k = n − ' + P.rankX + ' − ' + P.rankZ + ' = <b>' + P.k + '</b>' + (extra || ''); }
 
@@ -6668,20 +6786,32 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
     const box = U().canvasBox(wrap, (w) => Math.min(380, w * 0.75), draw);
     function metrics() { const w = box.w, h = box.h, pad = 30; const cell = Math.min((w - 2 * pad - 180) / l, (h - 2 * pad) / m); return { cell, ox: pad, oy: (h - cell * (m - 1)) / 2, mx: pad + cell * l + 30 }; }
     const pos = (i, j, g) => ({ x: g.ox + i * g.cell, y: g.oy + (m - 1 - j) * g.cell });
+    // the terms that survive on this torus: each (a, b) reduced mod l, mod m; a pair entered twice cancels (1 + 1 = 0), as in polyMatrix
+    function live() {
+      const cnt = new Map();
+      for (const [a, b] of terms) { const k = (((a % l) + l) % l) + ',' + (((b % m) + m) % m); cnt.set(k, (cnt.get(k) || 0) + 1); }
+      return [...cnt].filter(([, c]) => c % 2).map(([k]) => k.split(',').map(Number));
+    }
+    const supTxt = (e) => String(e).replace(/-/g, '⁻').replace(/[0-9]/g, (d) => '⁰¹²³⁴⁵⁶⁷⁸⁹'[d]);
+    const monoLabel = (a, b) => ((a ? 'x' + (a === 1 ? '' : supTxt(a)) : '') + (b ? 'y' + (b === 1 ? '' : supTxt(b)) : '')) || '1';
     function draw() {
       const C = U().colors(), ctx = box.ctx, w = box.w, h = box.h, g = metrics(); ctx.clearRect(0, 0, w, h);
+      const lt = live();
       // torus grid
       for (let i = 0; i < l; i++) for (let j = 0; j < m; j++) { const p = pos(i, j, g); ctx.fillStyle = C.ink3; ctx.beginPath(); ctx.arc(p.x, p.y, 3, 0, 7); ctx.fill(); }
       const [si, sj] = src; const ps = pos(si, sj, g);
       ctx.fillStyle = C.cd; ctx.beginPath(); ctx.arc(ps.x, ps.y, 7, 0, 7); ctx.fill();
-      for (const [a, b] of terms) {
-        const sign = transposed ? -1 : 1; const ti = (((si + sign * a) % l) + l) % l, tj = (((sj + sign * b) % m) + m) % m;
-        const pt = pos(ti, tj, g); const wrapX = Math.abs(ti - si) > l / 2 || (sign * a !== 0 && ((si + sign * a) < 0 || (si + sign * a) >= l)), wrapY = Math.abs(tj - sj) > m / 2 || (sign * b !== 0 && ((sj + sign * b) < 0 || (sj + sign * b) >= m));
-        ctx.strokeStyle = C.cz; ctx.lineWidth = 2; ctx.setLineDash(wrapX || wrapY ? [4, 4] : []);
+      const sign = transposed ? -1 : 1;
+      for (const [a, b] of lt) {
+        const ui = si + sign * a, uj = sj + sign * b, ti = ((ui % l) + l) % l, tj = ((uj % m) + m) % m;
+        const pt = pos(ti, tj, g), wrapped = ui < 0 || ui >= l || uj < 0 || uj >= m;
+        ctx.strokeStyle = C.cz; ctx.lineWidth = 2; ctx.setLineDash(wrapped ? [4, 4] : []);
         ctx.beginPath(); ctx.moveTo(ps.x, ps.y); ctx.lineTo(pt.x, pt.y); ctx.stroke(); ctx.setLineDash([]);
         ctx.fillStyle = C.cz; ctx.beginPath(); ctx.arc(pt.x, pt.y, 6, 0, 7); ctx.fill();
-        ctx.fillStyle = C.bg2; ctx.font = '700 9px ' + cssVar('--f-mono'); ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-        ctx.fillText((a || b) ? 'x' + (sign * a === 0 ? '' : (sign * a > 0 ? '^' + sign * a : '^' + sign * a)) + 'y' + (sign * b === 0 ? '' : '^' + sign * b) : '1', pt.x, pt.y + 0.5);
+        // the monomial's name beside its target, with a background halo so it stays legible over the grid
+        ctx.font = '700 12px ' + cssVar('--f-mono'); ctx.textAlign = 'left'; ctx.textBaseline = 'bottom';
+        const lab = monoLabel(sign * a, sign * b); ctx.lineWidth = 3; ctx.strokeStyle = C.bg; ctx.strokeText(lab, pt.x + 7, pt.y - 5);
+        ctx.fillStyle = C.ink; ctx.fillText(lab, pt.x + 7, pt.y - 5);
       }
       // matrix pattern
       const N = l * m, side = Math.min(160, h - 60), px = side / N; const mx = g.mx, my = (h - side) / 2;
@@ -6691,16 +6821,27 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
       for (let r = 0; r < N; r++) for (let c = 0; c < N; c++) if (P[r][c]) ctx.fillRect(mx + c * px, my + r * px, Math.max(px, 1), Math.max(px, 1));
       const rowIdx = si * m + sj; ctx.fillStyle = C.cdSoft; ctx.fillRect(mx, my + rowIdx * px, side, Math.max(px, 1));
       ctx.fillStyle = C.ink2; ctx.font = '600 11.5px ' + cssVar('--f-body'); ctx.textAlign = 'center'; ctx.textBaseline = 'top';
-      ctx.fillText(U().T({ zh: (transposed ? 'Aᵀ' : 'A') + ' 的 ' + N + '×' + N + ' 矩阵（每行 ' + terms.length + ' 个 1）', en: (transposed ? 'Aᵀ' : 'A') + ' as a ' + N + '×' + N + ' matrix (' + terms.length + ' ones per row)' }), mx + side / 2, my + side + 6);
+      ctx.fillText(U().T({ zh: (transposed ? 'Aᵀ' : 'A') + ' 的 ' + N + '×' + N + ' 矩阵（每行 ' + lt.length + ' 个 1）', en: (transposed ? 'Aᵀ' : 'A') + ' as a ' + N + '×' + N + ' matrix (' + lt.length + (lt.length === 1 ? ' one' : ' ones') + ' per row)' }), mx + side / 2, my + side + 6);
     }
     box.canvas.addEventListener('click', (ev) => { const q = U().evtPos(box.canvas, ev), g = metrics(); let best = null, bd = 14; for (let i = 0; i < l; i++) for (let j = 0; j < m; j++) { const p = pos(i, j, g); const d = Math.hypot(p.x - q.x, p.y - q.y); if (d < bd) { bd = d; best = [i, j]; } } if (best) { src = best; box.redraw(); readout(); } });
     const inp = textInput(termsToText(terms), 170, (v) => { const t = parseTerms(v); if (t.length) { terms = t; box.redraw(); readout(); } });
-    const sl = slider(3, 12, 1, l, (v) => { l = Math.round(v); box.redraw(); readout(); }, (v) => 'l = ' + v), sm = slider(3, 12, 1, m, (v) => { m = Math.round(v); box.redraw(); readout(); }, (v) => 'm = ' + v);
+    // a resize keeps the source on the lattice: its coordinates are reduced mod the new l, m
+    const sl = slider(3, 12, 1, l, (v) => { l = Math.round(v); src = [src[0] % l, src[1]]; box.redraw(); readout(); }, (v) => 'l = ' + v), sm = slider(3, 12, 1, m, (v) => { m = Math.round(v); src = [src[0], src[1] % m]; box.redraw(); readout(); }, (v) => 'm = ' + v);
     const seg = U().seg([{ id: 'A', zh: 'A（正向平移）', en: 'A (translations)' }, { id: 'AT', zh: 'Aᵀ（反向平移）', en: 'Aᵀ (reversed)' }], 'A', (v) => { transposed = v === 'AT'; box.redraw(); readout(); });
     F.controls.append(U().label('多项式的项 (a,b)：', 'terms (a,b):'), inp, sl.el, sl.pill, sm.el, sm.pill);
     const row2 = div('controls'); el.insertBefore(row2, F.readout); row2.append(seg.el);
     function readout() {
-      F.setReadout(bi('A = ' + termsToPoly(terms, 'x', 'y') + '，环面 ' + l + ' × ' + m + '。红点是起点 (' + src[0] + ',' + src[1] + ')，每个单项式 x<sup>a</sup>y<sup>b</sup> 把它平移到 (i+a, j+b)（虚线表示绕回）。这 ' + terms.length + ' 个终点就是矩阵这一行里 1 的位置；转置把每次平移倒过来走。点击任意格点换起点。', 'A = ' + termsToPoly(terms, 'x', 'y') + ' on a ' + l + ' × ' + m + ' torus. The red dot is the source (' + src[0] + ',' + src[1] + '); each monomial x<sup>a</sup>y<sup>b</sup> translates it to (i+a, j+b) (dashed = wrapped around). Those ' + terms.length + ' targets are the ones in this row of the matrix; the transpose walks every translation backwards. Click any site to change the source.'));
+      const lt = live(), same = lt.length === terms.length && terms.every(([a, b]) => a >= 0 && a < l && b >= 0 && b < m);
+      const poly = lt.length ? termsToPoly(lt, 'x', 'y') : '0';
+      const note = same ? ['', ''] : [
+        '你输入的项先按 mod ' + l + '、mod ' + m + ' 约化，两两相同的项再相消（1 + 1 = 0），剩下 ' + lt.length + ' 项。',
+        'The terms you entered are first reduced mod ' + l + ' and mod ' + m + ', then equal pairs cancel (1 + 1 = 0), leaving ' + lt.length + (lt.length === 1 ? ' term. ' : ' terms. ')];
+      const body = lt.length ? [
+        '红点是起点 (' + src[0] + ',' + src[1] + ')，每个单项式 x<sup>a</sup>y<sup>b</sup> 把它平移到 (i+a, j+b)（虚线表示绕回）。这 ' + lt.length + ' 个终点就是矩阵这一行里 1 的位置；转置把每次平移倒过来走（标签变成负指数，如 x<sup>−3</sup>）。点击任意格点换起点。',
+        'The red dot is the source (' + src[0] + ',' + src[1] + '); each monomial x<sup>a</sup>y<sup>b</sup> translates it to (i+a, j+b) (dashed = wrapped around). Those ' + lt.length + ' targets are the ones in this row of the matrix; the transpose walks every translation backwards (the labels get negative exponents, such as x<sup>−3</sup>). Click any site to change the source.'] : [
+        '所有项都相消了：A 是零矩阵，这一行没有 1，所以图上没有箭头。',
+        'Every term cancelled: A is the zero matrix, this row has no ones, so no arrows are drawn.'];
+      F.setReadout(bi('A = ' + poly + '，环面 ' + l + ' × ' + m + '。' + note[0] + body[0], 'A = ' + poly + ' on a ' + l + ' × ' + m + ' torus. ' + note[1] + body[1]));
     }
     function reset() { l = 6; m = 6; terms = [[3, 0], [0, 1], [0, 2]]; src = [1, 1]; inp.value = termsToText(terms); box.redraw(); readout(); }
     readout();
@@ -6712,10 +6853,10 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
     const F = U().frame(el, { titleZh: 'BB 构造器：两个多项式，一个码', titleEn: 'The BB constructor: two polynomials, one code' });
     const presetKey = el.dataset.preset || 'bb72';
     let pr = L().BB_PRESETS[presetKey]; let l = pr.l, m = pr.m, aTerms = pr.a.map((t) => t.slice()), bTerms = pr.b.map((t) => t.slice());
-    let code = null, P = null, sel = { kind: 'X', site: 0 }, view = 'check', searchNote = '';
+    let code = null, P = null, sel = { kind: 'X', site: 0 }, view = 'check', searchNote = { zh: '', en: '' };
     const wrap = div('canvas-wrap'); F.body.appendChild(wrap);
     const box = U().canvasBox(wrap, (w) => Math.min(460, w * 0.8), draw);
-    function build() { code = L().bb(l, m, aTerms, bTerms); P = L().cssParams(code.hx, code.hz); searchNote = ''; }
+    function build() { code = L().bb(l, m, aTerms, bTerms); P = L().cssParams(code.hx, code.hz); searchNote = { zh: '', en: '' }; }
     function metrics() { const w = box.w, h = box.h, pad = 34; const cell = Math.min((w - 2 * pad) / (l + 0.5), (h - 2 * pad) / (m + 0.5)); return { cell, ox: (w - cell * (l - 0.5)) / 2, oy: (h - cell * (m - 0.5)) / 2 }; }
     const qpos = (col, g) => { const s = L().bbSite(l, m, col); return { x: g.ox + (s.i + 0.5 * s.layer) * g.cell, y: g.oy + (m - 1 - s.j + 0.5 * s.layer) * g.cell, layer: s.layer }; };
     const cpos = (kind, site, g) => { const i = Math.floor(site / m), j = site % m; return kind === 'X' ? { x: g.ox + (i + 0.5) * g.cell, y: g.oy + (m - 1 - j) * g.cell } : { x: g.ox + i * g.cell, y: g.oy + (m - 1 - j + 0.5) * g.cell }; };
@@ -6726,21 +6867,30 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
       // checks
       for (let s = 0; s < N; s++) { const px = cpos('X', s, g); ctx.fillStyle = C.cxSoft; ctx.strokeStyle = C.cx; ctx.lineWidth = 1; ctx.beginPath(); ctx.arc(px.x, px.y, 4.5, 0, 7); ctx.fill(); ctx.stroke(); const pz = cpos('Z', s, g); ctx.fillStyle = C.czSoft; ctx.strokeStyle = C.cz; ctx.beginPath(); ctx.rect(pz.x - 4, pz.y - 4, 8, 8); ctx.fill(); ctx.stroke(); }
       // qubits
-      for (let c = 0; c < 2 * N; c++) { const q = qpos(c, g); ctx.fillStyle = q.layer ? C.ink2 : C.ink3; ctx.beginPath(); ctx.arc(q.x, q.y, q.layer ? 3.2 : 3.6, 0, 7); ctx.fill(); }
+      for (let c = 0; c < 2 * N; c++) { const q = qpos(c, g); ctx.beginPath(); ctx.arc(q.x, q.y, 3.6, 0, 7); if (q.layer) { ctx.fillStyle = C.bg; ctx.fill(); ctx.strokeStyle = C.ink2; ctx.lineWidth = 1.4; ctx.stroke(); } else { ctx.fillStyle = C.ink2; ctx.fill(); } }
       // selection
       const col = view === 'check' ? null : sel.site;
       if (view === 'check') {
         const row = (sel.kind === 'X' ? code.hx : code.hz)[sel.site]; const pc = cpos(sel.kind, sel.site, g); const color = sel.kind === 'X' ? C.cx : C.cz;
-        for (let c = 0; c < 2 * N; c++) if (row[c]) { const q = qpos(c, g); drawSpoke(ctx, pc, q, g, color); ctx.fillStyle = color; ctx.beginPath(); ctx.arc(q.x, q.y, 6, 0, 7); ctx.fill(); }
-        ctx.fillStyle = color; ctx.beginPath(); ctx.arc(pc.x, pc.y, 8, 0, 7); ctx.fill(); ctx.strokeStyle = C.bg2; ctx.lineWidth = 2; ctx.stroke();
+        const soft = sel.kind === 'X' ? C.cxSoft : C.czSoft, ends = [];
+        for (let c = 0; c < 2 * N; c++) if (row[c]) { const q = qpos(c, g); drawSpoke(ctx, pc, q, g, color); ends.push([c, q]); }
+        for (const [c, q] of ends) { halo(ctx, q, 9.5, soft, color); qubitMark(ctx, q, 5.5, color, C); }
+        halo(ctx, pc, 12, soft, color); ctx.fillStyle = color; ctx.beginPath(); if (sel.kind === 'Z') ctx.rect(pc.x - 7, pc.y - 7, 14, 14); else ctx.arc(pc.x, pc.y, 7.5, 0, 7); ctx.fill(); ctx.strokeStyle = C.bg2; ctx.lineWidth = 2; ctx.stroke();
+        for (const [c, q] of ends) idxLabel(ctx, q, String(c), C);
       } else {
         const q = qpos(col, g);
         for (let s = 0; s < N; s++) { if (code.hx[s][col]) { const pc = cpos('X', s, g); drawSpoke(ctx, q, pc, g, C.cx); ctx.fillStyle = C.cx; ctx.beginPath(); ctx.arc(pc.x, pc.y, 6.5, 0, 7); ctx.fill(); } if (code.hz[s][col]) { const pc = cpos('Z', s, g); drawSpoke(ctx, q, pc, g, C.cz); ctx.fillStyle = C.cz; ctx.beginPath(); ctx.rect(pc.x - 6, pc.y - 6, 12, 12); ctx.fill(); } }
-        ctx.fillStyle = C.cd; ctx.beginPath(); ctx.arc(q.x, q.y, 8, 0, 7); ctx.fill();
+        halo(ctx, q, 12, C.cdSoft, C.cd); qubitMark(ctx, q, 7, C.cd, C); idxLabel(ctx, q, String(col), C);
       }
-      ctx.fillStyle = C.ink2; ctx.font = '600 12px ' + cssVar('--f-body'); ctx.textAlign = 'center'; ctx.textBaseline = 'top';
-      ctx.fillText(U().T({ zh: l + ' × ' + m + ' 环面 · 每格两个数据比特（左层深灰、右层浅灰）· 圆 = X 检查，方 = Z 检查', en: l + ' × ' + m + ' torus · two data qubits per site (left layer dark, right layer light) · circle = X check, square = Z check' }), w / 2, h - 18);
+      ctx.fillStyle = C.ink2; ctx.font = '600 11.5px ' + cssVar('--f-body'); ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+      ctx.fillText(U().T({ zh: l + ' × ' + m + ' 环面，每格两个数据比特：实心点 = 左层，空心圈 = 右层（向右下错开半格）', en: l + ' × ' + m + ' torus, two data qubits per site: filled dot = left layer, hollow ring = right layer (half a cell down-right)' }), w / 2, h - 46);
+      ctx.fillText(U().T({ zh: '橙圆 = X 检查，蓝方 = Z 检查；带光晕的 = 选中的对象及其腿的终点', en: 'orange circle = X check, blue square = Z check; haloed = the selection and the ends of its legs' }), w / 2, h - 30);
+      ctx.fillText(U().T({ zh: '数字 = 比特编号（左层 0…' + (N - 1) + '，右层 ' + N + '…' + (2 * N - 1) + '）', en: 'numbers = qubit index (left layer 0…' + (N - 1) + ', right layer ' + N + '…' + (2 * N - 1) + ')' }), w / 2, h - 14);
     }
+    // a selected qubit keeps its layer's shape: left = filled dot, right = hollow ring (thick coloured outline)
+    function qubitMark(ctx, q, r, color, C) { ctx.beginPath(); ctx.arc(q.x, q.y, r, 0, 7); if (q.layer) { ctx.fillStyle = C.bg; ctx.fill(); ctx.strokeStyle = color; ctx.lineWidth = 2.6; ctx.stroke(); } else { ctx.fillStyle = color; ctx.fill(); } }
+    function halo(ctx, p, r, soft, color) { ctx.beginPath(); ctx.arc(p.x, p.y, r, 0, 7); ctx.fillStyle = soft; ctx.fill(); ctx.strokeStyle = color; ctx.lineWidth = 1; ctx.globalAlpha = 0.55; ctx.stroke(); ctx.globalAlpha = 1; }
+    function idxLabel(ctx, q, txt, C) { ctx.font = '700 11px ' + cssVar('--f-mono'); ctx.textAlign = 'left'; ctx.textBaseline = 'bottom'; ctx.lineWidth = 3; ctx.strokeStyle = C.bg; ctx.strokeText(txt, q.x + 7, q.y - 6); ctx.fillStyle = C.ink; ctx.fillText(txt, q.x + 7, q.y - 6); }
     function drawSpoke(ctx, a, b, g, color) { // shortest torus displacement; dashed when wrapping
       let dx = b.x - a.x, dy = b.y - a.y; const W = l * g.cell, Hh = m * g.cell; let wrapped = false;
       if (Math.abs(dx) > W / 2) { dx -= Math.sign(dx) * W; wrapped = true; } if (Math.abs(dy) > Hh / 2) { dy -= Math.sign(dy) * Hh; wrapped = true; }
@@ -6758,8 +6908,8 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
       let zh = 'A = ' + termsToPoly(aTerms, 'x', 'y') + '，B = ' + termsToPoly(bTerms, 'x', 'y') + '，l = ' + l + '，m = ' + m + '。H<sub>X</sub> = [A | B]，H<sub>Z</sub> = [Bᵀ | Aᵀ]，' + (P.commute ? 'H<sub>X</sub>H<sub>Z</sub>ᵀ = 0 ✓' : '<span class="no">不对易！</span>') + '。' + paramsLine(P) + '。每条检查重量 ' + wX + '，每个比特被 ' + degs + ' 条检查碰到。';
       let en = 'A = ' + termsToPoly(aTerms, 'x', 'y') + ', B = ' + termsToPoly(bTerms, 'x', 'y') + ', l = ' + l + ', m = ' + m + '. H<sub>X</sub> = [A | B], H<sub>Z</sub> = [Bᵀ | Aᵀ], ' + (P.commute ? 'H<sub>X</sub>H<sub>Z</sub>ᵀ = 0 ✓' : '<span class="no">do not commute!</span>') + '. ' + paramsLine(P) + '. Every check has weight ' + wX + '; every qubit meets ' + degs + ' checks.';
       if (view === 'check') { const s = sel.site, i = Math.floor(s / m), j = s % m; zh += ' 选中的 ' + sel.kind + ' 检查在格点 (' + i + ',' + j + ')：' + (sel.kind === 'X' ? 'A 的每一项指向左层一个比特，B 的每一项指向右层一个比特。' : 'Bᵀ 的每一项反向平移到左层，Aᵀ 的每一项反向平移到右层。'); en += ' Selected ' + sel.kind + ' check at site (' + i + ',' + j + '): ' + (sel.kind === 'X' ? 'each term of A points to one left-layer qubit, each term of B to one right-layer qubit.' : 'each term of Bᵀ translates backwards into the left layer, each term of Aᵀ into the right layer.'); }
-      else { const st = L().bbSite(l, m, sel.site); zh += ' 选中的比特在' + (st.layer ? '右' : '左') + '层 (' + st.i + ',' + st.j + ')：它属于 3 条 X 检查（圆）和 3 条 Z 检查（方）。'; en += ' Selected qubit in the ' + (st.layer ? 'right' : 'left') + ' layer at (' + st.i + ',' + st.j + '): it belongs to the X checks (circles) and Z checks (squares) shown.'; }
-      F.setReadout(bi(zh + searchNote, en + searchNote));
+      else { const st = L().bbSite(l, m, sel.site); zh += ' 选中的比特在' + (st.layer ? '右' : '左') + '层 (' + st.i + ',' + st.j + ')：它属于图中高亮的那几条 X 检查（圆）和 Z 检查（方）。'; en += ' Selected qubit in the ' + (st.layer ? 'right' : 'left') + ' layer at (' + st.i + ',' + st.j + '): it belongs to the X checks (circles) and Z checks (squares) shown.'; }
+      F.setReadout(bi(zh + searchNote.zh, en + searchNote.en));
     }
     const presetSeg = U().seg(Object.keys(L().BB_PRESETS).map((k) => ({ id: k, zh: L().BB_PRESETS[k].label, en: L().BB_PRESETS[k].label })), presetKey, (k) => { pr = L().BB_PRESETS[k]; l = pr.l; m = pr.m; aTerms = pr.a.map((t) => t.slice()); bTerms = pr.b.map((t) => t.slice()); inA.value = termsToText(aTerms); inB.value = termsToText(bTerms); slL.el.value = l; slL.pill.textContent = 'l = ' + l; slM.el.value = m; slM.pill.textContent = 'm = ' + m; sel = { kind: 'X', site: 0 }; build(); box.redraw(); readout(); });
     const inA = textInput(termsToText(aTerms), 120, (v) => { const t = parseTerms(v); if (t.length) { aTerms = t; build(); box.redraw(); readout(); } });
@@ -6773,8 +6923,8 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
     const row3 = div('controls'); el.insertBefore(row3, F.readout);
     row3.append(viewSeg.el,
       U().btn('随机改一个指数', 'Perturb one exponent', '', () => { const which = Math.random() < 0.5 ? aTerms : bTerms; const t = which[Math.floor(Math.random() * which.length)]; if (Math.random() < 0.5) t[0] = (t[0] + 1 + Math.floor(Math.random() * (l - 1))) % l; else t[1] = (t[1] + 1 + Math.floor(Math.random() * (m - 1))) % m; inA.value = termsToText(aTerms); inB.value = termsToText(bTerms); build(); box.redraw(); readout(); }),
-      U().btn('搜索低重逻辑算符（约 1.5 秒）', 'Search a low-weight logical (~1.5 s)', 'primary', () => { const r = L().lowWeightLogical(code.hx, code.hz, { maxMs: 1500, maxIters: 3000, exactLimit: 18, seed: 5 }); searchNote = ' <b>' + (r.exact ? U().T({ zh: '穷举', en: 'exhaustive' }) : U().T({ zh: '随机搜索', en: 'random search' })) + '</b>: ' + U().T({ zh: '找到的最轻 X 逻辑算符重量 ', en: 'lightest X-logical found has weight ' }) + '<b>' + (r.weight === Infinity ? '—' : r.weight) + '</b>' + (r.exact ? U().T({ zh: '（即精确的 d<sub>X</sub>）', en: ' (this is the exact d<sub>X</sub>)' }) : U().T({ zh: '（这是 d 的上界，不是 d）', en: ' (an upper bound on d, not d itself)' })) + '.'; readout(); }));
-    legend(el, [{ color: cssVar('--cx'), dot: true, zh: 'X 检查', en: 'X check' }, { color: cssVar('--cz'), square: true, zh: 'Z 检查', en: 'Z check' }, { color: cssVar('--ink3'), dot: true, zh: '数据比特（两层）', en: 'data qubits (two layers)' }]);
+      U().btn('搜索低重逻辑算符（约 1.5 秒）', 'Search a low-weight logical (~1.5 s)', 'primary', () => { const r = L().lowWeightLogical(code.hx, code.hz, { maxMs: 1500, maxIters: 3000, exactLimit: 18, seed: 5 }); const w = r.weight === Infinity ? '—' : r.weight; searchNote = { zh: ' <b>' + (r.exact ? '穷举' : '随机搜索') + '</b>：找到的最轻 X 逻辑算符重量 <b>' + w + '</b>' + (r.exact ? '（即精确的 d<sub>X</sub>）' : '（这是 d 的上界，不是 d）') + '。', en: ' <b>' + (r.exact ? 'exhaustive' : 'random search') + '</b>: lightest X-logical found has weight <b>' + w + '</b>' + (r.exact ? ' (this is the exact d<sub>X</sub>)' : ' (an upper bound on d, not d itself)') + '.' }; readout(); }));
+    legend(el, [{ color: cssVar('--cx'), dot: true, zh: 'X 检查', en: 'X check' }, { color: cssVar('--cz'), square: true, zh: 'Z 检查', en: 'Z check' }, { color: cssVar('--ink2'), dot: true, zh: '左层 L 数据比特（实心点）', en: 'left-layer L data qubit (filled dot)' }, { color: cssVar('--ink2'), ring: true, zh: '右层 R 数据比特（空心圈）', en: 'right-layer R data qubit (hollow ring)' }]);
     build(); readout();
   }
   U().reg('bbbuilder', wBbBuilder);
@@ -7025,7 +7175,7 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
     twocert: { zh: ['距离的两份证书', '下界：文献证明不存在重量 < d 的逻辑算符；上界：机器找到一个重量 d 的逻辑算符。两者相符才写 d；gross 的下界尚未被 Atlas 复算，故标 bounded。'], en: ['Two certificates for distance', 'Lower bound: the literature excludes logicals of weight < d; upper bound: a machine finds a logical of weight d. Only when they meet is d written; gross’s lower bound is not yet replayed by the Atlas, hence “bounded”.'] },
     tannerlayers: { zh: ['两层平面耦合', '每条检查碰 6 个比特、每个比特被 6 条检查碰，Tanner 图无法画成一层平面图；Bravyi 等把它分成两层度 3 的平面图，靠跨层耦合器实现。'], en: ['Two planar coupling layers', 'Each check meets 6 qubits and each qubit 6 checks; the Tanner graph is not planar in one layer. Bravyi et al. split it into two planar degree-3 layers joined by cross-layer couplers.'] },
     protocolthr: { zh: ['0.8% 是协议阈值', 'Bravyi 等 2024 在电路级噪声、深度 7 的提取电路、其探测器构造与 BP-OSD 下对其 BB 家族做有限尺寸标度得到的估计；换电路、噪声归一化或译码器都会改变它。'], en: ['0.8% is a protocol threshold', 'Bravyi et al. 2024’s finite-size estimate for their BB family under circuit-level noise, the depth-7 extraction circuit, their detector construction and BP-OSD; change the circuit, noise normalisation or decoder and it moves.'] },
-    autom: { zh: ['平移是自同构，不是门', 'x、y 与 A、B、Aᵀ、Bᵀ 都对易，所以对两层同时做平移把稳定子群映到自身；但它对 12 个逻辑比特的作用尚未被算出，不能称为已认证的逻辑门。'], en: ['Translations are automorphisms, not gates', 'x and y commute with A, B, Aᵀ, Bᵀ, so translating both layers maps the stabilizer group to itself; but its action on the 12 logical qubits is uncomputed, so it is not a certified logical gate.'] },
+    autom: { zh: ['平移是自同构，逻辑作用另算', 'x、y 与 A、B、Aᵀ、Bᵀ 都对易，所以对两层同时做平移把稳定子群映到自身；这条恒等式本身给不出它对 12 个逻辑比特的作用，Atlas 也没有算。Bravyi 等人（arXiv:2308.07915 v2，9.2 节）算过：每个平移都是逻辑 CNOT 电路（最多差一个逻辑 Pauli 修正）；他们还说没有哪个非恒等平移作用成逻辑恒等，但本系列直接检验的结果是：对 gross，x⁶（半圈平移）作用成逻辑恒等，其余 70 个非恒等平移有非平凡的逻辑作用。'], en: ['Translations are automorphisms; their logical action is computed elsewhere', 'x and y commute with A, B, Aᵀ, Bᵀ, so translating both layers maps the stabilizer group to itself; that identity alone does not give its action on the 12 logical qubits, and the Atlas does not compute it. Bravyi et al. (arXiv:2308.07915 v2, section 9.2) did: every translation is a logical CNOT circuit, up to a logical Pauli correction; they also state that no nonidentity translation is the logical identity, but a direct check made for this series finds that on gross x⁶ (a half-turn) acts as the logical identity, while the other 70 nonidentity translations have a nontrivial logical action.'] },
   });
   Object.assign(TQ.SYMDATA, {
     propto: { m: ['∝'], zh: ['读「正比于」', 'k ∝ √n：k 与 √n 按固定比例一起增长。'], en: ['Read “proportional to”', 'k ∝ √n: k grows in a fixed ratio to √n.'] },
@@ -7033,6 +7183,46 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
     quotient: { m: ['R/(A,B)'], zh: ['读「R 模 (A,B)」', '把环 R 里所有能写成 uA + vB 的元素当成 0 之后剩下的空间；它的维数就是 rank 的亏损。'], en: ['Read “R mod (A,B)”', 'What remains of the ring R after everything of the form uA + vB is set to 0; its dimension is the rank deficit.'] },
     dfn: { m: ['≔'], zh: ['冒号等号，读「定义为」', 'A ≔ B：用 B 来定义 A。'], en: ['Colon-equals, read “is defined as”', 'A ≔ B: A is defined to be B.'] },
   });
+})(typeof window !== 'undefined' ? window : globalThis);
+</script>
+<script>
+/* Page-specific additions for "BB Codes · Guided Tour" (2026-09 revision): two Reset fixes for
+   shared widgets. polyshift's Reset now also returns its l/m sliders and its A / Aᵀ switch;
+   the toric counting bench opens at the size named by data-size (L = 3 here) and Reset returns
+   to it, both through the widgets' own controls; every size change (and so Reset) also presses
+   Restart, which clears the star counter, the accumulated edges and the highlights. */
+(function (root) {
+  if (!root.document) return;
+  const doc = root.document;
+  function fixPolyShiftReset() {
+    doc.querySelectorAll('[data-widget="polyshift"]').forEach((el) => {
+      const r = el.querySelector('.w-reset');
+      if (!r) return;
+      r.addEventListener('click', () => {
+        el.querySelectorAll('input[type="range"]').forEach((s) => { s.value = '6'; s.dispatchEvent(new Event('input')); });
+        const b = el.querySelector('.seg button');
+        if (b) b.click();
+      });
+    });
+  }
+  function fixCountingSize() {
+    doc.querySelectorAll('[data-widget="counting"][data-size]').forEach((el) => {
+      const want = 'L=' + el.dataset.size;
+      const restartBtn = [...el.querySelectorAll('button')].find((x) => x.textContent.includes('Restart'));
+      // a new size rebuilds the lattice but the engine keeps the old counter and accumulator; clear them
+      el.querySelectorAll('.seg button').forEach((b) => b.addEventListener('click', () => { if (restartBtn) restartBtn.click(); }));
+      const pick = () => {
+        const b = [...el.querySelectorAll('.seg button')].find((x) => x.textContent.trim().startsWith(want));
+        if (b) b.click();
+      };
+      pick();
+      const r = el.querySelector('.w-reset');
+      if (r) r.addEventListener('click', pick);
+    });
+  }
+  function init() { fixPolyShiftReset(); fixCountingSize(); }
+  if (doc.readyState === 'loading') doc.addEventListener('DOMContentLoaded', init);
+  else setTimeout(init, 0);
 })(typeof window !== 'undefined' ? window : globalThis);
 </script>
 </body>

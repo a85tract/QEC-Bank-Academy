@@ -915,8 +915,8 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
       <span class="en">BB codes:<br>two polynomials, <span class="accent">eleven facets</span></span>
     </h1>
     <p class="lede">
-      <span class="zh">Atlas 的 <span class="mono">bivariate_bicycle</span> 条目记录的是 BB 码这一族：两个环面上的多项式 A、B，拼成 H<sub>X</sub> = [A | B] 与 H<sub>Z</sub> = [Bᵀ | Aᵀ]。条目交付了两个可执行实例——gross 码 [[144,12,12]] 和用来校准约定的环面锚点 [[18,2,3]]。这一页是该条目的目录：十一个侧面各一篇互动教程，从直觉一直到参考文献，每篇都对照 Atlas 机器验证过的数据来讲，数字后面标着它的证据等级。</span>
-      <span class="en">The Atlas entry <span class="mono">bivariate_bicycle</span> records the family of BB codes: two polynomials A, B on a torus assembled into H<sub>X</sub> = [A | B] and H<sub>Z</sub> = [Bᵀ | Aᵀ]. The entry ships two executable instances, the gross code [[144,12,12]] and the toric anchor [[18,2,3]] used to calibrate conventions. This page is the entry's table of contents: one interactive tutorial per facet, from intuition to references, each walking the Atlas's machine-verified data with the evidence grade written next to every number.</span>
+      <span class="zh">码距 12 的表面码（12 × 12 的旋转版）用 144 个数据比特只存 1 个逻辑比特；BB 码家族里的 gross 码用同样 144 个比特存 12 个，码距也是 12。它的全部检查由两个多项式 A、B 写出，多项式的每一项是 12 × 6 环面上的一次平移（例如 x³ = 向右走 3 格，y = 向上走 1 格）；怎样从这些平移读出每条检查碰哪六个比特（每格两个比特分左右两层、环面首尾相接、Z 检查倒着走），<a href="intuition/intuition.html#s3-1">直觉篇 3.1 节</a>用带标注的图一步步讲。QEC Atlas（本系列依托的纠错码知识库）的 <span class="mono">bivariate_bicycle</span> 条目记录这一族码，发布了两个实例：gross 码 [[144,12,12]]，以及 3 × 3 环面上的小码 toric_L3 [[18,2,3]]，它小到可以手算，用来核对 Atlas 的编号约定和论文一致。这一页是该条目的目录：十一个侧面各一篇互动教程，从直觉一直到参考文献，每个数字旁都写着它的证据词（说明它是机器重算的、有上下界的，还是文献声称的，见下方第 1 章）。</span>
+      <span class="en">A surface code of distance 12 (the rotated 12 × 12 version) spends 144 data qubits on a single logical qubit; the gross code, one member of the BB family, stores 12 in the same 144 qubits, also at distance 12. All of its checks are written with two polynomials A and B, each term of which is one shift on a 12 × 6 torus (for example x³ = three cells to the right, y = one cell up); how the six qubits of each check are read off from these shifts (two qubits per cell in a left and a right layer, the torus wrapping around, Z checks stepping backwards) is shown step by step, with labelled figures, in <a href="intuition/intuition.html#s3-1">§3.1 of the intuition guide</a>. The <span class="mono">bivariate_bicycle</span> entry of the QEC Atlas (the knowledge base of codes this series is built on) records this family and publishes two instances: the gross code [[144,12,12]], and toric_L3 [[18,2,3]] on a 3 × 3 torus, small enough to work by hand, which checks that the Atlas's numbering conventions agree with the paper's. This page is the entry's table of contents: one interactive tutorial per facet, from intuition to references, with an evidence word next to every number (saying whether a machine recomputed it, only bounds are known, or a paper claims it; see chapter 1 below).</span>
     </p>
     <div class="promise">
       <span class="zh">从哪里开始：先读<a href="intuition/intuition.html">直觉篇</a>（高中数学版，需要先读过 <a href="../surface_code/intuition/intuition-hs.html">Surface Code</a>）；查数字、查引用直接去对应侧面。Atlas 原始条目页：<a href="../../../exports/site/entries/bivariate_bicycle.html">在 Atlas 中查看 →</a></span>
@@ -948,67 +948,67 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
 
 <section class="chapter" id="facets">
   <div class="ch-head">
-    <div class="ch-no"><span class="zh">渐进披露</span><span class="en">Progressive disclosure</span></div>
+    <div class="ch-no"><span class="zh">十一个侧面</span><span class="en">Eleven facets</span></div>
     <h2><span class="zh">探索这个码</span><span class="en">Explore this code</span></h2>
     <p class="ch-lede">
-      <span class="zh">选你想回答的问题。<b>高中数学</b>版用矩阵、秩、多项式讲；<b>条目导读</b>假定你已读过直觉篇，直接对照 Atlas 的数据、证书和文献键来讲，每个数字都带证据等级：verified（机器重算）、bounded（文献下界加机器见证）、claimed（仅文献声称）、demonstrated / proposed（实验与提案）。</span>
-      <span class="en">Choose the question you want answered. The <b>high-school</b> guide uses matrices, rank and polynomials; the <b>entry guides</b> assume it and walk the Atlas's data, certificates and bibkeys directly, with an evidence grade on every number: verified (recomputed by machine), bounded (literature lower bound plus a machine witness), claimed (literature only), demonstrated / proposed (experiments and proposals).</span>
+      <span class="zh">选你想回答的问题。<b>高中数学</b>版用矩阵、秩、多项式讲；<b>条目导读</b>假定你已读过直觉篇，直接对照 Atlas 的数据、证书和文献键（指向一篇登记过的论文的短字符串）来讲，每个数字都带证据词：verified = 机器独立重算、结果相符；bounded = 只登记了上界和下界（对 gross 的码距：上界由机器找到的例子给出，下界引自论文）；claimed = 只有文献声称，Atlas 没有重算；demonstrated = 有实验论文在真实硬件上报告过；proposed = 设计具体到可以模拟或估算成本，但还没有硬件执行过。</span>
+      <span class="en">Choose the question you want answered. The <b>high-school</b> guide uses matrices, rank and polynomials; the <b>entry guides</b> assume it and walk the Atlas's data, certificates and reference keys (short strings that point to a registered paper) directly, with an evidence word on every number: verified = recomputed independently by a machine, and it matched; bounded = only an upper and a lower bound are recorded (for the gross distance: the upper bound from an example a machine found, the lower bound cited from the paper); claimed = only a paper says so, the Atlas has not recomputed it; demonstrated = an experimental paper has reported it on real hardware; proposed = the design is concrete enough to simulate or cost, but no hardware has run it.</span>
     </p>
   </div>
   <ul class="facet-grid">
     <li><div class="facet-card">
       <a class="fc-title" href="intuition/intuition.html"><span><span class="zh">直觉</span><span class="en">Intuition</span></span><span class="arrow">→</span></a>
-      <span class="fc-desc"><span class="zh">单项式是平移、多项式是稀疏矩阵、一行代数证明对易、k 来自秩的亏损、八个条目逐个讲、从矩阵到机器要付的五笔账。</span><span class="en">Monomials as translations, polynomials as sparse matrices, commutation in one line of algebra, k from the rank deficit, the eight entries one by one, and the five bills between a matrix and a machine.</span></span>
+      <span class="fc-desc"><span class="zh">为什么要 BB：Bravyi、Poulin、Terhal 的定理（arXiv:0909.5200）说，比特在平面上分布的密度有上限、每条检查只碰一定距离内的比特时，k·d² ≤ c·n，其中 c 是只取决于这两个上限的常数；表面码在常数因子以内达到这个上限（k 块独立的表面码约用 k·d² 个比特）。然后从零推导：单项式是环面上的一步平移，多项式是几步平移盖在一起的「印章」，由它直接读出每条检查碰哪几个比特；一行代数证明所有检查对易；逻辑比特数从哪来（gross 的 72 条 X 检查里只有 66 条互相独立，72 条 Z 检查也是，所以 k = 144 − 66 − 66 = 12，也就是 2 × (72 − 66)）；八个重要的码逐个讲；最后是从矩阵到机器要付的账：长程连线、深度 7 的测量电路、译码、0.8% 这个数是什么不是什么（<a href="#note-08">见下方说明</a>）、逻辑门。</span><span class="en">Why BB: the theorem of Bravyi, Poulin and Terhal (arXiv:0909.5200) says that when the qubits sit in the plane with bounded density and every check touches only qubits within a bounded distance, k·d² ≤ c·n, where c is a constant that depends only on those two bounds; the surface code reaches this limit up to a constant factor (k independent surface-code patches use about k·d² qubits). Then a derivation from zero: a monomial is one shift step on the torus, a polynomial is a “stamp” of several shifts, and it tells you directly which qubits each check touches; one line of algebra shows that all checks commute; where the logical qubits come from (only 66 of gross's 72 X checks are independent, and likewise 66 of its 72 Z checks, so k = 144 − 66 − 66 = 12, which is 2 × (72 − 66)); eight important codes one by one; and last the bill between a matrix and a machine: long-range wiring, the depth-7 measurement circuit, decoding, what the 0.8% number is and is not (<a href="#note-08">see the note below</a>), logical gates.</span></span>
       <span class="fc-meta"><span class="lvl hs"><span class="zh">高中数学</span><span class="en">high-school</span></span></span>
     </div></li>
     <li><div class="facet-card">
       <a class="fc-title" href="tour/tour.html"><span><span class="zh">导览</span><span class="en">Guided tour</span></span><span class="arrow">→</span></a>
-      <span class="fc-desc"><span class="zh">跟着 Atlas 导出的 gross 码数据走八站：144 个坐标从哪来、一条六腿检查的六个比特是谁、交换转置为什么让所有检查对易、缩到环面锚点校准约定、72 行为何只有秩 66。</span><span class="en">Eight stops through the Atlas's exported gross-code data: where the 144 coordinates come from, which six qubits one weight-six check touches, why the swapped transpose makes every check commute, shrinking to the toric anchor, and why 72 rows have rank only 66.</span></span>
+      <span class="fc-desc"><span class="zh">导览是 Atlas 给每个条目配的固定路线：不讲新理论，只把程序导出的真实数据一站站指给你看。八站：144 个比特的坐标由哪条公式算出；第 0 条 X 检查碰到的六个比特 {1, 2, 18, 75, 78, 84} 各由哪一步平移得到；Z 检查为什么要「倒着走、换位置」才和所有 X 检查对易；缩到 3 × 3 环面上的 [[18,2,3]] 用手核对；72 条 X 检查为什么只有 66 条独立；以及导览不讲的东西（电路和门）。</span><span class="en">A guided tour is the fixed route the Atlas attaches to each entry: no new theory, just the real data the program exported, pointed out stop by stop. Eight stops: which formula gives the coordinates of the 144 qubits; which shift step reaches each of the six qubits {1, 2, 18, 75, 78, 84} touched by X check 0; why the Z checks must “walk backwards and swap places” to commute with every X check; shrinking to [[18,2,3]] on a 3 × 3 torus to check by hand; why only 66 of the 72 X checks are independent; and what the tour leaves out (circuits and gates).</span></span>
       <span class="fc-meta"><span class="lvl ref"><span class="zh">条目导读</span><span class="en">entry guide</span></span></span>
     </div></li>
     <li><div class="facet-card">
       <a class="fc-title" href="views/views.html"><span><span class="zh">表示阶梯</span><span class="en">Representation ladder</span></span><span class="arrow">→</span></a>
-      <span class="fc-desc"><span class="zh">R1 可执行检查矩阵、R2 链复形与环面圆筒、R4 两层平面 Tanner 图、R5 多项式环 / 群代数 / 商模 / 任意子四本词典，各带出处标签；R3 动力学一级为空，如实说明。</span><span class="en">R1 executable check matrices, R2 chain complex and toric cylinders, R4 the two-layer planar Tanner graph, R5 four dictionaries — polynomial ring, group algebra, quotient module, anyons — each with its provenance label; the R3 dynamics rung is empty and says so.</span></span>
+      <span class="fc-desc"><span class="zh">同一对多项式的八种写法：两张 72 × 144 的 0/1 检查矩阵；一条链复形（把比特和两族检查用矩阵串起来的代数写法）；一张 864 条边的 <span class="term">Tanner 图<span class="tip">把比特和检查都画成点，某条检查碰到某个比特，就在两点之间连一条线。</span></span>；以及二元多项式、群代数、商模、任意子四本代数「词典」。Atlas 按机器能多直接地执行，把它们排成 R1 到 R5 五级，并标明每条是机器算出来的、照公认定义写的，还是从论文整理来的。R3 这一级（按时间顺序排好的测量）目前是空的，页面照实说明为什么。</span><span class="en">Eight ways of writing the same pair of polynomials: two 72 × 144 0/1 check matrices; a chain complex (an algebraic form that links the qubits and the two check families with matrices); a <span class="term">Tanner graph<span class="tip">Draw every qubit and every check as a dot, and join a check to each qubit it touches with a line.</span></span> with 864 edges; and four algebraic “dictionaries”: bivariate polynomials, the group algebra, a quotient module, anyons. The Atlas sorts them into five levels, R1 to R5, by how directly a machine can execute them, and marks each as computed by a machine, written from the accepted definition, or collected from papers. Level R3 (measurements laid out in time order) is empty for now, and the page says why.</span></span>
       <span class="fc-meta"><span class="lvl ref"><span class="zh">条目导读</span><span class="en">entry guide</span></span></span>
     </div></li>
     <li><div class="facet-card">
       <a class="fc-title" href="parameters/parameters.html"><span><span class="zh">参数与实例</span><span class="en">Parameters &amp; instances</span></span><span class="arrow">→</span></a>
-      <span class="fc-desc"><span class="zh">家族变量 l、m、A、B 的项；n = 2lm、k = 2(lm − r) 怎么来；gross [[144,12,12]] 与 toric_L3 [[18,2,3]] 各项数字的证据等级；为什么 gross 的 d 是 bounded；算上辅助比特的 288。</span><span class="en">The family variables l, m and the terms of A, B; where n = 2lm and k = 2(lm − r) come from; the evidence grade of every number for gross [[144,12,12]] and toric_L3 [[18,2,3]]; why gross's d is bounded; the 288 once ancillas are counted.</span></span>
+      <span class="fc-desc"><span class="zh">四个旋钮：环面的宽 l、高 m，以及多项式 A、B 各有哪几项。n = 2lm（每个格子两个比特）；k = 2(lm − r)，r 是 X 检查矩阵的秩，即其中互相独立的检查条数（Z 检查的秩也是 r，所以 k = 2lm − r − r；gross 为 144 − 66 − 66 = 12）；gross [[144,12,12]] 与 toric_L3 [[18,2,3]] 每个数字旁的证据词；为什么 gross 的码距是 bounded（上界 12 由机器的随机搜索每次重现，下界 12 引自论文）；算上测量用的帮手比特共 288 个；以及「十二倍」这个说法比的究竟是什么。</span><span class="en">Four knobs: the torus width l and height m, and which terms the polynomials A and B contain. n = 2lm (two qubits per cell); k = 2(lm − r), where r is the rank of the X-check matrix, the number of independent checks in it (the Z checks have rank r too, so k = 2lm − r − r; for gross 144 − 66 − 66 = 12); the evidence word beside every number for gross [[144,12,12]] and toric_L3 [[18,2,3]]; why the gross distance is bounded (the upper bound 12 is reproduced every time by the machine's random search, the lower bound 12 is cited from the paper); 288 qubits once the helper qubits for measurement are counted; and what exactly the “twelve times” claim compares.</span></span>
       <span class="fc-meta"><span class="lvl ref"><span class="zh">条目导读</span><span class="en">entry guide</span></span></span>
     </div></li>
     <li><div class="facet-card">
       <a class="fc-title" href="formal-verification/formal-verification.html"><span><span class="zh">形式化 IR 与证书</span><span class="en">Formal IR &amp; certificates</span></span><span class="arrow">→</span></a>
-      <span class="fc-desc"><span class="zh">两个实例的语义哈希与 Lean 检查过的证书类别：为什么 gross 只有结构有效性证书、没有精确码距证书；重放合同要求逐比特复现同一张矩阵；哪些东西永远不在证书里。</span><span class="en">The two instances' semantic hashes and Lean-checked certificate classes: why gross has only structural validity and no exact-distance certificate; the replay contract that must reproduce the very same matrix; what a certificate never covers.</span></span>
+      <span class="fc-desc"><span class="zh">「verified」是哪台机器、拿什么、对哪个对象核对的：gross 与 toric_L3 各自的身份编号（由矩阵算出的 64 位十六进制哈希，改一个比特就会变）；Atlas 怎样只凭四个变量和两个版本号把两张矩阵一比特不差地重新拼出来；为什么 toric_L3 有精确码距证书而 gross 没有（一个算术原因，一个策略原因）；证书不覆盖哪些东西；以及怎样自己重跑。证书、哈希、证明检查程序 Lean 都在第 1 章从零讲起。</span><span class="en">Which machine “verified” something, with what, and against which object: the identity numbers of gross and toric_L3 (a 64-hex-digit hash computed from the matrix, which changes if a single bit changes); how the Atlas rebuilds both matrices bit for bit from just four variables and two version numbers; why toric_L3 has an exact-distance certificate and gross does not (one arithmetic reason, one policy reason); what the certificates do not cover; and how to rerun it all yourself. Certificates, hashes and the proof checker Lean are all taught from zero in chapter 1.</span></span>
       <span class="fc-meta"><span class="lvl ref"><span class="zh">条目导读</span><span class="en">entry guide</span></span></span>
     </div></li>
     <li><div class="facet-card">
       <a class="fc-title" href="decoders/decoders.html"><span><span class="zh">译码器</span><span class="en">Decoders</span></span><span class="arrow">→</span></a>
-      <span class="fc-desc"><span class="zh">为什么表面码的匹配在这里失效、置信传播在 Tanner 图上怎么传消息、短圈和退化为何让它卡住、OSD 如何收尾；0.8% 阈值的五个限定项；把部分症状归约到环面圆筒再用匹配的字典。</span><span class="en">Why surface-code matching fails here, how belief propagation passes messages on the Tanner graph, why short cycles and degeneracy stall it and OSD finishes; the five qualifiers behind the 0.8% threshold; the dictionary that reduces part of the syndrome to toric cylinders and matches there.</span></span>
+      <span class="fc-desc"><span class="zh">测量本身不出错时，表面码内部的一个 X 或 Z 数据比特错误点亮两个警报（贴着边界的比特可能只点亮一个），把警报两两配对（或连到边界）就是修复；gross 码里一个 X 或 Z 错误点亮三个（Y 错误是 X、Z 同时发生，点亮六个），「配对」失去意义。本篇讲置信传播（BP：比特和检查之间来回传「我错了吗」的消息）怎样工作；它为什么会在短圈和<span class="term">退化<span class="tip">许多个不同的错误只差一些检查的乘积，对信息的效果完全相同；译码器不必分清它们，但 BP 会因此在几个答案之间摇摆。</span></span>上卡住；有序统计译码（OSD）怎样按可靠度排序、解方程收尾；Atlas 登记的三条译码记录各用什么噪声模型，包括 0.8% 这个数的来历（<a href="#note-08">见下方说明</a>）；最后说明为什么电路里的码距不是静态的 12。</span><span class="en">With error-free measurements, a single X or Z error on an interior data qubit of the surface code lights two alarms (a qubit on the boundary may light only one), and pairing the alarms (or joining them to the boundary) is the repair; in the gross code a single X or Z error lights three (a Y error, X and Z at once, lights six), and “pairing” stops making sense. This guide covers how belief propagation (BP: bits and checks passing “am I wrong?” messages back and forth) works; why it gets stuck on short cycles and on <span class="term">degeneracy<span class="tip">Many different errors differ only by a product of checks and have exactly the same effect on the information; a decoder need not tell them apart, but BP can swing between several answers because of them.</span></span>; how ordered-statistics decoding (OSD) finishes by sorting bits by reliability and solving equations; which noise model each of the three decoding records in the Atlas uses, including where the 0.8% number comes from (<a href="#note-08">see the note below</a>); and last, why the distance inside a circuit is not the static 12.</span></span>
       <span class="fc-meta"><span class="lvl ref"><span class="zh">条目导读</span><span class="en">entry guide</span></span></span>
     </div></li>
     <li><div class="facet-card">
       <a class="fc-title" href="operations/operations.html"><span><span class="zh">逻辑操作</span><span class="en">Logical operations</span></span><span class="arrow">→</span></a>
-      <span class="fc-desc"><span class="zh">五条全部标 claimed 的操作：块间横向 CNOT、折叠横向 Clifford、自同构诱导的 Clifford、跨块 Pauli 测量与手术、自对偶子族的 H/S/CNOT；平移为什么是自同构却不算门；离通用门集还差什么。</span><span class="en">Five operations, all graded claimed: transversal CNOT between blocks, fold-transversal Cliffords, automorphism-induced Cliffords, inter-block Pauli measurement and surgery, H/S/CNOT in the self-dual subfamily; why a translation is an automorphism but not a gate; what is still missing for a universal set.</span></span>
+      <span class="fc-desc"><span class="zh">12 个逻辑比特挤在一块里，门从哪里来。Atlas 登记了五条逻辑操作，证据词都是 claimed：两块相同 BB 码之间的横向 CNOT（两块的对应比特一对一各做一次 CNOT）、对称实例上的折叠横向 <span class="term">Clifford 门<span class="tip">一类容易容错实现的门，包括 H、S、CNOT。只用它们不能做任意的量子计算，还需要 T 这样的门。</span></span>、由自同构（保持所有检查不变的比特重排）导出的 Clifford 门、块间 Pauli 测量与手术、一个自对偶子族的 H/S/CNOT。本篇逐条读它们：环面平移保持全部检查，但光凭这一点说不出它对 12 个逻辑比特做了什么：只给坐标改名什么也没做，真在芯片上把每个比特的状态按平移换到另一处才是一个操作；Bravyi 等人（arXiv:2308.07915 v2 附录）算出，平移 s 把编号为 n 的逻辑 X̄ 送到编号为 s·n 的逻辑 X̄（Z̄ 同理），所以除了原地不动，每个平移都是一段非平凡的逻辑 CNOT 电路（差一个逻辑 Pauli 修正），作者也说还不清楚怎样用它们做有用的计算，主要拿它们把选中的逻辑比特挪到能被测量的位置；为什么「自对偶子族有横向 H」不能推到 gross 头上；以及 T 门为什么仍要靠<span class="term">魔法态<span class="tip">事先制备并提纯的一种特殊量子态，用一段只含 Clifford 门和测量的电路把它「注入」，就实现了一个 T 门。</span></span>。</span><span class="en">Twelve logical qubits in one block: where do the gates come from? The Atlas records five logical operations, all with the evidence word claimed: transversal CNOT between two identical BB blocks (one CNOT on each pair of corresponding qubits), fold-transversal <span class="term">Clifford gates<span class="tip">A class of gates that are easy to implement fault-tolerantly, including H, S and CNOT. They alone cannot perform arbitrary quantum computation; a gate such as T is also needed.</span></span> on symmetric instances, Clifford gates derived from automorphisms (reorderings of the qubits that keep every check), inter-block Pauli measurement and surgery, and H/S/CNOT in one self-dual subfamily. This guide reads them one by one: a torus shift keeps every check, but that alone does not say what it does to the 12 logical qubits: renaming the coordinates does nothing, while actually moving each qubit's state along the shift on the chip is an operation; Bravyi et al. (arXiv:2308.07915 v2, supplement) work out that a shift s sends the logical X̄ labelled n to the X̄ labelled s·n (likewise Z̄), so every shift other than staying put is a nontrivial logical CNOT circuit (up to a logical Pauli correction); the authors add that it is not clear how to use these for useful computation and use them mainly to move a chosen logical qubit to where it can be measured; why “the self-dual subfamily has a transversal H” cannot be carried over to gross; and why the T gate still needs <span class="term">magic states<span class="tip">A special quantum state prepared and purified in advance; “injecting” it with a circuit of only Clifford gates and measurements performs a T gate.</span></span>.</span></span>
       <span class="fc-meta"><span class="lvl ref"><span class="zh">条目导读</span><span class="en">entry guide</span></span></span>
     </div></li>
     <li><div class="facet-card">
       <a class="fc-title" href="realizations/realizations.html"><span><span class="zh">用例与实现</span><span class="en">Use cases &amp; realizations</span></span><span class="arrow">→</span></a>
-      <span class="fc-desc"><span class="zh">它需要哪种硬件（长程耦合、可重构原子、模块化互联）；昆仑处理器上 [[18,4,4]] 的真机实验做到了什么、没做到什么；四个架构提案各在什么层面上成立。</span><span class="en">The hardware it needs (long-range couplers, reconfigurable atoms, modular links); what the [[18,4,4]] run on the Kunlun processor did and did not show; what level each of the four architecture proposals is established at.</span></span>
+      <span class="fc-desc"><span class="zh">BB 的检查要伸到几格之外，所以芯片得有能跨格连线的超导耦合器、能被光镊搬动的中性原子，或者把码分到几台用量子链路相连的处理器上。这份 Atlas 快照只登记了一次 demonstrated 记录：昆仑超导处理器上的 [[18,4,4]]，每个逻辑比特每轮的逻辑错误率 (8.91 ± 0.17)%。这个数是 X 基与 Z 基两种存储实验各自拟合出的值（8.67% 与 9.15%）的平均，译码器是按电路级去极化噪声设置的 BP-OSD，± 是统计与拟合不确定度合起来的一个标准差（Wang 等人，arXiv:2505.09684）。快照之后，2026 年 6 月 IonQ 的团队在离子阱上演示了三个 BB5 码（每条检查碰 5 个比特）[[18,4,3]]、[[24,4,4]]、[[30,4,5]]（Tham 等人，arXiv:2606.06455），Atlas 还没收录（其中 [[30,4,5]] 与 Atlas 的 bb5 条目参数相同，本页没有核对两者是不是同一个码）；另有四条 proposed（设计具体到可以模拟，但还没有硬件执行过）的方案，本篇说清各在哪一层成立。中间一章教你用五个字段读任何一条 BB 实验记录。</span><span class="en">BB checks reach several cells away, so the chip needs superconducting couplers that can span cells, neutral atoms that optical tweezers can move, or the code split across several processors joined by quantum links. This Atlas snapshot records one demonstration: [[18,4,4]] on the Kunlun superconducting processor, with a logical error rate of (8.91 ± 0.17)% per logical qubit per round. That number averages the rates fitted separately for the X-basis and Z-basis memory experiments (8.67% and 9.15%), decoded with BP-OSD set up for a circuit-level depolarizing noise model; the ± is one standard deviation of statistical and fit uncertainty (Wang et al., arXiv:2505.09684). After the snapshot, in June 2026, an IonQ team demonstrated three BB5 codes (every check touches 5 qubits), [[18,4,3]], [[24,4,4]] and [[30,4,5]], on a trapped-ion machine (Tham et al., arXiv:2606.06455); the Atlas has not added them yet (their [[30,4,5]] has the same parameters as the Atlas bb5 entry; this page has not checked whether the two are the same code); there are also four proposed designs (concrete enough to simulate, not yet run on hardware), and this guide says at which layer each one holds. One chapter teaches you to read any BB experiment record with five fields.</span></span>
       <span class="fc-meta"><span class="lvl ref"><span class="zh">条目导读</span><span class="en">entry guide</span></span></span>
     </div></li>
     <li><div class="facet-card">
       <a class="fc-title" href="relations/relations.html"><span><span class="zh">关系</span><span class="en">Relations</span></span><span class="arrow">→</span></a>
-      <span class="fc-desc"><span class="zh">Atlas 只记录了一条类型化关系（两块群代数码的特例，目标条目待建）；它的家谱——bicycle、广义 bicycle、提升积——以及多变量、互素、剪枝、自对偶、qudit 等变体，各自改变了什么。</span><span class="en">The Atlas records a single typed relation (a special case of two-block group-algebra codes, target entry pending); the family tree — bicycle, generalised bicycle, lifted product — and the multivariate, coprime, pruned, self-dual and qudit variants, and what each changes.</span></span>
+      <span class="fc-desc"><span class="zh">BB 码在 Atlas 的地图上和谁相连。Atlas 只登记了一条关系：BB 码是「两块群代数码」在可交换群上的特例，而那一端的条目还没建（pending）。然后是家谱：2004 年一个变量的 bicycle 码 → 广义 bicycle → 两个变量的 BB → 群代数码与提升积，每一代都用 Atlas 里真有的实例 [[6,2,2]]、[[18,2,3]]、[[144,12,12]] 算一遍；Atlas 里一张家族卡和七张成员卡是什么关系；最后七根「变体轴」（多变量、剪开环面加边界、自对偶、qudit 等），每改一根，哪些数字要重算。</span><span class="en">Who BB codes are connected to on the Atlas map. The Atlas records exactly one relation: BB codes are the commutative-group special case of “two-block group-algebra codes”, and the entry at the other end has not been built yet (pending). Then the family tree: the one-variable bicycle code of 2004 → generalised bicycle → the two-variable BB → group-algebra codes and lifted products, each generation worked out on an instance the Atlas really has, [[6,2,2]], [[18,2,3]], [[144,12,12]]; how one family card relates to seven member cards in the Atlas; and last, seven “variant axes” (more variables, cutting the torus open to add boundaries, self-duality, qudits and others): change one, and which numbers must be recomputed.</span></span>
       <span class="fc-meta"><span class="lvl ref"><span class="zh">条目导读</span><span class="en">entry guide</span></span></span>
     </div></li>
     <li><div class="facet-card">
       <a class="fc-title" href="pedagogy/pedagogy.html"><span><span class="zh">推导与指南</span><span class="en">Derivations &amp; guides</span></span><span class="arrow">→</span></a>
-      <span class="fc-desc"><span class="zh">七篇 Level-2 推导逐一展开：多项式到链复形、gross 参数账本、症状电路与译码、逻辑操作与证书、实现账本、表示词典、变体与边界图；外加复现合同与自测题。</span><span class="en">The seven Level-2 derivations worked out: polynomials to a chain complex, the gross parameter ledger, syndrome circuits and decoding, logical operations and certificates, the realization ledger, the representation dictionary, the variant and boundary map; plus the reproduction contract and a self-test.</span></span>
+      <span class="fc-desc"><span class="zh">Atlas 给每个码写两层文字：直觉短文，和「推导页」（Level-2：每页只回答一个问题、把证明做完，并逐句标明哪句是代数、哪句是机器重算、哪句是文献）。BB 条目有七张推导页，本篇一页一章：多项式怎样变成一对对易的检查矩阵；gross 的 72 × 144、秩 66、k = 12、d = 12 各从哪来；症状电路与译码为什么是五个不同的对象；逻辑门各自的证书；真机做到了哪一步；七种表示各保住什么；变体地图上哪条线不能跨。外加复现契约与自测题。</span><span class="en">The Atlas writes two layers of text for each code: a short intuition piece, and “derivation pages” (Level-2: each page answers one question, finishes the proof, and labels every sentence as algebra, machine recomputation or literature). The BB entry has seven derivation pages, and this guide gives each a chapter: how the polynomials become a commuting pair of check matrices; where gross's 72 × 144, rank 66, k = 12 and d = 12 each come from; why syndrome circuits and decoding are five different objects; the certificate behind each logical gate; how far hardware has got; what each of seven representations preserves; which lines on the variant map cannot be crossed. Plus the reproduction contract and a self-test.</span></span>
       <span class="fc-meta"><span class="lvl ref"><span class="zh">条目导读</span><span class="en">entry guide</span></span></span>
     </div></li>
     <li><div class="facet-card">
       <a class="fc-title" href="references/references.html"><span><span class="zh">参考文献</span><span class="en">References</span></span><span class="arrow">→</span></a>
-      <span class="fc-desc"><span class="zh">32 个出处键，按它们支撑的论断分组；其中 25 个在登记表里还缺标题作者年份——这一页如实标出，并说明怎样顺着键在 card.yaml 里找到它支撑的那句话。</span><span class="en">32 provenance keys grouped by the claims they support; 25 of them still lack title, authors and year in the registry — this page marks them honestly and shows how to follow a key to the exact claim in card.yaml.</span></span>
+      <span class="fc-desc"><span class="zh">Atlas 里凡不是机器重算的数字（0.8% 这个伪阈值、昆仑实验的 8.91%、五条逻辑门……）都挂在一个文献键上：一个指向登记过的论文的短字符串。BB 条目有 32 个键，只有 7 个登记了标题、作者、年份和 arXiv 链接，其余 25 个还显示 metadata pending（待登记）。本篇讲怎样读一个键；7 条各替哪条说法作证；25 条按引用它的侧面分组，并给出文献扫描报告里的标题与 arXiv 号；以及怎样顺着一个键找到它在 card.yaml 里支撑的那句话。</span><span class="en">Every number in the Atlas that a machine did not recompute (the 0.8% pseudo-threshold, the 8.91% from the Kunlun experiment, the five logical gates…) hangs on a reference key: a short string pointing to a registered paper. The BB entry has 32 keys; only 7 have a title, authors, year and arXiv link on file, and the other 25 still show metadata pending. This guide covers how to read a key; which statement each of the 7 vouches for; the 25 grouped by the facet that cites them, with the title and arXiv number from the literature-scan report; and how to follow a key to the sentence it supports in card.yaml.</span></span>
       <span class="fc-meta"><span class="lvl ref"><span class="zh">条目导读</span><span class="en">entry guide</span></span></span>
     </div></li>
   </ul>
@@ -1020,13 +1020,15 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
     <h2><span class="zh">一个条目，八个亲戚</span><span class="en">One entry, eight relatives</span></h2>
   </div>
   <div class="prose">
-    <p class="zh">这里的十一篇讲的是 Atlas 的<b>家族条目</b> <span class="mono">bivariate_bicycle</span>，它交付两个可执行实例：主实例 gross 码 [[144,12,12]]（l = 12、m = 6，A = x³ + y + y²，B = y³ + x + x²）和校准约定的环面锚点 toric_L3 [[18,2,3]]。Bravyi 等人 2024 年 Table 3 里的其他四个码 [[72,12,6]]、[[90,8,10]]、[[108,8,10]]、[[288,12,18]]，以及小码 bb5 [[30,4,5]] 和一变量祖先 bicycle [[6,2,2]]，在 Atlas 里各是独立的 T1 / T0 条目，它们的码距多为 claimed。直觉篇<a href="intuition/intuition.html#ch5">第 5 章</a>把八个条目逐个讲过；<a href="relations/relations.html">关系篇</a>说明它们与家族条目的关系。</p>
-    <p class="en">These eleven guides cover the Atlas <b>family entry</b> <span class="mono">bivariate_bicycle</span>, which ships two executable instances: the primary gross code [[144,12,12]] (l = 12, m = 6, A = x³ + y + y², B = y³ + x + x²) and the toric anchor toric_L3 [[18,2,3]] that calibrates conventions. The other four codes of Bravyi et al.'s 2024 Table 3 — [[72,12,6]], [[90,8,10]], [[108,8,10]], [[288,12,18]] — together with the small bb5 [[30,4,5]] and the one-variable ancestor bicycle [[6,2,2]] are separate T1 / T0 entries in the Atlas, mostly with claimed distances. <a href="intuition/intuition.html#ch5">Chapter 5</a> of the intuition guide walks all eight; the <a href="relations/relations.html">relations guide</a> explains how they relate to the family entry.</p>
+    <p class="zh">这里的十一篇讲的是 Atlas 的<b>家族条目</b> <span class="mono">bivariate_bicycle</span>，它交付两个可执行实例：主实例 gross 码 [[144,12,12]]（l = 12、m = 6，A = x³ + y + y²，B = y³ + x + x²）和用来核对编号约定的环面锚点 toric_L3 [[18,2,3]]。Bravyi 等人 2024 年 Table 3 里的其他四个码 [[72,12,6]]、[[90,8,10]]、[[108,8,10]]、[[288,12,18]]，以及小码 bb5 [[30,4,5]] 和一变量祖先 bicycle [[6,2,2]]，在 Atlas 里各有自己的独立条目（等级较低的 T0 / T1 卡：构造器重算了 n、k，其余侧面还没有整理）。它们的码距证据词不一样：bicycle 和 bb5 小到能穷举，d 是 verified；Table 3 的四个大码 d 是 claimed，照抄论文。直觉篇<a href="intuition/intuition.html#ch5">第 5 章</a>把八个条目逐个讲过；<a href="relations/relations.html">关系篇</a>说明它们与家族条目的关系。</p>
+    <p class="en">These eleven guides cover the Atlas <b>family entry</b> <span class="mono">bivariate_bicycle</span>, which ships two executable instances: the primary gross code [[144,12,12]] (l = 12, m = 6, A = x³ + y + y², B = y³ + x + x²) and the toric anchor toric_L3 [[18,2,3]] used to check the numbering conventions. The other four codes of Bravyi et al.'s 2024 Table 3 — [[72,12,6]], [[90,8,10]], [[108,8,10]], [[288,12,18]] — together with the small bb5 [[30,4,5]] and the one-variable ancestor bicycle [[6,2,2]] each have their own separate entry in the Atlas (lower-tier T0 / T1 cards: the constructor recomputes n and k, the other facets have not been written up yet). Their distances carry different evidence words: bicycle and bb5 are small enough to search exhaustively, so d is verified; for the four large Table 3 codes d is claimed, copied from the paper. <a href="intuition/intuition.html#ch5">Chapter 5</a> of the intuition guide walks all eight; the <a href="relations/relations.html">relations guide</a> explains how they relate to the family entry.</p>
   </div>
-  <div class="note note-honest">
-    <span class="note-tag"><span class="zh">证据等级</span><span class="en">Evidence grades</span></span>
-    <p class="zh">gross 的 n = 144、k = 12 是机器重算的（verified）；d = 12 是 bounded：下界引自 bravyi2024bicycle，上界由 Atlas 用随机低重搜索（种子 5，2000 次）复现出一个重量 12 的逻辑算符。0.8% 阈值、深度 7 电路、全部逻辑门和昆仑实验都是文献声称，不在任何证书里。各篇都会在数字旁写明这些等级。</p>
-    <p class="en">For gross, n = 144 and k = 12 are recomputed by machine (verified); d = 12 is bounded: the lower bound is cited to bravyi2024bicycle and the Atlas reruns a seeded low-weight search (seed 5, 2000 iterations) that finds a weight-12 logical as the upper witness. The 0.8% threshold, the depth-7 circuit, every logical gate and the Kunlun experiment are literature claims outside any certificate. Every guide writes these grades next to its numbers.</p>
+  <div class="note note-honest" id="note-08">
+    <span class="note-tag"><span class="zh">证据词</span><span class="en">Evidence words</span></span>
+    <p class="zh">gross 的 n = 144、k = 12 是机器重算的（verified）；d = 12 是 bounded：下界引自 bravyi2024bicycle，上界由 Atlas 用随机低重搜索（种子 5，2000 次）复现出一个重量 12 的逻辑算符（改写信息却不触发任何检查的操作，碰到 12 个比特），所以码距至多 12。0.8%、深度 7 电路、全部逻辑门和昆仑实验都是文献声称，不在任何证书里。各篇都会在数字旁写明这些词。</p>
+    <p class="zh">0.8% 要带着来历读。它出自 Bravyi 等人（arXiv:2308.07915）：在电路级噪声下（测量电路里每个操作以同一个概率 p 出错，彼此独立），用深度 7 的测量电路和 BP-OSD 译码器模拟，再对每个码<b>单独</b>解盈亏平衡方程 p<sub>L</sub>(p) = kp。p<sub>L</sub> 是整块码每轮失败的概率（k 个逻辑比特里任何一个出错都算）；kp 近似于 k 个不编码的裸比特里至少一个出错的概率；解出的 p 叫这块码的<b>伪阈值</b>。p<sub>L</sub> 只在 p ≥ 10<sup>−3</sup> 处模拟，更低处用拟合公式外推。v2（2024 年 2 月）的摘要写 0.8%，而它的 Table 1 里 gross 的伪阈值是 0.0065（五个码从 0.0048 到 0.0069），正文说 144 与 288 比特两个码「接近 0.007」。所以它不是几种码长的曲线交出来的阈值，也不是 gross 一个码独有的性质；<a href="decoders/decoders.html">译码器篇</a>讲细节。</p>
+    <p class="en">For gross, n = 144 and k = 12 are recomputed by machine (verified); d = 12 is bounded: the lower bound is cited to bravyi2024bicycle and the Atlas reruns a seeded low-weight search (seed 5, 2000 iterations) that finds a weight-12 logical operator (an operation that rewrites the information without setting off any check, touching 12 qubits) as the upper witness, so the distance is at most 12. The 0.8%, the depth-7 circuit, every logical gate and the Kunlun experiment are literature claims outside any certificate. Every guide writes these words next to its numbers.</p>
+    <p class="en">Read the 0.8% with its history. It comes from Bravyi et al. (arXiv:2308.07915): under circuit-level noise (every operation of the measurement circuit fails independently with the same probability p), with the depth-7 measurement circuit and the BP-OSD decoder, they solve for <b>each code separately</b> the break-even equation p<sub>L</sub>(p) = kp. Here p<sub>L</sub> is the per-round failure rate of the whole block (any of its k logical qubits failing counts), and kp approximates the chance that at least one of k unencoded qubits fails; the solution is that block's <b>pseudo-threshold</b>. p<sub>L</sub> is simulated only for p ≥ 10<sup>−3</sup> and extrapolated below with a fitted formula. The v2 abstract (February 2024) says 0.8%, while its Table 1 gives gross a pseudo-threshold of 0.0065 (0.0048 to 0.0069 across five codes), and the text calls the 144- and 288-qubit codes “close to 0.007”. So it is not a threshold read off a crossing of curves for several sizes, and not a property of gross alone; the <a href="decoders/decoders.html">decoders guide</a> has the details.</p>
   </div>
 </section>
 
@@ -1036,8 +1038,8 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
     <h2><span class="zh">关于这套教程</span><span class="en">About these guides</span></h2>
   </div>
   <div class="prose">
-    <p class="zh">每一篇都是单个 HTML 文件，共用同一套设计系统与交互框架：右上角切换中英文，左侧目录随滚动高亮，橙色虚线引用点开即弹出定义卡片，浅灰点线的符号点一下告诉你怎么读。BB 构造器、多项式平移、置信传播等实验台都在浏览器本地重算，不上传任何数据。</p>
-    <p class="en">Each guide is a single HTML file sharing one design system and interaction framework: switch language top right, the left rail follows your scroll, amber dashed citations pop up definition cards, and faint dotted symbols tell you how they are read. The BB constructor, polynomial-shift and belief-propagation benches all recompute locally in your browser; nothing is uploaded.</p>
+    <p class="zh">每一篇都是单个 HTML 文件，共用同一套页面样式与交互部件：右上角切换中英文，左侧目录随滚动高亮，橙色虚线引用点开即弹出定义卡片，浅灰点线的符号点一下告诉你怎么读。BB 构造器、多项式平移、置信传播等实验台都在浏览器本地重算，不上传任何数据。</p>
+    <p class="en">Each guide is a single HTML file sharing the same page style and interactive components: switch language top right, the left rail follows your scroll, amber dashed citations pop up definition cards, and faint dotted symbols tell you how they are read. The BB constructor, polynomial-shift and belief-propagation benches all recompute locally in your browser; nothing is uploaded.</p>
   </div>
 </section>
 
@@ -3581,50 +3583,65 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
         'Z', (v) => { mode = v; upd(); }
       );
       F.controls.append(seg.el,
-        U().btn(isToric ? '示范：可收缩的圈' : '示范：平凡closed圈', isToric ? 'Demo: contractible loop' : 'Demo: trivial loop', '', () => {
+        U().btn(isToric ? '示范：可收缩的圈' : '示范：平凡的闭合圈', isToric ? 'Demo: contractible loop' : 'Demo: trivial loop', '', () => {
           view.errZ = new Set(); view.errX = new Set();
           // boundary of a 2x1 block of plaquettes
           const s = P().xorSet(lat.plaqs[0].support, lat.plaqs[1].support);
           view.errZ = new Set(s);
-          mode = 'Z';
+          if (mode !== 'Z') seg.el.children[0].click();
           upd();
         }),
         U().btn(isToric ? '示范：缠绕圈' : '示范：跨边界串', isToric ? 'Demo: winding loop' : 'Demo: boundary-to-boundary', '', () => {
           view.errZ = new Set(lat.logicals.Z[0]); view.errX = new Set();
-          mode = 'Z';
+          if (mode !== 'Z') seg.el.children[0].click();
           upd();
         }),
         U().btn('清空', 'Clear', '', () => { view.errZ.clear(); view.errX.clear(); upd(); })
       );
+      // Both string types may be on the lattice at once (some pages ask for an X and a Z loop together),
+      // so alarms of both types are counted and each drawn type gets its own verdict.
+      function judge(type, sup) {
+        const partners = type === 'Z' ? lat.logicals.X : lat.logicals.Z;
+        const par = partners.map((Lg) => P().overlapParity(sup, Lg));
+        if (!par.some((v) => v === 1)) {
+          return {
+            zh: '<span class="ok">警报全灭</span>，而且它是<b>平凡的</b>：它恰好等于若干' + (type === 'Z' ? '面检查' : '星检查') + '的乘积，对编码信息<b>什么也不做</b>。',
+            en: '<span class="ok">No alarms</span>, and it is <b>trivial</b>: it equals a product of ' + (type === 'Z' ? 'face checks' : 'star checks') + ' and does <b>nothing</b> to the stored information.',
+          };
+        }
+        const L1 = type === 'Z' ? 'Z̄₁' : 'X̄₁', L2 = type === 'Z' ? 'Z̄₂' : 'X̄₂';
+        if (isToric) {
+          const which = par[0] && par[1] ? L1 + '·' + L2 + '（两个方向都绕）' : par[0] ? L1 + (type === 'Z' ? '（水平缠绕）' : '') : L2 + (type === 'Z' ? '（垂直缠绕）' : '');
+          const whichEn = par[0] && par[1] ? L1 + '·' + L2 + ', both directions' : par[0] ? L1 + ', direction 1' : L2 + ', direction 2';
+          return {
+            zh: '<span class="no">警报全灭，但这不是平凡圈！</span>它绕过了整个环面——这是<b>逻辑算符 ' + which + '</b>：不触发任何检查，却会改写存下来的量子信息。',
+            en: '<span class="no">No alarms, yet NOT trivial!</span> It winds around the torus (' + whichEn + ') — a <b>logical operator</b>: invisible to every check, yet it rewrites the stored quantum information.',
+          };
+        }
+        return {
+          zh: '<span class="no">警报全灭，但这不是平凡圈！</span>这条串从一条边界横跨到对面——它就是<b>逻辑算符 ' + (type === 'Z' ? 'Z̄' : 'X̄') + '</b>：不触发任何检查，却改写了存下来的量子比特。',
+          en: '<span class="no">No alarms, yet NOT trivial!</span> The string spans from one boundary to the opposite one — the <b>logical operator ' + (type === 'Z' ? 'Z̄' : 'X̄') + '</b>: invisible to every check, yet it rewrites the stored qubit.',
+        };
+      }
       function upd() {
         view.draw();
         const syn = view.syndrome();
         const zSup = [...view.errZ], xSup = [...view.errX];
-        const active = mode === 'Z' ? zSup : xSup;
-        const defects = mode === 'Z' ? syn.starDefects.length : syn.plaqDefects.length;
+        const defects = syn.starDefects.length + syn.plaqDefects.length;
         let verdictZh, verdictEn;
-        if (!active.length) {
+        if (!zSup.length && !xSup.length) {
           verdictZh = '画几条边试试。目标：不触发任何警报。';
           verdictEn = 'Draw some edges. Goal: trigger no alarms.';
         } else if (defects > 0) {
           verdictZh = '还有 <b>' + defects + '</b> 个警报亮着：串有端点。把它闭合，或' + (isToric ? '绕一整圈' : '让两端都搭到正确的边界上') + '。';
           verdictEn = '<b>' + defects + '</b> alarms still lit: the string has endpoints. Close it up, or ' + (isToric ? 'wrap it all the way around' : 'land both ends on the right boundaries') + '.';
         } else {
-          const partners = mode === 'Z' ? lat.logicals.X : lat.logicals.Z;
-          const par = partners.map((Lg) => P().overlapParity(active, Lg));
-          const wound = par.some((v) => v === 1);
-          if (!wound) {
-            verdictZh = '<span class="ok">警报全灭</span>，且这是一个<b>平凡圈</b>：它恰好等于若干' + (mode === 'Z' ? '面检查' : '星检查') + '的乘积，对编码信息<b>什么也不做</b>。';
-            verdictEn = '<span class="ok">No alarms</span>, and this is a <b>trivial loop</b>: it equals a product of ' + (mode === 'Z' ? 'face checks' : 'star checks') + ' and does <b>nothing</b> to the stored information.';
-          } else if (isToric) {
-            const which = par[0] && par[1] ? 'Z̄₁·Z̄₂（两个方向都绕）' : par[0] ? (mode === 'Z' ? 'Z̄₁（水平缠绕）' : 'X̄₁') : (mode === 'Z' ? 'Z̄₂（垂直缠绕）' : 'X̄₂');
-            const whichEn = par[0] && par[1] ? 'both directions' : par[0] ? 'direction 1' : 'direction 2';
-            verdictZh = '<span class="no">警报全灭，但这不是平凡圈！</span>它绕过了整个环面——这是<b>逻辑算符 ' + which + '</b>：不触发任何检查，却会改写存下来的量子信息。';
-            verdictEn = '<span class="no">No alarms, yet NOT trivial!</span> It winds around the torus (' + whichEn + ') — a <b>logical operator</b>: invisible to every check, yet it rewrites the stored quantum information.';
-          } else {
-            verdictZh = '<span class="no">警报全灭，但这不是平凡圈！</span>这条串从一条边界横跨到对面——它就是<b>逻辑算符 ' + (mode === 'Z' ? 'Z̄' : 'X̄') + '</b>：不触发任何检查，却改写了存下来的量子比特。';
-            verdictEn = '<span class="no">No alarms, yet NOT trivial!</span> The string spans from one boundary to the opposite one — the <b>logical operator ' + (mode === 'Z' ? 'Z̄' : 'X̄') + '</b>: invisible to every check, yet it rewrites the stored qubit.';
-          }
+          const both = zSup.length > 0 && xSup.length > 0;
+          const parts = [];
+          if (zSup.length) parts.push({ j: judge('Z', zSup), lz: 'Z 串：', le: 'Z string: ' });
+          if (xSup.length) parts.push({ j: judge('X', xSup), lz: 'X 串：', le: 'X string: ' });
+          verdictZh = parts.map((q) => (both ? q.lz : '') + q.j.zh).join('<br>');
+          verdictEn = parts.map((q) => (both ? q.le : '') + q.j.en).join('<br>');
         }
         F.setReadout('<span class="zh">' + verdictZh + '</span><span class="en">' + verdictEn + '</span>');
       }
@@ -3709,8 +3726,8 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
         view.hlEdges = new Map([...corr].map((e) => [e, { color: getComputedStyle(doc.documentElement).getPropertyValue('--good').trim(), width: 5 }]));
         view.draw();
         F.setReadout(fail
-          ? '<span class="zh"><span class="no">这回合失败了。</span>蓝色 = 真实错误，绿色 = 你的修复。二者合起来形成了' + (isToric ? '一条<b>缠绕整个环面</b>的圈' : '一条<b>横跨两条边界</b>的串') + ' —— 恰好是逻辑算符，信息被改写。连胜清零。点「新回合」再来！</span><span class="en"><span class="no">Round lost.</span> Blue = true errors, green = your repair. Together they form ' + (isToric ? 'a loop <b>winding around the torus</b>' : 'a string <b>spanning both boundaries</b>') + ' — exactly a logical operator; the data got rewritten. Streak reset. “New round” to retry!</span>'
-          : '<span class="zh"><span class="ok">成功！</span>蓝 + 绿合成的圈都是可收缩的平凡圈 —— 你的修复不必和错误一模一样，只要「合起来平凡」就赢。连胜 <b>' + streak + '</b>！</span><span class="en"><span class="ok">Success!</span> Blue + green together form only trivial contractible loops — the repair need not equal the error, it only needs to be trivial in combination. Streak <b>' + streak + '</b>!</span>');
+          ? '<span class="zh"><span class="no">这回合失败了。</span>蓝色 = 真实错误，绿色 = 你的修复。二者合起来' + (isToric ? '在某个方向上<b>缠绕环面</b>的总圈数是<b>奇数</b>' : '含有<b>奇数条</b><b>横跨两条边界</b>的串') + ' —— 合起来是一个逻辑算符，信息被改写。连胜清零。点「新回合」再来！</span><span class="en"><span class="no">Round lost.</span> Blue = true errors, green = your repair. Together they ' + (isToric ? '<b>wind around the torus</b> an <b>odd</b> total number of times in some direction' : 'contain an <b>odd number</b> of strings <b>spanning both boundaries</b>') + ' — together a logical operator; the data got rewritten. Streak reset. “New round” to retry!</span>'
+          : '<span class="zh"><span class="ok">成功！</span>蓝 + 绿合起来' + (isToric ? '在两个方向上缠绕环面的总圈数都是偶数（0 也算，两圈互相抵消）' : '横跨两条边界的串是偶数条（0 条也算，两条互相抵消）') + '—— 合起来只是一些检查的乘积。你的修复不必和错误一模一样，只要合起来是检查的乘积就赢。连胜 <b>' + streak + '</b>！</span><span class="en"><span class="ok">Success!</span> Blue + green together ' + (isToric ? 'wind around the torus an even total number of times in both directions (0 counts; two windings cancel)' : 'contain an even number of strings spanning both boundaries (0 counts; two cancel)') + ' — together just a product of checks. The repair need not equal the error; together with it, it only needs to form a product of checks. Streak <b>' + streak + '</b>!</span>');
       }
       function newRound() {
         err = new Set(); corr = new Set(); sel = null; over = false;
@@ -3756,12 +3773,12 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
         en: '① Start: the toric code. Note the stubs sticking out — they wrap to the opposite side; that is what makes it a torus.',
       },
       {
-        zh: '② 一刀剪开：删除所有绕回去的边。立刻出问题——边界上的星和面都缺了一条腿（虚线标出），检查表变得乱七八糟。',
-        en: '② Cut: delete every wrapping edge. Trouble at once — boundary stars and faces each lose a leg (dashed); the checks are mutilated.',
+        zh: '② 一刀剪开：删除所有绕回去的边（图里不再画出）。立刻出问题：沿边的星少了一条腿，四个角上的星少了两条；原来跨过剪口的面只剩两条腿，而且这两条分在贴片相对的两头，角上那一块面一条腿也不剩。检查表乱了套。',
+        en: '② Cut: delete every wrapping edge (no longer drawn). Trouble at once: the stars along the edge lose one leg and the four corner stars lose two; the faces that straddled the cut keep only two legs, on opposite sides of the patch, and the corner face keeps none. The checks are mutilated.',
       },
       {
-        zh: '③ 收拾干净：接受「三条腿」的检查作为正式成员，但分好工——左右两侧只截断<b>面</b>（并保留伸出的悬挂边），上下两侧只截断<b>星</b>。这就是<b>表面码</b>的版图：两种边界，各司其职。',
-        en: '③ Tidy up: keep the 3-leg checks as legitimate members, but divide the work — the left/right sides truncate only <b>faces</b> (keeping the dangling edges), the top/bottom truncate only <b>stars</b>. This is the <b>surface code</b> layout: two kinds of boundary, each with a job.',
+        zh: '③ 收拾干净：接受「三条腿」的检查作为正式成员，但分好工——左右两侧只截断<b>面</b>（并保留伸出的悬挂边），上下两侧只截断<b>星</b>。这就是<b>表面码</b>的版图：两种边界，各司其职。（这一帧重新画了一块 L = 4 的平面码，而不是在上一帧上修补：25 个比特、12 个星检查、12 个面检查，左右两侧带悬挂的横边。）',
+        en: '③ Tidy up: keep the 3-leg checks as legitimate members, but divide the work — the left/right sides truncate only <b>faces</b> (keeping the dangling edges), the top/bottom truncate only <b>stars</b>. This is the <b>surface code</b> layout: two kinds of boundary, each with a job. (This frame redraws an L = 4 planar code rather than patching the previous one: 25 qubits, 12 star checks and 12 face checks, with dangling horizontal edges on the left and right.)',
       },
     ];
     function render() {
@@ -3823,8 +3840,10 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
       { zh: '① 噪声落下：几条 Z 错误悄悄出现（真实设备里你看不到它们）', en: '① Noise strikes: a few Z errors appear (invisible in a real device)' },
       { zh: '② 测量所有检查：只有错误链的端点亮起警报', en: '② Measure every check: only chain endpoints raise alarms' },
       { zh: '③ 译码器配对警报，规划修复链（绿）', en: '③ The decoder pairs alarms and plans repair chains (green)' },
-      { zh: '④ 施加修复：错误 ⊕ 修复 = 平凡圈 → 警报全灭，信息完好', en: '④ Apply the repair: error ⊕ repair = trivial loops → alarms clear, data intact' },
+      { zh: '④ 施加修复：警报全灭；错误 ⊕ 修复和 X̄ 交叉偶数次 → 信息完好', en: '④ Apply the repair: alarms clear; error ⊕ repair crosses X̄ an even number of times → data intact' },
     ];
+    const PH_FAIL = { zh: '④ 施加修复：警报全灭，但错误 ⊕ 修复和 X̄ 交叉奇数次 → 逻辑错误，信息被改写', en: '④ Apply the repair: alarms clear, but error ⊕ repair crosses X̄ an odd number of times → a logical error; the data is overwritten' };
+    let lastFail = false;
     function step() {
       phase = (phase + 1) % 4;
       if (phase === 0) {
@@ -3844,16 +3863,16 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
       } else {
         const residual = P().xorSet([...err], corr);
         const fail = lat.logicals.X.some((Lg) => P().overlapParity(residual, Lg));
-        rounds++; if (!fail) saved++;
+        rounds++; if (!fail) saved++; lastFail = fail;
         view.errZ = new Set(residual.filter(() => false));
         view.errZ = new Set();
         view.hlEdges = new Map();
       }
       view.draw();
-      const tail = phase === 3 ? (U().getLang() === 'en'
-        ? ' — rounds: ' + rounds + ', data survived: ' + saved
-        : ' — 已运行 ' + rounds + ' 轮，信息幸存 ' + saved + ' 轮') : '';
-      F.setReadout('<span class="zh">' + PH[phase].zh + tail + '</span><span class="en">' + PH[phase].en + tail + '</span>');
+      const tailZh = phase === 3 ? ' — 已运行 ' + rounds + ' 轮，信息幸存 ' + saved + ' 轮' : '';
+      const tailEn = phase === 3 ? ' — rounds: ' + rounds + ', data survived: ' + saved : '';
+      const ph = phase === 3 && lastFail ? PH_FAIL : PH[phase];
+      F.setReadout('<span class="zh">' + ph.zh + tailZh + '</span><span class="en">' + ph.en + tailEn + '</span>');
     }
     function play() {
       if (timer) return;
@@ -4300,8 +4319,8 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
       en: ['Winding loops = logicals', 'Loops circling the whole torus pass every check yet are no product of checks — they rewrite logical data. Two directions give Z̄₁, Z̄₂; duals give X̄₁, X̄₂; paired loops cross once ⇒ anticommute.'],
     },
     decoder: {
-      zh: ['译码 = 配对', '只见警报不见链：把警报两两配对、沿路径修复。错误⊕修复必闭合——可收缩则完美复原，缠绕则无声逻辑错误。'],
-      en: ['Decoding = matching', 'Alarms visible, chains not: pair the alarms and repair along paths. Error ⊕ repair is always closed — contractible = perfect recovery, winding = silent logical error.'],
+      zh: ['译码 = 配对', '只见警报不见链：把警报两两配对、沿路径修复。错误⊕修复必闭合——每个方向都缠绕偶数次（0 次也算）则完美复原，某个方向缠绕奇数次则是无声的逻辑错误；同方向的两圈互相抵消。'],
+      en: ['Decoding = matching', 'Alarms visible, chains not: pair the alarms and repair along paths. Error ⊕ repair is always closed — an even number of windings in each direction (0 included) = perfect recovery, an odd number in some direction = a silent logical error; two windings in the same direction cancel.'],
     },
     dL: {
       zh: ['环面码距 d = L', '最轻的逻辑算符是最短缠绕圈（长 L），对 X、Z 对称；压垮它需约 L/2 个错误连成线。'],
@@ -4321,8 +4340,8 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
       en: ['Spanning strings = logicals', 'A string dying on its own boundary at both ends: zero alarms, no product of checks (it crosses the other direction\'s spanning string once, so they anticommute).' + F('Z̄: rough→rough · X̄: smooth→smooth · X̄Z̄ = −Z̄X̄')],
     },
     cycle: {
-      zh: ['纠错循环', '每轮四拍：噪声 → 测全部检查 → 配对（可配边界）→ 修复；失败 ⇔ 错误⊕修复含横跨串。'],
-      en: ['The correction cycle', 'Four beats per round: noise → measure all checks → match (boundaries allowed) → repair; failure ⇔ error ⊕ repair contains a spanning string.'],
+      zh: ['纠错循环', '每轮四拍：噪声 → 测全部检查 → 配对（可配边界）→ 修复；失败 ⇔ 错误⊕修复和 X̄ 交叉奇数次，也就是横跨贴片的串有奇数条（两条互相抵消，偶数条无事）。'],
+      en: ['The correction cycle', 'Four beats per round: noise → measure all checks → match (boundaries allowed) → repair; failure ⇔ error ⊕ repair crosses X̄ an odd number of times, i.e. contains an odd number of spanning strings (two cancel, so an even number is harmless).'],
     },
     ancilla: {
       zh: ['辅助比特测量', '每条检查配一个帮手比特：与 4 个数据比特依次作用后单独被读出，给出 ±1；数据比特从未被直接测量。'],

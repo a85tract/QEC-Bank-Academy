@@ -876,6 +876,12 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
 .formula .sym { border-bottom-color: color-mix(in srgb, var(--ink3) 55%, transparent); }
 .refpop .rp-sec.rp-symchar { font-size: 17px; color: var(--ink); font-weight: 600; }
 
+/* catch-up folds (copied from bb_code/intuition) */
+details.fold.basics { border-color: color-mix(in srgb, var(--cx) 55%, transparent); }
+details.fold.basics summary { color: var(--cx-ink); }
+details.fold.basics .fold-body h5 { font-family: var(--f-body); font-size: 14.5px; font-weight: 600; color: var(--ink); margin: 1.3em 0 0.4em; }
+details.fold.basics .fold-body > .formula { margin: 1em 0; }
+details.fold.basics .fold-body > .table-wrap { margin: 0.9em 0; }
 </style>
 </head>
 <body>
@@ -1005,8 +1011,8 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
 
   <h3 id="s1-2"><span class="sec-no">1.2</span><span class="zh">升级到 toric_L3：1 431 行，两种分类</span><span class="en">Upgrade to toric_L3: 1 431 lines, two kinds of classification</span></h3>
   <div class="prose">
-    <p class="zh">量子版的表长得一样，只是多了两点。第一，候选是泡利串，每个选中的比特可以放 X、Y 或 Z，所以 toric_L3 重量 1、2 的候选不是 171 条而是 18 × 3 + 153 × 9 = 1 431 条（<a href="../../bb_code/formal-verification/formal-verification.html#s3-2">BB 形式化教程 3.2 节</a>）。第二，「分类」一栏有<b>两种</b>合法写法，因为量子码里有一类特殊候选：不触发任何警报、却无害，因为它本身就是几条检查的乘积（<a href="../../toric_code/intuition/intuition-hs.html#s5-5">Toric Code 教程 5.5 节的可收缩圈</a>）。Atlas 契约（<span class="mono">docs/design-references/2026-08-21-atlas-formal-ir-v1-contract.md</span>）规定每行必须是下面两种之一：</p>
-    <p class="en">The quantum table looks the same, with two additions. First, candidates are Pauli strings, each chosen qubit may carry X, Y or Z, so toric_L3's candidates of weight 1 and 2 number not 171 but 18 × 3 + 153 × 9 = 1 431 (<a href="../../bb_code/formal-verification/formal-verification.html#s3-2">BB formal-verification guide 3.2</a>). Second, the “classification” column has <b>two</b> legal forms, because quantum codes have a special kind of candidate: one that raises no alarm yet is harmless, being itself a product of checks (<a href="../../toric_code/intuition/intuition-hs.html#s5-5">the contractible loop of toric-code guide 5.5</a>). The Atlas contract (<span class="mono">docs/design-references/2026-08-21-atlas-formal-ir-v1-contract.md</span>) requires every line to be one of:</p>
+    <p class="zh">量子版的表长得一样，只是多了两点。第一，候选是泡利串，每个选中的比特可以放 X、Y 或 Z，所以 toric_L3 重量 1、2 的候选不是 171 条而是 18 × 3 + 153 × 9 = 1 431 条：重量 1 有 18 个位置、每个位置 3 个字母；重量 2 有 C(18, 2) = 18 × 17 ÷ 2 = 153 对位置、每对 3 × 3 = 9 种字母组合（<a href="../../bb_code/formal-verification/formal-verification.html#s3-2">BB 形式化教程 3.2 节</a>）。第二，「分类」一栏有<b>两种</b>合法写法，因为量子码里有一类特殊候选：不触发任何警报、却无害，因为它本身就是几条检查的乘积（<a href="../../toric_code/intuition/intuition-hs.html#s5-5">Toric Code 教程 5.5 节的可收缩圈</a>）。Atlas 契约（<span class="mono">docs/design-references/2026-08-21-atlas-formal-ir-v1-contract.md</span>）规定每行必须是下面两种之一：</p>
+    <p class="en">The quantum table looks the same, with two additions. First, candidates are Pauli strings, each chosen qubit may carry X, Y or Z, so toric_L3's candidates of weight 1 and 2 number not 171 but 18 × 3 + 153 × 9 = 1 431: weight 1 has 18 positions with 3 letters each; weight 2 has C(18, 2) = 18 × 17 ÷ 2 = 153 pairs of positions with 3 × 3 = 9 letter combinations each (<a href="../../bb_code/formal-verification/formal-verification.html#s3-2">BB formal-verification guide 3.2</a>). Second, the “classification” column has <b>two</b> legal forms, because quantum codes have a special kind of candidate: one that raises no alarm yet is harmless, being itself a product of checks (<a href="../../toric_code/intuition/intuition-hs.html#s5-5">the contractible loop of toric-code guide 5.5</a>). The Atlas contract (<span class="mono">docs/design-references/2026-08-21-atlas-formal-ir-v1-contract.md</span>) requires every line to be one of:</p>
   </div>
   <div class="table-wrap">
     <table class="glossary">
@@ -1016,14 +1022,29 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
     </table>
   </div>
   <div class="prose">
-    <p class="zh">toric_L3 的 1 431 行恰好全是第一种：《大码的码距》<a href="../fast-distance/fast-distance.html#s5-1">5.1 节</a>证明了重量 ≤ 2 的串没有一条是安静的（一条边有两个端点，两条边围不成圈），而混合串的 X 部分或 Z 部分至少有一个非空，也会报警。第二种写法要到重量 4 才会用到（一块面的四条边），而那已经超过 d = 3，不在表里。人话：<b>toric_L3 的证书是 1 431 行「触发第几条检查」，每行的核对是数一次碰撞。</b></p>
-    <p class="en">All 1 431 lines for toric_L3 happen to be of the first kind: <a href="../fast-distance/fast-distance.html#s5-1">section 5.1 of “Distance for large codes”</a> showed that no string of weight ≤ 2 is silent (one edge has two endpoints, two edges cannot close a loop), and a mixed string has a nonempty X part or Z part that fires too. The second form is first needed at weight 4 (the four edges of one face), already above d = 3 and outside the table. In plain words: <b>toric_L3's certificate is 1 431 lines of “trips check number j”, each verified by counting collisions once.</b></p>
+    <p class="zh">toric_L3 的 1 431 行恰好全是第一种：《大码的码距》<a href="../fast-distance/fast-distance.html#s5-1">5.1 节</a>证明了重量 ≤ 2 的纯 Z 串（和纯 X 串）没有一条是安静的（一条边有两个端点，两条边围不成圈）。混合串也一样：面检查（Z 型）只和候选里的 X、Y 字母碰撞，所以它只看得见候选的「X 部分」（把 Y 算作 X）；星检查（X 型）只看得见「Z 部分」（把 Y 算作 Z）。一条重量 ≤ 2 的非零候选，X 部分和 Z 部分至少有一个非空，而那一部分本身是一条重量 ≤ 2 的纯型串，按同一论证一定触发某条检查。第二种写法要到重量 4 才会用到（一块面的四条边），而那已经超过 d = 3，不在表里。人话：<b>toric_L3 的证书是 1 431 行「触发第几条检查」，每行的核对是数一次碰撞。</b></p>
+    <p class="en">All 1 431 lines for toric_L3 happen to be of the first kind: <a href="../fast-distance/fast-distance.html#s5-1">section 5.1 of “Distance for large codes”</a> showed that no pure-Z (or pure-X) string of weight ≤ 2 is silent (one edge has two endpoints, two edges cannot close a loop). Mixed strings fare no better: a face check (Z-type) collides only with the candidate's X and Y letters, so it sees only the candidate's “X part” (counting Y as X); a star check (X-type) sees only the “Z part” (counting Y as Z). A nonzero candidate of weight ≤ 2 has a nonempty X part or Z part, that part is itself a pure string of weight ≤ 2, and by the same argument it trips some check. The second form is first needed at weight 4 (the four edges of one face), already above d = 3 and outside the table. In plain words: <b>toric_L3's certificate is 1 431 lines of “trips check number j”, each verified by counting collisions once.</b></p>
   </div>
+  <details class="fold basics" id="cu-1a">
+    <summary><span class="zh">补课 · 对易、反对易，和「碰撞」怎么数</span><span class="en">Catch-up · Commuting, anticommuting, and how to count “collisions”</span></summary>
+    <div class="fold-body">
+      <p class="zh">转录的每一行都靠一件事核对：候选和某条检查是<b>对易</b>还是<b>反对易</b>。先在一个比特上看。四个单比特泡利是 I（什么也不做）、X（翻转）、Z（翻相位）、Y（两样都做，Y ∝ XZ）。两个字母相同，或其中一个是 I，先做哪个都一样，叫对易；两个字母都不是 I 且不相同（X 与 Z、X 与 Y、Y 与 Z），交换顺序会多出一个负号，例如 XZ = −ZX，叫反对易。我们把这种位置叫一次<b>碰撞</b>。</p>
+      <p class="en">Every line of a transcript is checked by one fact: whether the candidate and some check <b>commute</b> or <b>anticommute</b>. Start with one qubit. The four single-qubit Paulis are I (do nothing), X (flip), Z (flip the phase) and Y (both, Y ∝ XZ). If two letters are equal, or one of them is I, the order does not matter: they commute. If both are non-I and different (X with Z, X with Y, Y with Z), swapping them costs a minus sign, for example XZ = −ZX: they anticommute. We call such a position a <b>collision</b>.</p>
+      <p class="zh">两条整串相乘时，每个碰撞位置各贡献一个 −1，所以<b>碰撞数为偶数，两串对易；为奇数，两串反对易</b>。反对易为什么等于「触发警报」：检查 S 在正常状态上读出 +1（S|ψ⟩ = |ψ⟩）；错误 E 与 S 反对易时，S E|ψ⟩ = −E S|ψ⟩ = −E|ψ⟩，读数翻成 −1，这就是警报；对易时读数仍是 +1，检查看不见 E。</p>
+      <p class="en">When two whole strings are multiplied, each collision contributes one −1, so <b>an even number of collisions means the strings commute, an odd number means they anticommute</b>. Why anticommuting means “trips the alarm”: check S reads +1 on a healthy state (S|ψ⟩ = |ψ⟩); if error E anticommutes with S, then S E|ψ⟩ = −E S|ψ⟩ = −E|ψ⟩ and the reading flips to −1, which is the alarm; if they commute, the reading stays +1 and the check cannot see E.</p>
+      <h5><span class="zh">算一个例子（编号见图 5.1）</span><span class="en">A worked example (numbering as in Fig. 5.1)</span></h5>
+      <p class="zh">toric_L3 的星检查 s4 是比特 4、7、13、14 上各放一个 X。候选 Z<sub>4</sub>（比特 4 上放 Z）：只在比特 4 上 X 遇 Z，碰撞 1 次，奇数，所以触发 s4，这一行可以写 <span class="mono">stabilizer_row = s4</span>。候选 Z<sub>4</sub>Z<sub>13</sub>：在比特 4 和 13 上各碰撞一次，共 2 次，偶数，s4 不亮；换星 s1（比特 1、4、10、11 上的 X），只在比特 4 上碰撞 1 次，触发，这一行写 s1。</p>
+      <p class="en">Star check s4 of toric_L3 is an X on each of qubits 4, 7, 13, 14. Candidate Z<sub>4</sub> (a Z on qubit 4): X meets Z only on qubit 4, one collision, odd, so it trips s4, and the line may read <span class="mono">stabilizer_row = s4</span>. Candidate Z<sub>4</sub>Z<sub>13</sub>: one collision on qubit 4 and one on 13, two in all, even, so s4 stays quiet; try star s1 (X on qubits 1, 4, 10, 11): one collision, on qubit 4, so it trips, and the line reads s1.</p>
+    </div>
+  </details>
 
   <h3 id="s1-3"><span class="sec-no">1.3</span><span class="zh">顺序也是证书的一部分</span><span class="en">The order is part of the certificate</span></h3>
   <div class="prose">
-    <p class="zh">六行表有一个隐含的漏洞：怎么知道写表的人没有<b>漏掉</b>一行？在三比特上你可以自己数；在 1 431 行上呢？契约的办法是把顺序也定死：候选按 <span class="mono">weight-then-support-lexicographic-then-X-Y-Z-v1</span> 排列——先按重量，再按触碰的比特编号的字典序，最后按 X、Y、Z 的字母顺序。检查器<b>自己</b>按这个规则生成整条候选流，然后要求证书的行与它一一对应；契约原文：「classifications cannot omit, duplicate, or reorder candidates」。人话：<b>检查器不是在读你的表，而是在生成自己的表，再和你的逐行对照。</b>漏一行、重一行、换个顺序，全部不过。</p>
-    <p class="en">The six-line table has a hidden hole: how do we know the writer did not <b>omit</b> a line? On three bits you can count yourself; on 1 431 lines? The contract's answer is to fix the order too: candidates are listed <span class="mono">weight-then-support-lexicographic-then-X-Y-Z-v1</span>, by weight first, then by the dictionary order of the qubit indices touched, then by the letters X, Y, Z. The checker generates the whole candidate stream <b>itself</b> by this rule and demands that the certificate's lines match it one for one; in the contract's words, “classifications cannot omit, duplicate, or reorder candidates”. In plain words: <b>the checker is not reading your table; it generates its own and compares line by line.</b> Omit one, repeat one, swap two, and it fails.</p>
+    <p class="zh">六行表有一个隐含的漏洞：怎么知道写表的人没有<b>漏掉</b>一行？在三比特上你可以自己数；在 1 431 行上呢？契约的办法是把顺序也定死：候选按 <span class="mono">weight-then-support-lexicographic-then-X-Y-Z-v1</span> 排列——先按重量，再按触碰的比特编号的字典序（像查字典：先比第一个编号，相同再比第二个），最后按 X、Y、Z 的字母顺序。1.1 节的表已经是这个顺序：重量 1 的 {1}、{2}、{3}，然后重量 2 的 {1, 2}、{1, 3}、{2, 3}。检查器<b>自己</b>按这个规则生成整条候选流，然后要求证书的行与它一一对应；契约原文：「classifications cannot omit, duplicate, or reorder candidates」。人话：<b>检查器不是在读你的表，而是在生成自己的表，再和你的逐行对照。</b>漏一行、重一行、换个顺序，全部不过。下面的小台子让你当一次这台检查器。</p>
+    <p class="en">The six-line table has a hidden hole: how do we know the writer did not <b>omit</b> a line? On three bits you can count yourself; on 1 431 lines? The contract's answer is to fix the order too: candidates are listed <span class="mono">weight-then-support-lexicographic-then-X-Y-Z-v1</span>, by weight first, then by the dictionary order of the qubit indices touched (as in a dictionary: compare the first index, and only on a tie the second), then by the letters X, Y, Z. The table of 1.1 is already in this order: weight 1 as {1}, {2}, {3}, then weight 2 as {1, 2}, {1, 3}, {2, 3}. The checker generates the whole candidate stream <b>itself</b> by this rule and demands that the certificate's lines match it one for one; in the contract's words, “classifications cannot omit, duplicate, or reorder candidates”. In plain words: <b>the checker is not reading your table; it generates its own and compares line by line.</b> Omit one, repeat one, swap two, and it fails. The small bench below lets you play that checker once.</p>
+  </div>
+  <div data-widget="transcriptcheck"></div>
+  <div class="prose">
     <p class="zh">现在可以念题了。「no logical below weight w」就是我们这张表证明的那句话；「a proof assistant can verify」是那台不信任任何人的检查器；「small-n exhaustion transcripts」就是这种逐行的表（<span class="term">转录<span class="tip">transcript：把一次穷举的每一步原样记下来的记录，使别人能重放而不必重新思考。</span></span>）；「relaxation duals」是第 4 章的内容；「feeds Lean L2」第 2 章解释。</p>
     <p class="en">Now the problem statement can be read. “No logical below weight w” is the sentence our table proves; “a proof assistant can verify” is the checker that trusts nobody; “small-n exhaustion transcripts” are line-by-line tables like this one (a <span class="term">transcript<span class="tip">A record of every step of an exhaustion exactly as it happened, so that others can replay it without having to think it through again.</span></span>); “relaxation duals” are the subject of Chapter 4; “feeds Lean L2” is explained in Chapter 2.</p>
   </div>
@@ -1068,8 +1089,8 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
 
   <h3 id="s2-1"><span class="sec-no">2.1</span><span class="zh">一段话说清 Lean 是什么</span><span class="en">What Lean is, in one paragraph</span></h3>
   <div class="prose">
-    <p class="zh"><span class="term">证明助手<span class="tip">proof assistant：一种程序，只在一个证明的每一步都严格符合少数几条固定规则时才接受它；不能被说服，只能被满足。Lean 4 是其中一种，Mathlib 是它的数学库。</span></span>是一种程序，只做一件事：读一份写成形式语言的证明，逐步核对每一步是否严格符合少数几条固定规则；有一步不符就拒绝，无论作者是谁、理由多么动听。Lean 4 是这样一种程序，Mathlib 是用它写成的数学定理库（两个名字都出自 Wanted 板 lean-qec 一项的原文）。Atlas 用 Lean 实现了自己的检查器，取名 <span class="mono">qec-atlas-lean-complete-v1</span>，2026-08-21 在 T195 任务中「封存」：源代码字节固定、断网沙箱跑通全部测试、依赖的公理只有 Lean 标准的三条（<span class="mono">propext</span>、<span class="mono">Classical.choice</span>、<span class="mono">Quot.sound</span>），源码里没有 <span class="mono">sorry</span> 这种「先跳过」占位符（<a href="../../surface_code/formal-verification/formal-verification.html#s1-2">表面码形式化教程 1.2 节</a>；原始文件 <span class="mono">docs/design-references/2026-08-21-t195-lean-complete-v1-result.md</span>）。它<b>不接受</b>什么，同一份文件写得明白：「It does not accept a per-code theorem, family-distance theorem, decoder, threshold, hardware model, Formal IR compiler, proposal referee, entry backfill, or claim promotion.」人话：<b>这台机器只核对关于一个有限对象的数据，不读「对所有 L 成立」的定理，也不替任何声明升级。</b></p>
-    <p class="en">A <span class="term">proof assistant<span class="tip">A program that accepts a proof only when every step strictly follows a handful of fixed rules; it cannot be persuaded, only satisfied. Lean 4 is one such program and Mathlib its library of mathematics.</span></span> is a program that does one thing: it reads a proof written in a formal language and checks step by step that each step strictly follows a handful of fixed rules; one step out of line and it refuses, whoever the author and however persuasive the reasons. Lean 4 is such a program, and Mathlib the library of mathematical theorems written in it (both names appear verbatim in the board's lean-qec item). The Atlas implemented its own checker in Lean, named <span class="mono">qec-atlas-lean-complete-v1</span>, “sealed” on 2026-08-21 in task T195: source bytes frozen, all tests passed in an offline sandbox, the only axioms used being Lean's three standard ones (<span class="mono">propext</span>, <span class="mono">Classical.choice</span>, <span class="mono">Quot.sound</span>), and no <span class="mono">sorry</span> “skip this for now” placeholders in the source (<a href="../../surface_code/formal-verification/formal-verification.html#s1-2">surface formal-verification guide 1.2</a>; original file <span class="mono">docs/design-references/2026-08-21-t195-lean-complete-v1-result.md</span>). What it <b>does not</b> accept, the same file states plainly: “It does not accept a per-code theorem, family-distance theorem, decoder, threshold, hardware model, Formal IR compiler, proposal referee, entry backfill, or claim promotion.” In plain words: <b>this machine checks only data about one finite object; it does not read “for all L” theorems and it promotes no claim.</b></p>
+    <p class="zh"><span class="term">证明助手<span class="tip">proof assistant：一种程序，只在一个证明的每一步都严格符合少数几条固定规则时才接受它；不能被说服，只能被满足。Lean 4 是其中一种，Mathlib 是它的数学库。</span></span>是一种程序，只做一件事：读一份写成形式语言的证明，逐步核对每一步是否严格符合少数几条固定规则；有一步不符就拒绝，无论作者是谁、理由多么动听。Lean 4 是这样一种程序，Mathlib 是用它写成的数学定理库（两个名字都出自 Wanted 板 lean-qec 一项的原文）。Atlas 用 Lean 实现了自己的检查器，取名 <span class="mono">qec-atlas-lean-complete-v1</span>，2026-08-21 在 T195 任务中「封存」：源代码字节固定、断网沙箱跑通全部测试、依赖的<span class="term">公理<span class="tip">不加证明就接受的起点；别的一切都要从它们推出来。</span></span>只有 Lean 标准的三条（<span class="mono">propext</span>：两个互相推出的命题算同一个命题；<span class="mono">Classical.choice</span>：从一个非空的集合里总能取出一个元素；<span class="mono">Quot.sound</span>：把一批东西「视为相等」粘成一个整体时的基本规则。这三条是 Lean 自带的，Mathlib 普遍使用；「只有这三条」的意思是检查器没有私加任何别的假设），源码里没有 <span class="mono">sorry</span> 这种「先跳过」占位符（<a href="../../surface_code/formal-verification/formal-verification.html#s1-2">表面码形式化教程 1.2 节</a>；原始文件 <span class="mono">docs/design-references/2026-08-21-t195-lean-complete-v1-result.md</span>）。它<b>不接受</b>什么，同一份文件写得明白：「It does not accept a per-code theorem, family-distance theorem, decoder, threshold, hardware model, Formal IR compiler, proposal referee, entry backfill, or claim promotion.」人话：<b>这台机器只核对关于一个有限对象的数据，不读「对所有 L 成立」的定理，也不替任何声明升级。</b></p>
+    <p class="en">A <span class="term">proof assistant<span class="tip">A program that accepts a proof only when every step strictly follows a handful of fixed rules; it cannot be persuaded, only satisfied. Lean 4 is one such program and Mathlib its library of mathematics.</span></span> is a program that does one thing: it reads a proof written in a formal language and checks step by step that each step strictly follows a handful of fixed rules; one step out of line and it refuses, whoever the author and however persuasive the reasons. Lean 4 is such a program, and Mathlib the library of mathematical theorems written in it (both names appear verbatim in the board's lean-qec item). The Atlas implemented its own checker in Lean, named <span class="mono">qec-atlas-lean-complete-v1</span>, “sealed” on 2026-08-21 in task T195: source bytes frozen, all tests passed in an offline sandbox, the only <span class="term">axioms<span class="tip">Starting points accepted without proof; everything else must be derived from them.</span></span> used being Lean's three standard ones (<span class="mono">propext</span>: two propositions that imply each other count as the same proposition; <span class="mono">Classical.choice</span>: from a nonempty collection one can always pick an element; <span class="mono">Quot.sound</span>: the basic rule for gluing things declared “equal” into one. These three ship with Lean and are used throughout Mathlib; “only these three” means the checker adds no private assumption of its own), and no <span class="mono">sorry</span> “skip this for now” placeholders in the source (<a href="../../surface_code/formal-verification/formal-verification.html#s1-2">surface formal-verification guide 1.2</a>; original file <span class="mono">docs/design-references/2026-08-21-t195-lean-complete-v1-result.md</span>). What it <b>does not</b> accept, the same file states plainly: “It does not accept a per-code theorem, family-distance theorem, decoder, threshold, hardware model, Formal IR compiler, proposal referee, entry backfill, or claim promotion.” In plain words: <b>this machine checks only data about one finite object; it does not read “for all L” theorems and it promotes no claim.</b></p>
   </div>
 
   <h3 id="s2-2"><span class="sec-no">2.2</span><span class="zh">已有的证书类：small-exact-distance-enumeration，与它的门</span><span class="en">The existing class, small-exact-distance-enumeration, and its gate</span></h3>
@@ -1081,8 +1102,8 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
   <div class="prose">
     <p class="zh muted small">记号：Σ 读「西格玛」，把 w = 1 到 d − 1 的各项加起来；C(n, w) = 从 n 个比特选 w 个的方法数；3<sup>w</sup> = w 个选中比特各取 X/Y/Z 的方法数；≤ 读「不超过」。契约原文：<span class="mono">sum_{w=1}^{d-1} binomial(n,w) * 3^w &lt;= 65536</span>；这条上限自己的来源标为 <span class="mono">{kind: bounded, method: t189-lean-complete-v1-certificate-size-policy}</span>。</p>
     <p class="en muted small">Notation: Σ, read “sigma”, adds the terms for w = 1 through d − 1; C(n, w) = ways to choose w of n qubits; 3<sup>w</sup> = ways for the w chosen qubits to each take X/Y/Z; ≤ reads “at most”. Contract wording: <span class="mono">sum_{w=1}^{d-1} binomial(n,w) * 3^w &lt;= 65536</span>; the ceiling's own origin is recorded as <span class="mono">{kind: bounded, method: t189-lean-complete-v1-certificate-size-policy}</span>.</p>
-    <p class="zh">第二道门是策略：这类证书只为<b>已经 verified 的精确码距声明</b>生成。<span class="mono">formal/ir/README.md</span> 的原话：「A verified exact-distance claim additionally carries the generic small-exact certificate only when its complete lower-weight Pauli enumeration fits the frozen bounded policy; no constructor metadata is promoted into a witness.」把本系列遇到的五个实例代进公式（候选数由公式算出，Atlas 页面上没有这些数；65 536 是 Atlas 的）：</p>
-    <p class="en">The second gate is policy: this class is generated only for <b>exact-distance claims already verified</b>. In the words of <span class="mono">formal/ir/README.md</span>: “A verified exact-distance claim additionally carries the generic small-exact certificate only when its complete lower-weight Pauli enumeration fits the frozen bounded policy; no constructor metadata is promoted into a witness.” Substituting the five instances this series has met (counts computed from the formula and absent from Atlas pages; the 65 536 is the Atlas's):</p>
+    <p class="zh">第二道门是策略：这类证书只为<b>已经 verified 的精确码距声明</b>生成。<span class="mono">formal/ir/README.md</span> 的原话：「A verified exact-distance claim additionally carries the generic small-exact certificate only when its complete lower-weight Pauli enumeration fits the frozen bounded policy; no constructor metadata is promoted into a witness.」表里最后两列用到 Atlas 给每个数写的来源标签，叫<span class="term">证据词<span class="tip">Atlas 给每个数标注的来源：verified = 上下两半都由机器算出；bounded = 上界由机器找到的见证给出，下界引自论文（或缺失）。</span></span>：<b>verified</b> 表示码距的上下两半都是 Atlas 自己的程序算出来的（这里是穷举）；<b>bounded</b> 表示上界来自机器找到的一条见证，下界引自一篇论文，两半数字相等（《大码的码距》<a href="../fast-distance/fast-distance.html#s2-3">2.3 节</a>）。把本系列遇到的五个实例代进公式（候选数由公式算出，Atlas 页面上没有这些数；65 536 是 Atlas 的）：</p>
+    <p class="en">The second gate is policy: this class is generated only for <b>exact-distance claims already verified</b>. In the words of <span class="mono">formal/ir/README.md</span>: “A verified exact-distance claim additionally carries the generic small-exact certificate only when its complete lower-weight Pauli enumeration fits the frozen bounded policy; no constructor metadata is promoted into a witness.” The last two columns use the source label the Atlas attaches to every number, its <span class="term">evidence word<span class="tip">The Atlas's label for where a number comes from: verified = both halves computed by machine; bounded = the upper bound from a witness the machine found, the lower bound cited from a paper (or missing).</span></span>: <b>verified</b> means both halves of the distance were computed by the Atlas's own programs (here by enumeration); <b>bounded</b> means the upper half comes from a witness the machine found and the lower half is cited from a paper, the two numbers agreeing (<a href="../fast-distance/fast-distance.html#s2-3">section 2.3 of “Distance for large codes”</a>). Substituting the five instances this series has met (counts computed from the formula and absent from Atlas pages; the 65 536 is the Atlas's):</p>
   </div>
   <div class="table-wrap">
     <table class="glossary">
@@ -1095,22 +1116,22 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
     </table>
   </div>
   <div class="prose">
-    <p class="zh">L4 是这道门放进来的最大一个：64 875 行，离上限只差 661。L5 超出一百多倍，gross 超出约 2.6 × 10<sup>16</sup> 倍。契约对超限有一句话：「Crossing it means unsupported, not false」——超限叫「不支持」，不叫「错」：Atlas 没有说 L5 的 d 不是 5，只是说这台检查器在这版政策下写不下那张表。人话：<b>逐行表这条路，今天的门槛是候选数 65 536 行，不是某个 n：进不进门由候选数决定，不由 n 决定：n = 25 的 L4 进得去，n = 41、d = 5 的 L5 进不去；量子扩展码 [[125,37,3]] 的 d = 3 虽由 Python 穷举 verified，但 70 125 个候选也超过了门槛，所以没有 Lean 证书。</b></p>
-    <p class="en">L4 is the largest the gate admits: 64 875 lines, 661 short of the ceiling. L5 exceeds it by more than a hundredfold, gross by about 2.6 × 10<sup>16</sup>. The contract has one sentence for crossing it: “Crossing it means unsupported, not false”. The Atlas does not say L5's d is not 5; it says this checker under this policy cannot write down that table. In plain words: <b>the line-by-line road is gated today by the candidate count, 65 536 lines, not by n: admission is decided by the candidate count, not by n: L4 with n = 25 passes, L5 with n = 41 and d = 5 does not; the quantum expander [[125,37,3]] has d = 3 verified by Python enumeration, yet its 70 125 candidates also exceed the gate, so it holds no Lean certificate.</b></p>
+    <p class="zh">L4 是这道门放进来的最大一个：64 875 行，离上限只差 661。L5 超出一百多倍，gross 超出约 2.6 × 10<sup>16</sup> 倍。契约对超限有一句话：「Crossing it means unsupported, not false」——超限叫「不支持」，不叫「错」：Atlas 没有说 L5 的 d 不是 5，只是说这台检查器在这版政策下写不下那张表。人话：<b>逐行表这条路，今天的门槛是候选数 65 536 行，而不是某个 n：n = 25 的 L4 进得去，n = 41、d = 5 的 L5 进不去；</b><a href="../../qldpc/intuition/intuition.html#s3-4">量子扩展码</a>（两个经典码做「超图积」拼成的量子码）<b>[[125,37,3]] 的 d = 3 虽由 Python 穷举 verified，但 70 125 个候选也超过了门槛，所以没有 Lean 证书。</b></p>
+    <p class="en">L4 is the largest the gate admits: 64 875 lines, 661 short of the ceiling. L5 exceeds it by more than a hundredfold, gross by about 2.6 × 10<sup>16</sup>. The contract has one sentence for crossing it: “Crossing it means unsupported, not false”. The Atlas does not say L5's d is not 5; it says this checker under this policy cannot write down that table. In plain words: <b>the line-by-line road is gated today by the candidate count, 65 536 lines, and not by any n: L4 with n = 25 passes, L5 with n = 41 and d = 5 does not; </b>the <a href="../../qldpc/intuition/intuition.html#s3-4">quantum expander code</a> (a quantum code assembled from two classical codes by a “hypergraph product”) <b>[[125,37,3]] has d = 3 verified by Python enumeration, yet its 70 125 candidates also exceed the gate, so it holds no Lean certificate.</b></p>
   </div>
 
   <h3 id="s2-3"><span class="sec-no">2.3</span><span class="zh">「unverified beyond」：门外的实例手里有什么</span><span class="en">“Unverified beyond”: what the instances outside the gate hold</span></h3>
   <div class="prose">
-    <p class="zh">门外的 L5 和 gross 并非一无所有。每个实例都有一份 <span class="mono">structural-validity</span> 证书——n、k 与 CSS 条件的机器版（<a href="../../surface_code/formal-verification/formal-verification.html#s3-1">表面码形式化教程 3.1 节</a>）。它们缺的只是关于 d 的那份。契约里还有一类 <span class="mono">distance-upper-bound@1</span>（载荷 {upper: u}，「proves only d &lt;= u」），能把一条见证封成证书；但 <a href="../../bb_code/formal-verification/formal-verification.html#s3-4">BB 形式化教程 3.4 节</a>查过：gross 的 card.yaml 只登记了 structural-validity 一份，那条重量 12 的见证住在 Python 验证器里，没有封成 Lean 证书。于是 current_proxy 那句「unverified beyond」的精确含义是：<b>候选数超过 65 536 的实例（L5、gross 都在其中），没有任何一份关于码距下界的机器证书。</b></p>
-    <p class="en">L5 and gross outside the gate are not empty-handed. Every instance carries a <span class="mono">structural-validity</span> certificate, the machine version of n, k and the CSS condition (<a href="../../surface_code/formal-verification/formal-verification.html#s3-1">surface formal-verification guide 3.1</a>). What they lack is only the one about d. The contract also has a class <span class="mono">distance-upper-bound@1</span> (payload {upper: u}, “proves only d &lt;= u”) that can seal a witness into a certificate; but <a href="../../bb_code/formal-verification/formal-verification.html#s3-4">BB formal-verification guide 3.4</a> checked: gross's card.yaml registers structural-validity alone, and the weight-12 witness lives in the Python verifier, not sealed as a Lean certificate. So the precise meaning of “unverified beyond” in current_proxy is: <b>no instance whose candidate count exceeds 65 536 (L5 and gross among them) holds any machine certificate about a distance lower bound, not even L5, whose lower bound has a paper theorem.</b></p>
+    <p class="zh">门外的 L5 和 gross 并非一无所有。每个实例都有一份 <span class="mono">structural-validity</span> 证书——n、k 与 CSS 条件（X 型检查与 Z 型检查两两碰撞偶数次，即 H<sub>X</sub>H<sub>Z</sub><sup>T</sup> = 0，所以它们能同时测量）的机器版（<a href="../../surface_code/formal-verification/formal-verification.html#s3-1">表面码形式化教程 3.1 节</a>）。它们缺的只是关于 d 的那份。契约里还有一类 <span class="mono">distance-upper-bound@1</span>（载荷 {upper: u}，「proves only d &lt;= u」），能把一条见证封成证书；但 <a href="../../bb_code/formal-verification/formal-verification.html#s3-4">BB 形式化教程 3.4 节</a>查过：gross 的 card.yaml 只登记了 structural-validity 一份，那条重量 12 的见证住在 Python 验证器里，没有封成 Lean 证书。于是 current_proxy 那句「unverified beyond」的精确含义是：<b>候选数超过 65 536 的实例（L5、gross 都在其中），没有任何一份关于码距下界的机器证书。</b></p>
+    <p class="en">L5 and gross outside the gate are not empty-handed. Every instance carries a <span class="mono">structural-validity</span> certificate, the machine version of n, k and the CSS condition (every X-type check collides with every Z-type check an even number of times, H<sub>X</sub>H<sub>Z</sub><sup>T</sup> = 0, so they can all be measured together) (<a href="../../surface_code/formal-verification/formal-verification.html#s3-1">surface formal-verification guide 3.1</a>). What they lack is only the one about d. The contract also has a class <span class="mono">distance-upper-bound@1</span> (payload {upper: u}, “proves only d &lt;= u”) that can seal a witness into a certificate; but <a href="../../bb_code/formal-verification/formal-verification.html#s3-4">BB formal-verification guide 3.4</a> checked: gross's card.yaml registers structural-validity alone, and the weight-12 witness lives in the Python verifier, not sealed as a Lean certificate. So the precise meaning of “unverified beyond” in current_proxy is: <b>no instance whose candidate count exceeds 65 536 (L5 and gross among them) holds any machine certificate about a distance lower bound, not even L5, whose lower bound has a paper theorem.</b></p>
     <p class="zh">还有一句值得记住：证书是<b>加上去</b>的一层。Atlas 形式化页的总纲是「Eligible small exact-distance certificates are additive; claims outside Lean Complete v1 keep their existing evidence origin」（<a href="../../surface_code/formal-verification/formal-verification.html#s1-2">表面码形式化教程 1.2 节</a>）。没有证书的声明保留原有的证据词——所以 L5 和 gross 的 d 写着 bounded，一字未改，那是<a href="../fast-distance/fast-distance.html#s2-3">《大码的码距》2.3 节</a>解释过的两半拼法。</p>
     <p class="en">One more sentence to remember: certificates are an <b>additive</b> layer. The Atlas formal page's headline reads “Eligible small exact-distance certificates are additive; claims outside Lean Complete v1 keep their existing evidence origin” (<a href="../../surface_code/formal-verification/formal-verification.html#s1-2">surface formal-verification guide 1.2</a>). Claims without a certificate keep their evidence word, so L5 and gross still read bounded, unchanged, the two-half assembly explained in <a href="../fast-distance/fast-distance.html#s2-3">“Distance for large codes” 2.3</a>.</p>
   </div>
 
   <h3 id="s2-4"><span class="sec-no">2.4</span><span class="zh">「feeds Lean L2」：这道题在一座梯子上的位置</span><span class="en">“Feeds Lean L2”: where this problem sits on a ladder</span></h3>
   <div class="prose">
-    <p class="zh">Wanted 板上还有一项状态为 <b>partial</b> 的 <span class="mono">lean-qec</span>，标题 “Lean QEC framework library (L1)”，它不在本系列里（<a href="../../../../exports/site/wanted.html#lean-qec">板上原文</a>）。它的 statement 是：“Formalize symplectic GF(2), Pauli/stabilizer/subsystem codes, Knill-Laflamme for Pauli errors, CSS/chain complexes in Lean 4 / Mathlib (spec section 11; outline = foundations/).” 它引用的「spec section 11」把 Atlas 的形式化工作分成四级（原始文件 <span class="mono">docs/superpowers/specs/2026-07-04-qec-atlas-design.md</span> 第 11 节）：<b>L1</b> 框架——在 Lean 里定义泡利串、稳定子码、CSS 码这些通用概念，「formalize the framework once; codes enter as instances」；<b>L2</b> 实例证书——对每一个具体实例，机器自动生成可判定的证书，原文说「Cheap today: n, k, and distance <i>upper</i> bounds … Hard and open: certified distance <i>lower</i> bounds beyond small-n exhaustion」；<b>L3</b> 家族定理——如「toric code 对所有 L 有 d = L」；<b>L4</b> 由证明引导的发现。人话：<b>L1 是字典，L2 是每个码各一张的成绩单，L3 是关于整族的定理。</b>本篇的开放问题就是 L2 里明确标为「hard and open」的那一格；「feeds Lean L2」说的是：一旦有了写法，它填进去的正是这一格。lean-qec 的 current_proxy 也印证了现状：已接受的证书类是「structural, logical-witness, upper-bound, and bounded small-exact」四种，没有一种叫下界。</p>
-    <p class="en">The Wanted board also carries an item with status <b>partial</b>, <span class="mono">lean-qec</span>, titled “Lean QEC framework library (L1)”, which is not in this series (<a href="../../../../exports/site/wanted.html#lean-qec">board wording</a>). Its statement reads: “Formalize symplectic GF(2), Pauli/stabilizer/subsystem codes, Knill-Laflamme for Pauli errors, CSS/chain complexes in Lean 4 / Mathlib (spec section 11; outline = foundations/).” The “spec section 11” it cites divides the Atlas's formal work into four levels (original file <span class="mono">docs/superpowers/specs/2026-07-04-qec-atlas-design.md</span>, section 11): <b>L1</b>, the framework: defining Pauli strings, stabilizer codes, CSS codes and the other general notions in Lean, “formalize the framework once; codes enter as instances”; <b>L2</b>, instance certificates: for each concrete instance the machine auto-generates decidable certificates, and the text says “Cheap today: n, k, and distance <i>upper</i> bounds … Hard and open: certified distance <i>lower</i> bounds beyond small-n exhaustion”; <b>L3</b>, family theorems, such as “the toric code has d = L for all L”; <b>L4</b>, proof-guided discovery. In plain words: <b>L1 is the dictionary, L2 is one report card per code, L3 is theorems about whole families.</b> This guide's open problem is exactly the cell of L2 marked “hard and open”; “feeds Lean L2” means that once a way to write it exists, that cell is what it fills. lean-qec's current_proxy confirms the present state: the accepted certificate classes are “structural, logical-witness, upper-bound, and bounded small-exact”, none of them a lower bound.</p>
+    <p class="zh">Wanted 板上还有一项状态为 <b>partial</b> 的 <span class="mono">lean-qec</span>，标题 “Lean QEC framework library (L1)”，它不在本系列里（<a href="../../../../exports/site/wanted.html#lean-qec">板上原文</a>）。它的 statement 是：“Formalize symplectic GF(2), Pauli/stabilizer/subsystem codes, Knill-Laflamme for Pauli errors, CSS/chain complexes in Lean 4 / Mathlib (spec section 11; outline = foundations/).” 它引用的「spec section 11」把 Atlas 的形式化工作分成四级（原始文件 <span class="mono">docs/superpowers/specs/2026-07-04-qec-atlas-design.md</span> 第 11 节）：<b>L1</b> 框架——在 Lean 里定义泡利串、稳定子码、CSS 码这些通用概念，「formalize the framework once; codes enter as instances」；<b>L2</b> 实例证书——对每一个具体实例，机器自动生成可判定的证书（程序能在有限步内给出「是 / 否」的那种），原文说「Cheap today: n, k, and distance <i>upper</i> bounds … Hard and open: certified distance <i>lower</i> bounds beyond small-n exhaustion」；<b>L3</b> 家族定理——如「toric code 对所有 L 有 d = L」；<b>L4</b> 由证明引导的发现。人话：<b>L1 是字典，L2 是每个码各一张的成绩单，L3 是关于整族的定理。</b>本篇的开放问题就是 L2 里明确标为「hard and open」的那一格；「feeds Lean L2」说的是：一旦有了写法，它填进去的正是这一格。lean-qec 的 current_proxy 也印证了现状：已接受的证书类是「structural, logical-witness, upper-bound, and bounded small-exact」四种，没有一种叫下界。</p>
+    <p class="en">The Wanted board also carries an item with status <b>partial</b>, <span class="mono">lean-qec</span>, titled “Lean QEC framework library (L1)”, which is not in this series (<a href="../../../../exports/site/wanted.html#lean-qec">board wording</a>). Its statement reads: “Formalize symplectic GF(2), Pauli/stabilizer/subsystem codes, Knill-Laflamme for Pauli errors, CSS/chain complexes in Lean 4 / Mathlib (spec section 11; outline = foundations/).” The “spec section 11” it cites divides the Atlas's formal work into four levels (original file <span class="mono">docs/superpowers/specs/2026-07-04-qec-atlas-design.md</span>, section 11): <b>L1</b>, the framework: defining Pauli strings, stabilizer codes, CSS codes and the other general notions in Lean, “formalize the framework once; codes enter as instances”; <b>L2</b>, instance certificates: for each concrete instance the machine auto-generates decidable certificates (ones a program can settle yes or no in finitely many steps), and the text says “Cheap today: n, k, and distance <i>upper</i> bounds … Hard and open: certified distance <i>lower</i> bounds beyond small-n exhaustion”; <b>L3</b>, family theorems, such as “the toric code has d = L for all L”; <b>L4</b>, proof-guided discovery. In plain words: <b>L1 is the dictionary, L2 is one report card per code, L3 is theorems about whole families.</b> This guide's open problem is exactly the cell of L2 marked “hard and open”; “feeds Lean L2” means that once a way to write it exists, that cell is what it fills. lean-qec's current_proxy confirms the present state: the accepted certificate classes are “structural, logical-witness, upper-bound, and bounded small-exact”, none of them a lower bound.</p>
   </div>
   <div class="note note-key">
     <span class="note-tag"><span class="zh">关键想法</span><span class="en">Key idea</span></span>
@@ -1180,23 +1201,25 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
 
   <h3 id="s4-1"><span class="sec-no">4.1</span><span class="zh">阶段一：把转录写得更省</span><span class="en">Stage one: writing transcripts more economically</span></h3>
   <div class="prose">
-    <p class="zh">「small-n exhaustion transcripts first」——第一阶段并不是从零开始，而是让逐行表走得更远。今天的表对每个候选写一行，X、Y、Z 都算。<a href="../fast-distance/fast-distance.html#s1-3">《大码的码距》1.3 节的折叠框</a>证明了：对 CSS 码，最轻的逻辑算符总可取纯 X 或纯 Z。若检查器认这条引理，表就只需列纯型串：L5 的行数从 8 498 193 降到 2 × (C(41,1) + C(41,2) + C(41,3) + C(41,4)) = 2 × 112 791 = 225 582——少了 38 倍，但仍在 65 536 之上。这个例子说明两件事：转录可以靠<b>引理</b>变短，而引理本身要先在 L1 里被 Lean 接受；即便如此，逐行表的增长仍是指数式的，靠省行数走不到 n = 144。</p>
-    <p class="en">“Small-n exhaustion transcripts first”: stage one does not start from zero but pushes the line-by-line table further. Today's table writes one line per candidate, X, Y and Z included. <a href="../fast-distance/fast-distance.html#s1-3">The folded box of “Distance for large codes” 1.3</a> proved that for CSS codes the lightest logical can always be taken pure X or pure Z. If the checker accepted that lemma, the table would list only pure-type strings: L5's line count would fall from 8 498 193 to 2 × (C(41,1) + C(41,2) + C(41,3) + C(41,4)) = 2 × 112 791 = 225 582, 38 times fewer yet still above 65 536. The example shows two things: transcripts can be shortened by <b>lemmas</b>, and a lemma must first be accepted by Lean in L1; even so, the line-by-line table grows exponentially, and saving lines will not reach n = 144.</p>
-    <p class="zh muted small">225 582 这个数是本篇按公式算的，用来说明省行数的量级；它不是 Atlas 的任何政策或记录，Atlas 现行契约仍按 X/Y/Z 三选一计数。</p>
-    <p class="en muted small">The number 225 582 was computed for this guide from the formula to illustrate the order of saving; it is no Atlas policy or record, and the current contract still counts X/Y/Z three ways.</p>
+    <p class="zh">「small-n exhaustion transcripts first」——第一阶段并不是从零开始，而是让逐行表走得更远。今天的表对每个候选写一行，X、Y、Z 都算。<a href="../fast-distance/fast-distance.html#s1-3">《大码的码距》1.3 节的折叠框</a>证明了：对 CSS 码，最轻的逻辑算符总可取纯 X 或纯 Z。理由分三步。从一条非平凡的逻辑算符 P 出发（它与每条检查对易，又不是检查的乘积），把它拆成 X 部分（P 里写 X 或 Y 的位置放 X）和 Z 部分（写 Z 或 Y 的位置放 Z）。第一步：CSS 码的每条检查要么全是 X、要么全是 Z；一条全 X 的检查只在 P 写 Z 或 Y 的位置上碰撞，也就是只看得见 P 的 Z 部分，所以 P 与它对易，就等于 P 的 Z 部分与它对易；Z 部分与全 Z 的检查根本不碰撞。于是 Z 部分与每条检查对易，X 部分同理。第二步：两部分里至少有一个本身就是逻辑算符，否则两部分都是检查的乘积，它们的乘积（相差一个相位就是 P）也是。第三步：每一部分的重量都不超过 P 的重量。若检查器认这条引理，表就只需列纯型串：L5 的行数从 8 498 193 降到 2 × (C(41,1) + C(41,2) + C(41,3) + C(41,4)) = 2 × 112 791 = 225 582——少了 38 倍，但仍在 65 536 之上。同一条引理对 d 小的码立刻有用：[[125,37,3]] 的 70 125 行变成 2 × (125 + 7 750) = 15 750 行，进得了门。gross 则从约 1.7 × 10<sup>21</sup> 行变成约 2.0 × 10<sup>16</sup> 行，还是差得远。这个例子说明两件事：转录可以靠<b>引理</b>变短，而引理本身要先在 L1 里被 Lean 接受；即便如此，省行数改变不了表长怎么增长。码距 d 固定时，表的行数 Σ<sub>w&lt;d</sub> C(n,w)·3<sup>w</sup> 是 n 的 d − 1 次多项式：n 很大时，n 翻倍，行数大约乘 2<sup>d−1</sup>（d = 3 时乘 4，d = 12 时乘约 2 000，本篇脚本核对）。真正要命的是 d 跟着 n 一起长的码族：表面码 d 约为 √n，gross 在 n = 144 时 d 已是 12（论文给出的值），这时行数的增长快过 n 的任何多项式（d 与 n 成正比的码族则是指数式的）。所以靠省行数走不到 n = 144、d = 12。</p>
+    <p class="en">“Small-n exhaustion transcripts first”: stage one does not start from zero but pushes the line-by-line table further. Today's table writes one line per candidate, X, Y and Z included. <a href="../fast-distance/fast-distance.html#s1-3">The folded box of “Distance for large codes” 1.3</a> proved that for CSS codes the lightest logical can always be taken pure X or pure Z. The reason takes three steps. Start from a nontrivial logical operator P (it commutes with every check and is not a product of checks) and split it into its X part (an X wherever P has X or Y) and its Z part (a Z wherever P has Z or Y). Step one: every check of a CSS code is all-X or all-Z; an all-X check collides with P only where P has Z or Y, so it sees only the Z part of P, and P commutes with it exactly when the Z part does; the Z part never collides with an all-Z check at all. So the Z part commutes with every check, and likewise the X part. Step two: at least one of the two parts is itself a logical, since otherwise both are products of checks and so is their product, which is P up to a phase. Step three: neither part weighs more than P. If the checker accepted that lemma, the table would list only pure-type strings: L5's line count would fall from 8 498 193 to 2 × (C(41,1) + C(41,2) + C(41,3) + C(41,4)) = 2 × 112 791 = 225 582, 38 times fewer yet still above 65 536. For codes with small d the same lemma pays at once: the 70 125 lines of [[125,37,3]] become 2 × (125 + 7 750) = 15 750 and fit through the gate. Gross goes from about 1.7 × 10<sup>21</sup> lines to about 2.0 × 10<sup>16</sup>, still hopelessly far. The example shows two things: transcripts can be shortened by <b>lemmas</b>, and a lemma must first be accepted by Lean in L1; even so, saving lines does not change how the table grows. For a fixed distance d the line count Σ<sub>w&lt;d</sub> C(n,w)·3<sup>w</sup> is a polynomial of degree d − 1 in n: for large n, doubling n multiplies it by about 2<sup>d−1</sup> (4 for d = 3, about 2 000 for d = 12; checked by this guide's script). The real trouble is a family whose d grows with n: for surface codes d is about √n, gross already has d = 12 at n = 144 (the paper's value), and then the count grows faster than any polynomial in n (exponentially for a family with d proportional to n). So saving lines will not reach n = 144, d = 12.</p>
+    <p class="zh muted small">225 582、15 750 和 2.0 × 10<sup>16</sup> 这几个数是本篇按公式算的，用来说明省行数的量级；它不是 Atlas 的任何政策或记录，Atlas 现行契约仍按 X/Y/Z 三选一计数。</p>
+    <p class="en muted small">The numbers 225 582, 15 750 and 2.0 × 10<sup>16</sup> were computed for this guide from the formula to illustrate the order of saving; it is no Atlas policy or record, and the current contract still counts X/Y/Z three ways.</p>
   </div>
 
   <h3 id="s4-2"><span class="sec-no">4.2</span><span class="zh">阶段二：对偶——比穷举短得多的证书</span><span class="en">Stage two: the dual, a certificate far shorter than exhaustion</span></h3>
   <div class="prose">
     <p class="zh">回到<a href="../fast-distance/fast-distance.html#s4-2">《大码的码距》4.2 节</a>的高中题：证明对所有正数 x，x + 1/x ≥ 2。穷举不可能（正数有无穷多个），但一行恒等式就够：x + 1/x − 2 = (√x − 1/√x)²。现在换个角度看这一行：它不是「怎么想到的」，而是一份<b>证书</b>。检查器不需要任何灵感，只要把右边的平方<b>展开</b>，核对它等于左边——纯算术。找到这行恒等式是难的（那是研究者的工作）；核对它是容易的（那是机器的工作）。而且它的长度与 x 的个数无关：无穷多个 x，一行证书。</p>
     <p class="en">Return to the high-school exercise of <a href="../fast-distance/fast-distance.html#s4-2">“Distance for large codes” 4.2</a>: prove x + 1/x ≥ 2 for every positive x. Exhaustion is impossible (infinitely many x), but one identity suffices: x + 1/x − 2 = (√x − 1/√x)². Now look at that line differently: it is not “how one thought of it” but a <b>certificate</b>. The checker needs no inspiration; it only <b>expands</b> the square on the right and confirms it equals the left, pure arithmetic. Finding the identity is hard (the researcher's job); checking it is easy (the machine's job). And its length has nothing to do with the number of x's: infinitely many x, a one-line certificate.</p>
-    <p class="zh">「松弛对偶」是这个想法在码距问题上的版本。上一篇说过，松弛是把「所有 0/1 串」放大成「允许分数」的连续区域，用线性规划求最小重量。线性规划有一条定理（这里只陈述，不证明）：一个下界 w 若成立，就一定存在一组非负的<b>乘数</b> y<sub>1</sub>, y<sub>2</sub>, …，每条约束一个，使得「把第 i 条约束乘以 y<sub>i</sub> 再全部相加」恰好得出「重量 ≥ w」这个不等式。这组乘数就叫<span class="term">对偶<span class="tip">dual：线性规划的下界证书——每条约束配一个非负乘数，加权相加后直接读出下界。核对只需乘法和加法；找到它需要求解整个规划。</span></span>。它的作用与那行平方恒等式一模一样：找到它难，核对它只是乘法和加法；而且它的<b>长度是约束的条数</b>（对 gross 是 144 条检查的量级），不是候选的条数（10<sup>21</sup>）。这就是板上「relaxation duals later」的全部指望：<b>一份长度像 144 而不像 10<sup>21</sup> 的下界证书。</b></p>
-    <p class="en">A “relaxation dual” is this idea in the distance setting. The previous guide explained relaxation: enlarge “all 0/1 strings” into a continuous region allowing fractions, and minimise the weight by linear programming. Linear programming has a theorem (stated here, not proved): if a lower bound w holds, there exist non-negative <b>multipliers</b> y<sub>1</sub>, y<sub>2</sub>, …, one per constraint, such that “multiply constraint i by y<sub>i</sub> and add everything up” yields exactly the inequality “weight ≥ w”. That set of multipliers is called the <span class="term">dual<span class="tip">The lower-bound certificate of a linear program: one non-negative multiplier per constraint, whose weighted sum reads off the bound directly. Checking needs only multiplication and addition; finding it needs solving the whole program.</span></span>. It plays exactly the role of the squared identity: hard to find, checkable by multiplication and addition alone; and its <b>length is the number of constraints</b> (for gross, of the order of its 144 checks), not the number of candidates (10<sup>21</sup>). That is the whole hope behind the board's “relaxation duals later”: <b>a lower-bound certificate whose length looks like 144 rather than 10<sup>21</sup>.</b></p>
+    <p class="zh">「松弛对偶」是这个想法在码距问题上的版本。上一篇说过，松弛是把「所有 0/1 串」放大成「允许分数」的连续区域，用<b>线性规划</b>（在一组一次不等式划出的区域里求一个一次式的最小值）求最小重量。先看一个能手算的小例子。三个变量 x<sub>1</sub>, x<sub>2</sub>, x<sub>3</sub>，取 1 表示选中这个比特；三条约束 x<sub>1</sub> + x<sub>2</sub> ≥ 1，x<sub>2</sub> + x<sub>3</sub> ≥ 1，x<sub>1</sub> + x<sub>3</sub> ≥ 1（每一对里至少选一个）。问：最少选几个？穷举要看 2<sup>3</sup> = 8 种选法。证书只要三个数 y = (½, ½, ½)：把每条约束乘以 ½ 再相加，左边 ½(x<sub>1</sub> + x<sub>2</sub>) + ½(x<sub>2</sub> + x<sub>3</sub>) + ½(x<sub>1</sub> + x<sub>3</sub>) = x<sub>1</sub> + x<sub>2</sub> + x<sub>3</sub>，右边 ½ + ½ + ½ = 3/2，所以选中的个数 ≥ 3/2；个数是整数，于是 ≥ 2。核对只用了乘法、加法和一次向上取整，8 种选法一种也没列。注意这份论证对分数也成立（x = (½, ½, ½) 恰好取到 3/2）：它证的是放大后区域的下界 3/2，是「个数是整数」这一步把它收紧到 2，而真正的最小值确实是 2（选 x<sub>1</sub> = x<sub>2</sub> = 1）。</p>
+    <p class="en">A “relaxation dual” is this idea in the distance setting. The previous guide explained relaxation: enlarge “all 0/1 strings” into a continuous region allowing fractions, and minimise the weight by <b>linear programming</b> (minimising a first-degree expression over a region cut out by first-degree inequalities). First a small example you can do by hand. Three variables x<sub>1</sub>, x<sub>2</sub>, x<sub>3</sub>, where 1 means the bit is chosen; three constraints x<sub>1</sub> + x<sub>2</sub> ≥ 1, x<sub>2</sub> + x<sub>3</sub> ≥ 1, x<sub>1</sub> + x<sub>3</sub> ≥ 1 (at least one of each pair). How few can be chosen? Exhaustion looks at 2<sup>3</sup> = 8 choices. The certificate is three numbers, y = (½, ½, ½): multiply each constraint by ½ and add; the left side is ½(x<sub>1</sub> + x<sub>2</sub>) + ½(x<sub>2</sub> + x<sub>3</sub>) + ½(x<sub>1</sub> + x<sub>3</sub>) = x<sub>1</sub> + x<sub>2</sub> + x<sub>3</sub>, the right side ½ + ½ + ½ = 3/2, so the number chosen is ≥ 3/2; it is a whole number, hence ≥ 2. The check used multiplication, addition and one rounding up, and listed none of the 8 choices. Note that the argument holds for fractions too (x = (½, ½, ½) attains 3/2): it proves the bound 3/2 on the enlarged region, the step “the count is a whole number” tightens it to 2, and the true minimum is indeed 2 (choose x<sub>1</sub> = x<sub>2</sub> = 1).</p>
+    <p class="zh">线性规划有一条定理（这里只陈述，不证明）：若放大后区域上的最小值是 w，就一定存在一组非负的<b>乘数</b> y<sub>1</sub>, y<sub>2</sub>, …，每条约束一个，使得「把第 i 条约束乘以 y<sub>i</sub> 再全部相加」得出的不等式，左边每个变量的系数都不超过它在重量里的系数，右边恰好是 w；因为变量都不是负数，这就推出「重量 ≥ w」。上面的 (½, ½, ½) 就是这样一组数。这组乘数就叫<span class="term">对偶<span class="tip">dual：线性规划的下界证书——每条约束配一个非负乘数，加权相加后直接读出下界。核对只需乘法和加法；找到它需要求解整个规划。</span></span>。它的作用与那行平方恒等式一模一样：找到它难，核对它只是乘法和加法；而且它的<b>长度是约束的条数</b>，不是候选的条数（10<sup>21</sup>）。那么码距问题要多少条约束？这里要小心。最直接能写出的是<b>局部检查约束</b>：「串与这条检查碰撞偶数次」，写成一次不等式后每条检查一条到几十条（看松弛怎么写），再加每个变量的上下限；gross 的 144 条检查合起来是 10<sup>2</sup> 到 10<sup>4</sup> 条。但<b>只有这些约束的规划证不出任何东西</b>：全零的串（一个比特也不选）满足每一条「碰撞偶数次」，最小重量是 0，证出的下界也是 0。一个有效的松弛还必须排除全零串，并排除检查的乘积（4.4 节「退化」一行说明为什么后者是难点）。一种有效的写法是：取 k 条 Z 型逻辑算符作一组基，对其中每一条 z 单独写一个规划，在局部检查约束之外再要求串与 z 碰撞奇数次；每条非平凡的 X 型逻辑算符至少对其中一条 z 如此（若它与全部 k 条都碰撞偶数次，它就与每个 Z 型逻辑算符和每条 Z 检查都对易，只能是 X 检查的乘积），所以 k 个规划的最小值里最小的那个就是 d<sub>X</sub> 的下界。这样的完整证书有多长、证出的下界能不能到 12，本篇没有算，Atlas 也没有记录。所以 10<sup>2</sup>–10<sup>4</sup> 只是局部检查约束的条数，是一个假设性的量级，不是任何一份有效证书的长度。板上「relaxation duals later」的指望是：<b>存在一份长度随检查条数增长、而不随候选数（10<sup>21</sup>）增长的下界证书</b>；这样的证书今天还没有人写出来给 Atlas。</p>
+    <p class="en">Linear programming has a theorem (stated here, not proved): if the minimum over the enlarged region is w, there exist non-negative <b>multipliers</b> y<sub>1</sub>, y<sub>2</sub>, …, one per constraint, such that “multiply constraint i by y<sub>i</sub> and add everything up” gives an inequality whose left side has every variable's coefficient no larger than its coefficient in the weight and whose right side is exactly w; since no variable is negative, “weight ≥ w” follows. The (½, ½, ½) above is such a set. That set of multipliers is called the <span class="term">dual<span class="tip">The lower-bound certificate of a linear program: one non-negative multiplier per constraint, whose weighted sum reads off the bound directly. Checking needs only multiplication and addition; finding it needs solving the whole program.</span></span>. It plays exactly the role of the squared identity: hard to find, checkable by multiplication and addition alone; and its <b>length is the number of constraints</b>, not the number of candidates (10<sup>21</sup>). How many constraints does the distance problem need? Care is needed here. The ones you can write down directly are the <b>local check constraints</b>: “the string collides with this check an even number of times”, which becomes one to a few dozen first-degree inequalities per check depending on how the relaxation is written, plus lower and upper limits on each variable; for the 144 checks of gross that makes 10<sup>2</sup> to 10<sup>4</sup>. But <b>a program with only these constraints proves nothing</b>: the all-zero string (no bit chosen) collides evenly with every check, so the minimum weight is 0 and so is the bound. A valid relaxation must also exclude the zero string and exclude products of checks (the “degeneracy” row of 4.4 explains why the latter is the hard part). One valid way: take k Z-type logicals forming a basis and write a separate program for each such z that adds, to the local check constraints, the requirement that the string collide with z an odd number of times; every nontrivial X-type logical does so for at least one z (if it collided evenly with all k, it would commute with every Z-type logical and every Z check, and could only be a product of X checks), so the smallest of the k minima is a lower bound on d<sub>X</sub>. How long that full certificate is, and whether its bound reaches 12, this guide has not computed and the Atlas does not record. So 10<sup>2</sup>–10<sup>4</sup> is only the count of local check constraints, a hypothetical order of magnitude, not the length of any valid certificate. The hope behind the board's “relaxation duals later” is that <b>a lower-bound certificate exists whose length grows with the number of checks, not with the number of candidates (10<sup>21</sup>)</b>; nobody has yet written one for the Atlas.</p>
   </div>
-  <div class="formula center"><span class="zh">穷举证书：每个候选一行，≈ 10<sup>21</sup> 行<br>对偶证书：每条约束一个数 y<sub>i</sub> ≥ 0，≈ 10<sup>2</sup> 个数</span><span class="en">exhaustion certificate: one line per candidate, ≈ 10<sup>21</sup> lines<br>dual certificate: one number y<sub>i</sub> ≥ 0 per constraint, ≈ 10<sup>2</sup> numbers</span></div>
+  <div class="formula center"><span class="zh">穷举证书：每个候选一行，≈ 10<sup>21</sup> 行<br>对偶证书：每条约束一个数 y<sub>i</sub> ≥ 0；<br>仅局部检查约束就有 ≈ 10<sup>2</sup>–10<sup>4</sup> 条，<br>有效松弛还要更多（未算）</span><span class="en">exhaustion certificate: one line per candidate,<br>≈ 10<sup>21</sup> lines<br>dual certificate: one number y<sub>i</sub> ≥ 0 per constraint;<br>the local check constraints alone number ≈ 10<sup>2</sup>–10<sup>4</sup>,<br>a valid relaxation needs more (not computed)</span></div>
   <div class="prose">
-    <p class="zh muted small">记号：y<sub>i</sub> = 第 i 条约束的乘数，i 从 1 数到约束条数；≥ 0 表示乘数不能是负数（负数会把不等号翻转）。10<sup>2</sup> 只是数量级的示意，不是 Atlas 的任何记录。</p>
-    <p class="en muted small">Notation: y<sub>i</sub> = the multiplier of constraint i, i running from 1 to the number of constraints; ≥ 0 means a multiplier may not be negative (a negative one would flip the inequality). 10<sup>2</sup> is an order-of-magnitude illustration, not an Atlas record.</p>
+    <p class="zh muted small">记号：y<sub>i</sub> = 第 i 条约束的乘数，i 从 1 数到约束条数；≥ 0 表示乘数不能是负数（负数会把不等号翻转）。10<sup>2</sup>–10<sup>4</sup> 是本篇对<b>局部检查约束</b>条数的假设性估算（144 条检查，每条 1 到几十条约束，另加 2 × 144 条变量上下限），不是 Atlas 的任何记录，也不是一份有效证书的长度：只有这些约束时全零串可行，下界是 0。</p>
+    <p class="en muted small">Notation: y<sub>i</sub> = the multiplier of constraint i, i running from 1 to the number of constraints; ≥ 0 means a multiplier may not be negative (a negative one would flip the inequality). 10<sup>2</sup>–10<sup>4</sup> is this guide's hypothetical estimate of the number of <b>local check constraints</b> (144 checks, one to a few dozen constraints each, plus 2 × 144 variable limits); it is no Atlas record and not the length of a valid certificate: with these constraints alone the zero string is feasible and the bound is 0.</p>
   </div>
 
   <h3 id="s4-3"><span class="sec-no">4.3</span><span class="zh">两道题的分工</span><span class="en">How the two problems divide the work</span></h3>
@@ -1220,7 +1243,7 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
     <table class="glossary">
       <tr><th><span class="zh">难点</span><span class="en">Difficulty</span></th><th><span class="zh">人话</span><span class="en">In plain words</span></th></tr>
       <tr><td><span class="zh">对偶要「够紧」</span><span class="en">The dual must be tight enough</span></td><td><span class="zh">对偶证明的是<b>放大后</b>集合的下界；若放大得太松，它证出的 w 可能只有 6，而 gross 需要 12。这一点属于上一篇，但直接决定本篇有没有东西可写。</span><span class="en">A dual proves a bound for the <b>enlarged</b> set; if the enlargement is too loose, the w it proves may be 6 where gross needs 12. This belongs to the previous guide but decides whether this one has anything to write.</span></td></tr>
-      <tr><td><span class="zh">退化不是一次不等式</span><span class="en">Degeneracy is not a first-degree inequality</span></td><td><span class="zh">量子码要排除的是「安静但不是检查乘积」的串；「不是检查乘积」这一条件不能直接写成线性约束，所以标准的线性规划对偶不能照搬，要先找到合适的松弛。</span><span class="en">What a quantum code must exclude are strings that are “silent yet not check products”; the condition “not a check product” is not directly a linear constraint, so the standard LP dual cannot be copied and a suitable relaxation must first be found.</span></td></tr>
+      <tr><td><span class="zh">退化不是一次不等式</span><span class="en">Degeneracy is not a first-degree inequality</span></td><td><span class="zh">一个码能纠正的两个不同错误，若对码字的作用完全一样（两者之积是一个不等于恒等的检查乘积），这个码就叫<span class="term">退化<span class="tip">degeneracy：能纠正的两个不同错误对码字作用相同，即两者之积是非恒等的检查乘积（Preskill 讲义 7.9.1 节）。常用的码距版说法：有比码距 d 还轻的非恒等检查乘积。</span></span>的（Preskill 讲义 7.9.1 节；同一处也给出常用的码距版说法：检查乘积里有比码距 d 还轻的非恒等元素）。toric_L3 <b>不</b>退化：最轻的非恒等检查乘积是一颗星或一块面，重量 4，比 d = 3 重；它能纠正重量 ≤ 1 的错误，两个这样的错误之积重量 ≤ 2，不可能是检查乘积。toric_L5 退化：d = 5，能纠正重量 ≤ 2 的错误，而一颗星（重量 4）恰好拆成两个重量 2 的错误——星上两条横边放 X，或两条竖边放 X——两者之积就是这颗星，所以它们触发同样的警报，对码字的作用也一样（本篇脚本核对）。这为什么让对偶难写：对不退化的码，安静且非零的串最轻就有 d 那么重，下界只需排除全零串；对退化的码（gross 的检查重量 6，比 12 轻），有比 d 轻的安静串（检查乘积）必须排除，而「不是检查乘积」不能直接写成一次不等式，标准的线性规划对偶不能照搬，要先找到合适的松弛。</span><span class="en">A code is called <span class="term">degenerate<span class="tip">Two different correctable errors act identically on the codewords: their product is a nonidentity product of checks (Preskill's notes, 7.9.1). The common distance version: some nonidentity product of checks is lighter than the distance d.</span></span> when two different errors it can correct act identically on the codewords, their product being a nonidentity product of checks (Preskill's notes, 7.9.1; the same place gives the common distance version: some nonidentity product of checks is lighter than the distance d). toric_L3 is <b>not</b> degenerate: its lightest nonidentity check product is one star or one face, weight 4, heavier than d = 3; it corrects errors of weight ≤ 1, and the product of two such errors weighs ≤ 2, so it cannot be a check product. toric_L5 is degenerate: d = 5, it corrects errors of weight ≤ 2, and one star (weight 4) splits exactly into two weight-2 errors, X on the star's two horizontal edges or X on its two vertical edges; their product is the star, so they raise the same alarms and act identically on the codewords (checked by this guide's script). Why this makes the dual hard: for a nondegenerate code a silent nonzero string already weighs at least d, so the bound only has to exclude the zero string; for a degenerate code (gross has checks of weight 6, lighter than 12) there are silent strings lighter than d, the check products, that must be excluded, and “not a check product” is not directly a first-degree inequality, so the standard LP dual cannot be copied and a suitable relaxation must first be found.</span></td></tr>
       <tr><td><span class="zh">检查器要先认得字典</span><span class="en">The checker must first know the dictionary</span></td><td><span class="zh">要让 Lean 核对「这组乘数推出 d ≥ 12」，Lean 里得先有「逻辑算符」「对易」「松弛」这些定义和把对偶与码距连起来的引理——这些都是 L1 的内容，而 L1 本身状态是 partial。</span><span class="en">For Lean to check “these multipliers imply d ≥ 12”, Lean must first contain the definitions of “logical operator”, “commute”, “relaxation” and the lemma connecting the dual to the distance; all of this is L1 content, and L1 itself is partial.</span></td></tr>
       <tr><td><span class="zh">算术要精确</span><span class="en">The arithmetic must be exact</span></td><td><span class="zh">求解线性规划的程序用的是带舍入的小数；证书里的乘数必须是精确的分数，让检查器的乘加没有任何误差。把一个舍入过的解「修圆」成精确证书，本身是一件要小心的事。</span><span class="en">LP solvers work in rounded decimals; the multipliers in a certificate must be exact fractions so that the checker's multiply-and-add has no error at all. Turning a rounded solution into an exact certificate is itself a delicate step.</span></td></tr>
       <tr><td><span class="zh">检查器要保持小而封存</span><span class="en">The checker must stay small and sealed</span></td><td><span class="zh">Lean Complete v1 的可信来自它只依赖三条公理、源码封存。每加一类证书都要重新审计、重新封存，并保证「Crossing it means unsupported, not false」这类边界依然说得清。</span><span class="en">Lean Complete v1 is trusted because it relies on three axioms only and its source is sealed. Every added certificate class means re-auditing, re-sealing, and keeping boundaries such as “Crossing it means unsupported, not false” statable.</span></td></tr>
@@ -1228,8 +1251,8 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
   </div>
   <div class="note note-honest">
     <span class="note-tag"><span class="zh">诚实说明</span><span class="en">Honest note</span></span>
-    <p class="zh">4.2 节里「线性规划的下界一定有一组乘数作证」是一条定理（线性规划对偶定理），本篇只陈述、不证明，它超出高中数学。「对偶证书长度像约束条数」是这条定理的直接后果，不是 Atlas 的任何记录。Atlas 的契约今天没有任何一类叫 distance-lower-bound 的证书；3.2 节和 4.3 节里这个名字是本篇为了讲清楚而临时取的。本篇没有运行 Lean，也没有运行 Atlas 的验证器；所有数字抄自仓库文件或按契约公式算出。</p>
-    <p class="en">In 4.2, “a linear-programming lower bound always has a set of multipliers as witness” is a theorem (LP duality), stated here without proof and beyond high-school mathematics. “A dual certificate is as long as the number of constraints” is its direct consequence, not an Atlas record. The Atlas contract today has no certificate class named distance-lower-bound; the name in 3.2 and 4.3 is a placeholder coined by this guide for clarity. Neither Lean nor the Atlas verifier was run for this guide; every number is copied from repository files or computed from the contract's formula.</p>
+    <p class="zh">4.2 节里「线性规划的下界一定有一组乘数作证」是一条定理（线性规划对偶定理），本篇只陈述、不证明，它超出高中数学。「对偶证书长度等于约束条数」是这条定理的直接后果；gross 上要多少条约束，本篇只给了局部检查约束的假设性计数，不是 Atlas 的任何记录。Atlas 的契约今天没有任何一类叫 distance-lower-bound 的证书；3.2 节和 4.3 节里这个名字是本篇为了讲清楚而临时取的。本篇没有运行 Lean，也没有运行 Atlas 的验证器；所有数字抄自仓库文件或按契约公式算出。</p>
+    <p class="en">In 4.2, “a linear-programming lower bound always has a set of multipliers as witness” is a theorem (LP duality), stated here without proof and beyond high-school mathematics. “A dual certificate is as long as the number of constraints” is its direct consequence; for how many constraints gross needs, this guide gives only a hypothetical count of the local check constraints, no Atlas record. The Atlas contract today has no certificate class named distance-lower-bound; the name in 3.2 and 4.3 is a placeholder coined by this guide for clarity. Neither Lean nor the Atlas verifier was run for this guide; every number is copied from repository files or computed from the contract's formula.</p>
   </div>
   <div class="ch-nav">
     <a href="#ch3"><span class="zh">上一章</span><span class="en">Back</span><b><span class="zh">3 · 为什么我们想要答案</span><span class="en">3 · Why we want the answer</span></b></a>
@@ -1249,17 +1272,180 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
 
   <h3 id="s5-1"><span class="sec-no">5.1</span><span class="zh">上界证书：一条见证，一个数</span><span class="en">The upper-bound certificate: one witness, one number</span></h3>
   <div class="prose">
-    <p class="zh">下面的构造器预设为 toric_L3（A = 1 + x，B = 1 + y，正是 3 × 3 环面码，<a href="../../bb_code/intuition/intuition.html#s5-1">BB 直觉教程 5.1 节</a>）。让它跑一次低重量搜索，它会找到一条重量 3 的逻辑算符并列出触碰的比特。契约里 distance-upper-bound@1 的载荷只有 <span class="mono">{upper: u}</span>，见证本身通过 <span class="mono">witness_refs</span> 引用；检查器要做的是：重算这条串与每条检查的碰撞数（全为偶数），确认它不是检查的乘积，数它的重量，核对等于 u。你刚看到的，就是这样一份证书的全部内容——它「proves only d &lt;= u」。</p>
-    <p class="en">The builder below is preset to toric_L3 (A = 1 + x, B = 1 + y, precisely the 3 × 3 toric code, <a href="../../bb_code/intuition/intuition.html#s5-1">BB intuition guide 5.1</a>). Run one low-weight search and it finds a weight-3 logical and lists the qubits touched. The contract's distance-upper-bound@1 payload is just <span class="mono">{upper: u}</span>, with the witness itself referenced through <span class="mono">witness_refs</span>; the checker's job is to recompute the string's collision count with every check (all even), confirm it is not a check product, count its weight and match it to u. What you just watched is the entire content of such a certificate; it “proves only d &lt;= u”.</p>
+    <p class="zh">下面的构造器预设为 toric_L3（A = 1 + x，B = 1 + y，正是 3 × 3 环面码，<a href="../../bb_code/intuition/intuition.html#s5-1">BB 直觉教程 5.1 节</a>）。A、B 是 BB 码的写法：1 表示原地，x 表示向右一格，y 表示向上一格；A = 1 + x 说每条 X 检查碰左层里原地和右边一格的两个比特，B = 1 + y 说它碰右层里原地和上面一格的两个比特。对 toric_L3，左层就是图 5.1 的横边（比特 0–8），右层是竖边（比特 9–17），X 检查就是星。按「搜索低重逻辑算符」，它穷举出一条重量 3 的 X 型逻辑算符，在画面上用红圈标出它碰的比特，并在下方列出列号。契约里 distance-upper-bound@1 的载荷只有 <span class="mono">{upper: u}</span>，见证本身通过 <span class="mono">witness_refs</span> 引用；检查器要做的是：重算这条串与每条 Z 检查的碰撞数（全为偶数；纯 X 串和 X 检查不会碰撞），确认它不是 X 检查的乘积，数它的重量，核对等于 u。第二件事靠数<b>秩</b>：把 H<sub>X</sub> 的每一行看成一串 0/1，按位异或当加法，秩就是最多能挑出几行、使其中任何几行加起来都不为零。toric_L3 的 9 颗星只有 8 行独立（9 颗星全乘起来是恒等，所以任意 8 颗的积等于剩下那颗），秩是 8；把见证（比特 0、1、2 上放 X）作为第 10 行加进去，秩变成 9（本篇脚本核对，读数里也会显示）。如果见证是某几颗星的乘积，它就是某几行的和，加进去不会多出新的方向，秩应当还是 8；秩多了 1，就证明了它不是任何几颗星的乘积。红圈标出的那几个比特，加上一个数 u，就是这样一份证书的全部内容——它「proves only d &lt;= u」，只证明码距不超过 u。</p>
+    <p class="en">The builder below is preset to toric_L3 (A = 1 + x, B = 1 + y, precisely the 3 × 3 toric code, <a href="../../bb_code/intuition/intuition.html#s5-1">BB intuition guide 5.1</a>). A and B are BB-code notation: 1 means stay, x one step right, y one step up; A = 1 + x says every X check touches the left-layer qubits at its own site and one step right, B = 1 + y that it touches the right-layer qubits at its own site and one step up. For toric_L3 the left layer is the horizontal edges of Fig. 5.1 (qubits 0–8), the right layer the vertical edges (qubits 9–17), and the X checks are the stars. Press “Search a low-weight logical”: it enumerates and finds an X-type logical of weight 3, rings the qubits it touches in red on the canvas and lists their column numbers below. The contract's distance-upper-bound@1 payload is just <span class="mono">{upper: u}</span>, with the witness itself referenced through <span class="mono">witness_refs</span>; the checker's job is to recompute the string's collision count with every Z check (all even; a pure-X string never collides with an X check), confirm it is not a product of X checks, count its weight and match it to u. The second job is done by counting a <b>rank</b>: read each row of H<sub>X</sub> as a string of 0s and 1s with bitwise XOR as addition; the rank is the largest number of rows none of whose nonempty subsets adds up to zero. The 9 stars of toric_L3 have only 8 independent rows (all 9 multiply to the identity, so any 8 multiply to the remaining one), so the rank is 8; append the witness (X on qubits 0, 1, 2) as a tenth row and the rank becomes 9 (checked by this guide's script; the readout shows it too). Were the witness a product of some stars, it would be the sum of those rows, appending it would add no new direction, and the rank would stay 8; the rank went up by 1, which proves it is not a product of any stars. The ringed qubits plus one number u are the entire content of such a certificate; it “proves only d &lt;= u”, that the distance is at most u.</p>
   </div>
   <div data-widget="bbbuilder" data-preset="toric3"></div>
 
   <h3 id="s5-2"><span class="sec-no">5.2</span><span class="zh">下界转录的一角：18 行，用一条规则</span><span class="en">A corner of the lower-bound transcript: 18 lines from one rule</span></h3>
   <div class="prose">
-    <p class="zh">给 toric_L3 的每条边编号 0 到 17。重量 1 的纯 Z 候选有 18 条：「第 e 条边上放 Z」。每一条的分类都是同一句话：<span class="mono">{kind: "anticommutes", stabilizer_row: 边 e 的任一端点的星检查编号}</span>。核对：Z 与那颗星在恰好一个比特（边 e）上碰撞，1 是奇数 ✓。你可以真的写下 18 行，也可以写下这条规则——但注意，<b>检查器只收 18 行</b>，不收规则；把规则变成它认得的东西，是 L1 的工作。重量 2 的 153 行同理：两条边若相邻，写「远端那个端点的星」；若不相邻，写任一端点的星。这就是 4.1 节说的「转录可以靠引理变短」——你脑子里的规则，是机器还没有的引理。</p>
-    <p class="en">Number toric_L3's edges 0 to 17. The weight-1 pure-Z candidates are 18: “Z on edge e”. Every one has the same classification: <span class="mono">{kind: "anticommutes", stabilizer_row: the star check at either endpoint of edge e}</span>. Check: Z and that star collide on exactly one qubit (edge e), and 1 is odd ✓. You may really write the 18 lines, or write the rule; but note that <b>the checker takes only the 18 lines</b>, never the rule; turning the rule into something it recognises is L1's job. The 153 weight-2 lines go likewise: for two adjacent edges write “the star at the far endpoint”; for non-adjacent ones, the star at any endpoint. This is 4.1's “transcripts can be shortened by lemmas”: the rule in your head is a lemma the machine does not yet have.</p>
-    <p class="zh">对照一下 Atlas 自己在表面码 L3 上留下的机器见证（<span class="mono">atlas/surface/pedagogy/distance-proof.md</span> 第 4 节原文）：<span class="mono">logical X support: [0, 1, 2]</span>、<span class="mono">logical Z support: [0, 3, 6]</span>、<span class="mono">exact_distance(L=3): 3 (exact-css-enum)</span>——一条横跨串、一条竖跨串、一次穷举。那两行支撑就是见证；那次穷举展开来，就是 741 行的转录。</p>
-    <p class="en">Compare the machine witnesses the Atlas itself left on surface L3 (<span class="mono">atlas/surface/pedagogy/distance-proof.md</span>, section 4, verbatim): <span class="mono">logical X support: [0, 1, 2]</span>, <span class="mono">logical Z support: [0, 3, 6]</span>, <span class="mono">exact_distance(L=3): 3 (exact-css-enum)</span>: one string spanning across, one spanning down, one exhaustion. The two support lines are the witnesses; the exhaustion, unrolled, is the 741-line transcript.</p>
+    <p class="zh">按图 5.1 给 toric_L3 的每条边编号 0 到 17。重量 1 的纯 Z 候选有 18 条：「第 e 条边上放 Z」。每一条的分类都是同一句话：<span class="mono">{kind: "anticommutes", stabilizer_row: 边 e 的任一端点的星检查编号}</span>。核对：Z 与那颗星在恰好一个比特（边 e）上碰撞，1 是奇数 ✓。你可以真的写下 18 行，也可以写下这条规则——但注意，<b>检查器只收 18 行</b>，不收规则；把规则变成它认得的东西，是 L1 的工作。重量 2 的 153 条纯 Z 候选同理：两条边若相邻（共用一个端点），写任一条边<b>另一端</b>的星，不能写共用端点的星，因为它碰撞两次；若不相邻，写任一端点的星（本篇用脚本把 153 条逐一核对过）。这就是 4.1 节说的「转录可以靠引理变短」——你脑子里的规则，是机器还没有的引理。</p>
+    <p class="en">Number toric_L3's edges 0 to 17 as in Fig. 5.1. The weight-1 pure-Z candidates are 18: “Z on edge e”. Every one has the same classification: <span class="mono">{kind: "anticommutes", stabilizer_row: the star check at either endpoint of edge e}</span>. Check: Z and that star collide on exactly one qubit (edge e), and 1 is odd ✓. You may really write the 18 lines, or write the rule; but note that <b>the checker takes only the 18 lines</b>, never the rule; turning the rule into something it recognises is L1's job. The 153 weight-2 pure-Z candidates go likewise: for two adjacent edges (sharing an endpoint) write the star at the <b>other end</b> of either edge, never the shared one, which collides twice; for non-adjacent edges, the star at any endpoint (this guide checked all 153 by script). This is 4.1's “transcripts can be shortened by lemmas”: the rule in your head is a lemma the machine does not yet have.</p>
+  </div>
+  <figure class="fig" id="fig-toric-rows">
+    <div class="fig-frame">
+<svg viewBox="0 0 742 394" width="742" role="img" aria-label="toric_L3 transcript rows" style="font-family:var(--f-mono)">
+<line x1="40.0" y1="228.0" x2="132.0" y2="228.0" style="stroke:var(--line2)" stroke-width="1.4" stroke-dasharray="4 3"/>
+<text x="86.0" y="221.0" text-anchor="middle" style="fill:var(--ink2)" font-size="12" font-weight="400">0</text>
+<line x1="132.0" y1="320.0" x2="132.0" y2="228.0" style="stroke:var(--line2)" stroke-width="1.4" stroke-dasharray="4 3"/>
+<text x="139.0" y="278.0" text-anchor="start" style="fill:var(--ink2)" font-size="12" font-weight="400">9</text>
+<line x1="40.0" y1="136.0" x2="132.0" y2="136.0" style="stroke:var(--line2)" stroke-width="1.4" stroke-dasharray="4 3"/>
+<text x="86.0" y="129.0" text-anchor="middle" style="fill:var(--ink2)" font-size="12" font-weight="400">1</text>
+<line x1="132.0" y1="228.0" x2="132.0" y2="136.0" style="stroke:var(--line2)" stroke-width="1.4"/>
+<text x="139.0" y="186.0" text-anchor="start" style="fill:var(--ink2)" font-size="12" font-weight="400">10</text>
+<line x1="40.0" y1="44.0" x2="132.0" y2="44.0" style="stroke:var(--line2)" stroke-width="1.4" stroke-dasharray="4 3"/>
+<text x="86.0" y="37.0" text-anchor="middle" style="fill:var(--ink2)" font-size="12" font-weight="400">2</text>
+<line x1="132.0" y1="136.0" x2="132.0" y2="44.0" style="stroke:var(--line2)" stroke-width="1.4"/>
+<text x="139.0" y="94.0" text-anchor="start" style="fill:var(--ink2)" font-size="12" font-weight="400">11</text>
+<line x1="132.0" y1="228.0" x2="224.0" y2="228.0" style="stroke:var(--line2)" stroke-width="1.4"/>
+<text x="178.0" y="221.0" text-anchor="middle" style="fill:var(--ink2)" font-size="12" font-weight="400">3</text>
+<line x1="224.0" y1="320.0" x2="224.0" y2="228.0" style="stroke:var(--line2)" stroke-width="1.4" stroke-dasharray="4 3"/>
+<text x="231.0" y="278.0" text-anchor="start" style="fill:var(--ink2)" font-size="12" font-weight="400">12</text>
+<line x1="132.0" y1="136.0" x2="224.0" y2="136.0" style="stroke:var(--cz)" stroke-width="5"/>
+<text x="178.0" y="129.0" text-anchor="middle" style="fill:var(--cz)" font-size="12" font-weight="700">Z4</text>
+<line x1="224.0" y1="228.0" x2="224.0" y2="136.0" style="stroke:var(--line2)" stroke-width="1.4"/>
+<text x="231.0" y="186.0" text-anchor="start" style="fill:var(--ink2)" font-size="12" font-weight="400">13</text>
+<line x1="132.0" y1="44.0" x2="224.0" y2="44.0" style="stroke:var(--line2)" stroke-width="1.4"/>
+<text x="178.0" y="37.0" text-anchor="middle" style="fill:var(--ink2)" font-size="12" font-weight="400">5</text>
+<line x1="224.0" y1="136.0" x2="224.0" y2="44.0" style="stroke:var(--line2)" stroke-width="1.4"/>
+<text x="231.0" y="94.0" text-anchor="start" style="fill:var(--ink2)" font-size="12" font-weight="400">14</text>
+<line x1="224.0" y1="228.0" x2="316.0" y2="228.0" style="stroke:var(--line2)" stroke-width="1.4"/>
+<text x="270.0" y="221.0" text-anchor="middle" style="fill:var(--ink2)" font-size="12" font-weight="400">6</text>
+<line x1="316.0" y1="320.0" x2="316.0" y2="228.0" style="stroke:var(--line2)" stroke-width="1.4" stroke-dasharray="4 3"/>
+<text x="323.0" y="278.0" text-anchor="start" style="fill:var(--ink2)" font-size="12" font-weight="400">15</text>
+<line x1="224.0" y1="136.0" x2="316.0" y2="136.0" style="stroke:var(--line2)" stroke-width="1.4"/>
+<text x="270.0" y="129.0" text-anchor="middle" style="fill:var(--ink2)" font-size="12" font-weight="400">7</text>
+<line x1="316.0" y1="228.0" x2="316.0" y2="136.0" style="stroke:var(--line2)" stroke-width="1.4"/>
+<text x="323.0" y="186.0" text-anchor="start" style="fill:var(--ink2)" font-size="12" font-weight="400">16</text>
+<line x1="224.0" y1="44.0" x2="316.0" y2="44.0" style="stroke:var(--line2)" stroke-width="1.4"/>
+<text x="270.0" y="37.0" text-anchor="middle" style="fill:var(--ink2)" font-size="12" font-weight="400">8</text>
+<line x1="316.0" y1="136.0" x2="316.0" y2="44.0" style="stroke:var(--line2)" stroke-width="1.4"/>
+<text x="323.0" y="94.0" text-anchor="start" style="fill:var(--ink2)" font-size="12" font-weight="400">17</text>
+<circle cx="40.0" cy="228.0" r="7" style="fill:none;stroke:var(--ink3)" stroke-dasharray="2 2"/>
+<text x="30.0" y="232.0" text-anchor="end" style="fill:var(--ink3)" font-size="10" font-weight="400">s6</text>
+<circle cx="40.0" cy="136.0" r="7" style="fill:none;stroke:var(--ink3)" stroke-dasharray="2 2"/>
+<text x="30.0" y="140.0" text-anchor="end" style="fill:var(--ink3)" font-size="10" font-weight="400">s7</text>
+<circle cx="40.0" cy="44.0" r="7" style="fill:none;stroke:var(--ink3)" stroke-dasharray="2 2"/>
+<text x="30.0" y="48.0" text-anchor="end" style="fill:var(--ink3)" font-size="10" font-weight="400">s8</text>
+<circle cx="132.0" cy="320.0" r="7" style="fill:none;stroke:var(--ink3)" stroke-dasharray="2 2"/>
+<text x="132.0" y="340.0" text-anchor="middle" style="fill:var(--ink3)" font-size="10" font-weight="400">s2</text>
+<circle cx="224.0" cy="320.0" r="7" style="fill:none;stroke:var(--ink3)" stroke-dasharray="2 2"/>
+<text x="224.0" y="340.0" text-anchor="middle" style="fill:var(--ink3)" font-size="10" font-weight="400">s5</text>
+<circle cx="316.0" cy="320.0" r="7" style="fill:none;stroke:var(--ink3)" stroke-dasharray="2 2"/>
+<text x="316.0" y="340.0" text-anchor="middle" style="fill:var(--ink3)" font-size="10" font-weight="400">s8</text>
+<circle cx="132.0" cy="228.0" r="8" style="fill:var(--bg2);stroke:var(--cx)" stroke-width="1.8"/>
+<text x="122.0" y="246.0" text-anchor="end" style="fill:var(--cx)" font-size="12" font-weight="700">s0</text>
+<circle cx="132.0" cy="136.0" r="9" style="fill:var(--cd);stroke:var(--cd)"/>
+<text x="122.0" y="154.0" text-anchor="end" style="fill:var(--cd)" font-size="12" font-weight="700">s1</text>
+<text class="zh" x="122.0" y="168.0" text-anchor="end" style="fill:var(--cd)" font-size="10.5" font-weight="400">碰撞 1</text>
+<text class="en" x="122.0" y="168.0" text-anchor="end" style="fill:var(--cd)" font-size="10.5" font-weight="400">overlap 1</text>
+<circle cx="132.0" cy="44.0" r="8" style="fill:var(--bg2);stroke:var(--cx)" stroke-width="1.8"/>
+<text x="122.0" y="62.0" text-anchor="end" style="fill:var(--cx)" font-size="12" font-weight="700">s2</text>
+<circle cx="224.0" cy="228.0" r="8" style="fill:var(--bg2);stroke:var(--cx)" stroke-width="1.8"/>
+<text x="214.0" y="246.0" text-anchor="end" style="fill:var(--cx)" font-size="12" font-weight="700">s3</text>
+<circle cx="224.0" cy="136.0" r="9" style="fill:var(--cd);stroke:var(--cd)"/>
+<text x="214.0" y="154.0" text-anchor="end" style="fill:var(--cd)" font-size="12" font-weight="700">s4</text>
+<text class="zh" x="214.0" y="168.0" text-anchor="end" style="fill:var(--cd)" font-size="10.5" font-weight="400">碰撞 1</text>
+<text class="en" x="214.0" y="168.0" text-anchor="end" style="fill:var(--cd)" font-size="10.5" font-weight="400">overlap 1</text>
+<circle cx="224.0" cy="44.0" r="8" style="fill:var(--bg2);stroke:var(--cx)" stroke-width="1.8"/>
+<text x="214.0" y="62.0" text-anchor="end" style="fill:var(--cx)" font-size="12" font-weight="700">s5</text>
+<circle cx="316.0" cy="228.0" r="8" style="fill:var(--bg2);stroke:var(--cx)" stroke-width="1.8"/>
+<text x="306.0" y="246.0" text-anchor="end" style="fill:var(--cx)" font-size="12" font-weight="700">s6</text>
+<circle cx="316.0" cy="136.0" r="8" style="fill:var(--bg2);stroke:var(--cx)" stroke-width="1.8"/>
+<text x="306.0" y="154.0" text-anchor="end" style="fill:var(--cx)" font-size="12" font-weight="700">s7</text>
+<circle cx="316.0" cy="44.0" r="8" style="fill:var(--bg2);stroke:var(--cx)" stroke-width="1.8"/>
+<text x="306.0" y="62.0" text-anchor="end" style="fill:var(--cx)" font-size="12" font-weight="700">s8</text>
+<text class="zh" x="178.0" y="20.0" text-anchor="middle" style="fill:var(--ink)" font-size="12.5" font-weight="600">① 重量 1：Z₄</text>
+<text class="en" x="178.0" y="20.0" text-anchor="middle" style="fill:var(--ink)" font-size="12.5" font-weight="600">① Weight 1: Z on qubit 4</text>
+<text class="zh" x="178.0" y="364.0" text-anchor="middle" style="fill:var(--ink2)" font-size="11.5" font-weight="400">亮的星：s1、s4（各碰撞 1 次）</text>
+<text class="en" x="178.0" y="364.0" text-anchor="middle" style="fill:var(--ink2)" font-size="11.5" font-weight="400">lit stars: s1, s4 (one overlap each)</text>
+<text class="zh" x="178.0" y="382.0" text-anchor="middle" style="fill:var(--ink2)" font-size="11.5" font-weight="400">这一行写 stabilizer_row = s1（写 s4 也对）</text>
+<text class="en" x="178.0" y="382.0" text-anchor="middle" style="fill:var(--ink2)" font-size="11.5" font-weight="400">this line: stabilizer_row = s1 (s4 is also valid)</text>
+<line x1="426.0" y1="228.0" x2="518.0" y2="228.0" style="stroke:var(--line2)" stroke-width="1.4" stroke-dasharray="4 3"/>
+<text x="472.0" y="221.0" text-anchor="middle" style="fill:var(--ink2)" font-size="12" font-weight="400">0</text>
+<line x1="518.0" y1="320.0" x2="518.0" y2="228.0" style="stroke:var(--line2)" stroke-width="1.4" stroke-dasharray="4 3"/>
+<text x="525.0" y="278.0" text-anchor="start" style="fill:var(--ink2)" font-size="12" font-weight="400">9</text>
+<line x1="426.0" y1="136.0" x2="518.0" y2="136.0" style="stroke:var(--line2)" stroke-width="1.4" stroke-dasharray="4 3"/>
+<text x="472.0" y="129.0" text-anchor="middle" style="fill:var(--ink2)" font-size="12" font-weight="400">1</text>
+<line x1="518.0" y1="228.0" x2="518.0" y2="136.0" style="stroke:var(--line2)" stroke-width="1.4"/>
+<text x="525.0" y="186.0" text-anchor="start" style="fill:var(--ink2)" font-size="12" font-weight="400">10</text>
+<line x1="426.0" y1="44.0" x2="518.0" y2="44.0" style="stroke:var(--line2)" stroke-width="1.4" stroke-dasharray="4 3"/>
+<text x="472.0" y="37.0" text-anchor="middle" style="fill:var(--ink2)" font-size="12" font-weight="400">2</text>
+<line x1="518.0" y1="136.0" x2="518.0" y2="44.0" style="stroke:var(--line2)" stroke-width="1.4"/>
+<text x="525.0" y="94.0" text-anchor="start" style="fill:var(--ink2)" font-size="12" font-weight="400">11</text>
+<line x1="518.0" y1="228.0" x2="610.0" y2="228.0" style="stroke:var(--line2)" stroke-width="1.4"/>
+<text x="564.0" y="221.0" text-anchor="middle" style="fill:var(--ink2)" font-size="12" font-weight="400">3</text>
+<line x1="610.0" y1="320.0" x2="610.0" y2="228.0" style="stroke:var(--line2)" stroke-width="1.4" stroke-dasharray="4 3"/>
+<text x="617.0" y="278.0" text-anchor="start" style="fill:var(--ink2)" font-size="12" font-weight="400">12</text>
+<line x1="518.0" y1="136.0" x2="610.0" y2="136.0" style="stroke:var(--cz)" stroke-width="5"/>
+<text x="564.0" y="129.0" text-anchor="middle" style="fill:var(--cz)" font-size="12" font-weight="700">Z4</text>
+<line x1="610.0" y1="228.0" x2="610.0" y2="136.0" style="stroke:var(--cz)" stroke-width="5"/>
+<text x="617.0" y="186.0" text-anchor="start" style="fill:var(--cz)" font-size="12" font-weight="700">Z13</text>
+<line x1="518.0" y1="44.0" x2="610.0" y2="44.0" style="stroke:var(--line2)" stroke-width="1.4"/>
+<text x="564.0" y="37.0" text-anchor="middle" style="fill:var(--ink2)" font-size="12" font-weight="400">5</text>
+<line x1="610.0" y1="136.0" x2="610.0" y2="44.0" style="stroke:var(--line2)" stroke-width="1.4"/>
+<text x="617.0" y="94.0" text-anchor="start" style="fill:var(--ink2)" font-size="12" font-weight="400">14</text>
+<line x1="610.0" y1="228.0" x2="702.0" y2="228.0" style="stroke:var(--line2)" stroke-width="1.4"/>
+<text x="656.0" y="221.0" text-anchor="middle" style="fill:var(--ink2)" font-size="12" font-weight="400">6</text>
+<line x1="702.0" y1="320.0" x2="702.0" y2="228.0" style="stroke:var(--line2)" stroke-width="1.4" stroke-dasharray="4 3"/>
+<text x="709.0" y="278.0" text-anchor="start" style="fill:var(--ink2)" font-size="12" font-weight="400">15</text>
+<line x1="610.0" y1="136.0" x2="702.0" y2="136.0" style="stroke:var(--line2)" stroke-width="1.4"/>
+<text x="656.0" y="129.0" text-anchor="middle" style="fill:var(--ink2)" font-size="12" font-weight="400">7</text>
+<line x1="702.0" y1="228.0" x2="702.0" y2="136.0" style="stroke:var(--line2)" stroke-width="1.4"/>
+<text x="709.0" y="186.0" text-anchor="start" style="fill:var(--ink2)" font-size="12" font-weight="400">16</text>
+<line x1="610.0" y1="44.0" x2="702.0" y2="44.0" style="stroke:var(--line2)" stroke-width="1.4"/>
+<text x="656.0" y="37.0" text-anchor="middle" style="fill:var(--ink2)" font-size="12" font-weight="400">8</text>
+<line x1="702.0" y1="136.0" x2="702.0" y2="44.0" style="stroke:var(--line2)" stroke-width="1.4"/>
+<text x="709.0" y="94.0" text-anchor="start" style="fill:var(--ink2)" font-size="12" font-weight="400">17</text>
+<circle cx="426.0" cy="228.0" r="7" style="fill:none;stroke:var(--ink3)" stroke-dasharray="2 2"/>
+<text x="416.0" y="232.0" text-anchor="end" style="fill:var(--ink3)" font-size="10" font-weight="400">s6</text>
+<circle cx="426.0" cy="136.0" r="7" style="fill:none;stroke:var(--ink3)" stroke-dasharray="2 2"/>
+<text x="416.0" y="140.0" text-anchor="end" style="fill:var(--ink3)" font-size="10" font-weight="400">s7</text>
+<circle cx="426.0" cy="44.0" r="7" style="fill:none;stroke:var(--ink3)" stroke-dasharray="2 2"/>
+<text x="416.0" y="48.0" text-anchor="end" style="fill:var(--ink3)" font-size="10" font-weight="400">s8</text>
+<circle cx="518.0" cy="320.0" r="7" style="fill:none;stroke:var(--ink3)" stroke-dasharray="2 2"/>
+<text x="518.0" y="340.0" text-anchor="middle" style="fill:var(--ink3)" font-size="10" font-weight="400">s2</text>
+<circle cx="610.0" cy="320.0" r="7" style="fill:none;stroke:var(--ink3)" stroke-dasharray="2 2"/>
+<text x="610.0" y="340.0" text-anchor="middle" style="fill:var(--ink3)" font-size="10" font-weight="400">s5</text>
+<circle cx="702.0" cy="320.0" r="7" style="fill:none;stroke:var(--ink3)" stroke-dasharray="2 2"/>
+<text x="702.0" y="340.0" text-anchor="middle" style="fill:var(--ink3)" font-size="10" font-weight="400">s8</text>
+<circle cx="518.0" cy="228.0" r="8" style="fill:var(--bg2);stroke:var(--cx)" stroke-width="1.8"/>
+<text x="508.0" y="246.0" text-anchor="end" style="fill:var(--cx)" font-size="12" font-weight="700">s0</text>
+<circle cx="518.0" cy="136.0" r="9" style="fill:var(--cd);stroke:var(--cd)"/>
+<text x="508.0" y="154.0" text-anchor="end" style="fill:var(--cd)" font-size="12" font-weight="700">s1</text>
+<text class="zh" x="508.0" y="168.0" text-anchor="end" style="fill:var(--cd)" font-size="10.5" font-weight="400">碰撞 1</text>
+<text class="en" x="508.0" y="168.0" text-anchor="end" style="fill:var(--cd)" font-size="10.5" font-weight="400">overlap 1</text>
+<circle cx="518.0" cy="44.0" r="8" style="fill:var(--bg2);stroke:var(--cx)" stroke-width="1.8"/>
+<text x="508.0" y="62.0" text-anchor="end" style="fill:var(--cx)" font-size="12" font-weight="700">s2</text>
+<circle cx="610.0" cy="228.0" r="9" style="fill:var(--cd);stroke:var(--cd)"/>
+<text x="600.0" y="246.0" text-anchor="end" style="fill:var(--cd)" font-size="12" font-weight="700">s3</text>
+<text class="zh" x="600.0" y="260.0" text-anchor="end" style="fill:var(--cd)" font-size="10.5" font-weight="400">碰撞 1</text>
+<text class="en" x="600.0" y="260.0" text-anchor="end" style="fill:var(--cd)" font-size="10.5" font-weight="400">overlap 1</text>
+<circle cx="610.0" cy="136.0" r="8" style="fill:var(--bg2);stroke:var(--cx)" stroke-width="1.8"/>
+<text x="600.0" y="154.0" text-anchor="end" style="fill:var(--cx)" font-size="12" font-weight="700">s4</text>
+<text class="zh" x="600.0" y="168.0" text-anchor="end" style="fill:var(--ink2)" font-size="10.5" font-weight="400">碰撞 2·不亮</text>
+<text class="en" x="600.0" y="168.0" text-anchor="end" style="fill:var(--ink2)" font-size="10.5" font-weight="400">overlap 2·dark</text>
+<circle cx="610.0" cy="44.0" r="8" style="fill:var(--bg2);stroke:var(--cx)" stroke-width="1.8"/>
+<text x="600.0" y="62.0" text-anchor="end" style="fill:var(--cx)" font-size="12" font-weight="700">s5</text>
+<circle cx="702.0" cy="228.0" r="8" style="fill:var(--bg2);stroke:var(--cx)" stroke-width="1.8"/>
+<text x="692.0" y="246.0" text-anchor="end" style="fill:var(--cx)" font-size="12" font-weight="700">s6</text>
+<circle cx="702.0" cy="136.0" r="8" style="fill:var(--bg2);stroke:var(--cx)" stroke-width="1.8"/>
+<text x="692.0" y="154.0" text-anchor="end" style="fill:var(--cx)" font-size="12" font-weight="700">s7</text>
+<circle cx="702.0" cy="44.0" r="8" style="fill:var(--bg2);stroke:var(--cx)" stroke-width="1.8"/>
+<text x="692.0" y="62.0" text-anchor="end" style="fill:var(--cx)" font-size="12" font-weight="700">s8</text>
+<text class="zh" x="564.0" y="20.0" text-anchor="middle" style="fill:var(--ink)" font-size="12.5" font-weight="600">② 重量 2：Z₄ Z₁₃（两条边相邻）</text>
+<text class="en" x="564.0" y="20.0" text-anchor="middle" style="fill:var(--ink)" font-size="12.5" font-weight="600">② Weight 2: Z on 4 and 13 (adjacent edges)</text>
+<text class="zh" x="564.0" y="364.0" text-anchor="middle" style="fill:var(--ink2)" font-size="11.5" font-weight="400">共享端点 s4 碰撞 2 次，不亮；s1、s3 各 1 次</text>
+<text class="en" x="564.0" y="364.0" text-anchor="middle" style="fill:var(--ink2)" font-size="11.5" font-weight="400">shared end s4: 2 overlaps, unlit; s1, s3: 1 each</text>
+<text class="zh" x="564.0" y="382.0" text-anchor="middle" style="fill:var(--ink2)" font-size="11.5" font-weight="400">这一行写 s1 或 s3，不能写 s4</text>
+<text class="en" x="564.0" y="382.0" text-anchor="middle" style="fill:var(--ink2)" font-size="11.5" font-weight="400">this line: s1 or s3, never s4</text>
+</svg>
+    </div>
+    <figcaption><span class="fno"><span class="zh">图 5.1</span><span class="en">Fig. 5.1</span></span><span class="zh">toric_L3 的两行转录，编号与上面的构造器一致。灰线 = 边，每条边上住一个比特，数字是它的编号（列号）：横边 0–8 是构造器的左层，竖边 9–17 是右层。空心橙圆 s0–s8 = 星检查（X 型，碰它的四条边）；虚线圆 = 环面卷回来的同一颗星（左缘接右缘，下缘接上缘），灰色虚线边就是跨过接缝的边。蓝粗边 = 候选放 Z 的比特；实心品红圆 = 被触发的星，旁注碰撞次数。① Z<sub>4</sub> 触发它的两个端点 s1、s4。② Z<sub>4</sub>Z<sub>13</sub> 的共享端点 s4 碰撞两次、不亮，只有两条边各自的另一端 s1、s3 亮。</span><span class="en">Two transcript lines of toric_L3, numbered as in the builder above. Grey lines = edges, one qubit per edge, the number is its index (column): horizontal edges 0–8 are the builder's left layer, vertical edges 9–17 its right layer. Hollow orange circles s0–s8 = star checks (X-type, touching their four edges); dashed circles = the same stars seen again across the torus seam (left edge glued to right, bottom to top), and the grey dashed edges are those crossing the seam. Thick blue edges = qubits where the candidate puts a Z; solid magenta circles = stars that fire, with the overlap count beside them. ① Z<sub>4</sub> trips both its endpoints, s1 and s4. ② For Z<sub>4</sub>Z<sub>13</sub> the shared endpoint s4 sees two overlaps and stays dark; only the far ends s1 and s3 fire.</span></figcaption>
+  </figure>
+  <div class="prose">
+    <p class="zh">对照一下 Atlas 自己在表面码 L3 上留下的机器见证（<span class="mono">atlas/surface/pedagogy/distance-proof.md</span> 第 4 节原文）：<span class="mono">logical X support: [0, 1, 2]</span>、<span class="mono">logical Z support: [0, 3, 6]</span>、<span class="mono">exact_distance(L=3): 3 (exact-css-enum)</span>——一条横跨串、一条竖跨串、一次穷举。那两行支撑就是见证。那次穷举只列纯 X、纯 Z 串，它排除重量 1、2 的那部分展开来是 2 × (13 + 78) = 182 行；Lean 证书的转录把 X、Y、Z 三种字母都列上，是 741 行。</p>
+    <p class="en">Compare the machine witnesses the Atlas itself left on surface L3 (<span class="mono">atlas/surface/pedagogy/distance-proof.md</span>, section 4, verbatim): <span class="mono">logical X support: [0, 1, 2]</span>, <span class="mono">logical Z support: [0, 3, 6]</span>, <span class="mono">exact_distance(L=3): 3 (exact-css-enum)</span>: one string spanning across, one spanning down, one exhaustion. The two support lines are the witnesses. That exhaustion lists only pure-X and pure-Z strings; the part ruling out weights 1 and 2, unrolled, is 2 × (13 + 78) = 182 lines; the Lean certificate's transcript lists all three letters X, Y, Z and has 741 lines.</p>
   </div>
 
   <h3 id="s5-3"><span class="sec-no">5.3</span><span class="zh">往哪里走</span><span class="en">Where to go next</span></h3>
@@ -1281,8 +1467,8 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
     <h2><span class="zh">一张表、一道门、半个角</span><span class="en">One table, one gate, half a corner</span></h2>
   </div>
   <div class="prose">
-    <p class="zh">回放一遍。声明要人信，证书让机器算：每个候选一行，写明它触发哪条检查或它是哪些检查的乘积，顺序固定，检查器自己生成候选流逐行对照。Atlas 的检查器 Lean Complete v1 已封存，认得四类证书；关于下界的只有逐行表 small-exact-distance-enumeration，门槛 Σ C(n,w)·3<sup>w</sup> ≤ 65 536：L3 741 行、toric_L3 1 431 行、L4 64 875 行进了门，L5 的 8 498 193 行和 gross 的 10<sup>21</sup> 行在门外，「unsupported, not false」。没有下界证书，机器只能说 [[144, 12, ≤ 12]]，上层的每个定理都得把 d ≥ 12 当公理。合格的答案分两步：先用引理把转录写短，再找到像 (√x − 1/√x)² 那样一行顶无穷的对偶证书——长度像 144，不像 10<sup>21</sup>。难在对偶要紧、退化不线性、字典（L1）未全、算术要精确、检查器要小。状态 open，难度 open-research。</p>
-    <p class="en">Replay. A claim asks for trust; a certificate lets a machine compute: one line per candidate saying which check it trips or which checks multiply to it, in a fixed order, with the checker generating the candidate stream itself and comparing line by line. The Atlas checker Lean Complete v1 is sealed and recognises four certificate classes; the only one about lower bounds is the line-by-line small-exact-distance-enumeration, gated by Σ C(n,w)·3<sup>w</sup> ≤ 65 536: L3's 741 lines, toric_L3's 1 431 and L4's 64 875 pass, L5's 8 498 193 and gross's 10<sup>21</sup> stay outside, “unsupported, not false”. Without a lower-bound certificate the machine can only say [[144, 12, ≤ 12]], and every theorem above must take d ≥ 12 as an axiom. A qualifying answer comes in two steps: shorten transcripts with lemmas, then find a dual certificate like (√x − 1/√x)², one line covering infinitely many cases, with length like 144 rather than 10<sup>21</sup>. Hard because the dual must be tight, degeneracy is not linear, the dictionary (L1) is incomplete, the arithmetic must be exact and the checker must stay small. Status open, difficulty open-research.</p>
+    <p class="zh">回放一遍。声明要人信，证书让机器算：每个候选一行，写明它触发哪条检查或它是哪些检查的乘积，顺序固定，检查器自己生成候选流逐行对照。Atlas 的检查器 Lean Complete v1 已封存，认得四类证书；关于下界的只有逐行表 small-exact-distance-enumeration，门槛 Σ C(n,w)·3<sup>w</sup> ≤ 65 536：L3 741 行、toric_L3 1 431 行、L4 64 875 行进了门，L5 的 8 498 193 行和 gross 的 10<sup>21</sup> 行在门外，「unsupported, not false」。没有下界证书，机器只能说 [[144, 12, ≤ 12]]，上层的每个定理都得把 d ≥ 12 当公理。合格的答案分两步：先用引理把转录写短，再找到像 (√x − 1/√x)² 那样一行顶无穷的对偶证书——指望它的长度随检查条数走，不随候选数（10<sup>21</sup>）走；光是局部检查约束就有几百到几千条，而一份有效证书还需排除零串和检查乘积，长度没人算过。难在对偶要紧、退化不线性、字典（L1）未全、算术要精确、检查器要小。状态 open，难度 open-research。</p>
+    <p class="en">Replay. A claim asks for trust; a certificate lets a machine compute: one line per candidate saying which check it trips or which checks multiply to it, in a fixed order, with the checker generating the candidate stream itself and comparing line by line. The Atlas checker Lean Complete v1 is sealed and recognises four certificate classes; the only one about lower bounds is the line-by-line small-exact-distance-enumeration, gated by Σ C(n,w)·3<sup>w</sup> ≤ 65 536: L3's 741 lines, toric_L3's 1 431 and L4's 64 875 pass, L5's 8 498 193 and gross's 10<sup>21</sup> stay outside, “unsupported, not false”. Without a lower-bound certificate the machine can only say [[144, 12, ≤ 12]], and every theorem above must take d ≥ 12 as an axiom. A qualifying answer comes in two steps: shorten transcripts with lemmas, then find a dual certificate like (√x − 1/√x)², one line covering infinitely many cases, hoping for a length set by the number of checks rather than by the candidates (10<sup>21</sup>); the local check constraints alone number hundreds to thousands, and a valid certificate must also exclude the zero string and check products, at a length nobody has computed. Hard because the dual must be tight, degeneracy is not linear, the dictionary (L1) is incomplete, the arithmetic must be exact and the checker must stay small. Status open, difficulty open-research.</p>
   </div>
 
   <h3 id="symtable"><span class="zh">符号与读法</span><span class="en">Symbols &amp; how to read them</span></h3>
@@ -1316,6 +1502,11 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
       <tr><td><span class="zh">unsupported，不是 false</span><span class="en">unsupported, not false</span></td><td><span class="zh">超出政策门的声明被标为「不支持」，不是「错」。</span><span class="en">A claim beyond the policy gate is marked “unsupported”, not “wrong”.</span></td></tr>
       <tr><td><span class="zh">对偶（dual）</span><span class="en">dual</span></td><td><span class="zh">线性规划下界的证书：每条约束一个非负乘数，加权相加读出下界；核对只需乘加。</span><span class="en">The certificate of an LP lower bound: one non-negative multiplier per constraint, weighted sum reading off the bound; checking needs only multiply-and-add.</span></td></tr>
       <tr><td><span class="zh">discharges / 不改写来源</span><span class="en">discharges / no origin rewrite</span></td><td><span class="zh">证书通过后记入的已核对命题清单；证据词不因此自动改变。</span><span class="en">The list of checked propositions a passing certificate is recorded in; the evidence word does not change automatically.</span></td></tr>
+      <tr><td><span class="zh">对易 / 反对易 / 碰撞</span><span class="en">commute / anticommute / collision</span></td><td><span class="zh">一个比特上两字母都不是 I 且不同算一次碰撞；整串碰撞数偶数则对易（检查看不见），奇数则反对易（触发警报）。</span><span class="en">A position where both letters are non-I and different is a collision; an even total means the strings commute (the check cannot see it), odd means they anticommute (the alarm fires).</span></td></tr>
+      <tr><td><span class="zh">字典序</span><span class="en">dictionary (lexicographic) order</span></td><td><span class="zh">先比第一个编号，相同再比第二个：{1,2}、{1,3}、{2,3}。契约的顺序是先按重量、同重量内再按字典序（1.3 节），所以三比特表的顺序是 {1}、{2}、{3}、{1,2}、{1,3}、{2,3}；单纯的字典序会把 {1,2} 排在 {2} 之前。</span><span class="en">Compare the first index, on a tie the second: {1,2}, {1,3}, {2,3}. The contract's order is weight first, then dictionary order within each weight (1.3), so the three-bit table runs {1}, {2}, {3}, {1,2}, {1,3}, {2,3}; plain dictionary order would put {1,2} before {2}.</span></td></tr>
+      <tr><td><span class="zh">证据词 verified / bounded</span><span class="en">evidence word verified / bounded</span></td><td><span class="zh">Atlas 给每个数标的来源：上下两半都由机器算出 / 上界来自机器找到的见证、下界引自论文。</span><span class="en">The Atlas label for where a number comes from: both halves computed by machine / upper half from a machine-found witness, lower half cited from a paper.</span></td></tr>
+      <tr><td><span class="zh">线性规划</span><span class="en">linear programming</span></td><td><span class="zh">在一组一次不等式划出的区域里求一个一次式的最小值；它的对偶给出可以只用乘加核对的下界。</span><span class="en">Minimising a first-degree expression over a region cut out by first-degree inequalities; its dual gives a lower bound checkable with multiplication and addition alone.</span></td></tr>
+      <tr><td><span class="zh">退化</span><span class="en">degeneracy</span></td><td><span class="zh">能纠正的两个不同错误对码字作用相同（两者之积是非恒等的检查乘积）；码距版说法：有比 d 轻的非恒等检查乘积。toric_L3 不退化（最轻 4 &gt; d = 3），toric_L5 退化（最轻 4 &lt; d = 5）。</span><span class="en">Two different correctable errors act identically on the codewords (their product is a nonidentity check product); distance version: some nonidentity check product is lighter than d. toric_L3 is nondegenerate (lightest 4 &gt; d = 3), toric_L5 degenerate (lightest 4 &lt; d = 5).</span></td></tr>
     </table>
   </div>
 
@@ -1328,8 +1519,8 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
 
   <div class="note note-honest">
     <span class="note-tag"><span class="zh">诚实总账</span><span class="en">The honesty ledger</span></span>
-    <p class="zh">状态原文：<b>open</b>；难度原文：<b>open-research</b>。逐字引用的：statement、why_it_matters、current_proxy（第 1、2、3 章的框），lean-qec 的 statement 与 current_proxy 片段，契约与 T195 文件的引句，设计规范第 11 节的 L1–L4 句子，distance-proof.md 第 4 节的三行见证。Atlas 自己的数：65 536、三条公理、四类证书、五个实例的 [[n,k,d]] 与证据词。本篇自己算的、Atlas 页面上没有的数：741、1 431、64 875、8 498 193、≈ 1.7 × 10<sup>21</sup>、倍数 2.6 × 10<sup>16</sup>、6 行、18 与 153 行、112 791 与 225 582。本篇临时取名、Atlas 契约里不存在的：distance-lower-bound。只陈述、未证明、超出高中数学的：线性规划对偶定理、Lean 的内部工作方式。没有在本机运行 Lean、Atlas 验证器或任何搜索。</p>
-    <p class="en">Status verbatim: <b>open</b>; difficulty verbatim: <b>open-research</b>. Quoted word for word: statement, why_it_matters, current_proxy (the boxes of Chapters 1, 2, 3), the statement and current_proxy fragments of lean-qec, the sentences from the contract and T195 files, the L1–L4 sentences of design-spec section 11, the three witness lines of distance-proof.md section 4. Atlas's own numbers: 65 536, three axioms, four certificate classes, the [[n,k,d]] and evidence words of five instances. Computed for this guide and absent from Atlas pages: 741, 1 431, 64 875, 8 498 193, ≈ 1.7 × 10<sup>21</sup>, the factor 2.6 × 10<sup>16</sup>, 6 lines, 18 and 153 lines, 112 791 and 225 582. Coined by this guide and absent from the Atlas contract: distance-lower-bound. Stated only, not proved, beyond high-school mathematics: LP duality and Lean's inner workings. Neither Lean, the Atlas verifier nor any search was run on this machine.</p>
+    <p class="zh">状态原文：<b>open</b>；难度原文：<b>open-research</b>。逐字引用的：statement、why_it_matters、current_proxy（第 1、2、3 章的框），lean-qec 的 statement 与 current_proxy 片段，契约与 T195 文件的引句，设计规范第 11 节的 L1–L4 句子，distance-proof.md 第 4 节的三行见证。Atlas 自己的数：65 536、三条公理、四类证书、五个实例的 [[n,k,d]] 与证据词。本篇自己算的、Atlas 页面上没有的数：741、1 431、64 875、8 498 193、≈ 1.7 × 10<sup>21</sup>、倍数 2.6 × 10<sup>16</sup>、6 行、18 与 153 行、112 791 与 225 582、182、15 750、≈ 2.0 × 10<sup>16</sup>，以及 10<sup>2</sup>–10<sup>4</sup>：这是局部检查约束条数的假设性计数，一份完整证书的长度没有计算（4.2 节）。本篇临时取名、Atlas 契约里不存在的：distance-lower-bound。只陈述、未证明、超出高中数学的：线性规划对偶定理、Lean 的内部工作方式。没有在本机运行 Lean、Atlas 验证器或任何搜索。</p>
+    <p class="en">Status verbatim: <b>open</b>; difficulty verbatim: <b>open-research</b>. Quoted word for word: statement, why_it_matters, current_proxy (the boxes of Chapters 1, 2, 3), the statement and current_proxy fragments of lean-qec, the sentences from the contract and T195 files, the L1–L4 sentences of design-spec section 11, the three witness lines of distance-proof.md section 4. Atlas's own numbers: 65 536, three axioms, four certificate classes, the [[n,k,d]] and evidence words of five instances. Computed for this guide and absent from Atlas pages: 741, 1 431, 64 875, 8 498 193, ≈ 1.7 × 10<sup>21</sup>, the factor 2.6 × 10<sup>16</sup>, 6 lines, 18 and 153 lines, 112 791 and 225 582, 182, 15 750, ≈ 2.0 × 10<sup>16</sup>, and 10<sup>2</sup>–10<sup>4</sup>, a hypothetical count of local check constraints; the length of a complete certificate was not computed (section 4.2). Coined by this guide and absent from the Atlas contract: distance-lower-bound. Stated only, not proved, beyond high-school mathematics: LP duality and Lean's inner workings. Neither Lean, the Atlas verifier nor any search was run on this machine.</p>
   </div>
 
   <div class="note note-key">
@@ -3884,50 +4075,65 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
         'Z', (v) => { mode = v; upd(); }
       );
       F.controls.append(seg.el,
-        U().btn(isToric ? '示范：可收缩的圈' : '示范：平凡closed圈', isToric ? 'Demo: contractible loop' : 'Demo: trivial loop', '', () => {
+        U().btn(isToric ? '示范：可收缩的圈' : '示范：平凡的闭合圈', isToric ? 'Demo: contractible loop' : 'Demo: trivial loop', '', () => {
           view.errZ = new Set(); view.errX = new Set();
           // boundary of a 2x1 block of plaquettes
           const s = P().xorSet(lat.plaqs[0].support, lat.plaqs[1].support);
           view.errZ = new Set(s);
-          mode = 'Z';
+          if (mode !== 'Z') seg.el.children[0].click();
           upd();
         }),
         U().btn(isToric ? '示范：缠绕圈' : '示范：跨边界串', isToric ? 'Demo: winding loop' : 'Demo: boundary-to-boundary', '', () => {
           view.errZ = new Set(lat.logicals.Z[0]); view.errX = new Set();
-          mode = 'Z';
+          if (mode !== 'Z') seg.el.children[0].click();
           upd();
         }),
         U().btn('清空', 'Clear', '', () => { view.errZ.clear(); view.errX.clear(); upd(); })
       );
+      // Both string types may be on the lattice at once (some pages ask for an X and a Z loop together),
+      // so alarms of both types are counted and each drawn type gets its own verdict.
+      function judge(type, sup) {
+        const partners = type === 'Z' ? lat.logicals.X : lat.logicals.Z;
+        const par = partners.map((Lg) => P().overlapParity(sup, Lg));
+        if (!par.some((v) => v === 1)) {
+          return {
+            zh: '<span class="ok">警报全灭</span>，而且它是<b>平凡的</b>：它恰好等于若干' + (type === 'Z' ? '面检查' : '星检查') + '的乘积，对编码信息<b>什么也不做</b>。',
+            en: '<span class="ok">No alarms</span>, and it is <b>trivial</b>: it equals a product of ' + (type === 'Z' ? 'face checks' : 'star checks') + ' and does <b>nothing</b> to the stored information.',
+          };
+        }
+        const L1 = type === 'Z' ? 'Z̄₁' : 'X̄₁', L2 = type === 'Z' ? 'Z̄₂' : 'X̄₂';
+        if (isToric) {
+          const which = par[0] && par[1] ? L1 + '·' + L2 + '（两个方向都绕）' : par[0] ? L1 + (type === 'Z' ? '（水平缠绕）' : '') : L2 + (type === 'Z' ? '（垂直缠绕）' : '');
+          const whichEn = par[0] && par[1] ? L1 + '·' + L2 + ', both directions' : par[0] ? L1 + ', direction 1' : L2 + ', direction 2';
+          return {
+            zh: '<span class="no">警报全灭，但这不是平凡圈！</span>它绕过了整个环面——这是<b>逻辑算符 ' + which + '</b>：不触发任何检查，却会改写存下来的量子信息。',
+            en: '<span class="no">No alarms, yet NOT trivial!</span> It winds around the torus (' + whichEn + ') — a <b>logical operator</b>: invisible to every check, yet it rewrites the stored quantum information.',
+          };
+        }
+        return {
+          zh: '<span class="no">警报全灭，但这不是平凡圈！</span>这条串从一条边界横跨到对面——它就是<b>逻辑算符 ' + (type === 'Z' ? 'Z̄' : 'X̄') + '</b>：不触发任何检查，却改写了存下来的量子比特。',
+          en: '<span class="no">No alarms, yet NOT trivial!</span> The string spans from one boundary to the opposite one — the <b>logical operator ' + (type === 'Z' ? 'Z̄' : 'X̄') + '</b>: invisible to every check, yet it rewrites the stored qubit.',
+        };
+      }
       function upd() {
         view.draw();
         const syn = view.syndrome();
         const zSup = [...view.errZ], xSup = [...view.errX];
-        const active = mode === 'Z' ? zSup : xSup;
-        const defects = mode === 'Z' ? syn.starDefects.length : syn.plaqDefects.length;
+        const defects = syn.starDefects.length + syn.plaqDefects.length;
         let verdictZh, verdictEn;
-        if (!active.length) {
+        if (!zSup.length && !xSup.length) {
           verdictZh = '画几条边试试。目标：不触发任何警报。';
           verdictEn = 'Draw some edges. Goal: trigger no alarms.';
         } else if (defects > 0) {
           verdictZh = '还有 <b>' + defects + '</b> 个警报亮着：串有端点。把它闭合，或' + (isToric ? '绕一整圈' : '让两端都搭到正确的边界上') + '。';
           verdictEn = '<b>' + defects + '</b> alarms still lit: the string has endpoints. Close it up, or ' + (isToric ? 'wrap it all the way around' : 'land both ends on the right boundaries') + '.';
         } else {
-          const partners = mode === 'Z' ? lat.logicals.X : lat.logicals.Z;
-          const par = partners.map((Lg) => P().overlapParity(active, Lg));
-          const wound = par.some((v) => v === 1);
-          if (!wound) {
-            verdictZh = '<span class="ok">警报全灭</span>，且这是一个<b>平凡圈</b>：它恰好等于若干' + (mode === 'Z' ? '面检查' : '星检查') + '的乘积，对编码信息<b>什么也不做</b>。';
-            verdictEn = '<span class="ok">No alarms</span>, and this is a <b>trivial loop</b>: it equals a product of ' + (mode === 'Z' ? 'face checks' : 'star checks') + ' and does <b>nothing</b> to the stored information.';
-          } else if (isToric) {
-            const which = par[0] && par[1] ? 'Z̄₁·Z̄₂（两个方向都绕）' : par[0] ? (mode === 'Z' ? 'Z̄₁（水平缠绕）' : 'X̄₁') : (mode === 'Z' ? 'Z̄₂（垂直缠绕）' : 'X̄₂');
-            const whichEn = par[0] && par[1] ? 'both directions' : par[0] ? 'direction 1' : 'direction 2';
-            verdictZh = '<span class="no">警报全灭，但这不是平凡圈！</span>它绕过了整个环面——这是<b>逻辑算符 ' + which + '</b>：不触发任何检查，却会改写存下来的量子信息。';
-            verdictEn = '<span class="no">No alarms, yet NOT trivial!</span> It winds around the torus (' + whichEn + ') — a <b>logical operator</b>: invisible to every check, yet it rewrites the stored quantum information.';
-          } else {
-            verdictZh = '<span class="no">警报全灭，但这不是平凡圈！</span>这条串从一条边界横跨到对面——它就是<b>逻辑算符 ' + (mode === 'Z' ? 'Z̄' : 'X̄') + '</b>：不触发任何检查，却改写了存下来的量子比特。';
-            verdictEn = '<span class="no">No alarms, yet NOT trivial!</span> The string spans from one boundary to the opposite one — the <b>logical operator ' + (mode === 'Z' ? 'Z̄' : 'X̄') + '</b>: invisible to every check, yet it rewrites the stored qubit.';
-          }
+          const both = zSup.length > 0 && xSup.length > 0;
+          const parts = [];
+          if (zSup.length) parts.push({ j: judge('Z', zSup), lz: 'Z 串：', le: 'Z string: ' });
+          if (xSup.length) parts.push({ j: judge('X', xSup), lz: 'X 串：', le: 'X string: ' });
+          verdictZh = parts.map((q) => (both ? q.lz : '') + q.j.zh).join('<br>');
+          verdictEn = parts.map((q) => (both ? q.le : '') + q.j.en).join('<br>');
         }
         F.setReadout('<span class="zh">' + verdictZh + '</span><span class="en">' + verdictEn + '</span>');
       }
@@ -4012,8 +4218,8 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
         view.hlEdges = new Map([...corr].map((e) => [e, { color: getComputedStyle(doc.documentElement).getPropertyValue('--good').trim(), width: 5 }]));
         view.draw();
         F.setReadout(fail
-          ? '<span class="zh"><span class="no">这回合失败了。</span>蓝色 = 真实错误，绿色 = 你的修复。二者合起来形成了' + (isToric ? '一条<b>缠绕整个环面</b>的圈' : '一条<b>横跨两条边界</b>的串') + ' —— 恰好是逻辑算符，信息被改写。连胜清零。点「新回合」再来！</span><span class="en"><span class="no">Round lost.</span> Blue = true errors, green = your repair. Together they form ' + (isToric ? 'a loop <b>winding around the torus</b>' : 'a string <b>spanning both boundaries</b>') + ' — exactly a logical operator; the data got rewritten. Streak reset. “New round” to retry!</span>'
-          : '<span class="zh"><span class="ok">成功！</span>蓝 + 绿合成的圈都是可收缩的平凡圈 —— 你的修复不必和错误一模一样，只要「合起来平凡」就赢。连胜 <b>' + streak + '</b>！</span><span class="en"><span class="ok">Success!</span> Blue + green together form only trivial contractible loops — the repair need not equal the error, it only needs to be trivial in combination. Streak <b>' + streak + '</b>!</span>');
+          ? '<span class="zh"><span class="no">这回合失败了。</span>蓝色 = 真实错误，绿色 = 你的修复。二者合起来' + (isToric ? '在某个方向上<b>缠绕环面</b>的总圈数是<b>奇数</b>' : '含有<b>奇数条</b><b>横跨两条边界</b>的串') + ' —— 合起来是一个逻辑算符，信息被改写。连胜清零。点「新回合」再来！</span><span class="en"><span class="no">Round lost.</span> Blue = true errors, green = your repair. Together they ' + (isToric ? '<b>wind around the torus</b> an <b>odd</b> total number of times in some direction' : 'contain an <b>odd number</b> of strings <b>spanning both boundaries</b>') + ' — together a logical operator; the data got rewritten. Streak reset. “New round” to retry!</span>'
+          : '<span class="zh"><span class="ok">成功！</span>蓝 + 绿合起来' + (isToric ? '在两个方向上缠绕环面的总圈数都是偶数（0 也算，两圈互相抵消）' : '横跨两条边界的串是偶数条（0 条也算，两条互相抵消）') + '—— 合起来只是一些检查的乘积。你的修复不必和错误一模一样，只要合起来是检查的乘积就赢。连胜 <b>' + streak + '</b>！</span><span class="en"><span class="ok">Success!</span> Blue + green together ' + (isToric ? 'wind around the torus an even total number of times in both directions (0 counts; two windings cancel)' : 'contain an even number of strings spanning both boundaries (0 counts; two cancel)') + ' — together just a product of checks. The repair need not equal the error; together with it, it only needs to form a product of checks. Streak <b>' + streak + '</b>!</span>');
       }
       function newRound() {
         err = new Set(); corr = new Set(); sel = null; over = false;
@@ -4059,12 +4265,12 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
         en: '① Start: the toric code. Note the stubs sticking out — they wrap to the opposite side; that is what makes it a torus.',
       },
       {
-        zh: '② 一刀剪开：删除所有绕回去的边。立刻出问题——边界上的星和面都缺了一条腿（虚线标出），检查表变得乱七八糟。',
-        en: '② Cut: delete every wrapping edge. Trouble at once — boundary stars and faces each lose a leg (dashed); the checks are mutilated.',
+        zh: '② 一刀剪开：删除所有绕回去的边（图里不再画出）。立刻出问题：沿边的星少了一条腿，四个角上的星少了两条；原来跨过剪口的面只剩两条腿，而且这两条分在贴片相对的两头，角上那一块面一条腿也不剩。检查表乱了套。',
+        en: '② Cut: delete every wrapping edge (no longer drawn). Trouble at once: the stars along the edge lose one leg and the four corner stars lose two; the faces that straddled the cut keep only two legs, on opposite sides of the patch, and the corner face keeps none. The checks are mutilated.',
       },
       {
-        zh: '③ 收拾干净：接受「三条腿」的检查作为正式成员，但分好工——左右两侧只截断<b>面</b>（并保留伸出的悬挂边），上下两侧只截断<b>星</b>。这就是<b>表面码</b>的版图：两种边界，各司其职。',
-        en: '③ Tidy up: keep the 3-leg checks as legitimate members, but divide the work — the left/right sides truncate only <b>faces</b> (keeping the dangling edges), the top/bottom truncate only <b>stars</b>. This is the <b>surface code</b> layout: two kinds of boundary, each with a job.',
+        zh: '③ 收拾干净：接受「三条腿」的检查作为正式成员，但分好工——左右两侧只截断<b>面</b>（并保留伸出的悬挂边），上下两侧只截断<b>星</b>。这就是<b>表面码</b>的版图：两种边界，各司其职。（这一帧重新画了一块 L = 4 的平面码，而不是在上一帧上修补：25 个比特、12 个星检查、12 个面检查，左右两侧带悬挂的横边。）',
+        en: '③ Tidy up: keep the 3-leg checks as legitimate members, but divide the work — the left/right sides truncate only <b>faces</b> (keeping the dangling edges), the top/bottom truncate only <b>stars</b>. This is the <b>surface code</b> layout: two kinds of boundary, each with a job. (This frame redraws an L = 4 planar code rather than patching the previous one: 25 qubits, 12 star checks and 12 face checks, with dangling horizontal edges on the left and right.)',
       },
     ];
     function render() {
@@ -4126,8 +4332,10 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
       { zh: '① 噪声落下：几条 Z 错误悄悄出现（真实设备里你看不到它们）', en: '① Noise strikes: a few Z errors appear (invisible in a real device)' },
       { zh: '② 测量所有检查：只有错误链的端点亮起警报', en: '② Measure every check: only chain endpoints raise alarms' },
       { zh: '③ 译码器配对警报，规划修复链（绿）', en: '③ The decoder pairs alarms and plans repair chains (green)' },
-      { zh: '④ 施加修复：错误 ⊕ 修复 = 平凡圈 → 警报全灭，信息完好', en: '④ Apply the repair: error ⊕ repair = trivial loops → alarms clear, data intact' },
+      { zh: '④ 施加修复：警报全灭；错误 ⊕ 修复和 X̄ 交叉偶数次 → 信息完好', en: '④ Apply the repair: alarms clear; error ⊕ repair crosses X̄ an even number of times → data intact' },
     ];
+    const PH_FAIL = { zh: '④ 施加修复：警报全灭，但错误 ⊕ 修复和 X̄ 交叉奇数次 → 逻辑错误，信息被改写', en: '④ Apply the repair: alarms clear, but error ⊕ repair crosses X̄ an odd number of times → a logical error; the data is overwritten' };
+    let lastFail = false;
     function step() {
       phase = (phase + 1) % 4;
       if (phase === 0) {
@@ -4147,16 +4355,16 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
       } else {
         const residual = P().xorSet([...err], corr);
         const fail = lat.logicals.X.some((Lg) => P().overlapParity(residual, Lg));
-        rounds++; if (!fail) saved++;
+        rounds++; if (!fail) saved++; lastFail = fail;
         view.errZ = new Set(residual.filter(() => false));
         view.errZ = new Set();
         view.hlEdges = new Map();
       }
       view.draw();
-      const tail = phase === 3 ? (U().getLang() === 'en'
-        ? ' — rounds: ' + rounds + ', data survived: ' + saved
-        : ' — 已运行 ' + rounds + ' 轮，信息幸存 ' + saved + ' 轮') : '';
-      F.setReadout('<span class="zh">' + PH[phase].zh + tail + '</span><span class="en">' + PH[phase].en + tail + '</span>');
+      const tailZh = phase === 3 ? ' — 已运行 ' + rounds + ' 轮，信息幸存 ' + saved + ' 轮' : '';
+      const tailEn = phase === 3 ? ' — rounds: ' + rounds + ', data survived: ' + saved : '';
+      const ph = phase === 3 && lastFail ? PH_FAIL : PH[phase];
+      F.setReadout('<span class="zh">' + ph.zh + tailZh + '</span><span class="en">' + ph.en + tailEn + '</span>');
     }
     function play() {
       if (timer) return;
@@ -4603,8 +4811,8 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
       en: ['Winding loops = logicals', 'Loops circling the whole torus pass every check yet are no product of checks — they rewrite logical data. Two directions give Z̄₁, Z̄₂; duals give X̄₁, X̄₂; paired loops cross once ⇒ anticommute.'],
     },
     decoder: {
-      zh: ['译码 = 配对', '只见警报不见链：把警报两两配对、沿路径修复。错误⊕修复必闭合——可收缩则完美复原，缠绕则无声逻辑错误。'],
-      en: ['Decoding = matching', 'Alarms visible, chains not: pair the alarms and repair along paths. Error ⊕ repair is always closed — contractible = perfect recovery, winding = silent logical error.'],
+      zh: ['译码 = 配对', '只见警报不见链：把警报两两配对、沿路径修复。错误⊕修复必闭合——每个方向都缠绕偶数次（0 次也算）则完美复原，某个方向缠绕奇数次则是无声的逻辑错误；同方向的两圈互相抵消。'],
+      en: ['Decoding = matching', 'Alarms visible, chains not: pair the alarms and repair along paths. Error ⊕ repair is always closed — an even number of windings in each direction (0 included) = perfect recovery, an odd number in some direction = a silent logical error; two windings in the same direction cancel.'],
     },
     dL: {
       zh: ['环面码距 d = L', '最轻的逻辑算符是最短缠绕圈（长 L），对 X、Z 对称；压垮它需约 L/2 个错误连成线。'],
@@ -4624,8 +4832,8 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
       en: ['Spanning strings = logicals', 'A string dying on its own boundary at both ends: zero alarms, no product of checks (it crosses the other direction\'s spanning string once, so they anticommute).' + F('Z̄: rough→rough · X̄: smooth→smooth · X̄Z̄ = −Z̄X̄')],
     },
     cycle: {
-      zh: ['纠错循环', '每轮四拍：噪声 → 测全部检查 → 配对（可配边界）→ 修复；失败 ⇔ 错误⊕修复含横跨串。'],
-      en: ['The correction cycle', 'Four beats per round: noise → measure all checks → match (boundaries allowed) → repair; failure ⇔ error ⊕ repair contains a spanning string.'],
+      zh: ['纠错循环', '每轮四拍：噪声 → 测全部检查 → 配对（可配边界）→ 修复；失败 ⇔ 错误⊕修复和 X̄ 交叉奇数次，也就是横跨贴片的串有奇数条（两条互相抵消，偶数条无事）。'],
+      en: ['The correction cycle', 'Four beats per round: noise → measure all checks → match (boundaries allowed) → repair; failure ⇔ error ⊕ repair crosses X̄ an odd number of times, i.e. contains an odd number of spanning strings (two cancel, so an even number is harmless).'],
     },
     ancilla: {
       zh: ['辅助比特测量', '每条检查配一个帮手比特：与 4 个数据比特依次作用后单独被读出，给出 ±1；数据比特从未被直接测量。'],
@@ -5249,10 +5457,10 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
     const F = U().frame(el, { titleZh: 'BB 构造器：两个多项式，一个码', titleEn: 'The BB constructor: two polynomials, one code' });
     const presetKey = el.dataset.preset || 'bb72';
     let pr = L().BB_PRESETS[presetKey]; let l = pr.l, m = pr.m, aTerms = pr.a.map((t) => t.slice()), bTerms = pr.b.map((t) => t.slice());
-    let code = null, P = null, sel = { kind: 'X', site: 0 }, view = 'check', searchNote = '';
+    let code = null, P = null, sel = { kind: 'X', site: 0 }, view = 'check', searchNote = { zh: '', en: '' }, witness = null;
     const wrap = div('canvas-wrap'); F.body.appendChild(wrap);
     const box = U().canvasBox(wrap, (w) => Math.min(460, w * 0.8), draw);
-    function build() { code = L().bb(l, m, aTerms, bTerms); P = L().cssParams(code.hx, code.hz); searchNote = ''; }
+    function build() { code = L().bb(l, m, aTerms, bTerms); P = L().cssParams(code.hx, code.hz); searchNote = { zh: '', en: '' }; witness = null; }
     function metrics() { const w = box.w, h = box.h, pad = 34; const cell = Math.min((w - 2 * pad) / (l + 0.5), (h - 2 * pad) / (m + 0.5)); return { cell, ox: (w - cell * (l - 0.5)) / 2, oy: (h - cell * (m - 0.5)) / 2 }; }
     const qpos = (col, g) => { const s = L().bbSite(l, m, col); return { x: g.ox + (s.i + 0.5 * s.layer) * g.cell, y: g.oy + (m - 1 - s.j + 0.5 * s.layer) * g.cell, layer: s.layer }; };
     const cpos = (kind, site, g) => { const i = Math.floor(site / m), j = site % m; return kind === 'X' ? { x: g.ox + (i + 0.5) * g.cell, y: g.oy + (m - 1 - j) * g.cell } : { x: g.ox + i * g.cell, y: g.oy + (m - 1 - j + 0.5) * g.cell }; };
@@ -5263,21 +5471,24 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
       // checks
       for (let s = 0; s < N; s++) { const px = cpos('X', s, g); ctx.fillStyle = C.cxSoft; ctx.strokeStyle = C.cx; ctx.lineWidth = 1; ctx.beginPath(); ctx.arc(px.x, px.y, 4.5, 0, 7); ctx.fill(); ctx.stroke(); const pz = cpos('Z', s, g); ctx.fillStyle = C.czSoft; ctx.strokeStyle = C.cz; ctx.beginPath(); ctx.rect(pz.x - 4, pz.y - 4, 8, 8); ctx.fill(); ctx.stroke(); }
       // qubits
-      for (let c = 0; c < 2 * N; c++) { const q = qpos(c, g); ctx.fillStyle = q.layer ? C.ink2 : C.ink3; ctx.beginPath(); ctx.arc(q.x, q.y, q.layer ? 3.2 : 3.6, 0, 7); ctx.fill(); }
+      for (let c = 0; c < 2 * N; c++) { const q = qpos(c, g); ctx.beginPath(); ctx.arc(q.x, q.y, 3.8, 0, 7); if (q.layer) { ctx.fillStyle = C.bg2; ctx.strokeStyle = C.ink2; ctx.lineWidth = 1.5; ctx.fill(); ctx.stroke(); } else { ctx.fillStyle = C.ink2; ctx.fill(); } }
       // selection
       const col = view === 'check' ? null : sel.site;
       if (view === 'check') {
         const row = (sel.kind === 'X' ? code.hx : code.hz)[sel.site]; const pc = cpos(sel.kind, sel.site, g); const color = sel.kind === 'X' ? C.cx : C.cz;
-        for (let c = 0; c < 2 * N; c++) if (row[c]) { const q = qpos(c, g); drawSpoke(ctx, pc, q, g, color); ctx.fillStyle = color; ctx.beginPath(); ctx.arc(q.x, q.y, 6, 0, 7); ctx.fill(); }
-        ctx.fillStyle = color; ctx.beginPath(); ctx.arc(pc.x, pc.y, 8, 0, 7); ctx.fill(); ctx.strokeStyle = C.bg2; ctx.lineWidth = 2; ctx.stroke();
+        for (let c = 0; c < 2 * N; c++) if (row[c]) { const q = qpos(c, g); drawSpoke(ctx, pc, q, g, color); markQubit(ctx, q, 6, color, C); }
+        ctx.fillStyle = color; ctx.beginPath(); if (sel.kind === 'Z') ctx.rect(pc.x - 7.5, pc.y - 7.5, 15, 15); else ctx.arc(pc.x, pc.y, 8, 0, 7); ctx.fill(); ctx.strokeStyle = C.bg2; ctx.lineWidth = 2; ctx.stroke();
       } else {
         const q = qpos(col, g);
         for (let s = 0; s < N; s++) { if (code.hx[s][col]) { const pc = cpos('X', s, g); drawSpoke(ctx, q, pc, g, C.cx); ctx.fillStyle = C.cx; ctx.beginPath(); ctx.arc(pc.x, pc.y, 6.5, 0, 7); ctx.fill(); } if (code.hz[s][col]) { const pc = cpos('Z', s, g); drawSpoke(ctx, q, pc, g, C.cz); ctx.fillStyle = C.cz; ctx.beginPath(); ctx.rect(pc.x - 6, pc.y - 6, 12, 12); ctx.fill(); } }
-        ctx.fillStyle = C.cd; ctx.beginPath(); ctx.arc(q.x, q.y, 8, 0, 7); ctx.fill();
+        markQubit(ctx, q, 7.5, C.cd, C);
       }
+      if (witness) { ctx.font = '700 11px ' + cssVar('--f-mono'); ctx.textAlign = 'left'; ctx.textBaseline = 'bottom'; for (let c = 0; c < 2 * N; c++) if (witness[c]) { const q = qpos(c, g); ctx.strokeStyle = C.cd; ctx.lineWidth = 2.5; ctx.beginPath(); ctx.arc(q.x, q.y, 9.5, 0, 7); ctx.stroke(); ctx.fillStyle = C.cd; ctx.fillText(String(c), q.x + 9, q.y - 7); } }
       ctx.fillStyle = C.ink2; ctx.font = '600 12px ' + cssVar('--f-body'); ctx.textAlign = 'center'; ctx.textBaseline = 'top';
-      ctx.fillText(U().T({ zh: l + ' × ' + m + ' 环面 · 每格两个数据比特（左层深灰、右层浅灰）· 圆 = X 检查，方 = Z 检查', en: l + ' × ' + m + ' torus · two data qubits per site (left layer dark, right layer light) · circle = X check, square = Z check' }), w / 2, h - 18);
+      ctx.fillText(U().T({ zh: l + ' × ' + m + ' 环面 · 每格两个数据比特：实心点 = 左层，空心圈 = 右层 · 圆 = X 检查，方 = Z 检查', en: l + ' × ' + m + ' torus · two data qubits per site: filled dot = left layer, hollow ring = right layer · circle = X check, square = Z check' }), w / 2, h - 18);
     }
+    // highlighted qubit keeps its layer shape: left = filled dot, right = hollow ring outlined in the highlight colour
+    function markQubit(ctx, q, r, color, C) { ctx.beginPath(); ctx.arc(q.x, q.y, r, 0, 7); if (q.layer) { ctx.fillStyle = C.bg2; ctx.fill(); ctx.strokeStyle = color; ctx.lineWidth = 3; ctx.stroke(); } else { ctx.fillStyle = color; ctx.fill(); } }
     function drawSpoke(ctx, a, b, g, color) { // shortest torus displacement; dashed when wrapping
       let dx = b.x - a.x, dy = b.y - a.y; const W = l * g.cell, Hh = m * g.cell; let wrapped = false;
       if (Math.abs(dx) > W / 2) { dx -= Math.sign(dx) * W; wrapped = true; } if (Math.abs(dy) > Hh / 2) { dy -= Math.sign(dy) * Hh; wrapped = true; }
@@ -5295,8 +5506,8 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
       let zh = 'A = ' + termsToPoly(aTerms, 'x', 'y') + '，B = ' + termsToPoly(bTerms, 'x', 'y') + '，l = ' + l + '，m = ' + m + '。H<sub>X</sub> = [A | B]，H<sub>Z</sub> = [Bᵀ | Aᵀ]，' + (P.commute ? 'H<sub>X</sub>H<sub>Z</sub>ᵀ = 0 ✓' : '<span class="no">不对易！</span>') + '。' + paramsLine(P) + '。每条检查重量 ' + wX + '，每个比特被 ' + degs + ' 条检查碰到。';
       let en = 'A = ' + termsToPoly(aTerms, 'x', 'y') + ', B = ' + termsToPoly(bTerms, 'x', 'y') + ', l = ' + l + ', m = ' + m + '. H<sub>X</sub> = [A | B], H<sub>Z</sub> = [Bᵀ | Aᵀ], ' + (P.commute ? 'H<sub>X</sub>H<sub>Z</sub>ᵀ = 0 ✓' : '<span class="no">do not commute!</span>') + '. ' + paramsLine(P) + '. Every check has weight ' + wX + '; every qubit meets ' + degs + ' checks.';
       if (view === 'check') { const s = sel.site, i = Math.floor(s / m), j = s % m; zh += ' 选中的 ' + sel.kind + ' 检查在格点 (' + i + ',' + j + ')：' + (sel.kind === 'X' ? 'A 的每一项指向左层一个比特，B 的每一项指向右层一个比特。' : 'Bᵀ 的每一项反向平移到左层，Aᵀ 的每一项反向平移到右层。'); en += ' Selected ' + sel.kind + ' check at site (' + i + ',' + j + '): ' + (sel.kind === 'X' ? 'each term of A points to one left-layer qubit, each term of B to one right-layer qubit.' : 'each term of Bᵀ translates backwards into the left layer, each term of Aᵀ into the right layer.'); }
-      else { const st = L().bbSite(l, m, sel.site); zh += ' 选中的比特在' + (st.layer ? '右' : '左') + '层 (' + st.i + ',' + st.j + ')：它属于 3 条 X 检查（圆）和 3 条 Z 检查（方）。'; en += ' Selected qubit in the ' + (st.layer ? 'right' : 'left') + ' layer at (' + st.i + ',' + st.j + '): it belongs to the X checks (circles) and Z checks (squares) shown.'; }
-      F.setReadout(bi(zh + searchNote, en + searchNote));
+      else { const st = L().bbSite(l, m, sel.site); const nx = code.hx.filter((r) => r[sel.site]).length, nz = code.hz.filter((r) => r[sel.site]).length; zh += ' 选中的比特是第 ' + sel.site + ' 列，在' + (st.layer ? '右' : '左') + '层 (' + st.i + ',' + st.j + ')：它属于 ' + nx + ' 条 X 检查（圆）和 ' + nz + ' 条 Z 检查（方）。'; en += ' Selected qubit: column ' + sel.site + ', ' + (st.layer ? 'right' : 'left') + ' layer at (' + st.i + ',' + st.j + '); it belongs to ' + nx + ' X checks (circles) and ' + nz + ' Z checks (squares).'; }
+      F.setReadout(bi(zh + searchNote.zh, en + searchNote.en));
     }
     const presetSeg = U().seg(Object.keys(L().BB_PRESETS).map((k) => ({ id: k, zh: L().BB_PRESETS[k].label, en: L().BB_PRESETS[k].label })), presetKey, (k) => { pr = L().BB_PRESETS[k]; l = pr.l; m = pr.m; aTerms = pr.a.map((t) => t.slice()); bTerms = pr.b.map((t) => t.slice()); inA.value = termsToText(aTerms); inB.value = termsToText(bTerms); slL.el.value = l; slL.pill.textContent = 'l = ' + l; slM.el.value = m; slM.pill.textContent = 'm = ' + m; sel = { kind: 'X', site: 0 }; build(); box.redraw(); readout(); });
     const inA = textInput(termsToText(aTerms), 120, (v) => { const t = parseTerms(v); if (t.length) { aTerms = t; build(); box.redraw(); readout(); } });
@@ -5310,8 +5521,27 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
     const row3 = div('controls'); el.insertBefore(row3, F.readout);
     row3.append(viewSeg.el,
       U().btn('随机改一个指数', 'Perturb one exponent', '', () => { const which = Math.random() < 0.5 ? aTerms : bTerms; const t = which[Math.floor(Math.random() * which.length)]; if (Math.random() < 0.5) t[0] = (t[0] + 1 + Math.floor(Math.random() * (l - 1))) % l; else t[1] = (t[1] + 1 + Math.floor(Math.random() * (m - 1))) % m; inA.value = termsToText(aTerms); inB.value = termsToText(bTerms); build(); box.redraw(); readout(); }),
-      U().btn('搜索低重逻辑算符（约 1.5 秒）', 'Search a low-weight logical (~1.5 s)', 'primary', () => { const r = L().lowWeightLogical(code.hx, code.hz, { maxMs: 1500, maxIters: 3000, exactLimit: 18, seed: 5 }); searchNote = ' <b>' + (r.exact ? U().T({ zh: '穷举', en: 'exhaustive' }) : U().T({ zh: '随机搜索', en: 'random search' })) + '</b>: ' + U().T({ zh: '找到的最轻 X 逻辑算符重量 ', en: 'lightest X-logical found has weight ' }) + '<b>' + (r.weight === Infinity ? '—' : r.weight) + '</b>' + (r.exact ? U().T({ zh: '（即精确的 d<sub>X</sub>）', en: ' (this is the exact d<sub>X</sub>)' }) : U().T({ zh: '（这是 d 的上界，不是 d）', en: ' (an upper bound on d, not d itself)' })) + '.'; readout(); }));
-    legend(el, [{ color: cssVar('--cx'), dot: true, zh: 'X 检查', en: 'X check' }, { color: cssVar('--cz'), square: true, zh: 'Z 检查', en: 'Z check' }, { color: cssVar('--ink3'), dot: true, zh: '数据比特（两层）', en: 'data qubits (two layers)' }]);
+      U().btn('搜索低重逻辑算符（约 1.5 秒）', 'Search a low-weight logical (~1.5 s)', 'primary', () => { const r = L().lowWeightLogical(code.hx, code.hz, { maxMs: 1500, maxIters: 3000, exactLimit: 18, seed: 5 }); witness = r.vector || null; const wt = r.weight === Infinity ? '—' : r.weight, wn = witnessNote(); searchNote = { zh: ' <b>' + (r.exact ? '穷举' : '随机搜索') + '</b>：找到的最轻 X 逻辑算符重量 <b>' + wt + '</b>' + (r.exact ? '（即精确的 d<sub>X</sub>）' : '（这是 d 的上界，不是 d）') + '。' + wn.zh, en: ' <b>' + (r.exact ? 'exhaustive' : 'random search') + '</b>: lightest X-logical found has weight <b>' + wt + '</b>' + (r.exact ? ' (this is the exact d<sub>X</sub>)' : ' (an upper bound on d, not d itself)') + '.' + wn.en }; box.redraw(); readout(); }));
+    { const lg = div('legend'); const mk = (sw, zh, en) => { const s = doc.createElement('span'); s.className = 'li'; s.innerHTML = sw + bi(zh, en); lg.appendChild(s); };
+      const sw = (css) => '<span style="display:inline-block;width:10px;height:10px;box-sizing:border-box;' + css + '"></span>';
+      mk(sw('border-radius:50%;background:var(--cx-soft);border:1.5px solid var(--cx)'), 'X 检查（圆）', 'X check (circle)');
+      mk(sw('border-radius:1px;background:var(--cz-soft);border:1.5px solid var(--cz)'), 'Z 检查（方）', 'Z check (square)');
+      mk(sw('border-radius:50%;background:var(--ink2)'), '左层数据比特（实心点）', 'left-layer data qubit (filled dot)');
+      mk(sw('border-radius:50%;background:var(--bg2);border:1.5px solid var(--ink2)'), '右层数据比特（空心圈）', 'right-layer data qubit (hollow ring)');
+      mk(sw('border-radius:50%;border:2.5px solid var(--cd)'), '搜索找到的见证（红圈，旁注列号）', 'witness found by the search (red ring, column number beside it)');
+      mk(sw('border-radius:50%;background:var(--cx)') + ' ' + sw('border-radius:50%;background:var(--bg2);border:2.5px solid var(--cx)'), '高亮：选中的检查放大，它碰到的比特形状不变、涂成检查的颜色（实心点仍实心，空心圈仍空心）；「看一个比特」时，选中的比特涂成红色（形状同样不变），碰它的检查放大；虚线 = 连线绕过环面边界', 'highlight: the selected check is enlarged, the qubits it touches keep their shape in the check colour (filled dots stay filled, hollow rings stay hollow); in “one qubit” view the selected qubit is drawn red (same shape) and the checks touching it are enlarged; dashed = the link wraps around the torus');
+      el.appendChild(lg); }
+    function witnessNote() {
+      if (!witness) return { zh: '', en: '' };
+      const cols = []; for (let c = 0; c < witness.length; c++) if (witness[c]) cols.push(c);
+      const where = cols.map((c) => { const st = L().bbSite(l, m, c); return c + (st.layer ? 'R' : 'L') + '(' + st.i + ',' + st.j + ')'; }).join(', ');
+      const odd = code.hz.filter((row) => row.reduce((a, v, c) => a ^ (v & witness[c]), 0)).length;
+      const rX = L().rank(code.hx), rW = L().rank(code.hx.concat([witness])), up = rW > rX;
+      const rankZh = '它不是 X 检查的乘积：H<sub>X</sub> 的秩（在 GF(2) 上，即按位异或时，最多能挑出几行而其中任何几行加起来都不为零）是 <b>' + rX + '</b>，把见证作为新的一行加进去后是 <b>' + rW + '</b>。' + (up ? '若见证是某几行的和，加进去不会多出新的方向，秩应当不变；秩多了 1，所以它不是任何几条 X 检查的乘积' : '秩没有变，所以它是 X 检查的乘积，不是逻辑算符');
+      const rankEn = 'it is not a product of X checks: the rank of H<sub>X</sub> over GF(2) (with bitwise XOR as addition, the largest number of rows none of whose nonempty subsets sums to zero) is <b>' + rX + '</b>, and <b>' + rW + '</b> with the witness appended as a new row. ' + (up ? 'Were the witness a sum of some rows, appending it would add no new direction and the rank would stay the same; the rank went up by 1, so it is not a product of any X checks' : 'The rank did not change, so it is a product of X checks, not a logical');
+      return { zh: '<br>见证 = 这些比特上各放一个 X：<span class="mono">' + where + '</span>（数字 = 列号，L/R = 左/右层，括号里是格点）。检查器会重算三件事：它与全部 ' + code.hz.length + ' 条 Z 检查的碰撞数都是偶数（奇数的有 ' + odd + ' 条）；' + rankZh + '；它的重量 = ' + cols.length + ' = u。',
+        en: '<br>Witness = an X on each of these qubits: <span class="mono">' + where + '</span> (number = column, L/R = left/right layer, brackets = site). A checker recomputes three things: its collision count with every one of the ' + code.hz.length + ' Z checks is even (odd for ' + odd + ' of them); ' + rankEn + '; its weight = ' + cols.length + ' = u.' };
+    }
     build(); readout();
   }
   U().reg('bbbuilder', wBbBuilder);
@@ -5570,6 +5800,99 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
     quotient: { m: ['R/(A,B)'], zh: ['读「R 模 (A,B)」', '把环 R 里所有能写成 uA + vB 的元素当成 0 之后剩下的空间；它的维数就是 rank 的亏损。'], en: ['Read “R mod (A,B)”', 'What remains of the ring R after everything of the form uA + vB is set to 0; its dimension is the rank deficit.'] },
     dfn: { m: ['≔'], zh: ['冒号等号，读「定义为」', 'A ≔ B：用 B 来定义 A。'], en: ['Colon-equals, read “is defined as”', 'A ≔ B: A is defined to be B.'] },
   });
+})(typeof window !== 'undefined' ? window : globalThis);
+/* certified-lower-bounds page widget: transcriptcheck (section 1.3), the checker replaying the 3-bit table. */
+(function (root) {
+  const TQ = (root.TQ = root.TQ || {});
+  if (!root.document) return;
+  const U = () => TQ.ui;
+  const bi = (zh, en) => '<span class="zh">' + zh + '</span><span class="en">' + en + '</span>';
+  function wTranscript(el) {
+    const STREAM = ['100', '010', '001', '110', '101', '011'];
+    const bits = (w) => w.split('').map(Number);
+    const reading = (w, c) => { const b = bits(w); return c === 1 ? b[0] ^ b[1] : b[1] ^ b[2]; };
+    const good = STREAM.map((w) => ({ w, c: reading(w, 1) ? 1 : 2 }));
+    const SC = {
+      ok: good,
+      omit: good.filter((r, i) => i !== 4),
+      dup: good.slice(0, 4).concat([good[3]], good.slice(4)),
+      swap: [good[0], good[1], good[2], good[4], good[3], good[5]],
+      wrong: good.map((r, i) => (i === 3 ? { w: r.w, c: 1 } : r)),
+    };
+    let scen = 'ok', k = 0, fail = -1;
+    const F = U().frame(el, {
+      titleZh: '当一次检查器：逐行重放三比特转录', titleEn: 'Be the checker: replay the 3-bit transcript line by line',
+      onReset: () => seg.el.querySelector('button').click(),
+    });
+    const holder = document.createElement('div'); F.body.appendChild(holder);
+    const sub = (c) => 'c<sub>' + c + '</sub>';
+    const formula = (w, c) => { const b = bits(w); const [x, y] = c === 1 ? [b[0], b[1]] : [b[1], b[2]]; return sub(c) + ' = ' + x + ' ⊕ ' + y + ' = ' + (x ^ y); };
+    // the verdict on line i (0-based): null = pass, otherwise the reason
+    function judge(i) {
+      const T = SC[scen];
+      if (i >= STREAM.length) return i < T.length ? 'extra' : null;
+      const t = T[i];
+      if (!t) return 'short';
+      if (t.w !== STREAM[i]) return 'order';
+      if (!reading(STREAM[i], t.c)) return 'class';
+      return null;
+    }
+    function step() {
+      if (fail >= 0 || k > STREAM.length) return;
+      const r = judge(k);
+      if (r) fail = k; else k++;
+      render();
+    }
+    function render() {
+      const T = SC[scen], rows = Math.max(STREAM.length, T.length);
+      let h = '<div class="table-wrap"><table class="glossary"><tr><th>#</th><th>' + bi('检查器自己生成的候选', 'Candidate the checker generates') + '</th><th>' + bi('证书的这一行', 'This line of the certificate') + '</th><th>' + bi('检查器重算', 'Checker recomputes') + '</th><th>' + bi('结论', 'Verdict') + '</th></tr>';
+      for (let i = 0; i < rows; i++) {
+        const s = STREAM[i], t = T[i], done = i < k, bad = i === fail, next = i === k && fail < 0;
+        const style = bad ? ' style="background:color-mix(in srgb, var(--cd) 16%, transparent)"' : next ? ' style="background:color-mix(in srgb, var(--cz) 12%, transparent)"' : '';
+        let calc = '', verdict = '';
+        if (done || bad) {
+          const r = bad ? judge(i) : null;
+          if (r === 'order' || r === 'extra') calc = bi('候选不一致', 'candidates differ');
+          else if (r === 'short') calc = bi('证书已经没有行了', 'the certificate has run out of lines');
+          else calc = '<span class="mono">' + formula(s, t.c) + '</span>';
+          verdict = bad ? '<span class="no">✗</span>' : '<span class="ok">✓</span>';
+        }
+        h += '<tr' + style + '><td>' + (i + 1) + '</td><td class="mono">' + (s || '—') + '</td><td class="mono">' + (t ? t.w + ' → ' + sub(t.c) : '—') + '</td><td>' + calc + '</td><td>' + verdict + '</td></tr>';
+      }
+      h += '</table></div>';
+      holder.innerHTML = h;
+      let zh, en;
+      if (fail >= 0) {
+        const r = judge(fail), n = fail + 1;
+        if (r === 'order') { zh = '第 ' + n + ' 行拒绝：检查器按规则该出现 ' + STREAM[fail] + '，证书这一行却是 ' + T[fail].w + '。漏行、重行、换序都在这里暴露。整份证书作废。'; en = 'Line ' + n + ' rejected: by the rule the checker expects ' + STREAM[fail] + ', but this line of the certificate is ' + T[fail].w + '. Omitted, repeated and swapped lines all surface this way. The whole certificate is void.'; }
+        else if (r === 'class') { zh = '第 ' + n + ' 行拒绝：证书说候选 ' + STREAM[fail] + ' 触发 c' + T[fail].c + '，重算得 ' + formula(STREAM[fail], T[fail].c) + '，没有触发。整份证书作废。'; en = 'Line ' + n + ' rejected: the certificate says candidate ' + STREAM[fail] + ' trips c' + T[fail].c + ', but the recomputation gives ' + formula(STREAM[fail], T[fail].c) + ': it does not. The whole certificate is void.'; }
+        else if (r === 'extra') { zh = '拒绝：检查器的候选流已经走完，证书还多出行。'; en = 'Rejected: the checker’s stream is finished but the certificate has lines left over.'; }
+        else { zh = '第 ' + n + ' 行拒绝：检查器还有候选 ' + STREAM[fail] + '，证书已经结束。'; en = 'Line ' + n + ' rejected: the checker still has candidate ' + STREAM[fail] + ' but the certificate has ended.'; }
+        zh = '<span class="no">' + zh + '</span>'; en = '<span class="no">' + en + '</span>';
+      } else if (k > STREAM.length) {
+        zh = '<span class="ok">接受。</span>6 行都与检查器自己的流一致，每条候选都触发了证书写的那条检查：没有重量小于 3 的无声非零错误，d ≥ 3 得证。';
+        en = '<span class="ok">Accepted.</span> All 6 lines match the checker’s own stream and every candidate trips the check the certificate names: there is no silent nonzero error of weight below 3, so d ≥ 3 is proved.';
+      } else if (k === STREAM.length) {
+        zh = '6 行都通过了。最后一步：确认证书没有多余的行。'; en = 'All 6 lines passed. Last step: make sure the certificate has no lines left over.';
+      } else {
+        zh = '已核对 ' + k + ' 行。蓝色一行是下一步：检查器先比候选是否与自己生成的一致，再用 ⊕ 重算证书写的那条检查。';
+        en = k + ' line(s) checked. The blue line is next: the checker first compares the candidate with the one it generated, then recomputes the named check with ⊕.';
+      }
+      F.setReadout(bi(zh, en));
+    }
+    const seg = U().seg([
+      { id: 'ok', zh: '原表', en: 'Honest table' },
+      { id: 'omit', zh: '漏一行', en: 'A line omitted' },
+      { id: 'dup', zh: '重一行', en: 'A line repeated' },
+      { id: 'swap', zh: '换顺序', en: 'Two lines swapped' },
+      { id: 'wrong', zh: '分类写错', en: 'A wrong classification' },
+    ], 'ok', (v) => { scen = v; k = 0; fail = -1; render(); });
+    F.controls.append(seg.el,
+      U().btn('核对下一行', 'Check next line', 'primary', step),
+      U().btn('核对到底', 'Check to the end', '', () => { let g = 0; while (fail < 0 && k <= STREAM.length && g++ < 20) step(); }));
+    render();
+  }
+  TQ.ui.reg('transcriptcheck', wTranscript);
 })(typeof window !== 'undefined' ? window : globalThis);
 </script>
 </body>

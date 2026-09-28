@@ -876,6 +876,14 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
 .formula .sym { border-bottom-color: color-mix(in srgb, var(--ink3) 55%, transparent); }
 .refpop .rp-sec.rp-symchar { font-size: 17px; color: var(--ink); font-weight: 600; }
 
+
+/* ---------- catch-up ("补课") fold-outs: remedial explanations opened on demand ---------- */
+details.fold.basics { border-color: color-mix(in srgb, var(--cx) 55%, transparent); }
+details.fold.basics summary { color: var(--cx-ink); }
+details.fold.basics .fold-body h5 { font-family: var(--f-body); font-size: 14.5px; font-weight: 600; color: var(--ink); margin: 1.3em 0 0.4em; }
+details.fold.basics .fold-body > .formula { margin: 1em 0; }
+details.fold.basics .fold-body > .table-wrap { margin: 0.9em 0; }
+pre.snippet { font-family: var(--f-mono); font-size: 12.5px; line-height: 1.55; background: var(--bg3); border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px; overflow-x: auto; margin: 0.8em 0; white-space: pre; }
 </style>
 </head>
 <body>
@@ -959,8 +967,8 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
 
   <h3 id="s1-3"><span class="sec-no">1.3</span><span class="zh">为什么每条论断都要指向一个键</span><span class="en">Why every claim points at a key</span></h3>
   <div class="prose">
-    <p class="zh">因为 Atlas 把「机器算出来的」和「文献说的」严格分开。推导页 <span class="mono">pedagogy/derivations.md</span> 写明了这条分界（provenance split）：n、k、CSS 结构和两个小实例的码距是<b>机器验证</b>的（n = 物理比特数，k = 逻辑比特数，d = 码距，定义见 <a href="../../toric_code/intuition/intuition.html#s4-4">Toric Code 教程 4.4 节</a>与<a href="../../toric_code/intuition/intuition.html#s4-6">4.6 节</a>）；L=5 的码距下界由定理与文献承担、上界由一个可重跑的随机见证承担，所以那个实例标 <b>bounded</b>（L 为格子边长）；而阈值与硬件结果「不是一张裸校验矩阵的性质」，它们永远是<b>文献论断</b>，旁边必须写全噪声模型与译码器。于是每个不能重算的数字都需要一个键——没有键的数字在 Atlas 里不允许存在。下表是条目里出现的全部来源词汇：</p>
-    <p class="en">Because the Atlas keeps “what the machine computed” strictly apart from “what the literature says”. The derivations page <span class="mono">pedagogy/derivations.md</span> states the provenance split: n, k, the CSS structure and the two small exact distances are <b>machine-verified</b> (n = physical qubits, k = logical qubits, d = distance; definitions in the <a href="../../toric_code/intuition/intuition.html#s4-4">toric-code guide, §4.4</a> and <a href="../../toric_code/intuition/intuition.html#s4-6">§4.6</a>); the L=5 distance has a theorem-and-literature lower bound and a rerunnable seeded witness for the upper bound, so that instance is marked <b>bounded</b> (L is the lattice side); thresholds and hardware results “are not properties of a bare check matrix” and remain <b>literature claims</b> with the noise model and decoder written beside them. Hence every number that cannot be recomputed needs a key; a keyless number is not allowed in the Atlas. The table lists every provenance word the entry uses:</p>
+    <p class="zh">因为 Atlas 把「机器算出来的」和「文献说的」严格分开。推导页 <span class="mono">pedagogy/derivations.md</span> 专门列出哪些数由机器算、哪些由文献说（Atlas 叫它 provenance split，来源分界）：n、k、CSS 结构和两个小实例的码距是<b>机器验证</b>的（n = 物理比特数，k = 逻辑比特数，d = 码距，定义见 <a href="../../toric_code/intuition/intuition.html#s4-4">Toric Code 教程 4.4 节</a>与<a href="../../toric_code/intuition/intuition.html#s4-6">4.6 节</a>）；L=5 的码距下界由定理与文献承担、上界由一个可重跑的随机见证承担，所以那个实例标 <b>bounded</b>（L 为格子边长）；而阈值与硬件结果「不是一张裸校验矩阵的性质」，它们永远是<b>文献论断</b>，旁边必须写全噪声模型与译码器。于是每个不能重算的数字都需要一个键——没有键的数字在 Atlas 里不允许存在。下表是条目里出现的全部来源词汇：</p>
+    <p class="en">Because the Atlas keeps “what the machine computed” strictly apart from “what the literature says”. The derivations page <span class="mono">pedagogy/derivations.md</span> lists which numbers a machine computes and which the literature asserts (the Atlas calls this the provenance split): n, k, the CSS structure and the two small exact distances are <b>machine-verified</b> (n = physical qubits, k = logical qubits, d = distance; definitions in the <a href="../../toric_code/intuition/intuition.html#s4-4">toric-code guide, §4.4</a> and <a href="../../toric_code/intuition/intuition.html#s4-6">§4.6</a>); the L=5 distance has a theorem-and-literature lower bound and a rerunnable seeded witness for the upper bound, so that instance is marked <b>bounded</b> (L is the lattice side); thresholds and hardware results “are not properties of a bare check matrix” and remain <b>literature claims</b> with the noise model and decoder written beside them. Hence every number that cannot be recomputed needs a key; a keyless number is not allowed in the Atlas. The table lists every provenance word the entry uses:</p>
   </div>
   <div class="table-wrap">
     <table class="glossary">
@@ -996,21 +1004,66 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
 
   <h3 id="s2-1"><span class="sec-no">2.1</span><span class="zh">奠基与构造：这个码是什么</span><span class="en">Foundations and construction: what the code is</span></h3>
   <ul class="reading">
-    <li><b>Alexei Yu. Kitaev, "Fault-tolerant quantum computation by anyons" (2003)</b><br><span class="r-what"><span class="mono">kitaev2003fault</span> · <span class="zh">环面码及其任意子图像的原始出处。被关系 <span class="mono">same_bulk_phase_as → toric</span> 引用（见<a href="../relations/relations.html#ch3">关系导读第 3 章</a>）。</span><span class="en">The original source for the toric code and its anyon picture. Cited by the relation <span class="mono">same_bulk_phase_as → toric</span> (see the <a href="../relations/relations.html#ch3">relations guide, Chapter 3</a>).</span></span></li>
-    <li><b>Sergey B. Bravyi and Alexei Yu. Kitaev, "Quantum codes on a lattice with boundary" (1998)</b><br><span class="r-what"><span class="mono">bravyi1998quantum</span> · <span class="zh">毛 / 光边界的首次构造，平面表面码由此诞生。表示阶梯 R2「同调」视图的 curated 来源。</span><span class="en">First construction of rough/smooth boundaries; the planar surface code is born here. Curated origin of the R2 “homological” view on the representation ladder.</span></span></li>
-    <li><b>Eric Dennis, Alexei Kitaev, Andrew Landahl, and John Preskill, "Topological quantum memory" (2002)</b><br><span class="r-what"><span class="mono">dennis2002topological</span> · <span class="zh">引用最多的键：分类标签「topological」的来源、码容量译码器 <span class="mono">mwpm</span> 的 10.9%（最优译码）、R5「统计力学」视图（随机键 Ising 模型）、以及与环面码的关系。</span><span class="en">The most-cited key: source of the “topological” category tag, of the code-capacity <span class="mono">mwpm</span> record's 10.9% (optimal decoding), of the R5 “statistical-mechanics” view (random-bond Ising model), and of the toric relation.</span></span></li>
-    <li><b>Héctor Bombín and Miguel A. Martín-Delgado, "Homological Error Correction: Classical and Quantum Codes" (2007)</b><br><span class="r-what"><span class="mono">bombin2007homological</span> · <span class="zh">把「检查 = 边界映射、逻辑串 = 相对闭链」讲成一般理论。与 <span class="mono">bravyi1998quantum</span> 共同支撑 R2 同调视图。</span><span class="en">Turns “checks = boundary maps, logical strings = relative cycles” into a general theory. Supports the R2 homological view together with <span class="mono">bravyi1998quantum</span>.</span></span></li>
+    <li><b>Alexei Yu. Kitaev, "Fault-tolerant quantum computation by anyons" (2003)</b><br><span class="r-what"><span class="mono">kitaev2003fault</span> · <span class="zh">环面码及其任意子图像的原始出处（任意子：把警报看成可以在格子上移动的「粒子」，星报警与面报警是两种任意子）。被关系 <span class="mono">same_bulk_phase_as → toric</span> 引用（见<a href="../relations/relations.html#ch3">关系导读第 3 章</a>）。</span><span class="en">The original source for the toric code and its anyon picture (anyons: alarms viewed as “particles” that move on the lattice; star alarms and plaquette alarms are two kinds). Cited by the relation <span class="mono">same_bulk_phase_as → toric</span> (see the <a href="../relations/relations.html#ch3">relations guide, Chapter 3</a>).</span></span></li>
+    <li><b>Sergey B. Bravyi and Alexei Yu. Kitaev, "Quantum codes on a lattice with boundary" (1998)</b><br><span class="r-what"><span class="mono">bravyi1998quantum</span> · <span class="zh">毛 / 光边界的首次构造，平面表面码由此诞生。表示阶梯（Atlas 用 R1 到 R5 五级台阶，把同一个码写成越来越抽象的几种语言，见<a href="../views/views.html">表示阶梯导读</a>）R2「同调」视图的 curated 来源；同调视图把检查看成「取边界」。平面码里，一条 Z 串（Z 放在一串边上）要不触发任何星检查，端点只能落在毛边上（横边悬空、没有顶点的那两侧）；论文把这种端点全在边界上的链叫<b>相对闭链</b>。这样的串若等于若干面检查的乘积，例如绕一块面的小环，就是平凡的，不改变存下的信息；从一条毛边连到对面毛边的串不是检查的乘积，它才是逻辑算符。相差若干检查乘积的两条串算同一类（图 2.1）。</span><span class="en">First construction of rough/smooth boundaries; the planar surface code is born here. Curated origin of the R2 “homological” view on the representation ladder (the Atlas's five rungs R1 to R5 that write the same code in increasingly abstract languages; see the <a href="../views/views.html">representation-ladder guide</a>); the homological view reads checks as “taking a boundary”. On the planar code a Z string (Z on a chain of edges) trips no star check only if its endpoints lie on the rough edges (the two sides where horizontal edges end free, with no vertex); the paper calls such a chain, all of whose endpoints are on the boundary, a <b>relative cycle</b>. If such a string equals a product of face checks, like a small loop around one face, it is trivial and leaves the stored information alone; a string from one rough edge to the opposite one is not a product of checks, and it is the logical operator. Two strings that differ by a product of checks belong to the same class (Figure 2.1).</span></span></li>
+    <li><b>Eric Dennis, Alexei Kitaev, Andrew Landahl, and John Preskill, "Topological quantum memory" (2002)</b><br><span class="r-what"><span class="mono">dennis2002topological</span> · <span class="zh">引用最多的键：分类标签「topological」的来源、码容量译码器 <span class="mono">mwpm</span> 的 10.9%（最优译码）、R5「统计力学」视图（随机键 Ising 模型：把「最优译码能否成功」换算成一个带随机正负耦合的磁性模型是否有序，阈值就是它的相变点）、以及与环面码的关系。</span><span class="en">The most-cited key: source of the “topological” category tag, of the code-capacity <span class="mono">mwpm</span> record's 10.9% (optimal decoding), of the R5 “statistical-mechanics” view (random-bond Ising model: whether optimal decoding succeeds is translated into whether a magnet with random positive and negative couplings orders, and the threshold is its phase transition), and of the toric relation.</span></span></li>
+    <li><b>Héctor Bombín and Miguel A. Martín-Delgado, "Homological Error Correction: Classical and Quantum Codes" (2007)</b><br><span class="r-what"><span class="mono">bombin2007homological</span> · <span class="zh">把「检查 = 取边界；端点只落在相应类型边界上的串叫相对闭链，相差检查乘积的串算同一类；逻辑串是其中<b>不是</b>检查乘积的那些，即非平凡的相对同调类（检查乘积本身是平凡类，什么也不改）」讲成一般理论。与 <span class="mono">bravyi1998quantum</span> 共同支撑 R2 同调视图。</span><span class="en">Turns “checks = taking boundaries; strings whose endpoints lie only on the boundary of the matching type are relative cycles, and strings that differ by products of checks count as one class; the logical strings are the relative cycles that are <b>not</b> products of checks, i.e. the nontrivial relative-homology classes (a product of checks is the trivial class and changes nothing)” into a general theory. Supports the R2 homological view together with <span class="mono">bravyi1998quantum</span>.</span></span></li>
     <li><b>Jean-Pierre Tillich and Gilles Zémor, "Quantum LDPC codes with positive rate and minimum distance proportional to the square root of the blocklength" (2009)</b><br><span class="r-what"><span class="mono">tillich2009quantum</span> · <span class="zh">定义超图积。是分类标签「hypergraph-product」、R1 校验矩阵视图（derived）、R2 超图积视图（canonical）、两条关系与导览多步的来源——本条目构造器的理论依据（<a href="../../qldpc/intuition/intuition.html#s2-1">qLDPC 教程 2.1 节</a>）。</span><span class="en">Defines the hypergraph product. Source of the “hypergraph-product” category tag, the R1 check-matrix view (derived), the R2 HGP view (canonical), both relations and several tour steps: the theoretical basis of this entry's constructor (<a href="../../qldpc/intuition/intuition.html#s2-1">qLDPC guide, §2.1</a>).</span></span></li>
     <li><b>Dorit Aharonov and Michael Ben-Or, "Fault Tolerant Quantum Computation with Constant Error" (1997)</b><br><span class="r-what"><span class="mono">aharonov1997fault</span> · <span class="zh">阈值定理：足够弱的局域噪声可以被压到任意小。直觉文「设计问题」一节用它说明表面码要解决的不是「能不能」而是「以什么交互契约」。仅条目级。</span><span class="en">The threshold theorem: sufficiently weak local noise can be suppressed arbitrarily. The intuition essay's “design problem” uses it to say the surface code's question is not whether but under what interaction contract. Entry-level only.</span></span></li>
   </ul>
+  <figure class="fig" id="fig-hom">
+    <div class="fig-frame">
+<svg viewBox="0 0 620 300" width="100%" style="max-width:620px;height:auto;color:var(--ink)" role="img" aria-label="平面码上的平凡环与跨边界的逻辑串 / A trivial loop and a boundary-spanning logical string on the planar code">
+<rect x="210" y="150" width="100" height="90" fill="var(--cz-soft)"/>
+<g stroke="var(--ink3)" stroke-width="2">
+<line x1="110" y1="60" x2="410" y2="60"/>
+<line x1="110" y1="150" x2="410" y2="150"/>
+<line x1="110" y1="240" x2="410" y2="240"/>
+<line x1="210" y1="60" x2="210" y2="240"/>
+<line x1="310" y1="60" x2="310" y2="240"/>
+</g>
+<g stroke="var(--ink3)" stroke-width="1.3" stroke-dasharray="3 3">
+<line x1="110" y1="30" x2="110" y2="270"/><line x1="410" y1="30" x2="410" y2="270"/>
+</g>
+<line x1="110" y1="60" x2="410" y2="60" stroke="var(--cz)" stroke-width="5"/>
+<polyline points="210,150 310,150 310,240 210,240 210,150" fill="none" stroke="var(--cz)" stroke-width="5" stroke-dasharray="9 5"/>
+<circle cx="210" cy="60" r="5.5" fill="var(--bg)" stroke="var(--cx)" stroke-width="2"/>
+<circle cx="310" cy="60" r="5.5" fill="var(--bg)" stroke="var(--cx)" stroke-width="2"/>
+<circle cx="210" cy="150" r="5.5" fill="var(--bg)" stroke="var(--cx)" stroke-width="2"/>
+<circle cx="310" cy="150" r="5.5" fill="var(--bg)" stroke="var(--cx)" stroke-width="2"/>
+<circle cx="210" cy="240" r="5.5" fill="var(--bg)" stroke="var(--cx)" stroke-width="2"/>
+<circle cx="310" cy="240" r="5.5" fill="var(--bg)" stroke="var(--cx)" stroke-width="2"/>
+<g font-family="monospace" font-size="12" fill="currentColor">
+<text x="102" y="290" class="zh" text-anchor="middle">左毛边：横边悬空</text><text x="102" y="290" class="en" text-anchor="middle">left rough edge: edges end free</text>
+<text x="418" y="290" class="zh" text-anchor="middle">右毛边</text><text x="418" y="290" class="en" text-anchor="middle">right rough edge</text>
+<text x="260" y="38" class="zh" text-anchor="middle" fill="var(--cz-ink)" font-weight="600">实线：Z 串，毛边 → 毛边（逻辑 Z̄）</text><text x="260" y="38" class="en" text-anchor="middle" fill="var(--cz-ink)" font-weight="600">solid: Z string, rough → rough (logical Z̄)</text>
+<text x="260" y="199.0" class="zh" text-anchor="middle" fill="var(--cz-ink)" font-weight="600">虚线环</text><text x="260" y="199.0" class="en" text-anchor="middle" fill="var(--cz-ink)" font-weight="600">dashed loop</text>
+</g>
+<g font-family="monospace" font-size="11.5" fill="currentColor">
+<text x="440" y="100" class="zh">实线串：端点都在毛边，</text><text x="440" y="100" class="en">solid string: both ends on</text>
+<text x="440" y="116" class="zh">不触发任何星检查；</text><text x="440" y="116" class="en">rough edges, trips no star;</text>
+<text x="440" y="132" class="zh">不是面检查的乘积</text><text x="440" y="132" class="en">not a product of faces</text>
+<text x="440" y="148" class="zh">→ 逻辑</text><text x="440" y="148" class="en">→ logical</text>
+<text x="440" y="172" class="zh">虚线环：恰好是蓝色</text><text x="440" y="172" class="en">dashed loop: exactly the</text>
+<text x="440" y="188" class="zh">那一块面检查 → 平凡</text><text x="440" y="188" class="en">shaded face check → trivial</text>
+<text x="440" y="204" class="zh">（相对边界，不改信息）</text><text x="440" y="204" class="en">(a relative boundary)</text>
+<text x="440" y="244" class="zh">橙圈 = 星检查（顶点）</text><text x="440" y="244" class="en">orange rings = star checks</text>
+</g></svg>
+    </div>
+    <figcaption>
+      <span class="fno">图 2.1</span>
+      <span class="zh">L = 3 平面码上的两条 Z 串（示意；比特在边上，橙圈是星检查所在的顶点，左右虚线处是毛边）。实线从左毛边走到右毛边：端点不在任何顶点上，所以不触发星检查；它不是面检查的乘积，是逻辑 Z̄，属于非平凡的相对同调类。虚线环恰好是蓝色那一块面检查：同样不报警，但它是检查本身，属于平凡类。把实线串乘上这块面检查，会得到另一条同样跨边界的串，同一个逻辑算符。</span>
+      <span class="en">Two Z strings on the L = 3 planar code (sketch; qubits sit on edges, orange rings are the vertices carrying star checks, the dashed lines left and right are the rough edges). The solid string runs from the left rough edge to the right one: its endpoints are not at any vertex, so it trips no star check; it is not a product of face checks, so it is the logical Z̄, a nontrivial relative homology class. The dashed loop is exactly the shaded face check: it trips no alarm either, but it is a check itself, the trivial class. Multiplying the solid string by that face check gives another string spanning the same way, the same logical operator.</span>
+    </figcaption>
+  </figure>
 
   <h3 id="s2-2"><span class="sec-no">2.2</span><span class="zh">禁区与代价定理：它做不到什么</span><span class="en">No-go and tradeoff theorems: what it cannot do</span></h3>
   <ul class="reading">
-    <li><b>Sergey Bravyi and Barbara M. Terhal, "A no-go theorem for a two-dimensional self-correcting quantum memory based on stabilizer codes" (2009)</b><br><span class="r-what"><span class="mono">bravyi2009nogo</span> · <span class="zh">二维局域稳定子哈密顿量不能自纠错：逻辑串只为端点付能量。直觉文「失效模式」里「没有被动热记忆」的依据。仅条目级。</span><span class="en">2D local stabilizer Hamiltonians cannot self-correct: a logical string pays energy only at its endpoints. Basis of “no passive thermal memory” in the intuition essay's failure modes. Entry-level only.</span></span></li>
-    <li><b>Sergey Bravyi, David Poulin, and Barbara Terhal, "Tradeoffs for reliable quantum information storage in 2D systems" (2010)</b><br><span class="r-what"><span class="mono">bravyi2010tradeoffs</span> · <span class="zh">k·d² ≤ c·n（k 逻辑比特、d 码距、n 物理比特、c 常数）：表面码 k=1、d ∝ √n 正好把它取满。<a href="../../bb_code/intuition/intuition.html#s1-1">BB 码教程 1.1 节</a>从这里出发。仅条目级。</span><span class="en">k·d² ≤ c·n (k logical qubits, d distance, n physical qubits, c a constant): the surface code with k=1, d ∝ √n saturates it. The <a href="../../bb_code/intuition/intuition.html#s1-1">BB-code guide, §1.1</a> starts here. Entry-level only.</span></span></li>
-    <li><b>Sergey Bravyi and Jeongwan Haah, "Energy landscape of 3D spin Hamiltonians with topological order" (2011)</b><br><span class="r-what"><span class="mono">bravyi2011energy</span> · <span class="zh">三维拓扑序的能量壁垒分析——二维禁区在三维如何松动的对照。仅条目级。</span><span class="en">Energy-barrier analysis for 3D topological order, the contrast case for how the 2D no-go loosens in 3D. Entry-level only.</span></span></li>
-    <li><b>Sergey Bravyi and Robert König, "Classification of topologically protected gates for local stabilizer codes" (2013)</b><br><span class="r-what"><span class="mono">bravyi2013classification</span> · <span class="zh">Bravyi–König 定理：二维局域码的常深度逻辑门止于 Clifford，所以没有原生 T 门（<a href="../operations/operations.html#s1-3">格点手术教程 1.3 节</a>）。仅条目级。</span><span class="en">The Bravyi–König theorem: constant-depth logical gates of 2D local codes stop at Clifford, so there is no native T gate (<a href="../operations/operations.html#s1-3">lattice-surgery guide, §1.3</a>). Entry-level only.</span></span></li>
-    <li><b>Jeongwan Haah, "Local stabilizer codes in three dimensions without string logical operators" (2011)</b><br><span class="r-what"><span class="mono">haah2011local</span> · <span class="zh">立方码：三维里没有串状逻辑算符的码——「逻辑信息一定住在串上」在三维不再成立的反例。仅条目级。</span><span class="en">The cubic code: a 3D code with no string-like logical operators, the counterexample to “logical data must live on strings” beyond 2D. Entry-level only.</span></span></li>
+    <li><b>Sergey Bravyi and Barbara M. Terhal, "A no-go theorem for a two-dimensional self-correcting quantum memory based on stabilizer codes" (2009)</b><br><span class="r-what"><span class="mono">bravyi2009nogo</span> · <span class="zh">二维局域稳定子哈密顿量不能自纠错。把检查当能量项，考虑所有「从一个逻辑态出发、每步只加一个局部错误、最后到达另一个逻辑态」的路径：每条路径途中都有一个能量最高点，<b>能量壁垒</b>是这个最高点（比基态高多少）在所有路径里的最小值。论文证明二维里这个壁垒被一个与系统大小无关的常数封顶：造出一条串的两个端点要花能量，但把串拉长不再加价，所以热涨落只需越过一个固定高度就能造成逻辑错误。直觉文「失效模式」里「没有被动热记忆」的依据。仅条目级。</span><span class="en">2D local stabilizer Hamiltonians cannot self-correct. Take the checks as energy terms and consider every path that starts in one logical state, adds one local error per step, and ends in another logical state: each path has a highest-energy point on the way, and the <b>energy barrier</b> is the smallest such height (above the ground state) over all paths. The paper proves that in 2D this barrier is capped by a constant independent of the system size: creating the two endpoints of a string costs energy, but stretching the string costs nothing more, so thermal fluctuations need only clear a fixed height to cause a logical error. Basis of “no passive thermal memory” in the intuition essay's failure modes. Entry-level only.</span></span></li>
+    <li><b>Sergey Bravyi, David Poulin, and Barbara Terhal, "Tradeoffs for reliable quantum information storage in 2D systems" (2010)</b><br><span class="r-what"><span class="mono">bravyi2010tradeoffs</span> · <span class="zh">k·d² ≤ c·n（k 逻辑比特、d 码距、n 物理比特），前提是二维格点、每个格点只放有限个比特（比特密度有界）、每条检查只作用在固定大小的一块区域内；常数 c 只依赖这两个局域性参数。表面码 k = 1、d ∝ √n，使 k·d² 与 n 同阶，达到了这个<b>标度</b>，并不是说等号成立。<a href="../../bb_code/intuition/intuition.html#s1-1">BB 码教程 1.1 节</a>从这里出发。仅条目级。</span><span class="en">k·d² ≤ c·n (k logical qubits, d distance, n physical qubits), assuming a 2D lattice with a bounded number of qubits per site (bounded qubit density) and every check acting within a region of fixed size; the constant c depends only on these two locality parameters. The surface code with k = 1, d ∝ √n makes k·d² of the same order as n: it saturates the <b>scaling</b>, which does not mean equality holds. The <a href="../../bb_code/intuition/intuition.html#s1-1">BB-code guide, §1.1</a> starts here. Entry-level only.</span></span></li>
+    <li><b>Sergey Bravyi and Jeongwan Haah, "Energy landscape of 3D spin Hamiltonians with topological order" (2011)</b><br><span class="r-what"><span class="mono">bravyi2011energy</span> · <span class="zh">三维拓扑序的能量壁垒分析（能量壁垒：见上一条 bravyi2009nogo 的定义），二维禁区在三维如何松动的对照。仅条目级。</span><span class="en">Energy-barrier analysis for 3D topological order (the energy barrier: defined in the bravyi2009nogo item above), the contrast case for how the 2D no-go loosens in 3D. Entry-level only.</span></span></li>
+    <li><b>Sergey Bravyi and Robert König, "Classification of topologically protected gates for local stabilizer codes" (2013)</b><br><span class="r-what"><span class="mono">bravyi2013classification</span> · <span class="zh">Bravyi–König 定理：对二维拓扑稳定子码（检查几何局域、码距足够大），用深度固定、每个门只作用于相邻比特的电路实现的逻辑门都在 Clifford 群里；所以在这些前提下，没有这样实现的逻辑 T 门（<a href="../operations/operations.html#s1-3">格点手术教程 1.3 节</a>）。仅条目级。</span><span class="en">The Bravyi–König theorem: for a 2D topological stabilizer code (geometrically local checks, large enough distance), every logical gate implemented by a constant-depth circuit of gates acting on nearby qubits lies in the Clifford group; so under these assumptions no logical T gate is implemented this way (<a href="../operations/operations.html#s1-3">lattice-surgery guide, §1.3</a>). Entry-level only.</span></span></li>
+    <li><b>Jeongwan Haah, "Local stabilizer codes in three dimensions without string logical operators" (2011)</b><br><span class="r-what"><span class="mono">haah2011local</span> · <span class="zh">立方码：三维里没有串状逻辑算符的码（它的逻辑算符不能沿一条线铺开），是「逻辑信息一定住在串上」在三维不再成立的反例。仅条目级。</span><span class="en">The cubic code: a 3D code with no string-like logical operators (its logical operators cannot be laid out along a line), the counterexample to “logical data must live on strings” beyond 2D. Entry-level only.</span></span></li>
   </ul>
 
   <h3 id="s2-3"><span class="sec-no">2.3</span><span class="zh">译码器与阈值：怎样纠、纠到哪</span><span class="en">Decoders and thresholds: how to correct, and how far</span></h3>
@@ -1018,22 +1071,102 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
     <li><b>Chenyang Wang, Jim Harrington, and John Preskill, "Confinement-Higgs transition in a disordered gauge theory and the accuracy threshold for quantum memory" (2003)</b><br><span class="r-what"><span class="mono">wang2003confinement</span> · <span class="zh">两个数字的家：匹配译码在码容量下的 10.3%，以及唯象噪声（数据 + 测量都出错）下的 2.9%。被两条 <span class="mono">mwpm</span> 记录与 R5 统计力学视图引用。请勿把 2.9% 与 10.9% 混作同一阈值（<a href="../decoders/decoders.html#s6-1">译码器教程 6.1 节</a>）。</span><span class="en">Home of two numbers: 10.3% for matching under code capacity, and 2.9% under phenomenological noise (data and measurement errors). Cited by two <span class="mono">mwpm</span> records and the R5 statistical-mechanics view. Never merge the 2.9% with the 10.9% (<a href="../decoders/decoders.html#s6-1">decoders guide, §6.1</a>).</span></span></li>
     <li><b>Austin G. Fowler, Matteo Mariantoni, John M. Martinis, and Andrew N. Cleland, "Surface codes: Towards practical large-scale quantum computation" (2012)</b><br><span class="r-what"><span class="mono">fowler2012surface</span> · <span class="zh">电路级 <span class="mono">mwpm</span> 记录的 0.57%/步（八步电路，约 4%/整周期）；同时是四条 claimed 操作的键：打洞编织 CNOT、逻辑 |0⟩/|+⟩ 初始化、逻辑 Z/X 读出、Pauli 框架更新。</span><span class="en">The circuit-level <span class="mono">mwpm</span> record's 0.57% per step (eight-step circuit, about 4% per full cycle); also the key behind four claimed operations: hole-braiding CNOT, logical |0⟩/|+⟩ initialization, logical Z/X readout, Pauli-frame update.</span></span></li>
     <li><b>Oscar Higgott, "PyMatching: A Python package for decoding quantum codes with minimum-weight perfect matching" (2022)</b><br><span class="r-what"><span class="mono">higgott2022pymatching</span> · <span class="zh">最小重量完美匹配的开源实现，码容量 <span class="mono">mwpm</span> 记录引用它作为可复现的工具（<a href="../decoders/decoders.html#s2-3">译码器教程 2.3 节</a>）。</span><span class="en">The open-source implementation of minimum-weight perfect matching; the code-capacity <span class="mono">mwpm</span> record cites it as the reproducible tool (<a href="../decoders/decoders.html#s2-3">decoders guide, §2.3</a>).</span></span></li>
-    <li><b>Nicolas Delfosse and Naomi H. Nickerson, "Almost-linear time decoding algorithm for topological codes" (2021)</b><br><span class="r-what"><span class="mono">delfosse2021almost</span> · <span class="zh"><span class="mono">union-find</span> 记录：环面内部基准约 9.9%（完美测量）与 2.6%（含测量错误），用小幅阈值换近线性时间（<a href="../decoders/decoders.html#ch4">译码器教程第 4 章</a>）。</span><span class="en">The <span class="mono">union-find</span> record: toric-bulk benchmarks of about 9.9% (perfect syndrome) and 2.6% (faulty syndrome), trading a little threshold for almost-linear time (<a href="../decoders/decoders.html#ch4">decoders guide, Chapter 4</a>).</span></span></li>
-    <li><b>Guillaume Duclos-Cianci and David Poulin, "Fast Decoders for Topological Quantum Codes" (2010)</b><br><span class="r-what"><span class="mono">duclos2010fast</span> · <span class="zh"><span class="mono">renormalization-group</span> 记录：分层粗粒化估计逻辑类的概率，而不是立刻押最轻的链。</span><span class="en">The <span class="mono">renormalization-group</span> record: hierarchical coarse-graining estimates class probabilities instead of committing to the lightest chain.</span></span></li>
-    <li><b>Sergey Bravyi, Martin Suchara, and Alexander Vargo, "Efficient Algorithms for Maximum Likelihood Decoding in the Surface Code" (2014)</b><br><span class="r-what"><span class="mono">bravyi2014efficient</span> · <span class="zh"><span class="mono">tensor-network-mld</span> 记录：独立 X/Z 噪声下精确的最大似然译码，一般 Pauli 噪声下用矩阵乘积态近似（<a href="../decoders/decoders.html#s1-2">译码器教程 1.2 节</a>的「最优」）。</span><span class="en">The <span class="mono">tensor-network-mld</span> record: exact maximum-likelihood decoding for independent X/Z noise, matrix-product-state approximation for general Pauli noise (the “optimal” of the <a href="../decoders/decoders.html#s1-2">decoders guide, §1.2</a>).</span></span></li>
-    <li><b>Joschka Roffe, David R. White, Simon Burton, and Earl Campbell, "Decoding Across the Quantum Low-Density Parity-Check Code Landscape" (2020)</b><br><span class="r-what"><span class="mono">roffe2020decoding</span> · <span class="zh"><span class="mono">bp-osd</span> 记录：可移植的 qLDPC 基线译码器，不专为几何而设（<a href="../../qldpc/intuition/intuition.html#s6-3">qLDPC 教程 6.3 节</a>）。别名 <span class="mono">roffe2020bposd</span>。</span><span class="en">The <span class="mono">bp-osd</span> record: a portable qLDPC baseline, not geometry-specialized (<a href="../../qldpc/intuition/intuition.html#s6-3">qLDPC guide, §6.3</a>). Alias <span class="mono">roffe2020bposd</span>.</span></span></li>
-    <li><b>Oscar Higgott, Thomas C. Bohdanowicz, Aleksander Kubica, Steven T. Flammia, and Earl T. Campbell, "Improved Decoding of Circuit Noise and Fragile Boundaries of Tailored Surface Codes" (2023)</b><br><span class="r-what"><span class="mono">higgott2023beliefmatching</span> · <span class="zh"><span class="mono">belief-matching</span> 记录：先用信念传播分配相关故障，再重赋匹配图权重（<a href="../decoders/decoders.html#s5-4">译码器教程 5.4 节</a>的电路级噪声）。</span><span class="en">The <span class="mono">belief-matching</span> record: belief propagation assigns correlated faults first, then reweights the matching graph (circuit-level noise in the <a href="../decoders/decoders.html#s5-4">decoders guide, §5.4</a>).</span></span></li>
+    <li><b>Nicolas Delfosse and Naomi H. Nickerson, "Almost-linear time decoding algorithm for topological codes" (2021)</b><br><span class="r-what"><span class="mono">delfosse2021almost</span> · <span class="zh"><span class="mono">union-find</span> 记录。做法：每个警报先自成一个团；含奇数个警报的团向外长一圈（<b>加权生长</b>版每次只长边界最短的奇团），两团相碰就合并；含偶数个警报的团停止生长；等所有团都含偶数个警报，在每个团里用剥离（peeling）算法从树的叶子往里一条边一条边地剥，得到一个与警报相符的修复。9.9% 与 2.6% 属于加权生长版：前者是二维环面码、只有独立的 Z 错误、测量完美，后者是唯象噪声（每轮数据比特 Z 错误与测量结果翻转以同一概率发生）；所有团一起均匀生长的版本是 9.2% 与 2.4%（论文第 5 节）。用小幅阈值换近线性时间（<a href="../decoders/decoders.html#ch4">译码器教程第 4 章</a>）。</span><span class="en">The <span class="mono">union-find</span> record. How it works: each alarm starts as its own cluster; a cluster holding an odd number of alarms grows by one layer (the <b>weighted-growth</b> version grows only the odd cluster with the shortest boundary each time), and clusters that touch merge; a cluster holding an even number of alarms stops growing; once every cluster is even, a peeling algorithm strips each cluster edge by edge from the leaves of a tree inward and returns a correction matching the alarms. The 9.9% and 2.6% belong to the weighted-growth version: the first for the 2D toric code with independent Z errors and perfect measurements, the second for phenomenological noise (per round, data-qubit Z errors and measurement flips at the same probability); growing all clusters uniformly gives 9.2% and 2.4% (Section 5 of the paper). A little threshold is traded for almost-linear time (<a href="../decoders/decoders.html#ch4">decoders guide, Chapter 4</a>).</span></span></li>
+    <li><b>Guillaume Duclos-Cianci and David Poulin, "Fast Decoders for Topological Quantum Codes" (2010)</b><br><span class="r-what"><span class="mono">duclos2010fast</span> · <span class="zh"><span class="mono">renormalization-group</span>（重整化群）记录：先在小块里局部译码，把结果当成更大一层的输入，一层层往上粗粒化，估计每个逻辑类的概率，而不是立刻押最轻的链。</span><span class="en">The <span class="mono">renormalization-group</span> record: decode locally in small blocks, feed the results to a coarser layer, and repeat, estimating the probability of each logical class instead of committing to the lightest chain.</span></span></li>
+    <li><b>Sergey Bravyi, Martin Suchara, and Alexander Vargo, "Efficient Algorithms for Maximum Likelihood Decoding in the Surface Code" (2014)</b><br><span class="r-what"><span class="mono">bravyi2014efficient</span> · <span class="zh"><span class="mono">tensor-network-mld</span> 记录：独立 X/Z 噪声下精确的最大似然译码，一般 Pauli 噪声下用矩阵乘积态（一种把大张量写成一串小张量相乘的压缩表示）近似（<a href="../decoders/decoders.html#s1-2">译码器教程 1.2 节</a>的「最优」）。</span><span class="en">The <span class="mono">tensor-network-mld</span> record: exact maximum-likelihood decoding for independent X/Z noise, matrix-product-state approximation (a compressed representation writing a big tensor as a chain of small ones) for general Pauli noise (the “optimal” of the <a href="../decoders/decoders.html#s1-2">decoders guide, §1.2</a>).</span></span></li>
+    <li><b>Joschka Roffe, David R. White, Simon Burton, and Earl Campbell, "Decoding Across the Quantum Low-Density Parity-Check Code Landscape" (2020)</b><br><span class="r-what"><span class="mono">roffe2020decoding</span> · <span class="zh"><span class="mono">bp-osd</span> 记录：置信传播（检查与比特之间反复传递「这个比特出错的概率」）加有序统计后处理，是可移植的 qLDPC 基线译码器，不专为几何而设（<a href="../../qldpc/intuition/intuition.html#s6-3">qLDPC 教程 6.3 节</a>）。别名 <span class="mono">roffe2020bposd</span>。</span><span class="en">The <span class="mono">bp-osd</span> record: belief propagation (checks and qubits repeatedly exchange “probability that this qubit failed”) plus ordered-statistics post-processing, a portable qLDPC baseline, not geometry-specialized (<a href="../../qldpc/intuition/intuition.html#s6-3">qLDPC guide, §6.3</a>). Alias <span class="mono">roffe2020bposd</span>.</span></span></li>
+    <li><b>Oscar Higgott, Thomas C. Bohdanowicz, Aleksander Kubica, Steven T. Flammia, and Earl T. Campbell, "Improved Decoding of Circuit Noise and Fragile Boundaries of Tailored Surface Codes" (2023)</b><br><span class="r-what"><span class="mono">higgott2023beliefmatching</span> · <span class="zh"><span class="mono">belief-matching</span> 记录：先用置信传播估计哪些故障会同时点亮几个警报，再据此修改匹配图上每条边的权重，最后做匹配（<a href="../decoders/decoders.html#s5-4">译码器教程 5.4 节</a>的电路级噪声）。</span><span class="en">The <span class="mono">belief-matching</span> record: belief propagation first estimates which faults light several alarms together, the edge weights of the matching graph are adjusted accordingly, and matching runs last (circuit-level noise in the <a href="../decoders/decoders.html#s5-4">decoders guide, §5.4</a>).</span></span></li>
   </ul>
+  <details class="fold basics" id="cu-2a">
+    <summary><span class="zh">补课 · 张量与收缩；有序统计后处理怎样给出一个与警报相符的修复</span><span class="en">Catch-up · Tensors and contraction; how ordered-statistics post-processing yields a correction that matches the alarms</span></summary>
+    <div class="fold-body">
+      <p class="zh"><b>张量与收缩。</b>张量就是带若干个下标的一组数：一个下标是向量，两个下标是矩阵，三个以上照样可以。两个张量共享一个下标时，把这个下标的所有取值乘起来再加起来，叫<b>收缩</b>。最熟悉的例子是矩阵乘法 C<sub>ik</sub> = Σ<sub>j</sub> A<sub>ij</sub>B<sub>jk</sub>，共享的下标 j 被求和掉。取 A = [[1, 2], [3, 4]]，B = [[1, 0], [1, 1]]（下标从 0 数）：C<sub>00</sub> = A<sub>00</sub>B<sub>00</sub> + A<sub>01</sub>B<sub>10</sub> = 1·1 + 2·1 = 3，同样算出 C<sub>01</sub> = 2，C<sub>10</sub> = 7，C<sub>11</sub> = 4。张量网络就是许多小张量按图连起来，每条连线代表一个要被收缩的共享下标；矩阵乘积态是连成一条链的特例。张量网络译码器把「某一类错误的总概率」写成这样一张网络，收缩完得到一个数。</p>
+      <p class="en"><b>Tensors and contraction.</b> A tensor is an array of numbers with some indices: one index is a vector, two a matrix, and three or more work the same way. When two tensors share an index, multiplying over every value of that index and adding up is a <b>contraction</b>. The most familiar case is matrix multiplication, C<sub>ik</sub> = Σ<sub>j</sub> A<sub>ij</sub>B<sub>jk</sub>, where the shared index j is summed away. With A = [[1, 2], [3, 4]] and B = [[1, 0], [1, 1]] (indices counted from 0): C<sub>00</sub> = A<sub>00</sub>B<sub>00</sub> + A<sub>01</sub>B<sub>10</sub> = 1·1 + 2·1 = 3, and likewise C<sub>01</sub> = 2, C<sub>10</sub> = 7, C<sub>11</sub> = 4. A tensor network is many small tensors joined along a graph, each link standing for a shared index to be contracted; a matrix-product state is the special case of a chain. A tensor-network decoder writes “the total probability of one class of errors” as such a network, and contracting it yields one number.</p>
+      <p class="zh"><b>有序统计后处理（OSD）。</b>置信传播给每个比特一个「出错概率」，但按 0.5 一刀切得到的猜测不一定与警报相符。OSD 用排序补救。例：三比特重复码，两条检查 c<sub>1</sub> = b<sub>1</sub> + b<sub>2</sub>、c<sub>2</sub> = b<sub>2</sub> + b<sub>3</sub>（模 2），两条都报警，s = (1, 1)。设置信传播给出 b<sub>1</sub>、b<sub>2</sub>、b<sub>3</sub> 出错的概率 0.2、0.3、0.25，全都低于 0.5，一刀切的猜测是「都没错」，与 s 不符。OSD 按概率从大到小排：b<sub>2</sub>、b<sub>3</sub>、b<sub>1</sub>；依次取它们在检查矩阵里的列，b<sub>2</sub> 列 (1, 1)、b<sub>3</sub> 列 (0, 1)，这两列已经线性无关，只在这两个比特上解方程，其余比特设为 0：e<sub>2</sub>·(1, 1) + e<sub>3</sub>·(0, 1) = (1, 1)，得 e<sub>2</sub> = 1、e<sub>3</sub> = 0。修复是翻转 b<sub>2</sub>，它正好点亮两条检查，与警报相符。</p>
+      <p class="en"><b>Ordered-statistics post-processing (OSD).</b> Belief propagation gives each bit a “probability of error”, but cutting at 0.5 may give a guess that does not match the alarms. OSD repairs this by sorting. Example: the three-bit repetition code with checks c<sub>1</sub> = b<sub>1</sub> + b<sub>2</sub> and c<sub>2</sub> = b<sub>2</sub> + b<sub>3</sub> (mod 2), both alarming, s = (1, 1). Suppose belief propagation gives error probabilities 0.2, 0.3, 0.25 for b<sub>1</sub>, b<sub>2</sub>, b<sub>3</sub>, all below 0.5, so the cut-off guess is “no errors”, which does not match s. OSD sorts from most to least likely: b<sub>2</sub>, b<sub>3</sub>, b<sub>1</sub>; it takes their columns of the check matrix in that order, b<sub>2</sub>'s column (1, 1) and b<sub>3</sub>'s column (0, 1), which are already linearly independent, and solves only on these two bits with the rest set to 0: e<sub>2</sub>·(1, 1) + e<sub>3</sub>·(0, 1) = (1, 1), so e<sub>2</sub> = 1, e<sub>3</sub> = 0. The correction flips b<sub>2</sub>, which lights exactly the two checks, matching the alarms.</p>
+    </div>
+  </details>
 
   <h3 id="s2-4"><span class="sec-no">2.4</span><span class="zh">逻辑操作：怎样让它计算</span><span class="en">Logical operations: how to make it compute</span></h3>
   <ul class="reading">
     <li><b>Clare Horsman, Austin G. Fowler, Simon Devitt, and Rodney Van Meter, "Surface code quantum computing by lattice surgery" (2012)</b><br><span class="r-what"><span class="mono">horsman2012surface</span> · <span class="zh">claimed 操作「CNOT · surgery」的键：每次合并 / 分裂 O(d) 轮（d = 码距）加一块辅助路由贴片。<a href="../operations/operations.html#ch3">格点手术教程第 3 章</a>逐步推导。</span><span class="en">Key of the claimed operation “CNOT · surgery”: O(d) rounds per merge/split (d = distance) plus an ancilla routing patch. Derived step by step in the <a href="../operations/operations.html#ch3">lattice-surgery guide, Chapter 3</a>.</span></span></li>
-    <li><b>Benjamin J. Brown, Katharina Laubscher, Markus S. Kesselring, and James R. Wootton, "Poking holes and cutting corners to achieve Clifford gates with the surface code" (2017)</b><br><span class="r-what"><span class="mono">brown2017poking</span> · <span class="zh">claimed 操作「单比特 Clifford · braiding」：扭结 / 角落沿保距路径的码形变。</span><span class="en">Claimed operation “single-qubit Clifford · braiding”: twist/corner code deformation along distance-preserving paths.</span></span></li>
-    <li><b>J. E. Moussa, "Transversal Clifford gates on folded surface codes" (2016)</b><br><span class="r-what"><span class="mono">moussa2016transversal</span> · <span class="zh">claimed 操作「H / S · fold-transversal」：常深度门加一次折叠或等价的比特置换。</span><span class="en">Claimed operation “H / S · fold-transversal”: constant-depth gates plus a fold or an equivalent qubit permutation.</span></span></li>
-    <li><b>Sergey Bravyi and Alexei Kitaev, "Universal quantum computation with ideal Clifford gates and noisy ancillas" (2005)</b><br><span class="r-what"><span class="mono">bravyi2005magic</span> · <span class="zh">claimed 操作「T · measurement-based」：注入并蒸馏魔法态，再用门传送消耗；工厂的时空体积占主导（<a href="../operations/operations.html#s1-2">格点手术教程 1.2 节</a>的第三条路）。</span><span class="en">Claimed operation “T · measurement-based”: inject and distill a magic state, then consume it by gate teleportation; factory spacetime dominates (the third road of the <a href="../operations/operations.html#s1-2">lattice-surgery guide, §1.2</a>).</span></span></li>
-    <li><b>Robert Raussendorf, Jim Harrington, and Karl Goyal, "Topological fault-tolerance in cluster state quantum computation" (2007)</b><br><span class="r-what"><span class="mono">raussendorf2007fault</span> · <span class="zh">表面码的「基于测量」版本：把时空版图写成三维簇态。仅条目级。</span><span class="en">The measurement-based version of the surface code: the spacetime layout written as a 3D cluster state. Entry-level only.</span></span></li>
+    <li><b>Benjamin J. Brown, Katharina Laubscher, Markus S. Kesselring, and James R. Wootton, "Poking holes and cutting corners to achieve Clifford gates with the surface code" (2017)</b><br><span class="r-what"><span class="mono">brown2017poking</span> · <span class="zh">claimed 操作「单比特 Clifford · braiding」：在贴片上移动扭结或角落来慢慢改变码的形状（码形变），移动路线保证码距不降。</span><span class="en">Claimed operation “single-qubit Clifford · braiding”: moving twists or corners across the patch to change the code's shape gradually (code deformation), along routes that keep the distance intact.</span></span></li>
+    <li><b>J. E. Moussa, "Transversal Clifford gates on folded surface codes" (2016)</b><br><span class="r-what"><span class="mono">moussa2016transversal</span> · <span class="zh">claimed 操作「H / S · fold-transversal」：把正方形贴片沿一条对角线「对折」：关于对角线对称的两个比特叠成一对，对角线上的比特单独一个（图 2.2）。于是 H̄ = 对角线比特各做 H，每对做「H⊗H 再交换」；S̄ = 对角线比特各做 S 或 S†（按比特所属的类型），每对做一个 CZ。这些门的深度固定，不随码距增长。但把贴片折起来要靠一串局部 SWAP 把比特搬到位，论文给出正方形码折叠操作的深度是 6D − 5（D = 码距），会随码距增长：门的深度与搬运比特的代价要分开算。</span><span class="en">Claimed operation “H / S · fold-transversal”: fold the square patch along a diagonal: two qubits that are mirror images across the diagonal are stacked into a pair, and each qubit on the diagonal stays alone (Figure 2.2). Then H̄ = H on each diagonal qubit and “H⊗H, then swap” on each pair; S̄ = S or S† on each diagonal qubit (depending on its type) and one CZ on each pair. These gates have fixed depth, independent of the distance. Folding the patch in the first place, though, takes a sequence of local SWAPs to move qubits into place, and the paper gives the depth of the folding operation for the square code as 6D − 5 (D = distance), growing with the distance: gate depth and the cost of moving qubits must be counted separately.</span></span></li>
+    <li><b>Sergey Bravyi and Alexei Kitaev, "Universal quantum computation with ideal Clifford gates and noisy ancillas" (2005)</b><br><span class="r-what"><span class="mono">bravyi2005magic</span> · <span class="zh">claimed 操作「T · measurement-based」：先制备许多份带噪声的「魔法态」（一种特殊的单比特态，有了它就能用 Clifford 操作和测量做出 T 门），把它们提纯（蒸馏），再用门传送（测量加纠正）把它消耗掉；专门生产魔法态的「工厂」要额外占用比特和纠错周期；它在总开销里占多大份额，取决于算法需要多少个 T 门、工厂能否并行运行，所以资源估算要分别报告比特数、周期数和两者之积（时空体积）（<a href="../operations/operations.html#s1-2">格点手术教程 1.2 节</a>的第三条路）。</span><span class="en">Claimed operation “T · measurement-based”: prepare many noisy copies of a “magic state” (a special one-qubit state which, together with Clifford operations and measurements, yields a T gate), purify them (distillation), then consume one by gate teleportation (measurement plus correction); the “factories” producing magic states take extra qubits and correction cycles; their share of the total depends on how many T gates the algorithm needs and whether factories run in parallel, so resource estimates should report qubit count, cycle count and their product (spacetime volume) separately (the third road of the <a href="../operations/operations.html#s1-2">lattice-surgery guide, §1.2</a>).</span></span></li>
+    <li><b>Robert Raussendorf, Jim Harrington, and Karl Goyal, "Topological fault-tolerance in cluster state quantum computation" (2007)</b><br><span class="r-what"><span class="mono">raussendorf2007fault</span> · <span class="zh">表面码的「基于测量」版本：先准备一大块纠缠好的三维簇态（许多比特按格子两两纠缠的状态），然后只靠逐个测量比特完成纠错和计算。仅条目级。</span><span class="en">The measurement-based version of the surface code: prepare a large entangled 3D cluster state (many qubits entangled pairwise along a lattice) and carry out correction and computation purely by measuring qubits one by one. Entry-level only.</span></span></li>
     <li><b>Héctor Bombín, "Topological Order with a Twist: Ising Anyons from an Abelian Model" (2010)</b><br><span class="r-what"><span class="mono">bombin2010twist</span> · <span class="zh">扭结缺陷的首次构造；直觉文「费米子与扭结」一节的背景（<a href="../relations/relations.html#s4-3">关系导读 4.3 节</a>）。仅条目级。</span><span class="en">First construction of twist defects; background for the intuition essay's “fermions and twists” (<a href="../relations/relations.html#s4-3">relations guide, §4.3</a>). Entry-level only.</span></span></li>
   </ul>
+  <figure class="fig" id="fig-fold">
+    <div class="fig-frame">
+<svg viewBox="0 0 770 300" width="100%" style="max-width:770px;height:auto;color:var(--ink)" role="img" aria-label="沿对角线对折正方形贴片：配对比特与对角线比特 / Folding a square patch along its diagonal: paired and diagonal qubits">
+<line x1="40" y1="50" x2="240" y2="250" stroke="var(--cd)" stroke-width="1.8" stroke-dasharray="6 4"/>
+<g font-family="monospace" font-size="12.5" text-anchor="middle">
+<circle cx="70" cy="80" r="17" fill="var(--cd-soft)" stroke="var(--cd)" stroke-width="2"/>
+<text x="70" y="84" fill="currentColor">f1</text>
+<circle cx="140" cy="150" r="17" fill="var(--cd-soft)" stroke="var(--cd)" stroke-width="2"/>
+<text x="140" y="154" fill="currentColor">f2</text>
+<circle cx="210" cy="220" r="17" fill="var(--cd-soft)" stroke="var(--cd)" stroke-width="2"/>
+<text x="210" y="224" fill="currentColor">f3</text>
+<circle cx="140" cy="80" r="17" fill="var(--bg)" stroke="var(--cz)" stroke-width="2"/>
+<text x="140" y="84" fill="currentColor">a</text>
+<circle cx="70" cy="150" r="17" fill="var(--bg)" stroke="var(--cx)" stroke-width="2"/>
+<text x="70" y="154" fill="currentColor">a'</text>
+<circle cx="210" cy="80" r="17" fill="var(--bg)" stroke="var(--cz)" stroke-width="2"/>
+<text x="210" y="84" fill="currentColor">b</text>
+<circle cx="70" cy="220" r="17" fill="var(--bg)" stroke="var(--cx)" stroke-width="2"/>
+<text x="70" y="224" fill="currentColor">b'</text>
+<circle cx="210" cy="150" r="17" fill="var(--bg)" stroke="var(--cz)" stroke-width="2"/>
+<text x="210" y="154" fill="currentColor">c</text>
+<circle cx="140" cy="220" r="17" fill="var(--bg)" stroke="var(--cx)" stroke-width="2"/>
+<text x="140" y="224" fill="currentColor">c'</text>
+</g>
+<g font-family="monospace" font-size="12.5" fill="currentColor" font-weight="600">
+<text x="20" y="28" class="zh">(a) 展开（示意）</text><text x="20" y="28" class="en">(a) unfolded (sketch)</text>
+<text x="330" y="28" class="zh">(b) 沿粉色对角线对折后</text><text x="330" y="28" class="en">(b) folded along the pink diagonal</text>
+</g>
+<text x="244" y="264" font-family="monospace" font-size="11.5" fill="var(--cd)"></text>
+<g font-family="monospace" font-size="20" fill="var(--ink2)"><text x="270" y="160">→</text></g>
+<g font-family="monospace" font-size="12" text-anchor="middle">
+<circle cx="395" cy="80" r="17" fill="var(--cd-soft)" stroke="var(--cd)" stroke-width="2"/>
+<text x="395" y="84" fill="currentColor">f1</text>
+<circle cx="465" cy="150" r="17" fill="var(--cd-soft)" stroke="var(--cd)" stroke-width="2"/>
+<text x="465" y="154" fill="currentColor">f2</text>
+<circle cx="535" cy="220" r="17" fill="var(--cd-soft)" stroke="var(--cd)" stroke-width="2"/>
+<text x="535" y="224" fill="currentColor">f3</text>
+<rect x="435" y="65" width="60" height="30" rx="15" fill="var(--bg)" stroke="var(--ink3)" stroke-width="1.2"/>
+<circle cx="451" cy="80" r="11" fill="var(--bg)" stroke="var(--cz)" stroke-width="2"/>
+<circle cx="479" cy="80" r="11" fill="var(--bg)" stroke="var(--cx)" stroke-width="2"/>
+<text x="451" y="84" font-size="11" fill="currentColor">a</text>
+<text x="479" y="84" font-size="11" fill="currentColor">a'</text>
+<rect x="505" y="65" width="60" height="30" rx="15" fill="var(--bg)" stroke="var(--ink3)" stroke-width="1.2"/>
+<circle cx="521" cy="80" r="11" fill="var(--bg)" stroke="var(--cz)" stroke-width="2"/>
+<circle cx="549" cy="80" r="11" fill="var(--bg)" stroke="var(--cx)" stroke-width="2"/>
+<text x="521" y="84" font-size="11" fill="currentColor">b</text>
+<text x="549" y="84" font-size="11" fill="currentColor">b'</text>
+<rect x="505" y="135" width="60" height="30" rx="15" fill="var(--bg)" stroke="var(--ink3)" stroke-width="1.2"/>
+<circle cx="521" cy="150" r="11" fill="var(--bg)" stroke="var(--cz)" stroke-width="2"/>
+<circle cx="549" cy="150" r="11" fill="var(--bg)" stroke="var(--cx)" stroke-width="2"/>
+<text x="521" y="154" font-size="11" fill="currentColor">c</text>
+<text x="549" y="154" font-size="11" fill="currentColor">c'</text>
+</g>
+<g font-family="monospace" font-size="11.5" fill="currentColor">
+<text x="20" y="262" class="zh">粉色 f1 f2 f3：对角线上的比特，折叠后单独一个</text><text x="20" y="262" class="en">pink f1 f2 f3: diagonal qubits, alone after folding</text>
+<text x="20" y="280" class="zh">蓝框 a b c 与橙框 a' b' c'：关于对角线对称，折叠后叠成一对</text><text x="20" y="280" class="en">blue a b c and orange a' b' c': mirror images across the diagonal, stacked in pairs after folding</text>
+<text x="575" y="90" class="zh">H̄：f 上做 H；</text><text x="575" y="90" class="en">H̄: H on each f;</text>
+<text x="575" y="106" class="zh">每对做 H⊗H 再交换</text><text x="575" y="106" class="en">H⊗H then swap per pair</text>
+<text x="575" y="136" class="zh">S̄：f 上做 S 或 S†；</text><text x="575" y="136" class="en">S̄: S or S† on each f;</text>
+<text x="575" y="152" class="zh">每对做一个 CZ</text><text x="575" y="152" class="en">one CZ per pair</text>
+<text x="575" y="182" class="zh">门深度固定；折叠本身</text><text x="575" y="182" class="en">fixed gate depth; the fold</text>
+<text x="575" y="198" class="zh">靠局部 SWAP，深度 6D−5</text><text x="575" y="198" class="en">itself uses local SWAPs:</text>
+<text x="575" y="214" class="zh">（D = 码距）</text><text x="575" y="214" class="en">depth 6D−5 (D = distance)</text>
+</g></svg>
+    </div>
+    <figcaption>
+      <span class="fno">图 2.2</span>
+      <span class="zh">对折的配对方式（示意：只画 3 × 3 个数据比特，省去辅助比特；论文图 6 是完整版图）。(a) 粉色虚线是折痕；f1、f2、f3 在折痕上；a 与 a'、b 与 b'、c 与 c' 关于折痕对称。(b) 折叠后 a 与 a' 叠成一对（图中画成并排放在一个圆角框里），依此类推，对角线比特单独一个。右侧列出逻辑 H̄、S̄ 在两类比特上各做什么，以及折叠操作本身的深度（Moussa 2016，第 III 节）。</span>
+      <span class="en">How folding pairs the qubits (sketch: only 3 × 3 data qubits, helper qubits omitted; Fig. 6 of the paper has the full layout). (a) The pink dashed line is the crease; f1, f2, f3 lie on it; a and a', b and b', c and c' are mirror images across it. (b) After folding, a and a' form a stacked pair (drawn side by side in one rounded box), and so on, while each diagonal qubit stays alone. The right side lists what the logical H̄ and S̄ do on the two kinds of qubits, and the depth of the folding operation itself (Moussa 2016, Section III).</span>
+    </figcaption>
+  </figure>
 
   <h3 id="s2-5"><span class="sec-no">2.5</span><span class="zh">版图变体：同一内部的其他裁法</span><span class="en">Layout variants: other cuts of the same bulk</span></h3>
   <ul class="reading">
@@ -1043,13 +1176,20 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
 
   <h3 id="s2-6"><span class="sec-no">2.6</span><span class="zh">表示阶梯：同一个码的几种语言</span><span class="en">The representation ladder: several languages for one code</span></h3>
   <ul class="reading">
-    <li><b>Aleks Kissinger, "Phase-free ZX diagrams are CSS codes (...or how to graphically grok the surface code)" (2022)</b><br><span class="r-what"><span class="mono">kissinger2022phasefree</span> · <span class="zh">R5「ZX」视图的 curated 来源：无相位 ZX 图与 CSS 码编码同一个二元线性子空间，格点手术成了图重写。</span><span class="en">Curated origin of the R5 “ZX” view: a phase-free ZX diagram and a CSS code encode the same binary linear subspace, so lattice surgery becomes diagram rewriting.</span></span></li>
+    <li><b>Aleks Kissinger, "Phase-free ZX diagrams are CSS codes (...or how to graphically grok the surface code)" (2022)</b><br><span class="r-what"><span class="mono">kissinger2022phasefree</span> · <span class="zh">R5「ZX」视图的 curated 来源。ZX 演算把量子线路画成由两种节点（Z 蜘蛛和 X 蜘蛛）连成的图，再用几条画图规则化简；这篇说明：对<b>极大</b> CSS 码（稳定子多到只固定一个量子态，不存逻辑比特），它的稳定子与一个不带相位的 ZX 图的标准形由同一个二元线性子空间 S 描述，二者给出同一个态；存有逻辑比特的一般 CSS 码，要再用论文的「弯线」扩展，把逻辑输入也画进图里。格点手术于是成了图的改写。</span><span class="en">Curated origin of the R5 “ZX” view. The ZX calculus draws quantum circuits as graphs of two node types (Z spiders and X spiders) and simplifies them by a few drawing rules; this paper shows that for a <b>maximal</b> CSS code (so many stabilizers that they fix a single quantum state and store no logical qubit), its stabilizers and the normal form of a phase-free ZX diagram are described by the same binary linear subspace S and give the same state; a general CSS code that stores logical qubits needs the paper's “bending wires” extension, which draws the logical inputs into the diagram too. Lattice surgery then becomes rewriting a diagram.</span></span></li>
     <li><b>Niel de Beaudrap and Dominic Horsman, "The ZX calculus is a language for surface code lattice surgery" (2020)</b><br><span class="r-what"><span class="mono">debeaudrap2020zx</span> · <span class="zh">ZX 视图的第二个键：合并 / 分裂对应蜘蛛映射（<a href="../operations/operations.html#ch5">格点手术教程第 5 章</a>用两次合并做 CNOT）。</span><span class="en">Second key of the ZX view: merge/split as spider maps (the <a href="../operations/operations.html#ch5">lattice-surgery guide, Chapter 5</a> builds a CNOT from two merges).</span></span></li>
-    <li><b>Héctor Bombín, Daniel Litinski, Naomi Nickerson, Fernando Pastawski, and Sam Roberts, "Unifying flavors of fault tolerance with the ZX calculus" (2023)</b><br><span class="r-what"><span class="mono">bombin2023unifying</span> · <span class="zh">ZX 视图的第三个键：把电路、簇态、Floquet 等容错方案统一成一种图语言。别名 <span class="mono">bombin2024zx</span>。</span><span class="en">Third key of the ZX view: circuit, cluster-state and Floquet fault tolerance unified in one diagrammatic language. Alias <span class="mono">bombin2024zx</span>.</span></span></li>
-    <li><b>Zhengwei Liu, Alex Wozniakowski, and Arthur M. Jaffe, "Quon 3D language for quantum information" (2017)</b><br><span class="r-what"><span class="mono">liu2017quon</span> · <span class="zh">R5「费米子 / quon」视图的键之一：带电串图暴露 e、m 的复合费米子。该视图挂着一个缺口 <span class="mono">wanted:fermionic-compiler</span>。</span><span class="en">One key of the R5 “fermionic / quon” view: charged string diagrams expose the fermionic composite of e and m. The view carries the gap <span class="mono">wanted:fermionic-compiler</span>.</span></span></li>
+    <li><b>Héctor Bombín, Daniel Litinski, Naomi Nickerson, Fernando Pastawski, and Sam Roberts, "Unifying flavors of fault tolerance with the ZX calculus" (2023)</b><br><span class="r-what"><span class="mono">bombin2023unifying</span> · <span class="zh">ZX 视图的第三个键：把电路、簇态、Floquet（检查随时间周期性轮换的码）等容错方案统一成一种图语言。别名 <span class="mono">bombin2024zx</span>。</span><span class="en">Third key of the ZX view: circuit, cluster-state and Floquet (codes whose checks rotate periodically in time) fault tolerance unified in one diagrammatic language. Alias <span class="mono">bombin2024zx</span>.</span></span></li>
+    <li><b>Zhengwei Liu, Alex Wozniakowski, and Arthur M. Jaffe, "Quon 3D language for quantum information" (2017)</b><br><span class="r-what"><span class="mono">liu2017quon</span> · <span class="zh">R5「费米子 / quon」视图的键之一：quon 是一种把量子比特画成三维空间里带「电荷」的弦的图语言；这种图显示星报警 e 与面报警 m 合在一起的复合粒子是费米子（交换两个这样的粒子，态多一个负号）。该视图挂着一个缺口 <span class="mono">wanted:fermionic-compiler</span>。</span><span class="en">One key of the R5 “fermionic / quon” view: quons are a diagram language drawing qubits as charged strings in three-dimensional space; such diagrams show that the composite of a star alarm e and a plaquette alarm m is a fermion (exchanging two of them adds a minus sign to the state). The view carries the gap <span class="mono">wanted:fermionic-compiler</span>.</span></span></li>
     <li><b>Zhengwei Liu, "Quantized Graphs and Quantum Error Correction" (2019)</b><br><span class="r-what"><span class="mono">liu2019quantized</span> · <span class="zh">费米子视图的 curated 来源：星与面统一为圈算符，e/m 对偶是图的自对偶。</span><span class="en">Curated origin of the fermionic view: stars and plaquettes unified as cycle operators, e/m duality as graph self-duality.</span></span></li>
-    <li><b>Norbert Schuch, J. Ignacio Cirac, and David Pérez-García, "PEPS as ground states: Degeneracy and topology" (2010)</b><br><span class="r-what"><span class="mono">schuch2010peps</span> · <span class="zh">R5「张量网络」视图的 curated 来源：基态是带虚拟 Z₂ 对称的 PEPS，拓扑序是对局部张量的约束。</span><span class="en">Curated origin of the R5 “tensor-network” view: the ground space is a PEPS with a virtual Z₂ symmetry; topological order is a constraint on the local tensor.</span></span></li>
+    <li><b>Norbert Schuch, J. Ignacio Cirac, and David Pérez-García, "PEPS as ground states: Degeneracy and topology" (2010)</b><br><span class="r-what"><span class="mono">schuch2010peps</span> · <span class="zh">R5「张量网络」视图的 curated 来源：把检查当能量项时的最低能态可以写成 PEPS（每个格点放一个小张量、相邻张量沿连线收缩的二维张量网络），每个小张量在内部连线上带一个 Z₂ 对称；拓扑序，即逻辑信息藏在全局、局部看不见的性质，就体现为对局部张量的这个约束。</span><span class="en">Curated origin of the R5 “tensor-network” view: with the checks as energy terms, the lowest-energy states can be written as a PEPS (a two-dimensional tensor network with one small tensor per site, contracted along the links), each small tensor carrying a Z₂ symmetry on its internal links; topological order, the property that logical information lives globally and is invisible locally, shows up as this constraint on the local tensor.</span></span></li>
   </ul>
+  <details class="fold basics" id="cu-2b">
+    <summary><span class="zh">补课 · 张量上的 Z₂ 对称是什么意思</span><span class="en">Catch-up · What a Z₂ symmetry of a tensor means</span></summary>
+    <div class="fold-body">
+      <p class="zh">Z₂ 是只有两个元素的群：「不动」和「翻转」，翻转两次等于不动。设一个小张量有四条内部连线（下标 a、b、c、d，各取 0 或 1），定义 T<sub>abcd</sub> = 1 当 a + b + c + d 为偶数，否则为 0。把四条连线<b>同时</b>翻转（0 ↔ 1），和 a + b + c + d 变了 4，奇偶不变，所以每个分量都不变：T<sub>abcd</sub> = T<sub>(1−a)(1−b)(1−c)(1−d)</sub>，例如 T<sub>0000</sub> = T<sub>1111</sub> = 1，T<sub>1000</sub> = T<sub>0111</sub> = 0。这就是「在内部连线上带一个 Z₂ 对称」。只翻一条连线则不行：T<sub>0000</sub> = 1 会变成 T<sub>1000</sub> = 0。收缩整张网络时，这样的对称可以沿连线在相邻张量之间推来推去，局部看不出任何变化；Schuch 等把基态简并和拓扑序追溯到这种约束。</p>
+      <p class="en">Z₂ is the group with just two elements, “do nothing” and “flip”, where flipping twice is doing nothing. Take a small tensor with four internal links (indices a, b, c, d, each 0 or 1) and set T<sub>abcd</sub> = 1 when a + b + c + d is even and 0 otherwise. Flipping all four links <b>at once</b> (0 ↔ 1) changes the sum by 4, which keeps its parity, so every entry is unchanged: T<sub>abcd</sub> = T<sub>(1−a)(1−b)(1−c)(1−d)</sub>, e.g. T<sub>0000</sub> = T<sub>1111</sub> = 1 and T<sub>1000</sub> = T<sub>0111</sub> = 0. That is what “carrying a Z₂ symmetry on its internal links” means. Flipping only one link fails: T<sub>0000</sub> = 1 would become T<sub>1000</sub> = 0. In the contracted network such a symmetry can be pushed along links from one tensor to its neighbours without any local change; Schuch et al. trace ground-state degeneracy and topological order back to this constraint.</p>
+    </div>
+  </details>
 
   <h3 id="s2-7"><span class="sec-no">2.7</span><span class="zh">实验：硬件上做到了什么</span><span class="en">Experiments: what hardware has done</span></h3>
   <ul class="reading">
@@ -1087,9 +1227,24 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
 
   <h3 id="s3-1"><span class="sec-no">3.1</span><span class="zh">从 0.143% 走到 arXiv</span><span class="en">From 0.143% to arXiv</span></h3>
   <div class="prose">
-    <p class="zh">你在<a href="../realizations/realizations.html">用例与实现导读</a>里读到「d=7 贴片每周期 0.143% ± 0.003%」（d = 码距）。<b>第一步</b>：找到它在源文件里的记录——<span class="mono">card.yaml</span> 的 <span class="mono">realizations[1]</span>，字段有 platform（Google Willow superconducting processor）、status（demonstrated）、description（原句）、refs（<span class="mono">[google2024below]</span>）。<b>第二步</b>：拿键去 <span class="mono">registry/refs.yaml</span> 查：title「Quantum error correction below the surface code threshold」，authors「Google Quantum AI」，year 2024，url arXiv 2408.13687。<b>第三步</b>：对照导出的 Atlas 页面 <span class="mono">entries/surface/realizations.html</span>，同一句、同一键。<b>第四步</b>：打开论文，核对 0.143(3)% 与 Λ = 2.14(2)。四步中没有一步需要相信任何人的转述。</p>
-    <p class="en">In the <a href="../realizations/realizations.html">use-cases guide</a> you read “a d=7 patch at 0.143% ± 0.003% per cycle” (d = distance). <b>Step one</b>: find its record in the source, <span class="mono">card.yaml</span> → <span class="mono">realizations[1]</span>, with platform (Google Willow superconducting processor), status (demonstrated), description (the sentence itself) and refs (<span class="mono">[google2024below]</span>). <b>Step two</b>: look the key up in <span class="mono">registry/refs.yaml</span>: title “Quantum error correction below the surface code threshold”, authors “Google Quantum AI”, year 2024, url arXiv 2408.13687. <b>Step three</b>: compare with the exported Atlas page <span class="mono">entries/surface/realizations.html</span>: same sentence, same key. <b>Step four</b>: open the paper and check 0.143(3)% and Λ = 2.14(2). No step asks you to trust anyone's paraphrase.</p>
+    <p class="zh">你在<a href="../realizations/realizations.html">用例与实现导读</a>里读到「d=7 贴片每周期 0.143% ± 0.003%」（d = 码距）。<b>第一步</b>：找到它在源文件里的记录，<span class="mono">atlas/surface/card.yaml</span> 的 <span class="mono">realizations[1]</span>（下方摘录一），字段有 platform、status、description（原句）和 refs（<span class="mono">[google2024below]</span>）。<b>第二步</b>：拿键去 <span class="mono">registry/refs.yaml</span> 查（摘录二）：标题、作者、年份和论文地址 <a href="https://arxiv.org/abs/2408.13687">arXiv:2408.13687</a>。<b>第三步</b>：对照导出的 Atlas 页面 <span class="mono">entries/surface/realizations.html</span>，同一句、同一键。<b>第四步</b>：打开论文，核对 0.143(3)% 与 Λ = 2.14(2)。括号是末位数字的误差：0.143(3)% 就是 0.143% ± 0.003%，2.14(2) 就是 2.14 ± 0.02。论文摘要写的正是「0.143% ± 0.003%」和「Λ = 2.14 ± 0.02」。四步中没有一步需要相信任何人的转述。</p>
+    <p class="en">In the <a href="../realizations/realizations.html">use-cases guide</a> you read “a d=7 patch at 0.143% ± 0.003% per cycle” (d = distance). <b>Step one</b>: find its record in the source, <span class="mono">atlas/surface/card.yaml</span> → <span class="mono">realizations[1]</span> (excerpt 1 below), with fields platform, status, description (the sentence itself) and refs (<span class="mono">[google2024below]</span>). <b>Step two</b>: look the key up in <span class="mono">registry/refs.yaml</span> (excerpt 2): title, authors, year and the paper's address <a href="https://arxiv.org/abs/2408.13687">arXiv:2408.13687</a>. <b>Step three</b>: compare with the exported Atlas page <span class="mono">entries/surface/realizations.html</span>: same sentence, same key. <b>Step four</b>: open the paper and check 0.143(3)% and Λ = 2.14(2). The bracket is the uncertainty in the last digit: 0.143(3)% means 0.143% ± 0.003%, and 2.14(2) means 2.14 ± 0.02. The paper's abstract states exactly “0.143% ± 0.003%” and “Λ = 2.14 ± 0.02”. No step asks you to trust anyone's paraphrase.</p>
   </div>
+  <p class="muted small"><span class="zh">摘录一：atlas/surface/card.yaml，realizations 列表第 1 项（从 0 数）；文字逐字复制，只改了换行和缩进</span><span class="en">Excerpt 1: atlas/surface/card.yaml, item 1 (counting from 0) of the realizations list; words copied verbatim, only line breaks and indentation changed</span></p>
+  <pre class="snippet">{
+  "description": "A distance-7 patch reached 0.143% ± 0.003% logical error per cycle and each
+                  distance increase of two suppressed error by Λ = 2.14 ± 0.02, with logical
+                  lifetime beyond the best physical qubit.",
+  "platform": "Google Willow superconducting processor",
+  "refs": ["google2024below"],
+  "status": "demonstrated"
+}</pre>
+  <p class="muted small"><span class="zh">摘录二：registry/refs.yaml 中键 google2024below 的条目，逐字复制</span><span class="en">Excerpt 2: the entry for the key google2024below in registry/refs.yaml, copied verbatim</span></p>
+  <pre class="snippet">- id: google2024below
+  title: "Quantum error correction below the surface code threshold"
+  authors: "Google Quantum AI"
+  year: 2024
+  url: "https://arxiv.org/abs/2408.13687"</pre>
   <div class="formula center"><span class="zh">数字</span><span class="en">number</span> → card.yaml <span class="zh">记录</span><span class="en">record</span> (refs) → registry/refs.yaml (id → url) → <span class="zh">导出页</span><span class="en">exported page</span> → arXiv</div>
 
   <h3 id="s3-2"><span class="sec-no">3.2</span><span class="zh">一个键如何钉住一条关系</span><span class="en">How a key pins a relation</span></h3>
@@ -1140,6 +1295,7 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
     <tr><td class="mono">bibkey</td><td><span class="zh">「文献键」</span><span class="en">“bib-key”</span></td><td><span class="zh">姓 + 年 + 标题词构成的全局唯一名字，如 dennis2002topological。</span><span class="en">A globally unique name, surname + year + title word, e.g. dennis2002topological.</span></td></tr>
     <tr><td class="mono">registry/refs.yaml</td><td><span class="zh">注册表</span><span class="en">The registry</span></td><td><span class="zh">受控词表：每个键的 id / title / authors / year / url。</span><span class="en">The controlled vocabulary: id / title / authors / year / url per key.</span></td></tr>
     <tr><td class="mono">alias_of</td><td><span class="zh">「是……的别名」</span><span class="en">“alias of”</span></td><td><span class="zh">同一论文的第二个键，不算第二篇文献。</span><span class="en">A second key for the same paper, not a second paper.</span></td></tr>
+      <tr><td>R1 … R5</td><td><span class="zh">「表示阶梯第 1 到第 5 级」</span><span class="en">“rungs 1 to 5 of the representation ladder”</span></td><td><span class="zh">Atlas 把同一个码写成五级越来越抽象的语言：R1 校验矩阵，R2 同调与超图积，往上直到 R5 的统计力学、ZX、费米子与张量网络视图（<a href="../views/views.html">表示阶梯导读</a>）。</span><span class="en">The Atlas writes one code in five increasingly abstract languages: R1 check matrices, R2 homology and the hypergraph product, up to the R5 statistical-mechanics, ZX, fermionic and tensor-network views (<a href="../views/views.html">representation-ladder guide</a>).</span></td></tr>
     <tr><td class="mono">refs / origin.ref</td><td><span class="zh">引用列表 / 来源键</span><span class="en">refs list / origin key</span></td><td><span class="zh">侧面记录的多键列表；逻辑操作的单键加 kind: claimed。</span><span class="en">A multi-key list on facet records; a single key plus kind: claimed on operations.</span></td></tr>
     <tr><td class="mono">source_locator, sha256</td><td><span class="zh">位置与哈希</span><span class="en">Locator and hash</span></td><td><span class="zh">断言在源文件中的路径，及其内容指纹。</span><span class="en">The assertion's path in the source file and its content fingerprint.</span></td></tr>
     <tr><td class="mono">[[n, k, d]]</td><td><span class="zh">「n k d 码」</span><span class="en">“an n-k-d code”</span></td><td><span class="zh">n = 物理比特数，k = 逻辑比特数（<a href="../../toric_code/intuition/intuition.html#s4-4">定义</a>），d = 码距（<a href="../../toric_code/intuition/intuition.html#s4-6">定义</a>）；L = 格子边长，本条目 d = L。</span><span class="en">n = physical qubits, k = logical qubits (<a href="../../toric_code/intuition/intuition.html#s4-4">definition</a>), d = distance (<a href="../../toric_code/intuition/intuition.html#s4-6">definition</a>); L = lattice side, here d = L.</span></td></tr>
@@ -3700,50 +3856,65 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
         'Z', (v) => { mode = v; upd(); }
       );
       F.controls.append(seg.el,
-        U().btn(isToric ? '示范：可收缩的圈' : '示范：平凡closed圈', isToric ? 'Demo: contractible loop' : 'Demo: trivial loop', '', () => {
+        U().btn(isToric ? '示范：可收缩的圈' : '示范：平凡的闭合圈', isToric ? 'Demo: contractible loop' : 'Demo: trivial loop', '', () => {
           view.errZ = new Set(); view.errX = new Set();
           // boundary of a 2x1 block of plaquettes
           const s = P().xorSet(lat.plaqs[0].support, lat.plaqs[1].support);
           view.errZ = new Set(s);
-          mode = 'Z';
+          if (mode !== 'Z') seg.el.children[0].click();
           upd();
         }),
         U().btn(isToric ? '示范：缠绕圈' : '示范：跨边界串', isToric ? 'Demo: winding loop' : 'Demo: boundary-to-boundary', '', () => {
           view.errZ = new Set(lat.logicals.Z[0]); view.errX = new Set();
-          mode = 'Z';
+          if (mode !== 'Z') seg.el.children[0].click();
           upd();
         }),
         U().btn('清空', 'Clear', '', () => { view.errZ.clear(); view.errX.clear(); upd(); })
       );
+      // Both string types may be on the lattice at once (some pages ask for an X and a Z loop together),
+      // so alarms of both types are counted and each drawn type gets its own verdict.
+      function judge(type, sup) {
+        const partners = type === 'Z' ? lat.logicals.X : lat.logicals.Z;
+        const par = partners.map((Lg) => P().overlapParity(sup, Lg));
+        if (!par.some((v) => v === 1)) {
+          return {
+            zh: '<span class="ok">警报全灭</span>，而且它是<b>平凡的</b>：它恰好等于若干' + (type === 'Z' ? '面检查' : '星检查') + '的乘积，对编码信息<b>什么也不做</b>。',
+            en: '<span class="ok">No alarms</span>, and it is <b>trivial</b>: it equals a product of ' + (type === 'Z' ? 'face checks' : 'star checks') + ' and does <b>nothing</b> to the stored information.',
+          };
+        }
+        const L1 = type === 'Z' ? 'Z̄₁' : 'X̄₁', L2 = type === 'Z' ? 'Z̄₂' : 'X̄₂';
+        if (isToric) {
+          const which = par[0] && par[1] ? L1 + '·' + L2 + '（两个方向都绕）' : par[0] ? L1 + (type === 'Z' ? '（水平缠绕）' : '') : L2 + (type === 'Z' ? '（垂直缠绕）' : '');
+          const whichEn = par[0] && par[1] ? L1 + '·' + L2 + ', both directions' : par[0] ? L1 + ', direction 1' : L2 + ', direction 2';
+          return {
+            zh: '<span class="no">警报全灭，但这不是平凡圈！</span>它绕过了整个环面——这是<b>逻辑算符 ' + which + '</b>：不触发任何检查，却会改写存下来的量子信息。',
+            en: '<span class="no">No alarms, yet NOT trivial!</span> It winds around the torus (' + whichEn + ') — a <b>logical operator</b>: invisible to every check, yet it rewrites the stored quantum information.',
+          };
+        }
+        return {
+          zh: '<span class="no">警报全灭，但这不是平凡圈！</span>这条串从一条边界横跨到对面——它就是<b>逻辑算符 ' + (type === 'Z' ? 'Z̄' : 'X̄') + '</b>：不触发任何检查，却改写了存下来的量子比特。',
+          en: '<span class="no">No alarms, yet NOT trivial!</span> The string spans from one boundary to the opposite one — the <b>logical operator ' + (type === 'Z' ? 'Z̄' : 'X̄') + '</b>: invisible to every check, yet it rewrites the stored qubit.',
+        };
+      }
       function upd() {
         view.draw();
         const syn = view.syndrome();
         const zSup = [...view.errZ], xSup = [...view.errX];
-        const active = mode === 'Z' ? zSup : xSup;
-        const defects = mode === 'Z' ? syn.starDefects.length : syn.plaqDefects.length;
+        const defects = syn.starDefects.length + syn.plaqDefects.length;
         let verdictZh, verdictEn;
-        if (!active.length) {
+        if (!zSup.length && !xSup.length) {
           verdictZh = '画几条边试试。目标：不触发任何警报。';
           verdictEn = 'Draw some edges. Goal: trigger no alarms.';
         } else if (defects > 0) {
           verdictZh = '还有 <b>' + defects + '</b> 个警报亮着：串有端点。把它闭合，或' + (isToric ? '绕一整圈' : '让两端都搭到正确的边界上') + '。';
           verdictEn = '<b>' + defects + '</b> alarms still lit: the string has endpoints. Close it up, or ' + (isToric ? 'wrap it all the way around' : 'land both ends on the right boundaries') + '.';
         } else {
-          const partners = mode === 'Z' ? lat.logicals.X : lat.logicals.Z;
-          const par = partners.map((Lg) => P().overlapParity(active, Lg));
-          const wound = par.some((v) => v === 1);
-          if (!wound) {
-            verdictZh = '<span class="ok">警报全灭</span>，且这是一个<b>平凡圈</b>：它恰好等于若干' + (mode === 'Z' ? '面检查' : '星检查') + '的乘积，对编码信息<b>什么也不做</b>。';
-            verdictEn = '<span class="ok">No alarms</span>, and this is a <b>trivial loop</b>: it equals a product of ' + (mode === 'Z' ? 'face checks' : 'star checks') + ' and does <b>nothing</b> to the stored information.';
-          } else if (isToric) {
-            const which = par[0] && par[1] ? 'Z̄₁·Z̄₂（两个方向都绕）' : par[0] ? (mode === 'Z' ? 'Z̄₁（水平缠绕）' : 'X̄₁') : (mode === 'Z' ? 'Z̄₂（垂直缠绕）' : 'X̄₂');
-            const whichEn = par[0] && par[1] ? 'both directions' : par[0] ? 'direction 1' : 'direction 2';
-            verdictZh = '<span class="no">警报全灭，但这不是平凡圈！</span>它绕过了整个环面——这是<b>逻辑算符 ' + which + '</b>：不触发任何检查，却会改写存下来的量子信息。';
-            verdictEn = '<span class="no">No alarms, yet NOT trivial!</span> It winds around the torus (' + whichEn + ') — a <b>logical operator</b>: invisible to every check, yet it rewrites the stored quantum information.';
-          } else {
-            verdictZh = '<span class="no">警报全灭，但这不是平凡圈！</span>这条串从一条边界横跨到对面——它就是<b>逻辑算符 ' + (mode === 'Z' ? 'Z̄' : 'X̄') + '</b>：不触发任何检查，却改写了存下来的量子比特。';
-            verdictEn = '<span class="no">No alarms, yet NOT trivial!</span> The string spans from one boundary to the opposite one — the <b>logical operator ' + (mode === 'Z' ? 'Z̄' : 'X̄') + '</b>: invisible to every check, yet it rewrites the stored qubit.';
-          }
+          const both = zSup.length > 0 && xSup.length > 0;
+          const parts = [];
+          if (zSup.length) parts.push({ j: judge('Z', zSup), lz: 'Z 串：', le: 'Z string: ' });
+          if (xSup.length) parts.push({ j: judge('X', xSup), lz: 'X 串：', le: 'X string: ' });
+          verdictZh = parts.map((q) => (both ? q.lz : '') + q.j.zh).join('<br>');
+          verdictEn = parts.map((q) => (both ? q.le : '') + q.j.en).join('<br>');
         }
         F.setReadout('<span class="zh">' + verdictZh + '</span><span class="en">' + verdictEn + '</span>');
       }
@@ -3828,8 +3999,8 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
         view.hlEdges = new Map([...corr].map((e) => [e, { color: getComputedStyle(doc.documentElement).getPropertyValue('--good').trim(), width: 5 }]));
         view.draw();
         F.setReadout(fail
-          ? '<span class="zh"><span class="no">这回合失败了。</span>蓝色 = 真实错误，绿色 = 你的修复。二者合起来形成了' + (isToric ? '一条<b>缠绕整个环面</b>的圈' : '一条<b>横跨两条边界</b>的串') + ' —— 恰好是逻辑算符，信息被改写。连胜清零。点「新回合」再来！</span><span class="en"><span class="no">Round lost.</span> Blue = true errors, green = your repair. Together they form ' + (isToric ? 'a loop <b>winding around the torus</b>' : 'a string <b>spanning both boundaries</b>') + ' — exactly a logical operator; the data got rewritten. Streak reset. “New round” to retry!</span>'
-          : '<span class="zh"><span class="ok">成功！</span>蓝 + 绿合成的圈都是可收缩的平凡圈 —— 你的修复不必和错误一模一样，只要「合起来平凡」就赢。连胜 <b>' + streak + '</b>！</span><span class="en"><span class="ok">Success!</span> Blue + green together form only trivial contractible loops — the repair need not equal the error, it only needs to be trivial in combination. Streak <b>' + streak + '</b>!</span>');
+          ? '<span class="zh"><span class="no">这回合失败了。</span>蓝色 = 真实错误，绿色 = 你的修复。二者合起来' + (isToric ? '在某个方向上<b>缠绕环面</b>的总圈数是<b>奇数</b>' : '含有<b>奇数条</b><b>横跨两条边界</b>的串') + ' —— 合起来是一个逻辑算符，信息被改写。连胜清零。点「新回合」再来！</span><span class="en"><span class="no">Round lost.</span> Blue = true errors, green = your repair. Together they ' + (isToric ? '<b>wind around the torus</b> an <b>odd</b> total number of times in some direction' : 'contain an <b>odd number</b> of strings <b>spanning both boundaries</b>') + ' — together a logical operator; the data got rewritten. Streak reset. “New round” to retry!</span>'
+          : '<span class="zh"><span class="ok">成功！</span>蓝 + 绿合起来' + (isToric ? '在两个方向上缠绕环面的总圈数都是偶数（0 也算，两圈互相抵消）' : '横跨两条边界的串是偶数条（0 条也算，两条互相抵消）') + '—— 合起来只是一些检查的乘积。你的修复不必和错误一模一样，只要合起来是检查的乘积就赢。连胜 <b>' + streak + '</b>！</span><span class="en"><span class="ok">Success!</span> Blue + green together ' + (isToric ? 'wind around the torus an even total number of times in both directions (0 counts; two windings cancel)' : 'contain an even number of strings spanning both boundaries (0 counts; two cancel)') + ' — together just a product of checks. The repair need not equal the error; together with it, it only needs to form a product of checks. Streak <b>' + streak + '</b>!</span>');
       }
       function newRound() {
         err = new Set(); corr = new Set(); sel = null; over = false;
@@ -3875,12 +4046,12 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
         en: '① Start: the toric code. Note the stubs sticking out — they wrap to the opposite side; that is what makes it a torus.',
       },
       {
-        zh: '② 一刀剪开：删除所有绕回去的边。立刻出问题——边界上的星和面都缺了一条腿（虚线标出），检查表变得乱七八糟。',
-        en: '② Cut: delete every wrapping edge. Trouble at once — boundary stars and faces each lose a leg (dashed); the checks are mutilated.',
+        zh: '② 一刀剪开：删除所有绕回去的边（图里不再画出）。立刻出问题：沿边的星少了一条腿，四个角上的星少了两条；原来跨过剪口的面只剩两条腿，而且这两条分在贴片相对的两头，角上那一块面一条腿也不剩。检查表乱了套。',
+        en: '② Cut: delete every wrapping edge (no longer drawn). Trouble at once: the stars along the edge lose one leg and the four corner stars lose two; the faces that straddled the cut keep only two legs, on opposite sides of the patch, and the corner face keeps none. The checks are mutilated.',
       },
       {
-        zh: '③ 收拾干净：接受「三条腿」的检查作为正式成员，但分好工——左右两侧只截断<b>面</b>（并保留伸出的悬挂边），上下两侧只截断<b>星</b>。这就是<b>表面码</b>的版图：两种边界，各司其职。',
-        en: '③ Tidy up: keep the 3-leg checks as legitimate members, but divide the work — the left/right sides truncate only <b>faces</b> (keeping the dangling edges), the top/bottom truncate only <b>stars</b>. This is the <b>surface code</b> layout: two kinds of boundary, each with a job.',
+        zh: '③ 收拾干净：接受「三条腿」的检查作为正式成员，但分好工——左右两侧只截断<b>面</b>（并保留伸出的悬挂边），上下两侧只截断<b>星</b>。这就是<b>表面码</b>的版图：两种边界，各司其职。（这一帧重新画了一块 L = 4 的平面码，而不是在上一帧上修补：25 个比特、12 个星检查、12 个面检查，左右两侧带悬挂的横边。）',
+        en: '③ Tidy up: keep the 3-leg checks as legitimate members, but divide the work — the left/right sides truncate only <b>faces</b> (keeping the dangling edges), the top/bottom truncate only <b>stars</b>. This is the <b>surface code</b> layout: two kinds of boundary, each with a job. (This frame redraws an L = 4 planar code rather than patching the previous one: 25 qubits, 12 star checks and 12 face checks, with dangling horizontal edges on the left and right.)',
       },
     ];
     function render() {
@@ -3942,8 +4113,10 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
       { zh: '① 噪声落下：几条 Z 错误悄悄出现（真实设备里你看不到它们）', en: '① Noise strikes: a few Z errors appear (invisible in a real device)' },
       { zh: '② 测量所有检查：只有错误链的端点亮起警报', en: '② Measure every check: only chain endpoints raise alarms' },
       { zh: '③ 译码器配对警报，规划修复链（绿）', en: '③ The decoder pairs alarms and plans repair chains (green)' },
-      { zh: '④ 施加修复：错误 ⊕ 修复 = 平凡圈 → 警报全灭，信息完好', en: '④ Apply the repair: error ⊕ repair = trivial loops → alarms clear, data intact' },
+      { zh: '④ 施加修复：警报全灭；错误 ⊕ 修复和 X̄ 交叉偶数次 → 信息完好', en: '④ Apply the repair: alarms clear; error ⊕ repair crosses X̄ an even number of times → data intact' },
     ];
+    const PH_FAIL = { zh: '④ 施加修复：警报全灭，但错误 ⊕ 修复和 X̄ 交叉奇数次 → 逻辑错误，信息被改写', en: '④ Apply the repair: alarms clear, but error ⊕ repair crosses X̄ an odd number of times → a logical error; the data is overwritten' };
+    let lastFail = false;
     function step() {
       phase = (phase + 1) % 4;
       if (phase === 0) {
@@ -3963,16 +4136,16 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
       } else {
         const residual = P().xorSet([...err], corr);
         const fail = lat.logicals.X.some((Lg) => P().overlapParity(residual, Lg));
-        rounds++; if (!fail) saved++;
+        rounds++; if (!fail) saved++; lastFail = fail;
         view.errZ = new Set(residual.filter(() => false));
         view.errZ = new Set();
         view.hlEdges = new Map();
       }
       view.draw();
-      const tail = phase === 3 ? (U().getLang() === 'en'
-        ? ' — rounds: ' + rounds + ', data survived: ' + saved
-        : ' — 已运行 ' + rounds + ' 轮，信息幸存 ' + saved + ' 轮') : '';
-      F.setReadout('<span class="zh">' + PH[phase].zh + tail + '</span><span class="en">' + PH[phase].en + tail + '</span>');
+      const tailZh = phase === 3 ? ' — 已运行 ' + rounds + ' 轮，信息幸存 ' + saved + ' 轮' : '';
+      const tailEn = phase === 3 ? ' — rounds: ' + rounds + ', data survived: ' + saved : '';
+      const ph = phase === 3 && lastFail ? PH_FAIL : PH[phase];
+      F.setReadout('<span class="zh">' + ph.zh + tailZh + '</span><span class="en">' + ph.en + tailEn + '</span>');
     }
     function play() {
       if (timer) return;
@@ -4419,8 +4592,8 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
       en: ['Winding loops = logicals', 'Loops circling the whole torus pass every check yet are no product of checks — they rewrite logical data. Two directions give Z̄₁, Z̄₂; duals give X̄₁, X̄₂; paired loops cross once ⇒ anticommute.'],
     },
     decoder: {
-      zh: ['译码 = 配对', '只见警报不见链：把警报两两配对、沿路径修复。错误⊕修复必闭合——可收缩则完美复原，缠绕则无声逻辑错误。'],
-      en: ['Decoding = matching', 'Alarms visible, chains not: pair the alarms and repair along paths. Error ⊕ repair is always closed — contractible = perfect recovery, winding = silent logical error.'],
+      zh: ['译码 = 配对', '只见警报不见链：把警报两两配对、沿路径修复。错误⊕修复必闭合——每个方向都缠绕偶数次（0 次也算）则完美复原，某个方向缠绕奇数次则是无声的逻辑错误；同方向的两圈互相抵消。'],
+      en: ['Decoding = matching', 'Alarms visible, chains not: pair the alarms and repair along paths. Error ⊕ repair is always closed — an even number of windings in each direction (0 included) = perfect recovery, an odd number in some direction = a silent logical error; two windings in the same direction cancel.'],
     },
     dL: {
       zh: ['环面码距 d = L', '最轻的逻辑算符是最短缠绕圈（长 L），对 X、Z 对称；压垮它需约 L/2 个错误连成线。'],
@@ -4440,8 +4613,8 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
       en: ['Spanning strings = logicals', 'A string dying on its own boundary at both ends: zero alarms, no product of checks (it crosses the other direction\'s spanning string once, so they anticommute).' + F('Z̄: rough→rough · X̄: smooth→smooth · X̄Z̄ = −Z̄X̄')],
     },
     cycle: {
-      zh: ['纠错循环', '每轮四拍：噪声 → 测全部检查 → 配对（可配边界）→ 修复；失败 ⇔ 错误⊕修复含横跨串。'],
-      en: ['The correction cycle', 'Four beats per round: noise → measure all checks → match (boundaries allowed) → repair; failure ⇔ error ⊕ repair contains a spanning string.'],
+      zh: ['纠错循环', '每轮四拍：噪声 → 测全部检查 → 配对（可配边界）→ 修复；失败 ⇔ 错误⊕修复和 X̄ 交叉奇数次，也就是横跨贴片的串有奇数条（两条互相抵消，偶数条无事）。'],
+      en: ['The correction cycle', 'Four beats per round: noise → measure all checks → match (boundaries allowed) → repair; failure ⇔ error ⊕ repair crosses X̄ an odd number of times, i.e. contains an odd number of spanning strings (two cancel, so an even number is harmless).'],
     },
     ancilla: {
       zh: ['辅助比特测量', '每条检查配一个帮手比特：与 4 个数据比特依次作用后单独被读出，给出 ±1；数据比特从未被直接测量。'],

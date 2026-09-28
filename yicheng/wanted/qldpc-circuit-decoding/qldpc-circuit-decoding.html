@@ -876,6 +876,7 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
 .formula .sym { border-bottom-color: color-mix(in srgb, var(--ink3) 55%, transparent); }
 .refpop .rp-sec.rp-symchar { font-size: 17px; color: var(--ink); font-weight: 600; }
 
+#tab-hook th { text-transform: none; letter-spacing: 0; }
 </style>
 </head>
 <body>
@@ -1020,6 +1021,74 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
     <p class="zh">在真正的码里，一个数据错误同时点亮它两端的<b>两条</b>检查（第 0 章事实 4），所以数据错误的探测器花样是「同一轮、相邻两条检查」的一对；测量错误的花样是「同一条检查、相邻两轮」的一对。两种一对，方向不同，同一种配对游戏可以一起处理——这是<a href="../../surface_code/decoders/decoders.html#s5-1">《译码器 · 高中数学版》5.1 节</a>和<a href="../../surface_code/decoders/decoders.html#s5-2">5.2 节</a>的时空译码。人话：<b>测量错误不需要新思想，只需要新维度：把时间画成第二根轴。</b>但请记住第三行：探测器只告诉你「哪一轮变了」，不告诉你「谁变的」；决定谁变的仍是译码器的猜测。</p>
     <p class="en">In a real code one data error lights the <b>two</b> checks at its ends at once (Chapter 0, fact 4), so a data error's detector pattern is a pair “same round, two neighbouring checks”, while a measurement error's is a pair “same check, two consecutive rounds”. Two kinds of pair in two directions, and one pairing game handles both: that is the spacetime decoding of <a href="../../surface_code/decoders/decoders.html#s5-1">sections 5.1</a> and <a href="../../surface_code/decoders/decoders.html#s5-2">5.2 of “Decoders · High-School Edition”</a>. In plain words: <b>measurement errors need no new idea, only a new dimension: draw time as a second axis.</b> But keep row three in mind: a detector only tells you “which round changed”, not “who changed”; deciding who is still the decoder's guess.</p>
   </div>
+    <svg id="fig-pairs" viewBox="0 0 640 244" width="100%" style="max-width:640px;display:block;margin:0.6em auto" role="img" aria-label="Spacetime grids of detectors: a data error lights a horizontal pair, a measurement error a vertical pair">
+    <text class="zh" x="115" y="22" font-size="13" fill="var(--ink)" text-anchor="middle">数据错误：b2 在第 3 轮前翻了</text>
+    <text class="en" x="115" y="22" font-size="13" fill="var(--ink)" text-anchor="middle">Data error: b2 flips before round 3</text>
+    <text x="90" y="48" font-size="12" fill="var(--ink2)" text-anchor="middle" font-family="var(--f-mono)">c1</text>
+    <text x="170" y="48" font-size="12" fill="var(--ink2)" text-anchor="middle" font-family="var(--f-mono)">c2</text>
+    <text class="zh" x="42" y="76" font-size="11" fill="var(--ink2)" text-anchor="middle">第1轮</text>
+    <text class="en" x="42" y="76" font-size="11" fill="var(--ink2)" text-anchor="middle">round 1</text>
+    <text class="zh" x="42" y="112" font-size="11" fill="var(--ink2)" text-anchor="middle">第2轮</text>
+    <text class="en" x="42" y="112" font-size="11" fill="var(--ink2)" text-anchor="middle">round 2</text>
+    <text class="zh" x="42" y="148" font-size="11" fill="var(--ink2)" text-anchor="middle">第3轮</text>
+    <text class="en" x="42" y="148" font-size="11" fill="var(--ink2)" text-anchor="middle">round 3</text>
+    <text class="zh" x="42" y="184" font-size="11" fill="var(--ink2)" text-anchor="middle">第4轮</text>
+    <text class="en" x="42" y="184" font-size="11" fill="var(--ink2)" text-anchor="middle">round 4</text>
+    <line x1="90" y1="144" x2="170" y2="144" stroke="var(--cx)" stroke-width="3"/>
+    <circle cx="90" cy="72" r="10" fill="var(--bg)" stroke="var(--ink3)" stroke-width="1.4"/>
+    <text x="90" y="76" font-size="11" fill="var(--ink3)" text-anchor="middle" font-family="var(--f-mono)">0</text>
+    <circle cx="170" cy="72" r="10" fill="var(--bg)" stroke="var(--ink3)" stroke-width="1.4"/>
+    <text x="170" y="76" font-size="11" fill="var(--ink3)" text-anchor="middle" font-family="var(--f-mono)">0</text>
+    <circle cx="90" cy="108" r="10" fill="var(--bg)" stroke="var(--ink3)" stroke-width="1.4"/>
+    <text x="90" y="112" font-size="11" fill="var(--ink3)" text-anchor="middle" font-family="var(--f-mono)">0</text>
+    <circle cx="170" cy="108" r="10" fill="var(--bg)" stroke="var(--ink3)" stroke-width="1.4"/>
+    <text x="170" y="112" font-size="11" fill="var(--ink3)" text-anchor="middle" font-family="var(--f-mono)">0</text>
+    <circle cx="90" cy="144" r="10" fill="var(--cx)" stroke="var(--ink)" stroke-width="1.4"/>
+    <text x="90" y="148" font-size="11" fill="var(--bg)" text-anchor="middle" font-family="var(--f-mono)">1</text>
+    <circle cx="170" cy="144" r="10" fill="var(--cx)" stroke="var(--ink)" stroke-width="1.4"/>
+    <text x="170" y="148" font-size="11" fill="var(--bg)" text-anchor="middle" font-family="var(--f-mono)">1</text>
+    <circle cx="90" cy="180" r="10" fill="var(--bg)" stroke="var(--ink3)" stroke-width="1.4"/>
+    <text x="90" y="184" font-size="11" fill="var(--ink3)" text-anchor="middle" font-family="var(--f-mono)">0</text>
+    <circle cx="170" cy="180" r="10" fill="var(--bg)" stroke="var(--ink3)" stroke-width="1.4"/>
+    <text x="170" y="184" font-size="11" fill="var(--ink3)" text-anchor="middle" font-family="var(--f-mono)">0</text>
+    <text class="zh" x="130" y="222" font-size="12" fill="var(--ink2)" text-anchor="middle">同一轮、两条相邻检查：横向一对</text>
+    <text class="en" x="130" y="222" font-size="12" fill="var(--ink2)" text-anchor="middle">horizontal pair: one round, two checks</text>
+    <text class="zh" x="435" y="22" font-size="13" fill="var(--ink)" text-anchor="middle">测量错误：c1 的帮手第 2 轮读反</text>
+    <text class="en" x="435" y="22" font-size="13" fill="var(--ink)" text-anchor="middle">Measurement error: c1's helper misread in round 2</text>
+    <text x="410" y="48" font-size="12" fill="var(--ink2)" text-anchor="middle" font-family="var(--f-mono)">c1</text>
+    <text x="490" y="48" font-size="12" fill="var(--ink2)" text-anchor="middle" font-family="var(--f-mono)">c2</text>
+    <text class="zh" x="362" y="76" font-size="11" fill="var(--ink2)" text-anchor="middle">第1轮</text>
+    <text class="en" x="362" y="76" font-size="11" fill="var(--ink2)" text-anchor="middle">round 1</text>
+    <text class="zh" x="362" y="112" font-size="11" fill="var(--ink2)" text-anchor="middle">第2轮</text>
+    <text class="en" x="362" y="112" font-size="11" fill="var(--ink2)" text-anchor="middle">round 2</text>
+    <text class="zh" x="362" y="148" font-size="11" fill="var(--ink2)" text-anchor="middle">第3轮</text>
+    <text class="en" x="362" y="148" font-size="11" fill="var(--ink2)" text-anchor="middle">round 3</text>
+    <text class="zh" x="362" y="184" font-size="11" fill="var(--ink2)" text-anchor="middle">第4轮</text>
+    <text class="en" x="362" y="184" font-size="11" fill="var(--ink2)" text-anchor="middle">round 4</text>
+    <line x1="410" y1="108" x2="410" y2="144" stroke="var(--cx)" stroke-width="3"/>
+    <circle cx="410" cy="72" r="10" fill="var(--bg)" stroke="var(--ink3)" stroke-width="1.4"/>
+    <text x="410" y="76" font-size="11" fill="var(--ink3)" text-anchor="middle" font-family="var(--f-mono)">0</text>
+    <circle cx="490" cy="72" r="10" fill="var(--bg)" stroke="var(--ink3)" stroke-width="1.4"/>
+    <text x="490" y="76" font-size="11" fill="var(--ink3)" text-anchor="middle" font-family="var(--f-mono)">0</text>
+    <circle cx="410" cy="108" r="10" fill="var(--cx)" stroke="var(--ink)" stroke-width="1.4"/>
+    <text x="410" y="112" font-size="11" fill="var(--bg)" text-anchor="middle" font-family="var(--f-mono)">1</text>
+    <circle cx="490" cy="108" r="10" fill="var(--bg)" stroke="var(--ink3)" stroke-width="1.4"/>
+    <text x="490" y="112" font-size="11" fill="var(--ink3)" text-anchor="middle" font-family="var(--f-mono)">0</text>
+    <circle cx="410" cy="144" r="10" fill="var(--cx)" stroke="var(--ink)" stroke-width="1.4"/>
+    <text x="410" y="148" font-size="11" fill="var(--bg)" text-anchor="middle" font-family="var(--f-mono)">1</text>
+    <circle cx="490" cy="144" r="10" fill="var(--bg)" stroke="var(--ink3)" stroke-width="1.4"/>
+    <text x="490" y="148" font-size="11" fill="var(--ink3)" text-anchor="middle" font-family="var(--f-mono)">0</text>
+    <circle cx="410" cy="180" r="10" fill="var(--bg)" stroke="var(--ink3)" stroke-width="1.4"/>
+    <text x="410" y="184" font-size="11" fill="var(--ink3)" text-anchor="middle" font-family="var(--f-mono)">0</text>
+    <circle cx="490" cy="180" r="10" fill="var(--bg)" stroke="var(--ink3)" stroke-width="1.4"/>
+    <text x="490" y="184" font-size="11" fill="var(--ink3)" text-anchor="middle" font-family="var(--f-mono)">0</text>
+    <text class="zh" x="450" y="222" font-size="12" fill="var(--ink2)" text-anchor="middle">同一条检查、相邻两轮：纵向一对</text>
+    <text class="en" x="450" y="222" font-size="12" fill="var(--ink2)" text-anchor="middle">vertical pair: one check, two rounds</text>
+  </svg>
+  <div class="prose">
+    <p class="zh muted small">图注：每格是一个探测器 D(t) 的值，列 = 检查（c1 问 b1 ⊕ b2，c2 问 b2 ⊕ b3），行 = 轮次；填色、写 1 的格子是亮起的探测器，连线标出一对。左：b2 同时被 c1、c2 盯着，它翻了，两条检查在同一轮各亮一次。右：c1 第 2 轮多读出一个 1，第 3 轮读数弹回，D(2)、D(3) 各亮一次。两个例子都是本篇手算的。</p>
+    <p class="en muted small">Caption: each cell is the value of one detector D(t); columns = checks (c1 asks b1 ⊕ b2, c2 asks b2 ⊕ b3), rows = rounds; filled cells marked 1 are lit detectors, and the line marks the pair. Left: b2 is watched by both c1 and c2; when it flips, both checks light once in the same round. Right: c1 reads an extra 1 in round 2 and the reading snaps back in round 3, so D(2) and D(3) light once each. Both examples were worked out by hand for this guide.</p>
+  </div>
   <div class="quiz" data-quiz>
     <div class="quiz-head"><span class="chip"><span class="zh">检查站</span><span class="en">Checkpoint</span></span><span class="q-title"><span class="zh">第 1 章</span><span class="en">Chapter 1</span></span></div>
     <div class="quiz-body">
@@ -1048,12 +1117,12 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
     </table>
   </div>
   <div class="prose">
-    <p class="zh">三层不是同一道题的三种难度，是<b>三道不同的题</b>，答案（阈值）不能互相比。《译码器 · 高中数学版》的账本给了表面码在三层下的数字：完美测量、匹配译码约 10.3%；现象学（p = q）约 2.9%（<a href="../../surface_code/decoders/decoders.html#s5-3">5.3 节</a>）；电路级约 0.5%–1%，依赖具体电路（<a href="../../surface_code/decoders/decoders.html#s5-4">5.4 节</a>）。三个数字差了十几倍，码没变，变的是「什么算一次错误」。<a href="../../surface_code/decoders/decoders.html#s6-1">6.1 节</a>说任何阈值数字至少要带五个限定项：错误信道、症状模型、电路约定、译码器、归一化。本篇后面每次出现数字，都会说它属于哪一行。</p>
-    <p class="en">The three levels are not three difficulties of one problem but <b>three different problems</b>, and their answers (thresholds) cannot be compared across rows. The ledger of “Decoders · High-School Edition” gives the surface code's numbers at the three levels: perfect measurement with matching about 10.3%; phenomenological (p = q) about 2.9% (<a href="../../surface_code/decoders/decoders.html#s5-3">section 5.3</a>); circuit level about 0.5%–1%, depending on the circuit (<a href="../../surface_code/decoders/decoders.html#s5-4">section 5.4</a>). The three numbers differ by more than tenfold; the code did not change, what counts as “one error” did. <a href="../../surface_code/decoders/decoders.html#s6-1">Section 6.1</a> says any threshold number needs at least five qualifiers: error channel, syndrome model, circuit convention, decoder, normalisation. Every time a number appears below, this guide says which row it belongs to.</p>
+    <p class="zh">三层不是同一道题的三种难度，是<b>三道不同的题</b>，答案（阈值）不能互相比。《译码器 · 高中数学版》的账本给了表面码在三层下的数字；每个数字里的 p 指什么，要先说清。前两层用同一种数据错误：每个比特每轮各自独立地以概率 p 发生 X 翻转，并独立地以概率 p 发生 Z 翻转；X、Z 两类分开译码，所以 p 是「正在译的这一类翻转」的概率，不是「发生任意一种 Pauli 错误」的总概率。（对照：总概率为 p 的去极化噪声让 X、Y、Z 各以 p/3 出现，X 类翻转来自 X 或 Y，概率是 2p/3。）在这个约定下，完美测量、最小重量匹配约 10.3%；再让每条检查的读数每轮以概率 q = p 读反，约 2.9%。这两个数都来自 Wang、Harrington 与 Preskill 2003 年的数值模拟（<a href="../../surface_code/decoders/decoders.html#s5-3">5.3 节</a>）。电路级约 0.5%–1%，依赖具体电路与「一步出错」的定义（<a href="../../surface_code/decoders/decoders.html#s5-4">5.4 节</a>）。一个具体的例子是 Fowler 等 2012 年的模型：一轮提取电路分 8 步；空等或 Hadamard 之后以 p/3 的概率各插入 X、Y、Z；制备与读出各以概率 p 出错；每个 CNOT 之后以 p/15 的概率各插入 15 种非平凡的两比特 Pauli；用最小重量匹配，得 0.57%，p 按每一步计。区间的上端来自别的电路与噪声约定，本篇没有逐一核对。三个数字都是文献里数值模拟得到的估计，译码器都是最小重量匹配，不是本篇或 Atlas 算的。它们差了十几倍，码没变，变的是「什么算一次错误」。<a href="../../surface_code/decoders/decoders.html#s6-1">6.1 节</a>说任何阈值数字至少要带五个限定项：错误信道、症状模型、电路约定、译码器、归一化。本篇后面每次出现数字，都会说它属于哪一行。</p>
+    <p class="en">The three levels are not three difficulties of one problem but <b>three different problems</b>, and their answers (thresholds) cannot be compared across rows. The ledger of “Decoders · High-School Edition” gives the surface code's numbers at the three levels; first be clear what p means in each. The first two levels use the same data errors: in every round each qubit independently suffers an X flip with probability p and, independently, a Z flip with probability p; X and Z are decoded separately, so p is the probability of a flip of the type being decoded, not the total probability of some Pauli error. (For comparison: depolarizing noise of total probability p applies X, Y, Z with p/3 each; an X-type flip comes from X or Y, with probability 2p/3.) With this convention, perfect measurement and minimum-weight matching give about 10.3%; letting every check's reading also flip with probability q = p per round gives about 2.9%. Both come from the numerical simulations of Wang, Harrington and Preskill (2003) (<a href="../../surface_code/decoders/decoders.html#s5-3">section 5.3</a>). Circuit level gives about 0.5%–1%, depending on the circuit and on how “one step fails” is defined (<a href="../../surface_code/decoders/decoders.html#s5-4">section 5.4</a>). One concrete case is the model of Fowler et al. (2012): an extraction round has 8 steps; after an idle step or a Hadamard, X, Y or Z is inserted with probability p/3 each; preparation and readout each fail with probability p; after every CNOT one of the 15 nontrivial two-qubit Paulis is inserted with probability p/15 each; with minimum-weight matching this gives 0.57%, with p counted per step. The upper end of the range comes from other circuits and noise conventions that this guide did not check one by one. All three are estimates from numerical simulations in the literature, all with minimum-weight matching as the decoder, not computed by this guide or the Atlas. They differ by more than tenfold; the code did not change, what counts as “one error” did. <a href="../../surface_code/decoders/decoders.html#s6-1">Section 6.1</a> says any threshold number needs at least five qualifiers: error channel, syndrome model, circuit convention, decoder, normalisation. Every time a number appears below, this guide says which row it belongs to.</p>
   </div>
   <div class="prose">
-    <p class="zh muted small">记号：p = 每个数据比特（或电路级下每个位置）每轮出错的概率；q = 每条检查读数被读反的概率；阈值 = 低于它时把码做大能让逻辑错误率变小的那个 p。</p>
-    <p class="en muted small">Notation: p = the probability that a data qubit (or, at circuit level, one location) fails per round; q = the probability that a check's reading is flipped; threshold = the p below which making the code larger makes the logical error rate smaller.</p>
+    <p class="zh muted small">记号：p = 码容量与现象学两层里，每个数据比特每轮发生 X 翻转（另算 Z 翻转）的概率；电路级里，按所用模型定义的每个位置每一步出错的概率；q = 每条检查读数每轮被读反的概率；阈值 = 低于它时把码做大能让逻辑错误率变小的那个 p。</p>
+    <p class="en muted small">Notation: p = in the code-capacity and phenomenological levels, the probability that a data qubit suffers an X flip (Z flips counted separately) per round; at circuit level, the per-step failure probability of one location as the chosen model defines it; q = the probability that a check's reading is flipped per round; threshold = the p below which making the code larger makes the logical error rate smaller.</p>
   </div>
 
   <h3 id="s1-4"><span class="sec-no">1.4</span><span class="zh">四个词，四个一行的玩具</span><span class="en">Four words, four one-line toys</span></h3>
@@ -1064,15 +1133,15 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
   <div class="table-wrap">
     <table class="glossary">
       <tr><th><span class="zh">原文</span><span class="en">Board word</span></th><th><span class="zh">玩具</span><span class="en">Toy</span></th><th><span class="zh">对译码器意味着什么</span><span class="en">What it means for the decoder</span></th></tr>
-      <tr><td><b>measurement</b></td><td><span class="zh">1.1 节第三行：帮手读反了，数据没错。</span><span class="en">Row three of 1.1: the helper misread, the data is fine.</span></td><td><span class="zh">必须多轮测量、用探测器；单轮症状不够。</span><span class="en">Many rounds and detectors are required; one round of syndrome is not enough.</span></td></tr>
+      <tr><td><b>measurement</b></td><td><span class="zh">1.1 节第三行：帮手读反了，数据没错。</span><span class="en">Row three of 1.1: the helper misread, the data is fine.</span></td><td><span class="zh">在本篇演示的做法里（每轮重测、比较相邻两轮得到探测器），单轮症状不够，要多轮测量。有些码配上特定译码器是「单发」的：一轮带噪读数就能把残余错误压在小范围内（4.1 节）。</span><span class="en">In the procedure shown in this guide (measure every round, compare consecutive rounds to get detectors), one round of syndrome is not enough and many rounds are needed. Some codes with particular decoders are “single-shot”: one round of noisy readings already keeps the leftover error small (section 4.1).</span></td></tr>
       <tr><td><b>routing</b></td><td><span class="zh">一条检查要看的 6 个比特分散在房间的 6 个角落，帮手得挨个跑过去（或者有人先把比特搬到一起）。跑的时间里，所有比特都在继续出错。</span><span class="en">The 6 qubits one check must see sit in 6 corners of the room, and the helper must travel to each (or someone first carries the qubits together). While it travels, every qubit keeps failing.</span></td><td><span class="zh">「一轮」变长、变复杂；哪些比特在什么时候等待，本身是电路的一部分，要写进故障位置表。</span><span class="en">“One round” becomes longer and more complex; which qubits wait when is itself part of the circuit and must enter the table of fault locations.</span></td></tr>
       <tr><td><b>leakage</b></td><td><span class="zh">一枚硬币立在了边上：它既不是正面也不是反面。一个比特跑出了 0/1 的字母表，奇偶检查问它「你是 0 还是 1」得到的是胡话。</span><span class="en">A coin lands on its edge: neither heads nor tails. A qubit has left the 0/1 alphabet, and a parity check asking “are you 0 or 1?” gets nonsense.</span></td><td><span class="zh">这不是一个可以「翻回去」的错误；它可能连续多轮污染同一条检查，探测器花样不再是一对。</span><span class="en">Not an error that can be “flipped back”; it may pollute the same check for many consecutive rounds, and the detector pattern is no longer a pair.</span></td></tr>
       <tr><td><b>correlated faults</b></td><td><span class="zh">一滴雨同时打湿两块相邻的瓷砖。这是经典玩具画不出来的一种：帮手是 CNOT 的目标端，它自己翻转只会弄错读数，传不回数据位；量子版里帮手的<b>相位</b>错误会沿后面的 CNOT 传回数据比特——一次故障、多处后果，四腿检查上叫 hook error。</span><span class="en">One raindrop wets two neighbouring tiles. This is the kind the classical toy cannot draw: the helper is the CNOT target, so its own flip only spoils the reading and never travels back to the data bits; in the quantum version a <b>phase</b> error on the helper propagates back through the later CNOTs onto the data qubits — one fault, several consequences, called a hook error on a four-legged check.</span></td><td><span class="zh">「一个故障 = 一个比特」不再成立；一个故障能一步走完逻辑算符的两格，电路里的有效码距可能比矩阵的 d 小。</span><span class="en">“One fault = one qubit” no longer holds; one fault can cover two squares of a logical operator at once, and the effective distance of the circuit may be smaller than the matrix's d.</span></td></tr>
     </table>
   </div>
   <div class="prose">
-    <p class="zh">第四行的最后一句值得停一下。BB 码条目的推导页把三个「距离」分开写（<a href="../../bb_code/decoders/decoders.html#s4-3">BB 译码器教程 4.3 节</a>原文照录）：<b>static code distance</b>（矩阵的 d：最轻的逻辑泡利串）、<b>circuit distance</b>（电路里最少多少个故障能不触发任何探测器却造成逻辑错误）、<b>decoder-found failure weight</b>（某个译码器在模拟里找到的最轻失败）。原文接着说：「A static distance of 12 is compatible with a smaller circuit distance under a bad schedule.」人话：<b>矩阵说 12，坏的电路顺序可以让 8 个故障就够。</b>所以「真实电路下存得好不好」这道题，连码距都要重新算。</p>
-    <p class="en">The last sentence of row four deserves a pause. The BB entry's derivation page keeps three “distances” apart (quoted in <a href="../../bb_code/decoders/decoders.html#s4-3">section 4.3 of the BB decoders guide</a>): <b>static code distance</b> (the matrix's d: the lightest logical Pauli string), <b>circuit distance</b> (the fewest faults in the circuit that trip no detector yet cause a logical error), <b>decoder-found failure weight</b> (the lightest failure some decoder found in simulation). The source continues: “A static distance of 12 is compatible with a smaller circuit distance under a bad schedule.” In plain words: <b>the matrix says 12, a bad circuit order can make 8 faults enough.</b> So for the question “how well does it store in a real circuit”, even the distance must be recomputed.</p>
+    <p class="zh">第四行的最后一句值得停一下。BB 码条目的推导页把三个「距离」分开写（<a href="../../bb_code/decoders/decoders.html#s4-3">BB 译码器教程 4.3 节</a>原文照录）：<b>static code distance</b>（矩阵的 d：最轻的逻辑泡利串）、<b>circuit distance</b>（电路里最少多少个故障能不触发任何探测器却造成逻辑错误）、<b>decoder-found failure weight</b>（某个译码器在模拟里找到的最轻失败）。原文接着说：「A static distance of 12 is compatible with a smaller circuit distance under a bad schedule.」人话：<b>矩阵说 12，坏的电路顺序可以让少于 12 个故障就够。</b>具体少多少，要对那张电路逐一验证；推导页没有给出数字，本篇也不编一个。所以「真实电路下存得好不好」这道题，连码距都要重新算。</p>
+    <p class="en">The last sentence of row four deserves a pause. The BB entry's derivation page keeps three “distances” apart (quoted in <a href="../../bb_code/decoders/decoders.html#s4-3">section 4.3 of the BB decoders guide</a>): <b>static code distance</b> (the matrix's d: the lightest logical Pauli string), <b>circuit distance</b> (the fewest faults in the circuit that trip no detector yet cause a logical error), <b>decoder-found failure weight</b> (the lightest failure some decoder found in simulation). The source continues: “A static distance of 12 is compatible with a smaller circuit distance under a bad schedule.” In plain words: <b>the matrix says 12, a bad circuit order can make fewer than 12 faults enough.</b> How many fewer must be checked for that particular circuit; the derivation page gives no number, and this guide does not invent one. So for the question “how well does it store in a real circuit”, even the distance must be recomputed.</p>
   </div>
 
   <h3 id="s1-5"><span class="sec-no">1.5</span><span class="zh">Wanted 板的原文，逐词翻译</span><span class="en">The Wanted board's wording, word by word</span></h3>
@@ -1106,8 +1175,8 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
     <p class="en">“Perfect-syndrome small-set flip, BP-OSD, and algebraic CSS baselines; none is a family-specific circuit-level threshold workflow.”</p>
   </div>
   <div class="prose">
-    <p class="zh">三个名字，一句否定。<b>small-set flip</b>：量子扩展码自带的局部译码器（<a href="../../qldpc/intuition/intuition.html#s6-4">qLDPC 教程 6.4 节</a>）：反复找一小组比特，翻转它们能让亮起的检查数严格减少就翻。<b>BP-OSD</b>：在整张检查图上传消息的置信传播，卡住时用 OSD 解方程收尾（<a href="../../bb_code/intuition/intuition.html#s6-3">BB 教程 6.3 节</a>）。<b>algebraic CSS baselines</b>：代数基线——直接解「哪些比特翻了能给出这个症状」的线性方程组，不管概率。<b>Perfect-syndrome</b> 修饰全部三个：它们都工作在 1.3 节的第一行。<b>none is a family-specific circuit-level threshold workflow</b>：没有一个是「为这一族码专门做的、电路级的、能给出阈值的完整流程」。人话：<b>Atlas 手里有三把在理想症状下能用的工具，没有一把是给真实电路的。</b></p>
-    <p class="en">Three names, one negation. <b>small-set flip</b>: the local decoder that comes with quantum expander codes (<a href="../../qldpc/intuition/intuition.html#s6-4">qLDPC guide section 6.4</a>): repeatedly find a small set of qubits whose flip strictly reduces the number of lit checks, and flip it. <b>BP-OSD</b>: belief propagation passing messages over the whole check graph, finished by OSD solving equations when it stalls (<a href="../../bb_code/intuition/intuition.html#s6-3">BB guide section 6.3</a>). <b>algebraic CSS baselines</b>: solve the linear system “which flipped qubits give this syndrome” directly, ignoring probabilities. <b>Perfect-syndrome</b> qualifies all three: they all work in row one of 1.3. <b>none is a family-specific circuit-level threshold workflow</b>: none is a complete pipeline made for this family, at circuit level, delivering a threshold. In plain words: <b>the Atlas holds three tools that work under ideal syndromes and none for real circuits.</b></p>
+    <p class="zh">三个名字，一句否定。<b>small-set flip</b>：量子扩展码自带的局部译码器（<a href="../../qldpc/intuition/intuition.html#s6-4">qLDPC 教程 6.4 节</a>）：反复找一小组比特，翻转它们能让亮起的检查数严格减少就翻。<b>BP-OSD</b>：置信传播（BP）让每个比特和碰它的检查之间来回传「这个比特错了的可能有多大」的估计，传若干轮后按估计猜错误；猜出的错误对不上症状（卡住）时，用 OSD（ordered statistics decoding：把比特按「多可疑」排序，再按这个顺序解线性方程）收尾（<a href="../../bb_code/intuition/intuition.html#s6-3">BB 教程 6.3 节</a>）。<b>algebraic CSS baselines</b>：代数基线——直接解「哪些比特翻了能给出这个症状」的线性方程组，不管概率。<b>Perfect-syndrome</b> 修饰全部三个：它们都工作在 1.3 节的第一行。<b>none is a family-specific circuit-level threshold workflow</b>：没有一个是「为这一族码专门做的、电路级的、能给出阈值的完整流程」。人话：<b>Atlas 手里有三把在理想症状下能用的工具，没有一把是给真实电路的。</b></p>
+    <p class="en">Three names, one negation. <b>small-set flip</b>: the local decoder that comes with quantum expander codes (<a href="../../qldpc/intuition/intuition.html#s6-4">qLDPC guide section 6.4</a>): repeatedly find a small set of qubits whose flip strictly reduces the number of lit checks, and flip it. <b>BP-OSD</b>: belief propagation (BP) has each qubit and the checks touching it exchange estimates of “how likely this qubit is to be wrong”, and after some rounds guesses the error from those estimates; when the guess does not reproduce the syndrome (it stalls), OSD (ordered statistics decoding: sort the qubits by how suspicious they are, then solve the linear equations in that order) finishes the job (<a href="../../bb_code/intuition/intuition.html#s6-3">BB guide section 6.3</a>). <b>algebraic CSS baselines</b>: solve the linear system “which flipped qubits give this syndrome” directly, ignoring probabilities. <b>Perfect-syndrome</b> qualifies all three: they all work in row one of 1.3. <b>none is a family-specific circuit-level threshold workflow</b>: none is a complete pipeline made for this family, at circuit level, delivering a threshold. In plain words: <b>the Atlas holds three tools that work under ideal syndromes and none for real circuits.</b></p>
   </div>
 
   <h3 id="s2-1"><span class="sec-no">2.1</span><span class="zh">条目：quantum_expander，两个实例</span><span class="en">The entry: quantum_expander, two instances</span></h3>
@@ -1152,9 +1221,129 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
 
   <h3 id="s2-3"><span class="sec-no">2.3</span><span class="zh">为什么这一族躲不开 routing：卡片上的一句话</span><span class="en">Why this family cannot avoid routing: one sentence on the card</span></h3>
   <div class="prose">
-    <p class="zh">量子扩展码的检查矩阵是「非几何」的，卡片的一条 view（类型 <span class="mono">nongeometric-syndrome-circuits</span>，来源 curated，引文 <span class="mono">delfosse2021measurement</span>）原文：「Bounded check weight does not imply bounded-depth nearest-neighbor extraction in a low-dimensional layout. Expansion distributes Tanner neighbors non-geometrically, so a device needs long-range couplers, routing, or growing local depth.」人话：<b>每条检查只碰 6 个比特（稀疏）不等于这 6 个比特在芯片上挨着</b>；扩展性恰恰要求它们散得开，所以机器要么有长距离的连线，要么让帮手跑路（routing），要么每轮多花很多步。同一张卡片的 realizations 字段补了一句日期：「No repeated-syndrome laboratory realization of the exact family was found as of 2026-08-09.」这就是为什么 Wanted 板的 statement 把 routing 单独点名：对表面码它不是问题，对这一族它是电路设计的核心。</p>
-    <p class="en">The check matrix of a quantum expander code is “nongeometric”; one view on the card (type <span class="mono">nongeometric-syndrome-circuits</span>, origin curated, citing <span class="mono">delfosse2021measurement</span>) reads: “Bounded check weight does not imply bounded-depth nearest-neighbor extraction in a low-dimensional layout. Expansion distributes Tanner neighbors non-geometrically, so a device needs long-range couplers, routing, or growing local depth.” In plain words: <b>a check touching only 6 qubits (sparse) does not make those 6 qubits neighbours on the chip</b>; expansion demands precisely that they be spread out, so the machine needs long-range wiring, or a travelling helper (routing), or many more steps per round. The card's realizations field adds a dated sentence: “No repeated-syndrome laboratory realization of the exact family was found as of 2026-08-09.” That is why the board's statement names routing explicitly: for the surface code it is a non-issue, for this family it is the core of the circuit design.</p>
+    <p class="zh">量子扩展码的检查矩阵是「非几何」的，卡片的一条 view（类型 <span class="mono">nongeometric-syndrome-circuits</span>，来源 curated，引文 <span class="mono">delfosse2021measurement</span>）原文：「Bounded check weight does not imply bounded-depth nearest-neighbor extraction in a low-dimensional layout. Expansion distributes Tanner neighbors non-geometrically, so a device needs long-range couplers, routing, or growing local depth.」人话：<b>每条检查只碰 6 个比特（稀疏）不等于这 6 个比特在芯片上挨着</b>；扩展性恰恰要求它们散得开。（「扩展」具体指什么、指哪张图，见下一段。）在平面上只连近邻的电路做不到这种散开：一块区域向外的连线只与它的周长成正比，跟不上区域的面积（qLDPC 教程 1.4 节的 Delfosse–Beverland–Tremblay 界）。所以机器要么有长距离的连线，要么让帮手跑路（routing），要么每轮多花很多步。同一张卡片的 realizations 字段补了一句日期：「No repeated-syndrome laboratory realization of the exact family was found as of 2026-08-09.」这就是为什么 Wanted 板的 statement 把 routing 单独点名：对表面码它不是问题，对这一族它是电路设计的核心。</p>
+    <p class="en">The check matrix of a quantum expander code is “nongeometric”; one view on the card (type <span class="mono">nongeometric-syndrome-circuits</span>, origin curated, citing <span class="mono">delfosse2021measurement</span>) reads: “Bounded check weight does not imply bounded-depth nearest-neighbor extraction in a low-dimensional layout. Expansion distributes Tanner neighbors non-geometrically, so a device needs long-range couplers, routing, or growing local depth.” In plain words: <b>a check touching only 6 qubits (sparse) does not make those 6 qubits neighbours on the chip</b>; expansion demands precisely that they be spread out. (What “expansion” means, and on which graph, is the next paragraph.) A circuit with neighbour-only connections in a plane cannot spread things out like this: the wires leaving a region grow only with its perimeter and cannot keep up with its area (the Delfosse–Beverland–Tremblay bound of the qLDPC guide, section 1.4). So the machine needs long-range wiring, or a travelling helper (routing), or many more steps per round. The card's realizations field adds a dated sentence: “No repeated-syndrome laboratory realization of the exact family was found as of 2026-08-09.” That is why the board's statement names routing explicitly: for the surface code it is a non-issue, for this family it is the core of the circuit design.</p>
+    <p class="zh"><b>「扩展」说的是哪张图。</b>量子扩展码是一条经典码 H 与自己做超图积得到的（这里 H 是 K5 的 5 × 10 关联矩阵，2.1 节）。small-set-flip 定理（Leverrier、Tillich、Zémor 2015 的定理 2）的假设落在<b>经典因子码的 Tanner 图</b>上：比特各画一个圆，检查各画一个方块，检查读某个比特就连一条线。设每个比特连 Δ 条检查，集合 S 的<b>邻居</b> Γ(S) 是至少连着 S 中一个比特的那些检查。S 最多能有 Δ·|S| 个邻居（各比特的线全落在不同的检查上）；「左扩展」要求：凡是不超过全体固定比例的比特集合 S，都有 |Γ(S)| ≥ (1 − δ)·Δ·|S|，即几乎没有两条线撞在同一条检查上；检查一侧也要有同样的性质（「右扩展」），定理要求两侧的 δ 都小于 1/6。乘出来的量子码自己的 Tanner 图严格说并不是扩展图，论文的说法是它「保留了足够的扩展结构」，译码算法才能工作。</p>
+    <p class="en"><b>Which graph “expansion” is about.</b> A quantum expander code is the hypergraph product of a classical code H with itself (here H is the 5 × 10 incidence matrix of K5, section 2.1). The hypothesis of the small-set-flip theorem (Theorem 2 of Leverrier, Tillich and Zémor 2015) is about the <b>Tanner graph of the classical factor code</b>: one circle per bit, one square per check, a line whenever a check reads a bit. Let every bit touch Δ checks; the <b>neighbours</b> Γ(S) of a set S of bits are the checks joined to at least one bit of S. S can have at most Δ·|S| neighbours (all its lines landing on different checks); “left expansion” demands that every set S of bits up to a fixed fraction of all bits has |Γ(S)| ≥ (1 − δ)·Δ·|S|, so almost no two lines land on the same check; the check side must have the same property (“right expansion”), and the theorem needs δ below 1/6 on both sides. The quantum code's own Tanner graph is, strictly speaking, not an expander; in the paper's words it retains enough expanding structure for the decoding algorithm to work.</p>
+    <p class="zh"><b>数一数。</b>K5 的码里比特 = 边（e01 连顶点 0 与 1，依此类推），检查 = 顶点，Δ = 2。下图左：e01 与 e23 没有公共顶点，邻居 v0、v1、v2、v3 共 4 个，正好是最多的 2 × 2。下图右：e01 与 e02 都连着 v0，邻居只有 v0、v1、v2 三个。δ &lt; 1/6 要求两个比特至少有 (5/6) × 4 ≈ 3.33 个邻居，也就是全部 4 个，所以只要这样的两比特集合在「固定比例」之内，K5 的图就不满足定理的假设；三条边围成的三角形 {e01, e02, e12} 更糟，6 条线只落在 3 个检查上。所以 [[125,37,3]] 这样的小实例不在定理的适用范围里：定理说的是比特数趋于无穷的一族码，其中的图要有足够好的扩展（随机抽取的图以高概率满足要求，但没有已知的高效<b>确定性</b>构造，也没有高效的方法验证一张给定的图满足要求，这是 Fawzi、Grospellier、Leverrier 2018 自己写明的局限）。</p>
+    <p class="en"><b>Count it.</b> In the K5 code the bits are edges (e01 joins vertices 0 and 1, and so on), the checks are vertices, and Δ = 2. Left in the figure: e01 and e23 share no vertex, so their neighbours are v0, v1, v2, v3, four, exactly the maximum 2 × 2. Right: e01 and e02 both touch v0, so their neighbours are only v0, v1, v2, three. δ &lt; 1/6 requires two bits to have at least (5/6) × 4 ≈ 3.33 neighbours, i.e. all four, so as soon as such two-bit sets fall within the “fixed fraction”, the K5 graph fails the theorem's hypothesis; the triangle {e01, e02, e12} is worse, its 6 lines landing on only 3 checks. So a small instance such as [[125,37,3]] lies outside the theorem's reach: the theorem is about a family whose number of bits goes to infinity, with graphs that expand well enough (randomly sampled graphs qualify with high probability, but no efficient <b>deterministic</b> construction is known, nor an efficient way to certify that a given graph qualifies, a limitation that Fawzi, Grospellier and Leverrier (2018) state themselves).</p>
   </div>
+  <figure class="fig" id="fig-k5-exp-wrap">
+    <div class="fig-frame">
+<svg id="fig-k5-expansion" viewBox="0 0 690 280" width="100%" style="max-width:690px;display:block;margin:0.6em auto" role="img" aria-label="Tanner graph of the K5 incidence code: two sets of two bits and the checks they reach">
+<text class="zh" x="202" y="20" font-size="12.5" fill="var(--ink)" text-anchor="middle">两个不共用检查的比特 S = {e01, e23}</text><text class="en" x="202" y="20" font-size="12.5" fill="var(--ink)" text-anchor="middle">Two bits with no common check S = {e01, e23}</text>
+<line x1="69" y1="69" x2="82" y2="159" stroke="var(--cx)" stroke-width="2.4"/>
+<line x1="69" y1="69" x2="142" y2="159" stroke="var(--cx)" stroke-width="2.4"/>
+<line x1="98.5" y1="69" x2="82" y2="159" stroke="var(--line2)" stroke-width="1"/>
+<line x1="98.5" y1="69" x2="202" y2="159" stroke="var(--line2)" stroke-width="1"/>
+<line x1="128" y1="69" x2="82" y2="159" stroke="var(--line2)" stroke-width="1"/>
+<line x1="128" y1="69" x2="262" y2="159" stroke="var(--line2)" stroke-width="1"/>
+<line x1="157.5" y1="69" x2="82" y2="159" stroke="var(--line2)" stroke-width="1"/>
+<line x1="157.5" y1="69" x2="322" y2="159" stroke="var(--line2)" stroke-width="1"/>
+<line x1="187" y1="69" x2="142" y2="159" stroke="var(--line2)" stroke-width="1"/>
+<line x1="187" y1="69" x2="202" y2="159" stroke="var(--line2)" stroke-width="1"/>
+<line x1="216.5" y1="69" x2="142" y2="159" stroke="var(--line2)" stroke-width="1"/>
+<line x1="216.5" y1="69" x2="262" y2="159" stroke="var(--line2)" stroke-width="1"/>
+<line x1="246" y1="69" x2="142" y2="159" stroke="var(--line2)" stroke-width="1"/>
+<line x1="246" y1="69" x2="322" y2="159" stroke="var(--line2)" stroke-width="1"/>
+<line x1="275.5" y1="69" x2="202" y2="159" stroke="var(--cx)" stroke-width="2.4"/>
+<line x1="275.5" y1="69" x2="262" y2="159" stroke="var(--cx)" stroke-width="2.4"/>
+<line x1="305" y1="69" x2="202" y2="159" stroke="var(--line2)" stroke-width="1"/>
+<line x1="305" y1="69" x2="322" y2="159" stroke="var(--line2)" stroke-width="1"/>
+<line x1="334.5" y1="69" x2="262" y2="159" stroke="var(--line2)" stroke-width="1"/>
+<line x1="334.5" y1="69" x2="322" y2="159" stroke="var(--line2)" stroke-width="1"/>
+<circle cx="69" cy="62" r="7" fill="var(--cx)" stroke="var(--cx)" stroke-width="1.4"/>
+<text x="69" y="49" font-size="10" fill="var(--ink)" text-anchor="middle" font-family="var(--f-mono)">e01</text>
+<circle cx="98.5" cy="62" r="7" fill="var(--bg)" stroke="var(--ink3)" stroke-width="1.4"/>
+<text x="98.5" y="49" font-size="10" fill="var(--ink2)" text-anchor="middle" font-family="var(--f-mono)">e02</text>
+<circle cx="128" cy="62" r="7" fill="var(--bg)" stroke="var(--ink3)" stroke-width="1.4"/>
+<text x="128" y="49" font-size="10" fill="var(--ink2)" text-anchor="middle" font-family="var(--f-mono)">e03</text>
+<circle cx="157.5" cy="62" r="7" fill="var(--bg)" stroke="var(--ink3)" stroke-width="1.4"/>
+<text x="157.5" y="49" font-size="10" fill="var(--ink2)" text-anchor="middle" font-family="var(--f-mono)">e04</text>
+<circle cx="187" cy="62" r="7" fill="var(--bg)" stroke="var(--ink3)" stroke-width="1.4"/>
+<text x="187" y="49" font-size="10" fill="var(--ink2)" text-anchor="middle" font-family="var(--f-mono)">e12</text>
+<circle cx="216.5" cy="62" r="7" fill="var(--bg)" stroke="var(--ink3)" stroke-width="1.4"/>
+<text x="216.5" y="49" font-size="10" fill="var(--ink2)" text-anchor="middle" font-family="var(--f-mono)">e13</text>
+<circle cx="246" cy="62" r="7" fill="var(--bg)" stroke="var(--ink3)" stroke-width="1.4"/>
+<text x="246" y="49" font-size="10" fill="var(--ink2)" text-anchor="middle" font-family="var(--f-mono)">e14</text>
+<circle cx="275.5" cy="62" r="7" fill="var(--cx)" stroke="var(--cx)" stroke-width="1.4"/>
+<text x="275.5" y="49" font-size="10" fill="var(--ink)" text-anchor="middle" font-family="var(--f-mono)">e23</text>
+<circle cx="305" cy="62" r="7" fill="var(--bg)" stroke="var(--ink3)" stroke-width="1.4"/>
+<text x="305" y="49" font-size="10" fill="var(--ink2)" text-anchor="middle" font-family="var(--f-mono)">e24</text>
+<circle cx="334.5" cy="62" r="7" fill="var(--bg)" stroke="var(--ink3)" stroke-width="1.4"/>
+<text x="334.5" y="49" font-size="10" fill="var(--ink2)" text-anchor="middle" font-family="var(--f-mono)">e34</text>
+<rect x="73" y="159" width="18" height="18" rx="2" fill="var(--cd)" stroke="var(--cd)" stroke-width="1.4"/>
+<text x="82" y="193" font-size="11" fill="var(--ink)" text-anchor="middle" font-family="var(--f-mono)">v0</text>
+<rect x="133" y="159" width="18" height="18" rx="2" fill="var(--cd)" stroke="var(--cd)" stroke-width="1.4"/>
+<text x="142" y="193" font-size="11" fill="var(--ink)" text-anchor="middle" font-family="var(--f-mono)">v1</text>
+<rect x="193" y="159" width="18" height="18" rx="2" fill="var(--cd)" stroke="var(--cd)" stroke-width="1.4"/>
+<text x="202" y="193" font-size="11" fill="var(--ink)" text-anchor="middle" font-family="var(--f-mono)">v2</text>
+<rect x="253" y="159" width="18" height="18" rx="2" fill="var(--cd)" stroke="var(--cd)" stroke-width="1.4"/>
+<text x="262" y="193" font-size="11" fill="var(--ink)" text-anchor="middle" font-family="var(--f-mono)">v3</text>
+<rect x="313" y="159" width="18" height="18" rx="2" fill="var(--bg)" stroke="var(--ink3)" stroke-width="1.4"/>
+<text x="322" y="193" font-size="11" fill="var(--ink2)" text-anchor="middle" font-family="var(--f-mono)">v4</text>
+<text class="zh" x="202" y="222" font-size="12" fill="var(--ink)" text-anchor="middle">邻居 v0 v1 v2 v3：4 个 = 最多可能的 2 × 2</text><text class="en" x="202" y="222" font-size="12" fill="var(--ink)" text-anchor="middle">neighbours v0 v1 v2 v3: 4 = the maximum 2 × 2</text>
+<text class="zh" x="522" y="20" font-size="12.5" fill="var(--ink)" text-anchor="middle">两个共用 v0 的比特 S = {e01, e02}</text><text class="en" x="522" y="20" font-size="12.5" fill="var(--ink)" text-anchor="middle">Two bits sharing v0 S = {e01, e02}</text>
+<line x1="389" y1="69" x2="402" y2="159" stroke="var(--cx)" stroke-width="2.4"/>
+<line x1="389" y1="69" x2="462" y2="159" stroke="var(--cx)" stroke-width="2.4"/>
+<line x1="418.5" y1="69" x2="402" y2="159" stroke="var(--cx)" stroke-width="2.4"/>
+<line x1="418.5" y1="69" x2="522" y2="159" stroke="var(--cx)" stroke-width="2.4"/>
+<line x1="448" y1="69" x2="402" y2="159" stroke="var(--line2)" stroke-width="1"/>
+<line x1="448" y1="69" x2="582" y2="159" stroke="var(--line2)" stroke-width="1"/>
+<line x1="477.5" y1="69" x2="402" y2="159" stroke="var(--line2)" stroke-width="1"/>
+<line x1="477.5" y1="69" x2="642" y2="159" stroke="var(--line2)" stroke-width="1"/>
+<line x1="507" y1="69" x2="462" y2="159" stroke="var(--line2)" stroke-width="1"/>
+<line x1="507" y1="69" x2="522" y2="159" stroke="var(--line2)" stroke-width="1"/>
+<line x1="536.5" y1="69" x2="462" y2="159" stroke="var(--line2)" stroke-width="1"/>
+<line x1="536.5" y1="69" x2="582" y2="159" stroke="var(--line2)" stroke-width="1"/>
+<line x1="566" y1="69" x2="462" y2="159" stroke="var(--line2)" stroke-width="1"/>
+<line x1="566" y1="69" x2="642" y2="159" stroke="var(--line2)" stroke-width="1"/>
+<line x1="595.5" y1="69" x2="522" y2="159" stroke="var(--line2)" stroke-width="1"/>
+<line x1="595.5" y1="69" x2="582" y2="159" stroke="var(--line2)" stroke-width="1"/>
+<line x1="625" y1="69" x2="522" y2="159" stroke="var(--line2)" stroke-width="1"/>
+<line x1="625" y1="69" x2="642" y2="159" stroke="var(--line2)" stroke-width="1"/>
+<line x1="654.5" y1="69" x2="582" y2="159" stroke="var(--line2)" stroke-width="1"/>
+<line x1="654.5" y1="69" x2="642" y2="159" stroke="var(--line2)" stroke-width="1"/>
+<circle cx="389" cy="62" r="7" fill="var(--cx)" stroke="var(--cx)" stroke-width="1.4"/>
+<text x="389" y="49" font-size="10" fill="var(--ink)" text-anchor="middle" font-family="var(--f-mono)">e01</text>
+<circle cx="418.5" cy="62" r="7" fill="var(--cx)" stroke="var(--cx)" stroke-width="1.4"/>
+<text x="418.5" y="49" font-size="10" fill="var(--ink)" text-anchor="middle" font-family="var(--f-mono)">e02</text>
+<circle cx="448" cy="62" r="7" fill="var(--bg)" stroke="var(--ink3)" stroke-width="1.4"/>
+<text x="448" y="49" font-size="10" fill="var(--ink2)" text-anchor="middle" font-family="var(--f-mono)">e03</text>
+<circle cx="477.5" cy="62" r="7" fill="var(--bg)" stroke="var(--ink3)" stroke-width="1.4"/>
+<text x="477.5" y="49" font-size="10" fill="var(--ink2)" text-anchor="middle" font-family="var(--f-mono)">e04</text>
+<circle cx="507" cy="62" r="7" fill="var(--bg)" stroke="var(--ink3)" stroke-width="1.4"/>
+<text x="507" y="49" font-size="10" fill="var(--ink2)" text-anchor="middle" font-family="var(--f-mono)">e12</text>
+<circle cx="536.5" cy="62" r="7" fill="var(--bg)" stroke="var(--ink3)" stroke-width="1.4"/>
+<text x="536.5" y="49" font-size="10" fill="var(--ink2)" text-anchor="middle" font-family="var(--f-mono)">e13</text>
+<circle cx="566" cy="62" r="7" fill="var(--bg)" stroke="var(--ink3)" stroke-width="1.4"/>
+<text x="566" y="49" font-size="10" fill="var(--ink2)" text-anchor="middle" font-family="var(--f-mono)">e14</text>
+<circle cx="595.5" cy="62" r="7" fill="var(--bg)" stroke="var(--ink3)" stroke-width="1.4"/>
+<text x="595.5" y="49" font-size="10" fill="var(--ink2)" text-anchor="middle" font-family="var(--f-mono)">e23</text>
+<circle cx="625" cy="62" r="7" fill="var(--bg)" stroke="var(--ink3)" stroke-width="1.4"/>
+<text x="625" y="49" font-size="10" fill="var(--ink2)" text-anchor="middle" font-family="var(--f-mono)">e24</text>
+<circle cx="654.5" cy="62" r="7" fill="var(--bg)" stroke="var(--ink3)" stroke-width="1.4"/>
+<text x="654.5" y="49" font-size="10" fill="var(--ink2)" text-anchor="middle" font-family="var(--f-mono)">e34</text>
+<rect x="393" y="159" width="18" height="18" rx="2" fill="var(--cd)" stroke="var(--cd)" stroke-width="1.4"/>
+<text x="402" y="193" font-size="11" fill="var(--ink)" text-anchor="middle" font-family="var(--f-mono)">v0</text>
+<rect x="453" y="159" width="18" height="18" rx="2" fill="var(--cd)" stroke="var(--cd)" stroke-width="1.4"/>
+<text x="462" y="193" font-size="11" fill="var(--ink)" text-anchor="middle" font-family="var(--f-mono)">v1</text>
+<rect x="513" y="159" width="18" height="18" rx="2" fill="var(--cd)" stroke="var(--cd)" stroke-width="1.4"/>
+<text x="522" y="193" font-size="11" fill="var(--ink)" text-anchor="middle" font-family="var(--f-mono)">v2</text>
+<rect x="573" y="159" width="18" height="18" rx="2" fill="var(--bg)" stroke="var(--ink3)" stroke-width="1.4"/>
+<text x="582" y="193" font-size="11" fill="var(--ink2)" text-anchor="middle" font-family="var(--f-mono)">v3</text>
+<rect x="633" y="159" width="18" height="18" rx="2" fill="var(--bg)" stroke="var(--ink3)" stroke-width="1.4"/>
+<text x="642" y="193" font-size="11" fill="var(--ink2)" text-anchor="middle" font-family="var(--f-mono)">v4</text>
+<text class="zh" x="522" y="222" font-size="12" fill="var(--ink)" text-anchor="middle">邻居 v0 v1 v2：3 个，比最多的 4 少 1</text><text class="en" x="522" y="222" font-size="12" fill="var(--ink)" text-anchor="middle">neighbours v0 v1 v2: 3, one short of the maximum 4</text>
+<line x1="362" y1="34" x2="362" y2="206" stroke="var(--line2)" stroke-width="1" stroke-dasharray="3 4"/>
+<text class="zh" x="12" y="66" font-size="10.5" fill="var(--ink3)" text-anchor="start">比特</text><text class="en" x="12" y="66" font-size="10.5" fill="var(--ink3)" text-anchor="start">bits</text>
+<text class="zh" x="12" y="172" font-size="10.5" fill="var(--ink3)" text-anchor="start">检查</text><text class="en" x="12" y="172" font-size="10.5" fill="var(--ink3)" text-anchor="start">checks</text>
+<text class="zh" x="345" y="252" font-size="10.5" fill="var(--ink2)" text-anchor="middle">圆 = 比特（K5 的一条边），方块 = 检查（K5 的一个顶点），线 = 「这条检查读这个比特」</text><text class="en" x="345" y="252" font-size="10.5" fill="var(--ink2)" text-anchor="middle">circle = bit (an edge of K5), square = check (a vertex of K5), line = “this check reads this bit”</text>
+<text class="zh" x="345" y="270" font-size="10.5" fill="var(--ink2)" text-anchor="middle">橙色 = 集合 S 及其连线，粉色 = S 的邻居 Γ(S)</text><text class="en" x="345" y="270" font-size="10.5" fill="var(--ink2)" text-anchor="middle">orange = the set S and its lines, pink = its neighbours Γ(S)</text>
+</svg>
+    </div>
+    <figcaption><span class="fno"><span class="zh">图 2.1</span><span class="en">Fig. 2.1</span></span><span class="zh">K5 关联码的 Tanner 图（经典因子码的图，不是量子码的图），两个大小为 2 的比特集合 S 与它们的邻居 Γ(S)。每个比特连 2 条检查，所以 |S| = 2 时最多 4 个邻居。左边一个不少；右边两条线撞在 v0 上，少了一个。数字本篇用脚本核对过。</span><span class="en">The Tanner graph of the K5 incidence code (the classical factor's graph, not the quantum code's), two sets S of two bits and their neighbours Γ(S). Every bit touches 2 checks, so |S| = 2 allows at most 4 neighbours. The left set reaches all 4; on the right two lines collide on v0 and one is lost. The counts were checked by script for this guide.</span></figcaption>
+  </figure>
 
   <h3 id="s2-4"><span class="sec-no">2.4</span><span class="zh">隔壁的 BB 码：有一个数字，带五个限定项，且不导出电路</span><span class="en">Next door, the BB code: one number, five qualifiers, and no exported circuit</span></h3>
   <div class="prose">
@@ -1269,8 +1458,10 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
     </table>
   </div>
   <div class="prose">
-    <p class="zh">两点澄清。第一，statement <b>没有</b>要求译码器是 small-set-flip：卡片说 small-set-flip 的定理只对完美症状成立（「the perfect-syndrome small-set-flip theorem」），把它推广到电路噪声是研究问题；但一个在探测器图上跑的 BP-OSD，只要五样齐全，就是合格答案。第二，statement 也没有要求一个「好看」的数字：一份合同下跑出来的逻辑错误率，哪怕很差，只要可重放、可比较，就填上了 none-known 那一格。人话：<b>要的是一台能让别人重跑的机器，不是一个漂亮的百分数。</b></p>
-    <p class="en">Two clarifications. First, the statement does <b>not</b> require the decoder to be small-set-flip: the card says its theorem holds only for perfect syndromes (“the perfect-syndrome small-set-flip theorem”), and extending it to circuit noise is a research question; but a BP-OSD running on the detector graph qualifies as long as all five deliverables are present. Second, the statement does not ask for a “nice” number either: a logical error rate obtained under one contract, however poor, fills the none-known cell as long as it is replayable and comparable. In plain words: <b>what is wanted is a machine others can rerun, not a pretty percentage.</b></p>
+    <p class="zh">两点澄清。第一，statement <b>没有</b>要求译码器是 small-set-flip。卡片引的是完美症状下的定理（「the perfect-syndrome small-set-flip theorem」，Leverrier、Tillich、Zémor 2015），但理论不止于此。Fawzi、Grospellier 与 Leverrier 2018 年证明：对扩展足够好的量子扩展码，读数也会出错时 small-set-flip 仍然有效，而且是<span class="term">单发<span class="tip">single-shot：每次译码只用一轮带噪读数，不必为了一次译码重复测量多轮；残余错误不为零，但保持很小，下一次译码继续处理。</span></span>的：只用一轮带噪读数，除了一个概率 e<sup>−Ω(√n)</sup> 的例外，修复后的残余错误在相差稳定子的意义下等价于参数为 q<sup>Ω(1)</sup> 的局部随机噪声，也就是保持很小、但不保证为零（论文定理 2）。前提是一种「局部随机」噪声：任意指定 |S| 个比特全出错、同时任意指定 |T| 条读数全读反的概率不超过 p<sup>|S|</sup>q<sup>|T|</sup>，且 p、q 低于两个存在但没有给出数值的常数。他们还把它放进一个完整的容错方案（论文定理 1），在同一类局部随机电路噪声、错误率低于某个同样没给数值的阈值时成立。所以缺的不是「读数出错时能否译码」的理论，而是 Atlas 的基础设施：这一族具体实例（如 [[125,37,3]]）的提取电路、探测器与噪声文件、跑出来的具体数字，以及别人能重跑的合同。况且图 2.1 已经说明，这么小的实例本身不满足定理的扩展假设。一个在探测器图上跑的 BP-OSD，只要五样齐全，同样是合格答案。</p>
+    <p class="en">Two clarifications. First, the statement does <b>not</b> require the decoder to be small-set-flip. The card cites the perfect-syndrome theorem (“the perfect-syndrome small-set-flip theorem”, Leverrier, Tillich and Zémor 2015), but the theory goes further. Fawzi, Grospellier and Leverrier (2018) proved that for quantum expander codes with good enough expansion, small-set-flip still works when readings can be wrong, and that it is <span class="term">single-shot<span class="tip">Each decoding uses one round of noisy readings; no repeated rounds are needed for one decoding. The leftover error is not zero but stays small, and the next decoding keeps handling it.</span></span>: after one round of noisy readings, except with probability e<sup>−Ω(√n)</sup>, the residual error is equivalent, up to stabilizers, to local stochastic noise with parameter q<sup>Ω(1)</sup>, so it stays small but is not guaranteed to vanish (Theorem 2 of the paper). The premise is a “local stochastic” noise: the probability that any chosen |S| qubits are all in error and any chosen |T| readings are all flipped is at most p<sup>|S|</sup>q<sup>|T|</sup>, with p and q below two constants that exist but are not given numerically. They also put it into a complete fault-tolerant scheme (Theorem 1 of the paper), valid for the same kind of local stochastic circuit noise below a threshold whose value is likewise not given. So what is missing is not the theory of “can one decode when readings fail”, but Atlas infrastructure: extraction circuits for concrete instances of this family (such as [[125,37,3]]), detector and noise files, an actual number, and a contract others can rerun. Besides, Fig. 2.1 already showed that an instance this small does not meet the theorem's expansion hypothesis. A BP-OSD running on the detector graph qualifies just as well, as long as all five deliverables are present.</p>
+    <p class="zh">第二，statement 也没有要求一个「好看」的数字：一份合同下跑出来的逻辑错误率，哪怕很差，只要可重放、可比较，就填上了 none-known 那一格。人话：<b>要的是一台能让别人重跑的机器，不是一个漂亮的百分数。</b></p>
+    <p class="en">Second, the statement does not ask for a “nice” number either: a logical error rate obtained under one contract, however poor, fills the none-known cell as long as it is replayable and comparable. In plain words: <b>what is wanted is a machine others can rerun, not a pretty percentage.</b></p>
   </div>
 
   <h3 id="s4-2"><span class="sec-no">4.2</span><span class="zh">hard-engineering：知道怎么做，但要做很多</span><span class="en">hard-engineering: known how, but much to do</span></h3>
@@ -1283,18 +1474,18 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
       <tr><th><span class="zh">难处</span><span class="en">Difficulty</span></th><th><span class="zh">为什么表面码没有这个问题</span><span class="en">Why the surface code does not have it</span></th><th><span class="zh">对这一族意味着什么</span><span class="en">What it means for this family</span></th></tr>
       <tr><td><span class="zh"><b>没有天然的版图</b></span><span class="en"><b>No natural layout</b></span></td><td><span class="zh">表面码的四条腿就是格点上的四个邻居，帮手放在格子中央，顺序有公认的写法。</span><span class="en">The surface code's four legs are the four neighbours on the lattice, the helper sits in the cell's centre, and the order has an accepted convention.</span></td><td><span class="zh">六条腿散在远处，帮手放哪、谁先谁后、路由怎么走，全是<b>设计选择</b>；每个选择都是另一份合同。2.3 节的卡片原文：需要「long-range couplers, routing, or growing local depth」。</span><span class="en">Six legs far apart; where the helper sits, who goes first, how routing runs are all <b>design choices</b>, and each choice is another contract. The card text of 2.3: it needs “long-range couplers, routing, or growing local depth”.</span></td></tr>
       <tr><td><span class="zh"><b>电路码距要重新算</b></span><span class="en"><b>Circuit distance must be recomputed</b></span></td><td><span class="zh">四腿检查的 hook 错误有标准的规避顺序。</span><span class="en">Hook errors of four-legged checks have a standard avoiding order.</span></td><td><span class="zh">六腿检查、任意顺序下，一个帮手故障能传到几个数据比特上、是否压低码距，得对每一种顺序单独验证（1.4 节：「A static distance of 12 is compatible with a smaller circuit distance under a bad schedule」）。</span><span class="en">For six-legged checks in an arbitrary order, how many data qubits one helper fault reaches and whether it lowers the distance must be verified per order (1.4: “A static distance of 12 is compatible with a smaller circuit distance under a bad schedule”).</span></td></tr>
-      <tr><td><span class="zh"><b>译码器要吃超边</b></span><span class="en"><b>The decoder must eat hyperedges</b></span></td><td><span class="zh">表面码的每种故障在 X、Z 两个扇区里各点亮至多两个探测器（一个 Y 错误合起来是四个），每个扇区内可以配对。</span><span class="en">Every surface-code fault lights at most two detectors in each of the X and Z sectors (a Y error lights four in total), so pairing works sector by sector.</span></td><td><span class="zh">这里一个数据错误就点亮三条以上检查（<a href="../../bb_code/decoders/decoders.html#s1-3">BB 译码器教程 1.3 节</a>），加上电路故障，探测器图是超图；BP-OSD 能吃，但它的迭代、阻尼、OSD 阶数都要调，且每一组参数是合同的一部分。</span><span class="en">Here one data error already lights three or more checks (<a href="../../bb_code/decoders/decoders.html#s1-3">BB decoders guide section 1.3</a>); with circuit faults the detector graph is a hypergraph; BP-OSD can eat it, but its iterations, damping and OSD order need tuning, and every parameter set is part of the contract.</span></td></tr>
+      <tr><td><span class="zh"><b>译码器要吃超边</b></span><span class="en"><b>The decoder must eat hyperedges</b></span></td><td><span class="zh">表面码的每种故障都能拆成几块，每块只在 X 扇区或 Z 扇区里点亮至多两个探测器（一个 Y 错误就是 X、Z 各一块，合起来四个），所以每个扇区内可以配对。</span><span class="en">Every surface-code fault can be split into pieces that each light at most two detectors within the X sector or within the Z sector (a Y error is one X piece plus one Z piece, four detectors in total), so pairing works sector by sector.</span></td><td><span class="zh">BB 码里一个数据错误点亮 3 条检查（<a href="../../bb_code/decoders/decoders.html#s1-3">BB 译码器教程 1.3 节</a>）。[[125,37,3]] 里要分比特种类（比特与检查的标号见 5.3 节）：100 个 (边, 边) 比特上的 X 错误各点亮 2 条 Z 检查，25 个 (顶点, 顶点) 比特上的各点亮 4 条。例如 (v0, v0) 上的 X 点亮 Z(e01,v0)、Z(e02,v0)、Z(e03,v0)、Z(e04,v0) 四个探测器，匹配图的一条边（只连两个端点）装不下，这就是一条<b>超边</b>。再加上电路故障（5.3 节的一个 hook 点亮 2 到 8 个），探测器图是超图；BP-OSD 能吃，但它的迭代、阻尼、OSD 阶数都要调，且每一组参数是合同的一部分。</span><span class="en">In a BB code one data error lights 3 checks (<a href="../../bb_code/decoders/decoders.html#s1-3">BB decoders guide section 1.3</a>). In [[125,37,3]] it depends on the kind of qubit (labels of qubits and checks in section 5.3): an X error on one of the 100 (edge, edge) qubits lights 2 Z checks, on one of the 25 (vertex, vertex) qubits it lights 4. For example X on (v0, v0) lights the four detectors Z(e01,v0), Z(e02,v0), Z(e03,v0), Z(e04,v0), which no edge of a matching graph (two endpoints only) can hold: a <b>hyperedge</b>. With circuit faults added (one hook in section 5.3 lights 2 to 8), the detector graph is a hypergraph; BP-OSD can eat it, but its iterations, damping and OSD order need tuning, and every parameter set is part of the contract.</span></td></tr>
     </table>
   </div>
 
   <h3 id="s4-3"><span class="sec-no">4.3</span><span class="zh">玩具尺度上数一数：故障位置有多少</span><span class="en">Counting at toy scale: how many fault locations</span></h3>
   <div class="prose">
-    <p class="zh">「做很多」有多多？用 1.1 节的算法数一数。一条碰 w 个比特的检查，一轮提取电路有 1 次制备 + w 个 CNOT + 1 次读出 = w + 2 个可能出错的位置。对 toric_L3 [[18,2,3]]：18 条检查，每条 4 条腿，一轮有 18 × 6 = 108 个位置（不算等待）。对 [[125,37,3]]：qLDPC 教程 3.4 节说它的因子是 K<sub>5</sub> 的 5 × 10 关联矩阵，每行 4 个 1（每个顶点连 4 条边）、每列 2 个 1（每条边两个端点）；超图积的每条检查重量 = 行重 + 列重 = 6，检查数 = 5 × 10 + 10 × 5 = 100；一轮约 100 × 8 = 800 个位置，仍不算等待。一个存储实验至少跑 d 轮，再乘 3；而 BB 教程 6.4 节的电路噪声模型里一个 CNOT 有 15 种不同的出错方式。于是「哪种故障点亮哪些探测器、翻不翻逻辑」这张表——文献里叫<span class="term">探测器错误模型<span class="tip">detector error model：把每一种基本故障用模拟跑一遍，记下它点亮的探测器集合与是否翻转逻辑；译码器在这张表定义的加权（超）图上工作。</span></span>——要有上万行。这些数字是本篇自己数的，Atlas 页面上没有；它们不吓人，机器一秒就能列完，真正花时间的是<b>把每一行都做对、做成能重放的文件、并在换一个顺序时全部重来</b>。这就是 hard-engineering 的字面意思。</p>
-    <p class="en">How much is “much”? Count with the procedure of 1.1. A check touching w qubits has, per round of extraction, 1 preparation + w CNOTs + 1 readout = w + 2 locations that can fail. For toric_L3 [[18,2,3]]: 18 checks of 4 legs each, 18 × 6 = 108 locations per round (idling not counted). For [[125,37,3]]: qLDPC guide section 3.4 says its factor is the 5 × 10 incidence matrix of K<sub>5</sub>, with 4 ones per row (each vertex meets 4 edges) and 2 per column (each edge has two endpoints); every hypergraph-product check has weight = row weight + column weight = 6, and the number of checks is 5 × 10 + 10 × 5 = 100; about 100 × 8 = 800 locations per round, still without idling. A memory experiment runs at least d rounds, so multiply by 3; and in the circuit-noise model of BB guide section 6.4 one CNOT has 15 distinct ways to fail. So the table of “which fault lights which detectors and whether it flips the logical”, called a <span class="term">detector error model<span class="tip">Simulate every elementary fault once and record the set of detectors it lights and whether it flips the logical; the decoder works on the weighted (hyper)graph this table defines.</span></span> in the literature, runs to tens of thousands of rows. These counts are this guide's own and appear on no Atlas page; they are not frightening, a machine lists them in a second. What takes the time is <b>getting every row right, making it a replayable file, and redoing all of it when one order changes</b>. That is the literal meaning of hard-engineering.</p>
+    <p class="zh">「做很多」有多多？用 1.1 节的算法数一数。一条碰 w 个比特的检查，一轮提取电路有 1 次制备 + w 个 CNOT + 1 次读出 = w + 2 个可能出错的位置。对 toric_L3 [[18,2,3]]：18 条检查，每条 4 条腿，一轮有 18 × 6 = 108 个位置（不算等待）。对 [[125,37,3]]：qLDPC 教程 3.4 节说它的因子是 K<sub>5</sub> 的 5 × 10 关联矩阵，每行 4 个 1（每个顶点连 4 条边）、每列 2 个 1（每条边两个端点）；超图积的每条检查重量 = 行重 + 列重 = 6，检查数 = 5 × 10 + 10 × 5 = 100；一轮约 100 × 8 = 800 个位置，仍不算等待。存储实验跑多少轮 T 是协议的选择，常见取法是 T = d，这里取 T = 3。BB 教程 6.4 节的电路噪声模型里一个 CNOT 有 15 种不同的出错方式（两个比特上各放 I、X、Y、Z 之一，共 4 × 4 = 16 种组合，去掉「两边都是 I」即什么都没发生的那一种）；每次制备、每次读出各算 1 种。于是三轮里的<b>基本故障</b>有：toric_L3 3 × 18 × (1 + 4 × 15 + 1) = 3,348 种，[[125,37,3]] 3 × 100 × (1 + 6 × 15 + 1) = 27,600 种。「哪种故障点亮哪些探测器、翻不翻逻辑」这张表——文献里叫<span class="term">探测器错误模型<span class="tip">detector error model：把每一种基本故障用模拟跑一遍，记下它点亮的探测器集合与是否翻转逻辑；译码器在这张表定义的加权（超）图上工作。</span></span>——就从这些基本故障逐一模拟得来。点亮同一组探测器、翻转同一组逻辑的故障会合并成一行（两个独立故障 p₁、p₂ 合并后的概率是「恰好一个发生」的 p₁ + p₂ − 2p₁p₂，因为两个都发生就互相抵消），所以表的行数比基本故障少；合并后剩多少行，本篇没有算。「上万」只说 [[125,37,3]] 的基本故障数。这些数字是本篇自己数的（脚本核对），Atlas 页面上没有；它们不吓人，机器一秒就能列完，真正花时间的是<b>把每一行都做对、做成能重放的文件、并在换一个顺序时全部重来</b>。这就是 hard-engineering 的字面意思。</p>
+    <p class="en">How much is “much”? Count with the procedure of 1.1. A check touching w qubits has, per round of extraction, 1 preparation + w CNOTs + 1 readout = w + 2 locations that can fail. For toric_L3 [[18,2,3]]: 18 checks of 4 legs each, 18 × 6 = 108 locations per round (idling not counted). For [[125,37,3]]: qLDPC guide section 3.4 says its factor is the 5 × 10 incidence matrix of K<sub>5</sub>, with 4 ones per row (each vertex meets 4 edges) and 2 per column (each edge has two endpoints); every hypergraph-product check has weight = row weight + column weight = 6, and the number of checks is 5 × 10 + 10 × 5 = 100; about 100 × 8 = 800 locations per round, still without idling. How many rounds T a memory experiment runs is a choice of the protocol; T = d is common, and here T = 3. In the circuit-noise model of BB guide section 6.4 one CNOT has 15 distinct ways to fail (one of I, X, Y, Z on each of its two qubits, 4 × 4 = 16 combinations, minus “I on both”, which is no fault at all); each preparation and each readout counts as 1. So over three rounds the <b>elementary faults</b> number 3 × 18 × (1 + 4 × 15 + 1) = 3,348 for toric_L3 and 3 × 100 × (1 + 6 × 15 + 1) = 27,600 for [[125,37,3]]. The table of “which fault lights which detectors and whether it flips the logical”, called a <span class="term">detector error model<span class="tip">Simulate every elementary fault once and record the set of detectors it lights and whether it flips the logical; the decoder works on the weighted (hyper)graph this table defines.</span></span> in the literature, is built by simulating these elementary faults one by one. Faults that light the same detectors and flip the same logicals are merged into one row (two independent faults p₁, p₂ merge to p₁ + p₂ − 2p₁p₂, the probability that exactly one happens, since both together cancel), so the table has fewer rows than there are elementary faults; how many remain after merging, this guide did not compute. “Tens of thousands” refers only to the elementary faults of [[125,37,3]]. These counts are this guide's own (checked by script) and appear on no Atlas page; they are not frightening, a machine lists them in a second. What takes the time is <b>getting every row right, making it a replayable file, and redoing all of it when one order changes</b>. That is the literal meaning of hard-engineering.</p>
   </div>
   <div class="prose">
-    <p class="zh muted small">记号：w = 一条检查触碰的比特数（检查重量）；K<sub>5</sub> = 5 个顶点两两相连的完全图，10 条边；d 轮 = 存储实验的最少轮数取码距。</p>
-    <p class="en muted small">Notation: w = the number of qubits a check touches (check weight); K<sub>5</sub> = the complete graph on 5 vertices, every pair joined, 10 edges; d rounds = the minimum number of rounds of a memory experiment, taken equal to the distance.</p>
+    <p class="zh muted small">记号：w = 一条检查触碰的比特数（检查重量）；K<sub>5</sub> = 5 个顶点两两相连的完全图，10 条边；T = 存储实验的轮数，由协议选定；本节取 T = 3，等于码距 d（常见取法，不是必须）。</p>
+    <p class="en muted small">Notation: w = the number of qubits a check touches (check weight); K<sub>5</sub> = the complete graph on 5 vertices, every pair joined, 10 edges; T = the number of rounds of a memory experiment, chosen by the protocol; here T = 3, equal to the distance d (a common choice, not a requirement).</p>
   </div>
   <div class="note note-key">
     <span class="note-tag"><span class="zh">关键想法</span><span class="en">Key idea</span></span>
@@ -1321,11 +1512,13 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
   <div class="prose">
     <p class="zh">预设是 toric_L3 [[18,2,3]]。按「新错误」，实验台在 18 个比特上撒下 X 错误，然后<b>直接算出</b>理想的 Z 检查症状（s = H<sub>Z</sub>e，一行矩阵乘法），把「亮起的 Z 检查」数给你——注意它大约是错误重量的两倍，第 0 章事实 4。接着让 BP 一轮轮传消息，看每个比特的「相信自己错了」的程度变化，卡住时用 OSD 收尾。这就是 Wanted 板原文里的「BP-OSD … perfect-syndrome」。请特别注意实验台<b>没有</b>的东西：没有帮手比特，没有「轮」，没有读反的可能，没有探测器，没有路由，没有泄漏，没有一次故障翻两个比特。它拿到的症状是纸上的真值。第二条记录的 status 是 research-grade、noise 是 code-capacity，说的就是这台机器。</p>
     <p class="en">The preset is toric_L3 [[18,2,3]]. Press “New error” and the bench scatters X errors over the 18 qubits, then <b>directly computes</b> the ideal Z-check syndrome (s = H<sub>Z</sub>e, one line of matrix multiplication) and gives you the count of “Z-checks lit”; note it is about twice the error weight, Chapter 0 fact 4. Then let BP pass messages round by round, watch each qubit's degree of “believing itself flipped” change, and finish with OSD when it stalls. This is the “BP-OSD … perfect-syndrome” of the board's wording. Pay special attention to what the bench does <b>not</b> have: no helper qubits, no “rounds”, no possibility of a misread, no detectors, no routing, no leakage, no single fault flipping two qubits. The syndrome it receives is the truth on paper. Record two's status research-grade and noise code-capacity describe exactly this machine.</p>
+    <p class="zh"><b>柱子是什么。</b>每根柱子是一个比特的<b>对数似然比</b> L = ln[P(0)/P(1)]：P(0) 是 BP 当前估计的「这个比特没被翻」的概率，P(1) 是「被翻了」的概率。L &gt; 0 表示更可能没错，L &lt; 0 表示更可能错了，|L| 越大越有把握。例：BP 开始前每个比特只有先验，滑块 p = 0.06 时 P(0) = 0.94、P(1) = 0.06，L = ln(0.94/0.06) ≈ 2.75；L = −8 表示 P(1) 是 P(0) 的 e⁸ ≈ 3000 倍，几乎肯定错了。纵轴只画到 ±8：超出的柱子截在 ±8，柱端画一个小三角标出。柱子下方的数字是比特编号（比特多时每 5 个或 10 个标一次）。这里的 BP 用归一化最小和规则（消息乘 α = 0.8），是近似算法，L 不是精确概率。滑块上的 p 既是撒错误的概率，也是 BP 的先验；拖动滑块会清掉已经算好的 BP 结果，当前这组错误保留（它是按旧的 p 撒的），下一次运行 BP 按新的 p 重算。</p>
+    <p class="en"><b>What the bars are.</b> Each bar is one qubit's <b>log-likelihood ratio</b> L = ln[P(0)/P(1)]: P(0) is BP's current estimate of the probability that the qubit was not flipped, P(1) that it was. L &gt; 0 means more likely fine, L &lt; 0 more likely wrong, and the larger |L|, the surer. Example: before BP starts every qubit has only its prior; at slider value p = 0.06, P(0) = 0.94 and P(1) = 0.06, so L = ln(0.94/0.06) ≈ 2.75; L = −8 means P(1) is e⁸ ≈ 3000 times P(0), almost certainly wrong. The vertical axis stops at ±8: taller bars are cut at ±8 and their cut end is marked by a small triangle. The numbers under the bars are qubit indices (every 5th or 10th when there are many qubits). BP here uses the normalized min-sum rule (messages multiplied by α = 0.8), an approximate algorithm, so L is not an exact probability. The slider's p is both the probability used to scatter errors and BP's prior; moving the slider clears any BP result already computed, keeps the current error sample (drawn at the old p), and the next BP run recomputes with the new p.</p>
   </div>
   <div data-widget="bpdemo" data-code="toric3"></div>
   <div class="prose">
-    <p class="zh muted small">记号：s = 症状向量（每条 Z 检查一个 0/1）；e = 错误向量（每个比特一个 0/1，1 表示这个比特被 X 翻了）；H<sub>Z</sub> = Z 检查矩阵；s = H<sub>Z</sub>e 的乘法按模 2 进行。</p>
-    <p class="en muted small">Notation: s = the syndrome vector (one 0/1 per Z check); e = the error vector (one 0/1 per qubit, 1 meaning the qubit was flipped by X); H<sub>Z</sub> = the Z-check matrix; the product s = H<sub>Z</sub>e is taken mod 2.</p>
+    <p class="zh muted small">记号：s = 症状向量（每条 Z 检查一个 0/1）；e = 错误向量（每个比特一个 0/1，1 表示这个比特被 X 翻了）；H<sub>Z</sub> = Z 检查矩阵；s = H<sub>Z</sub>e 的乘法按模 2 进行；L = ln[P(0)/P(1)] = 一个比特的对数似然比，ln 是自然对数。</p>
+    <p class="en muted small">Notation: s = the syndrome vector (one 0/1 per Z check); e = the error vector (one 0/1 per qubit, 1 meaning the qubit was flipped by X); H<sub>Z</sub> = the Z-check matrix; the product s = H<sub>Z</sub>e is taken mod 2; L = ln[P(0)/P(1)] = a qubit's log-likelihood ratio, ln the natural logarithm.</p>
   </div>
 
   <h3 id="s5-2"><span class="sec-no">5.2</span><span class="zh">手算题一：两条检查、四轮读数，画时空图</span><span class="en">Exercise one: two checks, four rounds, draw the spacetime picture</span></h3>
@@ -1336,8 +1529,102 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
 
   <h3 id="s5-3"><span class="sec-no">5.3</span><span class="zh">手算题二：把一个 hook 写成表里的一行</span><span class="en">Exercise two: write one hook as a row of the table</span></h3>
   <div class="prose">
-    <p class="zh">回到 c<sub>1</sub> 的提取电路：h 置 0，异或 b<sub>1</sub>，异或 b<sub>2</sub>，读 h。假设在两个异或之间 h 翻了一次。先看经典玩具：h 是两次「异或进来」的<b>目标端</b>，它自己翻了只会弄错这一次读数，传不到 b<sub>2</sub>。写出这一轮和下一轮 c<sub>1</sub> 的读数与探测器。答案：本轮 c<sub>1</sub> 读数多翻一次，下一轮恢复正常；于是探测器 D<sub>1</sub> 本轮亮一次、下一轮再亮一次——一个故障、两条记录，这就是「测量错误」那种整齐的时间型一对。量子版的 hook 不同：h 上的<b>相位</b>错误会顺着第二个 CNOT 传到 b<sub>2</sub>（相位错误沿 CNOT 从目标端流向控制端），成为 b<sub>2</sub> 上的 Z 错误——这类 Z 型奇偶检查看不见它（连 h 自己的读数都不变），完整量子码里亮起来的是 X 型检查——一个故障，后果却出现在另一类检查里，花样不是整齐的一对。这就是 3.2 节说「探测器错误模型要上万行」的一行。做完你会同意：这一行的内容<b>取决于顺序</b>——先异或 b<sub>2</sub> 再异或 b<sub>1</sub>，量子版里同一个故障传到的就是 b<sub>1</sub>。顺序是合同。</p>
-    <p class="en">Back to c<sub>1</sub>'s extraction circuit: set h to 0, xor in b<sub>1</sub>, xor in b<sub>2</sub>, read h. Suppose h flips once between the two xors. First the classical toy: h is the <b>target</b> of both “xor into” operations, so its own flip only spoils this reading and never reaches b<sub>2</sub>. Write the readings and detectors of c<sub>1</sub> for this round and the next. Answer: this round c<sub>1</sub>'s reading is flipped once extra, next round it is back to normal; so detector D<sub>1</sub> lights this round and again next round — one fault, two entries, the tidy timelike pair of a “measurement error”. The quantum hook is different: a <b>phase</b> error on h propagates through the second CNOT onto b<sub>2</sub> (phase errors flow along a CNOT from target to control), landing on b<sub>2</sub> as a Z error — invisible to these Z-type parity checks (even the helper's own reading is unchanged); in a full quantum code it is the X-type checks that light — one fault whose consequence appears in the other check family, and the pattern is not a tidy pair. That is one line of the “detector error model needs tens of thousands of lines” of 3.2. Having done it you will agree that the line <b>depends on the order</b>: xor in b<sub>2</sub> first and b<sub>1</sub> second, and in the quantum version the same fault lands on b<sub>1</sub>. The order is the contract.</p>
+    <p class="zh">回到 c<sub>1</sub> 的提取电路：h 置 0，异或 b<sub>1</sub>，异或 b<sub>2</sub>，读 h。假设在两个异或之间 h 翻了一次。先看经典玩具：h 是两次「异或进来」的<b>目标端</b>，它自己翻了只会弄错这一次读数，传不到 b<sub>2</sub>。写出这一轮和下一轮 c<sub>1</sub> 的读数与探测器。答案：本轮 c<sub>1</sub> 读数多翻一次，下一轮恢复正常；于是探测器 D<sub>1</sub> 本轮亮一次、下一轮再亮一次——一个故障、两条记录，这就是「测量错误」那种整齐的时间型一对。经典玩具里一个故障只碰一条读数；量子版的 hook 不同，下面换到真正的码上看。</p>
+    <p class="en">Back to c<sub>1</sub>'s extraction circuit: set h to 0, xor in b<sub>1</sub>, xor in b<sub>2</sub>, read h. Suppose h flips once between the two xors. First the classical toy: h is the <b>target</b> of both “xor into” operations, so its own flip only spoils this reading and never reaches b<sub>2</sub>. Write the readings and detectors of c<sub>1</sub> for this round and the next. Answer: this round c<sub>1</sub>'s reading is flipped once extra, next round it is back to normal; so detector D<sub>1</sub> lights this round and again next round — one fault, two entries, the tidy timelike pair of a “measurement error”. In the classical toy one fault touches only one reading; the quantum hook is different, and the rest of this exercise moves to a real code to see it.</p>
+    <p class="zh"><b>标号。</b>取 [[125,37,3]]。它的因子是 K5 的关联矩阵：比特 = 边 e01、e02、…、e34（e01 连顶点 0 与 1），检查 = 顶点 v0 到 v4。超图积的 125 个数据比特分两种：100 个标作 (边, 边)，25 个标作 (顶点, 顶点)。X 检查标作 X(顶点 a, 边 j)，作用在 4 个 (e, j) 上（e 取遍连着 a 的 4 条边）和 2 个 (a, v) 上（v 取遍 j 的两个端点）；Z 检查标作 Z(边 i, 顶点 b)，作用在 4 个 (i, e′) 上（e′ 取遍连着 b 的 4 条边）和 2 个 (u, b) 上（u 取遍 i 的两个端点）。这里看 X 检查 X(v0, e01)，它的 6 个比特记作 q1 到 q6（下图左列）。</p>
+    <p class="en"><b>Labels.</b> Take [[125,37,3]]. Its factor is the incidence matrix of K5: bits = edges e01, e02, …, e34 (e01 joins vertices 0 and 1), checks = vertices v0 to v4. The 125 data qubits of the hypergraph product come in two kinds: 100 labelled (edge, edge) and 25 labelled (vertex, vertex). An X check is labelled X(vertex a, edge j) and acts on the 4 qubits (e, j), e running over the 4 edges at a, and on the 2 qubits (a, v), v running over the two endpoints of j; a Z check is labelled Z(edge i, vertex b) and acts on the 4 qubits (i, e′), e′ running over the 4 edges at b, and on the 2 qubits (u, b), u running over the two endpoints of i. Here we look at the X check X(v0, e01); its 6 qubits are called q1 to q6 (left column of the figure).</p>
+    <p class="zh"><b>测量顺序</b>（这是合同的一部分，这里定一个）：每一轮先测完全部 X 检查，再测全部 Z 检查。一条 X 检查的做法：帮手 h 制备成 |+⟩，以 h 为控制端依次对 q1、…、q6 做 CNOT，最后测 h 的 X。<b>故障</b>：第 2 个与第 3 个 CNOT 之间，h 上出现一个 X。CNOT 把控制端上的 X 复制到目标端，所以 CNOT 3–6 把它复制到 q3、q4、q5、q6：一个故障，数据上是 4 比特的 X 错误。h 自己的读数不变（|+⟩ 上的 X 不改变 X 测量的结果），X 探测器一个都不亮。</p>
+    <p class="en"><b>Schedule</b> (part of the contract; here we fix one): every round, all X checks are measured first, then all Z checks. One X check is measured by preparing the helper h in |+⟩, applying CNOTs with h as control onto q1, …, q6 in turn, and measuring h in the X basis. <b>Fault</b>: an X appears on h between the 2nd and the 3rd CNOT. A CNOT copies an X on its control onto its target, so CNOTs 3–6 copy it onto q3, q4, q5, q6: one fault, a 4-qubit X error on the data. The helper's own reading is unchanged (an X on |+⟩ does not change an X measurement), so no X detector lights.</p>
+  </div>
+  <figure class="fig" id="fig-hook-wrap">
+    <div class="fig-frame">
+<svg id="fig-hook-circuit" viewBox="0 0 640 318" width="100%" style="max-width:640px;display:block;margin:0.6em auto" role="img" aria-label="Extraction circuit of one X check with six CNOTs; an X fault on the helper after the second CNOT spreads to four data qubits and lights four Z detectors">
+<text class="zh" x="12" y="50" font-size="11.5" fill="var(--ink)" text-anchor="start">帮手 h</text><text class="en" x="12" y="50" font-size="11.5" fill="var(--ink)" text-anchor="start">helper h</text>
+<line x1="150" y1="46" x2="470" y2="46" stroke="var(--ink2)" stroke-width="1.4"/>
+<line x1="266" y1="46" x2="434" y2="46" stroke="var(--cx)" stroke-width="3.2"/>
+<text x="12" y="90" font-size="10.5" fill="var(--ink)" text-anchor="start" font-family="var(--f-mono)">q1 (e01,e01)</text>
+<line x1="150" y1="86" x2="470" y2="86" stroke="var(--ink3)" stroke-width="1.1"/>
+<text x="12" y="120" font-size="10.5" fill="var(--ink)" text-anchor="start" font-family="var(--f-mono)">q2 (e02,e01)</text>
+<line x1="150" y1="116" x2="470" y2="116" stroke="var(--ink3)" stroke-width="1.1"/>
+<text x="12" y="150" font-size="10.5" fill="var(--ink)" text-anchor="start" font-family="var(--f-mono)">q3 (e03,e01)</text>
+<line x1="150" y1="146" x2="470" y2="146" stroke="var(--ink3)" stroke-width="1.1"/>
+<line x1="288" y1="146" x2="470" y2="146" stroke="var(--cx)" stroke-width="3.2"/>
+<text x="12" y="180" font-size="10.5" fill="var(--ink)" text-anchor="start" font-family="var(--f-mono)">q4 (e04,e01)</text>
+<line x1="150" y1="176" x2="470" y2="176" stroke="var(--ink3)" stroke-width="1.1"/>
+<line x1="332" y1="176" x2="470" y2="176" stroke="var(--cx)" stroke-width="3.2"/>
+<text x="12" y="210" font-size="10.5" fill="var(--ink)" text-anchor="start" font-family="var(--f-mono)">q5 (v0,v0)</text>
+<line x1="150" y1="206" x2="470" y2="206" stroke="var(--ink3)" stroke-width="1.1"/>
+<line x1="376" y1="206" x2="470" y2="206" stroke="var(--cx)" stroke-width="3.2"/>
+<text x="12" y="240" font-size="10.5" fill="var(--ink)" text-anchor="start" font-family="var(--f-mono)">q6 (v0,v1)</text>
+<line x1="150" y1="236" x2="470" y2="236" stroke="var(--ink3)" stroke-width="1.1"/>
+<line x1="420" y1="236" x2="470" y2="236" stroke="var(--cx)" stroke-width="3.2"/>
+<rect x="148" y="36" width="34" height="20" rx="3" fill="var(--bg)" stroke="var(--ink2)"/>
+<text x="165" y="50" font-size="11" fill="var(--ink)" text-anchor="middle">|+⟩</text>
+<rect x="444" y="36" width="52" height="20" rx="3" fill="var(--bg)" stroke="var(--ink2)"/>
+<text class="zh" x="470" y="50" font-size="10" fill="var(--ink)" text-anchor="middle">测 X</text><text class="en" x="470" y="50" font-size="10" fill="var(--ink)" text-anchor="middle">meas. X</text>
+<line x1="200" y1="46" x2="200" y2="94" stroke="var(--ink)" stroke-width="1.4"/>
+<circle cx="200" cy="46" r="4" fill="var(--ink)"/>
+<circle cx="200" cy="86" r="8" fill="var(--bg)" stroke="var(--ink)" stroke-width="1.4"/><line x1="192" y1="86" x2="208" y2="86" stroke="var(--ink)" stroke-width="1.4"/><line x1="200" y1="78" x2="200" y2="94" stroke="var(--ink)" stroke-width="1.4"/>
+<text x="200" y="30" font-size="10.5" fill="var(--ink2)" text-anchor="middle" font-family="var(--f-mono)">1</text>
+<line x1="244" y1="46" x2="244" y2="124" stroke="var(--ink)" stroke-width="1.4"/>
+<circle cx="244" cy="46" r="4" fill="var(--ink)"/>
+<circle cx="244" cy="116" r="8" fill="var(--bg)" stroke="var(--ink)" stroke-width="1.4"/><line x1="236" y1="116" x2="252" y2="116" stroke="var(--ink)" stroke-width="1.4"/><line x1="244" y1="108" x2="244" y2="124" stroke="var(--ink)" stroke-width="1.4"/>
+<text x="244" y="30" font-size="10.5" fill="var(--ink2)" text-anchor="middle" font-family="var(--f-mono)">2</text>
+<line x1="288" y1="46" x2="288" y2="154" stroke="var(--ink)" stroke-width="1.4"/>
+<circle cx="288" cy="46" r="4" fill="var(--ink)"/>
+<circle cx="288" cy="146" r="8" fill="var(--bg)" stroke="var(--ink)" stroke-width="1.4"/><line x1="280" y1="146" x2="296" y2="146" stroke="var(--ink)" stroke-width="1.4"/><line x1="288" y1="138" x2="288" y2="154" stroke="var(--ink)" stroke-width="1.4"/>
+<text x="288" y="30" font-size="10.5" fill="var(--ink2)" text-anchor="middle" font-family="var(--f-mono)">3</text>
+<line x1="332" y1="46" x2="332" y2="184" stroke="var(--ink)" stroke-width="1.4"/>
+<circle cx="332" cy="46" r="4" fill="var(--ink)"/>
+<circle cx="332" cy="176" r="8" fill="var(--bg)" stroke="var(--ink)" stroke-width="1.4"/><line x1="324" y1="176" x2="340" y2="176" stroke="var(--ink)" stroke-width="1.4"/><line x1="332" y1="168" x2="332" y2="184" stroke="var(--ink)" stroke-width="1.4"/>
+<text x="332" y="30" font-size="10.5" fill="var(--ink2)" text-anchor="middle" font-family="var(--f-mono)">4</text>
+<line x1="376" y1="46" x2="376" y2="214" stroke="var(--ink)" stroke-width="1.4"/>
+<circle cx="376" cy="46" r="4" fill="var(--ink)"/>
+<circle cx="376" cy="206" r="8" fill="var(--bg)" stroke="var(--ink)" stroke-width="1.4"/><line x1="368" y1="206" x2="384" y2="206" stroke="var(--ink)" stroke-width="1.4"/><line x1="376" y1="198" x2="376" y2="214" stroke="var(--ink)" stroke-width="1.4"/>
+<text x="376" y="30" font-size="10.5" fill="var(--ink2)" text-anchor="middle" font-family="var(--f-mono)">5</text>
+<line x1="420" y1="46" x2="420" y2="244" stroke="var(--ink)" stroke-width="1.4"/>
+<circle cx="420" cy="46" r="4" fill="var(--ink)"/>
+<circle cx="420" cy="236" r="8" fill="var(--bg)" stroke="var(--ink)" stroke-width="1.4"/><line x1="412" y1="236" x2="428" y2="236" stroke="var(--ink)" stroke-width="1.4"/><line x1="420" y1="228" x2="420" y2="244" stroke="var(--ink)" stroke-width="1.4"/>
+<text x="420" y="30" font-size="10.5" fill="var(--ink2)" text-anchor="middle" font-family="var(--f-mono)">6</text>
+<text class="zh" x="178" y="30" font-size="10" fill="var(--ink3)" text-anchor="end">CNOT 序号</text><text class="en" x="178" y="30" font-size="10" fill="var(--ink3)" text-anchor="end">CNOT no.</text>
+<path d="M262 50 l4 -9 l4 9 l-9 -5.5 h10 z" fill="var(--cd)" stroke="var(--cd)" stroke-width="1"/>
+<text class="zh" x="266" y="70" font-size="10.5" fill="var(--cd)" text-anchor="middle" font-weight="600">故障：X</text><text class="en" x="266" y="70" font-size="10.5" fill="var(--cd)" text-anchor="middle" font-weight="600">fault: X</text>
+<text class="zh" x="506" y="86" font-size="11.5" fill="var(--ink)" text-anchor="start">本轮亮起的 Z 探测器</text><text class="en" x="506" y="86" font-size="11.5" fill="var(--ink)" text-anchor="start">Z detectors lit this round</text>
+<rect x="506" y="100" width="12" height="12" rx="2" fill="var(--cd)"/>
+<text x="524" y="110" font-size="10.5" fill="var(--ink)" text-anchor="start" font-family="var(--f-mono)">Z(e01,v0)</text>
+<rect x="506" y="122" width="12" height="12" rx="2" fill="var(--cd)"/>
+<text x="524" y="132" font-size="10.5" fill="var(--ink)" text-anchor="start" font-family="var(--f-mono)">Z(e01,v1)</text>
+<rect x="506" y="144" width="12" height="12" rx="2" fill="var(--cd)"/>
+<text x="524" y="154" font-size="10.5" fill="var(--ink)" text-anchor="start" font-family="var(--f-mono)">Z(e02,v0)</text>
+<rect x="506" y="166" width="12" height="12" rx="2" fill="var(--cd)"/>
+<text x="524" y="176" font-size="10.5" fill="var(--ink)" text-anchor="start" font-family="var(--f-mono)">Z(e02,v1)</text>
+<text class="zh" x="506" y="214" font-size="11" fill="var(--ink2)" text-anchor="start">X 探测器：无</text><text class="en" x="506" y="214" font-size="11" fill="var(--ink2)" text-anchor="start">X detectors: none</text>
+<text class="zh" x="506" y="232" font-size="11" fill="var(--ink2)" text-anchor="start">下一轮：无</text><text class="en" x="506" y="232" font-size="11" fill="var(--ink2)" text-anchor="start">next round: none</text>
+<text class="zh" x="320" y="282" font-size="10.5" fill="var(--ink2)" text-anchor="middle">橙色粗线 = 带着 X 错误的线段：帮手上的 X 经 CNOT 3–6 复制到 q3–q6</text><text class="en" x="320" y="282" font-size="10.5" fill="var(--ink2)" text-anchor="middle">thick orange = wire carrying an X error: the helper’s X is copied onto q3–q6 by CNOTs 3–6</text>
+<text class="zh" x="320" y="302" font-size="10.5" fill="var(--ink2)" text-anchor="middle">控制点在帮手上，⊕ 在数据比特上；从左到右是时间</text><text class="en" x="320" y="302" font-size="10.5" fill="var(--ink2)" text-anchor="middle">control dots on the helper, ⊕ on the data qubits; time runs left to right</text>
+</svg>
+    </div>
+    <figcaption><span class="fno"><span class="zh">图 5.1</span><span class="en">Fig. 5.1</span></span><span class="zh">[[125,37,3]] 的 X 检查 X(v0, e01) 的提取电路。第 2、3 个 CNOT 之间帮手上的一个 X 故障，经 CNOT 3–6 落到 q3–q6 四个数据比特上；随后测 Z 检查时点亮右列的 4 个 Z 探测器。探测器由本篇脚本逐个算出。</span><span class="en">Extraction circuit of the X check X(v0, e01) of [[125,37,3]]. One X fault on the helper between CNOTs 2 and 3 lands, through CNOTs 3–6, on the four data qubits q3–q6; the Z checks measured next light the 4 Z detectors of the right column. The detectors were computed one by one by script for this guide.</span></figcaption>
+  </figure>
+  <div class="prose">
+    <p class="zh"><b>算探测器。</b>这 4 个比特上的 X 在同一轮随后的 Z 检查里被看见：一条 Z 检查亮，当且仅当它与 {q3, q4, q5, q6} 重叠奇数次。逐个数：q3 = (e03, e01) 在 Z(e03,v0)、Z(e03,v1) 里；q4 = (e04, e01) 在 Z(e04,v0)、Z(e04,v1) 里；q5 = (v0, v0) 在 Z(e01,v0)、Z(e02,v0)、Z(e03,v0)、Z(e04,v0) 里；q6 = (v0, v1) 在 Z(e01,v1)、Z(e02,v1)、Z(e03,v1)、Z(e04,v1) 里。Z(e03,·) 与 Z(e04,·) 各被碰两次，抵消；剩下 Z(e01,v0)、Z(e01,v1)、Z(e02,v0)、Z(e02,v1)。探测器 = 本轮读数 ⊕ 上一轮读数，错误留在数据上以后读数不再变，所以表里的这一行是：<b>本轮这 4 个 Z 探测器亮，X 探测器不亮，下一轮什么都不亮</b>。它和 q1、q2 上各一个 X 点亮的完全一样：4 比特的错误乘上这条 X 检查本身（一个稳定子）就是 q1、q2 上的 2 比特错误。所以这一个故障相当于两个数据错误，这就是 hook 可能压低电路码距的原因。</p>
+    <p class="en"><b>Compute the detectors.</b> The X on these 4 qubits is seen by the Z checks measured next in the same round: a Z check lights exactly when it overlaps {q3, q4, q5, q6} an odd number of times. One by one: q3 = (e03, e01) is in Z(e03,v0) and Z(e03,v1); q4 = (e04, e01) in Z(e04,v0) and Z(e04,v1); q5 = (v0, v0) in Z(e01,v0), Z(e02,v0), Z(e03,v0), Z(e04,v0); q6 = (v0, v1) in Z(e01,v1), Z(e02,v1), Z(e03,v1), Z(e04,v1). Z(e03,·) and Z(e04,·) are each hit twice and cancel; left are Z(e01,v0), Z(e01,v1), Z(e02,v0), Z(e02,v1). A detector is this round's reading ⊕ the previous round's, and once the error sits on the data the readings stop changing, so this fault's row of the table reads: <b>these 4 Z detectors light this round, no X detector lights, nothing lights next round</b>. That is exactly what one X on each of q1 and q2 would light: the 4-qubit error times this X check itself (a stabilizer) is the 2-qubit error on q1, q2. So this single fault acts like two data errors, which is why a hook can lower the circuit distance.</p>
+    <p class="zh">同一个 X 故障放在别的位置，结果如下表（脚本逐个核对）。它不是整齐的一对：从 2 个到 8 个都有，这就是 4.2 节说的超边，也是 4.3 节那张表里的几行。做完你会同意：这些行<b>取决于顺序</b>。把 CNOT 的顺序换掉，同一个位置的故障落到另一组比特上，点亮另一组探测器。顺序是合同。</p>
+    <p class="en">The same X fault at other positions gives the table below (each checked by script). It is not a tidy pair: anything from 2 to 8, the hyperedges of section 4.2 and a few rows of the table of section 4.3. Having done it you will agree that these rows <b>depend on the order</b>: change the CNOT order and a fault at the same position lands on other qubits and lights other detectors. The order is the contract.</p>
+  </div>
+  <div class="table-wrap"><table class="glossary" id="tab-hook" style="font-variant-numeric:tabular-nums">
+    <tr><th><span class="zh">h 上的 X 出现在</span><span class="en">X on h appears</span></th><th><span class="zh">落到的数据比特</span><span class="en">data qubits hit</span></th><th><span class="zh">乘上这条 X 检查后</span><span class="en">times this X check</span></th><th><span class="zh">本轮亮起的 Z 探测器</span><span class="en">Z detectors lit this round</span></th></tr>
+    <tr><td><span class="zh">CNOT 1 之前</span><span class="en">before CNOT 1</span></td><td>q1–q6</td><td><span class="zh">无（原错误就是这条 X 检查）</span><span class="en">none (the error is the X check itself)</span></td><td>0</td></tr>
+    <tr><td><span class="zh">CNOT 1、2 之间</span><span class="en">between CNOTs 1 and 2</span></td><td>q2–q6</td><td>q1</td><td>2</td></tr>
+    <tr><td><span class="zh"><b>CNOT 2、3 之间</b></span><span class="en"><b>between CNOTs 2 and 3</b></span></td><td>q3–q6</td><td>q1, q2</td><td><b>4</b></td></tr>
+    <tr><td><span class="zh">CNOT 3、4 之间</span><span class="en">between CNOTs 3 and 4</span></td><td>q4–q6</td><td>q1–q3</td><td>6</td></tr>
+    <tr><td><span class="zh">CNOT 4、5 之间</span><span class="en">between CNOTs 4 and 5</span></td><td>q5, q6</td><td>q1–q4</td><td>8</td></tr>
+    <tr><td><span class="zh">CNOT 5、6 之间</span><span class="en">between CNOTs 5 and 6</span></td><td>q6</td><td>q1–q5</td><td>4</td></tr>
+    <tr><td><span class="zh">CNOT 6 之后</span><span class="en">after CNOT 6</span></td><td><span class="zh">无</span><span class="en">none</span></td><td>q1–q6</td><td>0</td></tr>
+  </table></div>
+  <div class="prose">
+    <p class="zh muted small">记号：q1…q6 = X(v0, e01) 的 6 个比特，依次是 (e01,e01)、(e02,e01)、(e03,e01)、(e04,e01)、(v0,v0)、(v0,v1)；「乘上这条 X 检查后」= 与第二列差一个稳定子、效果完全相同的错误；两列里较轻的那个，才是这个故障真正「值」几个数据错误。最后一列 = 各比特所在 Z 检查的条数之和，减去被碰偶数次而抵消的那些；(边, 边) 比特各在 2 条 Z 检查里，(顶点, 顶点) 比特各在 4 条里，例如 q5、q6 给 4 + 4 = 8，没有抵消。</p>
+    <p class="en muted small">Notation: q1…q6 = the 6 qubits of X(v0, e01), namely (e01,e01), (e02,e01), (e03,e01), (e04,e01), (v0,v0), (v0,v1); “times this X check” = the error that differs from the second column by a stabilizer and has exactly the same effect; the lighter of the two columns is how many data errors the fault is really “worth”. Last column = the number of Z checks the qubits sit in, added up, minus those hit an even number of times, which cancel; an (edge, edge) qubit sits in 2 Z checks, a (vertex, vertex) qubit in 4, so q5, q6 give 4 + 4 = 8 with no cancellation.</p>
   </div>
 
   <h3 id="s5-4"><span class="sec-no">5.4</span><span class="zh">往哪里走</span><span class="en">Where to go</span></h3>
@@ -1395,7 +1682,10 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
 
   <h3><span class="zh">延伸阅读</span><span class="en">Further reading</span></h3>
   <ul class="reading">
-    <li><b>A. Leverrier, J.-P. Tillich, G. Zémor, “Quantum Expander Codes” (2015)</b><br><span class="r-what"><span class="zh"><span class="mono">leverrier2015quantumexpander</span>（Atlas 已登记，arXiv 1504.00822）。quantum_expander 卡片三条译码记录中两条的引文；完美症状下 small-set-flip 定理的出处。本篇没有读它的证明。</span><span class="en"><span class="mono">leverrier2015quantumexpander</span> (registered in the Atlas, arXiv 1504.00822). Cited by two of the three decoder records on the quantum_expander card; the source of the perfect-syndrome small-set-flip theorem. This guide did not read its proof.</span></span></li>
+    <li><b>A. Leverrier, J.-P. Tillich, G. Zémor, “Quantum Expander Codes” (2015)</b><br><span class="r-what"><span class="zh"><span class="mono">leverrier2015quantumexpander</span>（Atlas 已登记，arXiv 1504.00822）。quantum_expander 卡片三条译码记录中两条的引文；完美症状下 small-set-flip 定理的出处。本篇读了定理 2 的陈述与第 2 节扩展的定义（2.3 节与图 2.1 用的就是它），没有读证明。</span><span class="en"><span class="mono">leverrier2015quantumexpander</span> (registered in the Atlas, arXiv 1504.00822). Cited by two of the three decoder records on the quantum_expander card; the source of the perfect-syndrome small-set-flip theorem. This guide read the statement of Theorem 2 and the definition of expansion in section 2 (used in section 2.3 and Fig. 2.1), not the proof.</span></span></li>
+    <li><b>O. Fawzi, A. Grospellier, A. Leverrier, “Constant overhead quantum fault-tolerance with quantum expander codes” (2018)</b><br><span class="r-what"><span class="zh">arXiv 1808.03821。读数也会出错时的 small-set-flip：单发、局部随机噪声、常数存在但不给数值（4.1 节）；也写明了扩展图无法高效构造或验证这一局限（2.3 节）。本篇读了摘要、定理 1、定理 2 与噪声模型的定义，没有读证明。</span><span class="en">arXiv 1808.03821. Small-set-flip when readings can fail: single-shot, local stochastic noise, constants that exist but are not given (section 4.1); it also states the limitation that suitable expander graphs cannot be efficiently constructed or checked (section 2.3). This guide read the abstract, Theorems 1 and 2 and the noise-model definition, not the proofs.</span></span></li>
+    <li><b>C. Wang, J. Harrington, J. Preskill, “Confinement-Higgs transition in a disordered gauge theory and the accuracy threshold for quantum memory” (2003)</b><br><span class="r-what"><span class="zh">arXiv quant-ph/0207088。1.3 节 10.3% 与 2.9% 的出处：每个比特独立地以概率 p 翻转（X、Z 分开处理），2.9% 另加每轮读数以 q = p 读反；最小重量匹配。</span><span class="en">arXiv quant-ph/0207088. Source of the 10.3% and 2.9% of section 1.3: each qubit flips independently with probability p (X and Z treated separately), and for 2.9% every reading also flips with q = p per round; minimum-weight matching.</span></span></li>
+    <li><b>A. G. Fowler, M. Mariantoni, J. M. Martinis, A. N. Cleland, “Surface codes: Towards practical large-scale quantum computation” (2012)</b><br><span class="r-what"><span class="zh">arXiv 1208.0928。1.3 节电路级 0.57% 的出处：8 步一轮，逐步列出的出错方式，p 按每一步计，最小重量匹配。</span><span class="en">arXiv 1208.0928. Source of the circuit-level 0.57% of section 1.3: 8 steps per round, the listed step-by-step failure modes, p per step, minimum-weight matching.</span></span></li>
     <li><b>N. Delfosse, M. E. Beverland, M. A. Tremblay, “Bounds on stabilizer measurement circuits and obstructions to local implementations of quantum LDPC codes” (2021)</b><br><span class="r-what"><span class="zh"><span class="mono">delfosse2021measurement</span>（已登记，arXiv 2109.14599）。2.3 节「非几何提取电路」view 与 none-known 记录的引文：为什么稀疏不等于局域。</span><span class="en"><span class="mono">delfosse2021measurement</span> (registered, arXiv 2109.14599). Cited by the “nongeometric syndrome circuits” view of 2.3 and by the none-known record: why sparse does not mean local.</span></span></li>
     <li><b>J.-P. Tillich, G. Zémor, “Quantum LDPC codes with positive rate and minimum distance proportional to the square root of the blocklength” (2009)</b><br><span class="r-what"><span class="zh"><span class="mono">tillich2009quantum</span>（已登记，arXiv 0903.0566）。[[656,170,5]] 的 d = 5 为 claimed 的引文出处。</span><span class="en"><span class="mono">tillich2009quantum</span> (registered, arXiv 0903.0566). The citation behind the claimed d = 5 of [[656,170,5]].</span></span></li>
     <li><b>S. Bravyi, A. W. Cross, J. M. Gambetta, D. Maslov, P. Rall, T. J. Yoder, “High-Threshold and Low-Overhead Fault-Tolerant Quantum Memory” (2024)</b><br><span class="r-what"><span class="zh"><span class="mono">bravyi2024bicycle</span>（已登记，arXiv 2308.07915）。BB 码 0.8% 与深度 7 电路的出处，2.4 节引用；「有答案长什么样」的最近参照。</span><span class="en"><span class="mono">bravyi2024bicycle</span> (registered, arXiv 2308.07915). Source of the BB 0.8% and the depth-7 circuit, cited in 2.4; the nearest reference for “what having the answer looks like”.</span></span></li>
@@ -1405,8 +1695,8 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
 
   <div class="note note-honest">
     <span class="note-tag"><span class="zh">诚实总账</span><span class="en">The honesty ledger</span></span>
-    <p class="zh">状态原文：<b>open</b>；难度原文：<b>hard-engineering</b>。逐字引用的：statement、current_proxy、why_it_matters（第 1、2、3 章的框），instances.yaml 的两条记录，card.yaml 的三条译码记录与 nongeometric-syndrome-circuits view、realizations 日期句，BB 卡片两条 bp-osd 记录的 noise 与 status，BB 推导页的「不是什么」清单、「exports only static check incidence」段、五项未导出清单、「one experiment」句。转述自其他教程的数字：10.3%、2.9%、0.5%–1%（《译码器 · 高中数学版》5.3、5.4 节）、0.8%（BB 教程 6.4 节）、15 种 CNOT 出错方式（同上）——都属于各自的模型，本篇每次都标了行。本篇自己算的、Atlas 页面上没有的：1.1、1.2、5.2、5.3 节的全部读数表与探测器表；toric_L3 每轮 108 个位置；[[125,37,3]] 的检查重量 6、检查数 100、每轮约 800 个位置（由 qLDPC 教程 3.4 节的 5 × 10 关联矩阵推得）。只描述、未推导的：small-set-flip 定理及其扩展性条件、BP-OSD 的内部、探测器错误模型的构造、hook 在量子电路里的传播规则（本篇用「异或」玩具比喻）。没有在本机运行任何译码器、模拟器或 Atlas 验证器；没有阅读引文论文的正文。</p>
-    <p class="en">Status verbatim: <b>open</b>; difficulty verbatim: <b>hard-engineering</b>. Quoted word for word: statement, current_proxy, why_it_matters (the boxes of Chapters 1, 2, 3), the two instances.yaml records, the three decoder records of card.yaml plus its nongeometric-syndrome-circuits view and dated realizations sentence, the noise and status of the two BB bp-osd records, the BB derivation page's “is not” list, its “exports only static check incidence” paragraph, its five-item unexported list and its “one experiment” sentence. Numbers relayed from other guides: 10.3%, 2.9%, 0.5%–1% (“Decoders · High-School Edition” 5.3, 5.4), 0.8% (BB guide 6.4), 15 ways a CNOT can fail (same), each belonging to its own model and labelled with its row every time. Computed for this guide and absent from Atlas pages: all reading and detector tables of 1.1, 1.2, 5.2, 5.3; 108 locations per round for toric_L3; check weight 6, 100 checks and about 800 locations per round for [[125,37,3]] (derived from the 5 × 10 incidence matrix of qLDPC guide section 3.4). Described only, not derived: the small-set-flip theorem and its expansion hypothesis, the interior of BP-OSD, the construction of a detector error model, the propagation rule of a hook in a quantum circuit (this guide uses an “xor” toy as analogy). No decoder, simulator or Atlas verifier was run on this machine; the bodies of the cited papers were not read.</p>
+    <p class="zh">状态原文：<b>open</b>；难度原文：<b>hard-engineering</b>。逐字引用的：statement、current_proxy、why_it_matters（第 1、2、3 章的框），instances.yaml 的两条记录，card.yaml 的三条译码记录与 nongeometric-syndrome-circuits view、realizations 日期句，BB 卡片两条 bp-osd 记录的 noise 与 status，BB 推导页的「不是什么」清单、「exports only static check incidence」段、五项未导出清单、「one experiment」句。转述自其他教程的数字：10.3%、2.9%、0.5%–1%（《译码器 · 高中数学版》5.3、5.4 节）、0.8%（BB 教程 6.4 节）、15 种 CNOT 出错方式（同上）——都属于各自的模型，本篇每次都标了行；其中 10.3%、2.9% 与 0.57% 及其噪声模型，这次按原文（Wang–Harrington–Preskill 2003、Fowler 等 2012）核对过，0.5%–1% 的上端没有逐一核对。本篇自己算的、Atlas 页面上没有的：1.1、1.2、5.2、5.3 节的全部读数表与探测器表，1.2 节时空图的两个例子；toric_L3 每轮 108 个位置；[[125,37,3]] 的检查重量 6、检查数 100、每轮约 800 个位置（由 qLDPC 教程 3.4 节的 5 × 10 关联矩阵推得）；图 2.1 的邻居计数；一个 X 错误点亮 2 条或 4 条 Z 检查；5.3 节 hook 的探测器与整张表；三轮里 3,348 与 27,600 个基本故障；L ≈ 2.75 的例子。这些都由脚本核对。只描述、未推导的：两个 small-set-flip 定理的证明（它们的假设取自定理陈述）、BP-OSD 的内部、探测器错误模型的合并细节、CNOT 传播 X 的规则本身。除网页里的实验台外，没有运行任何译码器、模拟器或 Atlas 验证器；引文论文中只读了上面列出的定理陈述与模型定义，没有读证明。</p>
+    <p class="en">Status verbatim: <b>open</b>; difficulty verbatim: <b>hard-engineering</b>. Quoted word for word: statement, current_proxy, why_it_matters (the boxes of Chapters 1, 2, 3), the two instances.yaml records, the three decoder records of card.yaml plus its nongeometric-syndrome-circuits view and dated realizations sentence, the noise and status of the two BB bp-osd records, the BB derivation page's “is not” list, its “exports only static check incidence” paragraph, its five-item unexported list and its “one experiment” sentence. Numbers relayed from other guides: 10.3%, 2.9%, 0.5%–1% (“Decoders · High-School Edition” 5.3, 5.4), 0.8% (BB guide 6.4), 15 ways a CNOT can fail (same), each belonging to its own model and labelled with its row every time; 10.3%, 2.9% and 0.57% and their noise models were checked this time against the sources (Wang–Harrington–Preskill 2003, Fowler et al. 2012); the upper end of 0.5%–1% was not checked one by one. Computed for this guide and absent from Atlas pages: all reading and detector tables of 1.1, 1.2, 5.2, 5.3, the two examples of the spacetime figure in 1.2; 108 locations per round for toric_L3; check weight 6, 100 checks and about 800 locations per round for [[125,37,3]] (derived from the 5 × 10 incidence matrix of qLDPC guide section 3.4); the neighbour counts of Fig. 2.1; 2 or 4 Z checks lit by one X error; the hook detectors and the whole table of section 5.3; 3,348 and 27,600 elementary faults over three rounds; the L ≈ 2.75 example. All checked by script. Described only, not derived: the proofs of the two small-set-flip theorems (their hypotheses are taken from the theorem statements), the interior of BP-OSD, the merging details of a detector error model, the rule that a CNOT copies an X from control to target. Apart from the bench on this page, no decoder, simulator or Atlas verifier was run; of the cited papers only the theorem statements and model definitions listed above were read, not the proofs.</p>
   </div>
 
   <div class="note note-key">
@@ -3961,50 +4251,65 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
         'Z', (v) => { mode = v; upd(); }
       );
       F.controls.append(seg.el,
-        U().btn(isToric ? '示范：可收缩的圈' : '示范：平凡closed圈', isToric ? 'Demo: contractible loop' : 'Demo: trivial loop', '', () => {
+        U().btn(isToric ? '示范：可收缩的圈' : '示范：平凡的闭合圈', isToric ? 'Demo: contractible loop' : 'Demo: trivial loop', '', () => {
           view.errZ = new Set(); view.errX = new Set();
           // boundary of a 2x1 block of plaquettes
           const s = P().xorSet(lat.plaqs[0].support, lat.plaqs[1].support);
           view.errZ = new Set(s);
-          mode = 'Z';
+          if (mode !== 'Z') seg.el.children[0].click();
           upd();
         }),
         U().btn(isToric ? '示范：缠绕圈' : '示范：跨边界串', isToric ? 'Demo: winding loop' : 'Demo: boundary-to-boundary', '', () => {
           view.errZ = new Set(lat.logicals.Z[0]); view.errX = new Set();
-          mode = 'Z';
+          if (mode !== 'Z') seg.el.children[0].click();
           upd();
         }),
         U().btn('清空', 'Clear', '', () => { view.errZ.clear(); view.errX.clear(); upd(); })
       );
+      // Both string types may be on the lattice at once (some pages ask for an X and a Z loop together),
+      // so alarms of both types are counted and each drawn type gets its own verdict.
+      function judge(type, sup) {
+        const partners = type === 'Z' ? lat.logicals.X : lat.logicals.Z;
+        const par = partners.map((Lg) => P().overlapParity(sup, Lg));
+        if (!par.some((v) => v === 1)) {
+          return {
+            zh: '<span class="ok">警报全灭</span>，而且它是<b>平凡的</b>：它恰好等于若干' + (type === 'Z' ? '面检查' : '星检查') + '的乘积，对编码信息<b>什么也不做</b>。',
+            en: '<span class="ok">No alarms</span>, and it is <b>trivial</b>: it equals a product of ' + (type === 'Z' ? 'face checks' : 'star checks') + ' and does <b>nothing</b> to the stored information.',
+          };
+        }
+        const L1 = type === 'Z' ? 'Z̄₁' : 'X̄₁', L2 = type === 'Z' ? 'Z̄₂' : 'X̄₂';
+        if (isToric) {
+          const which = par[0] && par[1] ? L1 + '·' + L2 + '（两个方向都绕）' : par[0] ? L1 + (type === 'Z' ? '（水平缠绕）' : '') : L2 + (type === 'Z' ? '（垂直缠绕）' : '');
+          const whichEn = par[0] && par[1] ? L1 + '·' + L2 + ', both directions' : par[0] ? L1 + ', direction 1' : L2 + ', direction 2';
+          return {
+            zh: '<span class="no">警报全灭，但这不是平凡圈！</span>它绕过了整个环面——这是<b>逻辑算符 ' + which + '</b>：不触发任何检查，却会改写存下来的量子信息。',
+            en: '<span class="no">No alarms, yet NOT trivial!</span> It winds around the torus (' + whichEn + ') — a <b>logical operator</b>: invisible to every check, yet it rewrites the stored quantum information.',
+          };
+        }
+        return {
+          zh: '<span class="no">警报全灭，但这不是平凡圈！</span>这条串从一条边界横跨到对面——它就是<b>逻辑算符 ' + (type === 'Z' ? 'Z̄' : 'X̄') + '</b>：不触发任何检查，却改写了存下来的量子比特。',
+          en: '<span class="no">No alarms, yet NOT trivial!</span> The string spans from one boundary to the opposite one — the <b>logical operator ' + (type === 'Z' ? 'Z̄' : 'X̄') + '</b>: invisible to every check, yet it rewrites the stored qubit.',
+        };
+      }
       function upd() {
         view.draw();
         const syn = view.syndrome();
         const zSup = [...view.errZ], xSup = [...view.errX];
-        const active = mode === 'Z' ? zSup : xSup;
-        const defects = mode === 'Z' ? syn.starDefects.length : syn.plaqDefects.length;
+        const defects = syn.starDefects.length + syn.plaqDefects.length;
         let verdictZh, verdictEn;
-        if (!active.length) {
+        if (!zSup.length && !xSup.length) {
           verdictZh = '画几条边试试。目标：不触发任何警报。';
           verdictEn = 'Draw some edges. Goal: trigger no alarms.';
         } else if (defects > 0) {
           verdictZh = '还有 <b>' + defects + '</b> 个警报亮着：串有端点。把它闭合，或' + (isToric ? '绕一整圈' : '让两端都搭到正确的边界上') + '。';
           verdictEn = '<b>' + defects + '</b> alarms still lit: the string has endpoints. Close it up, or ' + (isToric ? 'wrap it all the way around' : 'land both ends on the right boundaries') + '.';
         } else {
-          const partners = mode === 'Z' ? lat.logicals.X : lat.logicals.Z;
-          const par = partners.map((Lg) => P().overlapParity(active, Lg));
-          const wound = par.some((v) => v === 1);
-          if (!wound) {
-            verdictZh = '<span class="ok">警报全灭</span>，且这是一个<b>平凡圈</b>：它恰好等于若干' + (mode === 'Z' ? '面检查' : '星检查') + '的乘积，对编码信息<b>什么也不做</b>。';
-            verdictEn = '<span class="ok">No alarms</span>, and this is a <b>trivial loop</b>: it equals a product of ' + (mode === 'Z' ? 'face checks' : 'star checks') + ' and does <b>nothing</b> to the stored information.';
-          } else if (isToric) {
-            const which = par[0] && par[1] ? 'Z̄₁·Z̄₂（两个方向都绕）' : par[0] ? (mode === 'Z' ? 'Z̄₁（水平缠绕）' : 'X̄₁') : (mode === 'Z' ? 'Z̄₂（垂直缠绕）' : 'X̄₂');
-            const whichEn = par[0] && par[1] ? 'both directions' : par[0] ? 'direction 1' : 'direction 2';
-            verdictZh = '<span class="no">警报全灭，但这不是平凡圈！</span>它绕过了整个环面——这是<b>逻辑算符 ' + which + '</b>：不触发任何检查，却会改写存下来的量子信息。';
-            verdictEn = '<span class="no">No alarms, yet NOT trivial!</span> It winds around the torus (' + whichEn + ') — a <b>logical operator</b>: invisible to every check, yet it rewrites the stored quantum information.';
-          } else {
-            verdictZh = '<span class="no">警报全灭，但这不是平凡圈！</span>这条串从一条边界横跨到对面——它就是<b>逻辑算符 ' + (mode === 'Z' ? 'Z̄' : 'X̄') + '</b>：不触发任何检查，却改写了存下来的量子比特。';
-            verdictEn = '<span class="no">No alarms, yet NOT trivial!</span> The string spans from one boundary to the opposite one — the <b>logical operator ' + (mode === 'Z' ? 'Z̄' : 'X̄') + '</b>: invisible to every check, yet it rewrites the stored qubit.';
-          }
+          const both = zSup.length > 0 && xSup.length > 0;
+          const parts = [];
+          if (zSup.length) parts.push({ j: judge('Z', zSup), lz: 'Z 串：', le: 'Z string: ' });
+          if (xSup.length) parts.push({ j: judge('X', xSup), lz: 'X 串：', le: 'X string: ' });
+          verdictZh = parts.map((q) => (both ? q.lz : '') + q.j.zh).join('<br>');
+          verdictEn = parts.map((q) => (both ? q.le : '') + q.j.en).join('<br>');
         }
         F.setReadout('<span class="zh">' + verdictZh + '</span><span class="en">' + verdictEn + '</span>');
       }
@@ -4089,8 +4394,8 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
         view.hlEdges = new Map([...corr].map((e) => [e, { color: getComputedStyle(doc.documentElement).getPropertyValue('--good').trim(), width: 5 }]));
         view.draw();
         F.setReadout(fail
-          ? '<span class="zh"><span class="no">这回合失败了。</span>蓝色 = 真实错误，绿色 = 你的修复。二者合起来形成了' + (isToric ? '一条<b>缠绕整个环面</b>的圈' : '一条<b>横跨两条边界</b>的串') + ' —— 恰好是逻辑算符，信息被改写。连胜清零。点「新回合」再来！</span><span class="en"><span class="no">Round lost.</span> Blue = true errors, green = your repair. Together they form ' + (isToric ? 'a loop <b>winding around the torus</b>' : 'a string <b>spanning both boundaries</b>') + ' — exactly a logical operator; the data got rewritten. Streak reset. “New round” to retry!</span>'
-          : '<span class="zh"><span class="ok">成功！</span>蓝 + 绿合成的圈都是可收缩的平凡圈 —— 你的修复不必和错误一模一样，只要「合起来平凡」就赢。连胜 <b>' + streak + '</b>！</span><span class="en"><span class="ok">Success!</span> Blue + green together form only trivial contractible loops — the repair need not equal the error, it only needs to be trivial in combination. Streak <b>' + streak + '</b>!</span>');
+          ? '<span class="zh"><span class="no">这回合失败了。</span>蓝色 = 真实错误，绿色 = 你的修复。二者合起来' + (isToric ? '在某个方向上<b>缠绕环面</b>的总圈数是<b>奇数</b>' : '含有<b>奇数条</b><b>横跨两条边界</b>的串') + ' —— 合起来是一个逻辑算符，信息被改写。连胜清零。点「新回合」再来！</span><span class="en"><span class="no">Round lost.</span> Blue = true errors, green = your repair. Together they ' + (isToric ? '<b>wind around the torus</b> an <b>odd</b> total number of times in some direction' : 'contain an <b>odd number</b> of strings <b>spanning both boundaries</b>') + ' — together a logical operator; the data got rewritten. Streak reset. “New round” to retry!</span>'
+          : '<span class="zh"><span class="ok">成功！</span>蓝 + 绿合起来' + (isToric ? '在两个方向上缠绕环面的总圈数都是偶数（0 也算，两圈互相抵消）' : '横跨两条边界的串是偶数条（0 条也算，两条互相抵消）') + '—— 合起来只是一些检查的乘积。你的修复不必和错误一模一样，只要合起来是检查的乘积就赢。连胜 <b>' + streak + '</b>！</span><span class="en"><span class="ok">Success!</span> Blue + green together ' + (isToric ? 'wind around the torus an even total number of times in both directions (0 counts; two windings cancel)' : 'contain an even number of strings spanning both boundaries (0 counts; two cancel)') + ' — together just a product of checks. The repair need not equal the error; together with it, it only needs to form a product of checks. Streak <b>' + streak + '</b>!</span>');
       }
       function newRound() {
         err = new Set(); corr = new Set(); sel = null; over = false;
@@ -4136,12 +4441,12 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
         en: '① Start: the toric code. Note the stubs sticking out — they wrap to the opposite side; that is what makes it a torus.',
       },
       {
-        zh: '② 一刀剪开：删除所有绕回去的边。立刻出问题——边界上的星和面都缺了一条腿（虚线标出），检查表变得乱七八糟。',
-        en: '② Cut: delete every wrapping edge. Trouble at once — boundary stars and faces each lose a leg (dashed); the checks are mutilated.',
+        zh: '② 一刀剪开：删除所有绕回去的边（图里不再画出）。立刻出问题：沿边的星少了一条腿，四个角上的星少了两条；原来跨过剪口的面只剩两条腿，而且这两条分在贴片相对的两头，角上那一块面一条腿也不剩。检查表乱了套。',
+        en: '② Cut: delete every wrapping edge (no longer drawn). Trouble at once: the stars along the edge lose one leg and the four corner stars lose two; the faces that straddled the cut keep only two legs, on opposite sides of the patch, and the corner face keeps none. The checks are mutilated.',
       },
       {
-        zh: '③ 收拾干净：接受「三条腿」的检查作为正式成员，但分好工——左右两侧只截断<b>面</b>（并保留伸出的悬挂边），上下两侧只截断<b>星</b>。这就是<b>表面码</b>的版图：两种边界，各司其职。',
-        en: '③ Tidy up: keep the 3-leg checks as legitimate members, but divide the work — the left/right sides truncate only <b>faces</b> (keeping the dangling edges), the top/bottom truncate only <b>stars</b>. This is the <b>surface code</b> layout: two kinds of boundary, each with a job.',
+        zh: '③ 收拾干净：接受「三条腿」的检查作为正式成员，但分好工——左右两侧只截断<b>面</b>（并保留伸出的悬挂边），上下两侧只截断<b>星</b>。这就是<b>表面码</b>的版图：两种边界，各司其职。（这一帧重新画了一块 L = 4 的平面码，而不是在上一帧上修补：25 个比特、12 个星检查、12 个面检查，左右两侧带悬挂的横边。）',
+        en: '③ Tidy up: keep the 3-leg checks as legitimate members, but divide the work — the left/right sides truncate only <b>faces</b> (keeping the dangling edges), the top/bottom truncate only <b>stars</b>. This is the <b>surface code</b> layout: two kinds of boundary, each with a job. (This frame redraws an L = 4 planar code rather than patching the previous one: 25 qubits, 12 star checks and 12 face checks, with dangling horizontal edges on the left and right.)',
       },
     ];
     function render() {
@@ -4203,8 +4508,10 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
       { zh: '① 噪声落下：几条 Z 错误悄悄出现（真实设备里你看不到它们）', en: '① Noise strikes: a few Z errors appear (invisible in a real device)' },
       { zh: '② 测量所有检查：只有错误链的端点亮起警报', en: '② Measure every check: only chain endpoints raise alarms' },
       { zh: '③ 译码器配对警报，规划修复链（绿）', en: '③ The decoder pairs alarms and plans repair chains (green)' },
-      { zh: '④ 施加修复：错误 ⊕ 修复 = 平凡圈 → 警报全灭，信息完好', en: '④ Apply the repair: error ⊕ repair = trivial loops → alarms clear, data intact' },
+      { zh: '④ 施加修复：警报全灭；错误 ⊕ 修复和 X̄ 交叉偶数次 → 信息完好', en: '④ Apply the repair: alarms clear; error ⊕ repair crosses X̄ an even number of times → data intact' },
     ];
+    const PH_FAIL = { zh: '④ 施加修复：警报全灭，但错误 ⊕ 修复和 X̄ 交叉奇数次 → 逻辑错误，信息被改写', en: '④ Apply the repair: alarms clear, but error ⊕ repair crosses X̄ an odd number of times → a logical error; the data is overwritten' };
+    let lastFail = false;
     function step() {
       phase = (phase + 1) % 4;
       if (phase === 0) {
@@ -4224,16 +4531,16 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
       } else {
         const residual = P().xorSet([...err], corr);
         const fail = lat.logicals.X.some((Lg) => P().overlapParity(residual, Lg));
-        rounds++; if (!fail) saved++;
+        rounds++; if (!fail) saved++; lastFail = fail;
         view.errZ = new Set(residual.filter(() => false));
         view.errZ = new Set();
         view.hlEdges = new Map();
       }
       view.draw();
-      const tail = phase === 3 ? (U().getLang() === 'en'
-        ? ' — rounds: ' + rounds + ', data survived: ' + saved
-        : ' — 已运行 ' + rounds + ' 轮，信息幸存 ' + saved + ' 轮') : '';
-      F.setReadout('<span class="zh">' + PH[phase].zh + tail + '</span><span class="en">' + PH[phase].en + tail + '</span>');
+      const tailZh = phase === 3 ? ' — 已运行 ' + rounds + ' 轮，信息幸存 ' + saved + ' 轮' : '';
+      const tailEn = phase === 3 ? ' — rounds: ' + rounds + ', data survived: ' + saved : '';
+      const ph = phase === 3 && lastFail ? PH_FAIL : PH[phase];
+      F.setReadout('<span class="zh">' + ph.zh + tailZh + '</span><span class="en">' + ph.en + tailEn + '</span>');
     }
     function play() {
       if (timer) return;
@@ -4680,8 +4987,8 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
       en: ['Winding loops = logicals', 'Loops circling the whole torus pass every check yet are no product of checks — they rewrite logical data. Two directions give Z̄₁, Z̄₂; duals give X̄₁, X̄₂; paired loops cross once ⇒ anticommute.'],
     },
     decoder: {
-      zh: ['译码 = 配对', '只见警报不见链：把警报两两配对、沿路径修复。错误⊕修复必闭合——可收缩则完美复原，缠绕则无声逻辑错误。'],
-      en: ['Decoding = matching', 'Alarms visible, chains not: pair the alarms and repair along paths. Error ⊕ repair is always closed — contractible = perfect recovery, winding = silent logical error.'],
+      zh: ['译码 = 配对', '只见警报不见链：把警报两两配对、沿路径修复。错误⊕修复必闭合——每个方向都缠绕偶数次（0 次也算）则完美复原，某个方向缠绕奇数次则是无声的逻辑错误；同方向的两圈互相抵消。'],
+      en: ['Decoding = matching', 'Alarms visible, chains not: pair the alarms and repair along paths. Error ⊕ repair is always closed — an even number of windings in each direction (0 included) = perfect recovery, an odd number in some direction = a silent logical error; two windings in the same direction cancel.'],
     },
     dL: {
       zh: ['环面码距 d = L', '最轻的逻辑算符是最短缠绕圈（长 L），对 X、Z 对称；压垮它需约 L/2 个错误连成线。'],
@@ -4701,8 +5008,8 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
       en: ['Spanning strings = logicals', 'A string dying on its own boundary at both ends: zero alarms, no product of checks (it crosses the other direction\'s spanning string once, so they anticommute).' + F('Z̄: rough→rough · X̄: smooth→smooth · X̄Z̄ = −Z̄X̄')],
     },
     cycle: {
-      zh: ['纠错循环', '每轮四拍：噪声 → 测全部检查 → 配对（可配边界）→ 修复；失败 ⇔ 错误⊕修复含横跨串。'],
-      en: ['The correction cycle', 'Four beats per round: noise → measure all checks → match (boundaries allowed) → repair; failure ⇔ error ⊕ repair contains a spanning string.'],
+      zh: ['纠错循环', '每轮四拍：噪声 → 测全部检查 → 配对（可配边界）→ 修复；失败 ⇔ 错误⊕修复和 X̄ 交叉奇数次，也就是横跨贴片的串有奇数条（两条互相抵消，偶数条无事）。'],
+      en: ['The correction cycle', 'Four beats per round: noise → measure all checks → match (boundaries allowed) → repair; failure ⇔ error ⊕ repair crosses X̄ an odd number of times, i.e. contains an odd number of spanning strings (two cancel, so an even number is harmless).'],
     },
     ancilla: {
       zh: ['辅助比特测量', '每条检查配一个帮手比特：与 4 个数据比特依次作用后单独被读出，给出 ±1；数据比特从未被直接测量。'],
@@ -5556,7 +5863,7 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
 
   /* ================= W: bpdemo — belief propagation, and OSD when it stalls ================= */
   function wBpDemo(el) {
-    const F = U().frame(el, { titleZh: '置信传播实验台：消息传递、卡住、再用 OSD 收尾', titleEn: 'Belief-propagation bench: message passing, stalls, and OSD to finish', onReset: newError });
+    const F = U().frame(el, { titleZh: '置信传播实验台（近似：归一化最小和，α = 0.8）：消息传递、卡住、再用 OSD 收尾', titleEn: 'Belief-propagation bench (approximate: normalized min-sum, α = 0.8): message passing, stalls, and OSD to finish', onReset: resetAll });
     const CODES = {
       toric3: { zh: 'BB toric_L3 [[18,2,3]]', en: 'BB toric_L3 [[18,2,3]]', make: () => { const c = L().bb(3, 3, [[0, 0], [1, 0]], [[0, 0], [0, 1]]); return { hx: c.hx, hz: c.hz }; } },
       surf13: { zh: 'HGP(rep₃,rep₃) [[13,1,3]]', en: 'HGP(rep₃,rep₃) [[13,1,3]]', make: () => L().hgp(L().repParity(3), L().repParity(3)) },
@@ -5565,33 +5872,45 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
       bb72: { zh: 'BB [[72,12,6]]', en: 'BB [[72,12,6]]', make: () => { const p = L().BB_PRESETS.bb72; const c = L().bb(p.l, p.m, p.a, p.b); return { hx: c.hx, hz: c.hz }; } },
     };
     let codeKey = el.dataset.code || 'toric3', code = CODES[codeKey].make(), rkX = L().rank(code.hx), n = L().cols(code.hx), p = 0.06;
-    let err = new Uint8Array(n), s = new Uint8Array(code.hz.length), bp = null, shown = 0, corr = null, mode = 'bp';
+    const code0 = codeKey, p0 = p;
+    let err = new Uint8Array(n), s = new Uint8Array(code.hz.length), bp = null, shown = 0, corr = null, mode = 'bp', pNote = false;
     const wrap = div('canvas-wrap'); F.body.appendChild(wrap);
-    const H = 260;
+    const H = 292;
     const box = U().canvasBox(wrap, H, draw);
     function draw() {
       const C = U().colors(), ctx = box.ctx, w = box.w; ctx.clearRect(0, 0, w, H);
-      const M = { l: 40, r: 16, t: 24, b: 40 }, bw = (w - M.l - M.r) / n, mid = M.t + (H - M.t - M.b) / 2, scale = (H - M.t - M.b) / 2 / 8;
+      const M = { l: 40, r: 16, t: 24, b: 64 }, bw = (w - M.l - M.r) / n, mid = M.t + (H - M.t - M.b) / 2, scale = (H - M.t - M.b) / 2 / 8;
       const llr = bp && shown > 0 ? bp.history[Math.min(shown, bp.history.length) - 1].llr : null;
       ctx.strokeStyle = C.grid2; ctx.beginPath(); ctx.moveTo(M.l, mid); ctx.lineTo(w - M.r, mid); ctx.stroke();
-      ctx.font = '10.5px ' + cssVar('--f-mono'); ctx.fillStyle = C.ink3; ctx.textAlign = 'right'; ctx.textBaseline = 'middle'; ctx.fillText('+8', M.l - 6, M.t); ctx.fillText('0', M.l - 6, mid); ctx.fillText('−8', M.l - 6, H - M.b);
+      ctx.font = '10.5px ' + cssVar('--f-mono'); ctx.fillStyle = C.ink3; ctx.textAlign = 'right'; ctx.textBaseline = 'middle'; ctx.fillText('+8', M.l - 6, M.t); ctx.fillText('0', M.l - 6, mid); ctx.fillText('−8', M.l - 6, H - M.b); ctx.fillText('L', M.l - 6, 9);
+      const stride = bw >= 16 ? 1 : bw >= 7 ? 5 : 10;
       for (let j = 0; j < n; j++) {
         const x = M.l + j * bw;
         if (err[j]) { ctx.fillStyle = C.czSoft2; ctx.fillRect(x, M.t, bw, H - M.t - M.b); }
-        if (llr) { const v = Math.max(-8, Math.min(8, llr[j])); const hard = v < 0 ? 1 : 0; ctx.fillStyle = hard === err[j] ? C.good : C.cd; ctx.fillRect(x + bw * 0.15, v >= 0 ? mid - v * scale : mid, Math.max(bw * 0.7, 1), Math.abs(v) * scale); }
-        if (corr && corr[j]) { ctx.fillStyle = C.ink; ctx.beginPath(); ctx.arc(x + bw / 2, H - M.b + 10, Math.min(4, bw / 3), 0, 7); ctx.fill(); }
+        if (llr) {
+          const v = Math.max(-8, Math.min(8, llr[j])); const hard = v < 0 ? 1 : 0; ctx.fillStyle = hard === err[j] ? C.good : C.cd; ctx.fillRect(x + bw * 0.15, v >= 0 ? mid - v * scale : mid, Math.max(bw * 0.7, 1), Math.abs(v) * scale);
+          if (Math.abs(llr[j]) > 8) { /* clipped at ±8: mark the cut end with a triangle pointing outward */
+            const cx = x + bw / 2, hw = Math.max(Math.min(bw * 0.45, 6), 2.5), yEnd = llr[j] > 0 ? M.t : H - M.b, dir = llr[j] > 0 ? -1 : 1;
+            ctx.fillStyle = C.ink; ctx.beginPath(); ctx.moveTo(cx, yEnd + dir * 7); ctx.lineTo(cx - hw, yEnd); ctx.lineTo(cx + hw, yEnd); ctx.closePath(); ctx.fill();
+          }
+        }
+        if (j % stride === 0) { ctx.fillStyle = C.ink3; ctx.font = '10px ' + cssVar('--f-mono'); ctx.textAlign = 'center'; ctx.textBaseline = 'top'; ctx.fillText(String(j), x + bw / 2, H - M.b + 9); }
+        if (corr && corr[j]) { ctx.fillStyle = C.ink; ctx.beginPath(); ctx.arc(x + bw / 2, H - M.b + 28, Math.min(4, bw / 3), 0, 7); ctx.fill(); }
       }
       ctx.fillStyle = C.ink2; ctx.font = '600 12px ' + cssVar('--f-body'); ctx.textAlign = 'center'; ctx.textBaseline = 'top';
-      ctx.fillText(U().T({ zh: n + ' 个数据比特的对数似然比（正 = 相信没错，负 = 相信出错）· 蓝底 = 真实错误 · 底部黑点 = 当前修复', en: 'log-likelihood ratio of the ' + n + ' data qubits (positive = believed clean, negative = believed flipped) · blue band = true error · black dots = current repair' }), w / 2, H - 20);
+      ctx.fillText(U().T({ zh: '柱高 = L = ln[P(0)/P(1)]（正 = 相信没错，负 = 相信出错）· 下方数字 = 比特编号 0–' + (n - 1) + (stride > 1 ? '，每 ' + stride + ' 个标一次' : ''), en: 'bar height = L = ln[P(0)/P(1)] (positive = believed clean, negative = believed flipped) · numbers below = qubit index 0–' + (n - 1) + (stride > 1 ? ', every ' + stride + 'th labelled' : '') }), w / 2, H - 18);
     }
-    function newError() { err = new Uint8Array(n); for (let j = 0; j < n; j++) if (Math.random() < p) err[j] = 1; s = L().mulVec(code.hz, err); bp = null; shown = 0; corr = null; box.redraw(); readout(); }
+    function resetAll() { p = p0; sl.el.value = String(p0); sl.pill.textContent = 'p = ' + p0.toFixed(2); pNote = false; mode = 'bp'; cs.el.children[Object.keys(CODES).indexOf(code0)].click(); }
+    function newError() { pNote = false; mode = 'bp'; err = new Uint8Array(n); for (let j = 0; j < n; j++) if (Math.random() < p) err[j] = 1; s = L().mulVec(code.hz, err); bp = null; shown = 0; corr = null; box.redraw(); readout(); }
     function runBp() { bp = L().bpDecode(code.hz, s, p, { iters: 30 }); shown = 0; corr = null; step(); }
     function step() { if (!bp) { runBp(); return; } if (shown < bp.history.length) shown++; corr = bp.history[shown - 1].hard; box.redraw(); readout(); }
     function runOsd() { if (!bp) bp = L().bpDecode(code.hz, s, p, { iters: 30 }); shown = bp.history.length; const o = L().osd0(code.hz, s, bp.llr); corr = o.ok ? o.x : bp.hard; mode = 'osd'; box.redraw(); readout(); }
     function verdict(c) { const syn = L().mulVec(code.hz, c); const valid = syn.every((v, i) => v === s[i]); if (!valid) return ['<span class="no">症状未清零</span>', '<span class="no">syndrome not cleared</span>']; const res = L().xor(err, c); const fail = L().isLogicalFailure(res, code.hx, rkX); return fail ? ['<span class="no">症状清零，但残留是逻辑算符：失败</span>', '<span class="no">syndrome cleared, but the residual is a logical operator: failure</span>'] : ['<span class="ok">成功（残留是稳定子或空）</span>', '<span class="ok">success (residual is a stabilizer or empty)</span>']; }
     function readout() {
       const wE = L().weight(err), lit = L().weight(s);
-      let zh = CODES[codeKey].zh + '：真实错误重量 ' + wE + '，亮起的 Z 检查 ' + lit + ' 条。', en = CODES[codeKey].en + ': true error weight ' + wE + ', ' + lit + ' Z-checks lit.';
+      const L0 = Math.log((1 - p) / p).toFixed(2);
+      let zh = CODES[codeKey].zh + '：真实错误重量 ' + wE + '，亮起的 Z 检查 ' + lit + ' 条。BP 的先验：每个比特 L = ln((1−p)/p) = ' + L0 + '。', en = CODES[codeKey].en + ': true error weight ' + wE + ', ' + lit + ' Z-checks lit. BP prior: every qubit starts at L = ln((1−p)/p) = ' + L0 + '.';
+      if (pNote && !bp) { zh += ' <b>p 已改为 ' + p.toFixed(2) + '：旧的 BP 结果已清除；这组错误仍是按旧的 p 撒的，下一次运行 BP 用新的 p 作先验。</b>'; en += ' <b>p changed to ' + p.toFixed(2) + ': the old BP result was cleared; this error sample was still drawn at the old p, and the next BP run uses the new p as its prior.</b>'; }
       if (bp && shown > 0) {
         const v = verdict(corr);
         const matched = L().mulVec(code.hz, corr).every((x, i) => x === s[i]);
@@ -5605,13 +5924,13 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
       F.setReadout(bi(zh, en));
     }
     const cs = U().seg(Object.keys(CODES).map((k) => ({ id: k, zh: CODES[k].zh, en: CODES[k].en })), codeKey, (k) => { codeKey = k; code = CODES[k].make(); rkX = L().rank(code.hx); n = L().cols(code.hx); newError(); });
-    const sl = slider(0.02, 0.15, 0.01, p, (v) => { p = v; }, (v) => 'p = ' + v.toFixed(2));
+    const sl = slider(0.02, 0.15, 0.01, p, (v) => { p = v; bp = null; shown = 0; corr = null; mode = 'bp'; pNote = true; box.redraw(); readout(); }, (v) => 'p = ' + v.toFixed(2));
     F.controls.append(cs.el);
     const row2 = div('controls'); el.insertBefore(row2, F.readout);
     row2.append(U().btn('新错误', 'New error', 'primary', newError), U().btn('BP 走一轮', 'One BP round', '', () => { mode = 'bp'; step(); }), U().btn('BP 跑完', 'Run BP to the end', '', () => { mode = 'bp'; if (!bp) bp = L().bpDecode(code.hz, s, p, { iters: 30 }); shown = bp.history.length; corr = bp.hard; box.redraw(); readout(); }), U().btn('OSD 收尾', 'Finish with OSD', '', runOsd), U().label('错误率', 'error rate'), sl.el, sl.pill);
     const row3 = div('controls'); el.insertBefore(row3, F.readout);
     row3.append(U().btn('蒙特卡洛：BP 对 BP+OSD（300 轮）', 'Monte-Carlo: BP vs BP+OSD (300 rounds)', '', () => { const a = L().mcBp(code.hx, code.hz, p, 300, false, { iters: 30 }), b = L().mcBp(code.hx, code.hz, p, 300, true, { iters: 30 }); F.setReadout(bi(CODES[codeKey].zh + '，p = ' + p.toFixed(2) + '，各 300 轮：只用 BP 失败 <b>' + a.fail + '</b> 次（其中 ' + a.invalid + ' 次连症状都没清零），BP+OSD 失败 <b>' + b.fail + '</b> 次（OSD 保证症状清零，剩下的全是逻辑错误）。OSD 把「没答案」变成「有答案」；答案对不对，取决于码的退化程度与 OSD 的阶数——本页只用最简单的 0 阶。', CODES[codeKey].en + ', p = ' + p.toFixed(2) + ', 300 rounds each: BP alone failed <b>' + a.fail + '</b> times (' + a.invalid + ' of them never cleared the syndrome), BP+OSD failed <b>' + b.fail + '</b> times (OSD guarantees a cleared syndrome; the rest are logical errors). OSD turns “no answer” into “an answer”; whether the answer is right depends on the code’s degeneracy and the OSD order — this page uses only order 0.')); }));
-    legend(el, [{ color: cssVar('--good'), zh: '判决正确的比特', en: 'correctly decided qubit' }, { color: cssVar('--cd'), zh: '判决错误的比特', en: 'wrongly decided qubit' }, { color: cssVar('--cz-soft2'), zh: '真实错误位置', en: 'true error position' }]);
+    legend(el, [{ color: cssVar('--good'), zh: '判决正确的比特', en: 'correctly decided qubit' }, { color: cssVar('--cd'), zh: '判决错误的比特', en: 'wrongly decided qubit' }, { color: cssVar('--cz-soft2'), zh: '真实错误位置', en: 'true error position' }, { dot: true, color: cssVar('--ink'), zh: '圆点：当前修复翻转的比特', en: 'dot: qubit flipped by the current repair' }, { color: cssVar('--ink'), zh: '柱端三角：|L| &gt; 8，柱子截在 ±8', en: 'triangle at a bar end: |L| &gt; 8, bar cut at ±8' }]);
     newError();
   }
   U().reg('bpdemo', wBpDemo);

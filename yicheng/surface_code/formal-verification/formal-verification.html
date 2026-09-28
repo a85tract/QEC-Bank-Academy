@@ -876,6 +876,14 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
 .formula .sym { border-bottom-color: color-mix(in srgb, var(--ink3) 55%, transparent); }
 .refpop .rp-sec.rp-symchar { font-size: 17px; color: var(--ink); font-weight: 600; }
 
+
+/* ---------- catch-up ("补课") fold-outs: remedial explanations opened on demand ---------- */
+details.fold.basics { border-color: color-mix(in srgb, var(--cx) 55%, transparent); }
+details.fold.basics summary { color: var(--cx-ink); }
+details.fold.basics .fold-body h5 { font-family: var(--f-body); font-size: 14.5px; font-weight: 600; color: var(--ink); margin: 1.3em 0 0.4em; }
+details.fold.basics .fold-body > .formula { margin: 1em 0; }
+details.fold.basics .fold-body > .table-wrap { margin: 0.9em 0; }
+pre.snippet { font-family: var(--f-mono); font-size: 12.5px; line-height: 1.55; background: var(--bg3); border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px; overflow-x: auto; margin: 0.8em 0; white-space: pre; }
 </style>
 </head>
 <body>
@@ -957,8 +965,8 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
 
   <h3 id="s1-2"><span class="sec-no">1.2</span><span class="zh">Lean Complete v1 是什么，不是什么</span><span class="en">What Lean Complete v1 is, and is not</span></h3>
   <div class="prose">
-    <p class="zh">Atlas 的检查器用<span class="term">Lean<span class="tip">一种交互式定理证明器兼编程语言。用 Lean 写的检查器，其正确性本身可以被 Lean 的内核审计（例如列出它依赖的全部公理）。</span></span>实现，取名 <span class="mono">qec-atlas-lean-complete-v1</span>（表面码 <span class="mono">card.yaml</span> 中 <span class="mono">lean.checker</span> 一栏的原文）。它在 2026-08-21 的 T195 任务中被「封存」（sealed）：源代码字节固定、在断网沙箱里跑通全部冷启动与热重放测试、并审计了它依赖的公理只有 Lean 标准的三条（<span class="mono">propext</span>、<span class="mono">Classical.choice</span>、<span class="mono">Quot.sound</span>），源码中没有 <span class="mono">sorry</span> 之类的「先跳过」占位符。</p>
-    <p class="en">The Atlas checker is written in <span class="term">Lean<span class="tip">An interactive theorem prover and programming language. A checker written in Lean can itself be audited by Lean's kernel, for example by listing every axiom it depends on.</span></span> and is named <span class="mono">qec-atlas-lean-complete-v1</span> (the literal <span class="mono">lean.checker</span> field of the surface-code <span class="mono">card.yaml</span>). It was “sealed” in task T195 on 2026-08-21: its source bytes frozen, its full cold gate and warm replay passed inside a network-denying sandbox, and its axiom dependencies audited to be only Lean's three standard ones (<span class="mono">propext</span>, <span class="mono">Classical.choice</span>, <span class="mono">Quot.sound</span>), with no <span class="mono">sorry</span>-style “skip this for now” placeholders in the source.</p>
+    <p class="zh">Atlas 的检查器用<span class="term">Lean<span class="tip">一种交互式定理证明器兼编程语言。用 Lean 写的检查器，其正确性本身可以被 Lean 的内核审计（例如列出它依赖的全部公理）。</span></span>实现，取名 <span class="mono">qec-atlas-lean-complete-v1</span>（表面码 <span class="mono">card.yaml</span> 中 <span class="mono">lean.checker</span> 一栏的原文）。它在 2026-08-21 的 Atlas 任务 T195（Atlas 用 T 加编号管理每一项工程任务）中被「封存」（sealed），意思是三件事：源代码逐字节冻结，以后改一个字节就不再是这台检查器；在一个断网的隔离环境里，从零构建和重放已有证书的全部测试都通过；并用 Lean 的内核列出它依赖的公理，结果只有 Lean 标准库自带的三条（<span class="mono">propext</span>、<span class="mono">Classical.choice</span>、<span class="mono">Quot.sound</span>，数学家日常默认的逻辑规则），源码里也没有 <span class="mono">sorry</span>（Lean 里「这一步先跳过、当作已证明」的占位符）。换句话说，检查器没有偷偷假设任何额外的东西。</p>
+    <p class="en">The Atlas checker is written in <span class="term">Lean<span class="tip">An interactive theorem prover and programming language. A checker written in Lean can itself be audited by Lean's kernel, for example by listing every axiom it depends on.</span></span> and is named <span class="mono">qec-atlas-lean-complete-v1</span> (the literal <span class="mono">lean.checker</span> field of the surface-code <span class="mono">card.yaml</span>). It was “sealed” in Atlas task T195 (the Atlas numbers every engineering task T plus a number) on 2026-08-21, which means three things: its source bytes are frozen, so changing one byte makes it a different checker; inside a network-denying sandbox, every test of building from scratch and of replaying existing certificates passed; and Lean's kernel listed the axioms it depends on, which turned out to be only the three shipped with Lean's standard library (<span class="mono">propext</span>, <span class="mono">Classical.choice</span>, <span class="mono">Quot.sound</span>, the logical rules mathematicians assume every day), with no <span class="mono">sorry</span> (Lean's placeholder for “skip this step and treat it as proved”) in the source. In other words, the checker assumes nothing extra behind your back.</p>
     <p class="zh">同样重要的是 T195 结果文件写明它<b>不</b>接受什么：「It does not accept a per-code theorem, family-distance theorem, decoder, threshold, hardware model, Formal IR compiler, proposal referee, entry backfill, or claim promotion.」换句话说，参数页那条对所有 L 成立的定理，<b>不在</b>机器核对的范围内；机器只核对一个个有限实例。这也解释了 Atlas 形式化页上那句总纲：「Eligible small exact-distance certificates are additive; claims outside Lean Complete v1 keep their existing evidence origin」——证书是<b>加上去</b>的一层，加不上的声明保留原有的证据词（verified / bounded / claimed）。</p>
     <p class="en">Equally important, the T195 result states what it does <b>not</b> accept: “It does not accept a per-code theorem, family-distance theorem, decoder, threshold, hardware model, Formal IR compiler, proposal referee, entry backfill, or claim promotion.” In other words, the all-L theorem of the parameters guide is <b>outside</b> what the machine checks; the machine checks finite instances one at a time. This also explains the headline sentence of the Atlas formal-verification page: “Eligible small exact-distance certificates are additive; claims outside Lean Complete v1 keep their existing evidence origin”. A certificate is a layer <b>added on top</b>; claims that cannot receive one keep their original evidence word (verified / bounded / claimed).</p>
   </div>
@@ -985,16 +993,52 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
 
   <h3 id="s2-1"><span class="sec-no">2.1</span><span class="zh">Formal IR：一份只放数学对象的文档</span><span class="en">The Formal IR: a document holding only the mathematical object</span></h3>
   <div class="prose">
-    <p class="zh"><span class="term">Formal IR<span class="tip">Formal intermediate representation：Atlas 为每个已发布实例生成的、无散文的 JSON 文档（schema 为 qec-atlas-formal-ir-v1），把有限码对象、构造轨迹、声明、见证、证书和附件分放在固定字段里。</span></span>是 Atlas 为每个实例生成的一份 JSON 文档，顶层恰好十个字段：<span class="mono">schema, profile, semantic, semantic_hash, claims, traces, witnesses, certificates, attachments, provenance</span>。契约刻意把四件常被混在一起的东西分开：① 有限数学对象本身；② 生成它的构造轨迹；③ 关于它的命题、见证与证书；④ 电路、基准、引文等非形式化附件。<b>只有第 ① 项进入哈希。</b>原文给了理由：「a new proof or citation must not change which code object the hash names」——多一篇论文引用、多一份证书，对象还是那个对象。</p>
-    <p class="en">The <span class="term">Formal IR<span class="tip">Formal intermediate representation: the prose-free JSON document (schema qec-atlas-formal-ir-v1) the Atlas generates for every shipped instance, placing the finite code object, construction traces, claims, witnesses, certificates and attachments in fixed fields.</span></span> is a JSON document the Atlas generates per instance, with exactly ten top-level fields: <span class="mono">schema, profile, semantic, semantic_hash, claims, traces, witnesses, certificates, attachments, provenance</span>. The contract deliberately separates four things that are often mixed: (1) the finite mathematical object itself; (2) a construction trace that produces it; (3) propositions, witnesses and certificates about it; (4) non-formal attachments such as circuits, benchmarks and citations. <b>Only item (1) feeds the hash.</b> The reason is stated: “a new proof or citation must not change which code object the hash names”. Add a paper, add a certificate, and the object remains the same object.</p>
+    <p class="zh"><span class="term">Formal IR<span class="tip">Formal intermediate representation：Atlas 为每个已发布实例生成的、无散文的 JSON 文档（schema 为 qec-atlas-formal-ir-v1），把有限码对象、构造轨迹、声明、见证、证书和附件分放在固定字段里。</span></span>是 Atlas 为每个实例生成的一份 JSON 文档。JSON 是一种纯文本数据格式：花括号 {…} 里是一组<b>字段</b>，每个字段写成 "名字": 值，值可以是数、字符串、方括号 […] 里的列表，或者又一个 {…}。把内存里的数据写成这样一串文字、最终存成一串字节，叫<b>序列化</b>。这份文档顶层恰好十个字段：<span class="mono">schema, profile, semantic, semantic_hash, claims, traces, witnesses, certificates, attachments, provenance</span>。契约刻意把四件常被混在一起的东西分开：① 有限数学对象本身；② 生成它的构造轨迹；③ 关于它的命题、见证与证书；④ 电路、基准、引文等非形式化附件。<b>只有第 ① 项进入哈希。</b>原文给了理由：「a new proof or citation must not change which code object the hash names」——多一篇论文引用、多一份证书，对象还是那个对象。</p>
+    <p class="en">The <span class="term">Formal IR<span class="tip">Formal intermediate representation: the prose-free JSON document (schema qec-atlas-formal-ir-v1) the Atlas generates for every shipped instance, placing the finite code object, construction traces, claims, witnesses, certificates and attachments in fixed fields.</span></span> is a JSON document the Atlas generates per instance. JSON is a plain-text data format: curly braces {…} hold a set of <b>fields</b>, each written "name": value, where a value can be a number, a string, a list in square brackets […], or another {…}. Writing data held in memory out as such text, and finally as a string of bytes, is called <b>serialisation</b>. This document has exactly ten top-level fields: <span class="mono">schema, profile, semantic, semantic_hash, claims, traces, witnesses, certificates, attachments, provenance</span>. The contract deliberately separates four things that are often mixed: (1) the finite mathematical object itself; (2) a construction trace that produces it; (3) propositions, witnesses and certificates about it; (4) non-formal attachments such as circuits, benchmarks and citations. <b>Only item (1) feeds the hash.</b> The reason is stated: “a new proof or citation must not change which code object the hash names”. Add a paper, add a certificate, and the object remains the same object.</p>
   </div>
 
   <h3 id="s2-2"><span class="sec-no">2.2</span><span class="zh">语义哈希怎么算</span><span class="en">How the semantic hash is computed</span></h3>
   <div class="prose">
-    <p class="zh"><span class="term">语义哈希<span class="tip">semantic_hash：对 Formal IR 中 semantic 对象的规范字节做 SHA-256 得到的 64 位十六进制串；它就是该有限码对象在 Atlas 中的身份。</span></span>的配方在契约第 10 节：先把 <span class="mono">semantic</span> 对象写成<span class="term">规范字节<span class="tip">canonical bytes：按 RFC 8785 JSON 规范化方案（键排序、无空白、UTF-8、无 BOM、无尾换行）得到的唯一字节串。同一对象无论谁来序列化，字节都相同。</span></span>（RFC 8785，键排序、无空白），再在前面接上域前缀 <span class="mono">qec-atlas-formal-ir-v1</span> 和一个零字节，对整体做 <span class="term">SHA-256<span class="tip">一种密码学摘要函数：任意长度输入 → 固定 256 位（64 位十六进制）输出；改动输入的任一比特，输出面目全非，且无法反推。</span></span>。规范化是关键：同一个矩阵不管谁来序列化，字节都一样，哈希才一样。契约还要求 Python 与 Lean 各自独立算出<b>相同</b>的哈希，并且「A supplied hash is never trusted」——文档里写着的哈希只是给人看的，检查器永远自己重算。</p>
-    <p class="en">The recipe for the <span class="term">semantic hash<span class="tip">semantic_hash: the 64-hex-digit SHA-256 of the canonical bytes of the Formal IR's semantic object; it is the identity of that finite code object in the Atlas.</span></span> is contract section 10: write the <span class="mono">semantic</span> object as <span class="term">canonical bytes<span class="tip">The unique byte string produced by the RFC 8785 JSON Canonicalization Scheme (sorted keys, no whitespace, UTF-8, no BOM, no trailing newline). Whoever serialises the same object gets the same bytes.</span></span> (RFC 8785, sorted keys, no whitespace), prepend the domain prefix <span class="mono">qec-atlas-formal-ir-v1</span> and one zero byte, and take the <span class="term">SHA-256<span class="tip">A cryptographic digest: input of any length → a fixed 256-bit (64 hex digit) output; flipping one input bit scrambles the output, and the input cannot be recovered from it.</span></span> of the whole. Canonicalisation is the crux: the same matrix serialised by anyone yields the same bytes, hence the same hash. The contract further requires Python and Lean to compute the <b>same</b> hash independently, and states “A supplied hash is never trusted”: the hash written in a document is for humans; the checker always recomputes its own.</p>
+    <p class="zh"><span class="term">语义哈希<span class="tip">semantic_hash：对 Formal IR 中 semantic 对象的规范字节做 SHA-256 得到的 64 位十六进制串；它就是该有限码对象在 Atlas 中的身份。</span></span>的配方在契约第 10 节：先把 <span class="mono">semantic</span> 对象写成<span class="term">规范字节<span class="tip">canonical bytes：按 RFC 8785 JSON 规范化方案（键排序、无空白、UTF-8、无 BOM、无尾换行）得到的唯一字节串。同一对象无论谁来序列化，字节都相同。</span></span>（RFC 8785，键排序、无空白），再在前面接上域前缀 <span class="mono">qec-atlas-formal-ir-v1</span> 和一个零字节（前缀给这串字节贴上「这是 Formal IR 对象」的标签：别种数据即使恰好写成同样的字节，加上各自不同的前缀后，送进 SHA-256 的输入也不同。前缀只负责区分输入的类别。两份不同的输入会不会恰好得到同一个哈希，要靠 SHA-256 本身的<b>抗碰撞性</b>：按 NIST 的定义，在可行的计算量内找不到这样一对输入。这是计算上的保证，不是数学上的「不可能」），对整体做 <span class="term">SHA-256<span class="tip">一种密码学摘要函数：任意长度输入 → 固定 256 位（64 位十六进制）输出；改动输入的任一比特，输出面目全非；在可行的计算量内，既不能从输出反推输入，也找不到两份输出相同的不同输入。</span></span>。规范化是关键：同一个矩阵不管谁来序列化，字节都一样，哈希才一样。契约还要求 Python 与 Lean 各自独立算出<b>相同</b>的哈希，并且「A supplied hash is never trusted」——文档里写着的哈希只是给人看的，检查器永远自己重算。</p>
+    <p class="en">The recipe for the <span class="term">semantic hash<span class="tip">semantic_hash: the 64-hex-digit SHA-256 of the canonical bytes of the Formal IR's semantic object; it is the identity of that finite code object in the Atlas.</span></span> is contract section 10: write the <span class="mono">semantic</span> object as <span class="term">canonical bytes<span class="tip">The unique byte string produced by the RFC 8785 JSON Canonicalization Scheme (sorted keys, no whitespace, UTF-8, no BOM, no trailing newline). Whoever serialises the same object gets the same bytes.</span></span> (RFC 8785, sorted keys, no whitespace), prepend the domain prefix <span class="mono">qec-atlas-formal-ir-v1</span> and one zero byte (the prefix labels the bytes “this is a Formal IR object”: even if some other kind of data happens to serialise to the same bytes, its own different prefix makes the input to SHA-256 different. The prefix only separates input domains. Whether two different inputs could still give the same hash rests on SHA-256's <b>collision resistance</b>: in NIST's definition, finding such a pair is computationally infeasible. That is a computational guarantee, not a mathematical impossibility), and take the <span class="term">SHA-256<span class="tip">A cryptographic digest: input of any length → a fixed 256-bit (64 hex digit) output; flipping one input bit scrambles the output; with feasible computation one can neither recover an input from its output nor find two different inputs with the same output.</span></span> of the whole. Canonicalisation is the crux: the same matrix serialised by anyone yields the same bytes, hence the same hash. The contract further requires Python and Lean to compute the <b>same</b> hash independently, and states “A supplied hash is never trusted”: the hash written in a document is for humans; the checker always recomputes its own.</p>
   </div>
   <div class="formula center tall">semantic_hash = SHA-256( "qec-atlas-formal-ir-v1" ‖ 0x00 ‖ canonical_bytes(semantic) )<br><span class="dim">(‖ = <span class="zh">字节串拼接</span><span class="en">byte-string concatenation</span>; <span class="zh">64 位小写十六进制</span><span class="en">64 lowercase hex digits</span>)</span></div>
+  <div class="prose">
+    <p class="zh"><b>一个能核对的例子。</b>下面是一个玩具 <span class="mono">semantic</span> 对象（两个字段是为演示编的，不是 Atlas 的真实字段；真实的 L3 对象见下一段）。两个人把同一个对象写成了两段不同的文字：</p>
+    <p class="en"><b>A worked example you can check.</b> Below is a toy <span class="mono">semantic</span> object (its two fields are made up for the demonstration and are not the Atlas's real fields; the real L3 object follows in the next paragraph). Two people serialised the same object into two different texts:</p>
+  </div>
+  <div class="table-wrap"><table class="glossary">
+    <tr><th><span class="zh">写法</span><span class="en">Version</span></th><th><span class="zh">文字</span><span class="en">Text</span></th></tr>
+    <tr><td><span class="zh">输入 A：有空格，rows 写在前</span><span class="en">input A: spaces, rows first</span></td><td class="mono" style="white-space:pre">{ "rows": [[1, 1, 0]],  "n": 3 }</td></tr>
+    <tr><td><span class="zh">输入 B：有换行，n 写在前</span><span class="en">input B: a line break, n first</span></td><td class="mono" style="white-space:pre">{"n":3,
+  "rows":[ [1,1,0] ]}</td></tr>
+    <tr><td><span class="zh">两者的规范字节（相同）</span><span class="en">canonical bytes of both (identical)</span></td><td class="mono">{"n":3,"rows":[[1,1,0]]}</td></tr>
+  </table></div>
+  <div class="prose">
+    <p class="zh">规范化做三件事：字段按名字排序（n 排在 rows 前面），删掉所有空格和换行，再按 UTF-8 把每个字符变成字节。A 和 B 于是得到同一串 24 个字节。接着在前面接上 22 字节的前缀 <span class="mono">qec-atlas-formal-ir-v1</span> 和 1 个零字节，一共 47 个字节，这就是送进 SHA-256 的全部输入（十六进制，每两位一个字节）：</p>
+    <p class="en">Canonicalisation does three things: it sorts the fields by name (n before rows), deletes every space and line break, and turns each character into bytes by UTF-8. A and B therefore give the same 24 bytes. Prepending the 22-byte prefix <span class="mono">qec-atlas-formal-ir-v1</span> and one zero byte gives 47 bytes, the entire input to SHA-256 (in hexadecimal, two digits per byte):</p>
+  </div>
+  <pre class="snippet">71 65 63 2d 61 74 6c 61 73 2d 66 6f 72 6d 61 6c 2d 69 72 2d 76 31   <span class="zh">← 前缀 qec-atlas-formal-ir-v1（22 字节）</span><span class="en">← prefix qec-atlas-formal-ir-v1 (22 bytes)</span>
+00                                                                  <span class="zh">← 零字节</span><span class="en">← zero byte</span>
+7b 22 6e 22 3a 33 2c 22 72 6f 77 73 22 3a 5b 5b 31 2c 31 2c 30 5d 5d 7d   <span class="zh">← {"n":3,"rows":[[1,1,0]]}（24 字节）</span><span class="en">← {"n":3,"rows":[[1,1,0]]} (24 bytes)</span>
+
+SHA-256 → 560d614d6ef0e58136b0c3d80a9ca7da997daee080eee4f026e841358a914716
+<span class="zh">把 n 改成 4 → 1acd99c2b1e294dd56b067acd14983336d29cbc41e6fe795473d411f95c6d5a3</span><span class="en">change n to 4 → 1acd99c2b1e294dd56b067acd14983336d29cbc41e6fe795473d411f95c6d5a3</span></pre>
+  <div class="prose">
+    <p class="zh"><b>真实的 L3 对象，以及「改哪里会换身份」。</b>L3 的 <span class="mono">semantic</span> 有三块：<span class="mono">identity</span>（所属条目 surface、实例标签 L3、参数 L = 3），<span class="mono">native</span>（原生分支 css-chain、n = 13、H<sub>X</sub> 与 H<sub>Z</sub> 各 6 行 13 列），<span class="mono">lowering</span>（同样的 12 条检查改写成统一的「先 X 位、后 Z 位」26 列格式）。用上面的配方对它重算，得到 8442e560b9de5fb4…，与卡片上的值逐位相同（本页用 Atlas 仓库里的 Formal IR 文件重算过）。再做三次改动对照：</p>
+    <p class="en"><b>The real L3 object, and which edits change the identity.</b> L3's <span class="mono">semantic</span> has three blocks: <span class="mono">identity</span> (owning entry surface, instance label L3, parameter L = 3), <span class="mono">native</span> (native branch css-chain, n = 13, H<sub>X</sub> and H<sub>Z</sub> with 6 rows and 13 columns each), and <span class="mono">lowering</span> (the same 12 checks rewritten in a uniform “X bits, then Z bits” 26-column format). Recomputing it with the recipe above gives 8442e560b9de5fb4…, identical bit for bit to the card's value (this page recomputed it from the Formal IR file in the Atlas repository). Now compare three edits:</p>
+  </div>
+  <div class="table-wrap"><table class="glossary">
+    <tr><th><span class="zh">改动</span><span class="en">Edit</span></th><th><span class="zh">改在哪个字段</span><span class="en">Field edited</span></th><th><span class="zh">语义哈希（前 16 位）</span><span class="en">Semantic hash (first 16)</span></th></tr>
+    <tr><td><span class="zh">不改</span><span class="en">none</span></td><td>—</td><td class="mono">8442e560b9de5fb4</td></tr>
+    <tr><td><span class="zh">往 attachments 里加一条引文</span><span class="en">add a citation to attachments</span></td><td class="mono">attachments</td><td class="mono">8442e560b9de5fb4 <span class="zh">（不变）</span><span class="en">(unchanged)</span></td></tr>
+    <tr><td><span class="zh">把 H<sub>Z</sub> 第一行第一个比特从 1 改成 0</span><span class="en">flip the first bit of H<sub>Z</sub>'s first row from 1 to 0</span></td><td class="mono">semantic.native</td><td class="mono">14848b86628772a4</td></tr>
+    <tr><td><span class="zh">只把标签 L3 改成别的名字</span><span class="en">only rename the label L3</span></td><td class="mono">semantic.identity</td><td class="mono">394778dd887dde90</td></tr>
+  </table></div>
+  <div class="prose">
+    <p class="zh">加引文不改变哈希，因为 attachments 根本不在哈希的输入里，这正是 2.1 节「只有第 ① 项进入哈希」的意思。改一个矩阵比特，就成了另一个对象。标签也在 <span class="mono">semantic</span> 的 identity 块里，所以同一个矩阵换个标签也会换哈希：哈希锁定的是「这个带标签的实例，连同它的矩阵」。</p>
+    <p class="en">Adding a citation leaves the hash alone because attachments are not part of the hash input at all, which is what “only item (1) feeds the hash” in §2.1 means. Flipping one matrix bit makes a different object. The label also sits in the identity block of <span class="mono">semantic</span>, so the same matrix under another label gets another hash: the hash pins down “this labelled instance together with its matrix”.</p>
+  </div>
 
   <h3 id="s2-3"><span class="sec-no">2.3</span><span class="zh">表面码三个实例的身份</span><span class="en">The identities of the three surface-code instances</span></h3>
   <div class="prose">
@@ -1042,22 +1086,123 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
     <p class="zh">它<b>解除</b>（discharge）的命题是 <span class="mono">validity, n, k, css</span>。契约同样明确它<b>永远不</b>解除什么：「It never discharges distance, decoder, circuit, or family claims.」所以三个实例的 n = 13 / 25 / 41、k = 1、css = true 都有了 Lean 核对；码距要靠下一类。</p>
     <p class="en">The propositions it <b>discharges</b> are <span class="mono">validity, n, k, css</span>. The contract is equally explicit about what it <b>never</b> discharges: “It never discharges distance, decoder, circuit, or family claims.” So n = 13 / 25 / 41, k = 1 and css = true for all three instances are Lean-checked; distance needs the next class.</p>
   </div>
+  <details class="fold basics" id="cu-3a">
+    <summary><span class="zh">补课 · 一个三行的 RREF：证书里存的是什么，检查器做了什么</span><span class="en">Catch-up · A three-row RREF: what the certificate stores and what the checker does</span></summary>
+    <div class="fold-body">
+      <p class="zh">取长度 3、首尾相接的重复码（<a href="../relations/relations.html#s3-1">关系导读 3.1 节</a>那条闭合链），检查矩阵三行：r₁ = (1, 1, 0)，r₂ = (0, 1, 1)，r₃ = (1, 0, 1)。模 2 高斯消元：第一列的主元是 r₁；r₃ 第一列也是 1，用 r₃ + r₁ = (0, 1, 1) 替换它。第二列的主元是 r₂，把它从别的行里消掉：r₁ + r₂ = (1, 0, 1)，r₃ + r₂ = (0, 0, 0)。结果</p>
+      <p class="en">Take the length-3 repetition code closed into a ring (the closed chain of <a href="../relations/relations.html#s3-1">§3.1 of the relations guide</a>). Its check matrix has three rows: r₁ = (1, 1, 0), r₂ = (0, 1, 1), r₃ = (1, 0, 1). Gaussian elimination mod 2: the pivot of column 1 is r₁; r₃ also has a 1 there, so replace it by r₃ + r₁ = (0, 1, 1). The pivot of column 2 is r₂; clear it from the other rows: r₁ + r₂ = (1, 0, 1) and r₃ + r₂ = (0, 0, 0). The result is</p>
+      <div class="formula center">RREF = [ 1 0 1 ; 0 1 1 ]　·　<span class="zh">主元列</span><span class="en">pivot columns</span> = {1, 2}　·　rank = 2</div>
+      <p class="zh">第三行消成了 0，说明三条检查里有一条是另外两条的乘积（这就是环面码「白送的恒等式」的一维版）。证书存的正是这两行和主元列 {1, 2}。检查器拿到原矩阵，自己再消元一遍，得到的两行和主元列必须与证书逐位相同。因为 RREF 对给定矩阵是唯一的，这种比对不依赖谁算、怎么算；而秩 = 主元个数 = 2 就可以直接从这份数据读出，并用它得到 k。只写「rank = 2」行不行？检查器当然也能自己从原矩阵算出秩，再和这个整数比对。RREF 和主元列必须给，是这种证书格式（canonical-rref-v1）的规定：契约说「单给一个秩整数不算证书」，证书要携带能逐位比对的化简结果，于是比对的对象从一个数变成整张化简矩阵和主元位置。给了它们，检查器也并不省掉重算：它照样从原矩阵消元一遍，再逐位比对。</p>
+      <p class="en">The third row became 0: one of the three checks is the product of the other two (the one-dimensional version of the toric code's “free identity”). The certificate stores exactly these two rows and the pivot columns {1, 2}. The checker takes the original matrix, eliminates again on its own, and its two rows and pivot columns must equal the certificate's bit for bit. Because the RREF of a given matrix is unique, the comparison does not depend on who computed it or how; and rank = number of pivots = 2 can be read off this data and used for k. Would “rank = 2” alone do? A checker could of course compute the rank from the original matrix itself and compare it with that integer. The RREF and pivots are required by this particular certificate format (canonical-rref-v1): the contract says that “supplying a rank integer alone is not a certificate”, so the certificate carries a reduced matrix that can be compared bit by bit, and the comparison is made against a whole reduced matrix and its pivot positions instead of one number. Including them does not spare the checker the recomputation: it still reduces the original matrix itself and then compares bit by bit.</p>
+    </div>
+  </details>
 
   <h3 id="s3-2"><span class="sec-no">3.2</span><span class="zh">small-exact-distance-enumeration：把「没有更轻的」逐个写下</span><span class="en">small-exact-distance-enumeration: writing down “nothing lighter” one candidate at a time</span></h3>
   <div class="prose">
-    <p class="zh">码距的证书要证两件事。<b>上界</b>容易：给出一个重量恰为 d 的<span class="term">逻辑见证<span class="tip">static-logical@1 witness：一个 Pauli 行向量，与所有稳定子对易且不在稳定子的行空间内；载荷恰为 {pauli, weight}，检查器重算其重量。</span></span>——一个与所有检查对易、却不是检查乘积的 Pauli 算符，检查器重算它的重量。直觉教程里的<a href="../intuition/intuition.html#s3-2">横跨串</a>就是这样的见证；到下面的实验台上画一条，画成功的那一刻你就手握一份「d ≤ u」的上界证书（d = 码距，u = 见证的重量）。</p>
-    <p class="en">A distance certificate must prove two things. The <b>upper bound</b> is easy: exhibit a <span class="term">logical witness<span class="tip">A static-logical@1 witness: a Pauli row vector that commutes with every stabilizer and lies outside the stabilizer row space; its payload is exactly {pauli, weight}, and the checker recomputes the weight.</span></span> of weight exactly d, a Pauli that commutes with every check yet is not a product of checks, whose weight the checker recomputes. The <a href="../intuition/intuition.html#s3-2">spanning strings</a> of the intuition guide are exactly such witnesses; draw one on the bench below, and the moment it succeeds you hold a “d ≤ u” upper-bound certificate (d = distance, u = the witness's weight).</p>
+    <p class="zh">码距的证书要证两件事。<b>上界</b>容易：给出一个重量恰为 d 的<span class="term">逻辑见证<span class="tip">static-logical@1 witness：一个 Pauli 行向量，与所有稳定子对易且不在稳定子的行空间内；载荷恰为 {pauli, weight}，检查器重算其重量。</span></span>——一个与所有检查对易、却不是检查乘积的 Pauli 算符，检查器重算它的重量。直觉教程里的<a href="../intuition/intuition.html#s3-2">横跨串</a>就是这样的见证。下面的实验台让你亲手做一个<b>示意性的逻辑见证</b>：在固定的 L = 5 贴片（n = 41 个比特）上画一条串，实验台同时检查 X、Z 两部分是否都不触发警报、又不是检查的乘积，然后显示它的重量 u 和由此得到的 d ≤ u（d = 码距，u = 见证的重量）。它不是 Atlas 的证书：没有绑定对象的语义哈希，也没有证书规定的载荷格式和内容哈希，只演示见证本身的逻辑。</p>
+    <p class="en">A distance certificate must prove two things. The <b>upper bound</b> is easy: exhibit a <span class="term">logical witness<span class="tip">A static-logical@1 witness: a Pauli row vector that commutes with every stabilizer and lies outside the stabilizer row space; its payload is exactly {pauli, weight}, and the checker recomputes the weight.</span></span> of weight exactly d, a Pauli that commutes with every check yet is not a product of checks, whose weight the checker recomputes. The <a href="../intuition/intuition.html#s3-2">spanning strings</a> of the intuition guide are exactly such witnesses. The bench below lets you build an <b>illustrative logical witness</b> by hand: draw a string on the fixed L = 5 patch (n = 41 qubits); the bench checks that neither its X part nor its Z part trips an alarm and that it is not a product of checks, then shows its weight u and the resulting d ≤ u (d = distance, u = the witness's weight). It is not an Atlas certificate: it is not bound to the object's semantic hash and has neither the certificate's payload format nor its content hash; it only demonstrates the logic of a witness.</p>
   </div>
   <div data-widget="logicaldraw"></div>
   <div class="prose">
     <p class="zh"><b>下界</b>才是贵的那一半。契约第 7 节要求：对<b>每一个</b>重量小于 d 的非恒等 Pauli 算符（X、Y、Z 三种取值都算），按固定顺序 <span class="mono">weight-then-support-lexicographic-then-X-Y-Z-v1</span> 排好，逐个给出一条「分类」：要么 <span class="mono">{kind: "anticommutes", stabilizer_row}</span>——它与第几条检查反对易（会触发警报）；要么 <span class="mono">{kind: "in-span", coefficients}</span>——它是哪些检查的乘积（无害）。检查器重新生成整条候选流，「classifications cannot omit, duplicate, or reorder candidates」。这就是<a href="../parameters/parameters.html#s3-2">参数页里 exact-css-enum</a> 那句「穷举」被写成可核对数据后的样子。</p>
     <p class="en">The <b>lower bound</b> is the expensive half. Contract section 7 demands: for <b>every</b> non-identity Pauli of weight below d (X, Y and Z on each qubit all count), sorted in the fixed order <span class="mono">weight-then-support-lexicographic-then-X-Y-Z-v1</span>, one “classification” each: either <span class="mono">{kind: "anticommutes", stabilizer_row}</span>, naming a check it anticommutes with (so it would trip an alarm), or <span class="mono">{kind: "in-span", coefficients}</span>, naming the checks it is a product of (so it is harmless). The checker regenerates the entire candidate stream, and “classifications cannot omit, duplicate, or reorder candidates”. This is what the word “exhaustive” behind <a href="../parameters/parameters.html#s3-2">exact-css-enum in the parameters guide</a> looks like once written as checkable data.</p>
   </div>
+  <div class="prose">
+    <p class="zh">看一个小到能全部写出来的例子：L = 2 的平面码，n = 5、d = 2（它的检查矩阵见<a href="../parameters/parameters.html#s2-2">参数页 2.2 节的折叠框</a>，比特编号 q0…q4 用构造器的编号，对应那里的 h<sub>00</sub>、h<sub>10</sub>、h<sub>01</sub>、h<sub>11</sub>、v）。重量小于 2 的候选只有重量 1 的那些：5 个比特 × 3 种 Pauli = 15 个。按规定顺序，候选流从 X<sub>q0</sub>、Y<sub>q0</sub>、Z<sub>q0</sub> 开始，再到 q1……每一个都碰到某条检查、会报警，所以 15 条分类全是 anticommutes。下面逐条写出（示意：检查行编号 0、1 是两条 X 检查，2、3 是两条 Z 检查；这是按同样规则手算的，不是证书原文）。判断规则很简单：单比特的 X 与一条检查反对易，当且仅当这条检查是 Z 型且碰到这个比特；Z 反过来看 X 型检查；Y 同时含 X 和 Z，两类都看。有几条可选时，下表的分类取编号最小的一条。图 3.1 和它下面的支撑表给出全部四条检查，15 条候选全部列在其后：</p>
+    <p class="en">Here is an example small enough to write out in full: the L = 2 planar code, n = 5, d = 2 (its check matrices are in <a href="../parameters/parameters.html#s2-2">the fold of §2.2 of the parameters page</a>; qubits q0…q4 use the constructor's numbering and correspond to h<sub>00</sub>, h<sub>10</sub>, h<sub>01</sub>, h<sub>11</sub>, v there). The candidates of weight below 2 are just those of weight 1: 5 qubits × 3 Paulis = 15. In the prescribed order the stream starts X<sub>q0</sub>, Y<sub>q0</sub>, Z<sub>q0</sub>, then q1, and so on. Each one hits some check and would raise an alarm, so all 15 classifications are anticommutes. They are written out below (an illustration: check rows 0 and 1 are the two X checks, 2 and 3 the two Z checks; computed by hand with the same rule, not copied from a certificate). The rule is simple: a single-qubit X anticommutes with a check exactly when the check is Z-type and touches that qubit; Z is the same with X-type checks; Y contains both X and Z, so both kinds count. When several rows qualify, the table below lists the lowest-numbered one. Figure 3.1 and the support table under it give all four checks; all 15 candidates follow:</p>
+  </div>
+  <figure class="fig" id="fig-l2">
+    <div class="fig-frame">
+<svg viewBox="0 0 560 290" width="100%" style="max-width:560px;height:auto;color:var(--ink)" role="img" aria-label="L = 2 平面码：5 个比特与 4 条检查 / The L = 2 planar code: 5 qubits and 4 checks">
+<rect x="150" y="90" width="130" height="120" fill="var(--cz-soft)"/>
+<rect x="280" y="90" width="130" height="120" fill="var(--cz-soft)"/>
+<line x1="150" y1="90" x2="410" y2="90" stroke="var(--cz)" stroke-width="9" stroke-opacity="0.35" stroke-linecap="round"/>
+<g stroke="var(--ink2)" stroke-width="2.2">
+<line x1="150" y1="90" x2="410" y2="90"/>
+<line x1="150" y1="210" x2="410" y2="210"/>
+<line x1="280" y1="90" x2="280" y2="210"/>
+</g>
+<g stroke="var(--ink3)" stroke-width="1.5" stroke-dasharray="3 3">
+<line x1="150" y1="60" x2="150" y2="240"/><line x1="410" y1="60" x2="410" y2="240"/>
+</g>
+<circle cx="280" cy="90" r="9" fill="var(--cx-soft)" stroke="var(--cx)" stroke-width="2.2"/>
+<circle cx="280" cy="210" r="9" fill="var(--cx-soft)" stroke="var(--cx)" stroke-width="2.2"/>
+<g font-family="monospace" font-size="12" fill="currentColor">
+<circle cx="215.0" cy="90" r="6" fill="var(--ink)"/>
+<text x="215.0" y="78" text-anchor="middle">q0 = h₀₀</text>
+<circle cx="345.0" cy="90" r="6" fill="var(--ink)"/>
+<text x="345.0" y="78" text-anchor="middle">q2 = h₀₁</text>
+<circle cx="215.0" cy="210" r="6" fill="var(--ink)"/>
+<text x="215.0" y="232" text-anchor="middle">q1 = h₁₀</text>
+<circle cx="345.0" cy="210" r="6" fill="var(--ink)"/>
+<text x="345.0" y="232" text-anchor="middle">q3 = h₁₁</text>
+<circle cx="280" cy="150.0" r="6" fill="var(--ink)"/>
+<text x="290" y="154.0">q4 = v</text>
+</g>
+<g font-family="monospace" font-size="12" font-weight="600">
+<text x="280" y="56" class="zh" text-anchor="middle" fill="var(--cx-ink)">行 0：X 星</text><text x="280" y="56" class="en" text-anchor="middle" fill="var(--cx-ink)">row 0: X star</text>
+<text x="280" y="256" class="zh" text-anchor="middle" fill="var(--cx-ink)">行 1：X 星</text><text x="280" y="256" class="en" text-anchor="middle" fill="var(--cx-ink)">row 1: X star</text>
+<text x="215.0" y="124" class="zh" text-anchor="middle" fill="var(--cz-ink)">行 2：Z 面</text><text x="215.0" y="124" class="en" text-anchor="middle" fill="var(--cz-ink)">row 2: Z face</text>
+<text x="357.0" y="124" class="zh" text-anchor="middle" fill="var(--cz-ink)">行 3：Z 面</text><text x="357.0" y="124" class="en" text-anchor="middle" fill="var(--cz-ink)">row 3: Z face</text>
+</g>
+<g font-family="monospace" font-size="11.5" fill="var(--ink2)">
+<text x="142" y="256" class="zh" text-anchor="end">左毛边</text><text x="142" y="256" class="en" text-anchor="end">left rough edge</text>
+<text x="418" y="256" class="zh">右毛边</text><text x="418" y="256" class="en">right rough edge</text>
+<text x="424" y="94" class="zh" fill="var(--cz-ink)">← 蓝色粗线：</text><text x="424" y="94" class="en" fill="var(--cz-ink)">← thick blue:</text>
+<text x="424" y="110" class="zh" fill="var(--cz-ink)">见证 Z_q0 Z_q2</text><text x="424" y="110" class="en" fill="var(--cz-ink)">witness Z_q0 Z_q2</text>
+</g></svg>
+    </div>
+    <figcaption>
+      <span class="fno">图 3.1</span>
+      <span class="zh">L = 2 平面码。实心圆点是 5 个数据比特，编号 q0…q4 用构造器的编号，等号后是参数页的名字（h = 横边，下标 = 行、位置；v = 中间的竖边）。橙圈是两颗星（X 检查，行 0、1），各碰相邻的三条边；浅蓝色块是两块面（Z 检查，行 2、3），各由三条边围成，外侧开口。左右两侧虚线处是毛边：横边在那里悬空，没有顶点。蓝色粗线是重量 2 的见证 Z<sub>q0</sub>Z<sub>q2</sub>。</span>
+      <span class="en">The L = 2 planar code. The solid dots are the 5 data qubits, numbered q0…q4 as in the constructor, with the parameters-page names after the equals sign (h = horizontal edge, subscripts = row, position; v = the vertical edge in the middle). Orange rings are the two stars (X checks, rows 0 and 1), each touching its three adjacent edges; the light-blue blocks are the two faces (Z checks, rows 2 and 3), each bounded by three edges and open on the outer side. The dashed lines on the left and right are rough edges: the horizontal edges end there without a vertex. The thick blue line is the weight-2 witness Z<sub>q0</sub>Z<sub>q2</sub>.</span>
+    </figcaption>
+  </figure>
+  <div class="table-wrap"><table class="glossary">
+    <tr><th><span class="zh">检查行</span><span class="en">check row</span></th><th><span class="zh">类型</span><span class="en">type</span></th><th><span class="zh">碰哪些比特（支撑）</span><span class="en">qubits touched (support)</span></th></tr>
+    <tr><td>0</td><td><span class="zh">X · 上行的星</span><span class="en">X · top-row star</span></td><td>q0, q2, q4</td></tr>
+    <tr><td>1</td><td><span class="zh">X · 下行的星</span><span class="en">X · bottom-row star</span></td><td>q1, q3, q4</td></tr>
+    <tr><td>2</td><td><span class="zh">Z · 左列的面</span><span class="en">Z · left face</span></td><td>q0, q1, q4</td></tr>
+    <tr><td>3</td><td><span class="zh">Z · 右列的面</span><span class="en">Z · right face</span></td><td>q2, q3, q4</td></tr>
+  </table></div>
+  <div class="table-wrap"><table class="glossary">
+    <tr><th><span class="zh">候选</span><span class="en">candidate</span></th><th><span class="zh">与哪几条检查反对易</span><span class="en">anticommutes with rows</span></th><th><span class="zh">分类</span><span class="en">classification</span></th></tr>
+    <tr><td>X<sub>q0</sub></td><td>2</td><td class="mono">{anticommutes, row 2}</td></tr>
+    <tr><td>Y<sub>q0</sub></td><td>0, 2</td><td class="mono">{anticommutes, row 0}</td></tr>
+    <tr><td>Z<sub>q0</sub></td><td>0</td><td class="mono">{anticommutes, row 0}</td></tr>
+    <tr><td>X<sub>q1</sub></td><td>2</td><td class="mono">{anticommutes, row 2}</td></tr>
+    <tr><td>Y<sub>q1</sub></td><td>1, 2</td><td class="mono">{anticommutes, row 1}</td></tr>
+    <tr><td>Z<sub>q1</sub></td><td>1</td><td class="mono">{anticommutes, row 1}</td></tr>
+    <tr><td>X<sub>q2</sub></td><td>3</td><td class="mono">{anticommutes, row 3}</td></tr>
+    <tr><td>Y<sub>q2</sub></td><td>0, 3</td><td class="mono">{anticommutes, row 0}</td></tr>
+    <tr><td>Z<sub>q2</sub></td><td>0</td><td class="mono">{anticommutes, row 0}</td></tr>
+    <tr><td>X<sub>q3</sub></td><td>3</td><td class="mono">{anticommutes, row 3}</td></tr>
+    <tr><td>Y<sub>q3</sub></td><td>1, 3</td><td class="mono">{anticommutes, row 1}</td></tr>
+    <tr><td>Z<sub>q3</sub></td><td>1</td><td class="mono">{anticommutes, row 1}</td></tr>
+    <tr><td>X<sub>q4</sub></td><td>2, 3</td><td class="mono">{anticommutes, row 2}</td></tr>
+    <tr><td>Y<sub>q4</sub></td><td>0, 1, 2, 3</td><td class="mono">{anticommutes, row 0}</td></tr>
+    <tr><td>Z<sub>q4</sub></td><td>0, 1</td><td class="mono">{anticommutes, row 0}</td></tr>
+  </table></div>
+  <div class="prose">
+    <p class="zh">15 条都不是逻辑算符，所以 d ≥ 2。再附一个重量 2 的见证：Z<sub>q0</sub>Z<sub>q2</sub>（上面一行的两条横边 h<sub>00</sub>、h<sub>01</sub> 各放一个 Z，从左毛边走到右毛边，图 3.1 的蓝色粗线）。它与行 0 的星共享 q0、q2 两个比特，与行 1 的星共享 0 个，都是偶数，所以全部对易。它是不是 Z 检查的乘积？两条 Z 检查只能组合出四种乘积，逐个写出来比一比：</p>
+    <p class="en">None of the 15 is a logical operator, so d ≥ 2. Add one witness of weight 2: Z<sub>q0</sub>Z<sub>q2</sub> (a Z on each of the two horizontal edges h<sub>00</sub>, h<sub>01</sub> of the top row, from the left rough edge to the right one; the thick blue line in Figure 3.1). It shares two qubits, q0 and q2, with the row-0 star and none with the row-1 star, both even numbers, so it commutes with every check. Is it a product of Z checks? The two Z checks can form only four products; write them all out and compare:</p>
+  </div>
+  <div class="table-wrap"><table class="glossary">
+    <tr><th><span class="zh">Z 检查的乘积</span><span class="en">product of Z checks</span></th><th><span class="zh">带 Z 的比特</span><span class="en">qubits carrying Z</span></th><th><span class="zh">等于 {q0, q2} 吗</span><span class="en">equal to {q0, q2}?</span></th></tr>
+    <tr><td><span class="zh">一条也不取（恒等）</span><span class="en">none (identity)</span></td><td>—</td><td><span class="zh">否</span><span class="en">no</span></td></tr>
+    <tr><td><span class="zh">行 2</span><span class="en">row 2</span></td><td>q0, q1, q4</td><td><span class="zh">否</span><span class="en">no</span></td></tr>
+    <tr><td><span class="zh">行 3</span><span class="en">row 3</span></td><td>q2, q3, q4</td><td><span class="zh">否</span><span class="en">no</span></td></tr>
+    <tr><td><span class="zh">行 2 × 行 3（q4 出现两次，Z·Z = I 抵消）</span><span class="en">row 2 × row 3 (q4 appears twice, Z·Z = I cancels)</span></td><td>q0, q1, q2, q3</td><td><span class="zh">否</span><span class="en">no</span></td></tr>
+  </table></div>
+  <div class="prose">
+    <p class="zh">四种都不是 Z<sub>q0</sub>Z<sub>q2</sub>，所以它不是检查的乘积，是真正的逻辑算符，d ≤ 2。两半合起来 d = 2。L3 的证书做的是同一件事，只是候选有 741 个。</p>
+    <p class="en">None of the four is Z<sub>q0</sub>Z<sub>q2</sub>, so it is not a product of checks: it is a genuine logical operator, and d ≤ 2. Together, d = 2. The L3 certificate does the same thing with 741 candidates.</p>
+  </div>
 
   <h3 id="s3-3"><span class="sec-no">3.3</span><span class="zh">为什么 L5 没有这一类：策略与算术</span><span class="en">Why L5 lacks it: policy and arithmetic</span></h3>
   <div class="prose">
-    <p class="zh"><b>算术。</b>候选数是 <span class="term">Σ<sub>w=1</sub><sup>d−1</sup> C(n,w)·3<sup>w</sup><span class="tip">重量恰为 w 的非恒等 Pauli 算符个数：从 n 个比特里选 w 个（组合数 C(n,w)，读「n 选 w」），每个选中的比特取 X、Y、Z 之一（3^w 种）。对 w 从 1 到 d−1 求和。</span></span>。契约给这类证书设了一道<b>上限</b>：候选总数 <span class="sym" data-sym="leq">≤</span> 65 536，上限本身的来源记为 <span class="mono">{kind: bounded, method: t189-lean-complete-v1-certificate-size-policy}</span>。按公式代入三个实例（下表由公式算得，不是 Atlas 页面上的数字）：L3 只有 741 个候选；L4 是 64 875 个，<b>恰好</b>挤进上限；L5 则要 8 498 193 个，超出上限一百多倍。契约说得清楚：「Crossing it means unsupported, not false」——超限叫「不支持」，不叫「错」。</p>
-    <p class="en"><b>Arithmetic.</b> The candidate count is <span class="term">Σ<sub>w=1</sub><sup>d−1</sup> C(n,w)·3<sup>w</sup><span class="tip">The number of non-identity Paulis of weight exactly w: choose w of the n qubits (the binomial coefficient C(n,w), read “n choose w”), then pick X, Y or Z on each chosen qubit (3^w ways). Sum over w from 1 to d−1.</span></span>. The contract places a <b>ceiling</b> on this class: total candidates <span class="sym" data-sym="leq">≤</span> 65,536, the ceiling's own origin recorded as <span class="mono">{kind: bounded, method: t189-lean-complete-v1-certificate-size-policy}</span>. Evaluating the formula for the three instances (the table below is computed from the formula, not copied from an Atlas page): L3 has only 741 candidates; L4 has 64,875 and <b>just</b> squeezes under the ceiling; L5 would need 8,498,193, over a hundred times too many. The contract is clear: “Crossing it means unsupported, not false”.</p>
+    <p class="zh"><b>算术。</b>候选数是 <span class="term">Σ<sub>w=1</sub><sup>d−1</sup> C(n,w)·3<sup>w</sup><span class="tip">重量恰为 w 的非恒等 Pauli 算符个数：从 n 个比特里选 w 个（组合数 C(n,w)，读「n 选 w」），每个选中的比特取 X、Y、Z 之一（3^w 种）。对 w 从 1 到 d−1 求和。</span></span>。契约给这类证书设了一道<b>上限</b>：候选总数 <span class="sym" data-sym="leq">≤</span> 65 536，上限本身的来源记为 <span class="mono">{kind: bounded, method: t189-lean-complete-v1-certificate-size-policy}</span>。按公式代入三个实例（下表由公式算得，不是 Atlas 页面上的数字）：L3 只有 741 个候选；L4 是 64 875 个，<b>恰好</b>挤进上限；L5 则要 8 498 193 个，超出上限一百多倍。契约说得清楚：「Crossing it means unsupported, not false」——超限叫「不支持」，不叫「错」。这和<a href="../parameters/parameters.html#s3-3">参数页 3.3 节</a>里 L5 的穷举并不矛盾：那里的 exact-css-enum 只试纯 X 与纯 Z 算符，重量 1 到 4 各一遍，约 23 万次（2 × 112 791 = 225 582）；Lean 证书要把 X、Y、Z 的所有组合逐条写进数据，才会到 850 万条。卡住 L5 的是证书大小的策略上限，不是计算量。</p>
+    <p class="en"><b>Arithmetic.</b> The candidate count is <span class="term">Σ<sub>w=1</sub><sup>d−1</sup> C(n,w)·3<sup>w</sup><span class="tip">The number of non-identity Paulis of weight exactly w: choose w of the n qubits (the binomial coefficient C(n,w), read “n choose w”), then pick X, Y or Z on each chosen qubit (3^w ways). Sum over w from 1 to d−1.</span></span>. The contract places a <b>ceiling</b> on this class: total candidates <span class="sym" data-sym="leq">≤</span> 65,536, the ceiling's own origin recorded as <span class="mono">{kind: bounded, method: t189-lean-complete-v1-certificate-size-policy}</span>. Evaluating the formula for the three instances (the table below is computed from the formula, not copied from an Atlas page): L3 has only 741 candidates; L4 has 64,875 and <b>just</b> squeezes under the ceiling; L5 would need 8,498,193, over a hundred times too many. The contract is clear: “Crossing it means unsupported, not false”. This does not contradict <a href="../parameters/parameters.html#s3-3">§3.3 of the parameters page</a>, where L5 is enumerated: exact-css-enum there tries only pure-X and pure-Z operators of weights 1 to 4, about 230,000 tests (2 × 112,791 = 225,582), whereas the Lean certificate must write every combination of X, Y and Z into its data, 8.5 million entries. What stops L5 is the policy cap on certificate size, not the amount of computation.</p>
   </div>
   <div class="table-wrap">
     <table class="glossary">
@@ -1120,14 +1265,14 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
 
   <h3 id="s4-2"><span class="sec-no">4.2</span><span class="zh">默认验证不需要 Lean，也不需要网络</span><span class="en">Default verification needs neither Lean nor the network</span></h3>
   <div class="prose">
-    <p class="zh">证书那一层由仓库级门禁 <span class="mono">python tools/build_formal_unification.py verify</span> 覆盖。<span class="mono">formal/ir/README.md</span> 说明它做什么：「Default verification never invokes Lean or the network: it regenerates the Python projection, checks every certificate independently, compares the committed bytes, and validates the sealed-runtime identity.」也就是说，日常验证是用 Python 独立重算每份证书并与提交的字节比对；真正调用 Lean 的 <span class="mono">replay</span> 命令是「evidence-producing」的，只能在 Board 契约下、用那台封存的运行时执行——那台运行时目前只对一个精确平台（<span class="mono">arm64-apple-darwin25.5.0</span>，Lean <span class="mono">v4.30.0-rc2</span>）二进制兼容。所以你在自己的机器上能做的是：重跑 Python 投影与证书核对；不能做的是：重新产出 Lean 证据。两者 Atlas 都写在明处。</p>
-    <p class="en">The certificate layer is covered by the repository gate <span class="mono">python tools/build_formal_unification.py verify</span>. <span class="mono">formal/ir/README.md</span> explains what it does: “Default verification never invokes Lean or the network: it regenerates the Python projection, checks every certificate independently, compares the committed bytes, and validates the sealed-runtime identity.” That is, everyday verification recomputes every certificate independently in Python and compares against the committed bytes; the <span class="mono">replay</span> command that actually invokes Lean is “evidence-producing” and may run only under a Board contract, on the sealed runtime, which is currently binary-compatible with exactly one platform (<span class="mono">arm64-apple-darwin25.5.0</span>, Lean <span class="mono">v4.30.0-rc2</span>). So on your own machine you can rerun the Python projection and certificate checks; you cannot regenerate the Lean evidence. The Atlas states both in the open.</p>
+    <p class="zh">证书那一层由仓库级门禁 <span class="mono">python tools/build_formal_unification.py verify</span> 覆盖。<span class="mono">formal/ir/README.md</span> 说明它做什么：「Default verification never invokes Lean or the network: it regenerates the Python projection, checks every certificate independently, compares the committed bytes, and validates the sealed-runtime identity.」也就是说，日常验证是用 Python 独立重算每份证书并与提交的字节比对；真正调用 Lean 的 <span class="mono">replay</span> 命令是「evidence-producing」的，只能在一项明确授权的 Board 任务下（Board 是 Atlas 的任务登记表，每项任务写明谁在改什么），用那台封存的运行时执行。那台运行时目前只能在一种精确的机器上运行：苹果 ARM 芯片、macOS 的 Darwin 内核 25.5.0（平台标识 <span class="mono">arm64-apple-darwin25.5.0</span>），Lean 版本 <span class="mono">v4.30.0-rc2</span>。所以你在自己的机器上能做的是：重跑 Python 投影与证书核对；不能做的是：重新产出 Lean 证据。两者 Atlas 都写在明处。</p>
+    <p class="en">The certificate layer is covered by the repository gate <span class="mono">python tools/build_formal_unification.py verify</span>. <span class="mono">formal/ir/README.md</span> explains what it does: “Default verification never invokes Lean or the network: it regenerates the Python projection, checks every certificate independently, compares the committed bytes, and validates the sealed-runtime identity.” That is, everyday verification recomputes every certificate independently in Python and compares against the committed bytes; the <span class="mono">replay</span> command that actually invokes Lean is “evidence-producing” and may run only under an explicitly authorised Board task (the Board is the Atlas task register, where each task states who changes what), on the sealed runtime. That runtime currently runs on exactly one kind of machine: Apple ARM hardware with macOS's Darwin kernel 25.5.0 (platform string <span class="mono">arm64-apple-darwin25.5.0</span>), Lean version <span class="mono">v4.30.0-rc2</span>. So on your own machine you can rerun the Python projection and certificate checks; you cannot regenerate the Lean evidence. The Atlas states both in the open.</p>
   </div>
 
   <h3 id="s4-3"><span class="sec-no">4.3</span><span class="zh">诚实边界：当前证书不覆盖的东西</span><span class="en">The honest boundary: what certificates do not cover today</span></h3>
   <div class="prose">
-    <p class="zh"><span class="mono">derivations.md</span> 的「provenance split」把表面码条目的结论分成三层。<b>机器验证</b>：n、k、CSS 结构、两个小实例的精确码距。<b>定理与文献 + 可重跑见证</b>：L5 的下界与上界，故标 bounded。<b>纯文献声明</b>：「Thresholds and hardware results are not properties of a bare check matrix. They remain literature claims with the complete noise model and decoder written beside each number.」阈值 10.9%、10.3%、2.9%、0.57%/步、Willow 的 Λ = 2.14 ± 0.02（Λ：码距每增 2 时逻辑错误率的压制倍数，是设备与译码器的拟合值，不是阈值 p<sub>th</sub> 与物理错误率 p 之比 p<sub>th</sub>/p 的直接测量）——每个数都属于不同的噪声模型与译码器，Atlas 在<a href="../decoders/decoders.html#s6-2">译码器教程的阈值账本</a>里逐条列出限定项；它们今天都在 Lean Complete v1 之外：当前的证书只看一个有限的检查矩阵，这些声明保留原有的证据来源。同理，<a href="../operations/operations.html#ch1">逻辑操作</a>（格点手术、横向门等）在 Atlas 中一律是 <i>claimed</i>：T195 明说它不接受「decoder, threshold, hardware model」。</p>
-    <p class="en">The “provenance split” in <span class="mono">derivations.md</span> sorts the surface-code entry's conclusions into three layers. <b>Machine-verified</b>: n, k, CSS structure, and the two small exact distances. <b>Theorem and literature plus a re-runnable witness</b>: the L5 lower and upper bounds, hence bounded. <b>Literature claims only</b>: “Thresholds and hardware results are not properties of a bare check matrix. They remain literature claims with the complete noise model and decoder written beside each number.” The thresholds 10.9%, 10.3%, 2.9%, 0.57% per step and Willow's Λ = 2.14 ± 0.02 (Λ: the factor by which the logical error rate drops when the distance grows by 2, a device-and-decoder fit, not a direct measurement of the ratio p<sub>th</sub>/p of threshold to physical error rate) each belong to a different noise model and decoder; the Atlas lists the qualifiers line by line in the <a href="../decoders/decoders.html#s6-2">threshold ledger of the decoders guide</a>. All of them are outside Lean Complete v1 today: the current certificates see only a finite check matrix, and these claims keep their existing evidence origin. Likewise every <a href="../operations/operations.html#ch1">logical operation</a> (lattice surgery, transversal gates and so on) is <i>claimed</i> in the Atlas: T195 states outright that it accepts no “decoder, threshold, hardware model”.</p>
+    <p class="zh"><span class="mono">derivations.md</span> 的「provenance split」把表面码条目的结论分成三层。<b>机器验证</b>：n、k、CSS 结构、两个小实例的精确码距。<b>定理与文献 + 可重跑见证</b>：L5 的下界与上界，故标 bounded。<b>纯文献声明</b>：「Thresholds and hardware results are not properties of a bare check matrix. They remain literature claims with the complete noise model and decoder written beside each number.」阈值（译码器教程的阈值账本列了四个，每个都写明它的噪声模型与译码器）、Willow 的 Λ = 2.14 ± 0.02（码距 3、5、7 的存储实验，离线神经网络译码器，arXiv:2408.13687；Λ：码距每增 2 时逻辑错误率的压制倍数，是设备与译码器的拟合值，不是阈值 p<sub>th</sub> 与物理错误率 p 之比 p<sub>th</sub>/p 的直接测量）——每个数都属于不同的噪声模型与译码器，Atlas 在<a href="../decoders/decoders.html#s6-2">译码器教程的阈值账本</a>里逐条列出限定项；它们今天都在 Lean Complete v1 之外：当前的证书只看一个有限的检查矩阵，这些声明保留原有的证据来源。同理，<a href="../operations/operations.html#ch1">逻辑操作</a>（格点手术、横向门等）在 Atlas 中一律是 <i>claimed</i>：T195 明说它不接受「decoder, threshold, hardware model」。</p>
+    <p class="en">The “provenance split” in <span class="mono">derivations.md</span> sorts the surface-code entry's conclusions into three layers. <b>Machine-verified</b>: n, k, CSS structure, and the two small exact distances. <b>Theorem and literature plus a re-runnable witness</b>: the L5 lower and upper bounds, hence bounded. <b>Literature claims only</b>: “Thresholds and hardware results are not properties of a bare check matrix. They remain literature claims with the complete noise model and decoder written beside each number.” The thresholds (the decoders guide's threshold ledger lists four, each with its noise model and decoder) and Willow's Λ = 2.14 ± 0.02 (a distance-3, 5, 7 memory experiment decoded offline by a neural network, arXiv:2408.13687; Λ: the factor by which the logical error rate drops when the distance grows by 2, a device-and-decoder fit, not a direct measurement of the ratio p<sub>th</sub>/p of threshold to physical error rate) each belong to a different noise model and decoder; the Atlas lists the qualifiers line by line in the <a href="../decoders/decoders.html#s6-2">threshold ledger of the decoders guide</a>. All of them are outside Lean Complete v1 today: the current certificates see only a finite check matrix, and these claims keep their existing evidence origin. Likewise every <a href="../operations/operations.html#ch1">logical operation</a> (lattice surgery, transversal gates and so on) is <i>claimed</i> in the Atlas: T195 states outright that it accepts no “decoder, threshold, hardware model”.</p>
   </div>
   <div class="table-wrap">
     <table class="glossary">
@@ -3749,50 +3894,65 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
         'Z', (v) => { mode = v; upd(); }
       );
       F.controls.append(seg.el,
-        U().btn(isToric ? '示范：可收缩的圈' : '示范：平凡closed圈', isToric ? 'Demo: contractible loop' : 'Demo: trivial loop', '', () => {
+        U().btn(isToric ? '示范：可收缩的圈' : '示范：平凡的闭合圈', isToric ? 'Demo: contractible loop' : 'Demo: trivial loop', '', () => {
           view.errZ = new Set(); view.errX = new Set();
           // boundary of a 2x1 block of plaquettes
           const s = P().xorSet(lat.plaqs[0].support, lat.plaqs[1].support);
           view.errZ = new Set(s);
-          mode = 'Z';
+          if (mode !== 'Z') seg.el.children[0].click();
           upd();
         }),
         U().btn(isToric ? '示范：缠绕圈' : '示范：跨边界串', isToric ? 'Demo: winding loop' : 'Demo: boundary-to-boundary', '', () => {
           view.errZ = new Set(lat.logicals.Z[0]); view.errX = new Set();
-          mode = 'Z';
+          if (mode !== 'Z') seg.el.children[0].click();
           upd();
         }),
         U().btn('清空', 'Clear', '', () => { view.errZ.clear(); view.errX.clear(); upd(); })
       );
+      // Both string types may be on the lattice at once (some pages ask for an X and a Z loop together),
+      // so alarms of both types are counted and each drawn type gets its own verdict.
+      function judge(type, sup) {
+        const partners = type === 'Z' ? lat.logicals.X : lat.logicals.Z;
+        const par = partners.map((Lg) => P().overlapParity(sup, Lg));
+        if (!par.some((v) => v === 1)) {
+          return {
+            zh: '<span class="ok">警报全灭</span>，而且它是<b>平凡的</b>：它恰好等于若干' + (type === 'Z' ? '面检查' : '星检查') + '的乘积，对编码信息<b>什么也不做</b>。',
+            en: '<span class="ok">No alarms</span>, and it is <b>trivial</b>: it equals a product of ' + (type === 'Z' ? 'face checks' : 'star checks') + ' and does <b>nothing</b> to the stored information.',
+          };
+        }
+        const L1 = type === 'Z' ? 'Z̄₁' : 'X̄₁', L2 = type === 'Z' ? 'Z̄₂' : 'X̄₂';
+        if (isToric) {
+          const which = par[0] && par[1] ? L1 + '·' + L2 + '（两个方向都绕）' : par[0] ? L1 + (type === 'Z' ? '（水平缠绕）' : '') : L2 + (type === 'Z' ? '（垂直缠绕）' : '');
+          const whichEn = par[0] && par[1] ? L1 + '·' + L2 + ', both directions' : par[0] ? L1 + ', direction 1' : L2 + ', direction 2';
+          return {
+            zh: '<span class="no">警报全灭，但这不是平凡圈！</span>它绕过了整个环面——这是<b>逻辑算符 ' + which + '</b>：不触发任何检查，却会改写存下来的量子信息。',
+            en: '<span class="no">No alarms, yet NOT trivial!</span> It winds around the torus (' + whichEn + ') — a <b>logical operator</b>: invisible to every check, yet it rewrites the stored quantum information.',
+          };
+        }
+        return {
+          zh: '<span class="no">警报全灭，但这不是平凡圈！</span>这条串从一条边界横跨到对面——它就是<b>逻辑算符 ' + (type === 'Z' ? 'Z̄' : 'X̄') + '</b>：不触发任何检查，却改写了存下来的量子比特。',
+          en: '<span class="no">No alarms, yet NOT trivial!</span> The string spans from one boundary to the opposite one — the <b>logical operator ' + (type === 'Z' ? 'Z̄' : 'X̄') + '</b>: invisible to every check, yet it rewrites the stored qubit.',
+        };
+      }
       function upd() {
         view.draw();
         const syn = view.syndrome();
         const zSup = [...view.errZ], xSup = [...view.errX];
-        const active = mode === 'Z' ? zSup : xSup;
-        const defects = mode === 'Z' ? syn.starDefects.length : syn.plaqDefects.length;
+        const defects = syn.starDefects.length + syn.plaqDefects.length;
         let verdictZh, verdictEn;
-        if (!active.length) {
+        if (!zSup.length && !xSup.length) {
           verdictZh = '画几条边试试。目标：不触发任何警报。';
           verdictEn = 'Draw some edges. Goal: trigger no alarms.';
         } else if (defects > 0) {
           verdictZh = '还有 <b>' + defects + '</b> 个警报亮着：串有端点。把它闭合，或' + (isToric ? '绕一整圈' : '让两端都搭到正确的边界上') + '。';
           verdictEn = '<b>' + defects + '</b> alarms still lit: the string has endpoints. Close it up, or ' + (isToric ? 'wrap it all the way around' : 'land both ends on the right boundaries') + '.';
         } else {
-          const partners = mode === 'Z' ? lat.logicals.X : lat.logicals.Z;
-          const par = partners.map((Lg) => P().overlapParity(active, Lg));
-          const wound = par.some((v) => v === 1);
-          if (!wound) {
-            verdictZh = '<span class="ok">警报全灭</span>，且这是一个<b>平凡圈</b>：它恰好等于若干' + (mode === 'Z' ? '面检查' : '星检查') + '的乘积，对编码信息<b>什么也不做</b>。';
-            verdictEn = '<span class="ok">No alarms</span>, and this is a <b>trivial loop</b>: it equals a product of ' + (mode === 'Z' ? 'face checks' : 'star checks') + ' and does <b>nothing</b> to the stored information.';
-          } else if (isToric) {
-            const which = par[0] && par[1] ? 'Z̄₁·Z̄₂（两个方向都绕）' : par[0] ? (mode === 'Z' ? 'Z̄₁（水平缠绕）' : 'X̄₁') : (mode === 'Z' ? 'Z̄₂（垂直缠绕）' : 'X̄₂');
-            const whichEn = par[0] && par[1] ? 'both directions' : par[0] ? 'direction 1' : 'direction 2';
-            verdictZh = '<span class="no">警报全灭，但这不是平凡圈！</span>它绕过了整个环面——这是<b>逻辑算符 ' + which + '</b>：不触发任何检查，却会改写存下来的量子信息。';
-            verdictEn = '<span class="no">No alarms, yet NOT trivial!</span> It winds around the torus (' + whichEn + ') — a <b>logical operator</b>: invisible to every check, yet it rewrites the stored quantum information.';
-          } else {
-            verdictZh = '<span class="no">警报全灭，但这不是平凡圈！</span>这条串从一条边界横跨到对面——它就是<b>逻辑算符 ' + (mode === 'Z' ? 'Z̄' : 'X̄') + '</b>：不触发任何检查，却改写了存下来的量子比特。';
-            verdictEn = '<span class="no">No alarms, yet NOT trivial!</span> The string spans from one boundary to the opposite one — the <b>logical operator ' + (mode === 'Z' ? 'Z̄' : 'X̄') + '</b>: invisible to every check, yet it rewrites the stored qubit.';
-          }
+          const both = zSup.length > 0 && xSup.length > 0;
+          const parts = [];
+          if (zSup.length) parts.push({ j: judge('Z', zSup), lz: 'Z 串：', le: 'Z string: ' });
+          if (xSup.length) parts.push({ j: judge('X', xSup), lz: 'X 串：', le: 'X string: ' });
+          verdictZh = parts.map((q) => (both ? q.lz : '') + q.j.zh).join('<br>');
+          verdictEn = parts.map((q) => (both ? q.le : '') + q.j.en).join('<br>');
         }
         F.setReadout('<span class="zh">' + verdictZh + '</span><span class="en">' + verdictEn + '</span>');
       }
@@ -3877,8 +4037,8 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
         view.hlEdges = new Map([...corr].map((e) => [e, { color: getComputedStyle(doc.documentElement).getPropertyValue('--good').trim(), width: 5 }]));
         view.draw();
         F.setReadout(fail
-          ? '<span class="zh"><span class="no">这回合失败了。</span>蓝色 = 真实错误，绿色 = 你的修复。二者合起来形成了' + (isToric ? '一条<b>缠绕整个环面</b>的圈' : '一条<b>横跨两条边界</b>的串') + ' —— 恰好是逻辑算符，信息被改写。连胜清零。点「新回合」再来！</span><span class="en"><span class="no">Round lost.</span> Blue = true errors, green = your repair. Together they form ' + (isToric ? 'a loop <b>winding around the torus</b>' : 'a string <b>spanning both boundaries</b>') + ' — exactly a logical operator; the data got rewritten. Streak reset. “New round” to retry!</span>'
-          : '<span class="zh"><span class="ok">成功！</span>蓝 + 绿合成的圈都是可收缩的平凡圈 —— 你的修复不必和错误一模一样，只要「合起来平凡」就赢。连胜 <b>' + streak + '</b>！</span><span class="en"><span class="ok">Success!</span> Blue + green together form only trivial contractible loops — the repair need not equal the error, it only needs to be trivial in combination. Streak <b>' + streak + '</b>!</span>');
+          ? '<span class="zh"><span class="no">这回合失败了。</span>蓝色 = 真实错误，绿色 = 你的修复。二者合起来' + (isToric ? '在某个方向上<b>缠绕环面</b>的总圈数是<b>奇数</b>' : '含有<b>奇数条</b><b>横跨两条边界</b>的串') + ' —— 合起来是一个逻辑算符，信息被改写。连胜清零。点「新回合」再来！</span><span class="en"><span class="no">Round lost.</span> Blue = true errors, green = your repair. Together they ' + (isToric ? '<b>wind around the torus</b> an <b>odd</b> total number of times in some direction' : 'contain an <b>odd number</b> of strings <b>spanning both boundaries</b>') + ' — together a logical operator; the data got rewritten. Streak reset. “New round” to retry!</span>'
+          : '<span class="zh"><span class="ok">成功！</span>蓝 + 绿合起来' + (isToric ? '在两个方向上缠绕环面的总圈数都是偶数（0 也算，两圈互相抵消）' : '横跨两条边界的串是偶数条（0 条也算，两条互相抵消）') + '—— 合起来只是一些检查的乘积。你的修复不必和错误一模一样，只要合起来是检查的乘积就赢。连胜 <b>' + streak + '</b>！</span><span class="en"><span class="ok">Success!</span> Blue + green together ' + (isToric ? 'wind around the torus an even total number of times in both directions (0 counts; two windings cancel)' : 'contain an even number of strings spanning both boundaries (0 counts; two cancel)') + ' — together just a product of checks. The repair need not equal the error; together with it, it only needs to form a product of checks. Streak <b>' + streak + '</b>!</span>');
       }
       function newRound() {
         err = new Set(); corr = new Set(); sel = null; over = false;
@@ -3924,12 +4084,12 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
         en: '① Start: the toric code. Note the stubs sticking out — they wrap to the opposite side; that is what makes it a torus.',
       },
       {
-        zh: '② 一刀剪开：删除所有绕回去的边。立刻出问题——边界上的星和面都缺了一条腿（虚线标出），检查表变得乱七八糟。',
-        en: '② Cut: delete every wrapping edge. Trouble at once — boundary stars and faces each lose a leg (dashed); the checks are mutilated.',
+        zh: '② 一刀剪开：删除所有绕回去的边（图里不再画出）。立刻出问题：沿边的星少了一条腿，四个角上的星少了两条；原来跨过剪口的面只剩两条腿，而且这两条分在贴片相对的两头，角上那一块面一条腿也不剩。检查表乱了套。',
+        en: '② Cut: delete every wrapping edge (no longer drawn). Trouble at once: the stars along the edge lose one leg and the four corner stars lose two; the faces that straddled the cut keep only two legs, on opposite sides of the patch, and the corner face keeps none. The checks are mutilated.',
       },
       {
-        zh: '③ 收拾干净：接受「三条腿」的检查作为正式成员，但分好工——左右两侧只截断<b>面</b>（并保留伸出的悬挂边），上下两侧只截断<b>星</b>。这就是<b>表面码</b>的版图：两种边界，各司其职。',
-        en: '③ Tidy up: keep the 3-leg checks as legitimate members, but divide the work — the left/right sides truncate only <b>faces</b> (keeping the dangling edges), the top/bottom truncate only <b>stars</b>. This is the <b>surface code</b> layout: two kinds of boundary, each with a job.',
+        zh: '③ 收拾干净：接受「三条腿」的检查作为正式成员，但分好工——左右两侧只截断<b>面</b>（并保留伸出的悬挂边），上下两侧只截断<b>星</b>。这就是<b>表面码</b>的版图：两种边界，各司其职。（这一帧重新画了一块 L = 4 的平面码，而不是在上一帧上修补：25 个比特、12 个星检查、12 个面检查，左右两侧带悬挂的横边。）',
+        en: '③ Tidy up: keep the 3-leg checks as legitimate members, but divide the work — the left/right sides truncate only <b>faces</b> (keeping the dangling edges), the top/bottom truncate only <b>stars</b>. This is the <b>surface code</b> layout: two kinds of boundary, each with a job. (This frame redraws an L = 4 planar code rather than patching the previous one: 25 qubits, 12 star checks and 12 face checks, with dangling horizontal edges on the left and right.)',
       },
     ];
     function render() {
@@ -3991,8 +4151,10 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
       { zh: '① 噪声落下：几条 Z 错误悄悄出现（真实设备里你看不到它们）', en: '① Noise strikes: a few Z errors appear (invisible in a real device)' },
       { zh: '② 测量所有检查：只有错误链的端点亮起警报', en: '② Measure every check: only chain endpoints raise alarms' },
       { zh: '③ 译码器配对警报，规划修复链（绿）', en: '③ The decoder pairs alarms and plans repair chains (green)' },
-      { zh: '④ 施加修复：错误 ⊕ 修复 = 平凡圈 → 警报全灭，信息完好', en: '④ Apply the repair: error ⊕ repair = trivial loops → alarms clear, data intact' },
+      { zh: '④ 施加修复：警报全灭；错误 ⊕ 修复和 X̄ 交叉偶数次 → 信息完好', en: '④ Apply the repair: alarms clear; error ⊕ repair crosses X̄ an even number of times → data intact' },
     ];
+    const PH_FAIL = { zh: '④ 施加修复：警报全灭，但错误 ⊕ 修复和 X̄ 交叉奇数次 → 逻辑错误，信息被改写', en: '④ Apply the repair: alarms clear, but error ⊕ repair crosses X̄ an odd number of times → a logical error; the data is overwritten' };
+    let lastFail = false;
     function step() {
       phase = (phase + 1) % 4;
       if (phase === 0) {
@@ -4012,16 +4174,16 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
       } else {
         const residual = P().xorSet([...err], corr);
         const fail = lat.logicals.X.some((Lg) => P().overlapParity(residual, Lg));
-        rounds++; if (!fail) saved++;
+        rounds++; if (!fail) saved++; lastFail = fail;
         view.errZ = new Set(residual.filter(() => false));
         view.errZ = new Set();
         view.hlEdges = new Map();
       }
       view.draw();
-      const tail = phase === 3 ? (U().getLang() === 'en'
-        ? ' — rounds: ' + rounds + ', data survived: ' + saved
-        : ' — 已运行 ' + rounds + ' 轮，信息幸存 ' + saved + ' 轮') : '';
-      F.setReadout('<span class="zh">' + PH[phase].zh + tail + '</span><span class="en">' + PH[phase].en + tail + '</span>');
+      const tailZh = phase === 3 ? ' — 已运行 ' + rounds + ' 轮，信息幸存 ' + saved + ' 轮' : '';
+      const tailEn = phase === 3 ? ' — rounds: ' + rounds + ', data survived: ' + saved : '';
+      const ph = phase === 3 && lastFail ? PH_FAIL : PH[phase];
+      F.setReadout('<span class="zh">' + ph.zh + tailZh + '</span><span class="en">' + ph.en + tailEn + '</span>');
     }
     function play() {
       if (timer) return;
@@ -4468,8 +4630,8 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
       en: ['Winding loops = logicals', 'Loops circling the whole torus pass every check yet are no product of checks — they rewrite logical data. Two directions give Z̄₁, Z̄₂; duals give X̄₁, X̄₂; paired loops cross once ⇒ anticommute.'],
     },
     decoder: {
-      zh: ['译码 = 配对', '只见警报不见链：把警报两两配对、沿路径修复。错误⊕修复必闭合——可收缩则完美复原，缠绕则无声逻辑错误。'],
-      en: ['Decoding = matching', 'Alarms visible, chains not: pair the alarms and repair along paths. Error ⊕ repair is always closed — contractible = perfect recovery, winding = silent logical error.'],
+      zh: ['译码 = 配对', '只见警报不见链：把警报两两配对、沿路径修复。错误⊕修复必闭合——每个方向都缠绕偶数次（0 次也算）则完美复原，某个方向缠绕奇数次则是无声的逻辑错误；同方向的两圈互相抵消。'],
+      en: ['Decoding = matching', 'Alarms visible, chains not: pair the alarms and repair along paths. Error ⊕ repair is always closed — an even number of windings in each direction (0 included) = perfect recovery, an odd number in some direction = a silent logical error; two windings in the same direction cancel.'],
     },
     dL: {
       zh: ['环面码距 d = L', '最轻的逻辑算符是最短缠绕圈（长 L），对 X、Z 对称；压垮它需约 L/2 个错误连成线。'],
@@ -4489,8 +4651,8 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
       en: ['Spanning strings = logicals', 'A string dying on its own boundary at both ends: zero alarms, no product of checks (it crosses the other direction\'s spanning string once, so they anticommute).' + F('Z̄: rough→rough · X̄: smooth→smooth · X̄Z̄ = −Z̄X̄')],
     },
     cycle: {
-      zh: ['纠错循环', '每轮四拍：噪声 → 测全部检查 → 配对（可配边界）→ 修复；失败 ⇔ 错误⊕修复含横跨串。'],
-      en: ['The correction cycle', 'Four beats per round: noise → measure all checks → match (boundaries allowed) → repair; failure ⇔ error ⊕ repair contains a spanning string.'],
+      zh: ['纠错循环', '每轮四拍：噪声 → 测全部检查 → 配对（可配边界）→ 修复；失败 ⇔ 错误⊕修复和 X̄ 交叉奇数次，也就是横跨贴片的串有奇数条（两条互相抵消，偶数条无事）。'],
+      en: ['The correction cycle', 'Four beats per round: noise → measure all checks → match (boundaries allowed) → repair; failure ⇔ error ⊕ repair crosses X̄ an odd number of times, i.e. contains an odd number of spanning strings (two cancel, so an even number is harmless).'],
     },
     ancilla: {
       zh: ['辅助比特测量', '每条检查配一个帮手比特：与 4 个数据比特依次作用后单独被读出，给出 ±1；数据比特从未被直接测量。'],
@@ -4682,6 +4844,87 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
   TQ.BOOKTITLES = TQ.BOOKTITLES || {"toric":{"zh":"《从 1+1 到 Toric Code》","en":"“From 1+1 to the Toric Code”"},"surface":{"zh":"《从 Toric Code 到 Surface Code》","en":"“From Toric Code to Surface Code”"},"toricHs":{"zh":"《从高考数学到 Toric Code》","en":"“From High-School Math to the Toric Code”"},"surfaceHs":{"zh":"《Surface Code · 高中数学版》","en":"“The Surface Code · High-School Edition”"},"decodingHs":{"zh":"《译码器 · 高中数学版》","en":"“Decoders · High-School Edition”"},"surgeryHs":{"zh":"《格点手术 · 高中数学版》","en":"“Lattice Surgery · High-School Edition”"},"bbHs":{"zh":"《BB 码 · 高中数学版》","en":"“BB Codes · High-School Edition”"},"qldpcHs":{"zh":"《qLDPC 码 · 高中数学版》","en":"“qLDPC Codes · High-School Edition”"}};
 })(typeof window !== 'undefined' ? window : globalThis);
 
+</script>
+<script>
+  /* Page-local override of the shared 'logicaldraw' widget (planar loop builder). Changes: the verdict
+     checks BOTH syndrome components (Z part vs star checks, X part vs face checks) before calling the
+     drawn operator logical; demo, Clear and Reset buttons go through the segmented control's own
+     click handler, so the highlighted mode always matches where clicks go; the frame names the fixed
+     L = 5, n = 41 patch and shows the witness weight u and the bound d <= u. */
+  (function () {
+    const U = () => TQ.ui, P = () => TQ.pauli, LAT = () => TQ.lattice;
+    function wWitness(el) {
+      let view = null, seg = null, mode = 'Z';
+      const F = U().frame(el, {
+        titleZh: '示意性的逻辑见证：在 L = 5（n = 41）的贴片上画一条串',
+        titleEn: 'An illustrative logical witness: draw a string on the L = 5 (n = 41) patch',
+        onReset: () => clearAll(),
+      });
+      const lat = LAT().buildPlanar(5);
+      const wrap = document.createElement('div');
+      wrap.className = 'canvas-wrap';
+      F.body.appendChild(wrap);
+      view = new TQ.LatticeView(wrap, lat, {
+        clickables: 'edges', showStars: 'defects', showPlaqs: 'defects',
+        height: (w) => Math.min(w, 440),
+        onEdgeClick(id) {
+          const set = mode === 'Z' ? view.errZ : view.errX;
+          if (set.has(id)) set.delete(id); else set.add(id);
+          upd();
+        },
+      });
+      el.__view = view;
+      seg = U().seg(
+        [{ id: 'Z', zh: '画 Z 串', en: 'draw Z string', cls: 'segz' }, { id: 'X', zh: '画 X 串', en: 'draw X string', cls: 'segx' }],
+        'Z', (v) => { mode = v; upd(); }
+      );
+      const selectZ = () => seg.el.querySelector('button').click();   /* same handler as a user click */
+      function clearAll() { view.errZ = new Set(); view.errX = new Set(); selectZ(); }
+      F.controls.append(seg.el,
+        U().btn('示范：平凡圈', 'Demo: trivial loop', '', () => {
+          view.errX = new Set();
+          view.errZ = new Set(P().xorSet(lat.plaqs[0].support, lat.plaqs[1].support));
+          selectZ();
+        }),
+        U().btn('示范：跨边界串', 'Demo: boundary-to-boundary', '', () => {
+          view.errX = new Set();
+          view.errZ = new Set(lat.logicals.Z[0]);
+          selectZ();
+        }),
+        U().btn('清空', 'Clear', '', () => clearAll())
+      );
+      function upd() {
+        view.draw();
+        const syn = view.syndrome();
+        const zSup = [...view.errZ], xSup = [...view.errX];
+        const nStar = syn.starDefects.length, nFace = syn.plaqDefects.length;
+        const u = new Set(zSup.concat(xSup)).size;
+        const modeZh = mode === 'Z' ? '（当前在画 Z）' : '（当前在画 X）', modeEn = mode === 'Z' ? ' (now drawing Z)' : ' (now drawing X)';
+        let zh, en;
+        if (!u) {
+          zh = '画几条边试试' + modeZh + '。目标：Z 部分和 X 部分都不触发任何警报，而且不是检查的乘积。';
+          en = 'Draw some edges' + modeEn + '. Goal: neither the Z part nor the X part trips an alarm, and the result is not a product of checks.';
+        } else if (nStar + nFace > 0) {
+          zh = '还有警报亮着：Z 部分触发 <b>' + nStar + '</b> 个星警报，X 部分触发 <b>' + nFace + '</b> 个面警报' + modeZh + '。有端点的串不是见证；把两部分都闭合，或让端点落到正确的边界上。';
+          en = 'Alarms still lit: the Z part trips <b>' + nStar + '</b> star alarms, the X part <b>' + nFace + '</b> face alarms' + modeEn + '. A string with endpoints is no witness; close both parts up or land their ends on the right boundaries.';
+        } else {
+          const zl = P().overlapParity(zSup, lat.logicals.X[0]) === 1;   /* Z part crosses X̄ an odd number of times */
+          const xl = P().overlapParity(xSup, lat.logicals.Z[0]) === 1;
+          if (!zl && !xl) {
+            zh = '<span class="ok">警报全灭</span>，但这是检查的乘积（平凡圈），对编码信息什么也不做，<b>不是</b>见证。重量 ' + u + ' 什么也说明不了。';
+            en = '<span class="ok">No alarms</span>, but this is a product of checks (a trivial loop): it does nothing to the stored information and is <b>not</b> a witness. Its weight ' + u + ' proves nothing.';
+          } else {
+            const which = zl && xl ? 'Ȳ（= iX̄Z̄）' : zl ? 'Z̄' : 'X̄';
+            zh = '<span class="no">警报全灭，而且不是检查的乘积：</span>这是逻辑算符 ' + which + '，一个见证。重量 <b>u = ' + u + '</b>，所以 <b>d ≤ ' + u + '</b>（这块贴片的码距 d = 5，最短的见证重量正好是 5）。';
+            en = '<span class="no">No alarms, and not a product of checks:</span> this is the logical operator ' + which + ', a witness. Weight <b>u = ' + u + '</b>, hence <b>d ≤ ' + u + '</b> (this patch has distance d = 5; the lightest witnesses weigh exactly 5).';
+          }
+        }
+        F.setReadout('<span class="zh">' + zh + '</span><span class="en">' + en + '</span>');
+      }
+      upd();
+    }
+    U().reg('logicaldraw', wWitness);
+  })();
 </script>
 </body>
 </html>

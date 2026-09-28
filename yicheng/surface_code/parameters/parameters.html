@@ -876,6 +876,13 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
 .formula .sym { border-bottom-color: color-mix(in srgb, var(--ink3) 55%, transparent); }
 .refpop .rp-sec.rp-symchar { font-size: 17px; color: var(--ink); font-weight: 600; }
 
+
+/* ---------- catch-up ("补课") fold-outs: remedial explanations opened on demand ---------- */
+details.fold.basics { border-color: color-mix(in srgb, var(--cx) 55%, transparent); }
+details.fold.basics summary { color: var(--cx-ink); }
+details.fold.basics .fold-body h5 { font-family: var(--f-body); font-size: 14.5px; font-weight: 600; color: var(--ink); margin: 1.3em 0 0.4em; }
+details.fold.basics .fold-body > .formula { margin: 1em 0; }
+details.fold.basics .fold-body > .table-wrap { margin: 0.9em 0; }
 </style>
 </head>
 <body>
@@ -948,8 +955,10 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
 
   <h3 id="s1-1"><span class="sec-no">1.1</span><span class="zh">[[n, k, d]]：一个码的名片</span><span class="en">[[n, k, d]]: a code's calling card</span></h3>
   <div class="prose">
-    <p class="zh">量子纠错码的通用名片是<span class="term">[[n, k, d]]<span class="tip">双方括号是量子码的记法（单方括号 [n,k,d] 留给经典码）：n 个物理量子比特，编码 k 个逻辑量子比特，码距 d。</span></span>：<b>n</b> 个物理量子比特，一起保护 <b>k</b> 个逻辑量子比特（n、k 的记账规则见 <a href="../../toric_code/intuition/intuition.html#s5-3">Toric Code 直觉教程的「记账」一节</a>）；<b>d</b> 是<span class="term">码距<span class="tip">能通过全部检查、却改写逻辑信息的最轻算符（逻辑算符）的重量，即它触碰的量子比特数。</span></span>——能不触发任何警报却改写逻辑信息的最轻算符所触碰的比特数（码距首次定义于 <a href="../../toric_code/intuition/intuition.html#s4-6">Toric Code 直觉教程「它的致命弱点」一节</a>）。在直觉教程里你已经数过这三个数：<a href="../intuition/intuition.html#ch2">账本给出 k = 1</a>，<a href="../intuition/intuition.html#s3-2">最短的横跨串给出 d</a>。</p>
-    <p class="en">The universal calling card of a quantum code is <span class="term">[[n, k, d]]<span class="tip">Double brackets denote a quantum code (single brackets [n,k,d] are reserved for classical codes): n physical qubits encoding k logical qubits with distance d.</span></span>: <b>n</b> physical qubits jointly protecting <b>k</b> logical qubits, with <b>d</b> the <span class="term">distance<span class="tip">The weight, i.e. the number of qubits touched, of the lightest operator that passes every check yet rewrites the logical information (a logical operator).</span></span>: the number of qubits touched by the lightest operator that trips no alarm yet rewrites logical data (the n, k bookkeeping rule is in <a href="../../toric_code/intuition/intuition.html#s5-3">the toric guide's “ledger” section</a>; distance was first defined in <a href="../../toric_code/intuition/intuition.html#s4-6">its “fatal flaw” section</a>). You have counted all three in the intuition guide: <a href="../intuition/intuition.html#ch2">the ledger gave k = 1</a>, and <a href="../intuition/intuition.html#s3-2">the shortest spanning string gave d</a>.</p>
+    <p class="zh">量子纠错码的通用名片是<span class="term">[[n, k, d]]<span class="tip">双方括号是量子码的记法（单方括号 [n,k,d] 留给经典码）：n 个物理量子比特，编码 k 个逻辑量子比特，码距 d。</span></span>：<b>n</b> 个物理量子比特，一起保护 <b>k</b> 个逻辑量子比特（n、k 的记账规则见 <a href="../../toric_code/intuition/intuition.html#s5-3">Toric Code 直觉教程的「记账」一节</a>）；<b>d</b> 是<span class="term">码距<span class="tip">能通过全部检查、却改写逻辑信息的最轻算符（逻辑算符）的重量，即它触碰的量子比特数。</span></span>，即一个不触发任何警报、却改写了逻辑信息的算符最少要碰几个比特（码距首次定义于 <a href="../../toric_code/intuition/intuition.html#s4-6">Toric Code 直觉教程「它的致命弱点」一节</a>）。这样的算符叫<b>逻辑算符</b>；它碰到的比特数叫它的<b>重量</b>。在直觉教程里你已经数过这三个数：<a href="../intuition/intuition.html#ch2">账本给出 k = 1</a>，<a href="../intuition/intuition.html#s3-2">最短的横跨串给出 d</a>。</p>
+    <p class="en">The universal calling card of a quantum code is <span class="term">[[n, k, d]]<span class="tip">Double brackets denote a quantum code (single brackets [n,k,d] are reserved for classical codes): n physical qubits encoding k logical qubits with distance d.</span></span>: <b>n</b> physical qubits jointly protecting <b>k</b> logical qubits (the n, k bookkeeping rule is in <a href="../../toric_code/intuition/intuition.html#s5-3">the toric guide's “ledger” section</a>), and <b>d</b> the <span class="term">distance<span class="tip">The weight, i.e. the number of qubits touched, of the lightest operator that passes every check yet rewrites the logical information (a logical operator).</span></span>: the smallest number of qubits that an operator must touch in order to trip no alarm and still rewrite the logical information (distance was first defined in <a href="../../toric_code/intuition/intuition.html#s4-6">its “fatal flaw” section</a>). Such an operator is a <b>logical operator</b>; the number of qubits it touches is its <b>weight</b>. You have counted all three in the intuition guide: <a href="../intuition/intuition.html#ch2">the ledger gave k = 1</a>, and <a href="../intuition/intuition.html#s3-2">the shortest spanning string gave d</a>.</p>
+    <p class="zh">本篇反复出现的 <b>Atlas</b>（QEC Atlas）是本系列所属的量子纠错码数据库。它为每个码建一个条目；条目里有一段生成检查矩阵的程序（叫<b>构造器</b>），一份实例清单，清单上的每个数字都附一个说明来源的词；另有一个<b>验证器</b>程序，重新运行构造器、重新计算这些数字，与清单比对。第 3 章会细看这套记账。</p>
+    <p class="en">The <b>Atlas</b> (QEC Atlas) that keeps appearing on this page is the database of quantum error-correcting codes this series belongs to. Each code gets an entry; the entry holds a program that generates the check matrices (the <b>constructor</b>) and a list of instances in which every number carries a word saying where it comes from; a separate program, the <b>verifier</b>, reruns the constructor, recomputes those numbers and compares them with the list. Chapter 3 looks at this bookkeeping closely.</p>
   </div>
 
   <h3 id="s1-2"><span class="sec-no">1.2</span><span class="zh">家族变量 L，实例 L3、L4、L5</span><span class="en">The family variable L; instances L3, L4, L5</span></h3>
@@ -962,8 +971,8 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
 
   <h3 id="s1-3"><span class="sec-no">1.3</span><span class="zh">范围：构造器只做「未旋转的平面版图」</span><span class="en">Scope: the constructor builds only the unrotated planar patch</span></h3>
   <div class="prose">
-    <p class="zh">必须说清一次：Atlas 的构造器 <span class="mono">atlas/surface/constructor.py</span> 生成的是<b>未旋转的平面</b>表面码，即直觉教程里那块<a href="../intuition/intuition.html#ch2">左右毛边、上下光边的版图</a>；Atlas 给它的正式身份是 <span class="mono">atlas-entity:surface#subject</span>。文献里同样叫「表面码」的旋转版、XZZX 版、带扭缺陷的版本、三维版……都<b>不在</b>本篇的参数和实例表里。第 4 章会拿旋转版做一次比较，但那是引用文献的数字，不是构造器算出来的。</p>
-    <p class="en">This must be said once, plainly: the Atlas constructor <span class="mono">atlas/surface/constructor.py</span> builds the <b>unrotated planar</b> surface code, the very patch with <a href="../intuition/intuition.html#ch2">rough left/right and smooth top/bottom boundaries</a> from the intuition guide; its formal Atlas identity is <span class="mono">atlas-entity:surface#subject</span>. The rotated, XZZX, twist-defect and three-dimensional variants that the literature also calls “surface codes” are <b>not</b> in this guide's parameter and instance tables. Chapter 4 will compare against the rotated patch once, but those are literature numbers, not constructor output.</p>
+    <p class="zh">必须说清一次：Atlas 的构造器（程序文件 <span class="mono">atlas/surface/constructor.py</span>）生成的是<b>未旋转的平面</b>表面码，即直觉教程里那块<a href="../intuition/intuition.html#ch2">左右毛边、上下光边的版图</a>，检查方块的边与芯片的边平行；Atlas 内部给这个对象的编号是 <span class="mono">atlas-entity:surface#subject</span>。文献里同样叫「表面码」的还有好几种别的码：把版图斜着转 45° 裁出来、更省比特的<b>旋转版</b>（第 4.2 节画出它）；每条检查混用 X 和 Z 的 <b>XZZX 版</b>；在格子里引入错位（twist，错位处的检查混用 X 和 Z）的<b>扭缺陷版</b>；以及三维版。它们都<b>不在</b>本篇的参数和实例表里。第 4 章会拿旋转版做一次比较，但那是引用文献的数字，不是构造器算出来的。</p>
+    <p class="en">This must be said once, plainly: the Atlas constructor (the program file <span class="mono">atlas/surface/constructor.py</span>) builds the <b>unrotated planar</b> surface code, the very patch with <a href="../intuition/intuition.html#ch2">rough left/right and smooth top/bottom boundaries</a> from the intuition guide, whose check squares are aligned with the edges of the chip; the Atlas's internal identifier for this object is <span class="mono">atlas-entity:surface#subject</span>. The literature uses the name “surface code” for several other codes too: the <b>rotated</b> patch, cut out at 45° and cheaper in qubits (drawn in §4.2); the <b>XZZX</b> variant, whose every check mixes X and Z; <b>twist-defect</b> versions, which introduce a dislocation (a twist, where the checks mix X and Z) into the lattice; and three-dimensional versions. None of them is in this guide's parameter and instance tables. Chapter 4 will compare against the rotated patch once, but those are literature numbers, not constructor output.</p>
   </div>
   <div class="note note-key">
     <span class="note-tag"><span class="zh">关键想法</span><span class="en">Key idea</span></span>
@@ -988,16 +997,41 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
 
   <h3 id="s2-1"><span class="sec-no">2.1</span><span class="zh">n = L² + (L−1)²：两块比特</span><span class="en">n = L² + (L−1)²: two blocks of qubits</span></h3>
   <div class="prose">
-    <p class="zh">构造器不是画图再数点，而是把两份长度 L 的<span class="term">重复码校验矩阵 H<span class="tip">rep_parity(L)：一个 (L−1)×L 的 0/1 矩阵，每行是「相邻两位 1 1」。它描述经典重复码「相邻比特必须相等」的 L−1 条检查。</span></span>做一次<span class="term">超图乘积<span class="tip">HGP（hypergraph product）：由两个经典校验矩阵 H₁、H₂ 生成一个 CSS 量子码的通用配方。量子比特分两块（bit×bit 与 check×check），检查矩阵用张量积 ⊗ 拼出。</span></span> HGP(rep_L, rep_L)。乘积把量子比特分成两块：bit×bit 块有 L·L = L² 个，check×check 块有 (L−1)·(L−1) = (L−1)² 个。在版图上，前者就是偶数坐标的「顶点比特」，后者是奇数坐标的「面比特」——恰是直觉教程里 d 排悬边与 d−1 列内部边的那两组。</p>
-    <p class="en">The constructor does not draw a picture and count dots. It takes two copies of the length-L <span class="term">repetition-code check matrix H<span class="tip">rep_parity(L): an (L−1)×L binary matrix whose rows read “adjacent pair 1 1”. It encodes the L−1 checks “neighbouring bits must agree” of the classical repetition code.</span></span> and forms their <span class="term">hypergraph product<span class="tip">HGP: the general recipe that turns two classical check matrices H₁, H₂ into a CSS quantum code. Qubits come in two blocks (bit×bit and check×check); the check matrices are assembled from tensor products ⊗.</span></span> HGP(rep_L, rep_L). The product sorts the qubits into two blocks: the bit×bit block holds L·L = L² of them, the check×check block (L−1)·(L−1) = (L−1)². On the patch these are the “vertex qubits” at even coordinates and the “face qubits” at odd coordinates, exactly the two groups (d rows of danglers, d−1 columns of interior edges) of the intuition guide.</p>
+    <p class="zh">构造器不是画图再数点。它从一个经典码出发：长度 L 的<b>重复码</b>。把 L 个比特排成一行，每两个相邻比特之间放一条检查「这两位相等吗」，一共 L − 1 条检查。于是链上比特和检查交替出现：比特 0、检查 0、比特 1、检查 1、……、比特 L−1，每条检查碰它左右两个比特。写成矩阵就是<span class="term">重复码校验矩阵 H<span class="tip">rep_parity(L)：一个 (L−1)×L 的 0/1 矩阵，行是检查、列是比特，每行是「相邻两位 1 1」。它描述经典重复码「相邻比特必须相等」的 L−1 条检查。</span></span>：行是检查，列是比特，L = 3 时 H 的两行是 (1, 1, 0) 和 (0, 1, 1)。</p>
+    <p class="en">The constructor does not draw a picture and count dots. It starts from a classical code: the <b>repetition code</b> of length L. Put L bits in a row and place a check “are these two equal?” between every pair of neighbours, L − 1 checks in all. Along the chain, bits and checks alternate: bit 0, check 0, bit 1, check 1, …, bit L−1, and each check touches the bit on its left and the bit on its right. As a matrix this is the <span class="term">repetition-code check matrix H<span class="tip">rep_parity(L): an (L−1)×L binary matrix, rows = checks, columns = bits, each row reading “adjacent pair 1 1”. It encodes the L−1 checks “neighbouring bits must agree” of the classical repetition code.</span></span>: rows are checks, columns are bits; for L = 3 its two rows are (1, 1, 0) and (0, 1, 1).</p>
+    <p class="zh">构造器把两条这样的链「相乘」，这一步叫<span class="term">超图乘积<span class="tip">HGP（hypergraph product，Tillich 与 Zémor 2009）：把两个经典码「相乘」得到一个 CSS 量子码的通用配方。两条链的成员两两配对，（比特, 比特）与（检查, 检查）成为量子比特，（检查, 比特）成为 X 检查，（比特, 检查）成为 Z 检查。</span></span>（记作 HGP(rep_L, rep_L)）。它造出的是一个 <span class="term">CSS 码<span class="tip">Calderbank–Shor–Steane 码：检查分成两族，一族每条只由 X 组成，另一族每条只由 Z 组成；没有一条检查混用 X 和 Z。</span></span>：检查分成两族，一族每条只放 X（X 检查），另一族每条只放 Z（Z 检查），没有一条检查混用两种字母；名字取自 Calderbank、Shor、Steane 三人。先看它做了什么：链 A 横放在顶上，链 B 竖放在左边，铺出一张棋盘，棋盘的每个格子是一对（A 的一个成员, B 的一个成员）。成员只有「比特」和「检查」两种，所以格子只有四种：</p>
+    <p class="en">The constructor “multiplies” two such chains; the operation is called the <span class="term">hypergraph product<span class="tip">HGP (hypergraph product, Tillich and Zémor 2009): the general recipe that multiplies two classical codes into a CSS quantum code. Members of the two chains are paired up: (bit, bit) and (check, check) become qubits, (check, bit) becomes an X check, (bit, check) a Z check.</span></span> (written HGP(rep_L, rep_L)). What it builds is a <span class="term">CSS code<span class="tip">Calderbank–Shor–Steane code: the checks come in two families, each check of one family made of X only, each check of the other made of Z only; no check mixes X and Z.</span></span>: the checks come in two families, one whose checks contain only X (the X checks) and one whose checks contain only Z (the Z checks), and no check mixes the two letters; the name comes from Calderbank, Shor and Steane. First what it does: lay chain A across the top and chain B down the left side to span a board; each cell of the board is one pair (a member of A, a member of B). A member is either a bit or a check, so there are only four kinds of cell:</p>
+  </div>
+  <div class="table-wrap"><table class="glossary">
+    <tr><th><span class="zh">格子 =（A 的成员, B 的成员）</span><span class="en">cell = (member of A, member of B)</span></th><th><span class="zh">变成什么</span><span class="en">becomes</span></th><th><span class="zh">个数</span><span class="en">how many</span></th><th><span class="zh">在直觉教程的图里</span><span class="en">in the intuition guide's picture</span></th></tr>
+    <tr><td><span class="zh">（比特, 比特）</span><span class="en">(bit, bit)</span></td><td><span class="zh">量子比特</span><span class="en">qubit</span></td><td>L × L = L²</td><td><span class="zh">横边（含两侧悬边）</span><span class="en">horizontal edge (including the danglers)</span></td></tr>
+    <tr><td><span class="zh">（检查, 检查）</span><span class="en">(check, check)</span></td><td><span class="zh">量子比特</span><span class="en">qubit</span></td><td>(L−1) × (L−1) = (L−1)²</td><td><span class="zh">竖边</span><span class="en">vertical edge</span></td></tr>
+    <tr><td><span class="zh">（检查, 比特）</span><span class="en">(check, bit)</span></td><td><span class="zh">X 检查</span><span class="en">X check</span></td><td>(L−1) × L</td><td><span class="zh">星（顶点）</span><span class="en">star (vertex)</span></td></tr>
+    <tr><td><span class="zh">（比特, 检查）</span><span class="en">(bit, check)</span></td><td><span class="zh">Z 检查</span><span class="en">Z check</span></td><td>L × (L−1)</td><td><span class="zh">面</span><span class="en">plaquette</span></td></tr>
+  </table></div>
+  <div class="prose">
+    <p class="zh">谁碰谁只有一条规则：<b>一条检查碰它上下左右紧挨着的四个格子</b>（贴着棋盘边缘的检查少一个邻居）。横着走一格，就是在链 A 上从一个检查走到它碰的比特；竖着走一格，就是在链 B 上走同样的一步。把棋盘画出来，你会认出直觉教程的版图：星的左右是横边、上下是竖边，所以星是 XXXX；最上、最下一行的星没有上或下的邻居，只剩三条腿，那就是光边界。面的上下是横边、左右是竖边；最左、最右一列的横边外侧没有检查格，就是毛边界的悬边。下面一步一步拼这张棋盘，点任意一格可以看它是哪一对、碰哪几个比特。</p>
+    <p class="en">Who touches whom follows one rule: <b>a check touches the four cells directly above, below, left and right of it</b> (a check on the rim of the board has one neighbour fewer). One step across is a step along chain A from a check to a bit it touches; one step down is the same move along chain B. Draw the board and you recognise the intuition guide's patch: a star has horizontal edges on its left and right and vertical edges above and below, so a star is XXXX; stars in the top and bottom rows have no neighbour above or below and keep only three legs, which is the smooth boundary. A plaquette has horizontal edges above and below and vertical edges left and right; the horizontal edges in the leftmost and rightmost columns have no check cell beyond them, and these are the dangling edges of the rough boundary. Build the board step by step below; click any cell to see which pair it is and which qubits it touches.</p>
+  </div>
+  <div data-widget="hgpgrid" data-step="0"></div>
+  <div class="prose">
+    <p class="zh">这张棋盘把三件事一次数清。量子比特是两块之和，检查是另外两块之和，对任何 L 都成立：</p>
+    <p class="en">The board settles the counting in one go. The qubits are the sum of two blocks and the checks the sum of the other two, for every L:</p>
   </div>
   <div class="formula center">n = L² + (L−1)² = 2L² − 2L + 1　·　L=3: 9+4 = 13　·　L=4: 16+9 = 25　·　L=5: 25+16 = 41</div>
   <p class="muted small"><span class="zh">n = 物理比特数，L = 家族变量；L² 与 (L−1)² 是两块比特的个数。</span><span class="en">n = physical qubits, L = family variable; L² and (L−1)² are the sizes of the two qubit blocks.</span></p>
+  <div class="formula center"><span class="zh">检查数</span><span class="en">checks</span> = (L−1)·L + L·(L−1) = 2L(L−1)　·　L=3: 6 + 6 = 12</div>
+  <div class="prose">
+    <p class="zh muted small">给读 Atlas 源文件的人：构造器把（比特, 比特）比特 (a, b) 存在坐标 (2b, 2a)，把（检查, 检查）比特存在奇数坐标，并把两块分别叫「顶点比特」和「面比特」。那是另一种画法里的叫法（比特画在顶点和面心上），坐标则是这张棋盘把行列对调的样子；本页一律叫横边比特和竖边比特，免得和「星 = 顶点」混淆。</p>
+    <p class="en muted small">For readers of the Atlas source: the constructor stores (bit, bit) qubit (a, b) at coordinate (2b, 2a) and the (check, check) qubits at odd coordinates, and calls the two blocks “vertex qubits” and “face qubits”. Those names come from another drawing (qubits on vertices and face centres), and the coordinates are this board with rows and columns swapped; this page says horizontal-edge and vertical-edge qubits throughout, so that nothing clashes with “star = vertex”.</p>
+  </div>
 
   <h3 id="s2-2"><span class="sec-no">2.2</span><span class="zh">k = 1：两块检查矩阵的秩都是 L(L−1)</span><span class="en">k = 1: both check matrices have rank L(L−1)</span></h3>
   <div class="prose">
-    <p class="zh">X 检查和 Z 检查各有 L(L−1) 条，两族合计 2L(L−1)。直觉教程用「平面上没有白送的恒等式」说明它们全部独立；Atlas 用线性代数说同一句话：<span class="term">秩<span class="tip">rank：一个 0/1 矩阵里真正独立的行数（模 2 意义下）。rank = 行数 就是「没有一条检查是其他检查的乘积」。</span></span> rank(H<sub>X</sub>) = rank(H<sub>Z</sub>) = L(L−1)，等于行数，所以没有任何一条检查是其余检查的乘积。稳定子计数法（<span class="ref" data-ref="stabilizer">n − 独立检查数</span>）于是给出：</p>
-    <p class="en">There are L(L−1) X-checks and L(L−1) Z-checks, 2L(L−1) in all. The intuition guide argued that “a plane has no free identities”, so all of them are independent; the Atlas says the same in linear algebra: the <span class="term">rank<span class="tip">The number of genuinely independent rows of a binary matrix (mod 2). rank = number of rows means “no check is a product of the others”.</span></span> rank(H<sub>X</sub>) = rank(H<sub>Z</sub>) = L(L−1), equal to the row count, so no check is a product of the rest. The stabilizer count (<span class="ref" data-ref="stabilizer">n minus independent checks</span>) then gives:</p>
+    <p class="zh">X 检查和 Z 检查各有 L(L−1) 条，两族合计 2L(L−1)。CSS 码的两族检查各写成一个 0/1 矩阵：H<sub>X</sub> 每行是一条 X 检查，H<sub>Z</sub> 每行是一条 Z 检查，两者的每一列都是同一个比特，1 表示「这条检查碰这个比特」。要用「n − 独立检查数」记账（<span class="ref" data-ref="stabilizer">稳定子计数法</span>），还得确认它们<b>全部独立</b>：没有哪一组检查乘起来等于 I，也就没有哪条检查是别的检查的乘积。线性代数里「独立的行有几条」叫<span class="term">秩<span class="tip">rank：一个 0/1 矩阵里线性独立的行数（模 2）。rank = 行数，就是「没有一组行加起来（模 2）等于 0」，即没有一条检查是其他检查的乘积。</span></span>，所以要证的是 rank(H<sub>X</sub>) = rank(H<sub>Z</sub>) = L(L−1)。直觉教程说明了<a href="../intuition/intuition.html#ch2">全部星的乘积不是 I</a>；这里需要更强的结论：<b>任何一组（至少一颗）星乘起来都不是 I</b>。论证只用每行最左边那条悬边。</p>
+    <p class="en">There are L(L−1) X checks and L(L−1) Z checks, 2L(L−1) in all. Each family of a CSS code is written as one binary matrix: each row of H<sub>X</sub> is an X check, each row of H<sub>Z</sub> a Z check, every column of both is the same qubit, and a 1 means “this check touches this qubit”. To use the ledger “n minus independent checks” (the <span class="ref" data-ref="stabilizer">stabilizer count</span>) we must also know that they are <b>all independent</b>: no group of checks multiplies to I, so no check is a product of others. In linear algebra the number of independent rows is the <span class="term">rank<span class="tip">The number of linearly independent rows of a binary matrix (mod 2). rank = number of rows means that no group of rows adds up (mod 2) to 0, i.e. no check is a product of the others.</span></span>, so the claim is rank(H<sub>X</sub>) = rank(H<sub>Z</sub>) = L(L−1). The intuition guide showed that <a href="../intuition/intuition.html#ch2">the product of all stars is not I</a>; here we need more: <b>no group of stars (one or more) multiplies to I</b>. The argument uses only the dangling edge at the left end of each row.</p>
+    <p class="zh">假设有一组星的乘积是 I。只看第 b 行的横边：碰得到它们的只有第 b 行的星，而第 c 颗星碰这一行的第 c 条和第 c+1 条横边（从 0 数起）。最左的悬边（第 0 条）只被第 0 颗星碰到，所以第 0 颗星不在组里，否则悬边上会剩一个 X。第 0 颗不在，第 1 条横边就只剩第 1 颗星能碰到，于是第 1 颗也不在；这样一颗一颗剥到行尾。每一行都剥完，组里一颗星也不剩，与「至少一颗」矛盾。所以 L(L−1) 颗星全部独立。面的论证一样，只是从每一列最上面那条横边往下剥：它只被正下方的那块面碰到。</p>
+    <p class="en">Suppose some group of stars multiplies to I. Look only at the horizontal edges of row b: only stars of row b touch them, and star number c touches edges c and c+1 of the row (counting from 0). The leftmost, dangling edge (edge 0) is touched by star 0 alone, so star 0 is not in the group, or an X would be left on the dangler. With star 0 out, edge 1 can only be touched by star 1, so star 1 is out too; peel star after star to the end of the row. Once every row is peeled no star is left, contradicting “one or more”. So all L(L−1) stars are independent. The plaquettes work the same way, peeling downward from the top horizontal edge of each column, which is touched only by the plaquette directly below it.</p>
   </div>
   <div class="formula center tall">k = n − rank(H<sub>X</sub>) − rank(H<sub>Z</sub>)<br>= L² + (L−1)² − 2L(L−1) = (L − (L−1))² = <b>1</b></div>
   <p class="muted small"><span class="zh">k = 逻辑比特数，n = 物理比特数，H<sub>X</sub>/H<sub>Z</sub> = X/Z 检查矩阵，rank = 秩（独立检查数），L = 家族变量。</span><span class="en">k = logical qubits, n = physical qubits, H<sub>X</sub>/H<sub>Z</sub> = the X/Z check matrices, rank = number of independent checks, L = family variable.</span></p>
@@ -1007,26 +1041,82 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
   </div>
   <div data-widget="planarcount"></div>
   <details class="fold">
-    <summary><span class="zh">秩为什么恰好是 L(L−1)？（HGP 的秩恒等式）</span><span class="en">Why exactly L(L−1)? (the HGP rank identity)</span></summary>
+    <summary><span class="zh">L = 2 手算一遍；以及 Atlas 程序里的矩阵写法与环面的对照</span><span class="en">L = 2 by hand; the matrix form in the Atlas code; the contrast with the torus</span></summary>
     <div class="fold-body">
-      <p class="zh">经典因子 H 是 (L−1)×L 矩阵，行独立，rank(H) = L−1。超图乘积的秩恒等式给 rank(H<sub>X</sub>) = rank(H)·L + (L−1)·rank(H) − rank(H)² = (L−1)L + (L−1)² − (L−1)² = L(L−1)，H<sub>Z</sub> 同理。等价地，HGP 的维数公式 k = k₁k₂ + k₁<sup>T</sup>k₂<sup>T</sup> = 1·1 + 0·0 = 1：重复码存 1 个比特，其转置码存 0 个。若把两条开链各自首尾相接成环，转置维数变为 1，公式给 1·1 + 1·1 = 2——那就是环面码的 <a href="../../toric_code/intuition/intuition.html#s5-3">k = 2</a>。Atlas 的 <span class="mono">pedagogy/hgp-construction.md</span> 写出了这一整段。</p>
-      <p class="en">The classical factor H is an (L−1)×L matrix with independent rows, rank(H) = L−1. The hypergraph-product rank identity gives rank(H<sub>X</sub>) = rank(H)·L + (L−1)·rank(H) − rank(H)² = (L−1)L + (L−1)² − (L−1)² = L(L−1), and likewise for H<sub>Z</sub>. Equivalently, the HGP dimension formula k = k₁k₂ + k₁<sup>T</sup>k₂<sup>T</sup> = 1·1 + 0·0 = 1: the repetition code stores one bit, its transpose code none. Close each open chain into a ring and the transpose dimension becomes 1, so the formula gives 1·1 + 1·1 = 2: the toric code's <a href="../../toric_code/intuition/intuition.html#s5-3">k = 2</a>. The Atlas page <span class="mono">pedagogy/hgp-construction.md</span> spells this out in full.</p>
+      <p class="zh">L = 2 的版图只有 5 个比特：上行两条横边 h<sub>00</sub>、h<sub>01</sub>，下行两条 h<sub>10</sub>、h<sub>11</sub>（下标 = 行, 位置），中间一条竖边 v。两颗星在两行，两块面在两列。检查矩阵每行是一条检查、每列是一个比特，1 表示「这条检查碰这个比特」：</p>
+      <p class="en">The L = 2 patch has just 5 qubits: two horizontal edges h<sub>00</sub>, h<sub>01</sub> in the top row, two, h<sub>10</sub>, h<sub>11</sub>, in the bottom row (subscripts = row, position), and one vertical edge v between them. The two stars sit in the two rows, the two plaquettes in the two columns. Each row of a check matrix is one check, each column one qubit, and a 1 means “this check touches this qubit”:</p>
+      <div class="table-wrap"><table class="glossary" style="font-variant-numeric:tabular-nums">
+        <tr><th></th><th>h<sub>00</sub></th><th>h<sub>01</sub></th><th>h<sub>10</sub></th><th>h<sub>11</sub></th><th>v</th></tr>
+        <tr><td><span class="zh">H<sub>X</sub> · 上行的星</span><span class="en">H<sub>X</sub> · top-row star</span></td><td>1</td><td>1</td><td>0</td><td>0</td><td>1</td></tr>
+        <tr><td><span class="zh">H<sub>X</sub> · 下行的星</span><span class="en">H<sub>X</sub> · bottom-row star</span></td><td>0</td><td>0</td><td>1</td><td>1</td><td>1</td></tr>
+        <tr><td><span class="zh">H<sub>Z</sub> · 左列的面</span><span class="en">H<sub>Z</sub> · left plaquette</span></td><td>1</td><td>0</td><td>1</td><td>0</td><td>1</td></tr>
+        <tr><td><span class="zh">H<sub>Z</sub> · 右列的面</span><span class="en">H<sub>Z</sub> · right plaquette</span></td><td>0</td><td>1</td><td>0</td><td>1</td><td>1</td></tr>
+      </table></div>
+      <p class="zh">两行 H<sub>X</sub> 都不是全 0，相加得 (1, 1, 1, 1, 0) 也不是全 0，所以 rank(H<sub>X</sub>) = 2；H<sub>Z</sub> 同理为 2。k = 5 − 2 − 2 = 1。顺手核对对易：上行的星与左列的面共享 h<sub>00</sub> 和 v 两个比特，偶数，对易；其余三对也各共享两个。这四行与构造器对 L = 2 实际输出的矩阵逐位相同（换成它的比特编号后）。</p>
+      <p class="en">Neither row of H<sub>X</sub> is all zero and their sum (1, 1, 1, 1, 0) is not all zero either, so rank(H<sub>X</sub>) = 2; likewise rank(H<sub>Z</sub>) = 2. k = 5 − 2 − 2 = 1. Check commutation while you are here: the top-row star and the left plaquette share h<sub>00</sub> and v, two qubits, an even number, so they commute; each of the other three pairs also shares two. These four rows agree entry by entry with the matrices the constructor actually outputs for L = 2 (after translating to its qubit numbering).</p>
+      <p class="zh">Atlas 的程序（<span class="mono">qeclib/constructions.py</span> 里的 <span class="mono">hgp</span>）把整张棋盘压成两行：H<sub>X</sub> = [H ⊗ I<sub>L</sub> | I<sub>L−1</sub> ⊗ Hᵀ]，H<sub>Z</sub> = [I<sub>L</sub> ⊗ H | Hᵀ ⊗ I<sub>L−1</sub>]。竖线左边的列是横边比特，右边的列是竖边比特。式子里有三样工具，先各说一句：</p>
+      <p class="en">The Atlas code (<span class="mono">hgp</span> in <span class="mono">qeclib/constructions.py</span>) compresses the whole board into two lines: H<sub>X</sub> = [H ⊗ I<sub>L</sub> | I<sub>L−1</sub> ⊗ Hᵀ], H<sub>Z</sub> = [I<sub>L</sub> ⊗ H | Hᵀ ⊗ I<sub>L−1</sub>]. Columns left of the bar are horizontal-edge qubits, columns right of it vertical-edge qubits. The formula uses three tools; one sentence on each first:</p>
+      <ul class="zh">
+        <li><b>Hᵀ</b> 是 H 的转置：行和列对调。H 的行是检查、列是比特，Hᵀ 反过来，第 i 行读作「比特 i 被哪些检查碰到」。L = 3 时 H 的两行是 (1, 1, 0)、(0, 1, 1)，Hᵀ 的三行是 (1, 0)、(1, 1)、(0, 1)：比特 0 只被检查 0 碰，比特 1 被两条都碰，比特 2 只被检查 1 碰。</li>
+        <li><b>I<sub>m</sub></b> 是 m×m 单位矩阵：对角线上是 1，其余是 0。第 i 行第 j 列为 1 当且仅当 i = j，在这里读作「待在同一行（或同一列），不挪动」。I<sub>1</sub> 就是一个数 1。</li>
+        <li><b><span class="sym" data-sym="otimes">⊗</span></b> 是克罗内克积：把前一个矩阵的每个元素换成「这个元素乘以后一个矩阵」。前一个矩阵管「沿链 A 横着走」，后一个管「沿链 B 竖着走」。</li>
+      </ul>
+      <ul class="en">
+        <li><b>Hᵀ</b> is the transpose of H: rows and columns swapped. The rows of H are checks and its columns bits; Hᵀ is the other way round, and its row i reads “which checks touch bit i”. For L = 3 the rows of H are (1, 1, 0), (0, 1, 1), and the three rows of Hᵀ are (1, 0), (1, 1), (0, 1): bit 0 is touched only by check 0, bit 1 by both, bit 2 only by check 1.</li>
+        <li><b>I<sub>m</sub></b> is the m×m identity matrix: 1 on the diagonal, 0 elsewhere. Entry (i, j) is 1 exactly when i = j, read here as “stay in the same row (or column), do not move”. I<sub>1</sub> is just the number 1.</li>
+        <li><b><span class="sym" data-sym="otimes">⊗</span></b> is the Kronecker product: replace each entry of the first matrix by “that entry times the second matrix”. The first factor handles moves along chain A (sideways), the second moves along chain B (up and down).</li>
+      </ul>
+      <p class="zh">拿 L = 2 算一遍。H = (1 1)，是 1 × 2 的矩阵；Hᵀ 是一列 (1, 1)；I<sub>L−1</sub> = I<sub>1</sub> = 1。H ⊗ I<sub>2</sub> 把 H 的两个 1 各换成一块 I<sub>2</sub>，得 [I<sub>2</sub> I<sub>2</sub>]，一个 2 × 4 的块；I<sub>1</sub> ⊗ Hᵀ 就是 Hᵀ 那一列。程序里横边比特的列按「先位置、后行」排：位置 0 的两行 h<sub>00</sub>、h<sub>10</sub>，再位置 1 的 h<sub>01</sub>、h<sub>11</sub>，最后是竖边 v。标上这些列名：</p>
+      <p class="en">Work it out for L = 2. H = (1 1) is a 1 × 2 matrix; Hᵀ is the column (1, 1); I<sub>L−1</sub> = I<sub>1</sub> = 1. H ⊗ I<sub>2</sub> replaces each of the two 1s of H by a block I<sub>2</sub>, giving [I<sub>2</sub> I<sub>2</sub>], a 2 × 4 block; I<sub>1</sub> ⊗ Hᵀ is just the column Hᵀ. In the code the horizontal-edge columns are ordered by position first, then row: at position 0 the two rows h<sub>00</sub>, h<sub>10</sub>, then at position 1 h<sub>01</sub>, h<sub>11</sub>, and finally the vertical edge v. With these column labels:</p>
+      <div class="table-wrap"><table class="glossary" style="font-variant-numeric:tabular-nums">
+        <tr><th></th><th>h<sub>00</sub></th><th>h<sub>10</sub></th><th>h<sub>01</sub></th><th>h<sub>11</sub></th><th>v</th></tr>
+        <tr><td><span class="zh">H<sub>X</sub> 第 1 行（H ⊗ I<sub>2</sub> | Hᵀ）</span><span class="en">H<sub>X</sub> row 1 (H ⊗ I<sub>2</sub> | Hᵀ)</span></td><td>1</td><td>0</td><td>1</td><td>0</td><td>1</td></tr>
+        <tr><td><span class="zh">H<sub>X</sub> 第 2 行</span><span class="en">H<sub>X</sub> row 2</span></td><td>0</td><td>1</td><td>0</td><td>1</td><td>1</td></tr>
+        <tr><td><span class="zh">H<sub>Z</sub> 第 1 行（I<sub>2</sub> ⊗ H | Hᵀ）</span><span class="en">H<sub>Z</sub> row 1 (I<sub>2</sub> ⊗ H | Hᵀ)</span></td><td>1</td><td>1</td><td>0</td><td>0</td><td>1</td></tr>
+        <tr><td><span class="zh">H<sub>Z</sub> 第 2 行</span><span class="en">H<sub>Z</sub> row 2</span></td><td>0</td><td>0</td><td>1</td><td>1</td><td>1</td></tr>
+      </table></div>
+      <p class="zh">按列名对回上面那张表：H<sub>X</sub> 第 1 行碰 h<sub>00</sub>、h<sub>01</sub>、v，就是上行的星；第 2 行碰 h<sub>10</sub>、h<sub>11</sub>、v，是下行的星。H<sub>Z</sub> 第 1 行碰 h<sub>00</sub>、h<sub>10</sub>、v，是左列的面；第 2 行是右列的面。四行和手画的表一模一样，只是列的顺序换了。左上那块 H ⊗ I<sub>L</sub> 说的正是「每颗星碰同一行里相邻两条横边」（H 管横着走一步，I<sub>L</sub> 管留在同一行），上面的剥皮论证就是在说这一块的行已经彼此独立。</p>
+      <p class="en">Match them to the hand-made table above by column label: row 1 of H<sub>X</sub> touches h<sub>00</sub>, h<sub>01</sub>, v, the top-row star; row 2 touches h<sub>10</sub>, h<sub>11</sub>, v, the bottom-row star. Row 1 of H<sub>Z</sub> touches h<sub>00</sub>, h<sub>10</sub>, v, the left plaquette; row 2 is the right plaquette. The four rows are exactly those of the hand-made table with the columns in a different order. The top-left block H ⊗ I<sub>L</sub> says precisely “each star touches two neighbouring horizontal edges of its row” (H takes one step sideways, I<sub>L</sub> stays in the same row), and the peeling argument above says that the rows of this block are already independent.</p>
+      <p class="zh">熟悉超图乘积的读者会用维数公式 k = k₁k₂ + k₁ᵀk₂ᵀ。这里 k<sub>i</sub> 是第 i 个经典码能存的比特数（比特数 − rank H = L − (L−1) = 1），k<sub>i</sub>ᵀ 是「检查之间有几个依赖关系」（检查数 − rank H = (L−1) − (L−1) = 0）。开链的检查没有依赖，所以 k = 1·1 + 0·0 = 1。把两条链各自首尾相接成环，就多出一条检查（L 条检查、秩仍是 L−1），依赖变成 1 个，公式给 1·1 + 1·1 = 2，这就是环面码的 <a href="../../toric_code/intuition/intuition.html#s5-3">k = 2</a>。在棋盘上看，环面没有悬边，剥皮论证无处下手，而全部星的乘积确实是 I。Atlas 的 <span class="mono">pedagogy/hgp-construction.md</span> 写出了这一整段。</p>
+      <p class="en">Readers who know the hypergraph product will use the dimension formula k = k₁k₂ + k₁ᵀk₂ᵀ. Here k<sub>i</sub> is the number of bits the i-th classical code stores (bits − rank H = L − (L−1) = 1), and k<sub>i</sub>ᵀ counts the dependencies among its checks (checks − rank H = (L−1) − (L−1) = 0). An open chain has no dependent checks, so k = 1·1 + 0·0 = 1. Close each chain into a ring and one check is added (L checks, rank still L−1), one dependency appears, and the formula gives 1·1 + 1·1 = 2: the toric code's <a href="../../toric_code/intuition/intuition.html#s5-3">k = 2</a>. On the board, a torus has no dangling edge, so the peeling has nowhere to start, and the product of all stars really is I. The Atlas page <span class="mono">pedagogy/hgp-construction.md</span> spells this out in full.</p>
     </div>
   </details>
 
   <h3 id="s2-3"><span class="sec-no">2.3</span><span class="zh">d = L：一条上界，一条下界</span><span class="en">d = L: one upper bound, one lower bound</span></h3>
   <div class="prose">
-    <p class="zh">码距是三个数里唯一需要<b>两个方向</b>论证的。<b>上界 d <span class="sym" data-sym="leq">≤</span> L</b>：在 L×L 的 bit×bit 块里，固定一行、在这一行的 L 个比特上全放 X——每条 Z 检查与这一行相交 0 或 2 次，所以它与所有 Z 检查对易；固定一列全放 Z，同理与所有 X 检查对易。一行与一列恰交于一点，两条串反对易，所以谁都不是稳定子。两条重量为 L 的逻辑算符就此到手，这正是直觉教程里<a href="../intuition/intuition.html#s3-2">横跨两条边界的串</a>。</p>
-    <p class="en">Distance is the only one of the three numbers that needs an argument in <b>two directions</b>. <b>Upper bound d <span class="sym" data-sym="leq">≤</span> L</b>: in the L×L bit×bit block, fix a row and put X on all L of its qubits; every Z-check meets that row zero or two times, so the string commutes with all Z-checks. Fix a column and put Z on it: likewise it commutes with every X-check. A row and a column meet exactly once, so the two strings anticommute and neither can be a stabilizer. Two logical operators of weight L are in hand, precisely the <a href="../intuition/intuition.html#s3-2">boundary-to-boundary spanning strings</a> of the intuition guide.</p>
-    <p class="zh"><b>下界 d ≥ L</b>：要证明「没有更轻的」，靶子太多，不能逐个排除。Atlas 的证明改用<b>互不相交的代表</b>：L 条 X 行两两不相交，却全都代表同一个逻辑类（相邻两行相乘 = 中间那一带 X 检查的乘积，内部比特成对抵消）。任何与 X̄ 类反对易的逻辑算符 P，必须与<b>每一条</b>等价代表都反对易——乘上稳定子不改变与逻辑算符的对易关系——于是 P 在每一行上都至少要碰一个比特，L 条行两两不交，<span class="term">wt(P)<span class="tip">算符 P 的重量（weight）：它非平凡地作用的量子比特个数。</span></span> ≥ L。与 Z̄ 类反对易的 P 用 L 条互不相交的 Z 列同理处理。k = 1 保证每个非平凡逻辑算符至少与 X̄、Z̄ 之一反对易。两边合起来，d = L。</p>
-    <p class="en"><b>Lower bound d ≥ L</b>: proving “nothing lighter exists” cannot proceed target by target, there are too many. The Atlas proof uses <b>pairwise-disjoint representatives</b> instead: the L X-rows are pairwise disjoint, yet all represent the same logical class (two adjacent rows multiply to the product of the X-checks in the strip between them, interior qubits cancelling in pairs). Any logical P that anticommutes with the X̄ class must anticommute with <b>every</b> equivalent representative, since multiplying by a stabilizer cannot change a commutator with a logical; so P must touch at least one qubit on each row, and with L disjoint rows, <span class="term">wt(P)<span class="tip">The weight of an operator P: the number of qubits on which it acts non-trivially.</span></span> ≥ L. A P anticommuting with the Z̄ class is handled by the L disjoint Z-columns. Since k = 1, every non-trivial logical anticommutes with at least one of X̄, Z̄. Together, d = L.</p>
+    <p class="zh">码距是三个数里唯一需要<b>两个方向</b>论证的：上界要找到一个重量 L 的逻辑算符，下界要说明没有更轻的。</p>
+    <p class="en">Distance is the only one of the three numbers that needs an argument in <b>two directions</b>: the upper bound needs one logical operator of weight L, the lower bound needs a reason why nothing lighter exists.</p>
+    <p class="zh"><b>上界 d <span class="sym" data-sym="leq">≤</span> L</b>。在棋盘上取一整行横边，全放 Z，记作 Z̄：它从左边的悬边走到右边的悬边，碰 L 个比特。一颗星若在这一行，就碰这一行里相邻的两条横边；不在这一行就一条也不碰。所以每颗星与 Z̄ 共享 0 或 2 个比特，按碰撞规则全部对易，Z̄ 不触发任何星。面是 Z 型检查，和 Z̄ 天然对易。同理，取一整列横边（每行一条，从上光边到下光边）全放 X，记作 X̄：一块面若在这一列，就碰这一列里上下相邻的两条横边，否则一条不碰，所以 X̄ 骗过全部面。Z̄ 和 X̄ 恰好在一个比特上相交，两者反对易。于是 Z̄ 不是检查的乘积：检查的乘积必须与 X̄ 对易，因为 X̄ 与每一条检查都对易。X̄ 同理。两个重量为 L 的逻辑算符就此到手，这正是直觉教程里<a href="../intuition/intuition.html#s3-2">横跨两条边界的串</a>。</p>
+    <p class="en"><b>Upper bound d <span class="sym" data-sym="leq">≤</span> L</b>. Take one whole row of horizontal edges on the board and put Z on all of them; call it Z̄. It runs from the dangling edge on the left to the dangling edge on the right and touches L qubits. A star in that row touches two neighbouring horizontal edges of the row; a star in any other row touches none. So every star shares 0 or 2 qubits with Z̄, commutes with it by the collision rule, and Z̄ trips no star. Plaquettes are Z-type and commute with Z̄ automatically. In the same way, take one whole column of horizontal edges (one per row, smooth edge at the top to smooth edge at the bottom) and put X on them; call it X̄. A plaquette in that column touches two vertically neighbouring horizontal edges of the column, any other plaquette none, so X̄ fools every plaquette. Z̄ and X̄ meet on exactly one qubit, so they anticommute. Hence Z̄ is not a product of checks: such a product must commute with X̄, because X̄ commutes with every single check. The same goes for X̄. Two logical operators of weight L are in hand, precisely the <a href="../intuition/intuition.html#s3-2">boundary-to-boundary spanning strings</a> of the intuition guide.</p>
+    <p class="zh"><b>下界 d ≥ L</b>。要证明「没有更轻的」，候选太多，不能逐个排除。Atlas 的证明改用<b>互不相交的拷贝</b>：Z̄ 可以放在 L 行里的任意一行，这 L 个拷贝两两不共享比特，却是同一个逻辑算符。原因是相邻两行之差恰好是夹在中间那一排面的乘积：每块面碰它上下两条横边，一排面乘起来，两行横边各剩一个 Z，中间的竖边每条被左右两块面各碰一次，成对抵消。乘上检查不改变逻辑内容。</p>
+    <p class="en"><b>Lower bound d ≥ L</b>. Proving “nothing lighter exists” cannot proceed candidate by candidate; there are far too many. The Atlas proof uses <b>pairwise-disjoint copies</b> instead: Z̄ can sit on any of the L rows, and these L copies share no qubit, yet they are the same logical operator. The reason is that two neighbouring rows differ by exactly the product of the row of plaquettes between them: each plaquette touches the horizontal edge above and the one below it, so the product of a row of plaquettes leaves a Z on each of the two rows of horizontal edges, while each vertical edge in between is touched once by the plaquette on its left and once by the one on its right and cancels. Multiplying by checks does not change the logical content.</p>
+    <p class="zh">现在取任意一个与 Z̄ 反对易的逻辑算符 P。它必须与<b>每一个</b>拷贝都反对易（补课 2.A 解释为什么乘上检查不改变这一点）。与一整行 Z 反对易，意味着 P 在这一行的横边上必须放了至少一个 X 或 Y。L 行两两不交，所以 P 至少碰 L 个比特：<span class="term">wt(P)<span class="tip">算符 P 的重量（weight）：它作用的量子比特中，作用不是恒等 I 的那些的个数。</span></span> ≥ L。与 X̄ 反对易的 P 用 L 个互不相交的 X̄ 列同样处理。最后一步：只存 1 个逻辑比特时，每个不是检查乘积的逻辑算符都至少与 X̄、Z̄ 之一反对易（补课 2.A）。两边合起来，d = L。下面的棋盘从第 6 步开始，画出这两条串和 Z̄ 的 L 个拷贝。</p>
+    <p class="en">Now take any logical operator P that anticommutes with Z̄. It must anticommute with <b>every</b> copy (Catch-up 2.A explains why multiplying by checks cannot change that). Anticommuting with a whole row of Z's means P places at least one X or Y on a horizontal edge of that row. The L rows are pairwise disjoint, so P touches at least L qubits: <span class="term">wt(P)<span class="tip">The weight of an operator P: the number of qubits on which it acts as something other than the identity I.</span></span> ≥ L. A P that anticommutes with X̄ is handled the same way by the L disjoint X̄ columns. The last step: with a single logical qubit, every logical operator that is not a product of checks anticommutes with at least one of X̄, Z̄ (Catch-up 2.A). Together, d = L. The board below starts at step 6 and draws the two strings and the L copies of Z̄.</p>
   </div>
-  <div class="formula center tall"><span class="zh">上界</span><span class="en">upper</span>: <span class="zh">一行 X、一列 Z，重量 L，恰交一次</span><span class="en">one X-row, one Z-column, weight L, crossing once</span> <span class="sym" data-sym="implies">⇒</span> d ≤ L<br><span class="zh">下界</span><span class="en">lower</span>: L <span class="zh">条不相交的等价代表</span><span class="en">disjoint equivalent representatives</span> <span class="sym" data-sym="implies">⇒</span> wt(P) ≥ L　·　∴ d = L</div>
-  <p class="muted small"><span class="zh">d = 码距，L = 家族变量（格子边长），P = 任意一个非平凡逻辑算符，wt(P) = 它的重量（触碰的比特数）。</span><span class="en">d = distance, L = family variable (grid side), P = any non-trivial logical operator, wt(P) = its weight (qubits touched).</span></p>
+  <div data-widget="hgpgrid" data-step="5"></div>
+  <details class="fold basics" id="cu-2a">
+    <summary><span class="zh">补课 · 对易、反对易，以及一个逻辑比特的四类逻辑算符</span><span class="en">Catch-up · Commuting, anticommuting, and the four logical classes of one qubit</span></summary>
+    <div class="fold-body">
+      <p class="zh"><b>对易与反对易怎么数。</b>单比特上 X 和 Z 反对易：XZ = −ZX；同一个 Pauli 与自己、以及任何 Pauli 与 I 都对易。两个多比特 Pauli 串 P、Q 逐比特比较，数一数有几个比特上两者放了<b>不同的非 I</b> 字母（例如一个 X 一个 Z）。每个这样的比特贡献一个负号，所以个数为偶数时 PQ = QP（对易），为奇数时 PQ = −QP（反对易）。例：P = X₁X₂，Q = Z₂Z₃，只在比特 2 上不同，1 个，反对易；P = X₁X₂，Q = Z₁Z₂，2 个，对易。这就是直觉教程的碰撞规则。</p>
+      <p class="en"><b>How to count commuting and anticommuting.</b> On one qubit X and Z anticommute, XZ = −ZX, while a Pauli commutes with itself and anything commutes with I. Compare two multi-qubit Pauli strings P, Q qubit by qubit and count the qubits where they carry <b>different non-identity</b> letters (say an X and a Z). Each such qubit contributes a minus sign, so an even count gives PQ = QP (commute) and an odd count PQ = −QP (anticommute). Example: P = X₁X₂ and Q = Z₂Z₃ differ only on qubit 2, one qubit, so they anticommute; P = X₁X₂ and Q = Z₁Z₂ differ on two, so they commute. This is the collision rule of the intuition guide.</p>
+      <p class="zh"><b>这里只谈 Pauli 串。</b>一个 Pauli 串在每个比特上放 I、X、Y、Z 之一，前面可以带一个整体相位 ±1 或 ±i。上一段的数法只对这样的算符成立：两个 Pauli 串要么对易，要么反对易。一般的算符不一定，例如单比特上的 X + Z 与 Z 既不对易也不反对易（(X + Z)Z = XZ + I，Z(X + Z) = ZX + I = −XZ + I，两者不相等也不互为相反数）。下面说的「逻辑算符」都是指<b>与每条检查都对易的 Pauli 串</b>。</p>
+      <p class="en"><b>Only Pauli strings here.</b> A Pauli string puts one of I, X, Y, Z on each qubit, with an overall phase ±1 or ±i in front. The count above works only for such operators: two Pauli strings either commute or anticommute. A general operator need not do either; on one qubit, X + Z neither commutes nor anticommutes with Z ((X + Z)Z = XZ + I and Z(X + Z) = ZX + I = −XZ + I, which are neither equal nor opposite). From here on, “logical operator” means <b>a Pauli string that commutes with every check</b>.</p>
+      <p class="zh"><b>乘上检查不改变与逻辑算符的对易关系。</b>设 P 是逻辑算符，所以它与每条检查 S 都对易。R 是任意一个 Pauli 串。比较 P 与 R、P 与 RS：P(RS) = (PR)S，而 PR = ±RP，再把 P 挪过 S 不产生新符号，所以 P(RS) = ±(RS)P，符号与 P、R 之间的一样。例如 Z̄ 的另一行拷贝 = Z̄ × （一排面），P 与它的对易关系和与 Z̄ 的完全相同。</p>
+      <p class="en"><b>Multiplying by a check does not change commutation with a logical operator.</b> Let P be a logical operator, so it commutes with every check S, and let R be any Pauli string. Compare P with R and with RS: P(RS) = (PR)S, PR = ±RP, and moving P past S adds no sign, so P(RS) = ±(RS)P with the same sign as between P and R. For instance, the copy of Z̄ on another row is Z̄ × (a row of plaquettes), and P commutes or anticommutes with it exactly as with Z̄.</p>
+      <p class="zh"><b>分类的规矩：差一个检查乘积、差一个相位，都算同一类。</b>两个逻辑算符如果相差一个检查乘积（乘上检查的乘积就从一个变成另一个），它们对码字做的事一样，归为一类；整体相位 ±1、±i 也不计。例：第 0 行的 Z̄ 与第 1 行的拷贝差一排面，同一类；−Z̄ 与 Z̄ 只差相位，也同一类。</p>
+      <p class="en"><b>The sorting rule: a product of checks or a phase does not change the class.</b> Two logical operators that differ by a product of checks (multiply one by some checks and you get the other) act the same way on code states, so they go in one class; an overall phase ±1, ±i is ignored as well. Example: Z̄ on row 0 and its copy on row 1 differ by a row of plaquettes, so they are one class; −Z̄ and Z̄ differ only by a phase, also one class.</p>
+      <p class="zh"><b>数一数：k = 1 时恰好四类。</b>不计相位，一个 n 比特 Pauli 串就是 2n 个 0/1：每个比特上「有没有 X 成分」「有没有 Z 成分」（Y 两样都有）。所以一共 4<sup>n</sup> 种。「与某条检查对易」是这 2n 个比特上的一条模 2 方程（重叠处不同字母的个数为偶数），n − k 条独立检查给 n − k 条独立方程，每条砍掉一半：剩 4<sup>n</sup> / 2<sup>n−k</sup> = 2<sup>n+k</sup> 个逻辑算符。检查的乘积有 2<sup>n−k</sup> 种（检查独立，每条选或不选，结果各不相同），每一类恰好是某个逻辑算符乘遍这 2<sup>n−k</sup> 种得到的，大小都一样。于是类数 = 2<sup>n+k</sup> / 2<sup>n−k</sup> = 4<sup>k</sup>，k = 1 时是 4。用 L = 2 验一遍：n = 5，4<sup>5</sup> = 1024 个 Pauli 串；4 条检查砍四次一半，剩 64 个逻辑算符；检查乘积 2<sup>4</sup> = 16 种；64 / 16 = 4（我们用程序把 1024 个逐一试过，结果相同）。</p>
+      <p class="en"><b>Count them: exactly four classes when k = 1.</b> Ignoring phase, an n-qubit Pauli string is 2n bits: for each qubit, “does it have an X part?” and “does it have a Z part?” (Y has both). So there are 4<sup>n</sup> of them. “Commutes with a given check” is one mod-2 equation on those 2n bits (the number of overlap positions with different letters is even), and n − k independent checks give n − k independent equations, each cutting the count in half: 4<sup>n</sup> / 2<sup>n−k</sup> = 2<sup>n+k</sup> logical operators remain. There are 2<sup>n−k</sup> products of checks (the checks are independent, so each choice of which to include gives a different product), and each class is one logical operator multiplied by all 2<sup>n−k</sup> of them, so all classes have the same size. Hence the number of classes is 2<sup>n+k</sup> / 2<sup>n−k</sup> = 4<sup>k</sup>, which is 4 for k = 1. Check it at L = 2: n = 5 gives 4<sup>5</sup> = 1024 Pauli strings; the 4 checks halve that four times, leaving 64 logical operators; there are 2<sup>4</sup> = 16 check products; 64 / 16 = 4 (we tried all 1024 by program and got the same).</p>
+      <p class="zh"><b>四类各是谁。</b>候选代表是：检查的乘积（什么都不做），X̄，Z̄，以及 X̄Z̄。在单个比特上 Y = iXZ，所以 Ȳ = iX̄Z̄，和 X̄Z̄ 只差相位 i，同一类。按上一段，与 X̄、Z̄ 的对易关系是一类的「指纹」，只需看代表：检查乘积与 X̄、Z̄ 都对易；X̄ 与 X̄ 对易、与 Z̄ 反对易；Z̄ 与 Z̄ 对易、与 X̄ 反对易；Ȳ 与两者都反对易（X̄ 挪过 X̄Z̄ 时只在 Z̄ 处出一个负号，Z̄ 同理）。四个指纹互不相同，所以这是四个不同的类，而总共只有四类，于是一个都没漏，与单个比特上的 I、X、Z、Y 一一对应。结论：一个不是检查乘积的逻辑算符落在 X̄、Z̄、Ȳ 三类之一，至少与 X̄、Z̄ 之一反对易。这正是下界论证最后一步要的。</p>
+      <p class="en"><b>Who the four classes are.</b> The candidate representatives are: a product of checks (do nothing), X̄, Z̄, and X̄Z̄. On one qubit Y = iXZ, so Ȳ = iX̄Z̄, which differs from X̄Z̄ only by the phase i and is the same class. By the paragraph before, how an operator commutes with X̄ and Z̄ is a fingerprint of its class, so looking at representatives is enough: a check product commutes with both X̄ and Z̄; X̄ commutes with X̄ and anticommutes with Z̄; Z̄ commutes with Z̄ and anticommutes with X̄; Ȳ anticommutes with both (moving X̄ past X̄Z̄ picks up one minus sign, at Z̄, and likewise for Z̄). The four fingerprints differ, so these are four different classes, and since there are only four classes none is missing; they match I, X, Z, Y on a single qubit. Conclusion: a logical operator that is not a product of checks lies in the X̄, Z̄ or Ȳ class and anticommutes with at least one of X̄, Z̄, which is what the last step of the lower bound needs.</p>
+    </div>
+  </details>
+  <div class="formula center tall"><span class="zh">上界</span><span class="en">upper</span>: <span class="zh">一行 Z、一列 X，重量 L，恰交一次</span><span class="en">one Z row, one X column, weight L, crossing once</span> <span class="sym" data-sym="implies">⇒</span> d ≤ L<br><span class="zh">下界</span><span class="en">lower</span>: L <span class="zh">个不相交的拷贝</span><span class="en">disjoint copies</span> <span class="sym" data-sym="implies">⇒</span> wt(P) ≥ L　·　∴ d = L</div>
+  <p class="muted small"><span class="zh">d = 码距，L = 家族变量（格子边长），P = 任意一个不是检查乘积的逻辑算符，wt(P) = 它的重量（触碰的比特数）。</span><span class="en">d = distance, L = family variable (grid side), P = any logical operator that is not a product of checks, wt(P) = its weight (qubits touched).</span></p>
   <div class="note note-key">
     <span class="note-tag"><span class="zh">关键想法</span><span class="en">Key idea</span></span>
-    <p class="zh">这条证明不依赖任何图、也不依赖对小实例的穷举——它对每个 L ≥ 2 一次说完。Atlas 的 <span class="mono">pedagogy/distance-proof.md</span> 把它称为「有限版图上的 systolic 论证」：L 条不相交代表就是 L 道独立的关卡，任何横穿的对手都得逐道通过。这个定理，正是第 3 章里 L5 那行「下界」一栏的来源。</p>
-    <p class="en">This proof leans on no picture and on no small-instance enumeration; it settles every L ≥ 2 at once. The Atlas page <span class="mono">pedagogy/distance-proof.md</span> calls it the finite-patch version of a systolic argument: the L disjoint representatives are L independent checkpoints every crossing opponent must pass. This theorem is exactly where the “lower bound” entry of the L5 row in Chapter 3 comes from.</p>
+    <p class="zh">这条证明用到的只有「哪条检查碰哪些比特」，棋盘只是帮你看清；它也不依赖对小实例的穷举，对每个 L ≥ 2 一次说完。Atlas 的 <span class="mono">pedagogy/distance-proof.md</span> 把它称为「有限版图上的 systolic 论证」（systolic 一词来自几何：曲面上最短的绕不掉的圈叫 systole）：L 个不相交的拷贝就是 L 道独立的关卡，任何与之反对易的算符都得逐道留下至少一个比特。这个定理，正是第 3 章里 L5 那行「下界」一栏的来源。</p>
+    <p class="en">The proof uses nothing but “which check touches which qubits”; the board only helps you see it. Nor does it rely on enumerating small instances: it settles every L ≥ 2 at once. The Atlas page <span class="mono">pedagogy/distance-proof.md</span> calls it the finite-patch version of a systolic argument (the word comes from geometry, where the shortest loop on a surface that cannot be shrunk away is called the systole): the L disjoint copies are L independent checkpoints, and any operator anticommuting with them must leave at least one qubit at each. This theorem is exactly where the “lower bound” entry of the L5 row in Chapter 3 comes from.</p>
   </div>
   <div class="ch-nav">
     <a href="#ch1"><span class="zh">上一章</span><span class="en">Back</span><b><span class="zh">1 · 家族变量与实例</span><span class="en">1 · Family variable &amp; instances</span></b></a>
@@ -1039,15 +1129,15 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
     <div class="ch-no"><span class="zh">第 3 章</span><span class="en">Chapter 3</span></div>
     <h2><span class="zh">三个已发布实例，与它们的证据词</span><span class="en">The three shipped instances and their evidence words</span></h2>
     <p class="ch-lede">
-      <span class="zh">Atlas 的参数表看起来只是九个数字，但每个数字旁边都站着一个词：verified 或 bounded。这一章解释这两个词分别由哪台机器、用哪种方法写下，以及为什么同一个定理证出的 d = L，在 L5 这一行却只能算「有界」。</span>
-      <span class="en">The Atlas parameters table looks like nine numbers, but beside each stands a word: verified or bounded. This chapter explains which machine wrote each word by which method, and why the very theorem that proves d = L can only earn “bounded” on the L5 row.</span>
+      <span class="zh">Atlas 的参数表看起来只是九个数字，但每个数字旁边都站着一个词：verified 或 bounded。这一章解释这两个词分别由哪台机器、用哪种方法写下，以及为什么同一个定理证出的 d = L，在 L5 这一行却记作「有界」。</span>
+      <span class="en">The Atlas parameters table looks like nine numbers, but beside each stands a word: verified or bounded. This chapter explains which machine wrote each word by which method, and why the very theorem that proves d = L is recorded as “bounded” on the L5 row.</span>
     </p>
   </div>
 
   <h3 id="s3-1"><span class="sec-no">3.1</span><span class="zh">实例表</span><span class="en">The instance table</span></h3>
   <div class="prose">
-    <p class="zh">下表逐字转录 <span class="mono">atlas/surface/instances.yaml</span> 与 Atlas 参数页。每个数字后的斜体词是 Atlas 的<span class="term">证据词<span class="tip">Atlas 给每条声明标注来源类别的固定词汇：verified（机器独立重算并相符）、bounded（只有上下界，未穷举）、claimed（引自文献、未重算）等。</span></span>（Atlas 称 origin kind）。</p>
-    <p class="en">The table transcribes <span class="mono">atlas/surface/instances.yaml</span> and the Atlas parameters page word for word. The italic word after each number is the Atlas <span class="term">evidence word<span class="tip">The fixed vocabulary the Atlas attaches to every claim's origin: verified (independently recomputed by machine and matching), bounded (only bounds, no exhaustive check), claimed (cited from literature, not recomputed), and others.</span></span> (the Atlas calls it the origin kind).</p>
+    <p class="zh">下表逐字转录 Atlas 的实例文件 <span class="mono">atlas/surface/instances.yaml</span>（一份纯文本清单，每个实例一段，列出它的参数和每条声明）与 Atlas 参数页。每个数字后的斜体词是 Atlas 的<span class="term">证据词<span class="tip">Atlas 给每条声明标注来源类别的固定词汇：verified（机器独立重算并相符）、bounded（只有上下界，未穷举）、claimed（引自文献、未重算）等。</span></span>（Atlas 称 origin kind），说明这个数字是怎么来的：<i>verified</i> = 验证器独立重算、结果相符；<i>bounded</i> = 只记录了一个下界和一个上界；<i>claimed</i> = 引自文献、没有重算（本表没有用到）。<span class="mono">dennis2002topological</span> 这样的写法是 Atlas 的文献键：第一作者姓、年份、标题首词，指向文末延伸阅读里的同名条目。</p>
+    <p class="en">The table transcribes the Atlas instance file <span class="mono">atlas/surface/instances.yaml</span> (a plain-text list with one block per instance, giving its parameters and every claim) and the Atlas parameters page word for word. The italic word after each number is the Atlas <span class="term">evidence word<span class="tip">The fixed vocabulary the Atlas attaches to every claim's origin: verified (independently recomputed by machine and matching), bounded (only bounds, no exhaustive check), claimed (cited from literature, not recomputed), and others.</span></span> (the Atlas calls it the origin kind), saying where the number comes from: <i>verified</i> = the verifier recomputed it independently and it matched; <i>bounded</i> = only a lower and an upper bound are recorded; <i>claimed</i> = taken from the literature without recomputation (not used in this table). A string like <span class="mono">dennis2002topological</span> is an Atlas citation key: first author's surname, year, first word of the title; it points to the entry of the same name under Further reading at the end.</p>
   </div>
   <div class="table-wrap">
     <table class="glossary">
@@ -1059,21 +1149,21 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
   </div>
   <p class="muted small"><span class="zh">表中字母：L = 家族变量，n = 物理比特数，k = 逻辑比特数，d = 码距。</span><span class="en">Letters in the table: L = family variable, n = physical qubits, k = logical qubits, d = distance.</span></p>
   <div class="prose">
-    <p class="zh">三个实例的 <span class="mono">css: true</span> 也都是 <i>verified</i>：检查矩阵满足 H<sub>X</sub>H<sub>Z</sub><sup>T</sup> = 0（模 2），即 X 检查与 Z 检查全部对易。先看最小的那个。下面是 L3 的版图：数一数，13 个数据比特、6 颗星、6 块面；点几个比特制造错误，观察警报——这就是表格第一行所描述的那个有限对象。</p>
-    <p class="en">All three instances also carry <span class="mono">css: true</span> as <i>verified</i>: the check matrices satisfy H<sub>X</sub>H<sub>Z</sub><sup>T</sup> = 0 (mod 2), so every X-check commutes with every Z-check. Start with the smallest. Below is the L3 patch: count 13 data qubits, 6 stars, 6 faces; click a few qubits to plant errors and watch the alarms. This is the finite object the first table row describes.</p>
+    <p class="zh">三个实例的 <span class="mono">css: true</span> 也都是 <i>verified</i>。这一栏说的是：检查确实分成纯 X、纯 Z 两族（2.1 节的 CSS 码），而且两族彼此对易。验证器检查的是 H<sub>X</sub>H<sub>Z</sub><sup>T</sup> = 0（模 2）。H<sub>Z</sub><sup>T</sup> 是 H<sub>Z</sub> 的<span class="term">转置<span class="tip">把矩阵的行和列对调：原来第 i 行第 j 列的元素搬到第 j 行第 i 列。</span></span>（行列对调），所以乘积第 i 行第 j 列的元素 = X 检查 i 与 Z 检查 j 同时碰到的比特个数，模 2。它等于 0，就是每一对都共享偶数个比特、全部对易。例：2.2 节折叠「L = 2 手算」的表格里，上行的星与左列的面共享 h<sub>00</sub> 和 v，2 个，这个元素是 0。先看最小的那个。下面是 L3 的版图，画法和直觉教程一样：比特在边上（边中点的小圆点），星在顶点，面是方格。数一数，13 个数据比特、6 颗星、6 块面；点几条边制造错误，观察警报。这就是表格第一行所描述的那个有限对象。</p>
+    <p class="en">All three instances also carry <span class="mono">css: true</span> as <i>verified</i>. The field says that the checks really do split into a pure-X and a pure-Z family (the CSS code of §2.1) and that the two families commute. The verifier tests H<sub>X</sub>H<sub>Z</sub><sup>T</sup> = 0 (mod 2). H<sub>Z</sub><sup>T</sup> is the <span class="term">transpose<span class="tip">Swap the rows and columns of a matrix: the entry in row i, column j moves to row j, column i.</span></span> of H<sub>Z</sub> (rows and columns swapped), so entry (i, j) of the product is the number of qubits that X check i and Z check j both touch, mod 2. It is 0 exactly when every pair shares an even number of qubits, i.e. all of them commute. Example: in the table of the §2.2 fold “L = 2 by hand”, the top-row star and the left plaquette share h<sub>00</sub> and v, two qubits, so that entry is 0. Start with the smallest. Below is the L3 patch, drawn as in the intuition guide: qubits on edges (the small dots at edge midpoints), stars at vertices, plaquettes as squares. Count 13 data qubits, 6 stars, 6 plaquettes; click a few edges to plant errors and watch the alarms. This is the finite object the first table row describes.</p>
   </div>
   <div data-widget="planarsandbox" data-size="3"></div>
 
   <h3 id="s3-2"><span class="sec-no">3.2</span><span class="zh">verified 是怎么写下的</span><span class="en">How “verified” gets written</span></h3>
   <div class="prose">
-    <p class="zh">n 和 k 的 <i>verified</i> 直白：验证器重新运行构造器，数出矩阵宽度得 n，算两个秩得 k，与 yaml 里的声明比对。d 的 <i>verified</i> 要贵得多：<span class="mono">exact-css-enum</span>（<span class="mono">qeclib/distance.py</span>）意思是利用 CSS 结构<b>逐一枚举</b>所有重量小于 d 的<b>纯 X 型</b>与<b>纯 Z 型</b>算符，确认每一个要么触发某条检查、要么本身就是稳定子——没有一个是逻辑算符；再出示一个重量恰为 d 的纯 X 或纯 Z 逻辑算符。只看纯 X 与纯 Z 就够了：CSS 码里任何逻辑算符的 X 部分与 Z 部分各自仍与所有检查对易，且至少一个不是稳定子，所以最轻的逻辑算符总能取成纯 X 或纯 Z。这与<a href="../formal-verification/formal-verification.html">形式验证页</a>的 Lean 小规模精确码距证书是两套不同的穷举：那份证书把 X、Y、Z 三种 Pauli 全部枚举，不借助 CSS 结构。L=3（13 比特）与 L=4（25 比特）的枚举量在验证器可接受的范围内，所以这两行的 d 拿到了 <i>verified</i>。</p>
-    <p class="en">The <i>verified</i> on n and k is straightforward: the verifier reruns the constructor, reads n off the matrix width, computes the two ranks for k, and compares with the yaml claims. The <i>verified</i> on d costs far more: <span class="mono">exact-css-enum</span> (<span class="mono">qeclib/distance.py</span>) means using the CSS structure to <b>enumerate one by one</b> every <b>pure-X</b> and every <b>pure-Z</b> operator of weight below d and confirming that each either trips some check or is itself a stabilizer, so none is a logical; then exhibiting one pure-X or pure-Z logical of weight exactly d. Pure X and pure Z suffice: in a CSS code the X part and the Z part of any logical each still commute with every check, and at least one of them is not a stabilizer, so the lightest logical can always be taken pure-X or pure-Z. This is a different exhaustive method from the Lean small exact-distance certificate of the <a href="../formal-verification/formal-verification.html">formal-verification page</a>: that certificate enumerates all three Paulis X, Y, Z without using the CSS structure. For L=3 (13 qubits) and L=4 (25 qubits) that enumeration fits the verifier's budget, so those two rows earn <i>verified</i> for d.</p>
+    <p class="zh">n 和 k 的 <i>verified</i> 直白：验证器重新运行构造器，数出矩阵宽度得 n，算两个秩得 k，与实例文件里的声明比对。d 的 <i>verified</i> 要多做一步：<span class="mono">exact-css-enum</span>（<span class="mono">qeclib/distance.py</span> 里的枚举程序）按重量 1、2、3……的顺序，<b>逐一枚举</b>每一种比特组合上的<b>纯 X 型</b>与<b>纯 Z 型</b>算符，检查它是否骗过全部检查、又不是检查的乘积；第一个这样的算符出现时的重量就是 d。这等于确认了所有更轻的算符要么触发某条检查、要么本身就是检查的乘积，同时出示了一个重量恰为 d 的逻辑算符。只看纯 X 与纯 Z 就够了：CSS 码里 X 检查只看算符的 Z 部分、Z 检查只看 X 部分，所以任何逻辑算符的 X 部分与 Z 部分各自仍骗过全部检查，且至少一个不是检查的乘积，而它们都不比原算符重。这与<a href="../formal-verification/formal-verification.html">形式验证页</a>的 Lean 小规模精确码距证书是两套不同的穷举：那份证书把 X、Y、Z 三种 Pauli 全部枚举，不借助 CSS 结构。L3 和 L4 的码距在实例文件里登记为精确值，验证器就对它们跑这个枚举，结果与声明相符，所以这两行的 d 是 <i>verified</i>。</p>
+    <p class="en">The <i>verified</i> on n and k is straightforward: the verifier reruns the constructor, reads n off the matrix width, computes the two ranks for k, and compares with the claims in the instance file. The <i>verified</i> on d takes one more step: <span class="mono">exact-css-enum</span> (the enumeration routine in <span class="mono">qeclib/distance.py</span>) goes through weights 1, 2, 3, … in order and <b>enumerates one by one</b> the <b>pure-X</b> and <b>pure-Z</b> operators on every set of qubits of that size, testing whether the operator fools every check without being a product of checks; the weight at which the first such operator appears is d. This confirms that every lighter operator either trips some check or is itself a product of checks, and it exhibits a logical of weight exactly d. Pure X and pure Z suffice: in a CSS code the X checks see only an operator's Z part and the Z checks only its X part, so the X part and the Z part of any logical each still fool every check, at least one of them is not a product of checks, and neither is heavier than the original. This is a different exhaustive method from the Lean small exact-distance certificate of the <a href="../formal-verification/formal-verification.html">formal-verification page</a>: that certificate enumerates all three Paulis X, Y, Z without using the CSS structure. The instance file records the distances of L3 and L4 as exact values, so the verifier runs this enumeration on them; the results match, and those two rows carry <i>verified</i> for d.</p>
   </div>
 
   <h3 id="s3-3"><span class="sec-no">3.3</span><span class="zh">为什么 L5 是 bounded 而不是 verified</span><span class="en">Why L5 is bounded, not verified</span></h3>
   <div class="prose">
-    <p class="zh">L=5 有 41 个比特，重量 ≤ 4 的纯 X 型或纯 Z 型支撑约有 23 万个（exact-css-enum 要枚举的对象；若算上 X、Y、Z 的全部组合则有约 850 万个），这样的穷举不在验证器的例行任务之内。于是 Atlas 把 d 的声明拆成两半分别记账。<b>下界 d ≥ 5</b>：来自第 2 章的定理，文献出处记为 <span class="mono">dennis2002topological</span>（Dennis、Kitaev、Landahl、Preskill，“Topological quantum memory”，2002）——这是<b>推理</b>，不是机器枚举。<b>上界 d ≤ 5</b>：验证器每次都重跑一次确定性的低重量搜索 <span class="mono">rand-lowweight-v1</span>（种子 0、2000 次迭代），它找到一个重量 5 的逻辑算符——一个机器可复现的<b>见证</b>。两个 5 相等，所以我们「知道」d = 5；但 Atlas 的规则是：只要下界不是靡遗枚举得到的，这条声明就叫 <i>bounded</i>。原文写得很直接：「The word bounded is intentional」。</p>
-    <p class="en">L=5 has 41 qubits; the pure-X or pure-Z supports of weight ≤ 4 number about 230,000 (what exact-css-enum would have to enumerate; counting all combinations of X, Y and Z gives about 8.5 million), and such an exhaustion is not part of the verifier's routine. So the Atlas splits the distance claim into two halves with separate bookkeeping. <b>Lower bound d ≥ 5</b>: from the Chapter 2 theorem, with literature provenance <span class="mono">dennis2002topological</span> (Dennis, Kitaev, Landahl, Preskill, “Topological quantum memory”, 2002). This is <b>reasoning</b>, not machine enumeration. <b>Upper bound d ≤ 5</b>: on every run the verifier reruns a deterministic low-weight search <span class="mono">rand-lowweight-v1</span> (seed 0, 2000 iterations), which finds a logical of weight 5, a machine-reproducible <b>witness</b>. The two fives agree, so we “know” d = 5; but the Atlas rule is that whenever the lower bound was not obtained by exhaustive enumeration, the claim is called <i>bounded</i>. The source says it outright: “The word bounded is intentional”.</p>
+    <p class="zh">L5 的码距在实例文件里没有登记成精确值，而是拆成一个下界和一个上界分别记账（下面的原文）。验证器只核对登记的内容，所以对 L5 不跑穷举枚举。这不是算不动：41 个比特上重量 ≤ 4 的纯 X 型、纯 Z 型算符合计约 23 万个（112,791 种比特组合，各试 X 与 Z 两次），我们在工作站上用同一个 <span class="mono">exact-css-enum</span> 对 L5 跑了一次，不到 1 秒就返回 d = 5（2026-09-24，脚本见本篇的核对记录）。L5 写成 <i>bounded</i> 是记账方式的选择，下面说清两半各靠什么。<b>下界 d ≥ 5</b>：来自第 2 章的定理，文献出处记为 <span class="mono">dennis2002topological</span>（Dennis、Kitaev、Landahl、Preskill，“Topological quantum memory”，2002）。这是<b>推理</b>，不是机器枚举；Atlas 目前的验证器没有核对下界的程序，所以规定下界必须附一条文献出处。<b>上界 d ≤ 5</b>：验证器每次都重跑一次低重量搜索 <span class="mono">rand-lowweight-v1</span>（Atlas 的随机低重量搜索，第 1 版）。它随机生成一个骗过另一类全部检查的算符，扔掉恰好是检查乘积的，再反复乘上检查、只要能让重量变小就乘，最后记下最轻的那个；X 型、Z 型各试 2000 次。<b>种子</b>（seed）0 固定了这串随机数，所以谁重跑都得到同一个结果。它找到一个重量 5 的逻辑算符，一个机器可复现的<b>见证</b>。两个 5 相等，所以我们「知道」d = 5；但只要下界不是机器穷举得到的，Atlas 就把这条声明叫 <i>bounded</i>。原文写得很直接：「The word bounded is intentional」。</p>
+    <p class="en">The instance file does not record L5's distance as an exact value; it splits it into a lower and an upper bound with separate bookkeeping (quoted below). The verifier checks only what is recorded, so for L5 it does not run the exhaustive enumeration. This is not a matter of cost: on 41 qubits the pure-X and pure-Z operators of weight ≤ 4 number about 230,000 (112,791 sets of qubits, each tried once as X and once as Z), and running the same <span class="mono">exact-css-enum</span> on L5 on our workstation returned d = 5 in under a second (2026-09-24; the script is in this page's check notes). Writing L5 as <i>bounded</i> is a bookkeeping choice, and here is what each half rests on. <b>Lower bound d ≥ 5</b>: from the Chapter 2 theorem, with literature provenance <span class="mono">dennis2002topological</span> (Dennis, Kitaev, Landahl, Preskill, “Topological quantum memory”, 2002). This is <b>reasoning</b>, not machine enumeration; the current Atlas verifier has no routine that checks lower bounds, so its rules demand a literature reference for every lower bound. <b>Upper bound d ≤ 5</b>: on every run the verifier reruns the low-weight search <span class="mono">rand-lowweight-v1</span> (the Atlas random low-weight search, version 1). It draws a random operator that fools every check of the other type, throws it away if it happens to be a product of checks, then keeps multiplying by checks whenever that lowers the weight, and records the lightest result; 2000 tries each for X type and Z type. The <b>seed</b> 0 fixes the sequence of random numbers, so anyone who reruns it gets the same result. It finds a logical of weight 5, a machine-reproducible <b>witness</b>. The two fives agree, so we “know” d = 5; but whenever the lower bound was not obtained by machine enumeration, the Atlas calls the claim <i>bounded</i>. The source says it outright: “The word bounded is intentional”.</p>
   </div>
   <div class="formula center tall"><span class="mono">property: d　·　lower: {value: 5}<br>upper: {value: 5, method: rand-lowweight-v1, seed: 0, iters: 2000}<br>origin: {kind: bounded, ref: dennis2002topological}</span></div>
   <p class="muted small"><span class="zh">d = 码距；lower/upper 的 value = 下界与上界的数值；seed、iters = 搜索的随机种子与迭代次数。</span><span class="en">d = distance; the value under lower/upper = the numerical bound; seed, iters = the search's random seed and iteration count.</span></p>
@@ -1112,23 +1202,31 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
     <div class="ch-no"><span class="zh">第 4 章</span><span class="en">Chapter 4</span></div>
     <h2><span class="zh">算上帮手比特：4d²−4d+1，与那条二维天花板</span><span class="en">Counting the helpers: 4d²−4d+1, and the two-dimensional ceiling</span></h2>
     <p class="ch-lede">
-      <span class="zh">[[n,k,d]] 里的 n 只数数据比特。真实芯片上每条检查还要一个帮手比特去测它。这一章把帮手算进去，和文献里的旋转版比一次，最后解释为什么 k = 1 不是设计失误，而是二维几何的账单。</span>
-      <span class="en">The n in [[n,k,d]] counts data qubits only. On a real chip every check also needs a helper qubit to measure it. This chapter adds the helpers, compares once against the rotated patch from the literature, and finally explains why k = 1 is not a design blunder but the bill two-dimensional geometry presents.</span>
+      <span class="zh">[[n,k,d]] 里的 n 只数数据比特。真实芯片上测检查还要用帮手比特。这一章按最常见的排法（每条检查配一个自己的帮手）把帮手算进去，和文献里的旋转版比一次，最后解释为什么 k 停在一个常数：只要码距随 √n 增长，二维几何就只允许常数个逻辑比特。</span>
+      <span class="en">The n in [[n,k,d]] counts data qubits only. On a real chip, measuring the checks also takes helper qubits. This chapter adds the helpers under the most common layout (each check gets a helper of its own), compares once against the rotated patch from the literature, and finally explains why k stays at a constant: as long as the distance grows like √n, two-dimensional geometry allows only a constant number of logical qubits.</span>
     </p>
   </div>
 
   <h3 id="s4-1"><span class="sec-no">4.1</span><span class="zh">每条检查一个帮手</span><span class="en">One helper per check</span></h3>
   <div class="prose">
-    <p class="zh">直觉教程<a href="../intuition/intuition.html#s4-2">打开过那个黑盒</a>：测一条检查，要靠一个专职的<span class="ref" data-ref="ancilla">辅助比特</span>依次接触四个数据比特再被读出。按「每条独立检查配一个帮手」计，未旋转版图的总数是数据比特 2d²−2d+1 加上检查数 2d(d−1) = 2d²−2d，也就是比数据比特少 1：</p>
-    <p class="en">The intuition guide <a href="../intuition/intuition.html#s4-2">opened that box</a>: measuring one check needs a dedicated <span class="ref" data-ref="ancilla">ancilla</span> that touches the four data qubits in turn and is then read out. With one helper per independent check, the unrotated patch totals its 2d²−2d+1 data qubits plus 2d(d−1) = 2d²−2d checks, one fewer than the data count:</p>
+    <p class="zh">直觉教程<a href="../intuition/intuition.html#s4-2">打开过那个黑盒</a>：测一条检查，要靠一个<span class="ref" data-ref="ancilla">辅助比特</span>依次接触四个数据比特再被读出。最常见的排法是每条检查配一个自己的帮手，所有检查同时测。这是一种排法，不是硬性要求：帮手也可以轮流用，测完一条再去测下一条，比特少了，一轮测量要多花几步时间（4.2 节有文献里的例子）。本章按「每条独立检查配一个帮手」计，未旋转版图的总数是数据比特 2d²−2d+1 加上检查数 2d(d−1) = 2d²−2d，也就是比数据比特少 1：</p>
+    <p class="en">The intuition guide <a href="../intuition/intuition.html#s4-2">opened that box</a>: measuring one check needs an <span class="ref" data-ref="ancilla">ancilla</span> that touches the four data qubits in turn and is then read out. The most common layout gives every check a helper of its own and measures all checks at once. That is a scheduling choice, not a requirement: helpers can also take turns, measuring one check and then the next, which saves qubits at the price of a few more steps per round (§4.2 has an example from the literature). This chapter counts one helper per independent check, so the unrotated patch totals its 2d²−2d+1 data qubits plus 2d(d−1) = 2d²−2d checks, one fewer than the data count:</p>
   </div>
   <div class="formula center"><span class="zh">未旋转总数</span><span class="en">unrotated total</span> = (2d²−2d+1) + (2d²−2d) = 4d² − 4d + 1 = (2d−1)²</div>
-  <p class="muted small"><span class="zh">d = 码距（这一族中 d = L）；2d²−2d+1 = 数据比特数 n，2d²−2d = 检查数 = 帮手比特数。</span><span class="en">d = distance (d = L in this family); 2d²−2d+1 = the data-qubit count n, 2d²−2d = the number of checks = helper qubits.</span></p>
+  <p class="muted small"><span class="zh">d = 码距（这一族中 d = L）；2d²−2d+1 = 数据比特数 n，2d²−2d = 检查数 = 帮手比特数（按每条检查一个帮手计）。</span><span class="en">d = distance (d = L in this family); 2d²−2d+1 = the data-qubit count n, 2d²−2d = the number of checks = helper qubits (one helper per check).</span></p>
 
   <h3 id="s4-2"><span class="sec-no">4.2</span><span class="zh">对照：旋转版图 2d²−1（不在构造器内）</span><span class="en">For comparison: the rotated patch, 2d²−1 (outside the constructor)</span></h3>
   <div class="prose">
-    <p class="zh">Atlas 的直觉短文和 <span class="mono">reproduce.py</span> 都记录了一组对照数字，来源是文献而非构造器：把同一块体斜切 45°，数据比特落在 d×d 的方阵上、两个方向的横跨长度仍都是 d，得到 [[d², 1, d]]（<span class="mono">horsman2012surface</span>，Horsman、Fowler、Devitt、Van Meter，“Surface code quantum computing by lattice surgery”，2012）。加上 d²−1 个帮手，总数 2d²−1。省下的是<b>边界几何</b>，不是新的物理相。<span class="mono">reproduce.py</span> 对 d = 3 和 d = 12 断言了下面这些数：</p>
-    <p class="en">The Atlas intuition essay and <span class="mono">reproduce.py</span> both record a set of comparison numbers whose source is the literature, not the constructor: recut the same bulk at 45°, and the data qubits land on a d×d array while both crossing lengths stay d, giving [[d², 1, d]] (<span class="mono">horsman2012surface</span>: Horsman, Fowler, Devitt, Van Meter, “Surface code quantum computing by lattice surgery”, 2012). With d²−1 helpers the total is 2d²−1. The saving is <b>boundary geometry</b>, not a new phase. <span class="mono">reproduce.py</span> asserts these values for d = 3 and d = 12:</p>
+    <p class="zh">Atlas 的直觉短文和复现脚本 <span class="mono">reproduce.py</span> 都记录了一组对照数字，来源是文献而非构造器：旋转版图 [[d², 1, d]]（<span class="mono">horsman2012surface</span>，Horsman、Fowler、Devitt、Van Meter，“Surface code quantum computing by lattice surgery”，2012）。下图以 d = 3 说明它从哪里来。左边是第 2 章的棋盘，这次把横边比特和竖边比特都画成圆点，检查画成小方块，细线连着每条检查碰的比特。在棋盘上画一个菱形（斜 45° 的正方形），只留下菱形里的 9 个比特和碰得到它们的检查：里面的 4 条四腿检查，外加菱形四条边上各一条只剩两腿的检查（转正以后，上下两边的是 X 型，左右两边的是 Z 型）。四个角上的比特被裁掉了。把菱形转 45° 摆正，就是右边的旋转版：数据比特排成 3 × 3 的方阵。横着走一行、竖着走一列都要经过 3 个比特，所以码距仍是 3（我们用 <span class="mono">exact-css-enum</span> 对这 9 个比特、8 条检查算过：[[9, 1, 3]]）。</p>
+    <p class="en">The Atlas intuition essay and the reproduction script <span class="mono">reproduce.py</span> both record a set of comparison numbers whose source is the literature, not the constructor: the rotated patch [[d², 1, d]] (<span class="mono">horsman2012surface</span>: Horsman, Fowler, Devitt, Van Meter, “Surface code quantum computing by lattice surgery”, 2012). The figure shows where it comes from for d = 3. On the left is the board of Chapter 2, this time with both the horizontal-edge and the vertical-edge qubits drawn as dots, checks as small squares, and thin lines from each check to the qubits it touches. Draw a diamond (a square tilted by 45°) on the board and keep only the 9 qubits inside it and the checks that touch them: the 4 four-leg checks inside, plus one check on each of the diamond's four sides that keeps only two legs (once the patch is turned upright, the ones on the top and bottom are X type, those on the left and right Z type). The four corner qubits are cut away. Turn the diamond by 45° and set it upright: that is the rotated patch on the right, with its data qubits in a 3 × 3 array. A row and a column each pass through 3 qubits, so the distance is still 3 (we ran <span class="mono">exact-css-enum</span> on these 9 qubits and 8 checks: [[9, 1, 3]]).</p>
+  </div>
+  <figure class="fig" id="fig-rotated">
+    <div class="fig-frame"><svg viewBox="0 0 720 338" width="720" role="img" aria-label="unrotated and rotated d=3 surface code patches"><defs><marker id="rotarr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--ink3)"/></marker></defs><line x1="60" y1="106" x2="104" y2="106" stroke="var(--line2)" stroke-width="1"/><line x1="60" y1="106" x2="60" y2="150" stroke="var(--line2)" stroke-width="1"/><line x1="60" y1="106" x2="60" y2="62" stroke="var(--line2)" stroke-width="1"/><line x1="60" y1="194" x2="104" y2="194" stroke="var(--cz)" stroke-width="2"/><line x1="60" y1="194" x2="60" y2="238" stroke="var(--line2)" stroke-width="1"/><line x1="60" y1="194" x2="60" y2="150" stroke="var(--cz)" stroke-width="2"/><line x1="104" y1="62" x2="148" y2="62" stroke="var(--cx)" stroke-width="2"/><line x1="104" y1="62" x2="60" y2="62" stroke="var(--line2)" stroke-width="1"/><line x1="104" y1="62" x2="104" y2="106" stroke="var(--cx)" stroke-width="2"/><line x1="104" y1="150" x2="148" y2="150" stroke="var(--cx)" stroke-width="2"/><line x1="104" y1="150" x2="60" y2="150" stroke="var(--cx)" stroke-width="2"/><line x1="104" y1="150" x2="104" y2="194" stroke="var(--cx)" stroke-width="2"/><line x1="104" y1="150" x2="104" y2="106" stroke="var(--cx)" stroke-width="2"/><line x1="104" y1="238" x2="148" y2="238" stroke="var(--line2)" stroke-width="1"/><line x1="104" y1="238" x2="60" y2="238" stroke="var(--line2)" stroke-width="1"/><line x1="104" y1="238" x2="104" y2="194" stroke="var(--line2)" stroke-width="1"/><line x1="148" y1="106" x2="192" y2="106" stroke="var(--cz)" stroke-width="2"/><line x1="148" y1="106" x2="104" y2="106" stroke="var(--cz)" stroke-width="2"/><line x1="148" y1="106" x2="148" y2="150" stroke="var(--cz)" stroke-width="2"/><line x1="148" y1="106" x2="148" y2="62" stroke="var(--cz)" stroke-width="2"/><line x1="148" y1="194" x2="192" y2="194" stroke="var(--cz)" stroke-width="2"/><line x1="148" y1="194" x2="104" y2="194" stroke="var(--cz)" stroke-width="2"/><line x1="148" y1="194" x2="148" y2="238" stroke="var(--cz)" stroke-width="2"/><line x1="148" y1="194" x2="148" y2="150" stroke="var(--cz)" stroke-width="2"/><line x1="192" y1="62" x2="236" y2="62" stroke="var(--line2)" stroke-width="1"/><line x1="192" y1="62" x2="148" y2="62" stroke="var(--line2)" stroke-width="1"/><line x1="192" y1="62" x2="192" y2="106" stroke="var(--line2)" stroke-width="1"/><line x1="192" y1="150" x2="236" y2="150" stroke="var(--cx)" stroke-width="2"/><line x1="192" y1="150" x2="148" y2="150" stroke="var(--cx)" stroke-width="2"/><line x1="192" y1="150" x2="192" y2="194" stroke="var(--cx)" stroke-width="2"/><line x1="192" y1="150" x2="192" y2="106" stroke="var(--cx)" stroke-width="2"/><line x1="192" y1="238" x2="236" y2="238" stroke="var(--line2)" stroke-width="1"/><line x1="192" y1="238" x2="148" y2="238" stroke="var(--cx)" stroke-width="2"/><line x1="192" y1="238" x2="192" y2="194" stroke="var(--cx)" stroke-width="2"/><line x1="236" y1="106" x2="192" y2="106" stroke="var(--cz)" stroke-width="2"/><line x1="236" y1="106" x2="236" y2="150" stroke="var(--cz)" stroke-width="2"/><line x1="236" y1="106" x2="236" y2="62" stroke="var(--line2)" stroke-width="1"/><line x1="236" y1="194" x2="192" y2="194" stroke="var(--line2)" stroke-width="1"/><line x1="236" y1="194" x2="236" y2="238" stroke="var(--line2)" stroke-width="1"/><line x1="236" y1="194" x2="236" y2="150" stroke="var(--line2)" stroke-width="1"/><polygon points="148,40 258,150 148,260 38,150" fill="none" stroke="var(--cd)" stroke-width="1.8" stroke-dasharray="6 4"/><circle cx="60" cy="62" r="8" fill="var(--bg)" stroke="var(--ink3)" stroke-width="1.5" stroke-dasharray="3 2"/><path d="M55,57 L65,67 M65,57 L55,67" stroke="var(--cd)" stroke-width="2"/><rect x="53" y="99" width="14" height="14" rx="2" fill="var(--bg2)" stroke="var(--cz)" stroke-width="1.5" opacity="0.55"/><circle cx="60" cy="150" r="8" fill="var(--bg)" stroke="var(--ink)" stroke-width="2"/><rect x="53" y="187" width="14" height="14" rx="2" fill="var(--cz)" stroke="var(--cz)" stroke-width="1.5" opacity="1"/><circle cx="60" cy="238" r="8" fill="var(--bg)" stroke="var(--ink3)" stroke-width="1.5" stroke-dasharray="3 2"/><path d="M55,233 L65,243 M65,233 L55,243" stroke="var(--cd)" stroke-width="2"/><rect x="97" y="55" width="14" height="14" rx="2" fill="var(--cx)" stroke="var(--cx)" stroke-width="1.5" opacity="1"/><circle cx="104" cy="106" r="8" fill="var(--bg)" stroke="var(--ink)" stroke-width="2"/><rect x="97" y="143" width="14" height="14" rx="2" fill="var(--cx)" stroke="var(--cx)" stroke-width="1.5" opacity="1"/><circle cx="104" cy="194" r="8" fill="var(--bg)" stroke="var(--ink)" stroke-width="2"/><rect x="97" y="231" width="14" height="14" rx="2" fill="var(--bg2)" stroke="var(--cx)" stroke-width="1.5" opacity="0.55"/><circle cx="148" cy="62" r="8" fill="var(--bg)" stroke="var(--ink)" stroke-width="2"/><rect x="141" y="99" width="14" height="14" rx="2" fill="var(--cz)" stroke="var(--cz)" stroke-width="1.5" opacity="1"/><circle cx="148" cy="150" r="8" fill="var(--bg)" stroke="var(--ink)" stroke-width="2"/><rect x="141" y="187" width="14" height="14" rx="2" fill="var(--cz)" stroke="var(--cz)" stroke-width="1.5" opacity="1"/><circle cx="148" cy="238" r="8" fill="var(--bg)" stroke="var(--ink)" stroke-width="2"/><rect x="185" y="55" width="14" height="14" rx="2" fill="var(--bg2)" stroke="var(--cx)" stroke-width="1.5" opacity="0.55"/><circle cx="192" cy="106" r="8" fill="var(--bg)" stroke="var(--ink)" stroke-width="2"/><rect x="185" y="143" width="14" height="14" rx="2" fill="var(--cx)" stroke="var(--cx)" stroke-width="1.5" opacity="1"/><circle cx="192" cy="194" r="8" fill="var(--bg)" stroke="var(--ink)" stroke-width="2"/><rect x="185" y="231" width="14" height="14" rx="2" fill="var(--cx)" stroke="var(--cx)" stroke-width="1.5" opacity="1"/><circle cx="236" cy="62" r="8" fill="var(--bg)" stroke="var(--ink3)" stroke-width="1.5" stroke-dasharray="3 2"/><path d="M231,57 L241,67 M241,57 L231,67" stroke="var(--cd)" stroke-width="2"/><rect x="229" y="99" width="14" height="14" rx="2" fill="var(--cz)" stroke="var(--cz)" stroke-width="1.5" opacity="1"/><circle cx="236" cy="150" r="8" fill="var(--bg)" stroke="var(--ink)" stroke-width="2"/><rect x="229" y="187" width="14" height="14" rx="2" fill="var(--bg2)" stroke="var(--cz)" stroke-width="1.5" opacity="0.55"/><circle cx="236" cy="238" r="8" fill="var(--bg)" stroke="var(--ink3)" stroke-width="1.5" stroke-dasharray="3 2"/><path d="M231,233 L241,243 M241,233 L231,243" stroke="var(--cd)" stroke-width="2"/><text x="148" y="24" text-anchor="middle" class="zh" font-size="13" font-weight="600" fill="var(--ink)">未旋转 d = 3：13 个数据比特</text><text x="148" y="24" text-anchor="middle" class="en" font-size="13" font-weight="600" fill="var(--ink)">unrotated d = 3: 13 data qubits</text><text x="148" y="288" text-anchor="middle" class="zh" font-size="12" fill="var(--ink2)">虚线菱形内留下 9 个；四角的 4 个（×）被裁掉</text><text x="148" y="288" text-anchor="middle" class="en" font-size="12" fill="var(--ink2)">the diamond keeps 9; 4 corners (×) are cut</text><path d="M296,150 L430,150" stroke="var(--ink3)" stroke-width="1.8" marker-end="url(#rotarr)"/><text x="363.0" y="140" text-anchor="middle" class="zh" font-size="12" fill="var(--ink2)">转 45° 摆正</text><text x="363.0" y="140" text-anchor="middle" class="en" font-size="12" fill="var(--ink2)">turn 45°, set upright</text><rect x="470.0" y="91.0" width="58" height="58" fill="var(--cx)" fill-opacity="0.22" stroke="var(--cx)" stroke-width="1.5"/><rect x="528.0" y="149.0" width="58" height="58" fill="var(--cx)" fill-opacity="0.22" stroke="var(--cx)" stroke-width="1.5"/><rect x="528.0" y="91.0" width="58" height="58" fill="var(--cz)" fill-opacity="0.22" stroke="var(--cz)" stroke-width="1.5"/><rect x="470.0" y="149.0" width="58" height="58" fill="var(--cz)" fill-opacity="0.22" stroke="var(--cz)" stroke-width="1.5"/><path d="M528.0,91.0 A29.0,29.0 0 0 1 586.0,91.0 Z" fill="var(--cx)" fill-opacity="0.22" stroke="var(--cx)" stroke-width="1.5"/><path d="M470.0,207.0 A29.0,29.0 0 0 0 528.0,207.0 Z" fill="var(--cx)" fill-opacity="0.22" stroke="var(--cx)" stroke-width="1.5"/><path d="M586.0,149.0 A29.0,29.0 0 0 1 586.0,207.0 Z" fill="var(--cz)" fill-opacity="0.22" stroke="var(--cz)" stroke-width="1.5"/><path d="M470.0,91.0 A29.0,29.0 0 0 0 470.0,149.0 Z" fill="var(--cz)" fill-opacity="0.22" stroke="var(--cz)" stroke-width="1.5"/><circle cx="470" cy="91.0" r="8" fill="var(--bg)" stroke="var(--ink)" stroke-width="2"/><circle cx="470" cy="149.0" r="8" fill="var(--bg)" stroke="var(--ink)" stroke-width="2"/><circle cx="470" cy="207.0" r="8" fill="var(--bg)" stroke="var(--ink)" stroke-width="2"/><circle cx="528" cy="91.0" r="8" fill="var(--bg)" stroke="var(--ink)" stroke-width="2"/><circle cx="528" cy="149.0" r="8" fill="var(--bg)" stroke="var(--ink)" stroke-width="2"/><circle cx="528" cy="207.0" r="8" fill="var(--bg)" stroke="var(--ink)" stroke-width="2"/><circle cx="586" cy="91.0" r="8" fill="var(--bg)" stroke="var(--ink)" stroke-width="2"/><circle cx="586" cy="149.0" r="8" fill="var(--bg)" stroke="var(--ink)" stroke-width="2"/><circle cx="586" cy="207.0" r="8" fill="var(--bg)" stroke="var(--ink)" stroke-width="2"/><text x="528" y="24" text-anchor="middle" class="zh" font-size="13" font-weight="600" fill="var(--ink)">旋转 d = 3：9 个数据比特</text><text x="528" y="24" text-anchor="middle" class="en" font-size="13" font-weight="600" fill="var(--ink)">rotated d = 3: 9 data qubits</text><text x="528" y="288" text-anchor="middle" class="zh" font-size="12" fill="var(--ink2)">4 条四腿检查 + 边上 4 条两腿检查</text><text x="528" y="288" text-anchor="middle" class="en" font-size="12" fill="var(--ink2)">4 four-leg checks + 4 two-leg checks on the sides</text><circle cx="47" cy="318" r="7" fill="var(--bg)" stroke="var(--ink)" stroke-width="2"/><text x="60" y="322" class="zh" font-size="12" fill="var(--ink2)">数据比特</text><text x="60" y="322" class="en" font-size="12" fill="var(--ink2)">data qubit</text><rect x="200" y="311.5" width="13" height="13" rx="2" fill="var(--cx)"/><text x="220" y="322" class="zh" font-size="12" fill="var(--ink2)">X 检查（星）</text><text x="220" y="322" class="en" font-size="12" fill="var(--ink2)">X check (star)</text><rect x="360" y="311.5" width="13" height="13" rx="2" fill="var(--cz)"/><text x="380" y="322" class="zh" font-size="12" fill="var(--ink2)">Z 检查（面）</text><text x="380" y="322" class="en" font-size="12" fill="var(--ink2)">Z check (plaquette)</text><rect x="520" y="311.5" width="13" height="13" rx="2" fill="var(--bg2)" stroke="var(--ink3)" opacity="0.6"/><text x="540" y="322" class="zh" font-size="12" fill="var(--ink2)">被裁掉的检查</text><text x="540" y="322" class="en" font-size="12" fill="var(--ink2)">check that is cut</text></svg></div>
+    <figcaption><span class="fno"><span class="zh">图 4.1</span><span class="en">Fig. 4.1</span></span><span class="zh">左：未旋转 d = 3 的棋盘（圆点 = 数据比特，橙方块 = X 检查，蓝方块 = Z 检查，彩色细线 = 保留下来的检查碰到的比特）。粉色虚线菱形里有 9 个比特；画 × 的四个角比特被裁掉，淡色方块是不保留的检查：菱形每条边上有两个候选，它们共享一个比特、互相反对易，只能留一个。右：把菱形转 45° 摆正得到的旋转版，彩色方格是四腿检查，边上的半圆是两腿检查。</span><span class="en">Left: the unrotated d = 3 board (dots = data qubits, orange squares = X checks, blue squares = Z checks, coloured lines = qubits touched by the checks that are kept). The pink dashed diamond holds 9 qubits; the four corner qubits marked × are cut, and the faded squares are checks that are not kept: each side of the diamond has two candidates, which share one qubit and anticommute, so only one can stay. Right: the rotated patch obtained by turning the diamond 45° upright; coloured squares are four-leg checks, the half-discs on the sides two-leg checks.</span></figcaption>
+  </figure>
+  <div class="prose">
+    <p class="zh">一般的 d 也一样：旋转版有 d² 个数据比特、d² − 1 条检查，加上每条检查一个帮手，总数 2d² − 1。它和未旋转版用的是同一种四腿检查，只是边界沿斜线裁，省下的比特全在边界附近。<span class="mono">reproduce.py</span> 对 d = 3 和 d = 12 断言了下面这些数：</p>
+    <p class="en">General d works the same way: the rotated patch has d² data qubits and d² − 1 checks, and with one helper per check the total is 2d² − 1. It uses the same four-leg checks as the unrotated patch; only the boundary is cut along a diagonal, and all the qubits saved sit near the boundary. <span class="mono">reproduce.py</span> asserts these values for d = 3 and d = 12:</p>
   </div>
   <div class="table-wrap">
     <table class="glossary">
@@ -1138,17 +1236,25 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
       <tr><td>12</td><td>265 / 529</td><td>144 / 287</td><td><span class="zh"><span class="mono">reproduce.py</span> 断言；构造器未发布 L=12 实例</span><span class="en"><span class="mono">reproduce.py</span> assertion; no L=12 instance is shipped</span></td></tr>
     </table>
   </div>
-  <p class="muted small"><span class="zh">d = 码距；「数据」= 数据比特数 n，「总数」= 数据比特 + 帮手比特。</span><span class="en">d = distance; “data” = data qubits n, “total” = data + helper qubits.</span></p>
+  <p class="muted small"><span class="zh">d = 码距；「数据」= 数据比特数 n，「总数」= 数据比特 + 帮手比特，按每条检查一个帮手计。</span><span class="en">d = distance; “data” = data qubits n, “total” = data + helper qubits, counting one helper per check.</span></p>
+  <div class="prose">
+    <p class="zh">帮手也可以少于检查数。Horsman 等人（§7.1）写到，d = 3 旋转版的 8 条检查可以用 8 个帮手测，也可以让中间 4 个帮手各用两次（仍然只让相邻比特互相作用），总数就从 17 降到 9 + 4 = 13；他们拿它和未旋转版的 25 比。代价是每一轮测量要分两批做，花的时间更长。所以文献里「d = 3 要多少个物理比特」可能写 17，也可能写 13，要看帮手怎么排。</p>
+    <p class="en">There can also be fewer helpers than checks. Horsman et al. (§7.1) note that the 8 checks of the rotated d = 3 patch can be measured with 8 helpers, or with the 4 central helpers each used twice (still with only neighbouring qubits interacting), which brings the total from 17 down to 9 + 4 = 13; they compare that with the 25 of the unrotated patch. The price is that each measurement round is done in two batches and takes longer. So a paper may give 17 or 13 as “the physical qubits for d = 3”, depending on how the helpers are scheduled.</p>
+  </div>
   <div class="note note-warn">
     <span class="note-tag"><span class="zh">易错点</span><span class="en">Pitfall</span></span>
     <p class="zh">两列「总数」都<b>不含</b>布线通道、备用比特和魔法态工厂的面积。Atlas 的原话：这些必须单独说明，「rather than hidden in “physical qubits”」。当你读到「一个逻辑比特需要 N 个物理比特」时，先问：N 数了哪些东西？</p>
     <p class="en">Neither “total” column includes routing lanes, spare qubits or magic-state factory space. In the Atlas's words, these must be stated separately “rather than hidden in ‘physical qubits’”. Whenever you read “one logical qubit needs N physical qubits”, first ask: what exactly did N count?</p>
   </div>
 
-  <h3 id="s4-3"><span class="sec-no">4.3</span><span class="zh">k·d² = O(n)：为什么只存 1 个</span><span class="en">k·d² = O(n): why it stores only one</span></h3>
+  <h3 id="s4-3"><span class="sec-no">4.3</span><span class="zh">k·d² = O(n)：为什么一块补丁的 k 不随 L 增长</span><span class="en">k·d² = O(n): why one patch’s k cannot grow with L</span></h3>
   <div class="prose">
-    <p class="zh">把三个数放在一起看：n 随 L² 增长，k 永远是 1，d = L。所以<span class="term">k/n → 0<span class="tip">编码率趋于零：逻辑比特数除以物理比特数，随 L 增大无限变小。</span></span>，而 d = <span class="term">Θ(√n)<span class="tip">「与 √n 同阶」：d 被 √n 的常数倍从上下两侧夹住。这里 d = L，n ≈ 2L²，故 d ≈ √(n/2)。</span></span>。这不是设计者的吝啬。Bravyi、Poulin、Terhal 证明（<span class="mono">bravyi2010tradeoffs</span>，“Tradeoffs for reliable quantum information storage in 2D systems”，2010）：任何二维、检查只连有界范围邻居的稳定子码都满足 k·d² <span class="sym" data-sym="leq">≤</span> c·n（c 是一个不依赖 n 的常数）。表面码 k·d² = L² ≈ n/2，把这条天花板顶到了常数因子以内。想多存几个逻辑比特而不牺牲 d，就必须放弃二维局域性——这正是 qLDPC 家族走的路。完整推导（包括「欧几里得有界范围」在哪一步进入）见 Atlas 的 <a href="../../../../exports/site/foundations/bounds/bravyi-poulin-terhal.html">BPT 推导页</a>。</p>
-    <p class="en">Put the three numbers side by side: n grows like L², k is always 1, d = L. Hence <span class="term">k/n → 0<span class="tip">The encoding rate, logical qubits divided by physical qubits, shrinks without limit as L grows.</span></span> while d = <span class="term">Θ(√n)<span class="tip">“Of the same order as √n”: d is sandwiched between constant multiples of √n. Here d = L and n ≈ 2L², so d ≈ √(n/2).</span></span>. This is no stinginess on the designer's part. Bravyi, Poulin and Terhal proved (<span class="mono">bravyi2010tradeoffs</span>, “Tradeoffs for reliable quantum information storage in 2D systems”, 2010) that every two-dimensional stabilizer code whose checks reach only bounded-range neighbours obeys k·d² <span class="sym" data-sym="leq">≤</span> c·n (c a constant independent of n). The surface code, with k·d² = L² ≈ n/2, pushes against that ceiling up to a constant. To store more logical qubits without giving up d one must abandon two-dimensional locality, which is precisely the road the qLDPC family takes. The complete derivation, including exactly where Euclidean bounded range enters, is on the Atlas <a href="../../../../exports/site/foundations/bounds/bravyi-poulin-terhal.html">BPT derivation page</a>.</p>
+    <p class="zh">把三个数放在一起看：n 随 L² 增长，k 永远是 1，d = L。所以<span class="term">k/n → 0<span class="tip">编码率趋于零：逻辑比特数除以物理比特数，随 L 增大无限变小。</span></span>：L = 10 时 181 个数据比特只存 1 个逻辑比特。而 d = <span class="term">Θ(√n)<span class="tip">「与 √n 同阶」：d 被 √n 的常数倍从上下两侧夹住。这里 d = L，n ≈ 2L²，故 d ≈ √(n/2)。</span></span>：比特数翻 4 倍，码距只翻 2 倍。Bravyi、Poulin、Terhal 证明了一条把 k、d、n 绑在一起的定理（<span class="mono">bravyi2010tradeoffs</span>，“Tradeoffs for reliable quantum information storage in 2D systems”，2010）。它有两条前提：(1) 比特排在一张间距固定的二维正方格子上，每个格点一个比特，所以单位面积里的比特数有上限（没有这一条，就能把任意一个码塞进一小块面积，「局域」就没有意义了）；(2) 每条检查碰的比特都落在一个 w × w 的小方块里，w 是固定的，不随码变大而变大。在这两条前提下，任何稳定子码（论文对更一般的一类码也证明了）都满足 k·d² <span class="sym" data-sym="leq">≤</span> c·n，常数 c 只取决于 w 和每个格点上量子系统的大小，与 n 无关。表面码的格子间距固定、每条检查只碰相邻的比特，两条前提都满足。</p>
+    <p class="zh">这条不等式对表面码说了什么？把它改写成 k ≤ c·n/d²。表面码的 d = Θ(√n)，n/d² 被一个常数封顶（n ≈ 2L²，d = L，n/d² ≈ 2），所以 k 也被一个常数封顶，不能随 L 增长。定理不说这个常数是 1：k 恰好等于 1，是 2.2 节算的两个秩给出的，由这块版图的检查决定。把数代进去看离天花板多近：表面码的 k·d² = L²，L = 10 时是 100，而 n = 181，比值约 0.55；L 越大这个比值越接近 1/2，所以表面码离这条天花板只差一个常数因子。</p>
+    <p class="zh">那想多存几个逻辑比特怎么办？最简单的是在平面上多摆几块互不相连的补丁：m 块给出 [[m·n, m, L]]，k 涨到 m，d 不变。它完全符合定理：k·d² = m·L²，和总比特数 m·n 一起涨。定理挡住的是另一件事：编码率 k/n 不趋于零（k 与 n 成正比）的同时，让码距 d 无限增长。k 和 d 都慢慢长是允许的：摆 L 块码距为 L 的补丁，k = d = L，总比特数 n ≈ 2L³，k·d² = L³ ≈ n/2，没有违反定理，只是 k/n ≈ 1/(2L²) 仍然趋于零。要让 k/n 保持不变、d 又越来越大，在上面两条前提下做不到；若仍保留前提 (1) 的平面等密度排布，就只能放宽前提 (2)，允许检查碰到远处的比特。这正是 <span class="term">qLDPC<span class="tip">quantum low-density parity-check：每条检查只碰少数几个比特、每个比特只被少数几条检查碰到的量子码；「少数」不随码变大而增长，但不要求这些比特在平面上彼此挨着。</span></span>（量子低密度校验）码走的路：每条检查仍只碰几个比特，但不要求它们在平面上挨着。完整推导（包括「在平面上挨着」这个条件在哪一步用到）见 Atlas 的 <a href="../../../../exports/site/foundations/bounds/bravyi-poulin-terhal.html">BPT 推导页</a>。</p>
+    <p class="en">Put the three numbers side by side: n grows like L², k is always 1, d = L. Hence <span class="term">k/n → 0<span class="tip">The encoding rate, logical qubits divided by physical qubits, shrinks without limit as L grows.</span></span>: at L = 10, 181 data qubits store a single logical qubit. And d = <span class="term">Θ(√n)<span class="tip">“Of the same order as √n”: d is sandwiched between constant multiples of √n. Here d = L and n ≈ 2L², so d ≈ √(n/2).</span></span>: four times the qubits buys only twice the distance. Bravyi, Poulin and Terhal proved a theorem that ties k, d and n together (<span class="mono">bravyi2010tradeoffs</span>, “Tradeoffs for reliable quantum information storage in 2D systems”, 2010). It has two hypotheses: (1) the qubits sit on a two-dimensional square lattice with fixed spacing, one qubit per site, so the number of qubits per unit area is bounded (without this, any code could be packed into a tiny area and “local” would mean nothing); (2) the qubits each check touches all fit inside a w × w block, with w fixed and not growing with the code. Under these two hypotheses every stabilizer code (the paper also covers a more general class) obeys k·d² <span class="sym" data-sym="leq">≤</span> c·n, where the constant c depends only on w and on the size of the quantum system at each site, not on n. The surface code has fixed spacing and each check touches only neighbouring qubits, so it meets both hypotheses.</p>
+    <p class="en">What does the inequality say about the surface code? Rewrite it as k ≤ c·n/d². The surface code has d = Θ(√n), so n/d² is capped by a constant (n ≈ 2L², d = L, n/d² ≈ 2), and k is capped by a constant too: it cannot grow with L. The theorem does not say that constant is 1: k is exactly 1 because of the two ranks computed in §2.2, which is a property of this patch's checks. To see how close the surface code comes to the ceiling, plug in numbers: k·d² = L², which at L = 10 is 100 against n = 181, a ratio of about 0.55, and the ratio approaches 1/2 as L grows, so the surface code sits within a constant factor of the ceiling.</p>
+    <p class="en">So how do you store more logical qubits? The simplest way is to lay several separate patches side by side in the plane: m patches give [[m·n, m, L]], raising k to m with d unchanged. That is fully consistent with the theorem: k·d² = m·L² grows along with the total qubit count m·n. What the theorem rules out is something else: keeping the encoding rate k/n away from zero (k proportional to n) while the distance d grows without bound. Letting k and d both grow slowly is allowed: lay out L patches of distance L and k = d = L with n ≈ 2L³ qubits, so k·d² = L³ ≈ n/2, within the theorem, although k/n ≈ 1/(2L²) still goes to zero. Keeping k/n fixed while d keeps growing is impossible under the two hypotheses; if the fixed-density planar layout of hypothesis (1) is kept, the only way is to relax hypothesis (2) and let checks reach distant qubits. That is the road taken by <span class="term">qLDPC<span class="tip">quantum low-density parity-check: codes in which each check touches only a few qubits and each qubit is touched by only a few checks, “few” not growing with the code, but with no requirement that those qubits be neighbours in a plane.</span></span> (quantum low-density parity-check) codes: each check still touches only a few qubits, but they need not be neighbours in the plane. The complete derivation, including the step where “neighbours in the plane” is used, is on the Atlas <a href="../../../../exports/site/foundations/bounds/bravyi-poulin-terhal.html">BPT derivation page</a>.</p>
   </div>
   <div class="formula center tall">n = 2L²−2L+1,　k = 1,　d = L　<span class="sym" data-sym="implies">⇒</span>　k·d² = L² <span class="sym" data-sym="approx">≈</span> n/2 = O(n)<br><span class="dim">(<span class="zh">二维局域码的上限，Bravyi–Poulin–Terhal</span><span class="en">the 2-D local ceiling, Bravyi–Poulin–Terhal</span>)</span></div>
   <p class="muted small"><span class="zh">n = 物理比特数，k = 逻辑比特数，d = 码距，L = 家族变量；O(n) = 不超过 n 的某个常数倍。</span><span class="en">n = physical qubits, k = logical qubits, d = distance, L = family variable; O(n) = at most some constant times n.</span></p>
@@ -1164,8 +1270,8 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
     <h2><span class="zh">九个数字，两个词</span><span class="en">Nine numbers, two words</span></h2>
   </div>
   <div class="prose">
-    <p class="zh">回放一遍：表面码是一族码，家族变量 L ≥ 2；构造器 HGP(rep_L, rep_L) 生成未旋转的平面版图，n = L²+(L−1)² 是两块比特之和，k = 1 来自两个秩都等于 L(L−1)，d = L 来自一条上界串与 L 条不相交代表。Atlas 发布 L3、L4、L5 三个实例；n、k、css 全部 verified；d 在 L3、L4 由穷举 verified，在 L5 由定理下界与种子见证上界合成 bounded。算上帮手，未旋转版图用 (2d−1)² 个比特存 1 个逻辑比特，而这个「1」是二维局域性的天花板 k·d² = O(n) 决定的。</p>
-    <p class="en">Replay: the surface code is a family with variable L ≥ 2; the constructor HGP(rep_L, rep_L) builds the unrotated planar patch, n = L²+(L−1)² is the sum of two qubit blocks, k = 1 follows from both ranks equalling L(L−1), and d = L from one upper-bound string plus L disjoint representatives. The Atlas ships three instances, L3, L4, L5; n, k and css are verified throughout; d is verified by enumeration at L3 and L4 and bounded at L5 by a theorem lower bound and a seeded witness upper bound. Helpers included, the unrotated patch spends (2d−1)² qubits on one logical qubit, and that “one” is dictated by the two-dimensional ceiling k·d² = O(n).</p>
+    <p class="zh">回放一遍：表面码是一族码，家族变量 L ≥ 2；构造器 HGP(rep_L, rep_L) 生成未旋转的平面版图，n = L²+(L−1)² 是两块比特之和，k = 1 来自两个秩都等于 L(L−1)，d = L 来自一行 Z、一列 X 两条串（上界）与 Z̄ 的 L 个不相交拷贝（下界）。Atlas 发布 L3、L4、L5 三个实例；n、k、css 全部 verified；d 在 L3、L4 由穷举 verified；在 L5，实例文件把它登记成定理下界加随机搜索上界，所以是 bounded。算上帮手（每条检查一个），未旋转版图用 (2d−1)² 个比特存 1 个逻辑比特。这个 1 是两个秩算出来的精确值；二维局域性的天花板 k·d² = O(n) 则说明，只要 d 随 √n 增长，k 就只能停在一个常数。</p>
+    <p class="en">Replay: the surface code is a family with variable L ≥ 2; the constructor HGP(rep_L, rep_L) builds the unrotated planar patch, n = L²+(L−1)² is the sum of two qubit blocks, k = 1 follows from both ranks equalling L(L−1), and d = L from a Z row and an X column (upper bound) plus L disjoint copies of Z̄ (lower bound). The Atlas ships three instances, L3, L4, L5; n, k and css are verified throughout; d is verified by enumeration at L3 and L4; at L5 the instance file records it as a theorem lower bound plus a random-search upper bound, hence bounded. Helpers included (one per check), the unrotated patch spends (2d−1)² qubits on one logical qubit. That 1 is the exact value the two ranks give; the two-dimensional ceiling k·d² = O(n) says that as long as d grows like √n, k can only stay at a constant.</p>
   </div>
 
   <h3 id="symtable"><span class="zh">符号与读法</span><span class="en">Symbols &amp; how to read them</span></h3>
@@ -1175,8 +1281,8 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
     <tr><td class="mono" style="font-size:17px">HGP(rep_L, rep_L)</td><td><span class="zh">读「两份长度 L 重复码的超图乘积」</span><span class="en">Read “the hypergraph product of two length-L repetition codes”</span></td><td><span class="zh">由两个经典校验矩阵生成 CSS 量子码的配方；rep_L（记 H）是 (L−1)×L 的 0/1 矩阵，每行「1 1」相邻，rank(H) = L−1。</span><span class="en">The recipe turning two classical check matrices into a CSS code; rep_L (written H) is the (L−1)×L binary matrix with adjacent “1 1” rows, rank(H) = L−1.</span></td></tr>
     <tr><td class="mono" style="font-size:17px">H<sub>X</sub>, H<sub>Z</sub></td><td><span class="zh">读「X 检查矩阵、Z 检查矩阵」</span><span class="en">Read “the X and Z check matrices”</span></td><td><span class="zh">每行一条检查、每列一个比特的 0/1 矩阵；CSS 条件 H<sub>X</sub>H<sub>Z</sub><sup>T</sup> = 0（模 2）。</span><span class="en">Binary matrices with one check per row and one qubit per column; the CSS condition is H<sub>X</sub>H<sub>Z</sub><sup>T</sup> = 0 (mod 2).</span></td></tr>
     <tr><td class="mono" style="font-size:17px">rank</td><td><span class="zh">读「秩」</span><span class="en">Read “rank”</span></td><td><span class="zh">矩阵中独立行的个数（模 2）；这里 rank(H<sub>X</sub>) = rank(H<sub>Z</sub>) = L(L−1)。</span><span class="en">The number of independent rows (mod 2); here rank(H<sub>X</sub>) = rank(H<sub>Z</sub>) = L(L−1).</span></td></tr>
-    <tr><td class="mono" style="font-size:17px">wt(P)</td><td><span class="zh">读「P 的重量」</span><span class="en">Read “the weight of P”</span></td><td><span class="zh">算符 P 非平凡作用的比特数；d = 最轻逻辑算符的 wt。</span><span class="en">The number of qubits P acts on non-trivially; d = the weight of the lightest logical.</span></td></tr>
-    <tr><td class="mono" style="font-size:17px">≤　≥</td><td><span class="zh">读「小于等于 / 大于等于」</span><span class="en">Read “at most / at least”</span></td><td><span class="zh">码距的两条不等式：上界 d ≤ L 由一条串给出，下界 d ≥ L 由不相交代表给出。</span><span class="en">The two distance inequalities: the upper bound d ≤ L from one string, the lower bound d ≥ L from disjoint representatives.</span></td></tr>
+    <tr><td class="mono" style="font-size:17px">wt(P)</td><td><span class="zh">读「P 的重量」</span><span class="en">Read “the weight of P”</span></td><td><span class="zh">算符 P 作用不是恒等 I 的比特数；d = 最轻逻辑算符的 wt。</span><span class="en">The number of qubits on which P acts as something other than I; d = the weight of the lightest logical.</span></td></tr>
+    <tr><td class="mono" style="font-size:17px">≤　≥</td><td><span class="zh">读「小于等于 / 大于等于」</span><span class="en">Read “at most / at least”</span></td><td><span class="zh">码距的两条不等式：上界 d ≤ L 由一条串给出，下界 d ≥ L 由不相交的拷贝给出。</span><span class="en">The two distance inequalities: the upper bound d ≤ L from one string, the lower bound d ≥ L from disjoint copies.</span></td></tr>
     <tr><td class="mono" style="font-size:17px">Θ(√n),　O(n)</td><td><span class="zh">读「西塔 根号 n」「大 O n」</span><span class="en">Read “theta of root n”, “big-O of n”</span></td><td><span class="zh">增长阶记号：Θ = 上下都被常数倍夹住；O = 至多常数倍。k·d² = O(n) 即「不超过 n 的常数倍」。</span><span class="en">Growth-order notation: Θ = sandwiched by constant multiples both ways; O = at most a constant multiple. k·d² = O(n) means “no more than a constant times n”.</span></td></tr>
   </table></div>
 
@@ -1184,12 +1290,18 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
   <div class="table-wrap">
     <table class="glossary">
       <tr><th><span class="zh">术语</span><span class="en">Term</span></th><th><span class="zh">白话定义</span><span class="en">Plain definition</span></th></tr>
+      <tr><td><span class="zh">CSS 码</span><span class="en">CSS code</span></td><td><span class="zh">检查分成纯 X、纯 Z 两族的稳定子码（Calderbank–Shor–Steane）；两族分别写成 H<sub>X</sub>、H<sub>Z</sub>。</span><span class="en">A stabilizer code whose checks split into a pure-X and a pure-Z family (Calderbank–Shor–Steane); the families are written H<sub>X</sub>, H<sub>Z</sub>.</span></td></tr>
+      <tr><td><span class="zh">转置 Hᵀ</span><span class="en">transpose Hᵀ</span></td><td><span class="zh">把矩阵 H 的行和列对调；H 的行是检查，Hᵀ 的行就是比特。</span><span class="en">H with rows and columns swapped; the rows of H are checks, so the rows of Hᵀ are bits.</span></td></tr>
       <tr><td><span class="zh">家族变量</span><span class="en">family variable</span></td><td><span class="zh">生成一族码中某个成员所需的输入；表面码只有 L。</span><span class="en">The input that selects one member of a code family; the surface code has only L.</span></td></tr>
       <tr><td><span class="zh">实例</span><span class="en">instance</span></td><td><span class="zh">家族变量取定后的有限码对象；Atlas 发布 L3、L4、L5。</span><span class="en">The finite code object once the variable is fixed; the Atlas ships L3, L4, L5.</span></td></tr>
       <tr><td><span class="zh">证据词（origin kind）</span><span class="en">evidence word (origin kind)</span></td><td><span class="zh">verified = 机器独立重算相符；bounded = 只有上下界；claimed = 引自文献未重算。</span><span class="en">verified = independently recomputed by machine; bounded = bounds only; claimed = cited, not recomputed.</span></td></tr>
       <tr><td><span class="zh">穷举 CSS 枚举（exact-css-enum）</span><span class="en">exhaustive CSS enumeration (exact-css-enum)</span></td><td><span class="zh">利用 CSS 结构，逐一检查所有重量小于 d 的纯 X 型与纯 Z 型算符都不是逻辑算符的方法（qeclib/distance.py）；L3、L4 的 d 由此 verified。X、Y、Z 全枚举是另一套方法：Lean 小规模精确码距证书。</span><span class="en">Using the CSS structure to check one by one that no pure-X or pure-Z operator of weight below d is a logical (qeclib/distance.py); how d at L3 and L4 is verified. Enumerating all of X, Y, Z is a separate method: the Lean small exact-distance certificate.</span></td></tr>
       <tr><td><span class="zh">见证（witness）</span><span class="en">witness</span></td><td><span class="zh">一个具体的、可机器复核的例子，如 rand-lowweight-v1 找到的重量 5 逻辑算符；只证明上界。</span><span class="en">A concrete, machine-checkable example, such as the weight-5 logical found by rand-lowweight-v1; it proves only an upper bound.</span></td></tr>
-      <tr><td><span class="zh">不相交代表</span><span class="en">disjoint representatives</span></td><td><span class="zh">同一逻辑类里两两不交的 L 条串；证明下界 d ≥ L 的工具。</span><span class="en">L pairwise-disjoint strings in one logical class; the tool that proves the lower bound d ≥ L.</span></td></tr>
+      <tr><td><span class="zh">不相交拷贝</span><span class="en">disjoint copies</span></td><td><span class="zh">同一个逻辑算符的 L 个两两不交的代表（Z̄ 放在 L 行中的任一行）；证明下界 d ≥ L 的工具。</span><span class="en">L pairwise-disjoint representatives of one logical operator (Z̄ on any of the L rows); the tool that proves the lower bound d ≥ L.</span></td></tr>
+      <tr><td><span class="zh">超图乘积（HGP）· 棋盘</span><span class="en">hypergraph product (HGP) · the board</span></td><td><span class="zh">把两个经典码相乘：两条链的成员两两配对铺成棋盘，（比特, 比特）与（检查, 检查）是量子比特，（检查, 比特）是 X 检查，（比特, 检查）是 Z 检查，检查碰上下左右四个邻居。</span><span class="en">Multiplying two classical codes: pair up the members of the two chains on a board; (bit, bit) and (check, check) cells are qubits, (check, bit) cells X checks, (bit, check) cells Z checks, and a check touches its four neighbours.</span></td></tr>
+      <tr><td><span class="zh">构造器 · 验证器 · 实例文件</span><span class="en">constructor · verifier · instance file</span></td><td><span class="zh">Atlas 里生成检查矩阵的程序；重新运行构造器并重算声明的程序；列出每个实例及其声明的文本清单（instances.yaml）。</span><span class="en">The Atlas program that generates the check matrices; the program that reruns it and recomputes the claims; the text list of instances and their claims (instances.yaml).</span></td></tr>
+      <tr><td><span class="zh">种子（seed）</span><span class="en">seed</span></td><td><span class="zh">随机搜索的起始编号；固定种子就固定了整串随机数，任何人重跑都得到同一结果。</span><span class="en">The starting number of a random search; fixing it fixes the whole sequence of random numbers, so every rerun gives the same result.</span></td></tr>
+      <tr><td><span class="zh">旋转版图</span><span class="en">rotated patch</span></td><td><span class="zh">把未旋转棋盘沿 45° 菱形裁下、再摆正得到的 [[d², 1, d]] 版本（图 4.1）；不在构造器内。</span><span class="en">The [[d², 1, d]] version obtained by cutting a 45° diamond out of the unrotated board and setting it upright (Fig. 4.1); not in the constructor.</span></td></tr>
     </table>
   </div>
 
@@ -3754,50 +3866,65 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
         'Z', (v) => { mode = v; upd(); }
       );
       F.controls.append(seg.el,
-        U().btn(isToric ? '示范：可收缩的圈' : '示范：平凡closed圈', isToric ? 'Demo: contractible loop' : 'Demo: trivial loop', '', () => {
+        U().btn(isToric ? '示范：可收缩的圈' : '示范：平凡的闭合圈', isToric ? 'Demo: contractible loop' : 'Demo: trivial loop', '', () => {
           view.errZ = new Set(); view.errX = new Set();
           // boundary of a 2x1 block of plaquettes
           const s = P().xorSet(lat.plaqs[0].support, lat.plaqs[1].support);
           view.errZ = new Set(s);
-          mode = 'Z';
+          if (mode !== 'Z') seg.el.children[0].click();
           upd();
         }),
         U().btn(isToric ? '示范：缠绕圈' : '示范：跨边界串', isToric ? 'Demo: winding loop' : 'Demo: boundary-to-boundary', '', () => {
           view.errZ = new Set(lat.logicals.Z[0]); view.errX = new Set();
-          mode = 'Z';
+          if (mode !== 'Z') seg.el.children[0].click();
           upd();
         }),
         U().btn('清空', 'Clear', '', () => { view.errZ.clear(); view.errX.clear(); upd(); })
       );
+      // Both string types may be on the lattice at once (some pages ask for an X and a Z loop together),
+      // so alarms of both types are counted and each drawn type gets its own verdict.
+      function judge(type, sup) {
+        const partners = type === 'Z' ? lat.logicals.X : lat.logicals.Z;
+        const par = partners.map((Lg) => P().overlapParity(sup, Lg));
+        if (!par.some((v) => v === 1)) {
+          return {
+            zh: '<span class="ok">警报全灭</span>，而且它是<b>平凡的</b>：它恰好等于若干' + (type === 'Z' ? '面检查' : '星检查') + '的乘积，对编码信息<b>什么也不做</b>。',
+            en: '<span class="ok">No alarms</span>, and it is <b>trivial</b>: it equals a product of ' + (type === 'Z' ? 'face checks' : 'star checks') + ' and does <b>nothing</b> to the stored information.',
+          };
+        }
+        const L1 = type === 'Z' ? 'Z̄₁' : 'X̄₁', L2 = type === 'Z' ? 'Z̄₂' : 'X̄₂';
+        if (isToric) {
+          const which = par[0] && par[1] ? L1 + '·' + L2 + '（两个方向都绕）' : par[0] ? L1 + (type === 'Z' ? '（水平缠绕）' : '') : L2 + (type === 'Z' ? '（垂直缠绕）' : '');
+          const whichEn = par[0] && par[1] ? L1 + '·' + L2 + ', both directions' : par[0] ? L1 + ', direction 1' : L2 + ', direction 2';
+          return {
+            zh: '<span class="no">警报全灭，但这不是平凡圈！</span>它绕过了整个环面——这是<b>逻辑算符 ' + which + '</b>：不触发任何检查，却会改写存下来的量子信息。',
+            en: '<span class="no">No alarms, yet NOT trivial!</span> It winds around the torus (' + whichEn + ') — a <b>logical operator</b>: invisible to every check, yet it rewrites the stored quantum information.',
+          };
+        }
+        return {
+          zh: '<span class="no">警报全灭，但这不是平凡圈！</span>这条串从一条边界横跨到对面——它就是<b>逻辑算符 ' + (type === 'Z' ? 'Z̄' : 'X̄') + '</b>：不触发任何检查，却改写了存下来的量子比特。',
+          en: '<span class="no">No alarms, yet NOT trivial!</span> The string spans from one boundary to the opposite one — the <b>logical operator ' + (type === 'Z' ? 'Z̄' : 'X̄') + '</b>: invisible to every check, yet it rewrites the stored qubit.',
+        };
+      }
       function upd() {
         view.draw();
         const syn = view.syndrome();
         const zSup = [...view.errZ], xSup = [...view.errX];
-        const active = mode === 'Z' ? zSup : xSup;
-        const defects = mode === 'Z' ? syn.starDefects.length : syn.plaqDefects.length;
+        const defects = syn.starDefects.length + syn.plaqDefects.length;
         let verdictZh, verdictEn;
-        if (!active.length) {
+        if (!zSup.length && !xSup.length) {
           verdictZh = '画几条边试试。目标：不触发任何警报。';
           verdictEn = 'Draw some edges. Goal: trigger no alarms.';
         } else if (defects > 0) {
           verdictZh = '还有 <b>' + defects + '</b> 个警报亮着：串有端点。把它闭合，或' + (isToric ? '绕一整圈' : '让两端都搭到正确的边界上') + '。';
           verdictEn = '<b>' + defects + '</b> alarms still lit: the string has endpoints. Close it up, or ' + (isToric ? 'wrap it all the way around' : 'land both ends on the right boundaries') + '.';
         } else {
-          const partners = mode === 'Z' ? lat.logicals.X : lat.logicals.Z;
-          const par = partners.map((Lg) => P().overlapParity(active, Lg));
-          const wound = par.some((v) => v === 1);
-          if (!wound) {
-            verdictZh = '<span class="ok">警报全灭</span>，且这是一个<b>平凡圈</b>：它恰好等于若干' + (mode === 'Z' ? '面检查' : '星检查') + '的乘积，对编码信息<b>什么也不做</b>。';
-            verdictEn = '<span class="ok">No alarms</span>, and this is a <b>trivial loop</b>: it equals a product of ' + (mode === 'Z' ? 'face checks' : 'star checks') + ' and does <b>nothing</b> to the stored information.';
-          } else if (isToric) {
-            const which = par[0] && par[1] ? 'Z̄₁·Z̄₂（两个方向都绕）' : par[0] ? (mode === 'Z' ? 'Z̄₁（水平缠绕）' : 'X̄₁') : (mode === 'Z' ? 'Z̄₂（垂直缠绕）' : 'X̄₂');
-            const whichEn = par[0] && par[1] ? 'both directions' : par[0] ? 'direction 1' : 'direction 2';
-            verdictZh = '<span class="no">警报全灭，但这不是平凡圈！</span>它绕过了整个环面——这是<b>逻辑算符 ' + which + '</b>：不触发任何检查，却会改写存下来的量子信息。';
-            verdictEn = '<span class="no">No alarms, yet NOT trivial!</span> It winds around the torus (' + whichEn + ') — a <b>logical operator</b>: invisible to every check, yet it rewrites the stored quantum information.';
-          } else {
-            verdictZh = '<span class="no">警报全灭，但这不是平凡圈！</span>这条串从一条边界横跨到对面——它就是<b>逻辑算符 ' + (mode === 'Z' ? 'Z̄' : 'X̄') + '</b>：不触发任何检查，却改写了存下来的量子比特。';
-            verdictEn = '<span class="no">No alarms, yet NOT trivial!</span> The string spans from one boundary to the opposite one — the <b>logical operator ' + (mode === 'Z' ? 'Z̄' : 'X̄') + '</b>: invisible to every check, yet it rewrites the stored qubit.';
-          }
+          const both = zSup.length > 0 && xSup.length > 0;
+          const parts = [];
+          if (zSup.length) parts.push({ j: judge('Z', zSup), lz: 'Z 串：', le: 'Z string: ' });
+          if (xSup.length) parts.push({ j: judge('X', xSup), lz: 'X 串：', le: 'X string: ' });
+          verdictZh = parts.map((q) => (both ? q.lz : '') + q.j.zh).join('<br>');
+          verdictEn = parts.map((q) => (both ? q.le : '') + q.j.en).join('<br>');
         }
         F.setReadout('<span class="zh">' + verdictZh + '</span><span class="en">' + verdictEn + '</span>');
       }
@@ -3882,8 +4009,8 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
         view.hlEdges = new Map([...corr].map((e) => [e, { color: getComputedStyle(doc.documentElement).getPropertyValue('--good').trim(), width: 5 }]));
         view.draw();
         F.setReadout(fail
-          ? '<span class="zh"><span class="no">这回合失败了。</span>蓝色 = 真实错误，绿色 = 你的修复。二者合起来形成了' + (isToric ? '一条<b>缠绕整个环面</b>的圈' : '一条<b>横跨两条边界</b>的串') + ' —— 恰好是逻辑算符，信息被改写。连胜清零。点「新回合」再来！</span><span class="en"><span class="no">Round lost.</span> Blue = true errors, green = your repair. Together they form ' + (isToric ? 'a loop <b>winding around the torus</b>' : 'a string <b>spanning both boundaries</b>') + ' — exactly a logical operator; the data got rewritten. Streak reset. “New round” to retry!</span>'
-          : '<span class="zh"><span class="ok">成功！</span>蓝 + 绿合成的圈都是可收缩的平凡圈 —— 你的修复不必和错误一模一样，只要「合起来平凡」就赢。连胜 <b>' + streak + '</b>！</span><span class="en"><span class="ok">Success!</span> Blue + green together form only trivial contractible loops — the repair need not equal the error, it only needs to be trivial in combination. Streak <b>' + streak + '</b>!</span>');
+          ? '<span class="zh"><span class="no">这回合失败了。</span>蓝色 = 真实错误，绿色 = 你的修复。二者合起来' + (isToric ? '在某个方向上<b>缠绕环面</b>的总圈数是<b>奇数</b>' : '含有<b>奇数条</b><b>横跨两条边界</b>的串') + ' —— 合起来是一个逻辑算符，信息被改写。连胜清零。点「新回合」再来！</span><span class="en"><span class="no">Round lost.</span> Blue = true errors, green = your repair. Together they ' + (isToric ? '<b>wind around the torus</b> an <b>odd</b> total number of times in some direction' : 'contain an <b>odd number</b> of strings <b>spanning both boundaries</b>') + ' — together a logical operator; the data got rewritten. Streak reset. “New round” to retry!</span>'
+          : '<span class="zh"><span class="ok">成功！</span>蓝 + 绿合起来' + (isToric ? '在两个方向上缠绕环面的总圈数都是偶数（0 也算，两圈互相抵消）' : '横跨两条边界的串是偶数条（0 条也算，两条互相抵消）') + '—— 合起来只是一些检查的乘积。你的修复不必和错误一模一样，只要合起来是检查的乘积就赢。连胜 <b>' + streak + '</b>！</span><span class="en"><span class="ok">Success!</span> Blue + green together ' + (isToric ? 'wind around the torus an even total number of times in both directions (0 counts; two windings cancel)' : 'contain an even number of strings spanning both boundaries (0 counts; two cancel)') + ' — together just a product of checks. The repair need not equal the error; together with it, it only needs to form a product of checks. Streak <b>' + streak + '</b>!</span>');
       }
       function newRound() {
         err = new Set(); corr = new Set(); sel = null; over = false;
@@ -3929,12 +4056,12 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
         en: '① Start: the toric code. Note the stubs sticking out — they wrap to the opposite side; that is what makes it a torus.',
       },
       {
-        zh: '② 一刀剪开：删除所有绕回去的边。立刻出问题——边界上的星和面都缺了一条腿（虚线标出），检查表变得乱七八糟。',
-        en: '② Cut: delete every wrapping edge. Trouble at once — boundary stars and faces each lose a leg (dashed); the checks are mutilated.',
+        zh: '② 一刀剪开：删除所有绕回去的边（图里不再画出）。立刻出问题：沿边的星少了一条腿，四个角上的星少了两条；原来跨过剪口的面只剩两条腿，而且这两条分在贴片相对的两头，角上那一块面一条腿也不剩。检查表乱了套。',
+        en: '② Cut: delete every wrapping edge (no longer drawn). Trouble at once: the stars along the edge lose one leg and the four corner stars lose two; the faces that straddled the cut keep only two legs, on opposite sides of the patch, and the corner face keeps none. The checks are mutilated.',
       },
       {
-        zh: '③ 收拾干净：接受「三条腿」的检查作为正式成员，但分好工——左右两侧只截断<b>面</b>（并保留伸出的悬挂边），上下两侧只截断<b>星</b>。这就是<b>表面码</b>的版图：两种边界，各司其职。',
-        en: '③ Tidy up: keep the 3-leg checks as legitimate members, but divide the work — the left/right sides truncate only <b>faces</b> (keeping the dangling edges), the top/bottom truncate only <b>stars</b>. This is the <b>surface code</b> layout: two kinds of boundary, each with a job.',
+        zh: '③ 收拾干净：接受「三条腿」的检查作为正式成员，但分好工——左右两侧只截断<b>面</b>（并保留伸出的悬挂边），上下两侧只截断<b>星</b>。这就是<b>表面码</b>的版图：两种边界，各司其职。（这一帧重新画了一块 L = 4 的平面码，而不是在上一帧上修补：25 个比特、12 个星检查、12 个面检查，左右两侧带悬挂的横边。）',
+        en: '③ Tidy up: keep the 3-leg checks as legitimate members, but divide the work — the left/right sides truncate only <b>faces</b> (keeping the dangling edges), the top/bottom truncate only <b>stars</b>. This is the <b>surface code</b> layout: two kinds of boundary, each with a job. (This frame redraws an L = 4 planar code rather than patching the previous one: 25 qubits, 12 star checks and 12 face checks, with dangling horizontal edges on the left and right.)',
       },
     ];
     function render() {
@@ -3996,8 +4123,10 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
       { zh: '① 噪声落下：几条 Z 错误悄悄出现（真实设备里你看不到它们）', en: '① Noise strikes: a few Z errors appear (invisible in a real device)' },
       { zh: '② 测量所有检查：只有错误链的端点亮起警报', en: '② Measure every check: only chain endpoints raise alarms' },
       { zh: '③ 译码器配对警报，规划修复链（绿）', en: '③ The decoder pairs alarms and plans repair chains (green)' },
-      { zh: '④ 施加修复：错误 ⊕ 修复 = 平凡圈 → 警报全灭，信息完好', en: '④ Apply the repair: error ⊕ repair = trivial loops → alarms clear, data intact' },
+      { zh: '④ 施加修复：警报全灭；错误 ⊕ 修复和 X̄ 交叉偶数次 → 信息完好', en: '④ Apply the repair: alarms clear; error ⊕ repair crosses X̄ an even number of times → data intact' },
     ];
+    const PH_FAIL = { zh: '④ 施加修复：警报全灭，但错误 ⊕ 修复和 X̄ 交叉奇数次 → 逻辑错误，信息被改写', en: '④ Apply the repair: alarms clear, but error ⊕ repair crosses X̄ an odd number of times → a logical error; the data is overwritten' };
+    let lastFail = false;
     function step() {
       phase = (phase + 1) % 4;
       if (phase === 0) {
@@ -4017,16 +4146,16 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
       } else {
         const residual = P().xorSet([...err], corr);
         const fail = lat.logicals.X.some((Lg) => P().overlapParity(residual, Lg));
-        rounds++; if (!fail) saved++;
+        rounds++; if (!fail) saved++; lastFail = fail;
         view.errZ = new Set(residual.filter(() => false));
         view.errZ = new Set();
         view.hlEdges = new Map();
       }
       view.draw();
-      const tail = phase === 3 ? (U().getLang() === 'en'
-        ? ' — rounds: ' + rounds + ', data survived: ' + saved
-        : ' — 已运行 ' + rounds + ' 轮，信息幸存 ' + saved + ' 轮') : '';
-      F.setReadout('<span class="zh">' + PH[phase].zh + tail + '</span><span class="en">' + PH[phase].en + tail + '</span>');
+      const tailZh = phase === 3 ? ' — 已运行 ' + rounds + ' 轮，信息幸存 ' + saved + ' 轮' : '';
+      const tailEn = phase === 3 ? ' — rounds: ' + rounds + ', data survived: ' + saved : '';
+      const ph = phase === 3 && lastFail ? PH_FAIL : PH[phase];
+      F.setReadout('<span class="zh">' + ph.zh + tailZh + '</span><span class="en">' + ph.en + tailEn + '</span>');
     }
     function play() {
       if (timer) return;
@@ -4473,8 +4602,8 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
       en: ['Winding loops = logicals', 'Loops circling the whole torus pass every check yet are no product of checks — they rewrite logical data. Two directions give Z̄₁, Z̄₂; duals give X̄₁, X̄₂; paired loops cross once ⇒ anticommute.'],
     },
     decoder: {
-      zh: ['译码 = 配对', '只见警报不见链：把警报两两配对、沿路径修复。错误⊕修复必闭合——可收缩则完美复原，缠绕则无声逻辑错误。'],
-      en: ['Decoding = matching', 'Alarms visible, chains not: pair the alarms and repair along paths. Error ⊕ repair is always closed — contractible = perfect recovery, winding = silent logical error.'],
+      zh: ['译码 = 配对', '只见警报不见链：把警报两两配对、沿路径修复。错误⊕修复必闭合——每个方向都缠绕偶数次（0 次也算）则完美复原，某个方向缠绕奇数次则是无声的逻辑错误；同方向的两圈互相抵消。'],
+      en: ['Decoding = matching', 'Alarms visible, chains not: pair the alarms and repair along paths. Error ⊕ repair is always closed — an even number of windings in each direction (0 included) = perfect recovery, an odd number in some direction = a silent logical error; two windings in the same direction cancel.'],
     },
     dL: {
       zh: ['环面码距 d = L', '最轻的逻辑算符是最短缠绕圈（长 L），对 X、Z 对称；压垮它需约 L/2 个错误连成线。'],
@@ -4494,8 +4623,8 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
       en: ['Spanning strings = logicals', 'A string dying on its own boundary at both ends: zero alarms, no product of checks (it crosses the other direction\'s spanning string once, so they anticommute).' + F('Z̄: rough→rough · X̄: smooth→smooth · X̄Z̄ = −Z̄X̄')],
     },
     cycle: {
-      zh: ['纠错循环', '每轮四拍：噪声 → 测全部检查 → 配对（可配边界）→ 修复；失败 ⇔ 错误⊕修复含横跨串。'],
-      en: ['The correction cycle', 'Four beats per round: noise → measure all checks → match (boundaries allowed) → repair; failure ⇔ error ⊕ repair contains a spanning string.'],
+      zh: ['纠错循环', '每轮四拍：噪声 → 测全部检查 → 配对（可配边界）→ 修复；失败 ⇔ 错误⊕修复和 X̄ 交叉奇数次，也就是横跨贴片的串有奇数条（两条互相抵消，偶数条无事）。'],
+      en: ['The correction cycle', 'Four beats per round: noise → measure all checks → match (boundaries allowed) → repair; failure ⇔ error ⊕ repair crosses X̄ an odd number of times, i.e. contains an odd number of spanning strings (two cancel, so an even number is harmless).'],
     },
     ancilla: {
       zh: ['辅助比特测量', '每条检查配一个帮手比特：与 4 个数据比特依次作用后单独被读出，给出 ±1；数据比特从未被直接测量。'],
@@ -4687,6 +4816,263 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
   TQ.BOOKTITLES = TQ.BOOKTITLES || {"toric":{"zh":"《从 1+1 到 Toric Code》","en":"“From 1+1 to the Toric Code”"},"surface":{"zh":"《从 Toric Code 到 Surface Code》","en":"“From Toric Code to Surface Code”"},"toricHs":{"zh":"《从高考数学到 Toric Code》","en":"“From High-School Math to the Toric Code”"},"surfaceHs":{"zh":"《Surface Code · 高中数学版》","en":"“The Surface Code · High-School Edition”"},"decodingHs":{"zh":"《译码器 · 高中数学版》","en":"“Decoders · High-School Edition”"},"surgeryHs":{"zh":"《格点手术 · 高中数学版》","en":"“Lattice Surgery · High-School Edition”"},"bbHs":{"zh":"《BB 码 · 高中数学版》","en":"“BB Codes · High-School Edition”"},"qldpcHs":{"zh":"《qLDPC 码 · 高中数学版》","en":"“qLDPC Codes · High-School Edition”"}};
 })(typeof window !== 'undefined' ? window : globalThis);
 
+</script>
+<script>
+/* parameters.html page widgets.
+   hgpgrid — the hypergraph product of two open repetition chains, drawn as a (2L−1)×(2L−1) board:
+   position 2t on an axis is bit t of that chain, 2t+1 is check t. (bit,bit) and (check,check) cells are
+   qubits (horizontal / vertical edges), (check,bit) cells are X checks (stars), (bit,check) cells are
+   Z checks (plaquettes); a check touches its four board neighbours. data-step picks the first step. */
+(function (root) {
+  const TQ = root.TQ;
+  if (!TQ || !root.document) return;
+  const doc = root.document;
+  const U = () => TQ.ui;
+  const bi = (zh, en) => '<span class="zh">' + zh + '</span><span class="en">' + en + '</span>';
+
+  function kind(x, y) {            // x along chain A (across), y along chain B (down)
+    const ex = x % 2 === 0, ey = y % 2 === 0;
+    if (ex && ey) return 'hq';     // (bit, bit): horizontal-edge qubit
+    if (!ex && !ey) return 'vq';   // (check, check): vertical-edge qubit
+    if (!ex && ey) return 'star';  // (check, bit): X check
+    return 'plaq';                 // (bit, check): Z check
+  }
+  const KIND = {
+    hq: { zh: '横边比特', en: 'horizontal-edge qubit' },
+    vq: { zh: '竖边比特', en: 'vertical-edge qubit' },
+    star: { zh: '星 = X 检查', en: 'star = X check' },
+    plaq: { zh: '面 = Z 检查', en: 'plaquette = Z check' },
+  };
+  function member(t) { return t % 2 === 0 ? { zh: '比特 ' + t / 2, en: 'bit ' + t / 2 } : { zh: '检查 ' + (t - 1) / 2, en: 'check ' + (t - 1) / 2 }; }
+
+  function wHgpGrid(el) {
+    const F = U().frame(el, { titleZh: '两条重复码链相乘：一张棋盘', titleEn: 'Multiplying two repetition chains: one board' });
+    const NSTEP = 7;
+    let L = 3, step = Math.min(NSTEP - 1, +(el.dataset.step || 0)), sel = null, box = null, geo = null;
+    const wrap = doc.createElement('div');
+    wrap.style.overflowX = 'auto';
+    F.body.appendChild(wrap);
+    const legend = doc.createElement('div');
+    legend.className = 'legend';
+    legend.innerHTML = [
+      ['<span class="sw" style="background:var(--ink2)"></span>', '横边比特 =（比特, 比特）', 'horizontal-edge qubit = (bit, bit)'],
+      ['<span class="sw" style="background:var(--ink3);width:4px;height:14px"></span>', '竖边比特 =（检查, 检查）', 'vertical-edge qubit = (check, check)'],
+      ['<span class="dot" style="background:var(--cx)"></span>', '星 = X 检查 =（检查, 比特）', 'star = X check = (check, bit)'],
+      ['<span class="dot" style="border-radius:2px;background:var(--cz-soft);border:1.5px solid var(--cz)"></span>', '面 = Z 检查 =（比特, 检查）', 'plaquette = Z check = (bit, check)'],
+    ].map((it) => '<span class="li">' + it[0] + bi(it[1], it[2]) + '</span>').join('');
+    F.body.appendChild(legend);
+
+    const N = () => 2 * L - 1;
+    function visible(k) {
+      if (k === 'hq') return step >= 1;
+      if (k === 'vq') return step >= 2;
+      if (k === 'star') return step >= 3;
+      return step >= 4;
+    }
+    function neighbours(x, y) {
+      const out = [];
+      for (const [dx, dy] of [[-1, 0], [1, 0], [0, -1], [0, 1]]) {
+        const u = x + dx, v = y + dy;
+        if (u >= 0 && v >= 0 && u < N() && v < N()) out.push([u, v]);
+      }
+      return out;
+    }
+    function defaultSel() {
+      if (step === 3) return [1, 2 * Math.floor((L - 1) / 2)];
+      if (step === 4) return [2 * Math.floor(L / 2), 1];
+      return null;
+    }
+
+    function draw(ctx, w, h) {
+      const c = U().colors(), T = U().T;
+      const mono = getComputedStyle(doc.body).getPropertyValue('--f-mono');
+      ctx.clearRect(0, 0, w, h);
+      const n = N(), s = geo.s, X0 = geo.X0, Y0 = geo.Y0;
+      const px = (x) => X0 + x * s, py = (y) => Y0 + y * s;
+      const cur = sel || defaultSel();
+      const legs = cur && (kind(cur[0], cur[1]) === 'star' || kind(cur[0], cur[1]) === 'plaq') ? neighbours(cur[0], cur[1]) : [];
+      const isLeg = (x, y) => legs.some((q) => q[0] === x && q[1] === y);
+      const mid = 2 * Math.floor((L - 1) / 2);
+
+      // header chains: A across the top, B down the left
+      ctx.lineWidth = 1.5;
+      ctx.strokeStyle = c.line2;
+      ctx.beginPath(); ctx.moveTo(px(0), geo.YA); ctx.lineTo(px(n - 1), geo.YA); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(geo.XB, py(0)); ctx.lineTo(geo.XB, py(n - 1)); ctx.stroke();
+      ctx.font = '600 11px ' + mono;
+      ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      for (let t = 0; t < n; t++) {
+        const onA = cur && cur[0] === t, onB = cur && cur[1] === t;
+        for (const [xx, yy, on] of [[px(t), geo.YA, onA], [geo.XB, py(t), onB]]) {
+          ctx.fillStyle = on ? c.cd : (t % 2 === 0 ? c.ink2 : c.bg2);
+          ctx.strokeStyle = on ? c.cd : c.ink2;
+          ctx.lineWidth = 1.5;
+          ctx.beginPath();
+          if (t % 2 === 0) ctx.arc(xx, yy, 5.5, 0, 2 * Math.PI); else ctx.rect(xx - 5, yy - 5, 10, 10);
+          ctx.fill(); ctx.stroke();
+        }
+        ctx.fillStyle = onA ? c.cd : c.ink3;
+        ctx.fillText(t % 2 === 0 ? 'b' + t / 2 : 'c' + (t - 1) / 2, px(t), geo.YA - 15);
+        ctx.fillStyle = onB ? c.cd : c.ink3;
+        ctx.textAlign = 'right';
+        ctx.fillText(t % 2 === 0 ? 'b' + t / 2 : 'c' + (t - 1) / 2, geo.XB - 11, py(t));
+        ctx.textAlign = 'center';
+      }
+      ctx.font = '600 12px ' + mono;
+      ctx.fillStyle = c.ink;
+      ctx.textAlign = 'left';
+      ctx.fillText(T({ zh: '链 A（横放）→', en: 'chain A (across) →' }), px(0) - 6, geo.YA - 33);
+      ctx.save();
+      ctx.translate(geo.XB - 36, py(0) + (py(n - 1) - py(0)) / 2);
+      ctx.rotate(-Math.PI / 2);
+      ctx.textAlign = 'center';
+      ctx.fillText(T({ zh: '← 链 B（竖放）', en: '← chain B (down)' }), 0, 0);
+      ctx.restore();
+
+      // faint board cells
+      for (let x = 0; x < n; x++) for (let y = 0; y < n; y++) {
+        ctx.fillStyle = c.line2;
+        ctx.beginPath(); ctx.arc(px(x), py(y), 1.6, 0, 2 * Math.PI); ctx.fill();
+      }
+      // plaquettes (under everything)
+      if (visible('plaq')) for (let x = 0; x < n; x += 2) for (let y = 1; y < n; y += 2) {
+        const on = cur && cur[0] === x && cur[1] === y;
+        ctx.fillStyle = on ? c.czSoft2 || c.czSoft : c.czSoft;
+        ctx.strokeStyle = c.cz; ctx.lineWidth = on ? 2.5 : 1.2;
+        const r = s * 0.62;
+        ctx.beginPath(); ctx.rect(px(x) - r, py(y) - r, 2 * r, 2 * r); ctx.fill(); ctx.stroke();
+      }
+      // logical strings (steps 5, 6)
+      function hEdge(x, y, col, lw) {
+        const x1 = x === 0 ? px(x) - s * 0.85 : px(x) - s, x2 = x === n - 1 ? px(x) + s * 0.85 : px(x) + s;
+        ctx.strokeStyle = col; ctx.lineWidth = lw; ctx.lineCap = 'round';
+        ctx.beginPath(); ctx.moveTo(x1, py(y)); ctx.lineTo(x2, py(y)); ctx.stroke();
+      }
+      function vEdge(x, y, col, lw) {
+        ctx.strokeStyle = col; ctx.lineWidth = lw; ctx.lineCap = 'round';
+        ctx.beginPath(); ctx.moveTo(px(x), py(y) - s); ctx.lineTo(px(x), py(y) + s); ctx.stroke();
+      }
+      // qubits
+      for (let x = 0; x < n; x++) for (let y = 0; y < n; y++) {
+        const k = kind(x, y);
+        if ((k !== 'hq' && k !== 'vq') || !visible(k)) continue;
+        const leg = isLeg(x, y), on = cur && cur[0] === x && cur[1] === y;
+        const col = leg || on ? c.cd : (k === 'hq' ? c.ink2 : c.ink3);
+        if (k === 'hq') hEdge(x, y, col, leg || on ? 4 : 2.2); else vEdge(x, y, col, leg || on ? 4 : 2.2);
+        ctx.fillStyle = col;
+        ctx.beginPath(); ctx.arc(px(x), py(y), leg || on ? 4.5 : 3.2, 0, 2 * Math.PI); ctx.fill();
+      }
+      if (step === 5) {
+        for (let x = 0; x < n; x += 2) hEdge(x, mid, c.cz, 5);
+        for (let y = 0; y < n; y += 2) hEdge(mid, y, c.cx, 5);
+        ctx.setLineDash([5, 4]); ctx.strokeStyle = c.cx; ctx.lineWidth = 2;
+        ctx.beginPath(); ctx.moveTo(px(mid), py(0) - s * 0.55); ctx.lineTo(px(mid), py(n - 1) + s * 0.55); ctx.stroke(); ctx.setLineDash([]);
+        ctx.strokeStyle = c.cd; ctx.lineWidth = 2;
+        ctx.beginPath(); ctx.arc(px(mid), py(mid), 9, 0, 2 * Math.PI); ctx.stroke();
+        ctx.font = '600 12px ' + mono; ctx.textAlign = 'left';
+        ctx.fillStyle = c.czInk; ctx.fillText('Z̄', px(n - 1) + s * 0.95, py(mid));
+        ctx.fillStyle = c.cxInk; ctx.textAlign = 'center'; ctx.fillText('X̄', px(mid), py(n - 1) + s * 0.75);
+      }
+      if (step === 6) {
+        ctx.font = '600 11px ' + mono; ctx.textAlign = 'left';
+        for (let y = 0; y < n; y += 2) {
+          for (let x = 0; x < n; x += 2) hEdge(x, y, c.cz, 5);
+          ctx.fillStyle = c.czInk; ctx.fillText('Z̄' + (y / 2 + 1), px(n - 1) + s * 0.95, py(y));
+        }
+      }
+      // selection outlines last among qubits, so a logical overlay cannot hide a pink support
+      ctx.strokeStyle = c.cd; ctx.lineWidth = 2.5;
+      for (const [x, y] of legs.concat(cur && (kind(cur[0], cur[1]) === 'hq' || kind(cur[0], cur[1]) === 'vq') ? [cur] : [])) {
+        if (!visible(kind(x, y))) continue;
+        ctx.beginPath(); ctx.arc(px(x), py(y), 8, 0, 2 * Math.PI); ctx.stroke();
+      }
+      // stars on top
+      if (visible('star')) for (let x = 1; x < n; x += 2) for (let y = 0; y < n; y += 2) {
+        const on = cur && cur[0] === x && cur[1] === y;
+        ctx.fillStyle = c.cx; ctx.strokeStyle = on ? c.cd : c.bg2; ctx.lineWidth = on ? 3 : 1.5;
+        ctx.beginPath(); ctx.arc(px(x), py(y), on ? 7.5 : 6, 0, 2 * Math.PI); ctx.fill(); ctx.stroke();
+      }
+      // selection ring on a qubit cell of an invisible kind: none
+    }
+
+    function layout(Wc) {
+      const W = Wc || 600;
+      const n = N(), head = 76, padR = 64;
+      const s = Math.max(22, Math.min(56, (W - head - padR - 20) / (n + 0.8)));
+      geo = { s, X0: head + 20 + s * 0.9, Y0: head + 8 };
+      geo.YA = geo.Y0 - 34; geo.XB = geo.X0 - s * 0.9 - 14;
+      return geo.Y0 + (n - 1) * s + s * 1.1;
+    }
+    function rebuild() {
+      wrap.innerHTML = '';
+      // below this width the spacing would drop under 22 px: keep it and let the board scroll sideways
+      const inner = doc.createElement('div');
+      inner.style.minWidth = Math.ceil(160 + 22 * (N() + 0.8)) + 'px';
+      wrap.appendChild(inner);
+      box = U().canvasBox(inner, (w) => layout(w), draw);
+      box.canvas.style.cursor = 'pointer';
+      box.canvas.addEventListener('click', (ev) => {
+        const p = U().evtPos(box.canvas, ev);
+        const x = Math.round((p.x - geo.X0) / geo.s), y = Math.round((p.y - geo.Y0) / geo.s);
+        if (x < 0 || y < 0 || x >= N() || y >= N()) return;
+        sel = [x, y];
+        box.redraw(); readout();
+      });
+    }
+
+    const STEP = [
+      { zh: '第 1 步 · 两条链。每条链是一个长度 L 的经典重复码：圆点 b 是比特，方块 c 是检查，每个检查问「左右两个比特相等吗」。链 A 横放，链 B 竖放；棋盘的每个格子就是一对（A 的一个成员，B 的一个成员）。',
+        en: 'Step 1 · Two chains. Each is a classical repetition code of length L: dots b are bits, squares c are checks, and each check asks “are my two neighbouring bits equal?”. Chain A lies across, chain B runs down; every cell of the board is one pair (a member of A, a member of B).' },
+      { zh: '第 2 步 · （比特, 比特）格 → 量子比特。画成横边：横向上它夹在两个检查格之间。一共 L × L 个。最左、最右一列的横边外侧没有检查格，就是毛边界的悬边。',
+        en: 'Step 2 · (bit, bit) cells → qubits, drawn as horizontal edges: across, each sits between two check positions. L × L of them. The leftmost and rightmost ones have no check beyond them: these are the dangling edges of the rough boundary.' },
+      { zh: '第 3 步 · （检查, 检查）格 → 也是量子比特，画成竖边。一共 (L−1) × (L−1) 个。',
+        en: 'Step 3 · (check, check) cells → also qubits, drawn as vertical edges. (L−1) × (L−1) of them.' },
+      { zh: '第 4 步 · （检查, 比特）格 → X 检查，也就是星。规则只有一条：检查碰它上下左右紧挨着的格子。星的左右是横边、上下是竖边，所以它是 XXXX；最上、最下一行的星缺一条腿（光边界）。一共 (L−1) × L 条。点任意一格看它是哪一对、碰哪些比特。',
+        en: 'Step 4 · (check, bit) cells → X checks, i.e. stars. One rule: a check touches the cells directly above, below, left and right of it. A star has horizontal edges left and right and vertical edges above and below, so it is XXXX; stars in the top and bottom rows lose a leg (smooth boundary). (L−1) × L of them. Click any cell to see its pair and its legs.' },
+      { zh: '第 5 步 · （比特, 检查）格 → Z 检查，也就是面。同样碰上下左右四个邻居：上下是横边、左右是竖边，所以是 ZZZZ；最左、最右一列的面缺一条腿（毛边界）。一共 L × (L−1) 条。',
+        en: 'Step 5 · (bit, check) cells → Z checks, i.e. plaquettes. Again the four neighbours: horizontal edges above and below, vertical edges left and right, so ZZZZ; plaquettes in the leftmost and rightmost columns lose a leg (rough boundary). L × (L−1) of them.' },
+      { zh: '第 6 步 · 两个逻辑算符。蓝：一整行横边上全放 Z（Z̄，从左毛边到右毛边）。橙：一整列横边上全放 X（X̄，从上光边到下光边）。每个星与蓝行共享 0 或 2 个比特，每个面与橙列共享 0 或 2 个比特，所以两者都骗过全部检查；它们恰在圈出的那一个比特相交。重量都是 L。',
+        en: 'Step 6 · Two logical operators. Blue: Z on one whole row of horizontal edges (Z̄, rough edge to rough edge). Orange: X on one whole column of horizontal edges (X̄, smooth edge to smooth edge). Every star shares 0 or 2 qubits with the blue row, every plaquette 0 or 2 with the orange column, so both pass every check; they cross at exactly the circled qubit. Both have weight L.' },
+      { zh: '第 7 步 · Z̄ 的 L 个拷贝，两两不相交。相邻两行之差是夹在中间那一排面的乘积，所以它们代表同一个逻辑算符。下界论证就靠这 L 行：任何与 Z̄ 反对易、又与每条检查都对易的逻辑 Pauli 算符，必须在每一行上都碰到至少一个比特（它与每个拷贝都反对易）。',
+        en: 'Step 7 · L copies of Z̄, pairwise disjoint. Two neighbouring rows differ by the product of the row of plaquettes between them, so they represent the same logical operator. The lower-bound argument runs on these L rows: any logical Pauli operator that commutes with every check and anticommutes with Z̄ must touch at least one qubit in every row (it anticommutes with every copy).' },
+    ];
+    function readout() {
+      const q = L * L + (L - 1) * (L - 1), ch = L * (L - 1);
+      let tally = '';
+      if (step >= 1) tally = '<br>' + bi('量子比特 ', 'qubits ') + L + '² ' + (step >= 2 ? '+ ' + (L - 1) + '² = <b>' + q + '</b>' : '= <b>' + L * L + '</b>');
+      if (step >= 3) tally += bi('　·　X 检查 ', ' · X checks ') + (L - 1) + '×' + L + ' = <b>' + ch + '</b>';
+      if (step >= 4) tally += bi('　·　Z 检查 ', ' · Z checks ') + L + '×' + (L - 1) + ' = <b>' + ch + '</b>';
+      let pick = '';
+      const cur = sel || defaultSel();
+      if (cur) {
+        const k = kind(cur[0], cur[1]);
+        const a = member(cur[0]), b = member(cur[1]);
+        pick = '<br>' + bi('选中的格：（A 的' + a.zh + '，B 的' + b.zh + '）→ ' + KIND[k].zh, 'Selected cell: (A ' + a.en + ', B ' + b.en + ') → ' + KIND[k].en);
+        if (k === 'star' || k === 'plaq') {
+          const nb = neighbours(cur[0], cur[1]);
+          pick += bi('，碰 ' + nb.length + ' 个比特（粉色，带粉圈）', ', touches ' + nb.length + ' qubits (pink, ringed)');
+        }
+        if (!visible(k)) pick += bi('（这一类还没画出来）', ' (not drawn yet at this step)');
+      }
+      F.setReadout(bi(STEP[step].zh, STEP[step].en) + tally + pick);
+    }
+    const info = doc.createElement('span');
+    info.className = 'ctl-label';
+    const prev = U().btn('← 上一步', '← Back', '', () => { if (step > 0) { step--; sel = null; refresh(); } });
+    const next = U().btn('下一步 →', 'Next →', 'primary', () => { if (step < NSTEP - 1) { step++; sel = null; refresh(); } });
+    function refresh() {
+      info.textContent = (step + 1) + ' / ' + NSTEP;
+      prev.disabled = step === 0; next.disabled = step === NSTEP - 1;
+      if (box) box.redraw();
+      readout();
+    }
+    const seg = U().seg([2, 3, 4, 5].map((v) => ({ id: v, zh: 'L=' + v, en: 'L=' + v })), L, (v) => { L = v; sel = null; rebuild(); refresh(); });
+    F.controls.append(seg.el, prev, info, next);
+    rebuild();
+    refresh();
+  }
+  U().reg('hgpgrid', wHgpGrid);
+})(typeof window !== 'undefined' ? window : globalThis);
 </script>
 </body>
 </html>

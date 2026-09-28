@@ -918,12 +918,12 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
       <span class="en">From 1 + 1 to<br><span class="accent">quantum error-correcting codes</span></span>
     </h1>
     <p class="lede">
-      <span class="zh">一套按码组织的互动教程：环面码、Surface Code、BB 码、qLDPC 码。每个码下面按 Atlas 条目的「侧面」分篇：直觉、译码器、逻辑操作、参数、证书、参考文献……每篇都是单个 HTML 文件，中英文一键切换，所有格点实验与蒙特卡洛在你的浏览器本地运行。教程之间凡提到别处的内容都直接链接到原处，新符号在首次出现处即有解释。</span>
-      <span class="en">A set of interactive tutorials organised by code: the toric code, the surface code, BB codes, qLDPC codes. Under each code the guides follow the Atlas entry's facets: intuition, decoders, logical operations, parameters, certificates, references… Each guide is a single HTML file, switchable between Chinese and English, with every lattice experiment and Monte-Carlo running locally in your browser. Wherever a guide refers to material elsewhere it links straight to the spot, and every new symbol is explained where it first appears.</span>
+      <span class="zh">量子计算机里的量子比特会出错。量子纠错码把一份信息分散存进许多个物理比特，再用一组「检查」发现错误、把它修掉，而检查本身不读出存的信息。这是一套按码组织的互动教程：环面码、表面码（Surface Code）、BB 码、qLDPC 码，外加一组开放问题。每个码先有从零讲起的直觉教程；表面码与 BB 码另有十篇<span class="term">条目导读<span class="tip">对照 QEC Atlas 里这个码的记录逐项核对的进阶篇：每个数字从哪来、谁核对过、适用范围在哪。要先读过这个码的直觉教程。</span></span>，每篇对应 <span class="term">QEC Atlas<span class="tip">本系列依托的纠错码知识库。每个码（或一族码）是一个「条目」，条目里的知识按问题分成十一个「侧面」：直觉、译码器、逻辑操作、参数、证书、实现、关系、推导、参考文献、导览、表示方式。</span></span>（本系列依托的纠错码知识库）里这个码的一个「侧面」：参数、译码器、逻辑门、硬件实验、证书、参考文献等。每篇都是单个 HTML 文件，中英文一键切换；所有格点实验和<span class="term">蒙特卡洛模拟<span class="tip">按给定的出错概率随机抽出成千上万次噪声，逐次跑一遍纠错，数失败了多少次，用失败的比例估计失败概率。</span></span>（随机抽很多次噪声、数失败的比例）都在你的浏览器本地运行。教程之间凡提到别处的内容都直接链接到原处，新符号在首次出现处即有解释。</span>
+      <span class="en">The qubits inside a quantum computer pick up errors. A quantum error-correcting code spreads one piece of information over many physical qubits and uses a set of “checks” to find errors and undo them, without the checks reading out the stored information. This is a set of interactive tutorials organised by code: the toric code, the surface code, BB codes, qLDPC codes, plus a set of open problems. Each code starts with an intuition guide taught from zero; the surface code and the BB codes also have ten <span class="term">entry guides<span class="tip">Advanced guides that check the QEC Atlas records for one code item by item: where each number comes from, who checked it, and where it stops applying. Read the code's intuition guide first.</span></span> each, one per “facet” of the code in the <span class="term">QEC Atlas<span class="tip">The knowledge base of error-correcting codes this series is built on. Each code (or code family) is an “entry”, and an entry's knowledge is split by question into eleven “facets”: intuition, decoders, logical operations, parameters, certificates, realizations, relations, derivations, references, guided tour, representations.</span></span> (the knowledge base of codes this series is built on): parameters, decoders, logical gates, hardware experiments, certificates, references and so on. Each guide is a single HTML file, switchable between Chinese and English; every lattice experiment and <span class="term">Monte-Carlo simulation<span class="tip">Draw thousands of random noise patterns at a given error probability, run the correction on each, count the failures, and use the failure fraction as an estimate of the failure probability.</span></span> (sample the noise many times at random, count the fraction of failures) runs locally in your browser. Wherever a guide refers to material elsewhere it links straight to the spot, and every new symbol is explained where it first appears.</span>
     </p>
     <div class="cta-row">
       <a class="btn primary" href="#codes"><span class="zh">选择一个码 ↓</span><span class="en">Choose a code ↓</span></a>
-      <span class="muted small"><span class="zh">两条难度线：<b>零基础</b>只需初中算术；<b>高中数学</b>用矩阵、排列组合与对数走得更快。</span><span class="en">Two difficulty tracks: <b>no prerequisites</b> needs only school arithmetic; <b>high-school math</b> moves faster with matrices, counting and logarithms.</span></span>
+      <span class="muted small"><span class="zh">两条难度线：<b>零基础</b>只需算术，每一步现场推导；<b>高中数学</b>假定高三水平（向量、复数、排列组合与概率，后面几篇用到对数），矩阵等新工具现场现教，所以走得更快。</span><span class="en">Two difficulty tracks: <b>no prerequisites</b> needs only arithmetic and derives every step on the spot; <b>high-school math</b> assumes final-year school mathematics (vectors, complex numbers, counting and probability, logarithms in the later guides) and teaches new tools such as matrices on the spot, so it moves faster.</span></span>
     </div>
   </div>
 </div>
@@ -950,34 +950,39 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
     <div class="ch-no"><span class="zh">目录</span><span class="en">Catalogue</span></div>
     <h2><span class="zh">按码浏览</span><span class="en">By code</span></h2>
     <p class="ch-lede">
-      <span class="zh">每张卡片是一个码。Surface Code 与 BB 码已按 Atlas 的十一个侧面分篇；Toric Code 与 qLDPC 目前只有直觉篇，之后按同样的结构补齐。</span>
-      <span class="en">One card per code. The surface code and the BB codes have one guide per Atlas facet; the toric code and qLDPC have their intuition guide so far and will be filled in with the same structure.</span>
+      <span class="zh">每张卡片是一个码；倒数第二张讲 qLDPC 码最常用的译码器 BP-OSD，最后一张是开放问题。卡片底部的标签说明难度：<b>零基础</b> = 只用算术；<b>高中数学</b> = 高三水平的数学；<b>条目导读</b> = 对照 QEC Atlas 的记录逐项核对的进阶篇，要先读过这个码的直觉教程。Atlas 把一个码的知识分成十一个侧面（直觉、译码器、逻辑操作……每个侧面回答一类问题）。表面码与 BB 码每个侧面一篇；环面码与 qLDPC 码目前只有直觉篇，之后按同样的结构补齐。</span>
+      <span class="en">One card per code; the second-to-last covers BP-OSD, the workhorse decoder of qLDPC codes, and the last card is the open problems. The tags at the bottom of a card give the level: <b>no prerequisites</b> = arithmetic only; <b>high-school</b> = final-year school mathematics; <b>entry guides</b> = advanced guides that check the QEC Atlas records item by item, to be read after that code's intuition guide. The Atlas splits what is known about a code into eleven facets (intuition, decoders, logical operations…; each facet answers one kind of question). The surface code and the BB codes have one guide per facet; the toric code and qLDPC codes have their intuition guide so far and will be filled in with the same structure.</span>
     </p>
   </div>
   <ul class="facet-grid">
     <li><div class="facet-card">
       <a class="fc-title" href="toric_code/intuition/intuition.html"><span><span class="zh">Toric Code · 环面码</span><span class="en">The toric code</span></span><span class="arrow">→</span></a>
-      <span class="fc-desc"><span class="zh">量子纠错的起点：奇偶检查、稳定子、画在网格上的星与面、缠绕圈与逻辑算符、译码游戏。<a href="toric_code/intuition/intuition.html">零基础版</a> · <a href="toric_code/intuition/intuition-hs.html">高中数学版</a></span><span class="en">Where quantum error correction starts: parity checks, stabilizers, stars and plaquettes on a grid, winding loops and logical operators, the decoding game. <a href="toric_code/intuition/intuition.html">No-prerequisites</a> · <a href="toric_code/intuition/intuition-hs.html">high-school</a> edition</span></span>
+      <span class="fc-desc"><span class="zh">量子纠错从这里开始。先学<span class="term">奇偶检查<span class="tip">只问一组比特里 1 的个数是奇数还是偶数，得到一个「过 / 不过」的答案，不读出每个比特各是什么。</span></span>：挑好的检查对每个合法的编码状态都给出同样的答案，所以只问奇偶就能发现错误，却不泄露存的是什么。例如 3 比特重复码把 0 存成 000、1 存成 111：「第 1、2 位一样吗」「第 2、3 位一样吗」对两者都答「一样」，只有出错才答「不一样」；而「三位里 1 的个数是偶数吗」会把 000（偶）和 111（奇）分开，等于读出了存的比特，所以不能拿来当检查；再学量子比特和测量。然后把比特放在网格的边上，每个顶点一条「星」检查、每个方格一条「面」检查（这种检查的正式名字叫<span class="term">稳定子<span class="tip">一条检查：作用在几个比特上的一串翻转操作，存好信息的状态经过它保持不变。测它只得到「过 / 不过」，不泄露存的信息。</span></span>），网格上下、左右各自首尾相接，成为一个环面。信息存在绕环面一整圈的操作里（<span class="term">逻辑算符<span class="tip">改写存储的信息、却不触发任何检查的操作。在环面码上，它是绕环面一整圈的一串翻转。</span></span>），局部的小错误改不了它。最后玩<span class="term">译码<span class="tip">只根据哪些检查没通过（警报），推断发生了什么错误并把它修掉。</span></span>游戏：只看警报，猜出错误并修复。<a href="toric_code/intuition/intuition.html">零基础版</a> · <a href="toric_code/intuition/intuition-hs.html">高中数学版</a></span><span class="en">Where quantum error correction starts. First <span class="term">parity checks<span class="tip">Ask only whether a group of bits contains an odd or an even number of 1s: a pass / fail answer that does not reveal what each bit is.</span></span>: well-chosen checks give the same answer on every valid encoded state, so asking only for parities finds errors without revealing what is stored. The 3-bit repetition code, for instance, stores 0 as 000 and 1 as 111: “are bits 1 and 2 equal?” and “are bits 2 and 3 equal?” answer “yes” for both and “no” only after an error, whereas “is the number of 1s among all three even?” tells 000 (even) from 111 (odd), reads out the stored bit, and so cannot serve as a check; then qubits and measurement. Next the qubits go on the edges of a grid, with one “star” check at every vertex and one “face” check on every square (the formal name for such a check is a <span class="term">stabilizer<span class="tip">A check: a string of flips on a few qubits that leaves the encoded state unchanged. Measuring it only returns pass / fail and reveals nothing about the stored information.</span></span>), and the grid's top and bottom, left and right edges are glued together into a torus. The information lives in operations that wind once around the torus (<span class="term">logical operators<span class="tip">Operations that rewrite the stored information without setting off any check. On the toric code, a string of flips that winds once around the torus.</span></span>), which small local errors cannot change. Last, the <span class="term">decoding<span class="tip">Working out, only from which checks failed (the alarms), what error happened, and undoing it.</span></span> game: see only the alarms, guess the error and repair it. <a href="toric_code/intuition/intuition.html">No-prerequisites</a> · <a href="toric_code/intuition/intuition-hs.html">high-school</a> edition</span></span>
       <span class="fc-meta"><span class="lvl"><span class="zh">零基础</span><span class="en">no prerequisites</span></span><span class="lvl hs"><span class="zh">高中数学</span><span class="en">high-school</span></span></span>
     </div></li>
     <li><div class="facet-card">
       <a class="fc-title" href="surface_code/index.html"><span><span class="zh">Surface Code · 表面码</span><span class="en">The surface code</span></span><span class="arrow">→</span></a>
-      <span class="fc-desc"><span class="zh">十一个侧面各一篇：<a href="surface_code/intuition/intuition.html">直觉</a>、<a href="surface_code/decoders/decoders.html">译码器</a>、<a href="surface_code/operations/operations.html">逻辑操作</a>、参数、证书、实现、关系、推导、参考文献……从<a href="surface_code/index.html">条目总览</a>进入。</span><span class="en">One guide per facet: <a href="surface_code/intuition/intuition.html">intuition</a>, <a href="surface_code/decoders/decoders.html">decoders</a>, <a href="surface_code/operations/operations.html">logical operations</a>, parameters, certificates, realizations, relations, derivations, references… Enter via the <a href="surface_code/index.html">entry overview</a>.</span></span>
+      <span class="fc-desc"><span class="zh">芯片是平的，所以把环面码剪开铺平：得到今天各大团队在芯片上真正在造的码。直觉教程（<a href="surface_code/intuition/intuition.html">零基础版</a> · <a href="surface_code/intuition/intuition-hs.html">高中数学版</a>）讲两种边界怎样分工、一轮纠错怎样用帮手比特测检查、平面上的译码游戏，最后在浏览器里现场测出<span class="term">阈值<span class="tip">物理错误率的一条临界线：低于它，把码做大，信息被改写的概率就下降；高于它，做大反而更糟。它的数值取决于噪声模型和译码器。</span></span>。另外十篇条目导读各讲一个侧面：<a href="surface_code/decoders/decoders.html">译码器</a>、<a href="surface_code/operations/operations.html">格点手术（逻辑门）</a>、参数、硬件实验、证书、关系、推导、参考文献、导览、表示方式。从<a href="surface_code/index.html">条目总览</a>进入。</span><span class="en">Chips are flat, so cut the toric code open and lay it flat: the result is the code major teams are actually building on chips today. The intuition guides (<a href="surface_code/intuition/intuition.html">no-prerequisites</a> · <a href="surface_code/intuition/intuition-hs.html">high-school</a>) cover how the two kinds of boundary divide the work, how one round of correction measures the checks with helper qubits, the decoding game on a flat patch, and finally a live measurement of the <span class="term">threshold<span class="tip">A critical physical error rate: below it, making the code bigger lowers the chance that the information is rewritten; above it, bigger is worse. Its value depends on the noise model and the decoder.</span></span> in your browser. Ten further entry guides cover one facet each: <a href="surface_code/decoders/decoders.html">decoders</a>, <a href="surface_code/operations/operations.html">lattice surgery (logical gates)</a>, parameters, hardware experiments, certificates, relations, derivations, references, guided tour, representations. Enter via the <a href="surface_code/index.html">entry overview</a>.</span></span>
       <span class="fc-meta"><span class="lvl"><span class="zh">零基础</span><span class="en">no prerequisites</span></span><span class="lvl hs"><span class="zh">高中数学</span><span class="en">high-school</span></span><span class="lvl ref"><span class="zh">条目导读</span><span class="en">entry guides</span></span></span>
     </div></li>
     <li><div class="facet-card">
       <a class="fc-title" href="bb_code/index.html"><span><span class="zh">BB 码 · 双变量自行车码</span><span class="en">Bivariate bicycle codes</span></span><span class="arrow">→</span></a>
-      <span class="fc-desc"><span class="zh">十一个侧面各一篇：<a href="bb_code/intuition/intuition.html">直觉</a>（两个多项式、十二个逻辑比特）、<a href="bb_code/decoders/decoders.html">译码器</a>（BP-OSD）、<a href="bb_code/operations/operations.html">逻辑操作</a>、参数、证书、实现、关系、推导、参考文献……从<a href="bb_code/index.html">条目总览</a>进入。</span><span class="en">One guide per facet: <a href="bb_code/intuition/intuition.html">intuition</a> (two polynomials, twelve logical qubits), <a href="bb_code/decoders/decoders.html">decoders</a> (BP-OSD), <a href="bb_code/operations/operations.html">logical operations</a>, parameters, certificates, realizations, relations, derivations, references… Enter via the <a href="bb_code/index.html">entry overview</a>.</span></span>
+      <span class="fc-desc"><span class="zh">为什么值得学：<span class="term">码距<span class="tip">最少要同时错几个比特，才能在不触发任何检查的情况下改写信息。码距越大，信息越安全。</span></span>为 12 的表面码（12 × 12 的旋转版）用 144 个数据比特只存 1 个<span class="term">逻辑比特<span class="tip">被保护起来的那份信息的单位。一个码用 n 个物理比特存 k 个逻辑比特。</span></span>；BB 码家族里的 gross 码用同样 144 个比特存 12 个，码距也是 12。代价是每条检查要碰到芯片上相隔较远的比特。<a href="bb_code/intuition/intuition.html">直觉教程</a>（高中数学）从零推导它怎样由两个多项式造出、12 从哪里来；另外十篇条目导读各讲一个侧面：<a href="bb_code/decoders/decoders.html">译码器</a>（置信传播加有序统计译码，简称 BP-OSD）、<a href="bb_code/operations/operations.html">逻辑门</a>、参数、硬件实验、证书、关系、推导、参考文献、导览、表示方式。从<a href="bb_code/index.html">条目总览</a>进入。</span><span class="en">Why it is worth learning: a surface code of <span class="term">distance<span class="tip">The smallest number of qubits that must go wrong together to rewrite the information without setting off any check. The larger the distance, the safer the information.</span></span> 12 (the rotated 12 × 12 version) spends 144 data qubits on a single <span class="term">logical qubit<span class="tip">The unit of protected information. A code stores k logical qubits in n physical qubits.</span></span>; the gross code, one member of the BB family, stores 12 in the same 144 qubits, also at distance 12. The price is that each check has to reach qubits that sit far apart on the chip. The <a href="bb_code/intuition/intuition.html">intuition guide</a> (high-school) derives from zero how the code is built from two polynomials and where the 12 comes from; ten further entry guides cover one facet each: <a href="bb_code/decoders/decoders.html">decoders</a> (belief propagation plus ordered-statistics decoding, BP-OSD for short), <a href="bb_code/operations/operations.html">logical gates</a>, parameters, hardware experiments, certificates, relations, derivations, references, guided tour, representations. Enter via the <a href="bb_code/index.html">entry overview</a>.</span></span>
       <span class="fc-meta"><span class="lvl hs"><span class="zh">高中数学</span><span class="en">high-school</span></span><span class="lvl ref"><span class="zh">条目导读</span><span class="en">entry guides</span></span></span>
     </div></li>
     <li><div class="facet-card">
       <a class="fc-title" href="qldpc/intuition/intuition.html"><span><span class="zh">qLDPC 码</span><span class="en">qLDPC codes</span></span><span class="arrow">→</span></a>
-      <span class="fc-desc"><span class="zh">什么叫 LDPC、什么叫「好」；超图积与提升积两代构造，从 [[7,2,2]] 到量子 Tanner 码；BP、退化、OSD 与局部翻转译码。</span><span class="en">What “LDPC” and “good” mean; two generations of constructions, hypergraph and lifted products, from [[7,2,2]] to quantum Tanner codes; BP, degeneracy, OSD and local-flip decoding.</span></span>
+      <span class="fc-desc"><span class="zh">LDPC（低密度奇偶检查）码：每条检查只碰几个比特，每个比特只进几条检查。「好」码：逻辑比特数和码距都与比特总数成正比地增长。表面码的检查是稀疏的，但这两条增长性质都没有：一块旋转表面码只存 k = 1 个逻辑比特，码距 d = √n。检查保持稀疏、同时两条都做到的量子码（渐近好的 qLDPC 码）直到 2021–2022 年才造出来：Panteleev 与 Kalachev 的提升积码（arXiv:2111.03654），以及 Leverrier 与 Zémor 的量子 Tanner 码（arXiv:2202.13641）。本篇讲两种造法：超图积（把两条经典码「相乘」，重复码乘重复码就是表面码）与提升积（把矩阵里的 0/1 换成多项式，BB 码是它最小的例子），沿途读 Atlas 里的重要条目，从 <span class="term">[[7,2,2]]<span class="tip">码参数的记法 [[n, k, d]]：n 个物理比特、k 个逻辑比特、码距 d。[[7,2,2]] 就是 7 个比特存 2 个逻辑比特、码距 2。</span></span> 到量子 Tanner 码；最后讲怎样译码：置信传播（BP，比特与检查之间来回传「我错了吗」的消息）卡住的两个原因，有序统计译码（OSD）怎样收尾，以及只看局部的翻转译码。</span><span class="en">LDPC (low-density parity-check) codes: each check touches only a few qubits and each qubit sits in only a few checks. “Good” codes: the number of logical qubits and the distance both grow in proportion to the total number of qubits. The surface code has sparse checks, but neither of these two growth properties: one rotated surface-code patch stores k = 1 logical qubit at distance d = √n. Quantum codes that keep their checks sparse and still have both properties (asymptotically good qLDPC codes) were first built in 2021–2022: the lifted-product codes of Panteleev and Kalachev (arXiv:2111.03654) and the quantum Tanner codes of Leverrier and Zémor (arXiv:2202.13641). This guide covers two constructions: the hypergraph product (“multiply” two classical codes; repetition code times repetition code is the surface code) and the lifted product (replace the 0s and 1s of a matrix by polynomials; the BB code is its smallest example), reading the important Atlas entries along the way, from <span class="term">[[7,2,2]]<span class="tip">The notation [[n, k, d]] for a code: n physical qubits, k logical qubits, distance d. So [[7,2,2]] stores 2 logical qubits in 7 qubits at distance 2.</span></span> to quantum Tanner codes; last, decoding: the two reasons belief propagation (BP, bits and checks passing “am I wrong?” messages back and forth) gets stuck, how ordered-statistics decoding (OSD) finishes the job, and decoders that flip bits using only local information.</span></span>
+      <span class="fc-meta"><span class="lvl hs"><span class="zh">高中数学</span><span class="en">high-school</span></span></span>
+    </div></li>
+    <li><div class="facet-card">
+      <a class="fc-title" href="qldpc/bp-osd/bp-osd.html"><span><span class="zh">BP-OSD 译码器</span><span class="en">The BP-OSD decoder</span></span><span class="arrow">→</span></a>
+      <span class="fc-desc"><span class="zh">qLDPC 码最常用的译码器，从零讲起：先把译码写成概率推断，推出置信传播（BP）的两条消息规则，并在没有圈的图上验证它精确；再看圈、min-sum、阻尼，以及量子码的退化为什么会让 BP 卡住；然后是 OSD：按 BP 给出的可靠度排序，在二元域上做高斯消元，解出一个满足症状的修复；最后是实际使用的参数、一个蒙特卡洛实验台，以及电路级的探测器错误模型。</span><span class="en">The workhorse decoder of qLDPC codes, from scratch: decoding as probabilistic inference; the two message rules of belief propagation (BP), exact on graphs without cycles; cycles, min-sum and damping, and why quantum degeneracy stalls BP; then OSD, which ranks bits by BP’s reliabilities and solves for a syndrome-consistent repair by Gaussian elimination over GF(2); finally the parameters used in practice, a Monte Carlo bench and circuit-level detector error models.</span></span>
       <span class="fc-meta"><span class="lvl hs"><span class="zh">高中数学</span><span class="en">high-school</span></span></span>
     </div></li>
     <li><div class="facet-card">
       <a class="fc-title" href="wanted/index.html"><span><span class="zh">Wanted · 十个开放问题</span><span class="en">Wanted · ten open problems</span></span><span class="arrow">→</span></a>
-      <span class="fc-desc"><span class="zh">Atlas 板上还没人答出来的十个问题，每个一篇：它在问什么、Atlas 现在怎么凑合、有了答案哪些「不知道」会变成「知道」。只假定高中数学。从<a href="wanted/index.html">开放问题总览</a>进入。</span><span class="en">The ten questions on the Atlas board nobody has answered yet, one guide each: what it asks, how the Atlas copes today, and which unknowns an answer would settle. High-school mathematics only. Enter via the <a href="wanted/index.html">open-problems overview</a>.</span></span>
+      <span class="fc-desc"><span class="zh">Atlas 记账时凡是只能写「不知道」的地方，都集中挂在一块「Wanted 板」上，其中十个问题仍然完全开放，例如：怎样快速而可靠地算出一个大码的码距；怎样高效地找到并证明：两份检查清单在给比特重新编号、在单个比特上换基之后是同一个码（比特编号固定、只是换了一组生成元时，做一遍消元就能判定，这部分不难）。每个问题一篇：用人话说它在问什么、Atlas 现在怎么凑合、有了答案能多知道什么、合格的答案长什么样、为什么难。大多只要求读过《从高考数学到 Toric Code》。从<a href="wanted/index.html">开放问题总览</a>进入。</span><span class="en">Wherever the Atlas can only record “unknown”, the gap goes onto a “Wanted board”; ten of its problems are still fully open, for example how to compute the distance of a large code quickly and reliably, or how to find and certify, efficiently, that two check lists are the same code after renumbering the qubits and changing the basis on single qubits (with the qubit labels fixed, deciding whether two lists merely use different generators takes one round of elimination and is not the hard part). One guide per problem: what it asks in plain words, how the Atlas copes today, what an answer would let us know, what a qualifying answer looks like, and why it is hard. Most need only “From High-School Math to the Toric Code”. Enter via the <a href="wanted/index.html">open-problems overview</a>.</span></span>
       <span class="fc-meta"><span class="lvl hs"><span class="zh">高中数学</span><span class="en">high-school</span></span></span>
     </div></li>
   </ul>
@@ -989,14 +994,14 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
     <h2><span class="zh">两条阅读路线</span><span class="en">Two reading routes</span></h2>
   </div>
   <div class="prose route">
-    <p class="zh"><b>零基础路线。</b>只假定初中算术，每一步都现场推导：</p>
-    <p class="en"><b>No-prerequisites route.</b> Assumes only school arithmetic; everything is derived on the spot:</p>
+    <p class="zh"><b>零基础路线。</b>只假定算术，每一步都现场推导：</p>
+    <p class="en"><b>No-prerequisites route.</b> Assumes only arithmetic; everything is derived on the spot:</p>
     <ol>
       <li><span class="zh"><a href="toric_code/intuition/intuition.html">《从 1+1 到 Toric Code》</a></span><span class="en"><a href="toric_code/intuition/intuition.html">“From 1+1 to the Toric Code”</a></span></li>
       <li><span class="zh"><a href="surface_code/intuition/intuition.html">《从 Toric Code 到 Surface Code》</a></span><span class="en"><a href="surface_code/intuition/intuition.html">“From Toric Code to Surface Code”</a></span></li>
     </ol>
-    <p class="zh"><b>高中数学路线。</b>用矩阵、复数、排列组合与对数，走完从环面码到好码的整条链：</p>
-    <p class="en"><b>High-school route.</b> Uses matrices, complex numbers, counting and logarithms to cover the whole chain from the toric code to good codes:</p>
+    <p class="zh"><b>高中数学路线。</b>用矩阵、复数、排列组合与对数，从环面码一路走到「好」码（逻辑比特数和码距都与比特总数成正比地增长的码）。每篇的开头写着它承接哪一篇：</p>
+    <p class="en"><b>High-school route.</b> Uses matrices, complex numbers, counting and logarithms to go from the toric code all the way to “good” codes (codes whose number of logical qubits and distance both grow in proportion to the total number of qubits). Each guide says at the top which guide it follows:</p>
     <ol>
       <li><span class="zh"><a href="toric_code/intuition/intuition-hs.html">《从高考数学到 Toric Code》</a></span><span class="en"><a href="toric_code/intuition/intuition-hs.html">“From High-School Math to the Toric Code”</a></span></li>
       <li><span class="zh"><a href="surface_code/intuition/intuition-hs.html">《Surface Code · 高中数学版》</a></span><span class="en"><a href="surface_code/intuition/intuition-hs.html">“The Surface Code · High-School Edition”</a></span></li>
@@ -1004,9 +1009,10 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
       <li><span class="zh"><a href="surface_code/operations/operations.html">《格点手术 · 高中数学版》</a></span><span class="en"><a href="surface_code/operations/operations.html">“Lattice Surgery · High-School Edition”</a></span></li>
       <li><span class="zh"><a href="bb_code/intuition/intuition.html">《BB 码 · 高中数学版》</a></span><span class="en"><a href="bb_code/intuition/intuition.html">“BB Codes · High-School Edition”</a></span></li>
       <li><span class="zh"><a href="qldpc/intuition/intuition.html">《qLDPC 码 · 高中数学版》</a></span><span class="en"><a href="qldpc/intuition/intuition.html">“qLDPC Codes · High-School Edition”</a></span></li>
+      <li><span class="zh"><a href="qldpc/bp-osd/bp-osd.html">《BP-OSD 译码器 · 高中数学版》</a></span><span class="en"><a href="qldpc/bp-osd/bp-osd.html">“The BP-OSD Decoder · High-School Edition”</a></span></li>
     </ol>
-    <p class="zh">两条路线在 Surface Code 处汇合：读完任一路线的表面码教程，都可以直接进入 <a href="surface_code/index.html">Surface Code 条目总览</a>里的其余侧面。</p>
-    <p class="en">The two routes meet at the surface code: after either surface-code guide you can go straight to the remaining facets in the <a href="surface_code/index.html">surface-code entry overview</a>.</p>
+    <p class="zh">两条路线在表面码处汇合。读完任一版表面码教程，就可以读 <a href="surface_code/index.html">Surface Code 条目总览</a>里的参数、硬件实验、证书、关系、推导、参考文献、导览、表示方式八篇条目导读（证书篇还要求先读参数篇）；译码器与格点手术两篇用到对数和排列组合，属于上面的高中数学路线。《BP-OSD 译码器》只要求读过环面码教程里的奇偶检查与症状（2.3 节）和「逻辑比特数 = 比特数 − 独立检查数」（4.4 节），先读表面码的译码器篇会更顺。<a href="bb_code/index.html">BB 码的条目导读</a>都要求先读《BB 码 · 高中数学版》；其中译码器篇还要求表面码的译码器篇，逻辑门篇还要求格点手术篇，证书篇还要求《BB 码 · 参数与实例》。</p>
+    <p class="en">The two routes meet at the surface code. After either surface-code guide you can read eight of the entry guides in the <a href="surface_code/index.html">surface-code entry overview</a>: parameters, hardware experiments, certificates, relations, derivations, references, guided tour, representations (the certificates guide also assumes the parameters guide). The decoders and lattice-surgery guides use logarithms and counting and belong to the high-school route above. “The BP-OSD Decoder” assumes only parity checks and syndromes (toric-code tutorial, §2.3) and the count “logical qubits = qubits − independent checks” (§4.4); the surface-code decoders guide first makes it easier. The <a href="bb_code/index.html">BB entry guides</a> all assume “BB Codes · High-School Edition”; the BB decoders guide also assumes the surface-code decoders guide, the BB logical-gates guide the lattice-surgery guide, and the BB certificates guide “BB Codes · Parameters &amp; Instances”.</p>
   </div>
 </section>
 
@@ -1016,8 +1022,17 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
     <h2><span class="zh">关于这套教程</span><span class="en">About these guides</span></h2>
   </div>
   <div class="prose">
-    <p class="zh">文件按 <span class="mono">&lt;码&gt;/&lt;侧面&gt;/&lt;侧面&gt;.html</span> 存放，高中数学版在文件名后加 <span class="mono">-hs</span>；只有一种版本时不加后缀。所有教程共用一套设计系统与交互框架，数字与引用沿用 QEC Atlas 的出处标签（<span class="mono">verified</span>、<span class="mono">bounded</span>、<span class="mono">claimed</span>、<span class="mono">demonstrated</span>、<span class="mono">proposed</span>），Atlas 站点本身在仓库的 <span class="mono">exports/site/</span> 目录下，可从各篇直接跳转。</p>
-    <p class="en">Files live at <span class="mono">&lt;code&gt;/&lt;facet&gt;/&lt;facet&gt;.html</span>, with <span class="mono">-hs</span> appended for the high-school edition when both exist. All guides share one design system and interaction framework, and numbers and citations keep the QEC Atlas provenance labels (<span class="mono">verified</span>, <span class="mono">bounded</span>, <span class="mono">claimed</span>, <span class="mono">demonstrated</span>, <span class="mono">proposed</span>); the Atlas site itself sits in the repository's <span class="mono">exports/site/</span> folder and is linked from every guide.</p>
+    <p class="zh">文件按 <span class="mono">&lt;码&gt;/&lt;侧面&gt;/&lt;侧面&gt;.html</span> 存放，同一侧面有两个版本时，高中数学版在文件名后加 <span class="mono">-hs</span>；只有一种版本时不加后缀。所有教程共用同一套页面样式与交互部件。Atlas 站点本身在仓库的 <span class="mono">exports/site/</span> 目录下，可从各篇直接跳转。</p>
+    <p class="en">Files live at <span class="mono">&lt;code&gt;/&lt;facet&gt;/&lt;facet&gt;.html</span>; when a facet has two editions, the high-school one has <span class="mono">-hs</span> appended to the file name, and a facet with a single edition has no suffix. All guides share the same page style and interactive components. The Atlas site itself sits in the repository's <span class="mono">exports/site/</span> folder and is linked from every guide.</p>
+    <p class="zh">Atlas 在每个数字和每条说法旁边写一个<b>证据词</b>，说明它是怎么来的；各篇教程沿用这几个词：</p>
+    <p class="en">Next to every number and every statement the Atlas writes an <b>evidence word</b> saying how it was obtained; the guides keep these words:</p>
+    <ul>
+      <li><span class="zh"><span class="mono">verified</span>：Atlas 的验证程序独立重算过，结果与登记的一致。</span><span class="en"><span class="mono">verified</span>: the Atlas verifier recomputed it independently and got the recorded value.</span></li>
+      <li><span class="zh"><span class="mono">bounded</span>：只登记了一个下界和一个上界（例如下界来自定理或文献，上界来自找到的一个具体例子），没有一台机器把两者合成精确值。</span><span class="en"><span class="mono">bounded</span>: only a lower and an upper bound are recorded (for example a lower bound from a theorem or a paper and an upper bound from one concrete example that was found); no machine has closed the two into an exact value.</span></li>
+      <li><span class="zh"><span class="mono">claimed</span>：文献这样说，Atlas 没有重算。</span><span class="en"><span class="mono">claimed</span>: a paper says so; the Atlas has not recomputed it.</span></li>
+      <li><span class="zh"><span class="mono">demonstrated</span>：有被引用的实验论文在真实硬件上报告过。</span><span class="en"><span class="mono">demonstrated</span>: a cited experimental paper has reported it on real hardware.</span></li>
+      <li><span class="zh"><span class="mono">proposed</span>：设计已具体到可以模拟或估算成本，但还没有物理系统执行过。</span><span class="en"><span class="mono">proposed</span>: the design is concrete enough to simulate or cost, but no physical system has run it.</span></li>
+    </ul>
   </div>
 </section>
 
@@ -3561,50 +3576,65 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
         'Z', (v) => { mode = v; upd(); }
       );
       F.controls.append(seg.el,
-        U().btn(isToric ? '示范：可收缩的圈' : '示范：平凡closed圈', isToric ? 'Demo: contractible loop' : 'Demo: trivial loop', '', () => {
+        U().btn(isToric ? '示范：可收缩的圈' : '示范：平凡的闭合圈', isToric ? 'Demo: contractible loop' : 'Demo: trivial loop', '', () => {
           view.errZ = new Set(); view.errX = new Set();
           // boundary of a 2x1 block of plaquettes
           const s = P().xorSet(lat.plaqs[0].support, lat.plaqs[1].support);
           view.errZ = new Set(s);
-          mode = 'Z';
+          if (mode !== 'Z') seg.el.children[0].click();
           upd();
         }),
         U().btn(isToric ? '示范：缠绕圈' : '示范：跨边界串', isToric ? 'Demo: winding loop' : 'Demo: boundary-to-boundary', '', () => {
           view.errZ = new Set(lat.logicals.Z[0]); view.errX = new Set();
-          mode = 'Z';
+          if (mode !== 'Z') seg.el.children[0].click();
           upd();
         }),
         U().btn('清空', 'Clear', '', () => { view.errZ.clear(); view.errX.clear(); upd(); })
       );
+      // Both string types may be on the lattice at once (some pages ask for an X and a Z loop together),
+      // so alarms of both types are counted and each drawn type gets its own verdict.
+      function judge(type, sup) {
+        const partners = type === 'Z' ? lat.logicals.X : lat.logicals.Z;
+        const par = partners.map((Lg) => P().overlapParity(sup, Lg));
+        if (!par.some((v) => v === 1)) {
+          return {
+            zh: '<span class="ok">警报全灭</span>，而且它是<b>平凡的</b>：它恰好等于若干' + (type === 'Z' ? '面检查' : '星检查') + '的乘积，对编码信息<b>什么也不做</b>。',
+            en: '<span class="ok">No alarms</span>, and it is <b>trivial</b>: it equals a product of ' + (type === 'Z' ? 'face checks' : 'star checks') + ' and does <b>nothing</b> to the stored information.',
+          };
+        }
+        const L1 = type === 'Z' ? 'Z̄₁' : 'X̄₁', L2 = type === 'Z' ? 'Z̄₂' : 'X̄₂';
+        if (isToric) {
+          const which = par[0] && par[1] ? L1 + '·' + L2 + '（两个方向都绕）' : par[0] ? L1 + (type === 'Z' ? '（水平缠绕）' : '') : L2 + (type === 'Z' ? '（垂直缠绕）' : '');
+          const whichEn = par[0] && par[1] ? L1 + '·' + L2 + ', both directions' : par[0] ? L1 + ', direction 1' : L2 + ', direction 2';
+          return {
+            zh: '<span class="no">警报全灭，但这不是平凡圈！</span>它绕过了整个环面——这是<b>逻辑算符 ' + which + '</b>：不触发任何检查，却会改写存下来的量子信息。',
+            en: '<span class="no">No alarms, yet NOT trivial!</span> It winds around the torus (' + whichEn + ') — a <b>logical operator</b>: invisible to every check, yet it rewrites the stored quantum information.',
+          };
+        }
+        return {
+          zh: '<span class="no">警报全灭，但这不是平凡圈！</span>这条串从一条边界横跨到对面——它就是<b>逻辑算符 ' + (type === 'Z' ? 'Z̄' : 'X̄') + '</b>：不触发任何检查，却改写了存下来的量子比特。',
+          en: '<span class="no">No alarms, yet NOT trivial!</span> The string spans from one boundary to the opposite one — the <b>logical operator ' + (type === 'Z' ? 'Z̄' : 'X̄') + '</b>: invisible to every check, yet it rewrites the stored qubit.',
+        };
+      }
       function upd() {
         view.draw();
         const syn = view.syndrome();
         const zSup = [...view.errZ], xSup = [...view.errX];
-        const active = mode === 'Z' ? zSup : xSup;
-        const defects = mode === 'Z' ? syn.starDefects.length : syn.plaqDefects.length;
+        const defects = syn.starDefects.length + syn.plaqDefects.length;
         let verdictZh, verdictEn;
-        if (!active.length) {
+        if (!zSup.length && !xSup.length) {
           verdictZh = '画几条边试试。目标：不触发任何警报。';
           verdictEn = 'Draw some edges. Goal: trigger no alarms.';
         } else if (defects > 0) {
           verdictZh = '还有 <b>' + defects + '</b> 个警报亮着：串有端点。把它闭合，或' + (isToric ? '绕一整圈' : '让两端都搭到正确的边界上') + '。';
           verdictEn = '<b>' + defects + '</b> alarms still lit: the string has endpoints. Close it up, or ' + (isToric ? 'wrap it all the way around' : 'land both ends on the right boundaries') + '.';
         } else {
-          const partners = mode === 'Z' ? lat.logicals.X : lat.logicals.Z;
-          const par = partners.map((Lg) => P().overlapParity(active, Lg));
-          const wound = par.some((v) => v === 1);
-          if (!wound) {
-            verdictZh = '<span class="ok">警报全灭</span>，且这是一个<b>平凡圈</b>：它恰好等于若干' + (mode === 'Z' ? '面检查' : '星检查') + '的乘积，对编码信息<b>什么也不做</b>。';
-            verdictEn = '<span class="ok">No alarms</span>, and this is a <b>trivial loop</b>: it equals a product of ' + (mode === 'Z' ? 'face checks' : 'star checks') + ' and does <b>nothing</b> to the stored information.';
-          } else if (isToric) {
-            const which = par[0] && par[1] ? 'Z̄₁·Z̄₂（两个方向都绕）' : par[0] ? (mode === 'Z' ? 'Z̄₁（水平缠绕）' : 'X̄₁') : (mode === 'Z' ? 'Z̄₂（垂直缠绕）' : 'X̄₂');
-            const whichEn = par[0] && par[1] ? 'both directions' : par[0] ? 'direction 1' : 'direction 2';
-            verdictZh = '<span class="no">警报全灭，但这不是平凡圈！</span>它绕过了整个环面——这是<b>逻辑算符 ' + which + '</b>：不触发任何检查，却会改写存下来的量子信息。';
-            verdictEn = '<span class="no">No alarms, yet NOT trivial!</span> It winds around the torus (' + whichEn + ') — a <b>logical operator</b>: invisible to every check, yet it rewrites the stored quantum information.';
-          } else {
-            verdictZh = '<span class="no">警报全灭，但这不是平凡圈！</span>这条串从一条边界横跨到对面——它就是<b>逻辑算符 ' + (mode === 'Z' ? 'Z̄' : 'X̄') + '</b>：不触发任何检查，却改写了存下来的量子比特。';
-            verdictEn = '<span class="no">No alarms, yet NOT trivial!</span> The string spans from one boundary to the opposite one — the <b>logical operator ' + (mode === 'Z' ? 'Z̄' : 'X̄') + '</b>: invisible to every check, yet it rewrites the stored qubit.';
-          }
+          const both = zSup.length > 0 && xSup.length > 0;
+          const parts = [];
+          if (zSup.length) parts.push({ j: judge('Z', zSup), lz: 'Z 串：', le: 'Z string: ' });
+          if (xSup.length) parts.push({ j: judge('X', xSup), lz: 'X 串：', le: 'X string: ' });
+          verdictZh = parts.map((q) => (both ? q.lz : '') + q.j.zh).join('<br>');
+          verdictEn = parts.map((q) => (both ? q.le : '') + q.j.en).join('<br>');
         }
         F.setReadout('<span class="zh">' + verdictZh + '</span><span class="en">' + verdictEn + '</span>');
       }
@@ -3689,8 +3719,8 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
         view.hlEdges = new Map([...corr].map((e) => [e, { color: getComputedStyle(doc.documentElement).getPropertyValue('--good').trim(), width: 5 }]));
         view.draw();
         F.setReadout(fail
-          ? '<span class="zh"><span class="no">这回合失败了。</span>蓝色 = 真实错误，绿色 = 你的修复。二者合起来形成了' + (isToric ? '一条<b>缠绕整个环面</b>的圈' : '一条<b>横跨两条边界</b>的串') + ' —— 恰好是逻辑算符，信息被改写。连胜清零。点「新回合」再来！</span><span class="en"><span class="no">Round lost.</span> Blue = true errors, green = your repair. Together they form ' + (isToric ? 'a loop <b>winding around the torus</b>' : 'a string <b>spanning both boundaries</b>') + ' — exactly a logical operator; the data got rewritten. Streak reset. “New round” to retry!</span>'
-          : '<span class="zh"><span class="ok">成功！</span>蓝 + 绿合成的圈都是可收缩的平凡圈 —— 你的修复不必和错误一模一样，只要「合起来平凡」就赢。连胜 <b>' + streak + '</b>！</span><span class="en"><span class="ok">Success!</span> Blue + green together form only trivial contractible loops — the repair need not equal the error, it only needs to be trivial in combination. Streak <b>' + streak + '</b>!</span>');
+          ? '<span class="zh"><span class="no">这回合失败了。</span>蓝色 = 真实错误，绿色 = 你的修复。二者合起来' + (isToric ? '在某个方向上<b>缠绕环面</b>的总圈数是<b>奇数</b>' : '含有<b>奇数条</b><b>横跨两条边界</b>的串') + ' —— 合起来是一个逻辑算符，信息被改写。连胜清零。点「新回合」再来！</span><span class="en"><span class="no">Round lost.</span> Blue = true errors, green = your repair. Together they ' + (isToric ? '<b>wind around the torus</b> an <b>odd</b> total number of times in some direction' : 'contain an <b>odd number</b> of strings <b>spanning both boundaries</b>') + ' — together a logical operator; the data got rewritten. Streak reset. “New round” to retry!</span>'
+          : '<span class="zh"><span class="ok">成功！</span>蓝 + 绿合起来' + (isToric ? '在两个方向上缠绕环面的总圈数都是偶数（0 也算，两圈互相抵消）' : '横跨两条边界的串是偶数条（0 条也算，两条互相抵消）') + '—— 合起来只是一些检查的乘积。你的修复不必和错误一模一样，只要合起来是检查的乘积就赢。连胜 <b>' + streak + '</b>！</span><span class="en"><span class="ok">Success!</span> Blue + green together ' + (isToric ? 'wind around the torus an even total number of times in both directions (0 counts; two windings cancel)' : 'contain an even number of strings spanning both boundaries (0 counts; two cancel)') + ' — together just a product of checks. The repair need not equal the error; together with it, it only needs to form a product of checks. Streak <b>' + streak + '</b>!</span>');
       }
       function newRound() {
         err = new Set(); corr = new Set(); sel = null; over = false;
@@ -3736,12 +3766,12 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
         en: '① Start: the toric code. Note the stubs sticking out — they wrap to the opposite side; that is what makes it a torus.',
       },
       {
-        zh: '② 一刀剪开：删除所有绕回去的边。立刻出问题——边界上的星和面都缺了一条腿（虚线标出），检查表变得乱七八糟。',
-        en: '② Cut: delete every wrapping edge. Trouble at once — boundary stars and faces each lose a leg (dashed); the checks are mutilated.',
+        zh: '② 一刀剪开：删除所有绕回去的边（图里不再画出）。立刻出问题：沿边的星少了一条腿，四个角上的星少了两条；原来跨过剪口的面只剩两条腿，而且这两条分在贴片相对的两头，角上那一块面一条腿也不剩。检查表乱了套。',
+        en: '② Cut: delete every wrapping edge (no longer drawn). Trouble at once: the stars along the edge lose one leg and the four corner stars lose two; the faces that straddled the cut keep only two legs, on opposite sides of the patch, and the corner face keeps none. The checks are mutilated.',
       },
       {
-        zh: '③ 收拾干净：接受「三条腿」的检查作为正式成员，但分好工——左右两侧只截断<b>面</b>（并保留伸出的悬挂边），上下两侧只截断<b>星</b>。这就是<b>表面码</b>的版图：两种边界，各司其职。',
-        en: '③ Tidy up: keep the 3-leg checks as legitimate members, but divide the work — the left/right sides truncate only <b>faces</b> (keeping the dangling edges), the top/bottom truncate only <b>stars</b>. This is the <b>surface code</b> layout: two kinds of boundary, each with a job.',
+        zh: '③ 收拾干净：接受「三条腿」的检查作为正式成员，但分好工——左右两侧只截断<b>面</b>（并保留伸出的悬挂边），上下两侧只截断<b>星</b>。这就是<b>表面码</b>的版图：两种边界，各司其职。（这一帧重新画了一块 L = 4 的平面码，而不是在上一帧上修补：25 个比特、12 个星检查、12 个面检查，左右两侧带悬挂的横边。）',
+        en: '③ Tidy up: keep the 3-leg checks as legitimate members, but divide the work — the left/right sides truncate only <b>faces</b> (keeping the dangling edges), the top/bottom truncate only <b>stars</b>. This is the <b>surface code</b> layout: two kinds of boundary, each with a job. (This frame redraws an L = 4 planar code rather than patching the previous one: 25 qubits, 12 star checks and 12 face checks, with dangling horizontal edges on the left and right.)',
       },
     ];
     function render() {
@@ -3803,8 +3833,10 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
       { zh: '① 噪声落下：几条 Z 错误悄悄出现（真实设备里你看不到它们）', en: '① Noise strikes: a few Z errors appear (invisible in a real device)' },
       { zh: '② 测量所有检查：只有错误链的端点亮起警报', en: '② Measure every check: only chain endpoints raise alarms' },
       { zh: '③ 译码器配对警报，规划修复链（绿）', en: '③ The decoder pairs alarms and plans repair chains (green)' },
-      { zh: '④ 施加修复：错误 ⊕ 修复 = 平凡圈 → 警报全灭，信息完好', en: '④ Apply the repair: error ⊕ repair = trivial loops → alarms clear, data intact' },
+      { zh: '④ 施加修复：警报全灭；错误 ⊕ 修复和 X̄ 交叉偶数次 → 信息完好', en: '④ Apply the repair: alarms clear; error ⊕ repair crosses X̄ an even number of times → data intact' },
     ];
+    const PH_FAIL = { zh: '④ 施加修复：警报全灭，但错误 ⊕ 修复和 X̄ 交叉奇数次 → 逻辑错误，信息被改写', en: '④ Apply the repair: alarms clear, but error ⊕ repair crosses X̄ an odd number of times → a logical error; the data is overwritten' };
+    let lastFail = false;
     function step() {
       phase = (phase + 1) % 4;
       if (phase === 0) {
@@ -3824,16 +3856,16 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
       } else {
         const residual = P().xorSet([...err], corr);
         const fail = lat.logicals.X.some((Lg) => P().overlapParity(residual, Lg));
-        rounds++; if (!fail) saved++;
+        rounds++; if (!fail) saved++; lastFail = fail;
         view.errZ = new Set(residual.filter(() => false));
         view.errZ = new Set();
         view.hlEdges = new Map();
       }
       view.draw();
-      const tail = phase === 3 ? (U().getLang() === 'en'
-        ? ' — rounds: ' + rounds + ', data survived: ' + saved
-        : ' — 已运行 ' + rounds + ' 轮，信息幸存 ' + saved + ' 轮') : '';
-      F.setReadout('<span class="zh">' + PH[phase].zh + tail + '</span><span class="en">' + PH[phase].en + tail + '</span>');
+      const tailZh = phase === 3 ? ' — 已运行 ' + rounds + ' 轮，信息幸存 ' + saved + ' 轮' : '';
+      const tailEn = phase === 3 ? ' — rounds: ' + rounds + ', data survived: ' + saved : '';
+      const ph = phase === 3 && lastFail ? PH_FAIL : PH[phase];
+      F.setReadout('<span class="zh">' + ph.zh + tailZh + '</span><span class="en">' + ph.en + tailEn + '</span>');
     }
     function play() {
       if (timer) return;
@@ -4280,8 +4312,8 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
       en: ['Winding loops = logicals', 'Loops circling the whole torus pass every check yet are no product of checks — they rewrite logical data. Two directions give Z̄₁, Z̄₂; duals give X̄₁, X̄₂; paired loops cross once ⇒ anticommute.'],
     },
     decoder: {
-      zh: ['译码 = 配对', '只见警报不见链：把警报两两配对、沿路径修复。错误⊕修复必闭合——可收缩则完美复原，缠绕则无声逻辑错误。'],
-      en: ['Decoding = matching', 'Alarms visible, chains not: pair the alarms and repair along paths. Error ⊕ repair is always closed — contractible = perfect recovery, winding = silent logical error.'],
+      zh: ['译码 = 配对', '只见警报不见链：把警报两两配对、沿路径修复。错误⊕修复必闭合——每个方向都缠绕偶数次（0 次也算）则完美复原，某个方向缠绕奇数次则是无声的逻辑错误；同方向的两圈互相抵消。'],
+      en: ['Decoding = matching', 'Alarms visible, chains not: pair the alarms and repair along paths. Error ⊕ repair is always closed — an even number of windings in each direction (0 included) = perfect recovery, an odd number in some direction = a silent logical error; two windings in the same direction cancel.'],
     },
     dL: {
       zh: ['环面码距 d = L', '最轻的逻辑算符是最短缠绕圈（长 L），对 X、Z 对称；压垮它需约 L/2 个错误连成线。'],
@@ -4301,8 +4333,8 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
       en: ['Spanning strings = logicals', 'A string dying on its own boundary at both ends: zero alarms, no product of checks (it crosses the other direction\'s spanning string once, so they anticommute).' + F('Z̄: rough→rough · X̄: smooth→smooth · X̄Z̄ = −Z̄X̄')],
     },
     cycle: {
-      zh: ['纠错循环', '每轮四拍：噪声 → 测全部检查 → 配对（可配边界）→ 修复；失败 ⇔ 错误⊕修复含横跨串。'],
-      en: ['The correction cycle', 'Four beats per round: noise → measure all checks → match (boundaries allowed) → repair; failure ⇔ error ⊕ repair contains a spanning string.'],
+      zh: ['纠错循环', '每轮四拍：噪声 → 测全部检查 → 配对（可配边界）→ 修复；失败 ⇔ 错误⊕修复和 X̄ 交叉奇数次，也就是横跨贴片的串有奇数条（两条互相抵消，偶数条无事）。'],
+      en: ['The correction cycle', 'Four beats per round: noise → measure all checks → match (boundaries allowed) → repair; failure ⇔ error ⊕ repair crosses X̄ an odd number of times, i.e. contains an odd number of spanning strings (two cancel, so an even number is harmless).'],
     },
     ancilla: {
       zh: ['辅助比特测量', '每条检查配一个帮手比特：与 4 个数据比特依次作用后单独被读出，给出 ±1；数据比特从未被直接测量。'],

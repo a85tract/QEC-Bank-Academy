@@ -901,8 +901,8 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
       <span class="en">Some codes still have<br>no <span class="accent">standard decoder</span></span>
     </h1>
     <p class="lede">
-      <span class="zh">环面码和表面码的译码是一场配对游戏：一个错误恰好点亮两盏警报灯，灯两两连线，沿线修复。这个游戏能玩，靠的是两件事——警报<b>成对</b>出现，而且一盏警报可以<b>单独移动</b>。有一类码里这两件事都不成立：警报四个四个地出现，一盏灯想挪一步，必须拖着另一盏一起走。这类码叫分形子码（fracton code），配对游戏在它们身上失效，而替代的游戏至今没有一个被公认为「标准」。Atlas 于是在三张卡片的译码器一栏里诚实地写下 <span class="mono">none-known</span>，代价是这些码在电路级性能对比表里是空行（理想症状下的通用 CSS 译码与蒙特卡洛跑法仍然可用，haah_cubic 也有研究级的 RG 与 BP-OSD 记录）。这一篇讲这道开放问题是什么、Atlas 现在怎么凑合、为什么我们想要答案、一个合格的答案长什么样。</span>
-      <span class="en">Decoding the toric and surface codes is a pairing game: one error lights exactly two alarm lamps, lamps are joined in pairs, and the repair runs along the join. The game works because of two facts: alarms come <b>in pairs</b>, and one alarm can be <b>moved on its own</b>. There is a class of codes where neither holds: alarms appear four at a time, and to move one lamp a step you must drag another with it. These are fracton codes; the pairing game breaks on them, and no replacement game has yet been accepted as “standard”. So the Atlas honestly writes <span class="mono">none-known</span> in the decoder field of three cards, at the price that those codes leave empty rows in the circuit-level comparison tables (generic CSS-pivot decoding and code-capacity Monte Carlo still run, and haah_cubic has research-grade RG and BP-OSD records). This guide explains what the open problem is, how the Atlas copes today, why we want the answer, and what a qualifying answer looks like.</span>
+      <span class="zh">环面码和表面码的译码是一场配对游戏。在没有边界的环面码内部，一个单比特 Z 错误恰好点亮两盏警报灯（两颗星）；X 错误同样点亮两盏，只是换成面；Y 错误同时是 X 和 Z，两种各亮两盏；而在表面码的边界上，一个错误可以只点亮一盏。本篇只看环面上的 Z 错误和星警报。灯两两连线，沿线修复。这个游戏能玩，靠的是两件事——警报<b>成对</b>出现，而且一盏警报可以<b>单独移动</b>。有一类码里这两件事都不成立。第 1 章的计数板玩具里，警报四个四个地出现，一盏灯想挪一步，必须拖着另一盏一起走；真正的 Haah 立方码更彻底：它内部那些不能靠局部操作凭空造出的警报，无论单个还是成团，都挪不动。这类码叫分形子码（fracton code），配对游戏在它们身上失效，而替代的游戏至今没有一个被公认为「标准」。Atlas 于是在三张卡片的译码器一栏里诚实地写下 <span class="mono">none-known</span>，代价是这些码在电路级性能对比表里是空行（理想症状下的通用 <span class="term">CSS<span class="tip">CSS 码：每条检查要么全是 X、要么全是 Z 的稳定子码。X 错误只被 Z 检查看见，Z 错误只被 X 检查看见，两半可以分开译码。</span></span> 译码与蒙特卡洛跑法仍然可用，haah_cubic 也有研究级的 RG 与 BP-OSD 记录）。这一篇讲这道开放问题是什么、Atlas 现在怎么凑合、为什么我们想要答案、一个合格的答案长什么样。</span>
+      <span class="en">Decoding the toric and surface codes is a pairing game. Inside a toric code, which has no boundary, a single-qubit Z error lights exactly two alarm lamps (two stars); an X error also lights two, on faces instead; a Y error is X and Z at once and lights two of each; and at a surface-code boundary one error can light a single lamp. This guide looks only at Z errors and star alarms on the torus. Lamps are joined in pairs, and the repair runs along the join. The game works because of two facts: alarms come <b>in pairs</b>, and one alarm can be <b>moved on its own</b>. There is a class of codes where neither holds. On the counter-board toy of Chapter 1, alarms appear four at a time, and to move one lamp a step you must drag another with it; Haah's real cubic code goes further: the alarms inside it that no local operation can create from nothing cannot move at all, singly or as a cluster. These are fracton codes; the pairing game breaks on them, and no replacement game has yet been accepted as “standard”. So the Atlas honestly writes <span class="mono">none-known</span> in the decoder field of three cards, at the price that those codes leave empty rows in the circuit-level comparison tables (generic <span class="term">CSS<span class="tip">CSS code: a stabilizer code in which every check is either all X or all Z. X errors are seen only by Z checks and Z errors only by X checks, so the two halves can be decoded separately.</span></span>-pivot decoding and code-capacity Monte Carlo still run, and haah_cubic has research-grade RG and BP-OSD records). This guide explains what the open problem is, how the Atlas copes today, why we want the answer, and what a qualifying answer looks like.</span>
     </p>
     <div class="promise">
       <span class="zh">前置：只需要<a href="../../toric_code/intuition/intuition-hs.html">《从高考数学到 Toric Code》</a>——奇偶检查、稳定子、错误链的端点、给症状配对。别的一切（译码器、成熟度词、基准行、分形子）都从一个能手算的 4 × 4 计数板出发再命名。状态：<b>open</b>（Wanted 板原文）。</span>
@@ -995,43 +995,89 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
     <p class="zh">现在换一块板。4 × 4 = 16 个格子，每格里是一个 0 或 1（把它当作一个可以翻转的比特）。格子的<b>角</b>上放计数器：5 × 5 = 25 个。每个计数器只做一件事：数它周围（最多 4 个）格子里 1 的个数是奇还是偶，奇数就亮。这仍然是一条奇偶检查（第 0 章事实 1），只是每条检查碰的是「围着一个角的四格」，而不是「围着一个顶点的四条边」。全 0 时没有灯亮。翻转一个格子会怎样？</p>
     <p class="en">Now change boards. 4 × 4 = 16 cells, each holding a 0 or 1 (think of it as a bit you can flip). Counters sit on the <b>corners</b> of the cells: 5 × 5 = 25 of them. Each counter does one thing: it counts whether the 1s in the (at most 4) cells around it are odd or even, and lights up if odd. This is still a parity check (fact 1 of Chapter 0), only each check touches “the four cells around a corner” instead of “the four edges around a vertex”. With all cells 0 nothing lights. What happens when you flip one cell?</p>
   </div>
-  <svg viewBox="0 0 720 330" width="100%" style="max-width:720px;display:block;margin:0 auto" role="img" aria-label="counter board toy">
-    <g stroke="var(--line)" stroke-width="1.5" fill="none">
-      <path d="M30 30H270M30 90H270M30 150H270M30 210H270M30 270H270M30 30V270M90 30V270M150 30V270M210 30V270M270 30V270"/>
-      <path d="M420 30H660M420 90H660M420 150H660M420 210H660M420 270H660M420 30V270M480 30V270M540 30V270M600 30V270M660 30V270"/>
-    </g>
-    <g fill="var(--cx)" opacity="0.55">
-      <rect x="90" y="90" width="60" height="60"/>
-      <rect x="420" y="90" width="180" height="60"/>
-    </g>
-    <g fill="var(--bg2)" stroke="var(--ink2)" stroke-width="1.2">
-      <circle cx="30" cy="30" r="5"/><circle cx="90" cy="30" r="5"/><circle cx="150" cy="30" r="5"/><circle cx="210" cy="30" r="5"/><circle cx="270" cy="30" r="5"/>
-      <circle cx="30" cy="90" r="5"/><circle cx="210" cy="90" r="5"/><circle cx="270" cy="90" r="5"/>
-      <circle cx="30" cy="150" r="5"/><circle cx="210" cy="150" r="5"/><circle cx="270" cy="150" r="5"/>
-      <circle cx="30" cy="210" r="5"/><circle cx="90" cy="210" r="5"/><circle cx="150" cy="210" r="5"/><circle cx="210" cy="210" r="5"/><circle cx="270" cy="210" r="5"/>
-      <circle cx="30" cy="270" r="5"/><circle cx="90" cy="270" r="5"/><circle cx="150" cy="270" r="5"/><circle cx="210" cy="270" r="5"/><circle cx="270" cy="270" r="5"/>
-      <circle cx="420" cy="30" r="5"/><circle cx="480" cy="30" r="5"/><circle cx="540" cy="30" r="5"/><circle cx="600" cy="30" r="5"/><circle cx="660" cy="30" r="5"/>
-      <circle cx="480" cy="90" r="5"/><circle cx="540" cy="90" r="5"/><circle cx="660" cy="90" r="5"/>
-      <circle cx="480" cy="150" r="5"/><circle cx="540" cy="150" r="5"/><circle cx="660" cy="150" r="5"/>
-      <circle cx="420" cy="210" r="5"/><circle cx="480" cy="210" r="5"/><circle cx="540" cy="210" r="5"/><circle cx="600" cy="210" r="5"/><circle cx="660" cy="210" r="5"/>
-      <circle cx="420" cy="270" r="5"/><circle cx="480" cy="270" r="5"/><circle cx="540" cy="270" r="5"/><circle cx="600" cy="270" r="5"/><circle cx="660" cy="270" r="5"/>
-    </g>
-    <g fill="var(--cd)" stroke="var(--ink)" stroke-width="1.2">
-      <circle cx="90" cy="90" r="8"/><circle cx="150" cy="90" r="8"/><circle cx="90" cy="150" r="8"/><circle cx="150" cy="150" r="8"/>
-      <circle cx="420" cy="90" r="8"/><circle cx="600" cy="90" r="8"/><circle cx="420" cy="150" r="8"/><circle cx="600" cy="150" r="8"/>
-    </g>
-    <text x="120" y="125" font-size="18" fill="var(--ink)" text-anchor="middle" font-family="ui-monospace, monospace">1</text>
-    <text x="450" y="125" font-size="18" fill="var(--ink)" text-anchor="middle" font-family="ui-monospace, monospace">1</text>
-    <text x="510" y="125" font-size="18" fill="var(--ink)" text-anchor="middle" font-family="ui-monospace, monospace">1</text>
-    <text x="570" y="125" font-size="18" fill="var(--ink)" text-anchor="middle" font-family="ui-monospace, monospace">1</text>
-    <text class="zh" x="150" y="305" font-size="14" fill="var(--ink2)" text-anchor="middle">翻一个格子：它的 4 个角全亮</text>
-    <text class="en" x="150" y="305" font-size="14" fill="var(--ink2)" text-anchor="middle">Flip one cell: all 4 of its corners light</text>
-    <text class="zh" x="540" y="305" font-size="14" fill="var(--ink2)" text-anchor="middle">翻一排 3 格：只有两端的 4 个角亮</text>
-    <text class="en" x="540" y="305" font-size="14" fill="var(--ink2)" text-anchor="middle">Flip a row of 3: only the 4 corners at the two ends light</text>
-  </svg>
+  <svg viewBox="0 0 720 360" width="100%" style="max-width:720px;display:block;margin:0 auto;color:var(--ink)" role="img" aria-label="计数板：翻一格与翻一排 / counter board: one cell and a row">
+<defs><marker id="fr-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="var(--cd)"/></marker></defs>
+<text x="60" y="36" font-size="11" fill="var(--ink3)" text-anchor="middle"><tspan class="zh">第 1 列</tspan><tspan class="en">col 1</tspan></text>
+<text x="120" y="36" font-size="11" fill="var(--ink3)" text-anchor="middle"><tspan class="zh">第 2 列</tspan><tspan class="en">col 2</tspan></text>
+<text x="180" y="36" font-size="11" fill="var(--ink3)" text-anchor="middle"><tspan class="zh">第 3 列</tspan><tspan class="en">col 3</tspan></text>
+<text x="240" y="36" font-size="11" fill="var(--ink3)" text-anchor="middle"><tspan class="zh">第 4 列</tspan><tspan class="en">col 4</tspan></text>
+<text x="450" y="36" font-size="11" fill="var(--ink3)" text-anchor="middle"><tspan class="zh">第 1 列</tspan><tspan class="en">col 1</tspan></text>
+<text x="510" y="36" font-size="11" fill="var(--ink3)" text-anchor="middle"><tspan class="zh">第 2 列</tspan><tspan class="en">col 2</tspan></text>
+<text x="570" y="36" font-size="11" fill="var(--ink3)" text-anchor="middle"><tspan class="zh">第 3 列</tspan><tspan class="en">col 3</tspan></text>
+<text x="630" y="36" font-size="11" fill="var(--ink3)" text-anchor="middle"><tspan class="zh">第 4 列</tspan><tspan class="en">col 4</tspan></text>
+<g stroke="var(--line)" stroke-width="1.5" fill="none"><path d="M30 50H270M30 110H270M30 170H270M30 230H270M30 290H270M30 50V290M90 50V290M150 50V290M210 50V290M270 50V290"/></g>
+<rect x="90" y="110" width="60" height="60" fill="var(--cx)" opacity="0.55"/>
+<text x="120" y="146" font-size="18" font-family="ui-monospace, monospace" fill="var(--ink)" text-anchor="middle">1</text>
+<circle cx="30" cy="50" r="5" fill="var(--bg2)" stroke="var(--ink2)" stroke-width="1.2"/>
+<circle cx="90" cy="50" r="5" fill="var(--bg2)" stroke="var(--ink2)" stroke-width="1.2"/>
+<circle cx="150" cy="50" r="5" fill="var(--bg2)" stroke="var(--ink2)" stroke-width="1.2"/>
+<circle cx="210" cy="50" r="5" fill="var(--bg2)" stroke="var(--ink2)" stroke-width="1.2"/>
+<circle cx="270" cy="50" r="5" fill="var(--bg2)" stroke="var(--ink2)" stroke-width="1.2"/>
+<circle cx="30" cy="110" r="5" fill="var(--bg2)" stroke="var(--ink2)" stroke-width="1.2"/>
+<circle cx="90" cy="110" r="8" fill="var(--cd)" stroke="var(--ink)" stroke-width="1.2"/>
+<circle cx="150" cy="110" r="8" fill="var(--cd)" stroke="var(--ink)" stroke-width="1.2"/>
+<circle cx="210" cy="110" r="5" fill="var(--bg2)" stroke="var(--ink2)" stroke-width="1.2"/>
+<circle cx="270" cy="110" r="5" fill="var(--bg2)" stroke="var(--ink2)" stroke-width="1.2"/>
+<circle cx="30" cy="170" r="5" fill="var(--bg2)" stroke="var(--ink2)" stroke-width="1.2"/>
+<circle cx="90" cy="170" r="8" fill="var(--cd)" stroke="var(--ink)" stroke-width="1.2"/>
+<circle cx="150" cy="170" r="8" fill="var(--cd)" stroke="var(--ink)" stroke-width="1.2"/>
+<circle cx="210" cy="170" r="5" fill="var(--bg2)" stroke="var(--ink2)" stroke-width="1.2"/>
+<circle cx="270" cy="170" r="5" fill="var(--bg2)" stroke="var(--ink2)" stroke-width="1.2"/>
+<circle cx="30" cy="230" r="5" fill="var(--bg2)" stroke="var(--ink2)" stroke-width="1.2"/>
+<circle cx="90" cy="230" r="5" fill="var(--bg2)" stroke="var(--ink2)" stroke-width="1.2"/>
+<circle cx="150" cy="230" r="5" fill="var(--bg2)" stroke="var(--ink2)" stroke-width="1.2"/>
+<circle cx="210" cy="230" r="5" fill="var(--bg2)" stroke="var(--ink2)" stroke-width="1.2"/>
+<circle cx="270" cy="230" r="5" fill="var(--bg2)" stroke="var(--ink2)" stroke-width="1.2"/>
+<circle cx="30" cy="290" r="5" fill="var(--bg2)" stroke="var(--ink2)" stroke-width="1.2"/>
+<circle cx="90" cy="290" r="5" fill="var(--bg2)" stroke="var(--ink2)" stroke-width="1.2"/>
+<circle cx="150" cy="290" r="5" fill="var(--bg2)" stroke="var(--ink2)" stroke-width="1.2"/>
+<circle cx="210" cy="290" r="5" fill="var(--bg2)" stroke="var(--ink2)" stroke-width="1.2"/>
+<circle cx="270" cy="290" r="5" fill="var(--bg2)" stroke="var(--ink2)" stroke-width="1.2"/>
+<g stroke="var(--line)" stroke-width="1.5" fill="none"><path d="M420 50H660M420 110H660M420 170H660M420 230H660M420 290H660M420 50V290M480 50V290M540 50V290M600 50V290M660 50V290"/></g>
+<rect x="480" y="110" width="60" height="60" fill="var(--cx)" opacity="0.55"/>
+<text x="510" y="146" font-size="18" font-family="ui-monospace, monospace" fill="var(--ink)" text-anchor="middle">1</text>
+<rect x="540" y="110" width="60" height="60" fill="var(--cx)" opacity="0.55"/>
+<text x="570" y="146" font-size="18" font-family="ui-monospace, monospace" fill="var(--ink)" text-anchor="middle">1</text>
+<rect x="600" y="110" width="60" height="60" fill="var(--cx)" opacity="0.55"/>
+<text x="630" y="146" font-size="18" font-family="ui-monospace, monospace" fill="var(--ink)" text-anchor="middle">1</text>
+<circle cx="420" cy="50" r="5" fill="var(--bg2)" stroke="var(--ink2)" stroke-width="1.2"/>
+<circle cx="480" cy="50" r="5" fill="var(--bg2)" stroke="var(--ink2)" stroke-width="1.2"/>
+<circle cx="540" cy="50" r="5" fill="var(--bg2)" stroke="var(--ink2)" stroke-width="1.2"/>
+<circle cx="600" cy="50" r="5" fill="var(--bg2)" stroke="var(--ink2)" stroke-width="1.2"/>
+<circle cx="660" cy="50" r="5" fill="var(--bg2)" stroke="var(--ink2)" stroke-width="1.2"/>
+<circle cx="420" cy="110" r="5" fill="var(--bg2)" stroke="var(--ink2)" stroke-width="1.2"/>
+<circle cx="480" cy="110" r="8" fill="var(--cd)" stroke="var(--ink)" stroke-width="1.2"/>
+<circle cx="540" cy="110" r="5" fill="var(--bg2)" stroke="var(--ink2)" stroke-width="1.2"/>
+<circle cx="600" cy="110" r="5" fill="var(--bg2)" stroke="var(--ink2)" stroke-width="1.2"/>
+<circle cx="660" cy="110" r="8" fill="var(--cd)" stroke="var(--ink)" stroke-width="1.2"/>
+<circle cx="420" cy="170" r="5" fill="var(--bg2)" stroke="var(--ink2)" stroke-width="1.2"/>
+<circle cx="480" cy="170" r="8" fill="var(--cd)" stroke="var(--ink)" stroke-width="1.2"/>
+<circle cx="540" cy="170" r="5" fill="var(--bg2)" stroke="var(--ink2)" stroke-width="1.2"/>
+<circle cx="600" cy="170" r="5" fill="var(--bg2)" stroke="var(--ink2)" stroke-width="1.2"/>
+<circle cx="660" cy="170" r="8" fill="var(--cd)" stroke="var(--ink)" stroke-width="1.2"/>
+<circle cx="420" cy="230" r="5" fill="var(--bg2)" stroke="var(--ink2)" stroke-width="1.2"/>
+<circle cx="480" cy="230" r="5" fill="var(--bg2)" stroke="var(--ink2)" stroke-width="1.2"/>
+<circle cx="540" cy="230" r="5" fill="var(--bg2)" stroke="var(--ink2)" stroke-width="1.2"/>
+<circle cx="600" cy="230" r="5" fill="var(--bg2)" stroke="var(--ink2)" stroke-width="1.2"/>
+<circle cx="660" cy="230" r="5" fill="var(--bg2)" stroke="var(--ink2)" stroke-width="1.2"/>
+<circle cx="420" cy="290" r="5" fill="var(--bg2)" stroke="var(--ink2)" stroke-width="1.2"/>
+<circle cx="480" cy="290" r="5" fill="var(--bg2)" stroke="var(--ink2)" stroke-width="1.2"/>
+<circle cx="540" cy="290" r="5" fill="var(--bg2)" stroke="var(--ink2)" stroke-width="1.2"/>
+<circle cx="600" cy="290" r="5" fill="var(--bg2)" stroke="var(--ink2)" stroke-width="1.2"/>
+<circle cx="660" cy="290" r="5" fill="var(--bg2)" stroke="var(--ink2)" stroke-width="1.2"/>
+<circle cx="540" cy="110" r="9" fill="none" stroke="var(--cd)" stroke-width="1.4" stroke-dasharray="3 3"/>
+<circle cx="540" cy="170" r="9" fill="none" stroke="var(--cd)" stroke-width="1.4" stroke-dasharray="3 3"/>
+<path d="M552 206.0 L646 206.0" stroke="var(--cd)" stroke-width="1.6" fill="none" marker-end="url(#fr-arr)"/>
+<text x="600" y="196" font-size="12" fill="var(--cd)" text-anchor="middle"><tspan class="zh">这一对右移 2 格</tspan><tspan class="en">this pair moved 2 steps right</tspan></text>
+<path d="M464 104 V176" stroke="var(--good)" stroke-width="3" fill="none"/>
+<text x="458" y="144" font-size="12" fill="var(--good)" text-anchor="end" font-weight="600"><tspan class="zh">不动</tspan><tspan class="en">stays</tspan></text>
+<path d="M74 104 V176" stroke="var(--good)" stroke-width="3" fill="none"/>
+<text x="150" y="324" font-size="13" fill="var(--ink2)" text-anchor="middle"><tspan class="zh">翻一个格子（第 2 列）：它的 4 个角全亮</tspan><tspan class="en">Flip one cell (col 2): all 4 of its corners light</tspan></text>
+<text x="540" y="324" font-size="13" fill="var(--ink2)" text-anchor="middle"><tspan class="zh">把它延长成第 2–4 列一排：只有两端的 4 个角亮</tspan><tspan class="en">Extend it to a row in cols 2–4: only the 4 end corners light</tspan></text>
+</svg>
   <div class="prose">
-    <p class="zh muted small">图注：琥珀色格子 = 翻成 1 的格子；小圆点 = 计数器；洋红大点 = 亮着的计数器（周围的 1 是奇数个）。左板翻了 1 格，右板翻了同一排的 3 格。两块板都亮 4 盏灯。</p>
-    <p class="en muted small">Caption: amber cells = cells flipped to 1; small dots = counters; large magenta dots = lit counters (an odd number of 1s around them). The left board has 1 cell flipped, the right board 3 cells of one row. Both boards show 4 lit lamps.</p>
+    <p class="zh muted small">图注：琥珀色格子 = 翻成 1 的格子；小圆点 = 计数器；洋红大点 = 亮着的计数器（周围的 1 是奇数个）。左板翻了第 2 列的 1 格；右板把它向右延长成第 2–4 列的一排 3 格。两块板都亮 4 盏灯：左边那一对（绿色竖线）没动，右边那一对从第 2 列格子的右边挪到了第 4 列格子的右边（虚线圈是它原来的位置）。</p>
+    <p class="en muted small">Caption: amber cells = cells flipped to 1; small dots = counters; large magenta dots = lit counters (an odd number of 1s around them). The left board has 1 cell flipped, in column 2; the right board extends it to the right into a row of 3 cells, columns 2–4. Both boards show 4 lit lamps: the left pair (green bar) has not moved, and the right pair has moved from the right edge of column 2 to the right edge of column 4 (dashed circles mark where it was).</p>
     <p class="zh">两件可以亲手核对的事。<b>第一</b>：翻一个格子，恰好它的 4 个角各多数到一个 1，于是 4 盏灯亮——不是 2 盏。翻右板那一排 3 格：中间的两条竖线上共 4 个角各被两个格子碰到，2 是偶数，它们安静；只有最左和最右的 4 个角亮。<b>第二</b>，也是关键：数一数<b>任何一行</b>计数器里亮着的个数。每个格子碰到它上方那一行计数器的恰好 2 个（左上角、右上角），也碰到下方那一行的恰好 2 个。所以不管翻了哪些格子，任何一行计数器里「被碰到的次数」总和是偶数，亮着的灯（被碰到奇数次的）也就总是偶数个。同理任何一列。</p>
     <p class="en">Two things you can check by hand. <b>First</b>: flipping one cell adds one 1 to each of its 4 corners, so 4 lamps light, not 2. Flip the row of 3 on the right board: the 4 corners on the two interior vertical lines are each touched by two cells, 2 is even, and they stay quiet; only the 4 corners at the far left and far right light. <b>Second</b>, and this is the key: count the lit counters in <b>any one row</b> of counters. Every cell touches exactly 2 counters in the counter row above it (its top-left and top-right corners) and exactly 2 in the row below. So whatever cells are flipped, the total number of “touches” in any counter row is even, hence the number of lit lamps in that row (those touched an odd number of times) is even too. Likewise for any column.</p>
   </div>
@@ -1039,13 +1085,171 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
   <div class="prose">
     <p class="zh muted small">记号：≡ 0 (mod 2) 读「除以 2 余 0」，即偶数。这条规则是本篇自己证的（上一段两句话），不出自任何 Atlas 页面。</p>
     <p class="en muted small">Notation: ≡ 0 (mod 2) reads “leaves remainder 0 when divided by 2”, i.e. even. This rule is proved in this guide (the two sentences above) and comes from no Atlas page.</p>
-    <p class="zh">现在问 1.1 节的那两个问题。<b>成对吗？</b>不。假如整块板恰好只有两盏灯亮，它们必须在同一行（那一行要偶数），也必须在同一列（那一列要偶数）——同行同列的两个点是同一个点。所以「恰好两盏灯」不可能出现；最少是像图中那样的 4 盏，在一个矩形的四个角上。<b>能单独动吗？</b>不。要把一盏灯向右挪一格，得让旧位置灭、新位置亮而别处不变，那是一次「改变恰好两盏灯」的操作，它同样违反行偶规则。右板已经演示了唯一被允许的动法：延长那一排，<b>右边的一对</b>一起向右挪，左边的一对留在原地。人话：<b>这块板上的警报没有「端点」的概念，一盏灯不是任何链的头；配对与最短路都失去了意义。</b></p>
-    <p class="en">Now ask the two questions of section 1.1. <b>In pairs?</b> No. Suppose exactly two lamps were lit on the whole board: they must share a row (that row needs an even count) and share a column (so must that column), and two points in the same row and column are the same point. So “exactly two lamps” can never occur; the minimum is 4, at the corners of a rectangle, as in the figure. <b>Mobile on its own?</b> No. Moving one lamp a step to the right means turning the old position off and the new one on with nothing else changed: an operation that “changes exactly two lamps”, which violates the even-row rule just the same. The right board already shows the only permitted move: extend the row, and <b>the pair on the right</b> moves right together while the pair on the left stays put. In plain words: <b>on this board alarms have no “endpoints”; a lamp is not the head of any chain; pairing and shortest paths have lost their meaning.</b></p>
+    <p class="zh">现在问 1.1 节的那两个问题。<b>成对吗？</b>不。假如整块板恰好只有两盏灯亮，它们必须在同一行（那一行要偶数），也必须在同一列（那一列要偶数）——同行同列的两个点是同一个点。所以「恰好两盏灯」不可能出现；最少是像图中那样的 4 盏，在一个矩形的四个角上。<b>能单独动吗？</b>不。要把一盏灯向右挪一格，得让旧位置灭、新位置亮而别处不变，那是一次「改变恰好两盏灯」的操作：两盏在同一行，那一行的奇偶不变，但它们在不同的两列，两列各变了一盏，变成奇数，违反列偶规则（向上挪一格则违反行偶规则）。允许的动法都是成对的，右板演示了其中一种：把左板那一格向右延长成一排，<b>右边的一对</b>一起向右挪了 2 格，左边的一对留在原地（图中绿色竖线）。人话：<b>这块板上的警报没有「端点」的概念，一盏灯不是任何链的头；配对与最短路都失去了意义。</b>下面的计数板可以亲手试：点格子翻转，右边一列和底下一行的数字是每一行、每一列计数器里亮着的盏数。</p>
+    <p class="en">Now ask the two questions of section 1.1. <b>In pairs?</b> No. Suppose exactly two lamps were lit on the whole board: they must share a row (that row needs an even count) and share a column (so must that column), and two points in the same row and column are the same point. So “exactly two lamps” can never occur; the minimum is 4, at the corners of a rectangle, as in the figure. <b>Mobile on its own?</b> No. Moving one lamp a step to the right means turning the old position off and the new one on with nothing else changed: an operation that “changes exactly two lamps”: both are in the same row, so that row keeps its parity, but they are in two different columns, each of which changes by one lamp and turns odd, breaking the even-column rule (a step upward would break the even-row rule instead). Every allowed move goes in pairs, and the right board shows one of them: extend the left board's cell to the right into a row, and <b>the pair on the right</b> moves 2 steps right together while the pair on the left stays put (green bar in the figure). In plain words: <b>on this board alarms have no “endpoints”; a lamp is not the head of any chain; pairing and shortest paths have lost their meaning.</b> The counting board below lets you try: click a cell to flip it; the numbers down the right and along the bottom are the lit lamps in each row and each column of counters.</p>
   </div>
+  <div data-widget="countboard"></div>
   <div class="note note-key">
     <span class="note-tag"><span class="zh">命名</span><span class="en">Naming</span></span>
-    <p class="zh">一个不能单独移动的激发（亮灯）叫<span class="term">分形子<span class="tip">fracton：一类三维量子码里的激发，单个无法被任何局部操作搬运；只能几个一起、沿受限的方向移动。名字来自 fraction（分数），指它只是「一个能动的东西的一部分」。</span></span>（fracton）；以此为特征的码叫<b>分形子码</b>。计数板是一个<b>经典</b>玩具，只为演示「不能单独动」这一件事；真正的分形子码是三维的量子码。Atlas 里的代表是 <span class="mono">haah_cubic</span>（Haah 立方码），卡片描述原文：“a pair of data qubits occupies every vertex of a periodic cubic lattice, and one X-type plus one inversion-related Z-type corner pattern is translated over every cube.” 它的卡片在 <span class="mono">views</span> 一栏（origin: <b>curated</b>，ref <span class="mono">haah2011local</span>）里把本节的结论写成了一句话：“Local Pauli faults create bounded clusters of cube defects, but isolated fracton charge cannot be transported by an ordinary Pauli string. Error patterns and neutral clusters therefore organize recursively rather than as pairs joined by shortest paths, motivating the family-specific renormalization decoder.” 人话：<b>局部错误只造出小团的警报，单个警报搬不走；错误图案不再是「成对 + 最短路」，所以需要一种专门的译码器。</b></p>
-    <p class="en">An excitation (a lit lamp) that cannot move on its own is called a <span class="term">fracton<span class="tip">An excitation in a class of 3D quantum codes that no local operation can transport singly; it moves only in groups and along restricted directions. The name comes from “fraction”: it is only part of something mobile.</span></span>; codes with this feature are <b>fracton codes</b>. The counter board is a <b>classical</b> toy meant to show one thing only, “cannot move alone”; real fracton codes are three-dimensional quantum codes. The Atlas representative is <span class="mono">haah_cubic</span> (Haah's cubic code), whose card description reads: “a pair of data qubits occupies every vertex of a periodic cubic lattice, and one X-type plus one inversion-related Z-type corner pattern is translated over every cube.” In its <span class="mono">views</span> field (origin: <b>curated</b>, ref <span class="mono">haah2011local</span>) the card states this section's conclusion in one sentence: “Local Pauli faults create bounded clusters of cube defects, but isolated fracton charge cannot be transported by an ordinary Pauli string. Error patterns and neutral clusters therefore organize recursively rather than as pairs joined by shortest paths, motivating the family-specific renormalization decoder.” In plain words: <b>local errors only create small clusters of alarms, a single alarm cannot be carried away, error patterns are no longer “pairs plus shortest paths”, so a special-purpose decoder is needed.</b></p>
+    <p class="zh">一个不能单独移动的激发（亮灯）叫<span class="term">分形子<span class="tip">fracton：一类三维量子码里单个无法被任何局部操作搬运的激发。在 Haah 立方码里，凡是不能靠局部操作凭空造出的激发，无论单个还是几个组成的团，都挪不动（Aitchison 等 2023，arXiv:2308.00138，第 II.2.2–II.2.3 节）。</span></span>（fracton）；以此为特征的码叫<b>分形子码</b>。计数板是一个<b>经典</b>玩具，只为演示「不能单独动」这一件事；真正的分形子码是三维的量子码。玩具里有一点不能搬过去：计数板上成对的灯还能一起挪（上图右板），Haah 立方码里却不行，那里不能靠局部操作凭空造出的警报，无论单个还是成团都挪不动，硬要挪远，途中要额外点亮的警报随距离越来越多（Aitchison、Bulmash、Dua、Doherty、Williamson，“No Strings Attached: Boundaries and Defects in the Cubic Code”，2023，arXiv:2308.00138，第 II.2.2–II.2.3 节）。Atlas 里的代表是 <span class="mono">haah_cubic</span>（Haah 立方码），卡片描述原文：“a pair of data qubits occupies every vertex of a periodic cubic lattice, and one X-type plus one inversion-related Z-type corner pattern is translated over every cube.” 它的卡片在 <span class="mono">views</span> 一栏（origin: <b>curated</b>，ref <span class="mono">haah2011local</span>）里把本节的结论写成了一句话：“Local Pauli faults create bounded clusters of cube defects, but isolated fracton charge cannot be transported by an ordinary Pauli string. Error patterns and neutral clusters therefore organize recursively rather than as pairs joined by shortest paths, motivating the family-specific renormalization decoder.” 人话：<b>局部错误只造出小团的警报，单个警报搬不走；错误图案不再是「成对 + 最短路」，所以需要一种专门的译码器。</b></p>
+    <p class="en">An excitation (a lit lamp) that cannot move on its own is called a <span class="term">fracton<span class="tip">An excitation, in a class of 3D quantum codes, that no local operation can transport on its own. In Haah's cubic code every excitation that cannot be created locally from nothing is immobile, alone or as a cluster of several (Aitchison et al. 2023, arXiv:2308.00138, sections II.2.2–II.2.3).</span></span>; codes with this feature are <b>fracton codes</b>. The counter board is a <b>classical</b> toy meant to show one thing only, “cannot move alone”; real fracton codes are three-dimensional quantum codes. One feature of the toy does not carry over: on the counter board a pair of lamps can still move together (right board above), but not in Haah's cubic code, where the alarms that no local operation can create from nothing cannot move, alone or as a cluster; forcing one farther away lights more and more extra alarms along the way, in proportion to the distance (Aitchison, Bulmash, Dua, Doherty, Williamson, “No Strings Attached: Boundaries and Defects in the Cubic Code”, 2023, arXiv:2308.00138, sections II.2.2–II.2.3). The Atlas representative is <span class="mono">haah_cubic</span> (Haah's cubic code), whose card description reads: “a pair of data qubits occupies every vertex of a periodic cubic lattice, and one X-type plus one inversion-related Z-type corner pattern is translated over every cube.” In its <span class="mono">views</span> field (origin: <b>curated</b>, ref <span class="mono">haah2011local</span>) the card states this section's conclusion in one sentence: “Local Pauli faults create bounded clusters of cube defects, but isolated fracton charge cannot be transported by an ordinary Pauli string. Error patterns and neutral clusters therefore organize recursively rather than as pairs joined by shortest paths, motivating the family-specific renormalization decoder.” In plain words: <b>local errors only create small clusters of alarms, a single alarm cannot be carried away, error patterns are no longer “pairs plus shortest paths”, so a special-purpose decoder is needed.</b></p>
+  </div>
+  <div class="prose" id="haah-cube">
+    <p class="zh"><b>卡片那句描述，逐词拆开（下图）。</b>立方格子的每个顶点上放两个量子比特，叫比特 1 和比特 2；一个顶点上的算符写成两个字母，例如 ZI = 比特 1 上 Z、比特 2 上不动（I）。每个单位立方体配两条检查，各碰这个立方体 8 个角上的比特；每个角碰哪个比特，由一张固定的「角图案」（corner pattern）规定，同一张图案平移到每一个立方体上。图 (a) 是 Z 检查的角图案，图 (b) 是 X 检查的。两张图案「反演相关」（inversion-related）：把 Z 图案的每个角换到立方体中心对面的那个角，再把每个顶点上的比特 1、比特 2 对调，Z 换成 X，就得到 X 图案。例：Z 检查在角 111 是 ZZ，X 检查就在对面的角 000 是 XX；Z 检查在角 101 是 ZI，X 检查在对面的角 010 是 IX。每条检查要么全是 X、要么全是 Z，所以它是 <span class="term">CSS<span class="tip">CSS 码：每条检查要么全是 X、要么全是 Z 的稳定子码。X 错误只被 Z 检查看见，Z 错误只被 X 检查看见，两半可以分开译码。</span></span> 码。再数一数：每条检查碰 8 个比特，每个比特被 4 条 Z 检查和 4 条 X 检查碰到，码做大时这两个数不变；「每条检查碰的比特数、每个比特参与的检查数都有一个不随码长增长的上限」正是 <span class="term">qLDPC<span class="tip">quantum low-density parity-check，量子低密度奇偶校验码：码做大时，每条检查碰的比特数和每个比特参与的检查数都不超过一个固定上限。</span></span> 码的定义。图 (c)：一个比特上的 X 错误让 4 条 Z 检查亮起，它们的立方体中心排成一个四面体，又是四盏一组，和计数板一样没有「两端」。角图案取自 Haah 2011（arXiv:1101.1962）表 I 的 Code 1；我们按它在 L = 2、3、4 的周期格子上重算了 k，得到 6、2、14，与 2.1 节 Atlas 登记的数值一致。</p>
+    <p class="en"><b>The card's description, word by word (figure below).</b> Every vertex of the cubic lattice holds two qubits, qubit 1 and qubit 2; an operator on one vertex is written as two letters, e.g. ZI = Z on qubit 1, nothing (I) on qubit 2. Every unit cube carries two checks, each touching qubits at the cube's 8 corners; which qubit each corner touches is fixed by one “corner pattern”, and the same pattern is translated onto every cube. Panel (a) is the Z check's corner pattern, panel (b) the X check's. The two patterns are “inversion-related”: move each corner of the Z pattern to the corner opposite it through the cube's centre, swap qubit 1 and qubit 2 at every vertex, change Z to X, and you get the X pattern. Example: the Z check has ZZ at corner 111, so the X check has XX at the opposite corner 000; the Z check has ZI at corner 101, so the X check has IX at the opposite corner 010. Every check is all X or all Z, so this is a <span class="term">CSS<span class="tip">CSS code: a stabilizer code in which every check is either all X or all Z. X errors are seen only by Z checks and Z errors only by X checks, so the two halves can be decoded separately.</span></span> code. Now count: every check touches 8 qubits, every qubit is touched by 4 Z checks and 4 X checks, and neither number changes as the code grows; “the number of qubits per check and of checks per qubit stay below a limit that does not grow with the code” is exactly the definition of a <span class="term">qLDPC<span class="tip">Quantum low-density parity-check code: as the code grows, the number of qubits each check touches and the number of checks each qubit takes part in both stay below a fixed limit.</span></span> code. Panel (c): an X error on one qubit lights 4 Z checks, and their cube centres form a tetrahedron, four at a time again, with no “two ends”, as on the counter board. The corner pattern is Code 1 of Table I in Haah 2011 (arXiv:1101.1962); with it we recomputed k on periodic lattices with L = 2, 3, 4 and got 6, 2, 14, matching the Atlas values in section 2.1.</p>
+  </div>
+<svg viewBox="0 0 760 385" width="100%" style="max-width:760px;display:block;margin:0 auto;color:var(--ink)" role="img" aria-label="Haah 立方码的两条检查与一个错误的症状 / the two checks of Haah’s cubic code and one error’s syndrome">
+<text x="135" y="34" font-size="13" fill="var(--ink)" text-anchor="middle" font-weight="600"><tspan class="zh">(a) 一条 Z 检查</tspan><tspan class="en">(a) one Z check</tspan></text>
+<line x1="95" y1="205" x2="95" y2="85" stroke="var(--ink3)" stroke-width="1.3" stroke-dasharray="4 3"/>
+<line x1="95" y1="205" x2="215" y2="205" stroke="var(--ink3)" stroke-width="1.3" stroke-dasharray="4 3"/>
+<line x1="95" y1="205" x2="45" y2="243" stroke="var(--ink3)" stroke-width="1.3" stroke-dasharray="4 3"/>
+<line x1="95" y1="85" x2="215" y2="85" stroke="var(--ink3)" stroke-width="1.3"/>
+<line x1="95" y1="85" x2="45" y2="123" stroke="var(--ink3)" stroke-width="1.3"/>
+<line x1="215" y1="205" x2="215" y2="85" stroke="var(--ink3)" stroke-width="1.3"/>
+<line x1="215" y1="205" x2="165" y2="243" stroke="var(--ink3)" stroke-width="1.3"/>
+<line x1="215" y1="85" x2="165" y2="123" stroke="var(--ink3)" stroke-width="1.3"/>
+<line x1="45" y1="243" x2="45" y2="123" stroke="var(--ink3)" stroke-width="1.3"/>
+<line x1="45" y1="243" x2="165" y2="243" stroke="var(--ink3)" stroke-width="1.3"/>
+<line x1="45" y1="123" x2="165" y2="123" stroke="var(--ink3)" stroke-width="1.3"/>
+<line x1="165" y1="243" x2="165" y2="123" stroke="var(--ink3)" stroke-width="1.3"/>
+<circle cx="36" cy="123" r="8.5" fill="var(--cz)" stroke="var(--cz)" stroke-width="1.3"/>
+<text x="36" y="127" font-size="10.5" font-family="ui-monospace, monospace" fill="var(--bg2)" text-anchor="middle" font-weight="700">Z</text>
+<circle cx="54" cy="123" r="8.5" fill="var(--bg2)" stroke="var(--ink3)" stroke-width="1.3"/>
+<text x="54" y="127" font-size="10.5" font-family="ui-monospace, monospace" fill="var(--ink3)" text-anchor="middle" font-weight="700">I</text>
+<text x="18" y="118" font-size="9.5" font-family="ui-monospace, monospace" fill="var(--ink3)" text-anchor="middle">101</text>
+<circle cx="156" cy="123" r="8.5" fill="var(--cz)" stroke="var(--cz)" stroke-width="1.3"/>
+<text x="156" y="127" font-size="10.5" font-family="ui-monospace, monospace" fill="var(--bg2)" text-anchor="middle" font-weight="700">Z</text>
+<circle cx="174" cy="123" r="8.5" fill="var(--cz)" stroke="var(--cz)" stroke-width="1.3"/>
+<text x="174" y="127" font-size="10.5" font-family="ui-monospace, monospace" fill="var(--bg2)" text-anchor="middle" font-weight="700">Z</text>
+<text x="184" y="111" font-size="9.5" font-family="ui-monospace, monospace" fill="var(--ink3)" text-anchor="middle">111</text>
+<circle cx="36" cy="243" r="8.5" fill="var(--bg2)" stroke="var(--ink3)" stroke-width="1.3"/>
+<text x="36" y="247" font-size="10.5" font-family="ui-monospace, monospace" fill="var(--ink3)" text-anchor="middle" font-weight="700">I</text>
+<circle cx="54" cy="243" r="8.5" fill="var(--cz)" stroke="var(--cz)" stroke-width="1.3"/>
+<text x="54" y="247" font-size="10.5" font-family="ui-monospace, monospace" fill="var(--bg2)" text-anchor="middle" font-weight="700">Z</text>
+<text x="23" y="262" font-size="9.5" font-family="ui-monospace, monospace" fill="var(--ink3)" text-anchor="middle">100</text>
+<circle cx="156" cy="243" r="8.5" fill="var(--cz)" stroke="var(--cz)" stroke-width="1.3"/>
+<text x="156" y="247" font-size="10.5" font-family="ui-monospace, monospace" fill="var(--bg2)" text-anchor="middle" font-weight="700">Z</text>
+<circle cx="174" cy="243" r="8.5" fill="var(--bg2)" stroke="var(--ink3)" stroke-width="1.3"/>
+<text x="174" y="247" font-size="10.5" font-family="ui-monospace, monospace" fill="var(--ink3)" text-anchor="middle" font-weight="700">I</text>
+<text x="177" y="268" font-size="9.5" font-family="ui-monospace, monospace" fill="var(--ink3)" text-anchor="middle">110</text>
+<circle cx="86" cy="85" r="8.5" fill="var(--bg2)" stroke="var(--ink3)" stroke-width="1.3"/>
+<text x="86" y="89" font-size="10.5" font-family="ui-monospace, monospace" fill="var(--ink3)" text-anchor="middle" font-weight="700">I</text>
+<circle cx="104" cy="85" r="8.5" fill="var(--cz)" stroke="var(--cz)" stroke-width="1.3"/>
+<text x="104" y="89" font-size="10.5" font-family="ui-monospace, monospace" fill="var(--bg2)" text-anchor="middle" font-weight="700">Z</text>
+<text x="83" y="69" font-size="9.5" font-family="ui-monospace, monospace" fill="var(--ink3)" text-anchor="middle">001</text>
+<circle cx="206" cy="85" r="8.5" fill="var(--cz)" stroke="var(--cz)" stroke-width="1.3"/>
+<text x="206" y="89" font-size="10.5" font-family="ui-monospace, monospace" fill="var(--bg2)" text-anchor="middle" font-weight="700">Z</text>
+<circle cx="224" cy="85" r="8.5" fill="var(--bg2)" stroke="var(--ink3)" stroke-width="1.3"/>
+<text x="224" y="89" font-size="10.5" font-family="ui-monospace, monospace" fill="var(--ink3)" text-anchor="middle" font-weight="700">I</text>
+<text x="237" y="74" font-size="9.5" font-family="ui-monospace, monospace" fill="var(--ink3)" text-anchor="middle">011</text>
+<circle cx="86" cy="205" r="8.5" fill="var(--bg2)" stroke="var(--ink3)" stroke-width="1.3"/>
+<text x="86" y="209" font-size="10.5" font-family="ui-monospace, monospace" fill="var(--ink3)" text-anchor="middle" font-weight="700">I</text>
+<circle cx="104" cy="205" r="8.5" fill="var(--bg2)" stroke="var(--ink3)" stroke-width="1.3"/>
+<text x="104" y="209" font-size="10.5" font-family="ui-monospace, monospace" fill="var(--ink3)" text-anchor="middle" font-weight="700">I</text>
+<text x="76" y="226" font-size="9.5" font-family="ui-monospace, monospace" fill="var(--ink3)" text-anchor="middle">000</text>
+<circle cx="206" cy="205" r="8.5" fill="var(--bg2)" stroke="var(--ink3)" stroke-width="1.3"/>
+<text x="206" y="209" font-size="10.5" font-family="ui-monospace, monospace" fill="var(--ink3)" text-anchor="middle" font-weight="700">I</text>
+<circle cx="224" cy="205" r="8.5" fill="var(--cz)" stroke="var(--cz)" stroke-width="1.3"/>
+<text x="224" y="209" font-size="10.5" font-family="ui-monospace, monospace" fill="var(--bg2)" text-anchor="middle" font-weight="700">Z</text>
+<text x="242" y="219" font-size="9.5" font-family="ui-monospace, monospace" fill="var(--ink3)" text-anchor="middle">010</text>
+<text x="365" y="34" font-size="13" fill="var(--ink)" text-anchor="middle" font-weight="600"><tspan class="zh">(b) 一条 X 检查</tspan><tspan class="en">(b) one X check</tspan></text>
+<line x1="325" y1="205" x2="325" y2="85" stroke="var(--ink3)" stroke-width="1.3" stroke-dasharray="4 3"/>
+<line x1="325" y1="205" x2="445" y2="205" stroke="var(--ink3)" stroke-width="1.3" stroke-dasharray="4 3"/>
+<line x1="325" y1="205" x2="275" y2="243" stroke="var(--ink3)" stroke-width="1.3" stroke-dasharray="4 3"/>
+<line x1="325" y1="85" x2="445" y2="85" stroke="var(--ink3)" stroke-width="1.3"/>
+<line x1="325" y1="85" x2="275" y2="123" stroke="var(--ink3)" stroke-width="1.3"/>
+<line x1="445" y1="205" x2="445" y2="85" stroke="var(--ink3)" stroke-width="1.3"/>
+<line x1="445" y1="205" x2="395" y2="243" stroke="var(--ink3)" stroke-width="1.3"/>
+<line x1="445" y1="85" x2="395" y2="123" stroke="var(--ink3)" stroke-width="1.3"/>
+<line x1="275" y1="243" x2="275" y2="123" stroke="var(--ink3)" stroke-width="1.3"/>
+<line x1="275" y1="243" x2="395" y2="243" stroke="var(--ink3)" stroke-width="1.3"/>
+<line x1="275" y1="123" x2="395" y2="123" stroke="var(--ink3)" stroke-width="1.3"/>
+<line x1="395" y1="243" x2="395" y2="123" stroke="var(--ink3)" stroke-width="1.3"/>
+<circle cx="266" cy="123" r="8.5" fill="var(--cx)" stroke="var(--cx)" stroke-width="1.3"/>
+<text x="266" y="127" font-size="10.5" font-family="ui-monospace, monospace" fill="var(--bg2)" text-anchor="middle" font-weight="700">X</text>
+<circle cx="284" cy="123" r="8.5" fill="var(--bg2)" stroke="var(--ink3)" stroke-width="1.3"/>
+<text x="284" y="127" font-size="10.5" font-family="ui-monospace, monospace" fill="var(--ink3)" text-anchor="middle" font-weight="700">I</text>
+<text x="248" y="118" font-size="9.5" font-family="ui-monospace, monospace" fill="var(--ink3)" text-anchor="middle">101</text>
+<circle cx="386" cy="123" r="8.5" fill="var(--bg2)" stroke="var(--ink3)" stroke-width="1.3"/>
+<text x="386" y="127" font-size="10.5" font-family="ui-monospace, monospace" fill="var(--ink3)" text-anchor="middle" font-weight="700">I</text>
+<circle cx="404" cy="123" r="8.5" fill="var(--bg2)" stroke="var(--ink3)" stroke-width="1.3"/>
+<text x="404" y="127" font-size="10.5" font-family="ui-monospace, monospace" fill="var(--ink3)" text-anchor="middle" font-weight="700">I</text>
+<text x="414" y="111" font-size="9.5" font-family="ui-monospace, monospace" fill="var(--ink3)" text-anchor="middle">111</text>
+<circle cx="266" cy="243" r="8.5" fill="var(--bg2)" stroke="var(--ink3)" stroke-width="1.3"/>
+<text x="266" y="247" font-size="10.5" font-family="ui-monospace, monospace" fill="var(--ink3)" text-anchor="middle" font-weight="700">I</text>
+<circle cx="284" cy="243" r="8.5" fill="var(--cx)" stroke="var(--cx)" stroke-width="1.3"/>
+<text x="284" y="247" font-size="10.5" font-family="ui-monospace, monospace" fill="var(--bg2)" text-anchor="middle" font-weight="700">X</text>
+<text x="253" y="262" font-size="9.5" font-family="ui-monospace, monospace" fill="var(--ink3)" text-anchor="middle">100</text>
+<circle cx="386" cy="243" r="8.5" fill="var(--cx)" stroke="var(--cx)" stroke-width="1.3"/>
+<text x="386" y="247" font-size="10.5" font-family="ui-monospace, monospace" fill="var(--bg2)" text-anchor="middle" font-weight="700">X</text>
+<circle cx="404" cy="243" r="8.5" fill="var(--bg2)" stroke="var(--ink3)" stroke-width="1.3"/>
+<text x="404" y="247" font-size="10.5" font-family="ui-monospace, monospace" fill="var(--ink3)" text-anchor="middle" font-weight="700">I</text>
+<text x="407" y="268" font-size="9.5" font-family="ui-monospace, monospace" fill="var(--ink3)" text-anchor="middle">110</text>
+<circle cx="316" cy="85" r="8.5" fill="var(--bg2)" stroke="var(--ink3)" stroke-width="1.3"/>
+<text x="316" y="89" font-size="10.5" font-family="ui-monospace, monospace" fill="var(--ink3)" text-anchor="middle" font-weight="700">I</text>
+<circle cx="334" cy="85" r="8.5" fill="var(--cx)" stroke="var(--cx)" stroke-width="1.3"/>
+<text x="334" y="89" font-size="10.5" font-family="ui-monospace, monospace" fill="var(--bg2)" text-anchor="middle" font-weight="700">X</text>
+<text x="313" y="69" font-size="9.5" font-family="ui-monospace, monospace" fill="var(--ink3)" text-anchor="middle">001</text>
+<circle cx="436" cy="85" r="8.5" fill="var(--cx)" stroke="var(--cx)" stroke-width="1.3"/>
+<text x="436" y="89" font-size="10.5" font-family="ui-monospace, monospace" fill="var(--bg2)" text-anchor="middle" font-weight="700">X</text>
+<circle cx="454" cy="85" r="8.5" fill="var(--bg2)" stroke="var(--ink3)" stroke-width="1.3"/>
+<text x="454" y="89" font-size="10.5" font-family="ui-monospace, monospace" fill="var(--ink3)" text-anchor="middle" font-weight="700">I</text>
+<text x="467" y="74" font-size="9.5" font-family="ui-monospace, monospace" fill="var(--ink3)" text-anchor="middle">011</text>
+<circle cx="316" cy="205" r="8.5" fill="var(--cx)" stroke="var(--cx)" stroke-width="1.3"/>
+<text x="316" y="209" font-size="10.5" font-family="ui-monospace, monospace" fill="var(--bg2)" text-anchor="middle" font-weight="700">X</text>
+<circle cx="334" cy="205" r="8.5" fill="var(--cx)" stroke="var(--cx)" stroke-width="1.3"/>
+<text x="334" y="209" font-size="10.5" font-family="ui-monospace, monospace" fill="var(--bg2)" text-anchor="middle" font-weight="700">X</text>
+<text x="306" y="226" font-size="9.5" font-family="ui-monospace, monospace" fill="var(--ink3)" text-anchor="middle">000</text>
+<circle cx="436" cy="205" r="8.5" fill="var(--bg2)" stroke="var(--ink3)" stroke-width="1.3"/>
+<text x="436" y="209" font-size="10.5" font-family="ui-monospace, monospace" fill="var(--ink3)" text-anchor="middle" font-weight="700">I</text>
+<circle cx="454" cy="205" r="8.5" fill="var(--cx)" stroke="var(--cx)" stroke-width="1.3"/>
+<text x="454" y="209" font-size="10.5" font-family="ui-monospace, monospace" fill="var(--bg2)" text-anchor="middle" font-weight="700">X</text>
+<text x="472" y="219" font-size="9.5" font-family="ui-monospace, monospace" fill="var(--ink3)" text-anchor="middle">010</text>
+<path d="M40 332 l0 -34 M40 332 l34 0 M40 332 l-18 14" stroke="var(--ink3)" stroke-width="1.3" fill="none"/>
+<text x="40" y="294" font-size="11" font-family="ui-monospace, monospace" fill="var(--ink3)" text-anchor="middle">z</text>
+<text x="80" y="336" font-size="11" font-family="ui-monospace, monospace" fill="var(--ink3)" text-anchor="middle">y</text>
+<text x="16" y="354" font-size="11" font-family="ui-monospace, monospace" fill="var(--ink3)" text-anchor="middle">x</text>
+<text x="610" y="34" font-size="13" fill="var(--ink)" text-anchor="middle" font-weight="600"><tspan class="zh">(c) 一个 X 错误亮 4 条 Z 检查</tspan><tspan class="en">(c) one X error lights 4 Z checks</tspan></text>
+<line x1="564" y1="212" x2="564" y2="88" stroke="var(--ink3)" stroke-width="1.1" stroke-dasharray="4 3"/>
+<line x1="564" y1="212" x2="688" y2="212" stroke="var(--ink3)" stroke-width="1.1" stroke-dasharray="4 3"/>
+<line x1="564" y1="212" x2="512" y2="252" stroke="var(--ink3)" stroke-width="1.1" stroke-dasharray="4 3"/>
+<line x1="564" y1="88" x2="688" y2="88" stroke="var(--ink3)" stroke-width="1.1"/>
+<line x1="564" y1="88" x2="512" y2="128" stroke="var(--ink3)" stroke-width="1.1"/>
+<line x1="688" y1="212" x2="688" y2="88" stroke="var(--ink3)" stroke-width="1.1"/>
+<line x1="688" y1="212" x2="636" y2="252" stroke="var(--ink3)" stroke-width="1.1"/>
+<line x1="688" y1="88" x2="636" y2="128" stroke="var(--ink3)" stroke-width="1.1"/>
+<line x1="512" y1="252" x2="512" y2="128" stroke="var(--ink3)" stroke-width="1.1"/>
+<line x1="512" y1="252" x2="636" y2="252" stroke="var(--ink3)" stroke-width="1.1"/>
+<line x1="512" y1="128" x2="636" y2="128" stroke="var(--ink3)" stroke-width="1.1"/>
+<line x1="636" y1="252" x2="636" y2="128" stroke="var(--ink3)" stroke-width="1.1"/>
+<line x1="538" y1="232" x2="662" y2="232" stroke="var(--line2)" stroke-width="0.9"/>
+<line x1="538" y1="108" x2="662" y2="108" stroke="var(--line2)" stroke-width="0.9"/>
+<line x1="538" y1="232" x2="538" y2="108" stroke="var(--line2)" stroke-width="0.9"/>
+<line x1="662" y1="232" x2="662" y2="108" stroke="var(--line2)" stroke-width="0.9"/>
+<line x1="626" y1="212" x2="574" y2="252" stroke="var(--line2)" stroke-width="0.9"/>
+<line x1="626" y1="88" x2="574" y2="128" stroke="var(--line2)" stroke-width="0.9"/>
+<line x1="564" y1="150" x2="688" y2="150" stroke="var(--line2)" stroke-width="0.9"/>
+<line x1="512" y1="190" x2="636" y2="190" stroke="var(--line2)" stroke-width="0.9"/>
+<line x1="582" y1="191" x2="582" y2="129" stroke="var(--cd)" stroke-width="1.3" stroke-dasharray="4 3"/>
+<line x1="582" y1="191" x2="644" y2="191" stroke="var(--cd)" stroke-width="1.3" stroke-dasharray="4 3"/>
+<line x1="582" y1="191" x2="556" y2="211" stroke="var(--cd)" stroke-width="1.3" stroke-dasharray="4 3"/>
+<line x1="582" y1="129" x2="644" y2="191" stroke="var(--cd)" stroke-width="1.3" stroke-dasharray="4 3"/>
+<line x1="582" y1="129" x2="556" y2="211" stroke="var(--cd)" stroke-width="1.3" stroke-dasharray="4 3"/>
+<line x1="644" y1="191" x2="556" y2="211" stroke="var(--cd)" stroke-width="1.3" stroke-dasharray="4 3"/>
+<circle cx="582" cy="191" r="7" fill="var(--cd)" stroke="var(--ink)" stroke-width="1"/>
+<circle cx="582" cy="129" r="7" fill="var(--cd)" stroke="var(--ink)" stroke-width="1"/>
+<circle cx="644" cy="191" r="7" fill="var(--cd)" stroke="var(--ink)" stroke-width="1"/>
+<circle cx="556" cy="211" r="7" fill="var(--cd)" stroke="var(--ink)" stroke-width="1"/>
+<text x="604" y="188" font-size="11" font-family="ui-monospace, monospace" fill="var(--ink)" text-anchor="middle" font-weight="700">v</text>
+<circle cx="595" cy="170" r="5" fill="var(--cx)"/><circle cx="605" cy="170" r="5" fill="var(--bg2)" stroke="var(--ink3)"/>
+<text x="610" y="272" font-size="11" fill="var(--ink2)" text-anchor="middle"><tspan class="zh">中心顶点比特 1 上的 X；洋红 = 亮的立方体中心</tspan><tspan class="en">X on qubit 1 of the centre vertex; magenta = lit cube centres</tspan></text>
+<text x="610" y="290" font-size="11" fill="var(--ink2)" text-anchor="middle"><tspan class="zh">4 个亮点排成四面体</tspan><tspan class="en">the 4 lit centres form a tetrahedron</tspan></text>
+<circle cx="90" cy="368" r="7" fill="var(--cz)"/><circle cx="108" cy="368" r="7" fill="var(--bg2)" stroke="var(--ink3)"/>
+<text x="124" y="372" font-size="11" fill="var(--ink2)" text-anchor="start"><tspan class="zh">一个顶点 = 两个比特（左：比特 1，右：比特 2）；蓝 Z、橙 X、空心 = 不碰（I）；角旁小字 = 坐标 xyz</tspan><tspan class="en">one vertex = two qubits (left: qubit 1, right: qubit 2); blue Z, orange X, hollow = untouched (I); small digits = coordinates xyz</tspan></text>
+</svg>
+  <div class="prose">
+    <p class="zh muted small">图注：(a)(b) 一个单位立方体上的两条检查。8 个角各画成两个比特（左 = 比特 1，右 = 比特 2），蓝 = Z，橙 = X，空心 = 不碰；角旁三位数字是角的坐标 xyz（x 朝左下，y 朝右，z 朝上，虚线是被挡住的棱）。(c) 围绕一个顶点的 8 个立方体：中心顶点比特 1 上的一个 X 错误让其中 4 个立方体的 Z 检查亮起（洋红点是这 4 个立方体的中心），4 点两两距离相等，构成四面体。角图案：Haah 2011 表 I 的 Code 1。</p>
+    <p class="en muted small">Caption: (a)(b) The two checks on one unit cube. Each of the 8 corners is drawn as two qubits (left = qubit 1, right = qubit 2); blue = Z, orange = X, hollow = untouched; the three digits beside a corner are its coordinates xyz (x down-left, y right, z up; dashed edges are hidden). (c) The 8 cubes around one vertex: an X error on qubit 1 of the centre vertex lights the Z checks of 4 of them (magenta dots are those cubes' centres), all at equal distances from one another, a tetrahedron. Corner pattern: Code 1 of Table I in Haah 2011.</p>
   </div>
   <div class="quiz" data-quiz>
     <div class="quiz-head"><span class="chip"><span class="zh">检查站</span><span class="en">Checkpoint</span></span><span class="q-title"><span class="zh">第 1 章</span><span class="en">Chapter 1</span></span></div>
@@ -1053,7 +1257,7 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
       <div class="q-text"><span class="zh">在 4 × 4 计数板上，某时刻恰好有 4 盏灯亮，位于一个 2 × 3 矩形的四个角。你能只翻一些格子，让<b>左上角</b>那盏灯向右挪一格、其余三盏不变吗？</span><span class="en">On the 4 × 4 counter board, exactly 4 lamps are lit, at the corners of a 2 × 3 rectangle. Can you flip some cells so that the <b>top-left</b> lamp alone moves one step to the right while the other three stay as they are?</span></div>
       <div class="q-opts">
         <button class="q-opt"><span class="zh">能——翻那盏灯右下方的一个格子就行</span><span class="en">Yes: flip the one cell just below and to the right of it</span></button>
-        <button class="q-opt" data-ok><span class="zh">不能——那样会让某一行（和某一列）的亮灯数变成奇数，违反行偶规则</span><span class="en">No: it would leave some row (and some column) with an odd number of lit lamps, violating the even-row rule</span></button>
+        <button class="q-opt" data-ok><span class="zh">不能——那样会让两列的亮灯数变成奇数（那一行的奇偶不变），违反列偶规则</span><span class="en">No: it would leave two columns with an odd number of lit lamps (the row keeps its parity), violating the even-column rule</span></button>
         <button class="q-opt"><span class="zh">能——但要翻整整一行 4 个格子</span><span class="en">Yes, but it takes flipping a whole row of 4 cells</span></button>
       </div>
       <div class="q-fb ok"><p class="zh">对。「一盏灭、一盏亮、其余不变」改变恰好两盏灯；它们在同一行，所以那一行的亮灯数奇偶性不变……但它们在<b>不同</b>列，两列各变了一盏，两列的亮灯数都变成奇数。行偶列偶规则不允许。任何翻法都不行——规则对所有翻法成立。</p><p class="en">Right. “One off, one on, nothing else” changes exactly two lamps. They share a row, so that row's parity survives, but they are in <b>different</b> columns, each of which changes by one lamp and becomes odd. The even-row-and-column rule forbids it, for every possible set of flips, because the rule holds for all flips.</p></div>
@@ -1065,15 +1269,15 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
   <div class="prose">
     <p class="zh">一个<span class="term">译码器<span class="tip">decoder：输入一组警报（症状），输出一个修复建议的算法。配对 + 最短路是环面码的译码器；Atlas 的 foundations 存根一句话：“Syndrome decoding is hypothesis testing on cosets; matching and BP are its workhorses.”</span></span>就是「看到警报，给出修复」的算法。Atlas 给每个码的每条译码器记录配一个<b>成熟度词</b>，词表在 <span class="mono">registry/decoders.yaml</span>：<b>standard</b>（这一族码默认的基准译码器）、<b>research-grade</b>（研究级，能用但尚非公认工具）、<b>none-known</b>。最后一个词的登记原文：“Marks an honest algorithmic gap where the Atlas has no broadly accepted decoder for the stated code and noise setting.” 注意结尾四个字：<b>and noise setting</b>。一条记录不是「这个码有没有译码器」，而是「这个码<b>在这种噪声设定下</b>有没有译码器」。同一张卡片可以对完美症状写 research-grade、对真实电路写 none-known——第 2 章就会看到。</p>
     <p class="en">A <span class="term">decoder<span class="tip">An algorithm that takes a set of alarms (a syndrome) and returns a proposed repair. Pairing plus shortest paths is the toric code's decoder; the Atlas foundations stub says in one line: “Syndrome decoding is hypothesis testing on cosets; matching and BP are its workhorses.”</span></span> is the algorithm that “sees alarms and proposes a repair”. The Atlas attaches a <b>maturity word</b> to each decoder record of each code, from the vocabulary in <span class="mono">registry/decoders.yaml</span>: <b>standard</b> (the default benchmark decoder of the family), <b>research-grade</b> (usable, not yet an accepted tool), and <b>none-known</b>. The registered wording of the last: “Marks an honest algorithmic gap where the Atlas has no broadly accepted decoder for the stated code and noise setting.” Note the last three words: <b>and noise setting</b>. A record does not say “does this code have a decoder” but “does this code have a decoder <b>under this noise setting</b>”. One card can say research-grade for perfect syndromes and none-known for real circuits, as Chapter 2 will show.</p>
-    <p class="zh">那什么是「基准行」（benchmark harness row）？Atlas 的基准合同文件（<span class="mono">docs/design-references/2026-07-30-benchmark-harness-contract.md</span>）开头一段：“A decoder number is not a property of a check matrix. It belongs to a complete experiment: code instance, comparison level, noise model, circuit or schedule, decoder, observable, and inference procedure.” 一个译码器的表现数字（比如「阈值 10.3%」）不属于码本身，属于一次<b>完整的实验</b>。合同把这次实验的身份写成一个七元组：</p>
-    <p class="en">So what is a “benchmark harness row”? The opening of the Atlas benchmark contract (<span class="mono">docs/design-references/2026-07-30-benchmark-harness-contract.md</span>): “A decoder number is not a property of a check matrix. It belongs to a complete experiment: code instance, comparison level, noise model, circuit or schedule, decoder, observable, and inference procedure.” A decoder's performance number (say “threshold 10.3%”) does not belong to the code; it belongs to one <b>complete experiment</b>. The contract writes that experiment's identity as a seven-part tuple:</p>
+    <p class="zh">那什么是「基准行」（benchmark harness row）？Atlas 的基准合同文件（<span class="mono">docs/design-references/2026-07-30-benchmark-harness-contract.md</span>）开头一段：“A decoder number is not a property of a check matrix. It belongs to a complete experiment: code instance, comparison level, noise model, circuit or schedule, decoder, observable, and inference procedure.” 一个译码器的表现数字（比如「表面码在最小重量匹配译码、完美测量、独立比特翻转下的阈值 10.3%」）不属于码本身，属于一次<b>完整的实验</b>。合同把这次实验的身份写成一个七元组：</p>
+    <p class="en">So what is a “benchmark harness row”? The opening of the Atlas benchmark contract (<span class="mono">docs/design-references/2026-07-30-benchmark-harness-contract.md</span>): “A decoder number is not a property of a check matrix. It belongs to a complete experiment: code instance, comparison level, noise model, circuit or schedule, decoder, observable, and inference procedure.” A decoder's performance number (say “the surface code's threshold of 10.3% under minimum-weight matching, perfect measurement and independent bit flips”) does not belong to the code; it belongs to one <b>complete experiment</b>. The contract writes that experiment's identity as a seven-part tuple:</p>
   </div>
   <div class="formula center">(entry, instance, comparison_level,<br>noise id/version/params, decoder id/version/params,<br>observable, runner id/version)</div>
   <div class="prose">
     <p class="zh muted small">记号：entry = 码的条目（如 haah_cubic），instance = 具体实例（如 L3_periodic），comparison_level = 三个比较层级之一（下文），noise = 噪声模型及参数，decoder = 译码器及参数，observable = 判定「逻辑错误」时看的量，runner = 跑实验的程序。合同原文：“Changing any element creates a new spec and a new result row.”</p>
     <p class="en muted small">Notation: entry = the code's entry (e.g. haah_cubic), instance = the concrete instance (e.g. L3_periodic), comparison_level = one of three levels (below), noise = noise model and parameters, decoder = decoder and parameters, observable = the quantity inspected to declare a “logical error”, runner = the program that runs the experiment. Contract wording: “Changing any element creates a new spec and a new result row.”</p>
-    <p class="zh">一张<b>基准行</b>就是这样一个七元组加上它跑出的数字。三个<span class="term">比较层级<span class="tip">comparison level：合同规定每张基准行恰有一个层级：code-capacity（数据比特出错、症状完美、无测量电路）、phenomenological（重复多轮、读数也会错）、circuit-level（写明电路或时间表、每个位置的噪声、探测器构造、译码器）。不同层级的数字永不放进同一张对比表。</span></span>分别是 code-capacity、phenomenological、circuit-level——<a href="../../surface_code/decoders/decoders.html#s6-2">《译码器 · 高中数学版》6.2 节的账本</a>里 10.3%、2.9%、0.57% 三行就分属这三层，<a href="../../surface_code/decoders/decoders.html#s6-1">6.1 节</a>解释过为什么任何阈值都得带五个限定项。合同还写明第一版只实现了 code-capacity 一层（“T35 implements only code-capacity”），精确穷举的运行器上限是 10 个比特（<span class="mono">qeclib/benchmarks.py</span>：<span class="mono">MAX_EXACT_QUBITS = 10</span>）。<a href="../../bb_code/decoders/decoders.html#s3-1">BB 译码器教程 3.1 节</a>逐字转录过 bivariate_bicycle 卡片的三条译码记录，是「一张卡片上的译码器一栏长什么样」的现成范例。人话：<b>「标准译码器」= 一个被公认、可复现、能在指定噪声设定下跑出基准行的算法；「基准行」= 一次身份写全的实验及其数字。</b>没有前者，就产生不了后者。</p>
-    <p class="en">A <b>benchmark row</b> is such a seven-tuple plus the number it produced. The three <span class="term">comparison levels<span class="tip">The contract gives every benchmark row exactly one level: code-capacity (data qubits err, syndromes perfect, no measurement circuit), phenomenological (repeated rounds, readouts may also err), circuit-level (a named circuit or schedule, per-location noise, detector construction, decoder). Numbers from different levels never share a comparison table.</span></span> are code-capacity, phenomenological and circuit-level; the 10.3%, 2.9% and 0.57% lines of <a href="../../surface_code/decoders/decoders.html#s6-2">the ledger in section 6.2 of “Decoders · High-School Edition”</a> belong to these three levels, and <a href="../../surface_code/decoders/decoders.html#s6-1">its section 6.1</a> explained why every threshold carries five qualifiers. The contract also states that the first version implements only the code-capacity level (“T35 implements only code-capacity”), and the exact runner stops at 10 qubits (<span class="mono">qeclib/benchmarks.py</span>: <span class="mono">MAX_EXACT_QUBITS = 10</span>). <a href="../../bb_code/decoders/decoders.html#s3-1">Section 3.1 of the BB decoders guide</a> transcribes the three decoder records of the bivariate_bicycle card word for word, a ready example of “what a card's decoder field looks like”. In plain words: <b>a “standard decoder” is an accepted, reproducible algorithm that can produce benchmark rows under the stated noise setting; a “benchmark row” is one fully identified experiment and its number.</b> Without the former, the latter cannot exist.</p>
+    <p class="zh">一张<b>基准行</b>就是这样一个七元组加上它跑出的数字。三个<span class="term">比较层级<span class="tip">comparison level：合同规定每张基准行恰有一个层级：code-capacity（数据比特出错、症状完美、无测量电路）、phenomenological（重复多轮、读数也会错）、circuit-level（写明电路或时间表、每个位置的噪声、探测器构造、译码器）。不同层级的数字永不放进同一张对比表。</span></span>分别是 code-capacity、phenomenological、circuit-level——<a href="../../surface_code/decoders/decoders.html#s6-2">《译码器 · 高中数学版》6.2 节的账本</a>里 10.3%、2.9%、0.57% 三行就分属这三层（都是表面码、最小重量匹配译码：完美测量下的独立比特翻转；读数也以同样概率出错；电路级、每一步的故障率），<a href="../../surface_code/decoders/decoders.html#s6-1">6.1 节</a>解释过为什么任何阈值都得带五个限定项；这几个数字各自怎么来的，见 <a href="#ledger">3.1 节的小账本</a>。合同还写明第一版只实现了 code-capacity 一层（“T35 implements only code-capacity”），精确穷举的运行器上限是 10 个比特（<span class="mono">qeclib/benchmarks.py</span>：<span class="mono">MAX_EXACT_QUBITS = 10</span>）。<a href="../../bb_code/decoders/decoders.html#s3-1">BB 译码器教程 3.1 节</a>逐字转录过 bivariate_bicycle 卡片的三条译码记录，是「一张卡片上的译码器一栏长什么样」的现成范例。人话：<b>「标准译码器」= 一个被公认、可复现、能在指定噪声设定下跑出基准行的算法；「基准行」= 一次身份写全的实验及其数字。</b>要产生一张基准行，需要的是一个框架能调用、能复现的译码器（带适配器，3.1 节），它不必已经是 standard；而且行按层级分开：某个层级上没有能跑的译码器，那个层级就没有行。</p>
+    <p class="en">A <b>benchmark row</b> is such a seven-tuple plus the number it produced. The three <span class="term">comparison levels<span class="tip">The contract gives every benchmark row exactly one level: code-capacity (data qubits err, syndromes perfect, no measurement circuit), phenomenological (repeated rounds, readouts may also err), circuit-level (a named circuit or schedule, per-location noise, detector construction, decoder). Numbers from different levels never share a comparison table.</span></span> are code-capacity, phenomenological and circuit-level; the 10.3%, 2.9% and 0.57% lines (all surface code under minimum-weight matching: independent flips with perfect measurement; readouts also wrong at the same rate; circuit level, fault rate per step) of <a href="../../surface_code/decoders/decoders.html#s6-2">the ledger in section 6.2 of “Decoders · High-School Edition”</a> belong to these three levels, and <a href="../../surface_code/decoders/decoders.html#s6-1">its section 6.1</a> explained why every threshold carries five qualifiers; where each of these numbers comes from is in <a href="#ledger">the small ledger of section 3.1</a>. The contract also states that the first version implements only the code-capacity level (“T35 implements only code-capacity”), and the exact runner stops at 10 qubits (<span class="mono">qeclib/benchmarks.py</span>: <span class="mono">MAX_EXACT_QUBITS = 10</span>). <a href="../../bb_code/decoders/decoders.html#s3-1">Section 3.1 of the BB decoders guide</a> transcribes the three decoder records of the bivariate_bicycle card word for word, a ready example of “what a card's decoder field looks like”. In plain words: <b>a “standard decoder” is an accepted, reproducible algorithm that can produce benchmark rows under the stated noise setting; a “benchmark row” is one fully identified experiment and its number.</b> Producing a benchmark row needs a reproducible decoder the harness can call (one with an adapter, section 3.1); it need not already be standard. Rows are also split by level: a level with no runnable decoder has no rows.</p>
   </div>
   <div class="note note-key">
     <span class="note-tag"><span class="zh">Wanted 板原文 · statement</span><span class="en">Wanted board, verbatim · statement</span></span>
@@ -1119,7 +1323,7 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
       <tr><th><span class="zh">卡片</span><span class="en">Card</span></th><th><span class="zh">实例与 [[n, k, d]]（原文）</span><span class="en">Instances and [[n, k, d]] (verbatim)</span></th><th><span class="zh">译码器一栏</span><span class="en">Decoder field</span></th><th><span class="zh">none-known 的 gap.target</span><span class="en">gap.target of none-known</span></th></tr>
       <tr><td><span class="mono">haah_cubic</span><br><span class="zh small">Haah 立方码（分形子码）</span><span class="en small">Haah cubic code (fracton)</span></td><td><span class="mono">L2_periodic</span>: n=16 verified, k=6 verified, d=2 verified<br><span class="mono">L3_periodic</span>: n=54 verified, k=2 verified, d=[3,9] claimed（<span class="mono">lower: 3, upper: 9 (method: literature), ref haah2011local</span>）<br><span class="mono">L4_periodic</span>: n=128 verified, k=14 verified, d=[4,16] claimed</td><td>renormalization-group · <b>research-grade</b><br>bp-osd · <b>research-grade</b><br>none-known · <b>none-known</b></td><td class="mono">wanted:decoders-3d-fracton</td></tr>
       <tr><td><span class="mono">da_color_2d</span><br><span class="zh small">二维动态自同构颜色码（Floquet 型）</span><span class="en small">2D dynamic-automorphism color code (Floquet type)</span></td><td><span class="mono">table8_pauli_triangle</span>: n=24 verified, k=1 verified, dynamic_k=1 verified, d=?</td><td>none-known · <b>none-known</b></td><td class="mono">wanted:floquet-fault-distance</td></tr>
-      <tr><td><span class="mono">quantum_expander</span><br><span class="zh small">量子扩张码（超图积 CSS 码）</span><span class="en small">Quantum expander code (hypergraph-product CSS)</span></td><td><span class="mono">complete_graph_5</span>: n=125 verified, k=37 verified, d=3 verified<br><span class="mono">affine_plane_4</span>: n=656 verified, k=170 verified, d=5 claimed（<span class="mono">lower: 5, upper: 5 (method: HGP factor-codeword witness), ref tillich2009quantum</span>）</td><td>css-pivot · <b>research-grade</b><br>bp-osd · <b>research-grade</b><br>none-known · <b>none-known</b></td><td class="mono">wanted:qldpc-circuit-decoding</td></tr>
+      <tr><td><span class="mono">quantum_expander</span><br><span class="zh small">量子扩展码（超图积 CSS 码）</span><span class="en small">Quantum expander code (hypergraph-product CSS)</span></td><td><span class="mono">complete_graph_5</span>: n=125 verified, k=37 verified, d=3 verified<br><span class="mono">affine_plane_4</span>: n=656 verified, k=170 verified, d=5 claimed（<span class="mono">lower: 5, upper: 5 (method: HGP factor-codeword witness), ref tillich2009quantum</span>）</td><td>css-pivot · <b>research-grade</b><br>bp-osd · <b>research-grade</b><br>none-known · <b>none-known</b></td><td class="mono">wanted:qldpc-circuit-decoding</td></tr>
     </table>
   </div>
   <div class="prose">
@@ -1143,8 +1347,118 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
     </table>
   </div>
   <div class="prose">
-    <p class="zh">三行各说一件事。<b>第 0 行</b>是分形子码专用的<span class="term">重整化群译码器<span class="tip">renormalization-group (RG) decoder：把警报按尺度逐级归并成「团」，在每一级用局部规则消掉能消的团，再放大尺度重来。是 1.2 节那句「error patterns organize recursively」的算法化。</span></span>——1.2 节引文里 “motivating the family-specific renormalization decoder” 指的就是它。它的噪声设定是热噪声或现象学噪声、且「能完美读到被违反的稳定子」；卡片明说它<b>不是</b>电路级阈值。<b>第 1 行</b>是 qLDPC 码的通用基线 BP-OSD（<a href="../../bb_code/decoders/decoders.html#ch2">BB 译码器教程第 2 章</a>讲过它），噪声设定是最简单的 code-capacity；卡片警告：在别的码上调好的参数<b>不能搬过来</b>，「without a dedicated benchmark」——而 Atlas 并没有登记这样一次基准。<b>第 2 行</b>就是缺口：在「写全的重复症状提取电路 + 数据、测量、泄漏、关联硬件故障」这一设定下，2026-08-09 完成的文献检索没有找到任何原始的电路级阈值。人话：<b>有两种研究级算法可用，但都停在「症状完美」的层级；一旦让测量也会错、让电路进来，这个码没有任何译码记录。</b></p>
-    <p class="en">Each row says one thing. <b>Row 0</b> is the fracton-specific <span class="term">renormalization-group decoder<span class="tip">RG decoder: merges alarms into “clusters” scale by scale, removes at each level the clusters a local rule can remove, then enlarges the scale and repeats. It is the algorithmic form of “error patterns organize recursively” from section 1.2.</span></span>; the phrase “motivating the family-specific renormalization decoder” in the quotation of 1.2 refers to it. Its noise setting is thermal or phenomenological noise with “perfect access to the violated stabilizers”, and the card states plainly that it is <b>not</b> a circuit-level threshold. <b>Row 1</b> is the generic qLDPC baseline BP-OSD (taught in <a href="../../bb_code/decoders/decoders.html#ch2">Chapter 2 of the BB decoders guide</a>) under the simplest setting, code-capacity; the card warns that parameters tuned on other codes <b>cannot be carried over</b> “without a dedicated benchmark”, and the Atlas has registered no such benchmark. <b>Row 2</b> is the gap: under “a fully specified repeated syndrome-extraction circuit with data, measurement, leakage, and correlated hardware faults”, the literature search completed on 2026-08-09 found no primary circuit-level threshold. In plain words: <b>two research-grade algorithms exist, but both stop at the “perfect syndrome” level; once measurements may err and the circuit enters, this code has no decoder record at all.</b></p>
+    <p class="zh">三行各说一件事。<b>第 0 行</b>是分形子码专用的<span class="term">重整化群译码器<span class="tip">renormalization-group (RG) decoder：把警报按尺度逐级归并成「团」，在每一级用局部规则消掉能消的团，再放大尺度重来。是 1.2 节那句「error patterns organize recursively」的算法化。</span></span>——1.2 节引文里 “motivating the family-specific renormalization decoder” 指的就是它。它的噪声设定是热噪声（码与一个有温度的环境接触，错误按热运动的概率不断产生）或现象学噪声、且「能完美读到被违反的稳定子」；卡片明说它<b>不是</b>电路级阈值。<b>第 1 行</b>是 qLDPC 码的通用基线 BP-OSD（先在检查与比特之间反复传递「这一位出错的可能性」的消息，即置信传播 BP；不收敛时按可信度排序、解一组线性方程补齐，即有序统计译码 OSD；<a href="../../bb_code/decoders/decoders.html#ch2">BB 译码器教程第 2 章</a>讲过它），噪声设定是最简单的 code-capacity；卡片警告：在别的码上调好的参数<b>不能搬过来</b>，「without a dedicated benchmark」——而 Atlas 并没有登记这样一次基准。<b>第 2 行</b>就是缺口：在「写全的重复症状提取电路 + 数据、测量、泄漏（量子比特跑出 0、1 两个能级之外）、关联硬件故障」这一设定下，2026-08-09 完成的文献检索没有找到任何原始的电路级阈值。人话：<b>有两种研究级算法可用，但都停在「症状完美」的层级；一旦让测量也会错、让电路进来，这个码没有任何译码记录。</b></p>
+    <p class="en">Each row says one thing. <b>Row 0</b> is the fracton-specific <span class="term">renormalization-group decoder<span class="tip">RG decoder: merges alarms into “clusters” scale by scale, removes at each level the clusters a local rule can remove, then enlarges the scale and repeats. It is the algorithmic form of “error patterns organize recursively” from section 1.2.</span></span>; the phrase “motivating the family-specific renormalization decoder” in the quotation of 1.2 refers to it. Its noise setting is thermal noise (the code sits in contact with an environment at some temperature and errors keep arising with thermal probabilities) or phenomenological noise with “perfect access to the violated stabilizers”, and the card states plainly that it is <b>not</b> a circuit-level threshold. <b>Row 1</b> is the generic qLDPC baseline BP-OSD (messages about “how likely this bit is wrong” are passed back and forth between checks and bits, belief propagation or BP; when that does not settle, the bits are ranked by confidence and a set of linear equations is solved to finish, ordered-statistics decoding or OSD; taught in <a href="../../bb_code/decoders/decoders.html#ch2">Chapter 2 of the BB decoders guide</a>) under the simplest setting, code-capacity; the card warns that parameters tuned on other codes <b>cannot be carried over</b> “without a dedicated benchmark”, and the Atlas has registered no such benchmark. <b>Row 2</b> is the gap: under “a fully specified repeated syndrome-extraction circuit with data, measurement, leakage, and correlated hardware faults” (leakage: a qubit escaping its two levels 0 and 1), the literature search completed on 2026-08-09 found no primary circuit-level threshold. In plain words: <b>two research-grade algorithms exist, but both stop at the “perfect syndrome” level; once measurements may err and the circuit enters, this code has no decoder record at all.</b></p>
+    <p class="zh"><b>「逐级归并、局部消掉」在计数板上走一遍。</b>下面是按 RG 思路写的一个玩具版本，只为让「团」「中性」「尺度」三个词有具体的样子，不是 Bravyi 与 Haah 在 Haah 立方码上用的具体算法。规则：在尺度 r 上，把彼此距离不超过 r 的亮灯连成团（距离取行差与列差中较大的那个）；对每个团，只准翻四个角都落在这团灯外接矩形里的格子，若有一种翻法恰好把这团灯全部熄灭、别处不变，这团就叫<b>中性</b>，照此翻掉；不中性的团留到下一个更大的尺度。例子（下图）：真实错误是 3 个格子，译码器只看见 8 盏灯（①）。尺度 1：左上 4 盏连成一团，翻 1 格就灭，是中性的；底下 4 盏在尺度 1 上分成两团，每团是竖着的两盏，每一行里只有 1 盏，而任何翻法都让每行的亮灯数改变偶数，所以灭不掉，不中性，留下（②）。尺度 2：这两团相距 2，合成一团，翻框里的 2 格即全部熄灭（③）。三次翻格合起来恰好是真实错误。Haah 立方码上的 RG 译码器也是这样逐级放大尺度、消掉中性的团，只是团里是立方体上的警报，「中性」要按 1.2 节那张角图案来判断，而错误可能长成跨很多尺度的分形形状；这一部分超出本篇，只做描述。</p>
+    <p class="en"><b>“Cluster over growing scales, neutralize locally”, walked through on the counter board.</b> What follows is a toy version written in the RG spirit, only to give the words “cluster”, “neutral” and “scale” a concrete shape; it is not the actual algorithm Bravyi and Haah use on Haah's cubic code. Rule: at scale r, join lit lamps that are at most r apart into clusters (distance = the larger of the row difference and the column difference); for each cluster, only cells whose four corners all lie in the cluster's bounding rectangle may be flipped, and if some choice of flips turns off exactly that cluster and nothing else, the cluster is <b>neutral</b> and is flipped away; clusters that are not neutral wait for the next, larger scale. Example (figure below): the true error is 3 cells, and the decoder sees only 8 lamps (①). Scale 1: the top-left 4 lamps form one cluster that a single flip clears, so it is neutral; the bottom 4 lamps split at scale 1 into two clusters, each a vertical pair with 1 lamp per row, and any set of flips changes each row by an even number of lamps, so they cannot be cleared: not neutral, kept (②). Scale 2: the two clusters are 2 apart, merge into one, and flipping the 2 cells inside the frame clears them all (③). The three flips together are exactly the true error. The RG decoder on Haah's cubic code likewise enlarges the scale step by step and removes neutral clusters, except that the clusters are alarms on cubes, “neutral” is judged by the corner pattern of section 1.2, and errors can grow into fractal shapes spanning many scales; that part is beyond this guide and is only described.</p>
+  </div>
+<svg viewBox="0 0 740 330" width="100%" style="max-width:740px;display:block;margin:0 auto;color:var(--ink)" role="img" aria-label="逐级归并、局部消掉：计数板上的玩具 RG / cluster and neutralize: a toy RG on the counter board">
+<text x="116" y="30" font-size="12.5" fill="var(--ink)" text-anchor="middle" font-weight="600"><tspan class="zh">① 开始：译码器只看见 8 盏灯</tspan><tspan class="en">① Start: the decoder sees 8 lamps only</tspan></text>
+<g stroke="var(--line)" stroke-width="1.5" fill="none"><path d="M40 60H192M40 98H192M40 136H192M40 174H192M40 212H192M40 60V212M78 60V212M116 60V212M154 60V212M192 60V212"/></g>
+<circle cx="40" cy="60" r="6.5" fill="var(--cd)" stroke="var(--ink)" stroke-width="1.2"/>
+<circle cx="78" cy="60" r="6.5" fill="var(--cd)" stroke="var(--ink)" stroke-width="1.2"/>
+<circle cx="116" cy="60" r="3.5" fill="var(--bg2)" stroke="var(--ink2)" stroke-width="1.2"/>
+<circle cx="154" cy="60" r="3.5" fill="var(--bg2)" stroke="var(--ink2)" stroke-width="1.2"/>
+<circle cx="192" cy="60" r="3.5" fill="var(--bg2)" stroke="var(--ink2)" stroke-width="1.2"/>
+<circle cx="40" cy="98" r="6.5" fill="var(--cd)" stroke="var(--ink)" stroke-width="1.2"/>
+<circle cx="78" cy="98" r="6.5" fill="var(--cd)" stroke="var(--ink)" stroke-width="1.2"/>
+<circle cx="116" cy="98" r="3.5" fill="var(--bg2)" stroke="var(--ink2)" stroke-width="1.2"/>
+<circle cx="154" cy="98" r="3.5" fill="var(--bg2)" stroke="var(--ink2)" stroke-width="1.2"/>
+<circle cx="192" cy="98" r="3.5" fill="var(--bg2)" stroke="var(--ink2)" stroke-width="1.2"/>
+<circle cx="40" cy="136" r="3.5" fill="var(--bg2)" stroke="var(--ink2)" stroke-width="1.2"/>
+<circle cx="78" cy="136" r="3.5" fill="var(--bg2)" stroke="var(--ink2)" stroke-width="1.2"/>
+<circle cx="116" cy="136" r="3.5" fill="var(--bg2)" stroke="var(--ink2)" stroke-width="1.2"/>
+<circle cx="154" cy="136" r="3.5" fill="var(--bg2)" stroke="var(--ink2)" stroke-width="1.2"/>
+<circle cx="192" cy="136" r="3.5" fill="var(--bg2)" stroke="var(--ink2)" stroke-width="1.2"/>
+<circle cx="40" cy="174" r="3.5" fill="var(--bg2)" stroke="var(--ink2)" stroke-width="1.2"/>
+<circle cx="78" cy="174" r="6.5" fill="var(--cd)" stroke="var(--ink)" stroke-width="1.2"/>
+<circle cx="116" cy="174" r="3.5" fill="var(--bg2)" stroke="var(--ink2)" stroke-width="1.2"/>
+<circle cx="154" cy="174" r="6.5" fill="var(--cd)" stroke="var(--ink)" stroke-width="1.2"/>
+<circle cx="192" cy="174" r="3.5" fill="var(--bg2)" stroke="var(--ink2)" stroke-width="1.2"/>
+<circle cx="40" cy="212" r="3.5" fill="var(--bg2)" stroke="var(--ink2)" stroke-width="1.2"/>
+<circle cx="78" cy="212" r="6.5" fill="var(--cd)" stroke="var(--ink)" stroke-width="1.2"/>
+<circle cx="116" cy="212" r="3.5" fill="var(--bg2)" stroke="var(--ink2)" stroke-width="1.2"/>
+<circle cx="154" cy="212" r="6.5" fill="var(--cd)" stroke="var(--ink)" stroke-width="1.2"/>
+<circle cx="192" cy="212" r="3.5" fill="var(--bg2)" stroke="var(--ink2)" stroke-width="1.2"/>
+<text x="116" y="246" font-size="11" fill="var(--ink2)" text-anchor="middle"><tspan class="zh">（真实错误是 3 个格子，译码器不知道）</tspan><tspan class="en">(the true error is 3 cells, unknown to the decoder)</tspan></text>
+<text x="356" y="30" font-size="12.5" fill="var(--ink)" text-anchor="middle" font-weight="600"><tspan class="zh">② 尺度 1：灯距 ≤ 1 的连成团</tspan><tspan class="en">② Scale 1: lamps at distance ≤ 1 join</tspan></text>
+<g stroke="var(--line)" stroke-width="1.5" fill="none"><path d="M280 60H432M280 98H432M280 136H432M280 174H432M280 212H432M280 60V212M318 60V212M356 60V212M394 60V212M432 60V212"/></g>
+<rect x="280" y="60" width="38" height="38" fill="var(--cx)" opacity="0.55"/>
+<circle cx="280" cy="60" r="6.5" fill="var(--cd)" stroke="var(--ink)" stroke-width="1.2"/>
+<circle cx="318" cy="60" r="6.5" fill="var(--cd)" stroke="var(--ink)" stroke-width="1.2"/>
+<circle cx="356" cy="60" r="3.5" fill="var(--bg2)" stroke="var(--ink2)" stroke-width="1.2"/>
+<circle cx="394" cy="60" r="3.5" fill="var(--bg2)" stroke="var(--ink2)" stroke-width="1.2"/>
+<circle cx="432" cy="60" r="3.5" fill="var(--bg2)" stroke="var(--ink2)" stroke-width="1.2"/>
+<circle cx="280" cy="98" r="6.5" fill="var(--cd)" stroke="var(--ink)" stroke-width="1.2"/>
+<circle cx="318" cy="98" r="6.5" fill="var(--cd)" stroke="var(--ink)" stroke-width="1.2"/>
+<circle cx="356" cy="98" r="3.5" fill="var(--bg2)" stroke="var(--ink2)" stroke-width="1.2"/>
+<circle cx="394" cy="98" r="3.5" fill="var(--bg2)" stroke="var(--ink2)" stroke-width="1.2"/>
+<circle cx="432" cy="98" r="3.5" fill="var(--bg2)" stroke="var(--ink2)" stroke-width="1.2"/>
+<circle cx="280" cy="136" r="3.5" fill="var(--bg2)" stroke="var(--ink2)" stroke-width="1.2"/>
+<circle cx="318" cy="136" r="3.5" fill="var(--bg2)" stroke="var(--ink2)" stroke-width="1.2"/>
+<circle cx="356" cy="136" r="3.5" fill="var(--bg2)" stroke="var(--ink2)" stroke-width="1.2"/>
+<circle cx="394" cy="136" r="3.5" fill="var(--bg2)" stroke="var(--ink2)" stroke-width="1.2"/>
+<circle cx="432" cy="136" r="3.5" fill="var(--bg2)" stroke="var(--ink2)" stroke-width="1.2"/>
+<circle cx="280" cy="174" r="3.5" fill="var(--bg2)" stroke="var(--ink2)" stroke-width="1.2"/>
+<circle cx="318" cy="174" r="6.5" fill="var(--cd)" stroke="var(--ink)" stroke-width="1.2"/>
+<circle cx="356" cy="174" r="3.5" fill="var(--bg2)" stroke="var(--ink2)" stroke-width="1.2"/>
+<circle cx="394" cy="174" r="6.5" fill="var(--cd)" stroke="var(--ink)" stroke-width="1.2"/>
+<circle cx="432" cy="174" r="3.5" fill="var(--bg2)" stroke="var(--ink2)" stroke-width="1.2"/>
+<circle cx="280" cy="212" r="3.5" fill="var(--bg2)" stroke="var(--ink2)" stroke-width="1.2"/>
+<circle cx="318" cy="212" r="6.5" fill="var(--cd)" stroke="var(--ink)" stroke-width="1.2"/>
+<circle cx="356" cy="212" r="3.5" fill="var(--bg2)" stroke="var(--ink2)" stroke-width="1.2"/>
+<circle cx="394" cy="212" r="6.5" fill="var(--cd)" stroke="var(--ink)" stroke-width="1.2"/>
+<circle cx="432" cy="212" r="3.5" fill="var(--bg2)" stroke="var(--ink2)" stroke-width="1.2"/>
+<rect x="268" y="48" width="62" height="62" rx="10" fill="none" stroke="var(--good)" stroke-width="2"/>
+<rect x="307" y="163" width="22" height="60" rx="10" fill="none" stroke="var(--ink3)" stroke-width="1.6" stroke-dasharray="4 3"/>
+<rect x="383" y="163" width="22" height="60" rx="10" fill="none" stroke="var(--ink3)" stroke-width="1.6" stroke-dasharray="4 3"/>
+<text x="352" y="78" font-size="11" fill="var(--good)" text-anchor="start"><tspan class="zh">中性：翻 1 格即灭</tspan><tspan class="en">neutral: 1 flip clears it</tspan></text>
+<text x="356" y="246" font-size="11" fill="var(--ink2)" text-anchor="middle"><tspan class="zh">虚线两团各是竖着的两盏：</tspan><tspan class="en">each dashed cluster is a vertical pair:</tspan></text>
+<text x="356" y="262" font-size="11" fill="var(--ink2)" text-anchor="middle"><tspan class="zh">行里各 1 盏，翻不灭 → 留下</tspan><tspan class="en">one lamp per row, cannot clear → keep</tspan></text>
+<text x="596" y="30" font-size="12.5" fill="var(--ink)" text-anchor="middle" font-weight="600"><tspan class="zh">③ 尺度 2：剩下的 4 盏连成一团</tspan><tspan class="en">③ Scale 2: the remaining 4 join</tspan></text>
+<g stroke="var(--line)" stroke-width="1.5" fill="none"><path d="M520 60H672M520 98H672M520 136H672M520 174H672M520 212H672M520 60V212M558 60V212M596 60V212M634 60V212M672 60V212"/></g>
+<rect x="558" y="174" width="38" height="38" fill="var(--cx)" opacity="0.55"/>
+<rect x="596" y="174" width="38" height="38" fill="var(--cx)" opacity="0.55"/>
+<circle cx="520" cy="60" r="3.5" fill="var(--bg2)" stroke="var(--ink2)" stroke-width="1.2"/>
+<circle cx="558" cy="60" r="3.5" fill="var(--bg2)" stroke="var(--ink2)" stroke-width="1.2"/>
+<circle cx="596" cy="60" r="3.5" fill="var(--bg2)" stroke="var(--ink2)" stroke-width="1.2"/>
+<circle cx="634" cy="60" r="3.5" fill="var(--bg2)" stroke="var(--ink2)" stroke-width="1.2"/>
+<circle cx="672" cy="60" r="3.5" fill="var(--bg2)" stroke="var(--ink2)" stroke-width="1.2"/>
+<circle cx="520" cy="98" r="3.5" fill="var(--bg2)" stroke="var(--ink2)" stroke-width="1.2"/>
+<circle cx="558" cy="98" r="3.5" fill="var(--bg2)" stroke="var(--ink2)" stroke-width="1.2"/>
+<circle cx="596" cy="98" r="3.5" fill="var(--bg2)" stroke="var(--ink2)" stroke-width="1.2"/>
+<circle cx="634" cy="98" r="3.5" fill="var(--bg2)" stroke="var(--ink2)" stroke-width="1.2"/>
+<circle cx="672" cy="98" r="3.5" fill="var(--bg2)" stroke="var(--ink2)" stroke-width="1.2"/>
+<circle cx="520" cy="136" r="3.5" fill="var(--bg2)" stroke="var(--ink2)" stroke-width="1.2"/>
+<circle cx="558" cy="136" r="3.5" fill="var(--bg2)" stroke="var(--ink2)" stroke-width="1.2"/>
+<circle cx="596" cy="136" r="3.5" fill="var(--bg2)" stroke="var(--ink2)" stroke-width="1.2"/>
+<circle cx="634" cy="136" r="3.5" fill="var(--bg2)" stroke="var(--ink2)" stroke-width="1.2"/>
+<circle cx="672" cy="136" r="3.5" fill="var(--bg2)" stroke="var(--ink2)" stroke-width="1.2"/>
+<circle cx="520" cy="174" r="3.5" fill="var(--bg2)" stroke="var(--ink2)" stroke-width="1.2"/>
+<circle cx="558" cy="174" r="6.5" fill="var(--cd)" stroke="var(--ink)" stroke-width="1.2"/>
+<circle cx="596" cy="174" r="3.5" fill="var(--bg2)" stroke="var(--ink2)" stroke-width="1.2"/>
+<circle cx="634" cy="174" r="6.5" fill="var(--cd)" stroke="var(--ink)" stroke-width="1.2"/>
+<circle cx="672" cy="174" r="3.5" fill="var(--bg2)" stroke="var(--ink2)" stroke-width="1.2"/>
+<circle cx="520" cy="212" r="3.5" fill="var(--bg2)" stroke="var(--ink2)" stroke-width="1.2"/>
+<circle cx="558" cy="212" r="6.5" fill="var(--cd)" stroke="var(--ink)" stroke-width="1.2"/>
+<circle cx="596" cy="212" r="3.5" fill="var(--bg2)" stroke="var(--ink2)" stroke-width="1.2"/>
+<circle cx="634" cy="212" r="6.5" fill="var(--cd)" stroke="var(--ink)" stroke-width="1.2"/>
+<circle cx="672" cy="212" r="3.5" fill="var(--bg2)" stroke="var(--ink2)" stroke-width="1.2"/>
+<rect x="546" y="162" width="100" height="62" rx="10" fill="none" stroke="var(--good)" stroke-width="2"/>
+<text x="596" y="246" font-size="11" fill="var(--good)" text-anchor="middle"><tspan class="zh">中性：翻框里 2 格，全部熄灭</tspan><tspan class="en">neutral: flip the 2 cells inside, all go out</tspan></text>
+<text x="596" y="262" font-size="11" fill="var(--ink2)" text-anchor="middle"><tspan class="zh">修复 = 3 格，恰好就是原来的错误</tspan><tspan class="en">repair = 3 cells, exactly the original error</tspan></text>
+<rect x="40" y="282" width="16" height="16" fill="var(--cx)" opacity="0.55"/>
+<text x="62" y="294" font-size="11" fill="var(--ink2)" text-anchor="start"><tspan class="zh">= 译码器决定翻的格子</tspan><tspan class="en">= a cell the decoder decides to flip</tspan></text>
+<circle cx="300" cy="290" r="6.5" fill="var(--cd)" stroke="var(--ink)"/>
+<text x="312" y="294" font-size="11" fill="var(--ink2)" text-anchor="start"><tspan class="zh">= 亮着的计数器</tspan><tspan class="en">= a lit counter</tspan></text>
+<rect x="430" y="281" width="26" height="18" rx="8" fill="none" stroke="var(--good)" stroke-width="2"/>
+<text x="462" y="294" font-size="11" fill="var(--ink2)" text-anchor="start"><tspan class="zh">= 可以局部消掉的团（中性）</tspan><tspan class="en">= a cluster that can be cleared locally (neutral)</tspan></text>
+<rect x="430" y="305" width="26" height="18" rx="8" fill="none" stroke="var(--ink3)" stroke-width="1.6" stroke-dasharray="4 3"/>
+<text x="462" y="318" font-size="11" fill="var(--ink2)" text-anchor="start"><tspan class="zh">= 不中性、留到下一尺度的团</tspan><tspan class="en">= a cluster that is not neutral, kept for the next scale</tspan></text>
+</svg>
+  <div class="prose">
+    <p class="zh muted small">图注：4 × 4 计数板，洋红 = 亮着的计数器，琥珀 = 译码器决定翻的格子，绿框 = 判为中性、就地消掉的团，灰虚线框 = 不中性、留到下一尺度的团。这是说明思路的玩具，不是 Haah 立方码上的 RG 算法本身。</p>
+    <p class="en muted small">Caption: the 4 × 4 counter board; magenta = lit counters, amber = cells the decoder decides to flip, green frame = a cluster judged neutral and removed on the spot, grey dashed frame = a cluster that is not neutral and waits for the next scale. A toy to show the idea, not the RG algorithm on Haah's cubic code itself.</p>
   </div>
   <details class="fold">
     <summary><span class="zh">另外两张卡片的 none-known 行（原文）</span><span class="en">The none-known rows of the other two cards (verbatim)</span></summary>
@@ -1201,12 +1515,28 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
     <p class="en">“decoders: none-known entries stay benchmark-blind; comparison tables honestly show the gap this item closes.”</p>
   </div>
 
-  <h3 id="s3-1"><span class="sec-no">3.1</span><span class="zh">benchmark-blind：没有译码器，就没有一行</span><span class="en">benchmark-blind: no decoder, no row</span></h3>
+  <h3 id="s3-1"><span class="sec-no">3.1</span><span class="zh">benchmark-blind：没有能跑的电路级译码器，就没有电路级的一行</span><span class="en">benchmark-blind: no runnable circuit-level decoder, no circuit-level row</span></h3>
   <div class="prose">
     <p class="zh">回到 1.3 节的七元组。基准框架跑一次实验，需要七元组里每一项都有值；<span class="mono">decoder</span> 一项必须是 <span class="mono">registry/decoders.yaml</span> 里带 <span class="mono">benchmark_adapters</span>（可以被框架调用的实现）的译码器。目前带适配器的只有五个：lookup-table、css-pivot、repetition-majority、phenomenological-css-pivot、circuit-dem-pivot——全是「可复现的代数基线」，没有一个是为分形子几何设计的；RG 译码器和 small-set-flip 都没有适配器。于是对 haah_cubic 这样的条目，框架<b>造不出电路级的基准行</b>（码容量级的通用 CSS 译码行仍然可跑）：不是「跑出来数字很差」，而是「没有可跑的电路级实验」。这就是 benchmark-blind——基准框架看不见这个码。</p>
     <p class="en">Back to the seven-tuple of 1.3. To run one experiment the harness needs a value for every part; the <span class="mono">decoder</span> part must be a decoder in <span class="mono">registry/decoders.yaml</span> that carries <span class="mono">benchmark_adapters</span> (an implementation the harness can call). Today only five have adapters: lookup-table, css-pivot, repetition-majority, phenomenological-css-pivot, circuit-dem-pivot, all “reproducible algebraic baselines”, none designed for fracton geometry; neither the RG decoder nor small-set-flip has an adapter. So for an entry like haah_cubic the harness <b>cannot produce a circuit-level benchmark row (generic CSS code-capacity rows still run)</b>: not “the number came out poor” but “there is no runnable circuit-level experiment”. That is benchmark-blind: the harness cannot see the code.</p>
-    <p class="zh">对比一下有译码器的条目长什么样。<a href="../../surface_code/decoders/decoders.html#s6-2">表面码的账本</a>有六行数字（10.9%、10.3%、9.9%、2.9%、0.57%、Λ = 2.14），每行标明信道、译码器、出处；<a href="../../bb_code/decoders/decoders.html#s3-1">BB 码的卡片</a>有三条译码记录，其中一条带 0.8% 与五个限定项。haah_cubic 的卡片：三行文字，<b>零个数字</b>。人话：<b>Atlas 的对比表是「同一层级、同一噪声、各自最好的译码器」下的数字并排；一个连一行都没有的码，在表里只能是一个空格。</b>板上「comparison tables honestly show the gap」说的就是：这个空格现在是诚实地空着的，而不是填了一个来历不明的数。</p>
-    <p class="en">Compare an entry that has decoders. <a href="../../surface_code/decoders/decoders.html#s6-2">The surface-code ledger</a> has six numbered lines (10.9%, 10.3%, 9.9%, 2.9%, 0.57%, Λ = 2.14), each with its channel, decoder and source; <a href="../../bb_code/decoders/decoders.html#s3-1">the BB card</a> has three decoder records, one carrying 0.8% and five qualifiers. The haah_cubic card: three rows of text, <b>zero numbers</b>. In plain words: <b>an Atlas comparison table sets numbers side by side under one level, one noise model, each code's best decoder; a code with not even one row can only be a blank in that table.</b> The board's “comparison tables honestly show the gap” means exactly this: the blank is honestly blank today, rather than filled with a number of unknown origin.</p>
+    <p class="zh">对比一下有译码器的条目长什么样。<a href="../../surface_code/decoders/decoders.html#s6-2">表面码的账本</a>有六行数字，每行标明信道、译码器、出处；<a href="../../bb_code/decoders/decoders.html#s3-1">BB 码的卡片</a>有三条译码记录，其中一条带一个 0.8%。下面的小账本把这七个数各自的噪声、译码器、得出方式和出处列在一起。haah_cubic 的卡片：三行文字，<b>零个数字</b>。人话：<b>Atlas 的对比表是「同一层级、同一噪声、各自最好的译码器」下的数字并排；一个在某个层级连一行都没有的码，在那个层级的表里只能是一个空格。</b>板上「comparison tables honestly show the gap」说的就是：这个空格现在是诚实地空着的，而不是填了一个来历不明的数。</p>
+    <p class="en">Compare an entry that has decoders. <a href="../../surface_code/decoders/decoders.html#s6-2">The surface-code ledger</a> has six numbered lines, each with its channel, decoder and source; <a href="../../bb_code/decoders/decoders.html#s3-1">the BB card</a> has three decoder records, one carrying a 0.8%. The small ledger below lists, for each of these seven numbers, its noise, decoder, how it was obtained, and its source. The haah_cubic card: three rows of text, <b>zero numbers</b>. In plain words: <b>an Atlas comparison table sets numbers side by side under one level, one noise model, each code's best decoder; a code with not even one row at some level can only be a blank in that level's table.</b> The board's “comparison tables honestly show the gap” means exactly this: the blank is honestly blank today, rather than filled with a number of unknown origin.</p>
+  </div>
+  <div class="table-wrap" id="ledger">
+    <table class="glossary">
+      <tr><th style="white-space:normal"><span class="zh">数字</span><span class="en">Number</span></th><th style="white-space:normal"><span class="zh">码与噪声</span><span class="en">Code and noise</span></th><th style="white-space:normal"><span class="zh">译码器</span><span class="en">Decoder</span></th><th style="white-space:normal"><span class="zh">怎么得到的</span><span class="en">How it was obtained</span></th><th style="white-space:normal"><span class="zh">出处</span><span class="en">Source</span></th></tr>
+      <tr><td style="white-space:normal"><span class="zh"><b>10.9%</b><br>阈值</span><span class="en"><b>10.9%</b><br>threshold</span></td><td style="white-space:normal"><span class="zh">表面码；code-capacity：每个比特独立出错，测量完美</span><span class="en">surface code; code-capacity: independent qubit errors, perfect measurement</span></td><td style="white-space:normal"><span class="zh">最优译码（押最可能的类）</span><span class="en">optimal (bets on the most likely class)</span></td><td style="white-space:normal"><span class="zh">随机键 Ising 模型在 Nishimori 线上相变点的数值估计，p<sub>c</sub> = 0.1093 ± 0.0002</span><span class="en">numerical estimate of the random-bond Ising model's transition on the Nishimori line, p<sub>c</sub> = 0.1093 ± 0.0002</span></td><td style="white-space:normal"><span class="zh">Wang、Harrington、Preskill 2003（quant-ph/0207088）摘要所引的早期数值研究</span><span class="en">earlier numerical studies cited in the abstract of Wang, Harrington, Preskill 2003 (quant-ph/0207088)</span></td></tr>
+      <tr><td style="white-space:normal"><span class="zh"><b>10.3%</b><br>阈值</span><span class="en"><b>10.3%</b><br>threshold</span></td><td style="white-space:normal"><span class="zh">同上</span><span class="en">same</span></td><td style="white-space:normal"><span class="zh">最小重量完美匹配</span><span class="en">minimum-weight perfect matching</span></td><td style="white-space:normal"><span class="zh">同一模型在 T = 0 轴上临界浓度的数值测量，p<sub>c0</sub> = 0.1031 ± 0.0001</span><span class="en">numerical measurement of the same model's critical concentration on the T = 0 axis, p<sub>c0</sub> = 0.1031 ± 0.0001</span></td><td style="white-space:normal"><span class="zh">Wang、Harrington、Preskill 2003 摘要</span><span class="en">abstract of Wang, Harrington, Preskill 2003</span></td></tr>
+      <tr><td style="white-space:normal"><span class="zh"><b>9.9%</b><br>阈值</span><span class="en"><b>9.9%</b><br>threshold</span></td><td style="white-space:normal"><span class="zh">二维环面码；完美的症状测量</span><span class="en">2D toric code; perfect syndrome measurement</span></td><td style="white-space:normal"><span class="zh">并查集</span><span class="en">union-find</span></td><td style="white-space:normal"><span class="zh">数值模拟</span><span class="en">numerical simulation</span></td><td style="white-space:normal"><span class="zh">Delfosse、Nickerson 2017（arXiv:1709.06218）摘要</span><span class="en">abstract of Delfosse, Nickerson 2017 (arXiv:1709.06218)</span></td></tr>
+      <tr><td style="white-space:normal"><span class="zh"><b>2.9%</b><br>阈值</span><span class="en"><b>2.9%</b><br>threshold</span></td><td style="white-space:normal"><span class="zh">表面码；phenomenological：比特的 X、Z 错误与读数错误同为概率 p</span><span class="en">surface code; phenomenological: qubit X and Z errors and readout errors all at probability p</span></td><td style="white-space:normal"><span class="zh">时空中的最小重量匹配（对应 T = 0）</span><span class="en">minimum-weight matching in space-time (the T = 0 case)</span></td><td style="white-space:normal"><span class="zh">随机平台规范模型在 T = 0 轴上临界浓度的数值测量，p<sub>c0</sub> = 0.0293 ± 0.0002</span><span class="en">numerical measurement of the random-plaquette gauge model's critical concentration on the T = 0 axis, p<sub>c0</sub> = 0.0293 ± 0.0002</span></td><td style="white-space:normal"><span class="zh">Wang、Harrington、Preskill 2003 摘要</span><span class="en">abstract of Wang, Harrington, Preskill 2003</span></td></tr>
+      <tr><td style="white-space:normal"><span class="zh"><b>0.57%</b><br>阈值，每一步的故障率</span><span class="en"><b>0.57%</b><br>threshold, fault rate per step</span></td><td style="white-space:normal"><span class="zh">表面码；circuit-level：论文给定的症状提取电路，每一步都可能出错</span><span class="en">surface code; circuit-level: the paper's syndrome-extraction circuit, every step may fail</span></td><td style="white-space:normal"><span class="zh">最小重量完美匹配</span><span class="en">minimum-weight perfect matching</span></td><td style="white-space:normal"><span class="zh">不同码距的逻辑错误率曲线的交点（模拟到 d = 55）</span><span class="en">crossing point of the logical-error curves of several distances (simulated up to d = 55)</span></td><td style="white-space:normal"><span class="zh">Fowler、Mariantoni、Martinis、Cleland 2012（arXiv:1208.0928）正文</span><span class="en">main text of Fowler, Mariantoni, Martinis, Cleland 2012 (arXiv:1208.0928)</span></td></tr>
+      <tr><td style="white-space:normal"><span class="zh"><b>Λ = 2.14 ± 0.02</b><br>不是阈值：码距每加 2，每轮逻辑错误率缩小的倍数</span><span class="en"><b>Λ = 2.14 ± 0.02</b><br>not a threshold: the factor by which the logical error rate per round shrinks each time d grows by 2</span></td><td style="white-space:normal"><span class="zh">真实硬件：105 比特 Willow 处理器上的表面码存储实验，码距 3、5、7</span><span class="en">real hardware: surface-code memory on the 105-qubit Willow processor, distances 3, 5, 7</span></td><td style="white-space:normal"><span class="zh">离线神经网络译码器（同一批数据用 ensembled matching synthesis 得 2.04 ± 0.02）</span><span class="en">offline neural-network decoder (ensembled matching synthesis gives 2.04 ± 0.02 on the same data)</span></td><td style="white-space:normal"><span class="zh">对 d = 3（9 块子格平均）、5（4 块子格平均）、7 的 ln ε<sub>d</sub> 对 d 做线性回归</span><span class="en">linear regression of ln ε<sub>d</sub> against d over d = 3 (average of 9 subgrids), 5 (average of 4) and 7</span></td><td style="white-space:normal"><span class="zh">Google Quantum AI and Collaborators，Nature 638, 920（2025；2024 年 12 月在线）</span><span class="en">Google Quantum AI and Collaborators, Nature 638, 920 (2025; online December 2024)</span></td></tr>
+      <tr><td style="white-space:normal"><span class="zh"><b>0.8%</b><br>盈亏平衡伪阈值，不是几条曲线的交点</span><span class="en"><b>0.8%</b><br>break-even pseudo-threshold, not a crossing of several curves</span></td><td style="white-space:normal"><span class="zh">BB 码的若干个码，每个单独算；circuit-level 标准电路噪声、深度 7 的症状提取电路</span><span class="en">several BB codes, each on its own; circuit-level standard circuit noise, depth-seven syndrome extraction</span></td><td style="white-space:normal"><span class="zh">BP-OSD</span><span class="en">BP-OSD</span></td><td style="white-space:normal"><span class="zh">对每个码单独解 p<sub>L</sub>(p) = kp（见下方读法）</span><span class="en">solve p<sub>L</sub>(p) = kp for each code separately (see the note below)</span></td><td style="white-space:normal"><span class="zh">Bravyi 等，arXiv:2308.07915</span><span class="en">Bravyi et al., arXiv:2308.07915</span></td></tr>
+    </table>
+  </div>
+  <div class="prose">
+    <p class="zh muted small">读法：前五行是阈值，但分属三个比较层级（code-capacity、phenomenological、circuit-level），不能横着比；第六行是硬件上的一次拟合；第七行是另一种定义的数。0.8% 的来历：p<sub>L</sub> 是整块码每轮的失败率（k 个逻辑比特任一出错），kp 近似「k 个裸比特至少一个出错」，两者相等的 p 就是这个码的盈亏平衡点；p<sub>L</sub> 在 p ≥ 10<sup>−3</sup> 模拟、更低处外推。v1 表 1 给五个码 0.007(3)–0.008(3)（括号里那位数字论文没有解释），正文说 “close to 0.008”，v1、v2 摘要都写 0.8%；v2 表 1 为 0.0048–0.0069；Nature 摘要（2024）写 0.7%。这七个数都属于表面码或 BB 码，列在这里只为说明「有译码器的条目有数字」，不与本篇的码比较。</p>
+    <p class="en muted small">How to read it: the first five rows are thresholds, but at three different comparison levels (code-capacity, phenomenological, circuit-level) and not comparable across levels; row six is a fit to hardware data; row seven is a number with a different definition. Where 0.8% comes from: p<sub>L</sub> is the whole block's failure rate per round (any of its k logical qubits), kp approximates “at least one of k bare qubits fails”, and the p at which the two are equal is that code's break-even point; p<sub>L</sub> was simulated for p ≥ 10<sup>−3</sup> and extrapolated below. v1 Table 1 gives 0.007(3) to 0.008(3) for five codes (the paper does not explain the digit in parentheses), the text says “close to 0.008”, and both the v1 and v2 abstracts say 0.8%; v2 Table 1 gives 0.0048 to 0.0069; the Nature abstract (2024) says 0.7%. All seven numbers belong to the surface code or BB codes and are listed only to show that entries with decoders have numbers; none is compared with this guide's codes.</p>
   </div>
 
   <h3 id="s3-2"><span class="sec-no">3.2</span><span class="zh">答案来了，哪个词翻成哪个词</span><span class="en">When the answer arrives, which word flips to which</span></h3>
@@ -1214,7 +1544,7 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
     <table class="glossary">
       <tr><th><span class="zh">今天</span><span class="en">Today</span></th><th><span class="zh">答案之后</span><span class="en">After the answer</span></th><th><span class="zh">在哪里能看到</span><span class="en">Where it would show</span></th></tr>
       <tr><td style="white-space:normal"><span class="zh">haah_cubic 第 2 行 status: <b>none-known</b></span><span class="en">haah_cubic row 2 status: <b>none-known</b></span></td><td><span class="zh">一行新记录，status <b>research-grade</b>，随着被采纳升为 <b>standard</b>；none-known 行删去</span><span class="en">A new row with status <b>research-grade</b>, promoted to <b>standard</b> as it is adopted; the none-known row removed</span></td><td><span class="mono">atlas/haah_cubic/card.yaml</span> · <span class="mono">entries/haah_cubic/decoders.html</span></td></tr>
-      <tr><td style="white-space:normal"><span class="zh">基准框架：haah_cubic 零行</span><span class="en">Harness: zero rows for haah_cubic</span></td><td><span class="zh">每个 (实例, 层级, 噪声, 译码器) 一张行，带数字与复现命令</span><span class="en">One row per (instance, level, noise, decoder), with a number and a replay command</span></td><td><span class="zh">基准结果文件（schema <span class="mono">qec-atlas-benchmark-result-v1</span>）</span><span class="en">Benchmark result files (schema <span class="mono">qec-atlas-benchmark-result-v1</span>)</span></td></tr>
+      <tr><td style="white-space:normal"><span class="zh">基准框架：haah_cubic 零张电路级行</span><span class="en">Harness: zero circuit-level rows for haah_cubic</span></td><td><span class="zh">每个 (实例, 层级, 噪声, 译码器) 一张行，带数字与复现命令</span><span class="en">One row per (instance, level, noise, decoder), with a number and a replay command</span></td><td><span class="zh">基准结果文件（schema <span class="mono">qec-atlas-benchmark-result-v1</span>）</span><span class="en">Benchmark result files (schema <span class="mono">qec-atlas-benchmark-result-v1</span>)</span></td></tr>
       <tr><td style="white-space:normal"><span class="zh">registry/decoders.yaml：无分形子专用译码器带适配器</span><span class="en">registry/decoders.yaml: no fracton-specific decoder with an adapter</span></td><td><span class="zh">新增一个带 <span class="mono">benchmark_adapters</span> 的译码器条目（例如 RG 类）</span><span class="en">A new decoder entry with <span class="mono">benchmark_adapters</span> (e.g. an RG type)</span></td><td class="mono">registry/decoders.yaml</td></tr>
       <tr><td style="white-space:normal"><span class="zh">xcube、chamon、checkerboard、3d_subsystem_color：译码器一栏为空</span><span class="en">xcube, chamon, checkerboard, 3d_subsystem_color: empty decoder field</span></td><td><span class="zh"><b>不会</b>自动改变：这些条目先要被 survey；答案只对已有记录的家族生效</span><span class="en"><b>Unchanged</b> automatically: these entries must first be surveyed; the answer applies to families with records</span></td><td>—</td></tr>
       <tr><td style="white-space:normal"><span class="zh">haah_cubic L3 的 d=[3,9] <b>claimed</b></span><span class="en">haah_cubic L3's d=[3,9] <b>claimed</b></span></td><td><span class="zh"><b>不变</b>：译码器不证明码距。这个词归<a href="../fast-distance/fast-distance.html">大码的码距篇</a>管（卡片的 claim_gaps 把 d 指向 wanted:fast-distance）</span><span class="en"><b>Unchanged</b>: a decoder proves no distance. That word belongs to <a href="../fast-distance/fast-distance.html">the distance-for-large-codes guide</a> (the card's claim_gaps routes d to wanted:fast-distance)</span></td><td class="mono">atlas/haah_cubic/instances.yaml</td></tr>
@@ -1227,8 +1557,8 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
 
   <h3 id="s3-3"><span class="sec-no">3.3</span><span class="zh">今天一个 Atlas 用户做不到的三件事</span><span class="en">Three things a user of the Atlas cannot do today</span></h3>
   <div class="prose">
-    <p class="zh"><b>一</b>、问「Haah 立方码和表面码，在同一种噪声下谁更能扛」——没有 haah_cubic 的行，问题无法成立。<b>二</b>、把论文里 RG 译码器的曲线与自己的实现对照——卡片上没有抄任何曲线，Atlas 也没有可运行的 RG 适配器，无从核对。<b>三</b>、判断「三维码值不值得为它多花一维的硬件」——这个判断需要至少一个电路级的数字，而 2.2 节第 2 行说这个数字在 2026-08-09 的检索里不存在。人话：<b>Atlas 今天能告诉你这族码「是什么」（检查矩阵、n、k、d 的界），但对「用起来怎么样」一个字也说不了。</b></p>
-    <p class="en"><b>One</b>: ask “under the same noise, which withstands more, Haah's cubic code or the surface code?”; with no row for haah_cubic the question cannot even be posed. <b>Two</b>: compare the RG decoder's curve from the paper with your own implementation; the card copied no curve and the Atlas has no runnable RG adapter, so nothing can be checked against. <b>Three</b>: decide “is a 3D code worth the extra hardware dimension?”; that needs at least one circuit-level number, and row 2 of 2.2 says none existed in the search of 2026-08-09. In plain words: <b>today the Atlas can tell you what this family “is” (check matrices, n, k, bounds on d) but not one word about “how it performs in use”.</b></p>
+    <p class="zh"><b>一</b>、问「Haah 立方码和表面码，在同一种电路级噪声下谁更能扛」——没有 haah_cubic 的电路级行，问题无法成立。<b>二</b>、把论文里 RG 译码器的曲线与自己的实现对照——卡片上没有抄任何曲线，Atlas 也没有可运行的 RG 适配器，无从核对。<b>三</b>、判断「三维码值不值得为它多花一维的硬件」——这个判断需要至少一个电路级的数字，而 2.2 节第 2 行说这个数字在 2026-08-09 的检索里不存在。人话：<b>Atlas 今天能告诉你这族码「是什么」（检查矩阵、n、k、d 的界），但对「放进真实电路、测量也会出错时用起来怎么样」还说不出一个数。</b></p>
+    <p class="en"><b>One</b>: ask “under the same circuit-level noise, which withstands more, Haah's cubic code or the surface code?”; with no circuit-level row for haah_cubic the question cannot even be posed. <b>Two</b>: compare the RG decoder's curve from the paper with your own implementation; the card copied no curve and the Atlas has no runnable RG adapter, so nothing can be checked against. <b>Three</b>: decide “is a 3D code worth the extra hardware dimension?”; that needs at least one circuit-level number, and row 2 of 2.2 says none existed in the search of 2026-08-09. In plain words: <b>today the Atlas can tell you what this family “is” (check matrices, n, k, bounds on d) but not a single number for “how it performs in a real circuit, where measurements also fail”.</b></p>
   </div>
   <div class="ch-nav">
     <a href="#ch2"><span class="zh">上一章</span><span class="en">Back</span><b><span class="zh">2 · Atlas 现在是怎么凑合的</span><span class="en">2 · How the Atlas copes today</span></b></a>
@@ -1272,8 +1602,133 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
 
   <h3 id="s4-3"><span class="sec-no">4.3</span><span class="zh">计数板能演示什么，不能演示什么</span><span class="en">What the counter board can and cannot show</span></h3>
   <div class="prose">
-    <p class="zh">诚实地说清玩具的边界。计数板<b>能</b>演示第 ① 层的前半：警报四个一组、单个不能动，「配对」这个词失效。它<b>不能</b>演示译码本身为什么难——原因很具体。在这块有边界的 4 × 4 板上，计数器的读数<b>唯一地</b>决定翻了哪些格子：左上角那个计数器只碰到一个格子，所以它亮不亮就告诉你那个格子翻没翻；沿第一行往右，每个计数器碰到的「新」格子只有一个，逐个确定；再往下一行同理（第 5 章的练习 2 让你亲手走一遍）。也就是说，这块板上没有「同一组警报对应多种不同修复」的情形，译码只是解一遍方程。而在真正的 Haah 立方码里，检查是量子稳定子，同一组警报对应<b>大量</b>不同的错误图案（它们彼此相差一个稳定子的乘积），译码器必须在其中挑出「最可能的一类」——<a href="../../surface_code/decoders/decoders.html#s1-1">《译码器 · 高中数学版》1.1 节</a>「从症状到类」讲的正是这件事，只是在分形子码里「类」的结构是分形式的、跨尺度的，这超出了本篇的层级，只做描述。人话：<b>玩具告诉你老游戏为什么玩不了，没有告诉你新游戏有多难。</b></p>
-    <p class="en">Let us be honest about the toy's limits. The counter board <b>can</b> show the first half of layer ①: alarms come in fours, a single one cannot move, the word “pairing” fails. It <b>cannot</b> show why decoding itself is hard, for a concrete reason. On this bounded 4 × 4 board the counter readings determine <b>uniquely</b> which cells were flipped: the top-left counter touches only one cell, so whether it is lit tells you whether that cell was flipped; moving right along the first row, each counter touches only one “new” cell, fixed in turn; the next row likewise (exercise 2 of Chapter 5 walks you through it). In other words, this board has no situation of “one set of alarms, several different repairs”; decoding is merely solving equations. In Haah's real cubic code the checks are quantum stabilizers, one set of alarms corresponds to <b>many</b> different error patterns (differing by products of stabilizers), and the decoder must pick “the most likely class” among them; <a href="../../surface_code/decoders/decoders.html#s1-1">section 1.1 of “Decoders · High-School Edition”</a>, “from syndrome to class”, is about exactly this, except that in fracton codes the classes are structured fractally across scales, which is beyond this guide's level and is only described. In plain words: <b>the toy tells you why the old game cannot be played, not how hard the new one is.</b></p>
+    <p class="zh">诚实地说清玩具的边界。计数板<b>能</b>演示第 ① 层的前半：警报四个一组、单个不能动，「配对」这个词失效。它<b>不能</b>演示译码本身为什么难——原因很具体。在这块有边界的 4 × 4 板上，计数器的读数<b>唯一地</b>决定翻了哪些格子：左上角那个计数器只碰到一个格子，所以它亮不亮就告诉你那个格子翻没翻；沿第一行往右，每个计数器碰到的「新」格子只有一个，逐个确定；再往下一行同理（第 5 章的练习 2 让你亲手走一遍）。也就是说，这块板上没有「同一组警报对应多种不同修复」的情形，译码只是解一遍方程。而在真正的 Haah 立方码里，检查是量子稳定子，同一组警报对应<b>大量</b>不同的错误图案。两个错误若给出同一组警报，它们的乘积就不点亮任何检查，于是这个乘积要么是若干检查的乘积（一个稳定子），要么是一个逻辑算符（可能再乘上若干检查）。前一种情形两个错误属于同一类，对存储的信息作用完全相同，修哪一个都行，这叫<b>退化</b>；后一种情形它们属于不同的类，修错了类，错误加修复就是一个逻辑算符，信息被改写。下图在 1.1 节那个 L = 3 的环面码上各举一例。所以译码器必须挑出「最可能的一类」，而不只是「最可能的一个错误」——<a href="../../surface_code/decoders/decoders.html#s1-1">《译码器 · 高中数学版》1.1 节</a>「从症状到类」讲的正是这件事，只是在分形子码里「类」的结构是分形式的、跨尺度的，这超出了本篇的层级，只做描述。人话：<b>玩具告诉你老游戏为什么玩不了，没有告诉你新游戏有多难。</b></p>
+    <p class="en">Let us be honest about the toy's limits. The counter board <b>can</b> show the first half of layer ①: alarms come in fours, a single one cannot move, the word “pairing” fails. It <b>cannot</b> show why decoding itself is hard, for a concrete reason. On this bounded 4 × 4 board the counter readings determine <b>uniquely</b> which cells were flipped: the top-left counter touches only one cell, so whether it is lit tells you whether that cell was flipped; moving right along the first row, each counter touches only one “new” cell, fixed in turn; the next row likewise (exercise 2 of Chapter 5 walks you through it). In other words, this board has no situation of “one set of alarms, several different repairs”; decoding is merely solving equations. In Haah's real cubic code the checks are quantum stabilizers, one set of alarms corresponds to <b>many</b> different error patterns. If two errors give the same alarms, their product lights no check, so that product is either a product of checks (a stabilizer) or a logical operator (possibly times some checks). In the first case the two errors are in the same class and act identically on the stored information, so repairing either one is fine; this is called <b>degeneracy</b>. In the second case they are in different classes: repair the wrong class, and error plus repair is a logical operator, so the information is rewritten. The figure below gives one example of each on the L = 3 toric code of section 1.1. So the decoder must pick “the most likely class”, not merely “the most likely error”; <a href="../../surface_code/decoders/decoders.html#s1-1">section 1.1 of “Decoders · High-School Edition”</a>, “from syndrome to class”, is about exactly this, except that in fracton codes the classes are structured fractally across scales, which is beyond this guide's level and is only described. In plain words: <b>the toy tells you why the old game cannot be played, not how hard the new one is.</b></p>
+  </div>
+<svg viewBox="0 0 760 315" width="100%" style="max-width:760px;display:block;margin:0 auto;color:var(--ink)" role="img" aria-label="同一组警报的三个错误 / three errors with the same alarms">
+<text x="143" y="30" font-size="12.5" fill="var(--ink)" text-anchor="middle" font-weight="600"><tspan class="zh">(a) 错误 E：一条边上的 Z</tspan><tspan class="en">(a) error E: Z on one edge</tspan></text>
+<line x1="50" y1="246" x2="112" y2="246" stroke="var(--line2)" stroke-width="1.4"/>
+<line x1="50" y1="246" x2="50" y2="184" stroke="var(--line2)" stroke-width="1.4"/>
+<line x1="50" y1="184" x2="112" y2="184" stroke="var(--cz)" stroke-width="4.5"/>
+<line x1="50" y1="184" x2="50" y2="122" stroke="var(--line2)" stroke-width="1.4"/>
+<line x1="50" y1="122" x2="112" y2="122" stroke="var(--line2)" stroke-width="1.4"/>
+<line x1="50" y1="122" x2="50" y2="60" stroke="var(--line2)" stroke-width="1.4" stroke-dasharray="5 4"/>
+<line x1="112" y1="246" x2="174" y2="246" stroke="var(--line2)" stroke-width="1.4"/>
+<line x1="112" y1="246" x2="112" y2="184" stroke="var(--line2)" stroke-width="1.4"/>
+<line x1="112" y1="184" x2="174" y2="184" stroke="var(--line2)" stroke-width="1.4"/>
+<line x1="112" y1="184" x2="112" y2="122" stroke="var(--line2)" stroke-width="1.4"/>
+<line x1="112" y1="122" x2="174" y2="122" stroke="var(--line2)" stroke-width="1.4"/>
+<line x1="112" y1="122" x2="112" y2="60" stroke="var(--line2)" stroke-width="1.4" stroke-dasharray="5 4"/>
+<line x1="174" y1="246" x2="236" y2="246" stroke="var(--line2)" stroke-width="1.4" stroke-dasharray="5 4"/>
+<line x1="174" y1="246" x2="174" y2="184" stroke="var(--line2)" stroke-width="1.4"/>
+<line x1="174" y1="184" x2="236" y2="184" stroke="var(--line2)" stroke-width="1.4" stroke-dasharray="5 4"/>
+<line x1="174" y1="184" x2="174" y2="122" stroke="var(--line2)" stroke-width="1.4"/>
+<line x1="174" y1="122" x2="236" y2="122" stroke="var(--line2)" stroke-width="1.4" stroke-dasharray="5 4"/>
+<line x1="174" y1="122" x2="174" y2="60" stroke="var(--line2)" stroke-width="1.4" stroke-dasharray="5 4"/>
+<circle cx="50" cy="60" r="4" fill="var(--bg2)" stroke="var(--ink3)" stroke-dasharray="2 2"/>
+<circle cx="112" cy="60" r="4" fill="var(--bg2)" stroke="var(--ink3)" stroke-dasharray="2 2"/>
+<circle cx="174" cy="60" r="4" fill="var(--bg2)" stroke="var(--ink3)" stroke-dasharray="2 2"/>
+<circle cx="236" cy="246" r="4" fill="var(--bg2)" stroke="var(--ink3)" stroke-dasharray="2 2"/>
+<circle cx="236" cy="184" r="4" fill="var(--bg2)" stroke="var(--ink3)" stroke-dasharray="2 2"/>
+<circle cx="236" cy="122" r="4" fill="var(--bg2)" stroke="var(--ink3)" stroke-dasharray="2 2"/>
+<circle cx="236" cy="60" r="4" fill="var(--bg2)" stroke="var(--ink3)" stroke-dasharray="2 2"/>
+<circle cx="50" cy="246" r="4.5" fill="var(--ink2)"/>
+<circle cx="50" cy="184" r="8" fill="var(--cd)" stroke="var(--ink)" stroke-width="1.2"/>
+<circle cx="50" cy="122" r="4.5" fill="var(--ink2)"/>
+<circle cx="112" cy="246" r="4.5" fill="var(--ink2)"/>
+<circle cx="112" cy="184" r="8" fill="var(--cd)" stroke="var(--ink)" stroke-width="1.2"/>
+<circle cx="112" cy="122" r="4.5" fill="var(--ink2)"/>
+<circle cx="174" cy="246" r="4.5" fill="var(--ink2)"/>
+<circle cx="174" cy="184" r="4.5" fill="var(--ink2)"/>
+<circle cx="174" cy="122" r="4.5" fill="var(--ink2)"/>
+<text x="143" y="280" font-size="11.5" fill="var(--ink2)" text-anchor="middle"><tspan class="zh">亮：两端两颗星</tspan><tspan class="en">lit: the two end stars</tspan></text>
+<text x="46" y="206" font-size="9.5" font-family="ui-monospace, monospace" fill="var(--ink3)" text-anchor="middle">(0,1)</text>
+<text x="108" y="206" font-size="9.5" font-family="ui-monospace, monospace" fill="var(--ink3)" text-anchor="middle">(1,1)</text>
+<text x="388" y="30" font-size="12.5" fill="var(--ink)" text-anchor="middle" font-weight="600"><tspan class="zh">(b) E × 面检查 B</tspan><tspan class="en">(b) E × face check B</tspan></text>
+<rect x="295" y="122" width="62" height="62" fill="var(--cz-soft2)"/>
+<line x1="295" y1="246" x2="357" y2="246" stroke="var(--line2)" stroke-width="1.4"/>
+<line x1="295" y1="246" x2="295" y2="184" stroke="var(--line2)" stroke-width="1.4"/>
+<line x1="295" y1="184" x2="357" y2="184" stroke="var(--line2)" stroke-width="1.4"/>
+<line x1="295" y1="184" x2="295" y2="122" stroke="var(--cz)" stroke-width="4.5"/>
+<line x1="295" y1="122" x2="357" y2="122" stroke="var(--cz)" stroke-width="4.5"/>
+<line x1="295" y1="122" x2="295" y2="60" stroke="var(--line2)" stroke-width="1.4" stroke-dasharray="5 4"/>
+<line x1="357" y1="246" x2="419" y2="246" stroke="var(--line2)" stroke-width="1.4"/>
+<line x1="357" y1="246" x2="357" y2="184" stroke="var(--line2)" stroke-width="1.4"/>
+<line x1="357" y1="184" x2="419" y2="184" stroke="var(--line2)" stroke-width="1.4"/>
+<line x1="357" y1="184" x2="357" y2="122" stroke="var(--cz)" stroke-width="4.5"/>
+<line x1="357" y1="122" x2="419" y2="122" stroke="var(--line2)" stroke-width="1.4"/>
+<line x1="357" y1="122" x2="357" y2="60" stroke="var(--line2)" stroke-width="1.4" stroke-dasharray="5 4"/>
+<line x1="419" y1="246" x2="481" y2="246" stroke="var(--line2)" stroke-width="1.4" stroke-dasharray="5 4"/>
+<line x1="419" y1="246" x2="419" y2="184" stroke="var(--line2)" stroke-width="1.4"/>
+<line x1="419" y1="184" x2="481" y2="184" stroke="var(--line2)" stroke-width="1.4" stroke-dasharray="5 4"/>
+<line x1="419" y1="184" x2="419" y2="122" stroke="var(--line2)" stroke-width="1.4"/>
+<line x1="419" y1="122" x2="481" y2="122" stroke="var(--line2)" stroke-width="1.4" stroke-dasharray="5 4"/>
+<line x1="419" y1="122" x2="419" y2="60" stroke="var(--line2)" stroke-width="1.4" stroke-dasharray="5 4"/>
+<circle cx="295" cy="60" r="4" fill="var(--bg2)" stroke="var(--ink3)" stroke-dasharray="2 2"/>
+<circle cx="357" cy="60" r="4" fill="var(--bg2)" stroke="var(--ink3)" stroke-dasharray="2 2"/>
+<circle cx="419" cy="60" r="4" fill="var(--bg2)" stroke="var(--ink3)" stroke-dasharray="2 2"/>
+<circle cx="481" cy="246" r="4" fill="var(--bg2)" stroke="var(--ink3)" stroke-dasharray="2 2"/>
+<circle cx="481" cy="184" r="4" fill="var(--bg2)" stroke="var(--ink3)" stroke-dasharray="2 2"/>
+<circle cx="481" cy="122" r="4" fill="var(--bg2)" stroke="var(--ink3)" stroke-dasharray="2 2"/>
+<circle cx="481" cy="60" r="4" fill="var(--bg2)" stroke="var(--ink3)" stroke-dasharray="2 2"/>
+<circle cx="295" cy="246" r="4.5" fill="var(--ink2)"/>
+<circle cx="295" cy="184" r="8" fill="var(--cd)" stroke="var(--ink)" stroke-width="1.2"/>
+<circle cx="295" cy="122" r="4.5" fill="var(--ink2)"/>
+<circle cx="357" cy="246" r="4.5" fill="var(--ink2)"/>
+<circle cx="357" cy="184" r="8" fill="var(--cd)" stroke="var(--ink)" stroke-width="1.2"/>
+<circle cx="357" cy="122" r="4.5" fill="var(--ink2)"/>
+<circle cx="419" cy="246" r="4.5" fill="var(--ink2)"/>
+<circle cx="419" cy="184" r="4.5" fill="var(--ink2)"/>
+<circle cx="419" cy="122" r="4.5" fill="var(--ink2)"/>
+<text x="388" y="280" font-size="11.5" fill="var(--good)" text-anchor="middle"><tspan class="zh">差一个检查：同一类，效果相同</tspan><tspan class="en">differs by a check: same class, same effect</tspan></text>
+<text x="326" y="157" font-size="12" font-family="ui-monospace, monospace" fill="var(--cz-ink)" text-anchor="middle" font-weight="700">B</text>
+<text x="633" y="30" font-size="12.5" fill="var(--ink)" text-anchor="middle" font-weight="600"><tspan class="zh">(c) E × 逻辑算符 Z̄</tspan><tspan class="en">(c) E × logical operator Z̄</tspan></text>
+<line x1="540" y1="246" x2="602" y2="246" stroke="var(--line2)" stroke-width="1.4"/>
+<line x1="540" y1="246" x2="540" y2="184" stroke="var(--line2)" stroke-width="1.4"/>
+<line x1="540" y1="184" x2="602" y2="184" stroke="var(--line2)" stroke-width="1.4"/>
+<line x1="540" y1="184" x2="540" y2="122" stroke="var(--line2)" stroke-width="1.4"/>
+<line x1="540" y1="122" x2="602" y2="122" stroke="var(--line2)" stroke-width="1.4"/>
+<line x1="540" y1="122" x2="540" y2="60" stroke="var(--line2)" stroke-width="1.4" stroke-dasharray="5 4"/>
+<line x1="602" y1="246" x2="664" y2="246" stroke="var(--line2)" stroke-width="1.4"/>
+<line x1="602" y1="246" x2="602" y2="184" stroke="var(--line2)" stroke-width="1.4"/>
+<line x1="602" y1="184" x2="664" y2="184" stroke="var(--cz)" stroke-width="4.5"/>
+<line x1="602" y1="184" x2="602" y2="122" stroke="var(--line2)" stroke-width="1.4"/>
+<line x1="602" y1="122" x2="664" y2="122" stroke="var(--line2)" stroke-width="1.4"/>
+<line x1="602" y1="122" x2="602" y2="60" stroke="var(--line2)" stroke-width="1.4" stroke-dasharray="5 4"/>
+<line x1="664" y1="246" x2="726" y2="246" stroke="var(--line2)" stroke-width="1.4" stroke-dasharray="5 4"/>
+<line x1="664" y1="246" x2="664" y2="184" stroke="var(--line2)" stroke-width="1.4"/>
+<line x1="664" y1="184" x2="726" y2="184" stroke="var(--cz)" stroke-width="4.5"/>
+<line x1="664" y1="184" x2="664" y2="122" stroke="var(--line2)" stroke-width="1.4"/>
+<line x1="664" y1="122" x2="726" y2="122" stroke="var(--line2)" stroke-width="1.4" stroke-dasharray="5 4"/>
+<line x1="664" y1="122" x2="664" y2="60" stroke="var(--line2)" stroke-width="1.4" stroke-dasharray="5 4"/>
+<circle cx="540" cy="60" r="4" fill="var(--bg2)" stroke="var(--ink3)" stroke-dasharray="2 2"/>
+<circle cx="602" cy="60" r="4" fill="var(--bg2)" stroke="var(--ink3)" stroke-dasharray="2 2"/>
+<circle cx="664" cy="60" r="4" fill="var(--bg2)" stroke="var(--ink3)" stroke-dasharray="2 2"/>
+<circle cx="726" cy="246" r="4" fill="var(--bg2)" stroke="var(--ink3)" stroke-dasharray="2 2"/>
+<circle cx="726" cy="184" r="4" fill="var(--bg2)" stroke="var(--ink3)" stroke-dasharray="2 2"/>
+<circle cx="726" cy="122" r="4" fill="var(--bg2)" stroke="var(--ink3)" stroke-dasharray="2 2"/>
+<circle cx="726" cy="60" r="4" fill="var(--bg2)" stroke="var(--ink3)" stroke-dasharray="2 2"/>
+<circle cx="540" cy="246" r="4.5" fill="var(--ink2)"/>
+<circle cx="540" cy="184" r="8" fill="var(--cd)" stroke="var(--ink)" stroke-width="1.2"/>
+<circle cx="540" cy="122" r="4.5" fill="var(--ink2)"/>
+<circle cx="602" cy="246" r="4.5" fill="var(--ink2)"/>
+<circle cx="602" cy="184" r="8" fill="var(--cd)" stroke="var(--ink)" stroke-width="1.2"/>
+<circle cx="602" cy="122" r="4.5" fill="var(--ink2)"/>
+<circle cx="664" cy="246" r="4.5" fill="var(--ink2)"/>
+<circle cx="664" cy="184" r="4.5" fill="var(--ink2)"/>
+<circle cx="664" cy="122" r="4.5" fill="var(--ink2)"/>
+<text x="633" y="280" font-size="11.5" fill="var(--bad)" text-anchor="middle"><tspan class="zh">差一个逻辑算符：不同类</tspan><tspan class="en">differs by a logical: different class</tspan></text>
+<text x="726" y="172" font-size="9.5" font-family="ui-monospace, monospace" fill="var(--ink3)" text-anchor="middle">=(0,1)</text>
+<line x1="40" y1="300" x2="70" y2="300" stroke="var(--cz)" stroke-width="4.5"/>
+<text x="78" y="304" font-size="11" fill="var(--ink2)" text-anchor="start"><tspan class="zh">= 带 Z 的边</tspan><tspan class="en">= edge carrying Z</tspan></text>
+<circle cx="220" cy="300" r="7" fill="var(--cd)" stroke="var(--ink)"/>
+<text x="232" y="304" font-size="11" fill="var(--ink2)" text-anchor="start"><tspan class="zh">= 亮的星检查</tspan><tspan class="en">= lit star check</tspan></text>
+<circle cx="370" cy="300" r="4" fill="var(--bg2)" stroke="var(--ink3)" stroke-dasharray="2 2"/>
+<text x="380" y="304" font-size="11" fill="var(--ink2)" text-anchor="start"><tspan class="zh">虚线点/边 = 绕回左边、下边（环面：左右相接、上下相接）</tspan><tspan class="en">dashed dots/edges wrap to the left and bottom (torus)</tspan></text>
+</svg>
+  <div class="prose">
+    <p class="zh muted small">图注：L = 3 环面码（[[18, 2, 3]]，左右、上下各自相接）。(a) 错误 E = 一条横边上的 Z，两端的星 (0,1)、(1,1) 亮。(b) E 乘上它上方那块面检查 B（B 在四条边上各放一个 Z）：两个 Z 落在同一条边上抵消，剩下另外三条边上的 Z；亮的仍是同两颗星。B 作用在码态上什么也不改，所以 (a) 与 (b) 属于同一类，修哪个都一样。(c) E 乘上沿这一行绕环面一圈的 Z̄（三条横边上的 Z，一个逻辑算符）：剩下另外两条横边，从 (1,1) 向右绕过边界回到 (0,1)；亮的还是同两颗星，但 (c) = (a) × Z̄，与 (a) 不同类。若真实错误是 (a) 而译码器按 (c) 去修，错误加修复 = Z̄，留下一个逻辑 Z 错误：它不把逻辑 0 变成 1，而是翻转逻辑相位（|0̄⟩ + |1̄⟩ 变成 |0̄⟩ − |1̄⟩），同样是译码失败。</p>
+    <p class="en muted small">Caption: the L = 3 toric code ([[18, 2, 3]], left joined to right, top to bottom). (a) Error E = Z on one horizontal edge; the stars at its ends, (0,1) and (1,1), light. (b) E times the face check B above it (B puts a Z on each of its four edges): the two Zs on the shared edge cancel, leaving Z on the other three edges; the same two stars are lit. B changes nothing on code states, so (a) and (b) are in the same class, and repairing either is the same. (c) E times Z̄, the loop of Z around the torus along this row (Z on three horizontal edges, a logical operator): the other two horizontal edges remain, going right from (1,1) across the boundary back to (0,1); the same two stars are lit, but (c) = (a) × Z̄ is in a different class from (a). If the true error is (a) and the decoder repairs (c), error plus repair = Z̄, leaving a logical Z (phase) error: it does not turn logical 0 into 1 but flips the logical phase (|0̄⟩ + |1̄⟩ becomes |0̄⟩ − |1̄⟩), which is still a decoding failure.</p>
   </div>
   <div class="ch-nav">
     <a href="#ch3"><span class="zh">上一章</span><span class="en">Back</span><b><span class="zh">3 · 为什么我们想要答案</span><span class="en">3 · Why we want the answer</span></b></a>
@@ -1293,20 +1748,20 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
 
   <h3 id="s5-1"><span class="sec-no">5.1</span><span class="zh">练习 1：矩形规则</span><span class="en">Exercise 1: the rectangle rule</span></h3>
   <div class="prose">
-    <p class="zh">在 4 × 4 板上任选一个由格子组成的<b>实心矩形</b>（比如 2 × 3），把它里面的格子全翻成 1，其余为 0。（a）证明恰好亮 4 盏灯，在矩形的四个角上：矩形内部的计数器碰到 4 个翻转格，边上的碰到 2 个，角上的碰到 1 个，板外的碰到 0 个。（b）用行偶列偶规则解释：为什么亮灯若恰好 4 盏，它们就必须构成一个矩形的四个角？提示：每行要偶数盏，每列要偶数盏，4 盏灯分到行里只能是 2 + 2，分到列里也只能是 2 + 2。（c）反过来问：亮灯若是 6 盏呢？画出一个例子（1.2 节提到过：两个只共一个角的格子）。</p>
-    <p class="en">On the 4 × 4 board choose any <b>solid rectangle</b> of cells (say 2 × 3), flip every cell inside it to 1 and leave the rest 0. (a) Show that exactly 4 lamps light, at the rectangle's four corners: counters inside touch 4 flipped cells, those on an edge 2, those at a corner 1, those outside 0. (b) Use the even-row-and-column rule to explain why, if exactly 4 lamps are lit, they must be the four corners of a rectangle. Hint: each row needs an even count and so does each column; 4 lamps can only split 2 + 2 across rows and 2 + 2 across columns. (c) Conversely: what if 6 lamps are lit? Draw one example (section 1.2 mentioned it: two cells sharing only a corner).</p>
+    <p class="zh">在 4 × 4 板上任选一个由格子组成的<b>实心矩形</b>（比如 2 × 3），把它里面的格子全翻成 1，其余为 0。（a）证明恰好亮 4 盏灯，在矩形的四个角上：矩形内部的计数器碰到 4 个翻转格，边上的碰到 2 个，角上的碰到 1 个，板外的碰到 0 个。（b）用行偶列偶规则解释：为什么亮灯若恰好 4 盏，它们就必须构成一个矩形的四个角？提示：每行要偶数盏，每列要偶数盏，4 盏灯分到行里只能是 2 + 2，分到列里也只能是 2 + 2。（c）反过来问：亮灯若是 6 盏呢？画出一个例子（提示：两个只共一个角的格子；1.2 节的计数板上有这个预设）。</p>
+    <p class="en">On the 4 × 4 board choose any <b>solid rectangle</b> of cells (say 2 × 3), flip every cell inside it to 1 and leave the rest 0. (a) Show that exactly 4 lamps light, at the rectangle's four corners: counters inside touch 4 flipped cells, those on an edge 2, those at a corner 1, those outside 0. (b) Use the even-row-and-column rule to explain why, if exactly 4 lamps are lit, they must be the four corners of a rectangle. Hint: each row needs an even count and so does each column; 4 lamps can only split 2 + 2 across rows and 2 + 2 across columns. (c) Conversely: what if 6 lamps are lit? Draw one example (hint: two cells sharing only a corner; the counting board of 1.2 has this preset).</p>
   </div>
 
   <h3 id="s5-2"><span class="sec-no">5.2</span><span class="zh">练习 2：这块板上的译码是唯一的</span><span class="en">Exercise 2: decoding on this board is unique</span></h3>
   <div class="prose">
-    <p class="zh">给你 25 个计数器的读数（亮 / 灭），要还原 16 个格子。按下面的顺序做：左上角的计数器只碰到格子 (1,1)，所以格子 (1,1) = 那个计数器的读数。第一行第二个计数器碰到 (1,1) 和 (1,2)，(1,1) 已知，于是 (1,2) 被确定；一路向右，确定第一行全部 4 个格子。第二行第一个计数器碰到 (1,1) 和 (2,1)，确定 (2,1)；第二行第二个碰到 (1,1)、(1,2)、(2,1)、(2,2)，前三个已知，确定 (2,2)……16 步之后全部格子确定。结论：<b>读数与翻转图案一一对应</b>，这块板上不存在「同一组警报、两种修复」。这就是 4.3 节说的：玩具没有退化，真正的量子分形子码有。（顺带一问：如果把板卷成环面——左右相接、上下相接——第一步的论证还成立吗？不成立：没有「只碰一个格子」的计数器了。环面上会出现「整行翻转、所有灯不亮」的图案，退化就回来了。这一问只需想到这里，不必再往下算。）</p>
-    <p class="en">You are given the readings (lit / unlit) of the 25 counters and must recover the 16 cells. Proceed in this order: the top-left counter touches only cell (1,1), so cell (1,1) = that counter's reading. The second counter of the first row touches (1,1) and (1,2); (1,1) is known, so (1,2) is fixed; continue right and fix all 4 cells of the first row. The first counter of the second row touches (1,1) and (2,1), fixing (2,1); the second touches (1,1), (1,2), (2,1), (2,2), three of which are known, fixing (2,2)… after 16 steps every cell is fixed. Conclusion: <b>readings and flip patterns correspond one to one</b>; on this board there is no “one set of alarms, two repairs”. That is what 4.3 said: the toy has no degeneracy, the real quantum fracton code does. (One aside: if the board were rolled into a torus, left joined to right and top to bottom, would the first step still work? No: there would be no counter touching only one cell. On the torus, patterns such as “flip a whole row, no lamp lights” appear and degeneracy returns. Think this far and no further; no more computation is needed.)</p>
+    <p class="zh">给你 25 个计数器的读数（亮 / 灭），要还原 16 个格子。按下面的顺序做：左上角的计数器只碰到格子 (1,1)，所以格子 (1,1) = 那个计数器的读数。第一行第二个计数器碰到 (1,1) 和 (1,2)，(1,1) 已知，于是 (1,2) 被确定；一路向右，确定第一行全部 4 个格子。第二行第一个计数器碰到 (1,1) 和 (2,1)，确定 (2,1)；第二行第二个碰到 (1,1)、(1,2)、(2,1)、(2,2)，前三个已知，确定 (2,2)……16 步之后全部格子确定。结论：<b>读数与翻转图案一一对应</b>，这块板上不存在「同一组警报、两种修复」。这就是 4.3 节说的：玩具上同一组警报只对应一种翻法；量子码上同一组警报对应许多错误，译码器要在它们所属的类之间挑。（顺带一问：如果把板卷成环面——左右相接、上下相接——第一步的论证还成立吗？不成立：没有「只碰一个格子」的计数器了。环面上会出现「整行翻转、所有灯不亮」的图案，同一组警报于是对应不止一种翻法（在这块经典板上，这些翻法是真正不同的改动，不是 4.3 节那种无害的退化）。这一问只需想到这里，不必再往下算。）</p>
+    <p class="en">You are given the readings (lit / unlit) of the 25 counters and must recover the 16 cells. Proceed in this order: the top-left counter touches only cell (1,1), so cell (1,1) = that counter's reading. The second counter of the first row touches (1,1) and (1,2); (1,1) is known, so (1,2) is fixed; continue right and fix all 4 cells of the first row. The first counter of the second row touches (1,1) and (2,1), fixing (2,1); the second touches (1,1), (1,2), (2,1), (2,2), three of which are known, fixing (2,2)… after 16 steps every cell is fixed. Conclusion: <b>readings and flip patterns correspond one to one</b>; on this board there is no “one set of alarms, two repairs”. That is what 4.3 said: on the toy one set of alarms matches exactly one set of flips; on a quantum code one set of alarms matches many errors, and the decoder must choose among their classes. (One aside: if the board were rolled into a torus, left joined to right and top to bottom, would the first step still work? No: there would be no counter touching only one cell. On the torus, patterns such as “flip a whole row, no lamp lights” appear, so one set of alarms matches more than one set of flips (on this classical board those flips are genuinely different changes, not the harmless degeneracy of 4.3). Think this far and no further; no more computation is needed.)</p>
   </div>
 
   <h3 id="s5-3"><span class="sec-no">5.3</span><span class="zh">玩一局老游戏</span><span class="en">Play one round of the old game</span></h3>
   <div class="prose">
-    <p class="zh">下面是环面码的译码游戏：它随机放几个错误，只给你看警报，你来配对修复。玩几局，留意你的每一步都用了「成对」与「能动」：你总是在挑两盏灯连线，连线上的每一格都是「把一盏灯挪一步」。想象一下同样的界面放在计数板上：灯四个一组、挪不动单个——你的第一步该做什么？没有显然的答案，这就是本篇的开放问题。</p>
-    <p class="en">Below is the toric-code decoding game: it places a few random errors, shows you only the alarms, and you pair and repair. Play a few rounds and notice that every move uses “in pairs” and “mobile”: you always pick two lamps to join, and each cell along the join is “move one lamp one step”. Now imagine the same interface on the counter board, lamps in fours, no single one movable: what would your first move be? There is no obvious answer, and that is this guide's open problem.</p>
+    <p class="zh">下面是环面码的译码游戏：它随机放几个错误，只给你看警报，你来配对修复。玩几局，留意你的每一步都用了「成对」与「能动」：你总是在挑两盏灯连线，连线上的每一格都是「把一盏灯挪一步」。想象一下同样的界面放在计数板上：灯四个一组、挪不动单个，「挑两盏连线」这一步无从下手。计数板本身倒不难：<a href="#s5-2">5.2 节</a>已经给出逐格解方程、唯一还原的做法。真正没有公认做法的是 Haah 立方码这样的量子分形子码：同一组警报对应许多类（4.3 节），而且在电路级噪声下（测量也会错、要重复多轮），至今没有一个框架能调用、能复现的译码器，也没有一张电路级基准行（2.2 节第 2 行）。这才是本篇的开放问题。</p>
+    <p class="en">Below is the toric-code decoding game: it places a few random errors, shows you only the alarms, and you pair and repair. Play a few rounds and notice that every move uses “in pairs” and “mobile”: you always pick two lamps to join, and each cell along the join is “move one lamp one step”. Now imagine the same interface on the counter board, lamps in fours, no single one movable: the step “pick two lamps and join them” has nothing to work on. The counter board itself is easy: <a href="#s5-2">section 5.2</a> already gives a cell-by-cell equation solving that recovers the flips uniquely. What has no accepted method is a quantum fracton code such as Haah's cubic code: one set of alarms matches many classes (section 4.3), and under circuit-level noise (measurements can fail too, rounds are repeated) there is still no reproducible decoder the harness can call and no circuit-level benchmark row (section 2.2, row 2). That is this guide's open problem.</p>
   </div>
   <div data-widget="decodergame"></div>
 
@@ -1327,8 +1782,8 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
     <h2><span class="zh">两条根据、三个词、一个空格</span><span class="en">Two grounds, three words, one blank</span></h2>
   </div>
   <div class="prose">
-    <p class="zh">回放一遍。环面码的译码是配对游戏，根据是警报成对出现、且能单独移动。计数板上这两条都不成立：任何一行一列的亮灯数总是偶数，所以灯最少四盏、单盏挪不动——这是分形子的经典影子。Atlas 用三个成熟度词记录译码器：standard、research-grade、none-known；写着 none-known 的卡片恰有三张，其中 haah_cubic 把缺口指向本条，它的三行记录里有两种研究级算法，都停在完美症状层级，电路级的记录在 2026-08-09 的检索里为零。没有译码器就没有基准行，没有基准行就在对比表里是一个诚实的空格。合格的答案是一个能被框架调用、能生成七元组写全的基准行的译码器；难度是 open-research，因为没有「配对」骨架可套，也因为它排在「造码、写电路、定探测器」这串任务的末端。</p>
-    <p class="en">Replay. Decoding the toric code is a pairing game, grounded in alarms that come in pairs and move alone. On the counter board both grounds fail: every row and column of counters has an even number of lit lamps, so lamps come at least four at a time and a single one cannot move, the classical shadow of a fracton. The Atlas records decoders with three maturity words, standard, research-grade, none-known; exactly three cards carry none-known, and haah_cubic routes its gap to this item: its three records hold two research-grade algorithms, both at the perfect-syndrome level, with zero circuit-level records in the search of 2026-08-09. No decoder, no benchmark row; no row, an honest blank in the comparison table. A qualifying answer is a decoder the harness can call and that yields fully identified seven-tuple rows; the difficulty is open-research, because there is no “pairing” skeleton to reuse and because it sits at the end of the chain “build the code, write the circuit, define the detectors”.</p>
+    <p class="zh">回放一遍。环面码的译码是配对游戏，根据是警报成对出现、且能单独移动。计数板上这两条都不成立：任何一行一列的亮灯数总是偶数，所以灯最少四盏、单盏挪不动——这是分形子的经典影子。Atlas 用三个成熟度词记录译码器：standard、research-grade、none-known；写着 none-known 的卡片恰有三张，其中 haah_cubic 把缺口指向本条，它的三行记录里有两种研究级算法，都停在完美症状层级，电路级的记录在 2026-08-09 的检索里为零。没有框架能调用的电路级译码器，就没有电路级的基准行；没有这一行，电路级对比表里就是一个诚实的空格（码容量层级的通用 CSS 基线仍可跑）。合格的答案是一个能被框架调用、能生成七元组写全的基准行的译码器；难度是 open-research，因为没有「配对」骨架可套，也因为它排在「造码、写电路、定探测器」这串任务的末端。</p>
+    <p class="en">Replay. Decoding the toric code is a pairing game, grounded in alarms that come in pairs and move alone. On the counter board both grounds fail: every row and column of counters has an even number of lit lamps, so lamps come at least four at a time and a single one cannot move, the classical shadow of a fracton. The Atlas records decoders with three maturity words, standard, research-grade, none-known; exactly three cards carry none-known, and haah_cubic routes its gap to this item: its three records hold two research-grade algorithms, both at the perfect-syndrome level, with zero circuit-level records in the search of 2026-08-09. No circuit-level decoder the harness can call, no circuit-level benchmark row; without that row, the circuit-level comparison table shows an honest blank (the generic code-capacity CSS baseline still runs). A qualifying answer is a decoder the harness can call and that yields fully identified seven-tuple rows; the difficulty is open-research, because there is no “pairing” skeleton to reuse and because it sits at the end of the chain “build the code, write the circuit, define the detectors”.</p>
   </div>
 
   <h3 id="symtable"><span class="zh">符号与读法</span><span class="en">Symbols &amp; how to read them</span></h3>
@@ -1339,7 +1794,7 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
     <tr><td class="mono" style="font-size:17px">dynamic_k</td><td><span class="zh">读「动态 k」</span><span class="en">Read “dynamic k”</span></td><td><span class="zh">测量时间表放完后仍存活的逻辑比特数（da_color_2d：1）；详见 Floquet 码距篇。</span><span class="en">Logical qubits alive after the measurement schedule has run (da_color_2d: 1); see the Floquet fault-distance guide.</span></td></tr>
     <tr><td class="mono" style="font-size:17px">≡ 0 (mod 2)</td><td><span class="zh">读「模 2 同余 0」</span><span class="en">Read “congruent to 0 mod 2”</span></td><td><span class="zh">是偶数。计数板每行每列的亮灯数。</span><span class="en">Is even. The lit count of every row and column of counters.</span></td></tr>
     <tr><td class="mono" style="font-size:17px">(i, j)</td><td><span class="zh">读「第 i 行第 j 列」</span><span class="en">Read “row i, column j”</span></td><td><span class="zh">计数板上格子的坐标，练习 2 用到；从 1 数起。</span><span class="en">Coordinates of a cell on the counter board, used in exercise 2; counted from 1.</span></td></tr>
-    <tr><td class="mono" style="font-size:17px">10.3%, 2.9%, 0.57%, 0.8%, Λ</td><td><span class="zh">读「阈值 / 抑制因子」</span><span class="en">Read “threshold / suppression factor”</span></td><td><span class="zh">全部借自表面码账本与 BB 卡片，只为说明「有译码器的条目有数字」；不与本篇的码比较。Λ 读「拉姆达」。</span><span class="en">All borrowed from the surface-code ledger and the BB card, only to show that entries with decoders have numbers; not compared with this guide's codes. Λ reads “lambda”.</span></td></tr>
+    <tr><td class="mono" style="font-size:17px">10.3%, 2.9%, 0.57%, 0.8%, Λ</td><td><span class="zh">读「阈值 / 伪阈值 / 抑制因子」</span><span class="en">Read “threshold / pseudo-threshold / suppression factor”</span></td><td><span class="zh">全部借自表面码账本与 BB 卡片，只为说明「有译码器的条目有数字」；不与本篇的码比较。各自的噪声、译码器与得出方式见 <a href="#ledger">3.1 节的小账本</a>：0.8% 是盈亏平衡伪阈值，Λ 不是阈值。Λ 读「拉姆达」。</span><span class="en">All borrowed from the surface-code ledger and the BB card, only to show that entries with decoders have numbers; not compared with this guide's codes. Noise, decoder and how each was obtained: <a href="#ledger">the small ledger of section 3.1</a>; 0.8% is a break-even pseudo-threshold and Λ is not a threshold. Λ reads “lambda”.</span></td></tr>
     <tr><td class="mono" style="font-size:17px">T1, T2</td><td><span class="zh">读「一级 / 二级」</span><span class="en">Read “tier one / tier two”</span></td><td><span class="zh">Atlas 条目完成度：骨架 / 已研究的可操作条目。</span><span class="en">Atlas entry completion tiers: skeleton / researched operational entry.</span></td></tr>
   </table></div>
 
@@ -1349,16 +1804,20 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
       <tr><th><span class="zh">术语</span><span class="en">Term</span></th><th><span class="zh">白话定义</span><span class="en">Plain definition</span></th></tr>
       <tr><td><span class="zh">译码器</span><span class="en">decoder</span></td><td><span class="zh">看到警报、给出修复建议的算法。</span><span class="en">The algorithm that sees alarms and proposes a repair.</span></td></tr>
       <tr><td><span class="zh">配对游戏 / 最小重量完美匹配</span><span class="en">pairing game / minimum-weight perfect matching</span></td><td><span class="zh">环面码与表面码的译码器：把警报两两连线，总长最短。</span><span class="en">The toric and surface codes' decoder: join alarms in pairs with the least total length.</span></td></tr>
-      <tr><td><span class="zh">分形子（fracton）</span><span class="en">fracton</span></td><td><span class="zh">不能单独移动的激发；以此为特征的三维量子码叫分形子码。</span><span class="en">An excitation that cannot move alone; 3D quantum codes with this feature are fracton codes.</span></td></tr>
+      <tr><td><span class="zh">分形子（fracton）</span><span class="en">fracton</span></td><td><span class="zh">不能单独移动的激发；以此为特征的三维量子码叫分形子码。Haah 立方码里，不能局部造出的激发单个或成团都挪不动。</span><span class="en">An excitation that cannot move alone; 3D quantum codes with this feature are fracton codes. In Haah's cubic code, excitations that cannot be created locally are immobile, alone or as a cluster.</span></td></tr>
       <tr><td><span class="zh">成熟度词</span><span class="en">maturity word</span></td><td><span class="zh">standard（默认基准）/ research-grade（研究级）/ none-known（查过、在该噪声设定下没找到）。</span><span class="en">standard (default benchmark) / research-grade / none-known (searched, nothing found under the stated noise setting).</span></td></tr>
       <tr><td><span class="zh">噪声设定</span><span class="en">noise setting</span></td><td><span class="zh">译码记录的适用范围：哪些东西会出错、如何出错。</span><span class="en">The scope of a decoder record: what may fail and how.</span></td></tr>
       <tr><td><span class="zh">比较层级</span><span class="en">comparison level</span></td><td><span class="zh">code-capacity / phenomenological / circuit-level；不同层级的数字不进同一张表。</span><span class="en">code-capacity / phenomenological / circuit-level; numbers from different levels never share a table.</span></td></tr>
       <tr><td><span class="zh">基准行（benchmark harness row）</span><span class="en">benchmark harness row</span></td><td><span class="zh">一次身份写全（七元组）的实验及其数字，可重跑。</span><span class="en">One fully identified (seven-tuple) experiment with its number, replayable.</span></td></tr>
       <tr><td><span class="zh">适配器（benchmark adapter）</span><span class="en">benchmark adapter</span></td><td><span class="zh">让基准框架能调用某个译码器的实现；没有它，框架看不见这个译码器。</span><span class="en">The implementation that lets the harness call a decoder; without it the harness cannot see the decoder.</span></td></tr>
-      <tr><td><span class="zh">benchmark-blind</span><span class="en">benchmark-blind</span></td><td><span class="zh">一个码没有任何可跑的基准实验，因此在对比表里只能是空格。</span><span class="en">A code with no runnable benchmark experiment, hence only a blank in comparison tables.</span></td></tr>
+      <tr><td><span class="zh">benchmark-blind</span><span class="en">benchmark-blind</span></td><td><span class="zh">一个码在某个比较层级（本篇指电路级）上没有任何可跑的基准实验，因此在那个层级的对比表里只能是空格。</span><span class="en">A code with no runnable benchmark experiment at some comparison level (here: circuit level), hence only a blank in that level's comparison tables.</span></td></tr>
       <tr><td><span class="zh">重整化群（RG）译码器</span><span class="en">renormalization-group (RG) decoder</span></td><td><span class="zh">按尺度逐级归并警报团、局部消除的译码器；haah_cubic 卡片上 research-grade。</span><span class="en">A decoder merging alarm clusters scale by scale and removing them locally; research-grade on the haah_cubic card.</span></td></tr>
       <tr><td><span class="zh">BP-OSD</span><span class="en">BP-OSD</span></td><td><span class="zh">qLDPC 码的通用基线译码器；在 haah_cubic 上标 research-grade、只在完美症状层级。</span><span class="en">The generic qLDPC baseline decoder; research-grade on haah_cubic, perfect-syndrome level only.</span></td></tr>
-      <tr><td><span class="zh">退化（degeneracy）</span><span class="en">degeneracy</span></td><td><span class="zh">同一组警报对应多种错误图案；计数板没有，量子码有。</span><span class="en">One set of alarms matching several error patterns; absent on the counter board, present in quantum codes.</span></td></tr>
+      <tr><td><span class="zh">CSS 码</span><span class="en">CSS code</span></td><td><span class="zh">每条检查要么全是 X、要么全是 Z 的稳定子码；Haah 立方码是一个。</span><span class="en">A stabilizer code whose checks are each all X or all Z; Haah's cubic code is one.</span></td></tr>
+      <tr><td><span class="zh">qLDPC 码</span><span class="en">qLDPC code</span></td><td><span class="zh">码做大时，每条检查碰的比特数、每个比特参与的检查数都有固定上限；Haah 立方码是 8 与 4 + 4。</span><span class="en">As the code grows, qubits per check and checks per qubit both stay below fixed limits; for Haah's cubic code, 8 and 4 + 4.</span></td></tr>
+      <tr><td><span class="zh">角图案 / 反演相关</span><span class="en">corner pattern / inversion-related</span></td><td><span class="zh">一条立方体检查在 8 个角上各碰哪个比特；X 图案 = Z 图案过中心反射、每个顶点两比特对调（1.2 节的立方体图）。</span><span class="en">Which qubit a cube check touches at each of the 8 corners; the X pattern = the Z pattern reflected through the centre with the two qubits at each vertex swapped (cube figure in 1.2).</span></td></tr>
+      <tr><td><span class="zh">热噪声 / 泄漏</span><span class="en">thermal noise / leakage</span></td><td><span class="zh">码与有温度的环境接触、错误按热运动概率不断产生 / 量子比特跑出 0、1 两个能级之外。</span><span class="en">The code in contact with an environment at some temperature, errors arising with thermal probabilities / a qubit escaping its two levels 0 and 1.</span></td></tr>
+      <tr><td><span class="zh">退化（degeneracy）</span><span class="en">degeneracy</span></td><td><span class="zh">给出同一组警报、彼此只差一个稳定子（若干检查的乘积）的几个错误，对信息作用相同，修哪个都行。同一组警报也可能对应差一个逻辑算符的错误，那些属于不同的类，修错了类就是逻辑错误。计数板上同一组警报只对应一种翻法。</span><span class="en">Several errors that give the same alarms and differ only by a stabilizer (a product of checks) act identically on the information, so repairing any of them is fine. The same alarms can also match errors that differ by a logical operator; those are in different classes, and repairing the wrong class is a logical error. On the counter board one set of alarms matches exactly one set of flips.</span></td></tr>
       <tr><td><span class="zh">unsurveyed / none-known</span><span class="en">unsurveyed / none-known</span></td><td><span class="zh">还没人查 / 查过没找到。只有后者算登记了缺口。</span><span class="en">Nobody has looked / looked and found nothing. Only the latter is a registered gap.</span></td></tr>
       <tr><td><span class="zh">open-research / hard-engineering</span><span class="en">open-research / hard-engineering</span></td><td><span class="zh">Wanted 板的两种难度：没人知道怎么做 / 知道怎么做但要做很多。</span><span class="en">The board's two difficulty grades: nobody knows how / known how but much to do.</span></td></tr>
     </table>
@@ -3932,50 +4391,65 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
         'Z', (v) => { mode = v; upd(); }
       );
       F.controls.append(seg.el,
-        U().btn(isToric ? '示范：可收缩的圈' : '示范：平凡closed圈', isToric ? 'Demo: contractible loop' : 'Demo: trivial loop', '', () => {
+        U().btn(isToric ? '示范：可收缩的圈' : '示范：平凡的闭合圈', isToric ? 'Demo: contractible loop' : 'Demo: trivial loop', '', () => {
           view.errZ = new Set(); view.errX = new Set();
           // boundary of a 2x1 block of plaquettes
           const s = P().xorSet(lat.plaqs[0].support, lat.plaqs[1].support);
           view.errZ = new Set(s);
-          mode = 'Z';
+          if (mode !== 'Z') seg.el.children[0].click();
           upd();
         }),
         U().btn(isToric ? '示范：缠绕圈' : '示范：跨边界串', isToric ? 'Demo: winding loop' : 'Demo: boundary-to-boundary', '', () => {
           view.errZ = new Set(lat.logicals.Z[0]); view.errX = new Set();
-          mode = 'Z';
+          if (mode !== 'Z') seg.el.children[0].click();
           upd();
         }),
         U().btn('清空', 'Clear', '', () => { view.errZ.clear(); view.errX.clear(); upd(); })
       );
+      // Both string types may be on the lattice at once (some pages ask for an X and a Z loop together),
+      // so alarms of both types are counted and each drawn type gets its own verdict.
+      function judge(type, sup) {
+        const partners = type === 'Z' ? lat.logicals.X : lat.logicals.Z;
+        const par = partners.map((Lg) => P().overlapParity(sup, Lg));
+        if (!par.some((v) => v === 1)) {
+          return {
+            zh: '<span class="ok">警报全灭</span>，而且它是<b>平凡的</b>：它恰好等于若干' + (type === 'Z' ? '面检查' : '星检查') + '的乘积，对编码信息<b>什么也不做</b>。',
+            en: '<span class="ok">No alarms</span>, and it is <b>trivial</b>: it equals a product of ' + (type === 'Z' ? 'face checks' : 'star checks') + ' and does <b>nothing</b> to the stored information.',
+          };
+        }
+        const L1 = type === 'Z' ? 'Z̄₁' : 'X̄₁', L2 = type === 'Z' ? 'Z̄₂' : 'X̄₂';
+        if (isToric) {
+          const which = par[0] && par[1] ? L1 + '·' + L2 + '（两个方向都绕）' : par[0] ? L1 + (type === 'Z' ? '（水平缠绕）' : '') : L2 + (type === 'Z' ? '（垂直缠绕）' : '');
+          const whichEn = par[0] && par[1] ? L1 + '·' + L2 + ', both directions' : par[0] ? L1 + ', direction 1' : L2 + ', direction 2';
+          return {
+            zh: '<span class="no">警报全灭，但这不是平凡圈！</span>它绕过了整个环面——这是<b>逻辑算符 ' + which + '</b>：不触发任何检查，却会改写存下来的量子信息。',
+            en: '<span class="no">No alarms, yet NOT trivial!</span> It winds around the torus (' + whichEn + ') — a <b>logical operator</b>: invisible to every check, yet it rewrites the stored quantum information.',
+          };
+        }
+        return {
+          zh: '<span class="no">警报全灭，但这不是平凡圈！</span>这条串从一条边界横跨到对面——它就是<b>逻辑算符 ' + (type === 'Z' ? 'Z̄' : 'X̄') + '</b>：不触发任何检查，却改写了存下来的量子比特。',
+          en: '<span class="no">No alarms, yet NOT trivial!</span> The string spans from one boundary to the opposite one — the <b>logical operator ' + (type === 'Z' ? 'Z̄' : 'X̄') + '</b>: invisible to every check, yet it rewrites the stored qubit.',
+        };
+      }
       function upd() {
         view.draw();
         const syn = view.syndrome();
         const zSup = [...view.errZ], xSup = [...view.errX];
-        const active = mode === 'Z' ? zSup : xSup;
-        const defects = mode === 'Z' ? syn.starDefects.length : syn.plaqDefects.length;
+        const defects = syn.starDefects.length + syn.plaqDefects.length;
         let verdictZh, verdictEn;
-        if (!active.length) {
+        if (!zSup.length && !xSup.length) {
           verdictZh = '画几条边试试。目标：不触发任何警报。';
           verdictEn = 'Draw some edges. Goal: trigger no alarms.';
         } else if (defects > 0) {
           verdictZh = '还有 <b>' + defects + '</b> 个警报亮着：串有端点。把它闭合，或' + (isToric ? '绕一整圈' : '让两端都搭到正确的边界上') + '。';
           verdictEn = '<b>' + defects + '</b> alarms still lit: the string has endpoints. Close it up, or ' + (isToric ? 'wrap it all the way around' : 'land both ends on the right boundaries') + '.';
         } else {
-          const partners = mode === 'Z' ? lat.logicals.X : lat.logicals.Z;
-          const par = partners.map((Lg) => P().overlapParity(active, Lg));
-          const wound = par.some((v) => v === 1);
-          if (!wound) {
-            verdictZh = '<span class="ok">警报全灭</span>，且这是一个<b>平凡圈</b>：它恰好等于若干' + (mode === 'Z' ? '面检查' : '星检查') + '的乘积，对编码信息<b>什么也不做</b>。';
-            verdictEn = '<span class="ok">No alarms</span>, and this is a <b>trivial loop</b>: it equals a product of ' + (mode === 'Z' ? 'face checks' : 'star checks') + ' and does <b>nothing</b> to the stored information.';
-          } else if (isToric) {
-            const which = par[0] && par[1] ? 'Z̄₁·Z̄₂（两个方向都绕）' : par[0] ? (mode === 'Z' ? 'Z̄₁（水平缠绕）' : 'X̄₁') : (mode === 'Z' ? 'Z̄₂（垂直缠绕）' : 'X̄₂');
-            const whichEn = par[0] && par[1] ? 'both directions' : par[0] ? 'direction 1' : 'direction 2';
-            verdictZh = '<span class="no">警报全灭，但这不是平凡圈！</span>它绕过了整个环面——这是<b>逻辑算符 ' + which + '</b>：不触发任何检查，却会改写存下来的量子信息。';
-            verdictEn = '<span class="no">No alarms, yet NOT trivial!</span> It winds around the torus (' + whichEn + ') — a <b>logical operator</b>: invisible to every check, yet it rewrites the stored quantum information.';
-          } else {
-            verdictZh = '<span class="no">警报全灭，但这不是平凡圈！</span>这条串从一条边界横跨到对面——它就是<b>逻辑算符 ' + (mode === 'Z' ? 'Z̄' : 'X̄') + '</b>：不触发任何检查，却改写了存下来的量子比特。';
-            verdictEn = '<span class="no">No alarms, yet NOT trivial!</span> The string spans from one boundary to the opposite one — the <b>logical operator ' + (mode === 'Z' ? 'Z̄' : 'X̄') + '</b>: invisible to every check, yet it rewrites the stored qubit.';
-          }
+          const both = zSup.length > 0 && xSup.length > 0;
+          const parts = [];
+          if (zSup.length) parts.push({ j: judge('Z', zSup), lz: 'Z 串：', le: 'Z string: ' });
+          if (xSup.length) parts.push({ j: judge('X', xSup), lz: 'X 串：', le: 'X string: ' });
+          verdictZh = parts.map((q) => (both ? q.lz : '') + q.j.zh).join('<br>');
+          verdictEn = parts.map((q) => (both ? q.le : '') + q.j.en).join('<br>');
         }
         F.setReadout('<span class="zh">' + verdictZh + '</span><span class="en">' + verdictEn + '</span>');
       }
@@ -4060,8 +4534,8 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
         view.hlEdges = new Map([...corr].map((e) => [e, { color: getComputedStyle(doc.documentElement).getPropertyValue('--good').trim(), width: 5 }]));
         view.draw();
         F.setReadout(fail
-          ? '<span class="zh"><span class="no">这回合失败了。</span>蓝色 = 真实错误，绿色 = 你的修复。二者合起来形成了' + (isToric ? '一条<b>缠绕整个环面</b>的圈' : '一条<b>横跨两条边界</b>的串') + ' —— 恰好是逻辑算符，信息被改写。连胜清零。点「新回合」再来！</span><span class="en"><span class="no">Round lost.</span> Blue = true errors, green = your repair. Together they form ' + (isToric ? 'a loop <b>winding around the torus</b>' : 'a string <b>spanning both boundaries</b>') + ' — exactly a logical operator; the data got rewritten. Streak reset. “New round” to retry!</span>'
-          : '<span class="zh"><span class="ok">成功！</span>蓝 + 绿合成的圈都是可收缩的平凡圈 —— 你的修复不必和错误一模一样，只要「合起来平凡」就赢。连胜 <b>' + streak + '</b>！</span><span class="en"><span class="ok">Success!</span> Blue + green together form only trivial contractible loops — the repair need not equal the error, it only needs to be trivial in combination. Streak <b>' + streak + '</b>!</span>');
+          ? '<span class="zh"><span class="no">这回合失败了。</span>蓝色 = 真实错误，绿色 = 你的修复。二者合起来' + (isToric ? '在某个方向上<b>缠绕环面</b>的总圈数是<b>奇数</b>' : '含有<b>奇数条</b><b>横跨两条边界</b>的串') + ' —— 合起来是一个逻辑算符，信息被改写。连胜清零。点「新回合」再来！</span><span class="en"><span class="no">Round lost.</span> Blue = true errors, green = your repair. Together they ' + (isToric ? '<b>wind around the torus</b> an <b>odd</b> total number of times in some direction' : 'contain an <b>odd number</b> of strings <b>spanning both boundaries</b>') + ' — together a logical operator; the data got rewritten. Streak reset. “New round” to retry!</span>'
+          : '<span class="zh"><span class="ok">成功！</span>蓝 + 绿合起来' + (isToric ? '在两个方向上缠绕环面的总圈数都是偶数（0 也算，两圈互相抵消）' : '横跨两条边界的串是偶数条（0 条也算，两条互相抵消）') + '—— 合起来只是一些检查的乘积。你的修复不必和错误一模一样，只要合起来是检查的乘积就赢。连胜 <b>' + streak + '</b>！</span><span class="en"><span class="ok">Success!</span> Blue + green together ' + (isToric ? 'wind around the torus an even total number of times in both directions (0 counts; two windings cancel)' : 'contain an even number of strings spanning both boundaries (0 counts; two cancel)') + ' — together just a product of checks. The repair need not equal the error; together with it, it only needs to form a product of checks. Streak <b>' + streak + '</b>!</span>');
       }
       function newRound() {
         err = new Set(); corr = new Set(); sel = null; over = false;
@@ -4107,12 +4581,12 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
         en: '① Start: the toric code. Note the stubs sticking out — they wrap to the opposite side; that is what makes it a torus.',
       },
       {
-        zh: '② 一刀剪开：删除所有绕回去的边。立刻出问题——边界上的星和面都缺了一条腿（虚线标出），检查表变得乱七八糟。',
-        en: '② Cut: delete every wrapping edge. Trouble at once — boundary stars and faces each lose a leg (dashed); the checks are mutilated.',
+        zh: '② 一刀剪开：删除所有绕回去的边（图里不再画出）。立刻出问题：沿边的星少了一条腿，四个角上的星少了两条；原来跨过剪口的面只剩两条腿，而且这两条分在贴片相对的两头，角上那一块面一条腿也不剩。检查表乱了套。',
+        en: '② Cut: delete every wrapping edge (no longer drawn). Trouble at once: the stars along the edge lose one leg and the four corner stars lose two; the faces that straddled the cut keep only two legs, on opposite sides of the patch, and the corner face keeps none. The checks are mutilated.',
       },
       {
-        zh: '③ 收拾干净：接受「三条腿」的检查作为正式成员，但分好工——左右两侧只截断<b>面</b>（并保留伸出的悬挂边），上下两侧只截断<b>星</b>。这就是<b>表面码</b>的版图：两种边界，各司其职。',
-        en: '③ Tidy up: keep the 3-leg checks as legitimate members, but divide the work — the left/right sides truncate only <b>faces</b> (keeping the dangling edges), the top/bottom truncate only <b>stars</b>. This is the <b>surface code</b> layout: two kinds of boundary, each with a job.',
+        zh: '③ 收拾干净：接受「三条腿」的检查作为正式成员，但分好工——左右两侧只截断<b>面</b>（并保留伸出的悬挂边），上下两侧只截断<b>星</b>。这就是<b>表面码</b>的版图：两种边界，各司其职。（这一帧重新画了一块 L = 4 的平面码，而不是在上一帧上修补：25 个比特、12 个星检查、12 个面检查，左右两侧带悬挂的横边。）',
+        en: '③ Tidy up: keep the 3-leg checks as legitimate members, but divide the work — the left/right sides truncate only <b>faces</b> (keeping the dangling edges), the top/bottom truncate only <b>stars</b>. This is the <b>surface code</b> layout: two kinds of boundary, each with a job. (This frame redraws an L = 4 planar code rather than patching the previous one: 25 qubits, 12 star checks and 12 face checks, with dangling horizontal edges on the left and right.)',
       },
     ];
     function render() {
@@ -4174,8 +4648,10 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
       { zh: '① 噪声落下：几条 Z 错误悄悄出现（真实设备里你看不到它们）', en: '① Noise strikes: a few Z errors appear (invisible in a real device)' },
       { zh: '② 测量所有检查：只有错误链的端点亮起警报', en: '② Measure every check: only chain endpoints raise alarms' },
       { zh: '③ 译码器配对警报，规划修复链（绿）', en: '③ The decoder pairs alarms and plans repair chains (green)' },
-      { zh: '④ 施加修复：错误 ⊕ 修复 = 平凡圈 → 警报全灭，信息完好', en: '④ Apply the repair: error ⊕ repair = trivial loops → alarms clear, data intact' },
+      { zh: '④ 施加修复：警报全灭；错误 ⊕ 修复和 X̄ 交叉偶数次 → 信息完好', en: '④ Apply the repair: alarms clear; error ⊕ repair crosses X̄ an even number of times → data intact' },
     ];
+    const PH_FAIL = { zh: '④ 施加修复：警报全灭，但错误 ⊕ 修复和 X̄ 交叉奇数次 → 逻辑错误，信息被改写', en: '④ Apply the repair: alarms clear, but error ⊕ repair crosses X̄ an odd number of times → a logical error; the data is overwritten' };
+    let lastFail = false;
     function step() {
       phase = (phase + 1) % 4;
       if (phase === 0) {
@@ -4195,16 +4671,16 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
       } else {
         const residual = P().xorSet([...err], corr);
         const fail = lat.logicals.X.some((Lg) => P().overlapParity(residual, Lg));
-        rounds++; if (!fail) saved++;
+        rounds++; if (!fail) saved++; lastFail = fail;
         view.errZ = new Set(residual.filter(() => false));
         view.errZ = new Set();
         view.hlEdges = new Map();
       }
       view.draw();
-      const tail = phase === 3 ? (U().getLang() === 'en'
-        ? ' — rounds: ' + rounds + ', data survived: ' + saved
-        : ' — 已运行 ' + rounds + ' 轮，信息幸存 ' + saved + ' 轮') : '';
-      F.setReadout('<span class="zh">' + PH[phase].zh + tail + '</span><span class="en">' + PH[phase].en + tail + '</span>');
+      const tailZh = phase === 3 ? ' — 已运行 ' + rounds + ' 轮，信息幸存 ' + saved + ' 轮' : '';
+      const tailEn = phase === 3 ? ' — rounds: ' + rounds + ', data survived: ' + saved : '';
+      const ph = phase === 3 && lastFail ? PH_FAIL : PH[phase];
+      F.setReadout('<span class="zh">' + ph.zh + tailZh + '</span><span class="en">' + ph.en + tailEn + '</span>');
     }
     function play() {
       if (timer) return;
@@ -4651,8 +5127,8 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
       en: ['Winding loops = logicals', 'Loops circling the whole torus pass every check yet are no product of checks — they rewrite logical data. Two directions give Z̄₁, Z̄₂; duals give X̄₁, X̄₂; paired loops cross once ⇒ anticommute.'],
     },
     decoder: {
-      zh: ['译码 = 配对', '只见警报不见链：把警报两两配对、沿路径修复。错误⊕修复必闭合——可收缩则完美复原，缠绕则无声逻辑错误。'],
-      en: ['Decoding = matching', 'Alarms visible, chains not: pair the alarms and repair along paths. Error ⊕ repair is always closed — contractible = perfect recovery, winding = silent logical error.'],
+      zh: ['译码 = 配对', '只见警报不见链：把警报两两配对、沿路径修复。错误⊕修复必闭合——每个方向都缠绕偶数次（0 次也算）则完美复原，某个方向缠绕奇数次则是无声的逻辑错误；同方向的两圈互相抵消。'],
+      en: ['Decoding = matching', 'Alarms visible, chains not: pair the alarms and repair along paths. Error ⊕ repair is always closed — an even number of windings in each direction (0 included) = perfect recovery, an odd number in some direction = a silent logical error; two windings in the same direction cancel.'],
     },
     dL: {
       zh: ['环面码距 d = L', '最轻的逻辑算符是最短缠绕圈（长 L），对 X、Z 对称；压垮它需约 L/2 个错误连成线。'],
@@ -4672,8 +5148,8 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
       en: ['Spanning strings = logicals', 'A string dying on its own boundary at both ends: zero alarms, no product of checks (it crosses the other direction\'s spanning string once, so they anticommute).' + F('Z̄: rough→rough · X̄: smooth→smooth · X̄Z̄ = −Z̄X̄')],
     },
     cycle: {
-      zh: ['纠错循环', '每轮四拍：噪声 → 测全部检查 → 配对（可配边界）→ 修复；失败 ⇔ 错误⊕修复含横跨串。'],
-      en: ['The correction cycle', 'Four beats per round: noise → measure all checks → match (boundaries allowed) → repair; failure ⇔ error ⊕ repair contains a spanning string.'],
+      zh: ['纠错循环', '每轮四拍：噪声 → 测全部检查 → 配对（可配边界）→ 修复；失败 ⇔ 错误⊕修复和 X̄ 交叉奇数次，也就是横跨贴片的串有奇数条（两条互相抵消，偶数条无事）。'],
+      en: ['The correction cycle', 'Four beats per round: noise → measure all checks → match (boundaries allowed) → repair; failure ⇔ error ⊕ repair crosses X̄ an odd number of times, i.e. contains an odd number of spanning strings (two cancel, so an even number is harmless).'],
     },
     ancilla: {
       zh: ['辅助比特测量', '每条检查配一个帮手比特：与 4 个数据比特依次作用后单独被读出，给出 ±1；数据比特从未被直接测量。'],
@@ -4865,6 +5341,69 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
   TQ.BOOKTITLES = TQ.BOOKTITLES || {"toric":{"zh":"《从 1+1 到 Toric Code》","en":"“From 1+1 to the Toric Code”"},"surface":{"zh":"《从 Toric Code 到 Surface Code》","en":"“From Toric Code to Surface Code”"},"toricHs":{"zh":"《从高考数学到 Toric Code》","en":"“From High-School Math to the Toric Code”"},"surfaceHs":{"zh":"《Surface Code · 高中数学版》","en":"“The Surface Code · High-School Edition”"},"decodingHs":{"zh":"《译码器 · 高中数学版》","en":"“Decoders · High-School Edition”"},"surgeryHs":{"zh":"《格点手术 · 高中数学版》","en":"“Lattice Surgery · High-School Edition”"},"bbHs":{"zh":"《BB 码 · 高中数学版》","en":"“BB Codes · High-School Edition”"},"qldpcHs":{"zh":"《qLDPC 码 · 高中数学版》","en":"“qLDPC Codes · High-School Edition”"}};
 })(typeof window !== 'undefined' ? window : globalThis);
 
+</script>
+<script>
+/* decoders-3d-fracton page widget: countboard (section 1.2), the 4 x 4 counting board. */
+(function (root) {
+  const TQ = root.TQ; if (!root.document || !TQ || !TQ.ui) return;
+  const U = () => TQ.ui;
+  const bi = (zh, en) => '<span class="zh">' + zh + '</span><span class="en">' + en + '</span>';
+  function wCountBoard(el) {
+    const N = 4, S = 54, O = 34;          // cells, cell size (px), margin
+    let cells = new Set();
+    const F = U().frame(el, { titleZh: '计数板：翻格子，看灯，试着只挪一盏', titleEn: 'Counting board: flip cells, watch lamps, try to move just one', onReset: () => { cells = new Set(); render(); } });
+    const holder = document.createElement('div'); holder.style.cssText = 'display:flex;justify-content:center'; F.body.appendChild(holder);
+    const key = (r, c) => r * N + c;
+    function lamps() {
+      const on = [];
+      for (let r = 0; r <= N; r++) for (let c = 0; c <= N; c++) {
+        let k = 0; for (const rr of [r - 1, r]) for (const cc of [c - 1, c]) if (rr >= 0 && rr < N && cc >= 0 && cc < N && cells.has(key(rr, cc))) k++;
+        on.push(k % 2 === 1);
+      }
+      return on;
+    }
+    function render() {
+      const on = lamps(), W = O * 2 + N * S + 100, H = O * 2 + N * S + 30;
+      const rowCnt = [], colCnt = [];
+      for (let r = 0; r <= N; r++) rowCnt.push(on.slice(r * (N + 1), r * (N + 1) + N + 1).filter(Boolean).length);
+      for (let c = 0; c <= N; c++) { let t = 0; for (let r = 0; r <= N; r++) if (on[r * (N + 1) + c]) t++; colCnt.push(t); }
+      let s = '<svg viewBox="0 0 ' + W + ' ' + H + '" width="' + W + '" style="max-width:100%;font-family:var(--f-mono)" role="img" aria-label="counting board">';
+      for (let r = 0; r < N; r++) for (let c = 0; c < N; c++) {
+        const f = cells.has(key(r, c));
+        s += '<rect data-cell="' + key(r, c) + '" x="' + (O + c * S) + '" y="' + (O + r * S) + '" width="' + S + '" height="' + S + '" style="cursor:pointer;fill:' + (f ? 'color-mix(in srgb, var(--cx) 55%, transparent)' : 'var(--bg2)') + ';stroke:var(--line2)"/>';
+        if (f) s += '<text x="' + (O + c * S + S / 2) + '" y="' + (O + r * S + S / 2 + 5) + '" text-anchor="middle" font-size="14" style="fill:var(--ink);pointer-events:none">1</text>';
+      }
+      for (let r = 0; r <= N; r++) for (let c = 0; c <= N; c++) {
+        const x = O + c * S, y = O + r * S, L = on[r * (N + 1) + c];
+        s += '<circle cx="' + x + '" cy="' + y + '" r="' + (L ? 8 : 5) + '" style="pointer-events:none;fill:' + (L ? 'var(--cd)' : 'var(--bg2)') + ';stroke:' + (L ? 'var(--cd)' : 'var(--ink3)') + '" stroke-width="1.5"/>';
+      }
+      const ev = (n) => n % 2 === 0 ? 'var(--ink2)' : 'var(--cd)';
+      for (let r = 0; r <= N; r++) s += '<text x="' + (O + N * S + 22) + '" y="' + (O + r * S + 4) + '" font-size="12" style="fill:' + ev(rowCnt[r]) + '">' + rowCnt[r] + '</text>';
+      for (let c = 0; c <= N; c++) s += '<text x="' + (O + c * S) + '" y="' + (O + N * S + 26) + '" text-anchor="middle" font-size="12" style="fill:' + ev(colCnt[c]) + '">' + colCnt[c] + '</text>';
+      s += '<text x="' + (O + N * S + 22) + '" y="' + (O - 16) + '" font-size="10.5" style="fill:var(--ink3)"><tspan class="zh">行亮灯数</tspan><tspan class="en">per row</tspan></text>';
+      s += '<text x="' + (O + N * S + 22) + '" y="' + (O + N * S + 26) + '" font-size="10.5" style="fill:var(--ink3)"><tspan class="zh">← 列亮灯数</tspan><tspan class="en">← per column</tspan></text>';
+      s += '</svg>';
+      holder.innerHTML = s;
+      const total = on.filter(Boolean).length;
+      F.setReadout(bi('翻了 <b>' + cells.size + '</b> 格，亮 <b>' + total + '</b> 盏灯。右边一列数字 = 每一行计数器里亮着的盏数，底下一行 = 每一列的；它们永远是偶数。试一试：点亮一盏灯之后，只让它向右挪一格、别的灯不动——找不到翻法，因为那会让两列各变一盏，成了奇数。',
+        'Flipped <b>' + cells.size + '</b> cell(s), <b>' + total + '</b> lamp(s) lit. The numbers on the right = lit lamps in each row of counters, along the bottom = in each column; they are always even. Try it: once a lamp is lit, move just that lamp one step to the right with every other lamp unchanged. No set of flips does it, because two columns would each change by one lamp and turn odd.'));
+    }
+    holder.addEventListener('click', (e) => { const t = e.target.closest('[data-cell]'); if (!t) return; const k = +t.dataset.cell; if (cells.has(k)) cells.delete(k); else cells.add(k); render(); });
+    const preset = (arr) => () => { cells = new Set(arr); render(); };
+    F.controls.append(
+      U().btn('翻一个格子', 'One cell', '', preset([key(1, 1)])),
+      U().btn('一排 3 格（第 2–4 列）', 'A row of 3 (cols 2–4)', '', preset([key(1, 1), key(1, 2), key(1, 3)])),
+      U().btn('两个只共一个角的格子', 'Two cells sharing one corner', '', preset([key(1, 1), key(2, 2)])),
+      U().btn('全部清空', 'Clear all', '', preset([])));
+    const lg = document.createElement('div'); lg.className = 'legend';
+    lg.innerHTML = '<span class="li"><span class="sw" style="background:color-mix(in srgb, var(--cx) 55%, transparent)"></span>' + bi('翻成 1 的格子（点格子翻转）', 'cell flipped to 1 (click a cell to flip it)') + '</span>' +
+      '<span class="li"><span class="dot" style="background:var(--cd)"></span>' + bi('亮着的计数器（周围 1 的个数为奇数）', 'lit counter (odd number of 1s around it)') + '</span>' +
+      '<span class="li"><span class="dot" style="background:var(--bg2);border:1.5px solid var(--ink3);box-sizing:border-box"></span>' + bi('没亮的计数器', 'unlit counter') + '</span>';
+    el.appendChild(lg);
+    render();
+  }
+  TQ.ui.reg('countboard', wCountBoard);
+})(typeof window !== 'undefined' ? window : globalThis);
 </script>
 </body>
 </html>

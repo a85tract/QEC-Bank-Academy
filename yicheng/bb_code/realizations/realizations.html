@@ -876,6 +876,15 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
 .formula .sym { border-bottom-color: color-mix(in srgb, var(--ink3) 55%, transparent); }
 .refpop .rp-sec.rp-symchar { font-size: 17px; color: var(--ink); font-weight: 600; }
 
+/* ---------- catch-up ("补课") fold-outs: remedial explanations opened on demand ---------- */
+details.fold.basics { border-color: color-mix(in srgb, var(--cx) 55%, transparent); }
+details.fold.basics summary { color: var(--cx-ink); }
+details.fold.basics .fold-body h5 { font-family: var(--f-body); font-size: 14.5px; font-weight: 600; color: var(--ink); margin: 1.3em 0 0.4em; }
+details.fold.basics .fold-body > .formula { margin: 1em 0; }
+details.fold.basics .fold-body > .table-wrap { margin: 0.9em 0; }
+table.glossary td.c { text-align: center; font-variant-numeric: tabular-nums; }
+.legend .box { width: 11px; height: 11px; border-radius: 2px; display: inline-block; box-sizing: border-box; }
+.legend .ring { width: 11px; height: 11px; border-radius: 50%; display: inline-block; box-sizing: border-box; }
 </style>
 </head>
 <body>
@@ -901,12 +910,12 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
       <span class="en">One run, four proposals:<br>how far BB codes <span class="accent">have got on hardware</span></span>
     </h1>
     <p class="lede">
-      <span class="zh">《BB 码 · 高中数学版》算清了 gross 码的 [[144,12,12]]：144 个数据比特、12 个逻辑比特、码距 12。可这只是一张矩阵。这一篇回答 Atlas「用例与实现」侧面的两个问题：这张矩阵向芯片提出了什么要求（哪种硬件才装得下六腿的、伸到三格之外的检查）；以及到今天为止，真机到底做了什么。答案很短：一次 <span class="mono">demonstrated</span>（昆仑处理器上的 [[18,4,4]]，每个逻辑比特每轮 (8.91 ± 0.17)% 的逻辑错误率）和四条 <span class="mono">proposed</span>。本页把每一条的「证明了什么」与「没证明什么」逐字对着卡片说清楚，并教你用五个字段读任何一条 BB 实验记录。</span>
+      <span class="zh">《BB 码 · 高中数学版》算清了 gross 码的 [[144,12,12]]：144 个数据比特、12 个逻辑比特、码距 12。可这只是一张矩阵。这一篇回答 Atlas「用例与实现」侧面的两个问题：这张矩阵向芯片提出了什么要求（哪种硬件才装得下六腿的、伸到三格远的检查）；以及到今天为止，真机到底做了什么。答案很短：一次 <span class="mono">demonstrated</span>（昆仑处理器上的 [[18,4,4]]，每个逻辑比特每轮 (8.91 ± 0.17)% 的逻辑错误率）和四条 <span class="mono">proposed</span>。本页把每一条的「证明了什么」与「没证明什么」逐字对着卡片说清楚，并教你用五个字段读任何一条 BB 实验记录。</span>
       <span class="en">“BB Codes · High-School Edition” worked out the gross code's [[144,12,12]]: 144 data qubits, 12 logical qubits, distance 12. But that is a matrix. This guide answers the two questions of the Atlas facet “Use cases &amp; realizations”: what that matrix demands of a chip (which hardware can host six-leg checks that reach three cells away), and what real machines have actually done so far. The answer is short: one <span class="mono">demonstrated</span> record (an [[18,4,4]] block on the Kunlun processor, logical error (8.91 ± 0.17)% per logical qubit per cycle) and four <span class="mono">proposed</span> ones. For each we state, against the card's own words, what it established and what it did not, and we teach you to read any BB experiment through five fields.</span>
     </p>
     <div class="promise">
-      <span class="zh">前置：<a href="../intuition/intuition.html">《BB 码 · 高中数学版》</a>，尤其<a href="../intuition/intuition.html#s6-1">6.1 节</a>的两层 Tanner 图、<a href="../intuition/intuition.html#s6-2">6.2 节</a>的深度 7 电路与<a href="../intuition/intuition.html#s6-6">6.6 节</a>对昆仑实验的一段话。这里新增：BB 的硬件契约、读实验记录的五个字段、五条卡片记录逐字核对、一份「尚未演示」清单，以及与表面码实现页的对照。</span>
-      <span class="en">Prerequisite: <a href="../intuition/intuition.html">“BB Codes · High-School Edition”</a>, especially the two-layer Tanner graph of <a href="../intuition/intuition.html#s6-1">§6.1</a>, the depth-7 circuit of <a href="../intuition/intuition.html#s6-2">§6.2</a> and the paragraph on the Kunlun run in <a href="../intuition/intuition.html#s6-6">§6.6</a>. New here: the BB hardware contract, five fields for reading an experiment record, the five card records checked word by word, a list of what is not yet demonstrated, and a side-by-side with the surface-code realizations page.</span>
+      <span class="zh">前置：<a href="../intuition/intuition.html">《BB 码 · 高中数学版》</a>，尤其<a href="../intuition/intuition.html#s6-1">6.1 节</a>的两层 Tanner 图、<a href="../intuition/intuition.html#s6-2">6.2 节</a>的深度 7 电路与<a href="../intuition/intuition.html#s6-6">6.6 节</a>对昆仑实验的一段话。这里新增：BB 的硬件契约、读实验记录的五个字段、五条卡片记录逐字核对、一份「尚未演示」清单，以及与表面码实现页的对照。Atlas 是本系列依托的纠错码知识库：每个码是一个「条目」，条目按参数、译码器、实现等分成几个「侧面」；条目的结构化数据叫「卡片」（<span class="mono">card.yaml</span>），其中每条「记录」带一个状态词：demonstrated = 有被引用的实验论文报告过，proposed = 设计具体到可以模拟或算成本，但没有物理系统执行过；「实现账本」（<span class="mono">realization-ledger.md</span>）是这个侧面的说明页。</span>
+      <span class="en">Prerequisite: <a href="../intuition/intuition.html">“BB Codes · High-School Edition”</a>, especially the two-layer Tanner graph of <a href="../intuition/intuition.html#s6-1">§6.1</a>, the depth-7 circuit of <a href="../intuition/intuition.html#s6-2">§6.2</a> and the paragraph on the Kunlun run in <a href="../intuition/intuition.html#s6-6">§6.6</a>. New here: the BB hardware contract, five fields for reading an experiment record, the five card records checked word by word, a list of what is not yet demonstrated, and a side-by-side with the surface-code realizations page. The Atlas is the knowledge base of error-correcting codes behind this series: each code is an “entry”, split into “facets” such as parameters, decoders and realizations; an entry's structured data is its “card” (<span class="mono">card.yaml</span>), in which each “record” carries a status word: demonstrated = reported by a cited experimental paper, proposed = designed concretely enough to simulate or cost, but not executed by any physical system; the “realization ledger” (<span class="mono">realization-ledger.md</span>) is this facet's explanatory page.</span>
     </div>
     <div class="cta-row">
       <a class="btn primary" href="#ch1"><span class="zh">开始 ↓</span><span class="en">Begin ↓</span></a>
@@ -952,38 +961,42 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
   <div class="prose">
     <p class="zh">先回忆 gross 码长什么样：l = 12、m = 6 的环面（l、m 是环面两个方向的格数），每格两个数据比特，n = 2lm = 144；两个多项式 A = x³ + y + y²、B = y³ + x + x² 各三项，所以每条检查<b>六腿</b>（|A| + |B| = 3 + 3，|A| 记 A 的项数），每个数据比特被 3 条 X 检查和 3 条 Z 检查碰到（<a href="../intuition/intuition.html#s3-3">《BB 码 · 高中数学版》3.3 节</a>）。这些数字直接翻译成硬件要求。<b>第一条：</b>每个数据比特要连 6 根线，而且「往右三格」「往上三格」这种腿不是邻居——Bravyi 等人证明这张<span class="term">Tanner 图<span class="tip">检查矩阵的图形版：一侧是比特、一侧是检查，H 的每个 1 是一条边。它决定芯片需要哪些耦合器，不决定 CNOT 的顺序。</span></span>可以拆成<b>两层</b>平面图、每层每个比特最多三根线，但一层最近邻的方格芯片装不下它（<a href="../intuition/intuition.html#s6-1">6.1 节</a>）。说白了：要么有长程耦合器，要么原子能搬，要么把码切成几块用链路连起来——第 1.2 节的三个平台标签正是这三种答案。<b>第二条：</b>检查重量 6，一条检查要 6 个 CNOT 而不是 4 个。<b>第三条（这条和下一条是 Bravyi 等人论文的提取方案，不是静态矩阵推出的硬件必然）：</b>每条检查一个辅助比特——gross 有 144 条检查，就要 144 个辅助比特，总数 288。<b>第四条：</b>144 条检查的 864 个 CNOT 要排进 <b>7 层</b>（<a href="../intuition/intuition.html#s6-2">6.2 节</a>）；顺序排错，电路的实际码距会低于静态的 12。Atlas 直觉文稿把这条说得最硬：「症状电路、CNOT 顺序、探测器模型与译码器是存储器的一部分；一张静态的 [[n,k,d]] 矩阵本身不认证电路码距。」</p>
     <p class="en">Recall what the gross code looks like: an l = 12 by m = 6 torus (l, m are the cell counts along the two directions), two data qubits per cell, n = 2lm = 144; two three-term polynomials A = x³ + y + y² and B = y³ + x + x², so every check has <b>six legs</b> (|A| + |B| = 3 + 3, where |A| is the number of terms of A) and every data qubit is touched by 3 X checks and 3 Z checks (<a href="../intuition/intuition.html#s3-3">§3.3 of “BB Codes · High-School Edition”</a>). Those numbers translate directly into hardware demands. <b>Clause one:</b> every data qubit needs 6 wires, and legs such as “three cells to the right” or “three cells up” are not neighbours. Bravyi et al. show the <span class="term">Tanner graph<span class="tip">The picture of a check matrix: qubits on one side, checks on the other, one edge per 1 in H. It decides which couplers a chip needs, not the CNOT order.</span></span> splits into <b>two</b> planar layers with at most three wires per qubit per layer, but a single-layer nearest-neighbour grid cannot hold it (<a href="../intuition/intuition.html#s6-1">§6.1</a>). In plain words: either you have long-range couplers, or the atoms can move, or you cut the code into modules joined by links; the three platform tags of §1.2 are exactly those three answers. <b>Clause two:</b> check weight 6, so a check costs 6 CNOTs, not 4. <b>Clause three</b> (this clause and the next are the extraction protocol of Bravyi et al., not consequences of the static matrix)<b>:</b> one ancilla per check; gross has 144 checks, hence 144 ancillas and 288 qubits in all. <b>Clause four:</b> the 864 CNOTs of the 144 checks must fit into <b>7 layers</b> (<a href="../intuition/intuition.html#s6-2">§6.2</a>); a wrong order gives the circuit a smaller distance than the static 12. The Atlas intuition essay puts it bluntly: “The syndrome circuit, CNOT ordering, detector model, and decoder are part of the memory. A static [[n,k,d]] check matrix alone does not certify circuit distance.”</p>
+    <p class="zh">这句话里的<b>探测器</b>要先说清。一条检查每轮测一次，第 t 轮的读数记 s<sub>t</sub>（0 或 1）。探测器不直接看 s<sub>t</sub>，而是把同一条检查相邻两轮的读数比一比：D<sub>t</sub> = s<sub>t</sub> ⊕ s<sub>t−1</sub>（⊕ 是模 2 加，两轮相同得 0，不同得 1）。例子：某个数据比特在第 3、4 轮之间被翻了一下，碰到它的检查从第 4 轮起一直读 1，读数串是 0, 0, 0, 1, 1, 1……，探测器只在第 4 轮亮一次；如果数据没错、只是第 4 轮的测量读错了，读数串是 0, 0, 0, 1, 0, 0……，探测器在第 4、5 轮各亮一次。两种故障留下的「亮灯图案」不同，译码器靠这个区分它们。<b>探测器模型</b>就是一张完整的表：电路里每一种可能的故障，会点亮哪几个探测器。换电路、换 CNOT 顺序、换测量节拍，这张表都会变，所以它和译码器一样是存储器的一部分。</p>
+    <p class="en">The <b>detector</b> in that sentence needs a definition first. A check is measured once per round; call its outcome in round t s<sub>t</sub> (0 or 1). A detector does not look at s<sub>t</sub> itself; it compares the same check in two consecutive rounds: D<sub>t</sub> = s<sub>t</sub> ⊕ s<sub>t−1</sub> (⊕ is addition mod 2: 0 if the two rounds agree, 1 if they differ). Example: a data qubit is flipped between rounds 3 and 4, so a check touching it reads 1 from round 4 on; the outcome string is 0, 0, 0, 1, 1, 1, …, and the detector lights once, in round 4. If the data are fine and only the round-4 measurement misreads, the string is 0, 0, 0, 1, 0, 0, … and the detector lights in rounds 4 and 5. The two faults leave different light patterns, and that is how a decoder tells them apart. The <b>detector model</b> is the complete table: for every possible fault in the circuit, which detectors it lights. Change the circuit, the CNOT order or the measurement cadence and the table changes, which is why it belongs to the memory just as the decoder does.</p>
   </div>
   <div class="formula center"><span class="zh">BB 契约</span><span class="en">BB contract</span> = <span class="zh">度 6 的 Tanner 图（两层平面、每层度 3）</span><span class="en">degree-6 Tanner graph (two planar layers, degree 3 each)</span> + <span class="zh">六腿检查</span><span class="en">six-leg checks</span><br>+ <span class="zh">每检查一个辅助比特</span><span class="en">one ancilla per check</span> + <span class="zh">深度 7 的调度</span><span class="en">a depth-7 schedule</span></div>
   <div class="prose"><p class="zh muted small">记号：n = 物理（数据）比特数，k = 逻辑比特数（两者的定义见<a href="../../toric_code/intuition/intuition-hs.html#s4-4">《从高考数学到 Toric Code》4.4 节</a>），d = 码距，即骗过全部检查的最轻逻辑算符的重量（<a href="../../toric_code/intuition/intuition-hs.html#s5-8">同一教程 5.8 节</a>）；l、m = 环面两个方向的格数；A、B = 两个多项式，|A|、|B| = 它们的项数；「度」= 一个比特连出的边数；864 = 144 条检查 × 6 个 CNOT，本页算的。</p><p class="en muted small">Notation: n = number of physical (data) qubits, k = number of logical qubits (both defined in <a href="../../toric_code/intuition/intuition-hs.html#s4-4">§4.4 of “From High-School Math to the Toric Code”</a>), d = code distance, the weight of the lightest logical operator that fools every check (<a href="../../toric_code/intuition/intuition-hs.html#s5-8">§5.8 of the same guide</a>); l, m = cell counts along the two torus directions; A, B = the two polynomials, |A|, |B| = their term counts; “degree” = the number of edges leaving a qubit; 864 = 144 checks × 6 CNOTs, this page's arithmetic.</p></div>
-  <figure class="fig">
+  <figure class="fig" id="fig-1-1">
     <div class="fig-frame">
-      <svg viewBox="0 0 720 230" width="100%" style="max-width:720px;height:auto;color:var(--ink)" role="img" aria-label="表面码一层四腿与 BB 码两层六腿的对比 / Surface code: one layer, four legs; BB code: two layers, six legs">
+      <svg viewBox="0 0 760 290" width="100%" style="max-width:760px;height:auto;color:var(--ink)" role="img" aria-label="表面码一个数据比特的四条腿与 gross 码一个数据比特的六条腿 / The four legs of a surface-code data qubit and the six legs of a gross data qubit">
         <g font-family="monospace" font-size="13" fill="var(--ink2)">
-          <text x="40" y="26" class="zh">表面码：一层，每比特 4 根线，只连邻居</text><text x="40" y="26" class="en">Surface code: one layer, 4 wires per qubit, neighbours only</text>
-          <text x="390" y="26" class="zh">gross：两层，每层最多 3 根线，有的线跨三格</text><text x="390" y="26" class="en">gross: two layers, ≤ 3 wires per layer, some span three cells</text>
+          <text x="30" y="22" class="zh">表面码：4 条腿，都只到邻格</text><text x="30" y="22" class="en">Surface code: 4 legs, all to neighbours</text>
+          <text x="420" y="22" class="zh">gross 的 L(i, j)：6 条腿，最长 3 格</text><text x="420" y="22" class="en">gross L(i, j): 6 legs, up to 3 cells</text>
         </g>
-        <g stroke="var(--line)" stroke-width="1" fill="none"><rect x="40" y="46" width="290" height="150" rx="6"/></g>
-        <g stroke="var(--line)" stroke-width="1"><line x1="70" y1="121" x2="300" y2="121"/><line x1="185" y1="60" x2="185" y2="182"/></g>
-        <g stroke="var(--cx)" stroke-width="2.4"><line x1="185" y1="121" x2="130" y2="121"/><line x1="185" y1="121" x2="240" y2="121"/></g>
-        <g stroke="var(--cz)" stroke-width="2.4"><line x1="185" y1="121" x2="185" y2="80"/><line x1="185" y1="121" x2="185" y2="162"/></g>
-        <circle cx="185" cy="121" r="7" fill="var(--ink)"/>
-        <g font-family="monospace" font-size="12" fill="var(--ink2)" text-anchor="middle"><text x="185" y="210" class="zh">4 条边，长度全是 1</text><text x="185" y="210" class="en">4 edges, all of length 1</text></g>
-        <g stroke="var(--line)" stroke-width="1" fill="none"><path d="M400 150 l60 -30 h220 l-60 30 z"/><path d="M400 96 l60 -30 h220 l-60 30 z" stroke-dasharray="4 3"/></g>
-        <g stroke="var(--cx)" stroke-width="2.4"><line x1="540" y1="135" x2="500" y2="135"/><line x1="540" y1="135" x2="600" y2="135"/><line x1="540" y1="135" x2="650" y2="128"/></g>
-        <g stroke="var(--cz)" stroke-width="2.4"><line x1="540" y1="81" x2="500" y2="81"/><line x1="540" y1="81" x2="590" y2="81"/><line x1="540" y1="81" x2="430" y2="84"/></g>
-        <line x1="540" y1="81" x2="540" y2="135" stroke="var(--cd)" stroke-width="1.6" stroke-dasharray="3 3"/>
-        <circle cx="540" cy="135" r="7" fill="var(--ink)"/><circle cx="540" cy="81" r="7" fill="var(--ink)" opacity="0.55"/>
-        <g font-family="monospace" font-size="12" fill="var(--ink2)" text-anchor="middle">
-          <text x="540" y="175" class="zh">两层平面耦合：每层每比特 ≤ 3 根线（不是按 X / Z 分层）</text><text x="540" y="175" class="en">two planar coupling layers, ≤ 3 wires per qubit each (not an X/Z split)</text>
-          <text x="540" y="193" class="zh">洋红虚线：跨层耦合，同一个数据比特</text><text x="540" y="193" class="en">magenta dashes: the same data qubit seen in both layers</text>
-          <text x="540" y="211" class="zh">最长的腿 = 3 格（x³ 或 y³）</text><text x="540" y="211" class="en">longest leg = 3 cells (x³ or y³)</text>
-        </g>
+        <rect x="30" y="40" width="300" height="220" rx="6" fill="none" stroke="var(--line)"/>
+        <g fill="var(--line2)"><circle cx="80" cy="100" r="2"/><circle cx="80" cy="150" r="2"/><circle cx="80" cy="200" r="2"/><circle cx="130" cy="100" r="2"/><circle cx="130" cy="150" r="2"/><circle cx="130" cy="200" r="2"/><circle cx="180" cy="100" r="2"/><circle cx="180" cy="150" r="2"/><circle cx="180" cy="200" r="2"/><circle cx="230" cy="100" r="2"/><circle cx="230" cy="150" r="2"/><circle cx="230" cy="200" r="2"/><circle cx="280" cy="100" r="2"/><circle cx="280" cy="150" r="2"/><circle cx="280" cy="200" r="2"/></g>
+        <g stroke="var(--cx)" stroke-width="2.4"><line x1="180" y1="150" x2="130" y2="150"/><line x1="180" y1="150" x2="230" y2="150"/></g>
+        <g stroke="var(--cz)" stroke-width="2.4"><line x1="180" y1="150" x2="180" y2="100"/><line x1="180" y1="150" x2="180" y2="200"/></g>
+        <g fill="var(--cx-soft)" stroke="var(--cx)" stroke-width="1.6"><circle cx="130" cy="150" r="7"/><circle cx="230" cy="150" r="7"/></g>
+        <g fill="var(--cz-soft)" stroke="var(--cz)" stroke-width="1.6"><rect x="173" y="93" width="14" height="14"/><rect x="173" y="193" width="14" height="14"/></g>
+        <circle cx="180" cy="150" r="7" fill="var(--ink)"/>
+        <g font-family="monospace" font-size="12" fill="var(--ink2)"><text x="124" y="136">X</text><text x="224" y="136">X</text><text x="194" y="104">Z</text><text x="194" y="204">Z</text></g>
+        <g font-family="monospace" font-size="12" fill="var(--ink2)" text-anchor="middle"><text x="180" y="244" class="zh">每条腿长 1 格</text><text x="180" y="244" class="en">every leg is 1 cell long</text></g>
+        <g fill="var(--line2)"><circle cx="466" cy="226" r="2"/><circle cx="466" cy="188" r="2"/><circle cx="466" cy="150" r="2"/><circle cx="466" cy="112" r="2"/><circle cx="466" cy="74" r="2"/><circle cx="466" cy="36" r="2"/><circle cx="504" cy="226" r="2"/><circle cx="504" cy="188" r="2"/><circle cx="504" cy="150" r="2"/><circle cx="504" cy="112" r="2"/><circle cx="504" cy="74" r="2"/><circle cx="504" cy="36" r="2"/><circle cx="542" cy="226" r="2"/><circle cx="542" cy="188" r="2"/><circle cx="542" cy="150" r="2"/><circle cx="542" cy="112" r="2"/><circle cx="542" cy="74" r="2"/><circle cx="542" cy="36" r="2"/><circle cx="580" cy="226" r="2"/><circle cx="580" cy="188" r="2"/><circle cx="580" cy="150" r="2"/><circle cx="580" cy="112" r="2"/><circle cx="580" cy="74" r="2"/><circle cx="580" cy="36" r="2"/><circle cx="618" cy="226" r="2"/><circle cx="618" cy="188" r="2"/><circle cx="618" cy="150" r="2"/><circle cx="618" cy="112" r="2"/><circle cx="618" cy="74" r="2"/><circle cx="618" cy="36" r="2"/><circle cx="656" cy="226" r="2"/><circle cx="656" cy="188" r="2"/><circle cx="656" cy="150" r="2"/><circle cx="656" cy="112" r="2"/><circle cx="656" cy="74" r="2"/><circle cx="656" cy="36" r="2"/><circle cx="694" cy="226" r="2"/><circle cx="694" cy="188" r="2"/><circle cx="694" cy="150" r="2"/><circle cx="694" cy="112" r="2"/><circle cx="694" cy="74" r="2"/><circle cx="694" cy="36" r="2"/></g>
+        <g stroke="var(--cx)" stroke-width="2.4" fill="none"><line x1="580" y1="150" x2="466" y2="150"/><path d="M580 150 Q540 188 580 226"/><line x1="580" y1="150" x2="580" y2="188"/></g>
+        <g stroke="var(--cz)" stroke-width="2.4" fill="none"><line x1="580" y1="150" x2="580" y2="36"/><path d="M580 150 Q618 196 656 150"/><line x1="580" y1="150" x2="618" y2="150"/></g>
+        <g fill="var(--cx-soft)" stroke="var(--cx)" stroke-width="1.6"><circle cx="466" cy="150" r="7"/><circle cx="580" cy="188" r="7"/><circle cx="580" cy="226" r="7"/></g>
+        <g fill="var(--cz-soft)" stroke="var(--cz)" stroke-width="1.6"><rect x="573" y="29" width="14" height="14"/><rect x="611" y="143" width="14" height="14"/><rect x="649" y="143" width="14" height="14"/></g>
+        <circle cx="580" cy="150" r="7" fill="var(--ink)"/>
+        <g font-family="monospace" font-size="11.5" fill="var(--ink2)"><text x="466" y="136" text-anchor="middle">X(i−3, j)</text><text x="592" y="192" text-anchor="start">X(i, j−1)</text><text x="592" y="230" text-anchor="start">X(i, j−2)</text><text x="592" y="40" text-anchor="start">Z(i, j+3)</text><text x="618" y="136" text-anchor="middle">Z(i+1, j)</text><text x="668" y="154" text-anchor="start">Z(i+2, j)</text><text x="570" y="140" text-anchor="end" fill="var(--ink)">L(i, j)</text></g>
+        <g stroke="var(--ink3)" stroke-width="1.3" fill="none"><path d="M400 262 h44 m-6 -4 l6 4 l-6 4"/><path d="M400 262 v-44 m-4 6 l4 -6 l4 6"/></g>
+        <g font-family="monospace" font-size="12" fill="var(--ink3)"><text x="450" y="266">x</text><text x="396" y="212">y</text></g>
       </svg>
     </div>
     <figcaption>
       <span class="fno">图 1.1</span>
-      <span class="zh">同一个数据比特在两种码里的「插座数」。左：表面码，4 根线、全部长度 1（《Surface Code · 用例与实现》<a href="../../surface_code/realizations/realizations.html#s1-1">1.1 节</a>的契约）。右：gross 码，3 + 3 根线分在两层，其中 x³、y³ 两条腿伸到三格之外。示意图，不是芯片版图；Atlas 只登记「可拆成两层平面度 3」这一事实，不登记任何具体布线。</span>
-      <span class="en">The “socket count” of one data qubit in the two codes. Left: surface code, 4 wires, all of length 1 (the contract of <a href="../../surface_code/realizations/realizations.html#s1-1">§1.1 of “Surface Code · Use Cases &amp; Realizations”</a>). Right: gross code, 3 + 3 wires split over two layers, the x³ and y³ legs reaching three cells away. A sketch, not a chip layout; the Atlas records only the fact “splits into two planar degree-3 layers”, no specific wiring.</span>
+      <span class="zh">同一个数据比特在两种码里的「插座数」。左：表面码，4 根线、全部长度 1（《Surface Code · 用例与实现》<a href="../../surface_code/realizations/realizations.html#s1-1">1.1 节</a>的契约）。右：gross 码左层比特 L(i, j) 的 6 条腿，画在它真实的格子偏移上（灰点是环面上的格子，左下角箭头 x 向右、y 向上，各一格；圆 = X 检查，来自 A = x³ + y + y²；方 = Z 检查，来自 B = y³ + x + x²；本页按构造器约定算出：X 检查在 (i−3, j)、(i, j−1)、(i, j−2)，Z 检查在 (i, j+3)、(i+1, j)、(i+2, j)），「往左三格」「往上三格」两条腿伸到三格远。通往 X(i, j−2) 与 Z(i+2, j) 的两条腿画成弧线：画成直线会穿过更近的 X(i, j−1)、Z(i+1, j)，看起来像经过那两条检查转接；实际上六条腿都直接连到 L(i, j)。右层比特的腿是同样的形状，方向不同。这不是芯片版图：Atlas 只登记「Tanner 图可拆成两层平面、每层度 3」这一事实，不登记具体怎样分层与布线，所以图里不画分层。</span>
+      <span class="en">The “socket count” of one data qubit in the two codes. Left: surface code, 4 wires, all of length 1 (the contract of <a href="../../surface_code/realizations/realizations.html#s1-1">§1.1 of “Surface Code · Use Cases &amp; Realizations”</a>). Right: the 6 legs of the gross left-layer qubit L(i, j), drawn at their true site offsets (grey dots are torus sites; the arrows at the bottom left point x right and y up, one cell each; circles = X checks, from A = x³ + y + y²; squares = Z checks, from B = y³ + x + x²; computed here under the constructor's convention: X checks at (i−3, j), (i, j−1), (i, j−2), Z checks at (i, j+3), (i+1, j), (i+2, j)); the “three left” and “three up” legs reach three cells away. The legs to X(i, j−2) and Z(i+2, j) are drawn as arcs: as straight lines they would pass through the nearer X(i, j−1) and Z(i+1, j) and look as if routed through those checks; in fact all six legs connect directly to L(i, j). A right-layer qubit has legs of the same shape in other directions. This is not a chip layout: the Atlas records only the fact “the Tanner graph splits into two planar layers of degree 3”, not how the split or the wiring is done, so the layers are not drawn.</span>
     </figcaption>
   </figure>
 
@@ -1005,11 +1018,11 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
 
   <h3 id="s1-3"><span class="sec-no">1.3</span><span class="zh">把「144」这本账算全</span><span class="en">Completing the “144” ledger</span></h3>
   <div class="prose">
-    <p class="zh">卡片和论文最常被引用的一句是「十二倍」：144 个数据比特，旋转表面码存 1 个 d = 12 的逻辑比特，gross 存 12 个。这句话<b>只比数据比特</b>。按 1.1 节第三条款，gross 还要 144 个辅助比特，全账是 288 个物理比特；旋转表面码 d = 12 的辅助比特是 143 个（每条检查一个，d² − 1 条检查），全账 287。所以「十二倍」在全账上仍然近似成立——但这是<b>静态比特数</b>的比较，没有算译码器、路由、逻辑门。反过来，第 3 章的昆仑实验用了 32 个 transmon 跑一个 n = 18 的码：32 是<b>整台设备</b>的数目（含它选择的辅助资源），18 是<b>静态数据比特</b>的参数。实现账本特别叮嘱：32 不能和 gross 的 144 直接比——一个是设备实现，一个是矩阵参数。下面的图是数据比特账：横轴数据比特数，纵轴逻辑比特数，把鼠标放到点上看 k·d²/n。</p>
-    <p class="en">The most quoted sentence about the card and the paper is “twelve-fold”: with 144 data qubits a rotated surface code stores 1 logical qubit at d = 12, the gross code stores 12. That sentence <b>compares data qubits only</b>. By clause three of §1.1 gross also needs 144 ancillas, so the full ledger is 288 physical qubits; a d = 12 rotated surface code needs 143 ancillas (one per check, d² − 1 checks), full ledger 287. So “twelve-fold” still roughly holds on the full ledger, but it is a comparison of <b>static qubit counts</b>: no decoder, routing or logical gates included. Conversely, the Kunlun run of Chapter 3 used 32 transmons for an n = 18 code: 32 is the <b>whole device</b> (including its chosen ancilla resources), 18 is a <b>static data-qubit</b> parameter. The realization ledger insists: 32 must not be compared directly with gross's 144; one is a device implementation, the other a matrix parameter. The chart below is the data-qubit ledger: data qubits across, logical qubits up; hover a point for k·d²/n.</p>
+    <p class="zh">卡片和论文最常被引用的一句是「十二倍」：144 个数据比特，旋转表面码存 1 个 d = 12 的逻辑比特，gross 存 12 个。这句话<b>只比数据比特</b>。按 1.1 节第三条款，gross 还要 144 个辅助比特，全账是 288 个物理比特；旋转表面码 d = 12 的辅助比特是 143 个（每条检查一个，d² − 1 条检查），全账 287。所以「十二倍」在全账上仍然近似成立——但这是<b>码距相同时静态比特数</b>的比较，没有算译码器、路由、逻辑门。论文的标题数字是另一种比法，来自电路级噪声下的数值模拟（arXiv 2308.07915 第 3、8 节）：每个操作以概率 p = 0.1% 独立出错的去极化电路噪声（定义见 4.2 节末尾）；gross 一侧用 MIN-SUM 置信传播加 combination-sweep 版本的 OSD 译码，288 个物理比特，估计每轮逻辑错误率约 2 × 10⁻⁷，论文由此估计能把 12 个逻辑比特保存近一百万轮；对照是 12 块独立的旋转表面码贴片（d = 9 到 15，标准症状电路，同样的噪声，数据来自作者之一与 Vargo 的模拟软件，论文此处没有写明表面码一侧的译码器），要把每轮错误率从 10⁻³ 压到 10⁻⁶ 需要近 3000 个物理比特。论文据此说节省超过 10 倍；两边的目标错误率并不相同（约 2 × 10⁻⁷ 对 10⁻⁶），所以这是近似的比较。反过来，第 3 章的昆仑实验用了 32 个 transmon（目前最常用的一种超导量子比特）跑一个 n = 18 的码：32 是<b>整台设备</b>的数目（含它选择的辅助资源），18 是<b>静态数据比特</b>的参数。实现账本特别叮嘱：32 不能和 gross 的 144 直接比——一个是设备实现，一个是矩阵参数。下面的图是数据比特账：横轴数据比特数，纵轴逻辑比特数，把鼠标放到点上看 k·d²/n。</p>
+    <p class="en">The most quoted sentence about the card and the paper is “twelve-fold”: with 144 data qubits a rotated surface code stores 1 logical qubit at d = 12, the gross code stores 12. That sentence <b>compares data qubits only</b>. By clause three of §1.1 gross also needs 144 ancillas, so the full ledger is 288 physical qubits; a d = 12 rotated surface code needs 143 ancillas (one per check, d² − 1 checks), full ledger 287. So “twelve-fold” still roughly holds on the full ledger, but it is a comparison of <b>static qubit counts at equal distance</b>: no decoder, routing or logical gates included. The paper's headline number compares differently and comes from numerical simulation under circuit-level noise (arXiv 2308.07915, sections 3 and 8): depolarizing circuit noise in which every operation fails independently with probability p = 0.1% (defined at the end of §4.2); on the gross side, MIN-SUM belief propagation with the combination-sweep version of OSD as decoder, 288 physical qubits, an estimated logical error rate of about 2 × 10⁻⁷ per cycle, from which the paper estimates that 12 logical qubits survive nearly one million cycles; the comparator is 12 separate rotated surface-code patches (d = 9 to 15, the standard syndrome circuit, the same noise, data from simulation software by one of the authors and Vargo; the paper does not name the surface-code decoder at this point), which need nearly 3000 physical qubits to push the per-cycle error rate from 10⁻³ to 10⁻⁶. On this basis the paper claims a saving of more than 10 times; the two target error rates differ (about 2 × 10⁻⁷ versus 10⁻⁶), so the comparison is approximate. Conversely, the Kunlun run of Chapter 3 used 32 transmons (the most widely used kind of superconducting qubit) for an n = 18 code: 32 is the <b>whole device</b> (including its chosen ancilla resources), 18 is a <b>static data-qubit</b> parameter. The realization ledger insists: 32 must not be compared directly with gross's 144; one is a device implementation, the other a matrix parameter. The chart below is the data-qubit ledger: data qubits across, logical qubits up; hover a point for k·d²/n.</p>
   </div>
   <div data-widget="bbledgerchart"></div>
-  <div class="prose"><p class="zh muted small">记号：k·d²/n = 逻辑比特数乘码距平方再除以数据比特数，是 BPT 界 k·d² ≤ c·n 里那个「常数」的实测值（<a href="../intuition/intuition.html#s1-1">《BB 码 · 高中数学版》1.1 节</a>；c = 只与检查大小和伸展范围有关的常数）；143 = 12² − 1，287 = 144 + 143，均为本页算的，旋转表面码的比特账见<a href="../../surface_code/realizations/realizations.html#ch4">表面码实现页第 4 章</a>。</p><p class="en muted small">Notation: k·d²/n = logical qubits times distance squared over data qubits, the measured value of the “constant” in the BPT bound k·d² ≤ c·n (<a href="../intuition/intuition.html#s1-1">§1.1 of “BB Codes · High-School Edition”</a>; c = a constant depending only on check size and reach); 143 = 12² − 1 and 287 = 144 + 143 are this page's arithmetic, the rotated-surface qubit ledger is in <a href="../../surface_code/realizations/realizations.html#ch4">Chapter 4 of the surface realizations page</a>.</p></div>
+  <div class="prose"><p class="zh muted small">记号：k·d²/n = 逻辑比特数乘码距平方再除以数据比特数，是比较有限码的一个指标：存了几个、保护多强、花了几个，合成一个数。它和 BPT 界的关系是：对比特排在二维格子上、单位面积比特数有上限、每条检查只碰固定距离以内的比特的码族，BPT 界（<a href="../intuition/intuition.html#s1-1">《BB 码 · 高中数学版》1.1 节</a>）说 k·d² ≤ c·n，即这个比值不超过常数 c（c 只取决于检查的作用范围和每个格点的维数）；某一块码算出的 k·d²/n 只是一个具体数，不是 c 的「实测值」；143 = 12² − 1，287 = 144 + 143，均为本页算的，旋转表面码的比特账见<a href="../../surface_code/realizations/realizations.html#ch4">表面码实现页第 4 章</a>。</p><p class="en muted small">Notation: k·d²/n = logical qubits times distance squared over data qubits, a metric for comparing finite codes: how many stored, how well protected, at what cost, folded into one number. Its relation to the BPT bound: for code families whose qubits sit on a 2D lattice with a bounded number per unit area and whose checks touch only qubits within a fixed distance, the BPT bound (<a href="../intuition/intuition.html#s1-1">§1.1 of “BB Codes · High-School Edition”</a>) says k·d² ≤ c·n, i.e. this ratio stays below a constant c (c depends only on the check range and the dimension per site); the k·d²/n of one particular code is just a number, not a “measured value” of c; 143 = 12² − 1 and 287 = 144 + 143 are this page's arithmetic, the rotated-surface qubit ledger is in <a href="../../surface_code/realizations/realizations.html#ch4">Chapter 4 of the surface realizations page</a>.</p></div>
   <div class="note note-key">
     <span class="note-tag"><span class="zh">关键想法</span><span class="en">Key idea</span></span>
     <p class="zh">BB 码的契约比表面码多要一层耦合、每条检查多两条腿、每轮多三层门。卡片的三个平台标签是三种付法：长线、搬动、切块。三种里目前只有「长线」被真机兑现过一次，而且兑现的是 n = 18 的小块，不是 144。</p>
@@ -1040,8 +1053,8 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
 
   <h3 id="s2-2"><span class="sec-no">2.2</span><span class="zh">「每个逻辑比特每轮」是什么意思</span><span class="en">What “per logical qubit per cycle” means</span></h3>
   <div class="prose">
-    <p class="zh">表面码实验报告的 <span class="term">ε<sub>L</sub><span class="tip">每轮逻辑错误率（logical error per cycle）：跑一轮纠错循环后逻辑比特被翻转的概率，由多轮衰减曲线拟合得到；定义见《Surface Code · 用例与实现》2.1 节。</span></span> 是「这一个逻辑比特每轮翻转的概率」（<a href="../../surface_code/realizations/realizations.html#s2-1">2.1 节</a>）。BB 块里有 k 个逻辑比特——昆仑的 [[18,4,4]] 有 4 个——所以卡片写的是「<b>每个逻辑比特</b>每轮的逻辑错误率 (8.91 ± 0.17)%」：把整块的失败按逻辑比特归一化后的数字。人话：按逻辑比特平均后，量级是「每个逻辑比特每轮约 8.9%」（卡片没给归一化公式，所以不能直接当成某一个比特的翻转概率）；「±0.17%」是卡片登记的不确定度，卡片没有说明它是哪种误差棒。卡片没有给出整块层面的原始数字，也没有给出归一化的公式，本页不替论文重建它。比较时还要问一轮多长——超导芯片一轮约一微秒，中性原子慢得多——卡片同样没有登记这个时长。</p>
-    <p class="en">A surface-code experiment reports <span class="term">ε<sub>L</sub><span class="tip">Logical error per cycle: the probability that the logical qubit flips over one correction cycle, fitted from a multi-cycle decay curve; defined in §2.1 of “Surface Code · Use Cases &amp; Realizations”.</span></span>, “the probability that this one logical qubit flips per cycle” (<a href="../../surface_code/realizations/realizations.html#s2-1">§2.1</a>). A BB block holds k logical qubits, four for Kunlun's [[18,4,4]], so the card writes “logical error <b>per logical qubit</b> per cycle (8.91 ± 0.17)%”: the block's failure normalised per logical qubit. In plain words: averaged per logical qubit it is of the order “about 8.9% per logical qubit per round” (the card gives no normalisation formula, so it is not literally one qubit's flip probability); “±0.17%” is the uncertainty the card records, with no statement of which error-bar convention it follows. The card gives neither the raw block-level number nor the normalisation formula, and this page does not reconstruct it for the paper. When comparing, also ask how long a cycle is (about a microsecond on superconducting chips, far longer for neutral atoms); the card does not register that either.</p>
+    <p class="zh">表面码实验报告的 <span class="term">ε<sub>L</sub><span class="tip">每轮逻辑错误率（logical error per cycle）：跑一轮纠错循环后逻辑比特被翻转的概率，由多轮衰减曲线拟合得到；定义见《Surface Code · 用例与实现》2.1 节。</span></span> 是「这一个逻辑比特每轮翻转的概率」（<a href="../../surface_code/realizations/realizations.html#s2-1">2.1 节</a>）。BB 块里有 k 个逻辑比特——昆仑的 [[18,4,4]] 有 4 个——所以卡片写的是「<b>每个逻辑比特</b>每轮的逻辑错误率 (8.91 ± 0.17)%」：把整块的失败按逻辑比特归一化后的数字。人话：按逻辑比特平均后，量级是「每个逻辑比特每轮约 8.9%」（卡片没给归一化公式，所以不能直接当成某一个比特的翻转概率）；「±0.17%」是卡片登记的不确定度，卡片没有说明它是哪种误差棒。卡片没有给出整块层面的原始数字，也没有给出归一化的公式，本页不替论文重建它。比较时还要问一轮多长——超导芯片一轮约一微秒（表面码实现页用的量级），中性原子慢得多——卡片同样没有登记这个时长。</p>
+    <p class="en">A surface-code experiment reports <span class="term">ε<sub>L</sub><span class="tip">Logical error per cycle: the probability that the logical qubit flips over one correction cycle, fitted from a multi-cycle decay curve; defined in §2.1 of “Surface Code · Use Cases &amp; Realizations”.</span></span>, “the probability that this one logical qubit flips per cycle” (<a href="../../surface_code/realizations/realizations.html#s2-1">§2.1</a>). A BB block holds k logical qubits, four for Kunlun's [[18,4,4]], so the card writes “logical error <b>per logical qubit</b> per cycle (8.91 ± 0.17)%”: the block's failure normalised per logical qubit. In plain words: averaged per logical qubit it is of the order “about 8.9% per logical qubit per round” (the card gives no normalisation formula, so it is not literally one qubit's flip probability); “±0.17%” is the uncertainty the card records, with no statement of which error-bar convention it follows. The card gives neither the raw block-level number nor the normalisation formula, and this page does not reconstruct it for the paper. When comparing, also ask how long a cycle is (about a microsecond on superconducting chips, the order of magnitude used on the surface-code realizations page; far longer for neutral atoms); the card does not register that either.</p>
   </div>
   <div class="formula center">ε<sub><span class="zh">逻辑比特·轮</span><span class="en">logical·cycle</span></sub>(<span class="zh">昆仑</span><span class="en">Kunlun</span> [[18,4,4]]) = (8.91 <span class="sym" data-sym="pm">±</span> 0.17)%<br>k = 4<br><span class="dim"><span class="zh">整块原始数字：卡片未给</span><span class="en">raw block-level number: not on the card</span></span></div>
   <div class="prose"><p class="zh muted small">记号：ε<sub>逻辑比特·轮</sub> = 每个逻辑比特每轮的逻辑错误率（卡片原话「logical error per logical qubit per cycle」）；± = 读「正负」，后面的数是卡片登记的不确定度（约定未注明）；[[18,4,4]] = n 18 个数据比特、k 4 个逻辑比特、码距 d 4。</p><p class="en muted small">Notation: ε<sub>logical·cycle</sub> = logical error per logical qubit per cycle (the card's words); ± = read “plus or minus”, the number after it is the recorded uncertainty (convention not stated); [[18,4,4]] = n 18 data qubits, k 4 logical qubits, distance d 4.</p></div>
@@ -1125,8 +1138,8 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
 
   <h3 id="s3-4"><span class="sec-no">3.4</span><span class="zh">六腿检查长什么样：在实验台上数腿</span><span class="en">What a six-leg check looks like: count legs on the bench</span></h3>
   <div class="prose">
-    <p class="zh">昆仑实验的关键词是「全部非局域的六腿检查」。[[18,4,4]] 的多项式不在 Atlas 数据里，本页不猜；但 Table 3 的 [[72,12,6]] 用的正是 gross 的两个多项式（6 × 6 环面），可以借它看清「非局域六腿」是什么意思。在下面的实验台上点任意一条 X 检查：左层三条腿来自 A = x³ + y + y²（右三格、上一格、上两格），右层三条腿来自 B = y³ + x + x²。「往右三格」「往上三格」就是需要长程耦合器的那两条腿。再切到「看一个比特」，数它被几条检查碰到——3 + 3。</p>
-    <p class="en">The key phrase of the Kunlun run is “all nonlocal weight-six checks”. The polynomials of [[18,4,4]] are not Atlas data and this page will not guess them; but Table 3's [[72,12,6]] uses gross's two polynomials on a 6 × 6 torus, so it can show what “nonlocal six-leg” means. Click any X check on the bench below: three left-layer legs come from A = x³ + y + y² (three right, one up, two up), three right-layer legs from B = y³ + x + x². “Three to the right” and “three up” are the two legs that need long-range couplers. Then switch to the single-qubit view and count how many checks touch it: 3 + 3.</p>
+    <p class="zh">昆仑实验的关键词是「全部非局域的六腿检查」。[[18,4,4]] 的多项式不在 Atlas 数据里，本页不猜；但 Table 3 的 [[72,12,6]] 用的正是 gross 的两个多项式（6 × 6 环面），可以借它看清「非局域六腿」是什么意思。在下面的实验台上点任意一条 X 检查：左层三条腿来自 A = x³ + y + y²（右三格、上一格、上两格），右层三条腿来自 B = y³ + x + x²。图上实心点是左层比特、空心点是右层比特，横轴 i 向右、纵轴 j 向上，高亮的腿旁标着比特编号。「往右三格」「往上三格」就是需要长程耦合器的那两条腿。再切到「看一个比特」，数它被几条检查碰到——3 + 3。</p>
+    <p class="en">The key phrase of the Kunlun run is “all nonlocal weight-six checks”. The polynomials of [[18,4,4]] are not Atlas data and this page will not guess them; but Table 3's [[72,12,6]] uses gross's two polynomials on a 6 × 6 torus, so it can show what “nonlocal six-leg” means. Click any X check on the bench below: three left-layer legs come from A = x³ + y + y² (three right, one up, two up), three right-layer legs from B = y³ + x + x². In the picture filled dots are left-layer qubits and hollow dots right-layer qubits, the horizontal axis i points right and the vertical axis j up, and each highlighted leg carries its qubit index. “Three to the right” and “three up” are the two legs that need long-range couplers. Then switch to the single-qubit view and count how many checks touch it: 3 + 3.</p>
   </div>
   <div data-widget="bbbuilder" data-preset="bb72"></div>
 
@@ -1167,41 +1180,43 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
   <h3 id="s4-1"><span class="sec-no">4.1</span><span class="zh">从矩阵到机器的流水线，五条记录各钉一层</span><span class="en">The matrix-to-machine pipeline, each record pinned to a layer</span></h3>
   <figure class="fig">
     <div class="fig-frame">
-      <svg viewBox="0 0 720 300" width="100%" style="max-width:720px;height:auto;color:var(--ink)" role="img" aria-label="从静态矩阵到架构的六层流水线，五条卡片记录各钉在某一层 / Six-layer pipeline from static matrix to architecture, with the five card records pinned to layers">
+      <svg viewBox="0 0 720 380" width="100%" style="max-width:720px;height:auto;color:var(--ink)" role="img" aria-label="从静态矩阵到架构的六层流水线，五条卡片记录各钉在某一层 / Six-layer pipeline from static matrix to architecture, with the five card records pinned to layers">
         <g stroke="var(--line)" stroke-width="1.2" fill="var(--bg2)">
           <rect x="14" y="60" width="104" height="54" rx="6"/><rect x="132" y="60" width="104" height="54" rx="6"/><rect x="250" y="60" width="104" height="54" rx="6"/><rect x="368" y="60" width="104" height="54" rx="6"/><rect x="486" y="60" width="104" height="54" rx="6"/><rect x="604" y="60" width="104" height="54" rx="6"/>
         </g>
         <g stroke="var(--ink2)" stroke-width="1.2" fill="none"><path d="M118 87h14M236 87h14M354 87h14M472 87h14M590 87h14"/><path d="M128 83l4 4-4 4M246 83l4 4-4 4M364 83l4 4-4 4M482 83l4 4-4 4M600 83l4 4-4 4" /></g>
         <g font-family="monospace" font-size="11.5" fill="currentColor" text-anchor="middle">
-          <text x="66" y="82" class="zh">静态矩阵</text><text x="66" y="82" class="en">static matrix</text><text x="66" y="98">[[n,k,d]]</text>
-          <text x="184" y="82" class="zh">Tanner 图</text><text x="184" y="82" class="en">Tanner graph</text><text x="184" y="98" class="zh">度 6</text><text x="184" y="98" class="en">degree 6</text>
-          <text x="302" y="82" class="zh">版图 / 耦合</text><text x="302" y="82" class="en">layout / coupling</text><text x="302" y="98" class="zh">长线 · 搬动 · 切块</text><text x="302" y="98" class="en">wires · motion · modules</text>
-          <text x="420" y="82" class="zh">提取电路</text><text x="420" y="82" class="en">extraction circuit</text><text x="420" y="98" class="zh">深度 7，节拍</text><text x="420" y="98" class="en">depth 7, cadence</text>
-          <text x="538" y="82" class="zh">译码器</text><text x="538" y="82" class="en">decoder</text><text x="538" y="98">BP-OSD</text>
-          <text x="656" y="82" class="zh">指令集 / 架构</text><text x="656" y="82" class="en">instruction set</text><text x="656" y="98" class="zh">编译、资源</text><text x="656" y="98" class="en">compiler, resources</text>
+          <text x="66" y="82" class="zh">静态矩阵</text><text x="66" y="82" class="en" font-size="10.5">static matrix</text><text x="66" y="98">[[n,k,d]]</text>
+          <text x="184" y="82" class="zh">Tanner 图</text><text x="184" y="82" class="en" font-size="10.5">Tanner graph</text><text x="184" y="98" class="zh">度 6</text><text x="184" y="98" class="en" font-size="10.5">degree 6</text>
+          <text x="302" y="82" class="zh">版图 / 耦合</text><text x="302" y="82" class="en" font-size="10.5">layout</text><text x="302" y="98" class="zh">长线 · 搬动 · 切块</text><text x="302" y="98" class="en" font-size="10">wire/move/split</text>
+          <text x="420" y="82" class="zh">提取电路</text><text x="420" y="82" class="en" font-size="10.5">circuit</text><text x="420" y="98" class="zh">深度 7，节拍</text><text x="420" y="98" class="en" font-size="10">depth 7, cadence</text>
+          <text x="538" y="82" class="zh">译码器</text><text x="538" y="82" class="en" font-size="10.5">decoder</text><text x="538" y="98">BP-OSD</text>
+          <text x="656" y="82" class="zh">指令集 / 架构</text><text x="656" y="82" class="en" font-size="10.5">architecture</text><text x="656" y="98" class="zh">编译、资源</text><text x="656" y="98" class="en" font-size="10">compiler, costs</text>
         </g>
-        <g stroke-width="1.4" stroke-dasharray="3 3">
-          <line x1="66" y1="114" x2="66" y2="30" stroke="var(--ink2)"/>
-          <line x1="302" y1="114" x2="302" y2="150" stroke="var(--cd)"/><line x1="420" y1="114" x2="420" y2="150" stroke="var(--cd)"/>
-          <line x1="302" y1="114" x2="270" y2="196" stroke="var(--cx)"/>
-          <line x1="302" y1="114" x2="334" y2="238" stroke="var(--cz)"/><line x1="420" y1="114" x2="420" y2="238" stroke="var(--cz)"/>
-          <line x1="184" y1="114" x2="184" y2="280" stroke="var(--cx)"/><line x1="420" y1="114" x2="440" y2="280" stroke="var(--cx)"/>
-          <line x1="656" y1="114" x2="656" y2="196" stroke="var(--cz)"/>
-        </g>
-        <g font-family="monospace" font-size="11.5" text-anchor="middle">
-          <text x="66" y="24" fill="var(--ink2)" class="zh">Atlas 机器只重算这一层</text><text x="66" y="24" fill="var(--ink2)" class="en">the Atlas machine recomputes only this layer</text>
-          <text x="361" y="166" fill="var(--cd)" class="zh">昆仑 [[18,4,4]] · demonstrated：版图 + 重复电路，真机执行</text><text x="361" y="166" fill="var(--cd)" class="en">Kunlun [[18,4,4]] · demonstrated: layout + repeated circuit, executed</text>
-          <text x="230" y="212" fill="var(--cx)" class="zh">Rydberg 版图 · proposed：门与布线共同优化</text><text x="230" y="212" fill="var(--cx)" class="en">Rydberg layout · proposed: gates and routing co-optimised</text>
-          <text x="380" y="254" fill="var(--cz)" class="zh">分层二维 · proposed：搬动 / 通信 + 改变的测量节拍</text><text x="380" y="254" fill="var(--cz)" class="en">layered 2D · proposed: motion / links + altered cadence</text>
-          <text x="312" y="294" fill="var(--cx)" class="zh">度 5 变形 · proposed：换了族与探测器模型，六轮 CNOT</text><text x="312" y="294" fill="var(--cx)" class="en">degree-5 morphing · proposed: new family and detector model, six CNOT rounds</text>
-          <text x="600" y="212" fill="var(--cz)" class="zh">Tour de gross · proposed：指令集与资源</text><text x="600" y="212" fill="var(--cz)" class="en">Tour de gross · proposed: instruction set, resources</text>
-        </g>
+        <g stroke="var(--ink2)" stroke-width="1.2" stroke-dasharray="3 3"><line x1="66" y1="114" x2="66" y2="32"/></g>
+        <g font-family="monospace" font-size="11.5" fill="var(--ink2)"><text x="14" y="24" class="zh">Atlas 机器只重算这一层</text><text x="14" y="24" class="en">the Atlas machine recomputes only this layer</text></g>
+        <g stroke="var(--line)" stroke-width="1" stroke-dasharray="2 4"><line x1="66" y1="118" x2="66" y2="370"/><line x1="184" y1="118" x2="184" y2="370"/><line x1="302" y1="118" x2="302" y2="370"/><line x1="420" y1="118" x2="420" y2="370"/><line x1="538" y1="118" x2="538" y2="370"/><line x1="656" y1="118" x2="656" y2="370"/></g>
+        <line x1="14" y1="160" x2="708" y2="160" stroke="var(--line)" stroke-width="1"/>
+        <g font-family="monospace" font-size="11.5" fill="var(--cd)"><text x="14" y="150" class="zh">昆仑 [[18,4,4]] · demonstrated：长程耦合版图 + 重复的症状电路，真机执行</text><text x="14" y="150" class="en">Kunlun [[18,4,4]] · demonstrated: long-range layout + repeated syndrome circuit, executed</text></g>
+        <circle cx="302" cy="160" r="7" fill="var(--cd)" stroke="var(--cd)" stroke-width="2.2"/><circle cx="420" cy="160" r="7" fill="var(--cd)" stroke="var(--cd)" stroke-width="2.2"/>
+        <line x1="14" y1="206" x2="708" y2="206" stroke="var(--line)" stroke-width="1"/>
+        <g font-family="monospace" font-size="11.5" fill="var(--ink2)"><text x="14" y="196" class="zh">Rydberg 版图 · proposed：门与布线共同优化</text><text x="14" y="196" class="en">Rydberg layout · proposed: gates and routing co-optimised</text></g>
+        <circle cx="302" cy="206" r="7" fill="var(--bg2)" stroke="var(--cx)" stroke-width="2.2"/>
+        <line x1="14" y1="252" x2="708" y2="252" stroke="var(--line)" stroke-width="1"/>
+        <g font-family="monospace" font-size="11.5" fill="var(--ink2)"><text x="14" y="242" class="zh">分层二维 · proposed：搬动 / 通信 + 改变的测量节拍</text><text x="14" y="242" class="en">layered 2D · proposed: motion / links + altered measurement cadence</text></g>
+        <circle cx="302" cy="252" r="7" fill="var(--bg2)" stroke="var(--cz)" stroke-width="2.2"/><circle cx="420" cy="252" r="7" fill="var(--bg2)" stroke="var(--cz)" stroke-width="2.2"/>
+        <line x1="14" y1="298" x2="708" y2="298" stroke="var(--line)" stroke-width="1"/>
+        <g font-family="monospace" font-size="11.5" fill="var(--ink2)"><text x="14" y="288" class="zh">度 5 变形 · proposed：换了码族与探测器模型，六轮 CNOT</text><text x="14" y="288" class="en">degree-5 morphing · proposed: new code family and detector model, six CNOT rounds</text></g>
+        <circle cx="184" cy="298" r="7" fill="var(--bg2)" stroke="var(--cx)" stroke-width="2.2"/><circle cx="420" cy="298" r="7" fill="var(--bg2)" stroke="var(--cx)" stroke-width="2.2"/>
+        <line x1="14" y1="344" x2="708" y2="344" stroke="var(--line)" stroke-width="1"/>
+        <g font-family="monospace" font-size="11.5" fill="var(--ink2)"><text x="14" y="334" class="zh">Tour de gross · proposed：指令集、编译器与资源估计</text><text x="14" y="334" class="en">Tour de gross · proposed: instruction set, compiler, resource estimates</text></g>
+        <circle cx="656" cy="344" r="7" fill="var(--bg2)" stroke="var(--cz)" stroke-width="2.2"/>
       </svg>
     </div>
     <figcaption>
       <span class="fno">图 4.1</span>
-      <span class="zh">六层流水线（Atlas 直觉文稿「Tanner / 电路图景」的顺序）与五条卡片记录的落点。洋红：唯一真机执行的记录；橙与蓝：四条提案。变形提案同时钉在 Tanner 图与电路两层，因为它<b>换了码</b>：提取期间瞬时的稳定子群随时间变化。</span>
-      <span class="en">The six-layer pipeline (the order of the Atlas essay's “Tanner/circuit picture”) and where the five card records land. Magenta: the only record executed on hardware; amber and blue: the four proposals. Morphing is pinned to both the Tanner-graph and the circuit layers because it <b>changes the code</b>: the instantaneous stabilizer group varies during extraction.</span>
+      <span class="zh">六层流水线（Atlas 直觉文稿「Tanner / 电路图景」的顺序）与五条卡片记录的落点：每一行是一条记录，圆点落在它所钉的那一层（上方那一列）。实心洋红点 = 唯一真机执行过的记录；空心点 = 提案，橙与蓝只用来区分相邻两行。变形提案同时钉在 Tanner 图与电路两层，因为它<b>换了码</b>：提取期间瞬时的稳定子群随时间变化。</span>
+      <span class="en">The six-layer pipeline (the order of the Atlas essay's “Tanner/circuit picture”) and where the five card records land: each row is one record, and its dots sit under the layers (columns above) it is pinned to. Solid magenta dot = the only record executed on hardware; hollow dots = proposals, with amber and blue only telling neighbouring rows apart. Morphing is pinned to both the Tanner-graph and the circuit layers because it <b>changes the code</b>: the instantaneous stabilizer group varies during extraction.</span>
     </figcaption>
   </figure>
 
@@ -1209,15 +1224,15 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
   <details class="fold">
     <summary><span class="zh">优化的 Rydberg 中性原子版图 · <span class="mono">poole2025rydberg</span></span><span class="en">Optimized Rydberg neutral-atom layout · <span class="mono">poole2025rydberg</span></span></summary>
     <div class="fold-body">
-      <p class="zh"><b>卡片原文：</b>「门的布线与 Rydberg 相互作用为 BB 的连接性共同设计。结果是一个数值上的架构提案，而不是实验室里的逻辑存储演示。」<b>账本：</b>确立了「为 BB 连接性做的门 / 版图优化」；未确立「实验室逻辑存储」。<b>人话：</b>中性原子靠 Rydberg 态相互作用做两比特门，这篇论文把原子排在哪里、哪些门先做，按 gross 那张度 6 的 Tanner 图算了一遍最优解——攻的是「版图」这一层，让 Tanner 图实现得快。它没有搬一个原子。<b>文献：</b>据文献扫描报告，登记待补：C. Poole, T. M. Graham, M. A. Perlin, M. Otten, M. Saffman，“Architecture for Fast Implementation of Quantum Low-Density Parity-Check Codes with Optimized Rydberg Gates”，arXiv 2404.18809。</p>
-      <p class="en"><b>Card:</b> “Gate routing and Rydberg interactions were co-designed for BB connectivity. The result is a numerical architecture proposal rather than a laboratory logical-memory demonstration.” <b>Ledger:</b> established “gate/layout optimization for BB connectivity”; did not establish “laboratory logical memory”. <b>Plain words:</b> neutral atoms do two-qubit gates through Rydberg-state interactions; this paper computes where to put the atoms and which gates go first, optimised for gross's degree-6 Tanner graph. It attacks the layout layer: realise the Tanner graph fast. No atom was moved. <b>Reference:</b> from the scout report, registration pending: C. Poole, T. M. Graham, M. A. Perlin, M. Otten and M. Saffman, “Architecture for Fast Implementation of Quantum Low-Density Parity-Check Codes with Optimized Rydberg Gates”, arXiv 2404.18809.</p>
+      <p class="zh"><b>卡片原文：</b>「门的布线与 Rydberg 相互作用为 BB 的连接性共同设计。结果是一个数值上的架构提案，而不是实验室里的逻辑存储演示。」<b>账本：</b>确立了「为 BB 连接性做的门 / 版图优化」；未确立「实验室逻辑存储」。<b>人话：</b>中性原子靠 Rydberg 态（原子被激光激发到的一种电子轨道极大的高能态，两个这样的原子靠近时会强烈相互作用）做两比特门，这篇论文把原子排在哪里、哪些门先做，按 gross 那张度 6 的 Tanner 图算了一遍最优解——攻的是「版图」这一层，让 Tanner 图实现得快。它没有搬一个原子。<b>文献：</b>据文献扫描报告，登记待补：C. Poole, T. M. Graham, M. A. Perlin, M. Otten, M. Saffman，“Architecture for Fast Implementation of Quantum Low-Density Parity-Check Codes with Optimized Rydberg Gates”，arXiv 2404.18809。</p>
+      <p class="en"><b>Card:</b> “Gate routing and Rydberg interactions were co-designed for BB connectivity. The result is a numerical architecture proposal rather than a laboratory logical-memory demonstration.” <b>Ledger:</b> established “gate/layout optimization for BB connectivity”; did not establish “laboratory logical memory”. <b>Plain words:</b> neutral atoms do two-qubit gates through Rydberg-state interactions (a Rydberg state is a highly excited state with a very large electron orbit, reached by laser; two such atoms close together interact strongly); this paper computes where to put the atoms and which gates go first, optimised for gross's degree-6 Tanner graph. It attacks the layout layer: realise the Tanner graph fast. No atom was moved. <b>Reference:</b> from the scout report, registration pending: C. Poole, T. M. Graham, M. A. Perlin, M. Otten and M. Saffman, “Architecture for Fast Implementation of Quantum Low-Density Parity-Check Codes with Optimized Rydberg Gates”, arXiv 2404.18809.</p>
     </div>
   </details>
   <details class="fold">
     <summary><span class="zh">分层的二维硬件 · <span class="mono">berthusen2025local</span></span><span class="en">Layered two-dimensional hardware · <span class="mono">berthusen2025local</span></span></summary>
     <div class="fold-body">
-      <p class="zh"><b>卡片原文：</b>「用搬动或通信把长程的 BB 检查嵌进一台局域连接的设备，包括让某些代价高的检查测得少一些的调度。改变了的节拍与电路噪声必须作为提案的一部分被译码。」<b>账本：</b>确立了「量化的搬动 / 通信代价与改变的检查节拍」；未确立「探测器模型不变，或免费的局域化」。<b>人话：</b>如果芯片只有最近邻连线，就把远处的腿用搬动或量子通信补上，代价是时间；再省一点，就让最贵的几条检查隔几轮才测一次。但「隔几轮测一次」改变了探测器——译码器看到的不再是深度 7 那张图——所以这篇的阈值数字属于它自己的电路与译码器，不能拿 0.8% 来套。它攻的是「版图」与「电路节拍」两层。<b>文献：</b>据文献扫描报告，登记待补：N. Berthusen 等，“Toward a 2D Local Implementation of Quantum Low-Density Parity-Check Codes”，arXiv 2404.17676。</p>
-      <p class="en"><b>Card:</b> “Motion or communication embeds long-range BB checks in a locally connected device, including schedules that measure some costly checks less often. The altered cadence and circuit noise must be decoded as part of the proposal.” <b>Ledger:</b> established “quantified motion/communication and altered check cadence”; did not establish “unchanged detector model or free localization”. <b>Plain words:</b> if the chip has only nearest-neighbour wiring, supply the far legs by motion or quantum communication and pay in time; to save more, measure the most expensive checks only every few rounds. But “every few rounds” changes the detectors, the decoder no longer sees the depth-7 graph, so this paper's threshold numbers belong to its own circuit and decoder and 0.8% cannot be pasted onto it. It attacks the layout and circuit-cadence layers. <b>Reference:</b> from the scout report, registration pending: N. Berthusen et al., “Toward a 2D Local Implementation of Quantum Low-Density Parity-Check Codes”, arXiv 2404.17676.</p>
+      <p class="zh"><b>卡片原文：</b>「用搬动或通信把长程的 BB 检查嵌进一台局域连接的设备，包括让某些代价高的检查测得少一些的调度。改变了的节拍与电路噪声必须作为提案的一部分被译码。」<b>账本：</b>确立了「量化的搬动 / 通信代价与改变的检查节拍」；未确立「探测器模型不变，或免费的局域化」。<b>人话：</b>如果芯片只有最近邻连线，就把远处的腿用搬动或量子通信补上，代价是时间；再省一点，就让最贵的几条检查隔几轮才测一次。但「隔几轮测一次」改变了探测器（1.1 节的定义）。若一条检查每 2 轮才测一次，它的探测器只能比较 s<sub>t</sub> ⊕ s<sub>t−2</sub>：两次测量之间发生的故障要到下一次测量才显现，分不清是在哪一轮；两次测量之间若有两个故障各翻了这条检查的一个比特，这条检查的读数不变，它的探测器根本不亮（在每轮都测的电路里，两故障落在不同轮时它会亮两次）。探测器变少、每个探测器看的时间窗变长，「哪种故障点亮哪些探测器」这张表就变了，译码器看到的不再是深度 7 那张图——所以这篇的阈值数字属于它自己的电路与译码器，不能拿 0.8% 来套。它攻的是「版图」与「电路节拍」两层。<b>文献：</b>据文献扫描报告，登记待补：N. Berthusen 等，“Toward a 2D Local Implementation of Quantum Low-Density Parity-Check Codes”，arXiv 2404.17676。</p>
+      <p class="en"><b>Card:</b> “Motion or communication embeds long-range BB checks in a locally connected device, including schedules that measure some costly checks less often. The altered cadence and circuit noise must be decoded as part of the proposal.” <b>Ledger:</b> established “quantified motion/communication and altered check cadence”; did not establish “unchanged detector model or free localization”. <b>Plain words:</b> if the chip has only nearest-neighbour wiring, supply the far legs by motion or quantum communication and pay in time; to save more, measure the most expensive checks only every few rounds. But “every few rounds” changes the detectors (defined in §1.1). If a check is measured only every 2 rounds, its detector can only compare s<sub>t</sub> ⊕ s<sub>t−2</sub>: a fault between the two measurements shows up only at the next one, with no way to tell which round it happened in; and if two faults between the measurements each flip one qubit of that check, its outcome does not change and its detector never lights (in a circuit that measures every round, the two faults would light it twice when they fall in different rounds). Fewer detectors, each watching a longer time window: the table of which fault lights which detectors changes, and the decoder no longer sees the depth-7 graph, so this paper's threshold numbers belong to its own circuit and decoder and 0.8% cannot be pasted onto it. It attacks the layout and circuit-cadence layers. <b>Reference:</b> from the scout report, registration pending: N. Berthusen et al., “Toward a 2D Local Implementation of Quantum Low-Density Parity-Check Codes”, arXiv 2404.17676.</p>
     </div>
   </details>
   <details class="fold">
@@ -1236,14 +1251,14 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
   </details>
   <div class="note note-warn">
     <span class="note-tag"><span class="zh">陷阱：提案不可互换</span><span class="en">Pitfall: proposals are not interchangeable</span></span>
-    <p class="zh">实现账本的原话：「这些不是同一个探测器模型的可互换实现。搬动会增加空闲错误；变形改变了哪一个稳定子码在活动；光子的损耗信道不同于 transmon 的退极化模型；网络化的切分引入链路噪声。每一个都需要自己的电路与译码器声明。」换成人话：四篇论文里的任何一个阈值或错误率数字，都只属于那篇论文自己的电路加译码器，不能挪到另一篇上，更不能挪到 0.8% 那一行（<a href="../decoders/decoders.html">译码器页</a>）。</p>
-    <p class="en">The ledger's words: “These are not interchangeable implementations of an identical detector model. Movement can add idle faults; morphing changes which stabilizer code is active; a photonic loss channel differs from a transmon depolarizing model; a networked partition introduces link noise. Each needs its own circuit and decoder claim.” In plain words: any threshold or error-rate number in one of the four papers belongs to that paper's own circuit plus decoder; it cannot be moved to another paper, still less to the 0.8% row (<a href="../decoders/decoders.html">decoders page</a>).</p>
+    <p class="zh">实现账本的原话：「这些不是同一个探测器模型的可互换实现。搬动会增加空闲错误；变形改变了哪一个稳定子码在活动；光子的损耗信道不同于 transmon 的退极化模型；网络化的切分引入链路噪声。每一个都需要自己的电路与译码器声明。」换成人话：四篇论文里的任何一个阈值或错误率数字，都只属于那篇论文自己的电路加译码器，不能挪到另一篇上，更不能挪到 0.8% 那一行（<a href="../decoders/decoders.html">译码器页</a>）。引文里的「退极化模型」是模拟用的噪声模型，定义要写全：一个单比特位置（空等、单比特门）以 1 − p 的概率不出错，以 p/3 的概率各出 X、Y、Z 之一；一个出错的两比特门（例如 CNOT）在门后以 p/15 的概率各出 15 种非恒等的两比特 Pauli 乘积之一（每个比特 I、X、Y、Z 四选一，去掉 I⊗I，共 4 × 4 − 1 = 15 种）。Bravyi 等（arXiv 2308.07915 第 6 节）的电路噪声就是这样定义的，另加：制备出错 = 制成正交的态，测量出错 = 读数翻转。它是为了便于模拟而设的理想化模型，不是 transmon 真实噪声的描述：真实器件的错误种类与比例要从实验中测，不一定对称，也不一定彼此独立。</p>
+    <p class="en">The ledger's words: “These are not interchangeable implementations of an identical detector model. Movement can add idle faults; morphing changes which stabilizer code is active; a photonic loss channel differs from a transmon depolarizing model; a networked partition introduces link noise. Each needs its own circuit and decoder claim.” In plain words: any threshold or error-rate number in one of the four papers belongs to that paper's own circuit plus decoder; it cannot be moved to another paper, still less to the 0.8% row (<a href="../decoders/decoders.html">decoders page</a>). The “depolarizing model” in the quote is a simulation noise model, and its definition should be complete: a single-qubit location (idling, a single-qubit gate) is error-free with probability 1 − p and suffers X, Y or Z with probability p/3 each; a faulty two-qubit gate (a CNOT, say) is followed by one of the 15 non-identity two-qubit Pauli products with probability p/15 each (I, X, Y or Z on each qubit, minus I⊗I: 4 × 4 − 1 = 15). The circuit noise of Bravyi et al. (arXiv 2308.07915, section 6) is defined exactly so, plus: a faulty preparation makes the orthogonal state, a faulty measurement flips the outcome. It is an idealised model chosen to make simulation tractable, not a description of real transmon noise: the error types and rates of a real device have to be measured, and need not be symmetric or independent.</p>
   </div>
 
   <h3 id="s4-3"><span class="sec-no">4.3</span><span class="zh">账本里有、卡片上没有的三行</span><span class="en">Three rows in the ledger that are not on the card</span></h3>
   <div class="prose">
-    <p class="zh">Atlas 的实现账本比卡片多三行，都是 <span class="mono">proposed</span>，可信级别低一层——它们是策展人的记录，不是条目的断言。<b>互素子类与冷原子版图</b>（<span class="mono">wang2026coprime</span>）：限制多项式的因子让码率可以在搜索前先选定，并为搬动原子的版图共同设计；未做硬件实验。<b>发射体产生的光子融合资源</b>（<span class="mono">chen2025fusion</span>）：把 CSS qLDPC 的检查翻译成光子资源态与一张考虑损耗的融合网络，研究了小 BB 例子；没有光子 BB 实验。<b>分布式 gross 块</b>（<span class="mono">chandra2026distributed</span>）：把一块 [[144,12,12]] 切到 4、6、12 台处理器上，用 Bell 对连接，模拟 BP-OSD 对非局域链路噪声的敏感度；没有分布式硬件运行。三个键都在卡片的 <span class="mono">refs</span> 列表里、都「metadata pending」，但<b>不</b>在 <span class="mono">realizations</span> 字段里；标题与 arXiv 号（2408.10001、2509.17223、2605.04663）来自文献扫描报告。</p>
-    <p class="en">The Atlas realization ledger has three more rows than the card, all <span class="mono">proposed</span> and one tier lower in trust: they are the curator's records, not assertions of the entry. <b>The coprime subclass with cold-atom layouts</b> (<span class="mono">wang2026coprime</span>): restrict the polynomials' factors so the rate can be chosen before the search, co-designed with a moving-atom layout; no hardware experiment. <b>Emitter-generated photonic fusion resources</b> (<span class="mono">chen2025fusion</span>): translate CSS qLDPC checks into photonic resource states and a loss-aware fusion network, studying small BB examples; no photonic BB experiment. <b>A distributed gross block</b> (<span class="mono">chandra2026distributed</span>): split one [[144,12,12]] block over 4, 6 and 12 processors linked by Bell pairs and simulate BP-OSD's sensitivity to nonlocal link noise; no distributed hardware run. All three keys sit in the card's <span class="mono">refs</span> list, all “metadata pending”, but <b>not</b> in the <span class="mono">realizations</span> field; titles and arXiv ids (2408.10001, 2509.17223, 2605.04663) come from the scout report.</p>
+    <p class="zh">Atlas 的实现账本比卡片多三行，都是 <span class="mono">proposed</span>，可信级别低一层——它们是策展人的记录，不是条目的断言。<b>互素子类与冷原子版图</b>（<span class="mono">wang2026coprime</span>）：限制多项式的因子让码率可以在搜索前先选定，并为搬动原子的版图共同设计；未做硬件实验。<b>发射体产生的光子融合资源</b>（<span class="mono">chen2025fusion</span>）：把 CSS qLDPC 的检查翻译成光子资源态与一张考虑损耗的融合网络，研究了小 BB 例子；没有光子 BB 实验。<b>分布式 gross 块</b>（<span class="mono">chandra2026distributed</span>）：把一块 [[144,12,12]] 切到 4、6、12 台处理器上，用 Bell 对（两个处理器之间共享的一对最大纠缠比特，用来隔空做门）连接，模拟 BP-OSD 对非局域链路噪声的敏感度；没有分布式硬件运行。三个键都在卡片的 <span class="mono">refs</span> 列表里、都「metadata pending」，但<b>不</b>在 <span class="mono">realizations</span> 字段里；标题与 arXiv 号（2408.10001、2509.17223、2605.04663）来自文献扫描报告。</p>
+    <p class="en">The Atlas realization ledger has three more rows than the card, all <span class="mono">proposed</span> and one tier lower in trust: they are the curator's records, not assertions of the entry. <b>The coprime subclass with cold-atom layouts</b> (<span class="mono">wang2026coprime</span>): restrict the polynomials' factors so the rate can be chosen before the search, co-designed with a moving-atom layout; no hardware experiment. <b>Emitter-generated photonic fusion resources</b> (<span class="mono">chen2025fusion</span>): translate CSS qLDPC checks into photonic resource states and a loss-aware fusion network, studying small BB examples; no photonic BB experiment. <b>A distributed gross block</b> (<span class="mono">chandra2026distributed</span>): split one [[144,12,12]] block over 4, 6 and 12 processors linked by Bell pairs (a maximally entangled pair of qubits shared between two processors, used to perform gates across the link) and simulate BP-OSD's sensitivity to nonlocal link noise; no distributed hardware run. All three keys sit in the card's <span class="mono">refs</span> list, all “metadata pending”, but <b>not</b> in the <span class="mono">realizations</span> field; titles and arXiv ids (2408.10001, 2509.17223, 2605.04663) come from the scout report.</p>
   </div>
   <div class="table-wrap">
     <table class="glossary">
@@ -1318,7 +1333,7 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
     <tr><td class="mono">ε<sub>逻辑比特·轮</sub> / ε<sub>L</sub></td><td><span class="zh">希腊字母 epsilon，读「每个逻辑比特每轮逻辑错误率」/「每轮逻辑错误率」</span><span class="en">Greek epsilon, read “logical error per logical qubit per cycle” / “per cycle”</span></td><td><span class="zh">前者是 BB 卡片的量（按 k 归一化，昆仑 (8.91 ± 0.17)%）；后者是表面码卡片的量（k = 1，Willow 0.143% ± 0.003%）。</span><span class="en">The former is the BB card's quantity (normalised by k, Kunlun (8.91 ± 0.17)%); the latter the surface card's (k = 1, Willow 0.143% ± 0.003%).</span></td></tr>
     <tr><td class="mono">±</td><td><span class="zh">读「正负」</span><span class="en">Read “plus or minus”</span></td><td><span class="zh">实验数字后卡片登记的不确定度，约定未注明：(8.91 ± 0.17)%。</span><span class="en">The uncertainty the card records after an experimental number, convention not stated: (8.91 ± 0.17)%.</span></td></tr>
     <tr><td class="mono">Λ</td><td><span class="zh">大写希腊字母，读「拉姆达」</span><span class="en">Capital Greek letter, read “LAM-da”</span></td><td><span class="zh">压制因子：码距加 2 时每轮逻辑错误率缩小的倍数，设备加译码器的拟合值（<a href="../../surface_code/realizations/realizations.html#s2-2">表面码实现页 2.2 节</a>）。BB 卡片上没有任何 Λ。</span><span class="en">Suppression factor: how many times the logical error per cycle shrinks per +2 in distance, a device-plus-decoder fit (<a href="../../surface_code/realizations/realizations.html#s2-2">§2.2 of the surface realizations page</a>). The BB card carries no Λ.</span></td></tr>
-    <tr><td class="mono">k·d²/n</td><td><span class="zh">读「k d 平方除以 n」</span><span class="en">Read “k d squared over n”</span></td><td><span class="zh">BPT 界 k·d² ≤ c·n 里常数的实测值（c = 只与检查大小和伸展范围有关的常数）：表面码约 1，gross 12，[[18,4,4]] 约 3.6（本页算的）。</span><span class="en">The measured constant of the BPT bound k·d² ≤ c·n (c depends only on check size and reach): surface codes about 1, gross 12, [[18,4,4]] about 3.6 (this page's arithmetic).</span></td></tr>
+    <tr><td class="mono">k·d²/n</td><td><span class="zh">读「k d 平方除以 n」</span><span class="en">Read “k d squared over n”</span></td><td><span class="zh">比较有限码的指标；BPT 界说二维、比特密度有界、检查作用范围有界的码族满足 k·d²/n ≤ c（c 只取决于作用范围与格点维数）：表面码约 1，gross 12，[[18,4,4]] 约 3.6（本页算的）。</span><span class="en">A metric for comparing finite codes; the BPT bound says code families in 2D with bounded qubit density and bounded check range have k·d²/n ≤ c (c depends only on the range and site dimension): surface codes about 1, gross 12, [[18,4,4]] about 3.6 (this page's arithmetic).</span></td></tr>
     <tr><td class="mono">≈</td><td><span class="zh">读「约等于」</span><span class="en">Read “approximately equals”</span></td><td><span class="zh">两边近似相等：4 × 16 / 18 ≈ 3.6。</span><span class="en">The two sides are nearly equal: 4 × 16 / 18 ≈ 3.6.</span></td></tr>
     <tr><td><span class="zh">度</span><span class="en">degree</span></td><td><span class="zh">图论用语</span><span class="en">Graph-theory term</span></td><td><span class="zh">一个点连出的边数；gross 的数据比特度 6 = 3 条 X 检查 + 3 条 Z 检查，拆成两层各度 3。</span><span class="en">Edges leaving a vertex; a gross data qubit has degree 6 = 3 X checks + 3 Z checks, split into two layers of degree 3.</span></td></tr>
   </table></div>
@@ -3900,50 +3915,65 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
         'Z', (v) => { mode = v; upd(); }
       );
       F.controls.append(seg.el,
-        U().btn(isToric ? '示范：可收缩的圈' : '示范：平凡closed圈', isToric ? 'Demo: contractible loop' : 'Demo: trivial loop', '', () => {
+        U().btn(isToric ? '示范：可收缩的圈' : '示范：平凡的闭合圈', isToric ? 'Demo: contractible loop' : 'Demo: trivial loop', '', () => {
           view.errZ = new Set(); view.errX = new Set();
           // boundary of a 2x1 block of plaquettes
           const s = P().xorSet(lat.plaqs[0].support, lat.plaqs[1].support);
           view.errZ = new Set(s);
-          mode = 'Z';
+          if (mode !== 'Z') seg.el.children[0].click();
           upd();
         }),
         U().btn(isToric ? '示范：缠绕圈' : '示范：跨边界串', isToric ? 'Demo: winding loop' : 'Demo: boundary-to-boundary', '', () => {
           view.errZ = new Set(lat.logicals.Z[0]); view.errX = new Set();
-          mode = 'Z';
+          if (mode !== 'Z') seg.el.children[0].click();
           upd();
         }),
         U().btn('清空', 'Clear', '', () => { view.errZ.clear(); view.errX.clear(); upd(); })
       );
+      // Both string types may be on the lattice at once (some pages ask for an X and a Z loop together),
+      // so alarms of both types are counted and each drawn type gets its own verdict.
+      function judge(type, sup) {
+        const partners = type === 'Z' ? lat.logicals.X : lat.logicals.Z;
+        const par = partners.map((Lg) => P().overlapParity(sup, Lg));
+        if (!par.some((v) => v === 1)) {
+          return {
+            zh: '<span class="ok">警报全灭</span>，而且它是<b>平凡的</b>：它恰好等于若干' + (type === 'Z' ? '面检查' : '星检查') + '的乘积，对编码信息<b>什么也不做</b>。',
+            en: '<span class="ok">No alarms</span>, and it is <b>trivial</b>: it equals a product of ' + (type === 'Z' ? 'face checks' : 'star checks') + ' and does <b>nothing</b> to the stored information.',
+          };
+        }
+        const L1 = type === 'Z' ? 'Z̄₁' : 'X̄₁', L2 = type === 'Z' ? 'Z̄₂' : 'X̄₂';
+        if (isToric) {
+          const which = par[0] && par[1] ? L1 + '·' + L2 + '（两个方向都绕）' : par[0] ? L1 + (type === 'Z' ? '（水平缠绕）' : '') : L2 + (type === 'Z' ? '（垂直缠绕）' : '');
+          const whichEn = par[0] && par[1] ? L1 + '·' + L2 + ', both directions' : par[0] ? L1 + ', direction 1' : L2 + ', direction 2';
+          return {
+            zh: '<span class="no">警报全灭，但这不是平凡圈！</span>它绕过了整个环面——这是<b>逻辑算符 ' + which + '</b>：不触发任何检查，却会改写存下来的量子信息。',
+            en: '<span class="no">No alarms, yet NOT trivial!</span> It winds around the torus (' + whichEn + ') — a <b>logical operator</b>: invisible to every check, yet it rewrites the stored quantum information.',
+          };
+        }
+        return {
+          zh: '<span class="no">警报全灭，但这不是平凡圈！</span>这条串从一条边界横跨到对面——它就是<b>逻辑算符 ' + (type === 'Z' ? 'Z̄' : 'X̄') + '</b>：不触发任何检查，却改写了存下来的量子比特。',
+          en: '<span class="no">No alarms, yet NOT trivial!</span> The string spans from one boundary to the opposite one — the <b>logical operator ' + (type === 'Z' ? 'Z̄' : 'X̄') + '</b>: invisible to every check, yet it rewrites the stored qubit.',
+        };
+      }
       function upd() {
         view.draw();
         const syn = view.syndrome();
         const zSup = [...view.errZ], xSup = [...view.errX];
-        const active = mode === 'Z' ? zSup : xSup;
-        const defects = mode === 'Z' ? syn.starDefects.length : syn.plaqDefects.length;
+        const defects = syn.starDefects.length + syn.plaqDefects.length;
         let verdictZh, verdictEn;
-        if (!active.length) {
+        if (!zSup.length && !xSup.length) {
           verdictZh = '画几条边试试。目标：不触发任何警报。';
           verdictEn = 'Draw some edges. Goal: trigger no alarms.';
         } else if (defects > 0) {
           verdictZh = '还有 <b>' + defects + '</b> 个警报亮着：串有端点。把它闭合，或' + (isToric ? '绕一整圈' : '让两端都搭到正确的边界上') + '。';
           verdictEn = '<b>' + defects + '</b> alarms still lit: the string has endpoints. Close it up, or ' + (isToric ? 'wrap it all the way around' : 'land both ends on the right boundaries') + '.';
         } else {
-          const partners = mode === 'Z' ? lat.logicals.X : lat.logicals.Z;
-          const par = partners.map((Lg) => P().overlapParity(active, Lg));
-          const wound = par.some((v) => v === 1);
-          if (!wound) {
-            verdictZh = '<span class="ok">警报全灭</span>，且这是一个<b>平凡圈</b>：它恰好等于若干' + (mode === 'Z' ? '面检查' : '星检查') + '的乘积，对编码信息<b>什么也不做</b>。';
-            verdictEn = '<span class="ok">No alarms</span>, and this is a <b>trivial loop</b>: it equals a product of ' + (mode === 'Z' ? 'face checks' : 'star checks') + ' and does <b>nothing</b> to the stored information.';
-          } else if (isToric) {
-            const which = par[0] && par[1] ? 'Z̄₁·Z̄₂（两个方向都绕）' : par[0] ? (mode === 'Z' ? 'Z̄₁（水平缠绕）' : 'X̄₁') : (mode === 'Z' ? 'Z̄₂（垂直缠绕）' : 'X̄₂');
-            const whichEn = par[0] && par[1] ? 'both directions' : par[0] ? 'direction 1' : 'direction 2';
-            verdictZh = '<span class="no">警报全灭，但这不是平凡圈！</span>它绕过了整个环面——这是<b>逻辑算符 ' + which + '</b>：不触发任何检查，却会改写存下来的量子信息。';
-            verdictEn = '<span class="no">No alarms, yet NOT trivial!</span> It winds around the torus (' + whichEn + ') — a <b>logical operator</b>: invisible to every check, yet it rewrites the stored quantum information.';
-          } else {
-            verdictZh = '<span class="no">警报全灭，但这不是平凡圈！</span>这条串从一条边界横跨到对面——它就是<b>逻辑算符 ' + (mode === 'Z' ? 'Z̄' : 'X̄') + '</b>：不触发任何检查，却改写了存下来的量子比特。';
-            verdictEn = '<span class="no">No alarms, yet NOT trivial!</span> The string spans from one boundary to the opposite one — the <b>logical operator ' + (mode === 'Z' ? 'Z̄' : 'X̄') + '</b>: invisible to every check, yet it rewrites the stored qubit.';
-          }
+          const both = zSup.length > 0 && xSup.length > 0;
+          const parts = [];
+          if (zSup.length) parts.push({ j: judge('Z', zSup), lz: 'Z 串：', le: 'Z string: ' });
+          if (xSup.length) parts.push({ j: judge('X', xSup), lz: 'X 串：', le: 'X string: ' });
+          verdictZh = parts.map((q) => (both ? q.lz : '') + q.j.zh).join('<br>');
+          verdictEn = parts.map((q) => (both ? q.le : '') + q.j.en).join('<br>');
         }
         F.setReadout('<span class="zh">' + verdictZh + '</span><span class="en">' + verdictEn + '</span>');
       }
@@ -4028,8 +4058,8 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
         view.hlEdges = new Map([...corr].map((e) => [e, { color: getComputedStyle(doc.documentElement).getPropertyValue('--good').trim(), width: 5 }]));
         view.draw();
         F.setReadout(fail
-          ? '<span class="zh"><span class="no">这回合失败了。</span>蓝色 = 真实错误，绿色 = 你的修复。二者合起来形成了' + (isToric ? '一条<b>缠绕整个环面</b>的圈' : '一条<b>横跨两条边界</b>的串') + ' —— 恰好是逻辑算符，信息被改写。连胜清零。点「新回合」再来！</span><span class="en"><span class="no">Round lost.</span> Blue = true errors, green = your repair. Together they form ' + (isToric ? 'a loop <b>winding around the torus</b>' : 'a string <b>spanning both boundaries</b>') + ' — exactly a logical operator; the data got rewritten. Streak reset. “New round” to retry!</span>'
-          : '<span class="zh"><span class="ok">成功！</span>蓝 + 绿合成的圈都是可收缩的平凡圈 —— 你的修复不必和错误一模一样，只要「合起来平凡」就赢。连胜 <b>' + streak + '</b>！</span><span class="en"><span class="ok">Success!</span> Blue + green together form only trivial contractible loops — the repair need not equal the error, it only needs to be trivial in combination. Streak <b>' + streak + '</b>!</span>');
+          ? '<span class="zh"><span class="no">这回合失败了。</span>蓝色 = 真实错误，绿色 = 你的修复。二者合起来' + (isToric ? '在某个方向上<b>缠绕环面</b>的总圈数是<b>奇数</b>' : '含有<b>奇数条</b><b>横跨两条边界</b>的串') + ' —— 合起来是一个逻辑算符，信息被改写。连胜清零。点「新回合」再来！</span><span class="en"><span class="no">Round lost.</span> Blue = true errors, green = your repair. Together they ' + (isToric ? '<b>wind around the torus</b> an <b>odd</b> total number of times in some direction' : 'contain an <b>odd number</b> of strings <b>spanning both boundaries</b>') + ' — together a logical operator; the data got rewritten. Streak reset. “New round” to retry!</span>'
+          : '<span class="zh"><span class="ok">成功！</span>蓝 + 绿合起来' + (isToric ? '在两个方向上缠绕环面的总圈数都是偶数（0 也算，两圈互相抵消）' : '横跨两条边界的串是偶数条（0 条也算，两条互相抵消）') + '—— 合起来只是一些检查的乘积。你的修复不必和错误一模一样，只要合起来是检查的乘积就赢。连胜 <b>' + streak + '</b>！</span><span class="en"><span class="ok">Success!</span> Blue + green together ' + (isToric ? 'wind around the torus an even total number of times in both directions (0 counts; two windings cancel)' : 'contain an even number of strings spanning both boundaries (0 counts; two cancel)') + ' — together just a product of checks. The repair need not equal the error; together with it, it only needs to form a product of checks. Streak <b>' + streak + '</b>!</span>');
       }
       function newRound() {
         err = new Set(); corr = new Set(); sel = null; over = false;
@@ -4075,12 +4105,12 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
         en: '① Start: the toric code. Note the stubs sticking out — they wrap to the opposite side; that is what makes it a torus.',
       },
       {
-        zh: '② 一刀剪开：删除所有绕回去的边。立刻出问题——边界上的星和面都缺了一条腿（虚线标出），检查表变得乱七八糟。',
-        en: '② Cut: delete every wrapping edge. Trouble at once — boundary stars and faces each lose a leg (dashed); the checks are mutilated.',
+        zh: '② 一刀剪开：删除所有绕回去的边（图里不再画出）。立刻出问题：沿边的星少了一条腿，四个角上的星少了两条；原来跨过剪口的面只剩两条腿，而且这两条分在贴片相对的两头，角上那一块面一条腿也不剩。检查表乱了套。',
+        en: '② Cut: delete every wrapping edge (no longer drawn). Trouble at once: the stars along the edge lose one leg and the four corner stars lose two; the faces that straddled the cut keep only two legs, on opposite sides of the patch, and the corner face keeps none. The checks are mutilated.',
       },
       {
-        zh: '③ 收拾干净：接受「三条腿」的检查作为正式成员，但分好工——左右两侧只截断<b>面</b>（并保留伸出的悬挂边），上下两侧只截断<b>星</b>。这就是<b>表面码</b>的版图：两种边界，各司其职。',
-        en: '③ Tidy up: keep the 3-leg checks as legitimate members, but divide the work — the left/right sides truncate only <b>faces</b> (keeping the dangling edges), the top/bottom truncate only <b>stars</b>. This is the <b>surface code</b> layout: two kinds of boundary, each with a job.',
+        zh: '③ 收拾干净：接受「三条腿」的检查作为正式成员，但分好工——左右两侧只截断<b>面</b>（并保留伸出的悬挂边），上下两侧只截断<b>星</b>。这就是<b>表面码</b>的版图：两种边界，各司其职。（这一帧重新画了一块 L = 4 的平面码，而不是在上一帧上修补：25 个比特、12 个星检查、12 个面检查，左右两侧带悬挂的横边。）',
+        en: '③ Tidy up: keep the 3-leg checks as legitimate members, but divide the work — the left/right sides truncate only <b>faces</b> (keeping the dangling edges), the top/bottom truncate only <b>stars</b>. This is the <b>surface code</b> layout: two kinds of boundary, each with a job. (This frame redraws an L = 4 planar code rather than patching the previous one: 25 qubits, 12 star checks and 12 face checks, with dangling horizontal edges on the left and right.)',
       },
     ];
     function render() {
@@ -4142,8 +4172,10 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
       { zh: '① 噪声落下：几条 Z 错误悄悄出现（真实设备里你看不到它们）', en: '① Noise strikes: a few Z errors appear (invisible in a real device)' },
       { zh: '② 测量所有检查：只有错误链的端点亮起警报', en: '② Measure every check: only chain endpoints raise alarms' },
       { zh: '③ 译码器配对警报，规划修复链（绿）', en: '③ The decoder pairs alarms and plans repair chains (green)' },
-      { zh: '④ 施加修复：错误 ⊕ 修复 = 平凡圈 → 警报全灭，信息完好', en: '④ Apply the repair: error ⊕ repair = trivial loops → alarms clear, data intact' },
+      { zh: '④ 施加修复：警报全灭；错误 ⊕ 修复和 X̄ 交叉偶数次 → 信息完好', en: '④ Apply the repair: alarms clear; error ⊕ repair crosses X̄ an even number of times → data intact' },
     ];
+    const PH_FAIL = { zh: '④ 施加修复：警报全灭，但错误 ⊕ 修复和 X̄ 交叉奇数次 → 逻辑错误，信息被改写', en: '④ Apply the repair: alarms clear, but error ⊕ repair crosses X̄ an odd number of times → a logical error; the data is overwritten' };
+    let lastFail = false;
     function step() {
       phase = (phase + 1) % 4;
       if (phase === 0) {
@@ -4163,16 +4195,16 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
       } else {
         const residual = P().xorSet([...err], corr);
         const fail = lat.logicals.X.some((Lg) => P().overlapParity(residual, Lg));
-        rounds++; if (!fail) saved++;
+        rounds++; if (!fail) saved++; lastFail = fail;
         view.errZ = new Set(residual.filter(() => false));
         view.errZ = new Set();
         view.hlEdges = new Map();
       }
       view.draw();
-      const tail = phase === 3 ? (U().getLang() === 'en'
-        ? ' — rounds: ' + rounds + ', data survived: ' + saved
-        : ' — 已运行 ' + rounds + ' 轮，信息幸存 ' + saved + ' 轮') : '';
-      F.setReadout('<span class="zh">' + PH[phase].zh + tail + '</span><span class="en">' + PH[phase].en + tail + '</span>');
+      const tailZh = phase === 3 ? ' — 已运行 ' + rounds + ' 轮，信息幸存 ' + saved + ' 轮' : '';
+      const tailEn = phase === 3 ? ' — rounds: ' + rounds + ', data survived: ' + saved : '';
+      const ph = phase === 3 && lastFail ? PH_FAIL : PH[phase];
+      F.setReadout('<span class="zh">' + ph.zh + tailZh + '</span><span class="en">' + ph.en + tailEn + '</span>');
     }
     function play() {
       if (timer) return;
@@ -4619,8 +4651,8 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
       en: ['Winding loops = logicals', 'Loops circling the whole torus pass every check yet are no product of checks — they rewrite logical data. Two directions give Z̄₁, Z̄₂; duals give X̄₁, X̄₂; paired loops cross once ⇒ anticommute.'],
     },
     decoder: {
-      zh: ['译码 = 配对', '只见警报不见链：把警报两两配对、沿路径修复。错误⊕修复必闭合——可收缩则完美复原，缠绕则无声逻辑错误。'],
-      en: ['Decoding = matching', 'Alarms visible, chains not: pair the alarms and repair along paths. Error ⊕ repair is always closed — contractible = perfect recovery, winding = silent logical error.'],
+      zh: ['译码 = 配对', '只见警报不见链：把警报两两配对、沿路径修复。错误⊕修复必闭合——每个方向都缠绕偶数次（0 次也算）则完美复原，某个方向缠绕奇数次则是无声的逻辑错误；同方向的两圈互相抵消。'],
+      en: ['Decoding = matching', 'Alarms visible, chains not: pair the alarms and repair along paths. Error ⊕ repair is always closed — an even number of windings in each direction (0 included) = perfect recovery, an odd number in some direction = a silent logical error; two windings in the same direction cancel.'],
     },
     dL: {
       zh: ['环面码距 d = L', '最轻的逻辑算符是最短缠绕圈（长 L），对 X、Z 对称；压垮它需约 L/2 个错误连成线。'],
@@ -4640,8 +4672,8 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
       en: ['Spanning strings = logicals', 'A string dying on its own boundary at both ends: zero alarms, no product of checks (it crosses the other direction\'s spanning string once, so they anticommute).' + F('Z̄: rough→rough · X̄: smooth→smooth · X̄Z̄ = −Z̄X̄')],
     },
     cycle: {
-      zh: ['纠错循环', '每轮四拍：噪声 → 测全部检查 → 配对（可配边界）→ 修复；失败 ⇔ 错误⊕修复含横跨串。'],
-      en: ['The correction cycle', 'Four beats per round: noise → measure all checks → match (boundaries allowed) → repair; failure ⇔ error ⊕ repair contains a spanning string.'],
+      zh: ['纠错循环', '每轮四拍：噪声 → 测全部检查 → 配对（可配边界）→ 修复；失败 ⇔ 错误⊕修复和 X̄ 交叉奇数次，也就是横跨贴片的串有奇数条（两条互相抵消，偶数条无事）。'],
+      en: ['The correction cycle', 'Four beats per round: noise → measure all checks → match (boundaries allowed) → repair; failure ⇔ error ⊕ repair crosses X̄ an odd number of times, i.e. contains an odd number of spanning strings (two cancel, so an even number is harmless).'],
     },
     ancilla: {
       zh: ['辅助比特测量', '每条检查配一个帮手比特：与 4 个数据比特依次作用后单独被读出，给出 ±1；数据比特从未被直接测量。'],
@@ -5167,7 +5199,8 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
     t.addEventListener('change', () => onChange(t.value)); return t;
   }
   const parseTerms = (str) => str.split(/[;\s]+/).filter(Boolean).map((t) => t.split(',').map(Number)).filter((p) => p.length === 2 && p.every((v) => Number.isInteger(v)));
-  const termsToPoly = (terms, vx, vy) => terms.map(([a, b]) => { const p = (a ? vx + (a > 1 ? '<sup>' + a + '</sup>' : '') : '') + (b ? vy + (b > 1 ? '<sup>' + b + '</sup>' : '') : ''); return p || '1'; }).join(' + ');
+  const expSup = (e) => (e === 1 ? '' : '<sup>' + (e < 0 ? '−' + (-e) : e) + '</sup>');
+  const termsToPoly = (terms, vx, vy) => terms.map(([a, b]) => { const p = (a ? vx + expSup(a) : '') + (b ? vy + expSup(b) : ''); return p || '1'; }).join(' + ');
   const termsToText = (terms) => terms.map((t) => t.join(',')).join(' ');
   function paramsLine(P, extra) { return 'n = <b>' + P.n + '</b>, rank H<sub>X</sub> = ' + P.rankX + ', rank H<sub>Z</sub> = ' + P.rankZ + ', k = n − ' + P.rankX + ' − ' + P.rankZ + ' = <b>' + P.k + '</b>' + (extra || ''); }
 
@@ -5265,11 +5298,11 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
     const F = U().frame(el, { titleZh: 'BB 构造器：两个多项式，一个码', titleEn: 'The BB constructor: two polynomials, one code' });
     const presetKey = el.dataset.preset || 'bb72';
     let pr = L().BB_PRESETS[presetKey]; let l = pr.l, m = pr.m, aTerms = pr.a.map((t) => t.slice()), bTerms = pr.b.map((t) => t.slice());
-    let code = null, P = null, sel = { kind: 'X', site: 0 }, view = 'check', searchNote = '';
+    let code = null, P = null, sel = { kind: 'X', site: 0 }, view = 'check', searchRes = null;
     const wrap = div('canvas-wrap'); F.body.appendChild(wrap);
-    const box = U().canvasBox(wrap, (w) => Math.min(460, w * 0.8), draw);
-    function build() { code = L().bb(l, m, aTerms, bTerms); P = L().cssParams(code.hx, code.hz); searchNote = ''; }
-    function metrics() { const w = box.w, h = box.h, pad = 34; const cell = Math.min((w - 2 * pad) / (l + 0.5), (h - 2 * pad) / (m + 0.5)); return { cell, ox: (w - cell * (l - 0.5)) / 2, oy: (h - cell * (m - 0.5)) / 2 }; }
+    const box = U().canvasBox(wrap, (w) => Math.min(500, w * 0.85), draw);
+    function build() { code = L().bb(l, m, aTerms, bTerms); P = L().cssParams(code.hx, code.hz); searchRes = null; }
+    function metrics() { const w = box.w, h = box.h, pad = 34, foot = 44; const cell = Math.min((w - 2 * pad) / (l + 0.5), (h - 2 * pad - foot) / (m + 0.5)); return { cell, ox: (w - cell * (l - 0.5)) / 2, oy: (h - foot - cell * (m - 0.5)) / 2 }; }
     const qpos = (col, g) => { const s = L().bbSite(l, m, col); return { x: g.ox + (s.i + 0.5 * s.layer) * g.cell, y: g.oy + (m - 1 - s.j + 0.5 * s.layer) * g.cell, layer: s.layer }; };
     const cpos = (kind, site, g) => { const i = Math.floor(site / m), j = site % m; return kind === 'X' ? { x: g.ox + (i + 0.5) * g.cell, y: g.oy + (m - 1 - j) * g.cell } : { x: g.ox + i * g.cell, y: g.oy + (m - 1 - j + 0.5) * g.cell }; };
     function draw() {
@@ -5279,20 +5312,28 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
       // checks
       for (let s = 0; s < N; s++) { const px = cpos('X', s, g); ctx.fillStyle = C.cxSoft; ctx.strokeStyle = C.cx; ctx.lineWidth = 1; ctx.beginPath(); ctx.arc(px.x, px.y, 4.5, 0, 7); ctx.fill(); ctx.stroke(); const pz = cpos('Z', s, g); ctx.fillStyle = C.czSoft; ctx.strokeStyle = C.cz; ctx.beginPath(); ctx.rect(pz.x - 4, pz.y - 4, 8, 8); ctx.fill(); ctx.stroke(); }
       // qubits
-      for (let c = 0; c < 2 * N; c++) { const q = qpos(c, g); ctx.fillStyle = q.layer ? C.ink2 : C.ink3; ctx.beginPath(); ctx.arc(q.x, q.y, q.layer ? 3.2 : 3.6, 0, 7); ctx.fill(); }
+      for (let c = 0; c < 2 * N; c++) { const q = qpos(c, g); ctx.beginPath(); ctx.arc(q.x, q.y, 3.4, 0, 7); if (q.layer) { ctx.fillStyle = C.bg2; ctx.fill(); ctx.strokeStyle = C.ink2; ctx.lineWidth = 1.3; ctx.stroke(); } else { ctx.fillStyle = C.ink2; ctx.fill(); } }
+      // axes: i along x (to the right), j along y (upwards); site (i, j) is where the filled left-layer dot sits
+      ctx.fillStyle = C.ink3; ctx.font = '10.5px ' + cssVar('--f-mono'); ctx.textBaseline = 'middle'; ctx.textAlign = 'center';
+      const yAx = g.oy + (m - 0.5) * g.cell + 12; for (let i = 0; i < l; i++) ctx.fillText(String(i), g.ox + i * g.cell, yAx);
+      ctx.textAlign = 'right'; for (let j = 0; j < m; j++) ctx.fillText(String(j), g.ox - 12, g.oy + (m - 1 - j) * g.cell);
+      ctx.textAlign = 'center'; ctx.fillText(U().T({ zh: 'i →（x 方向，每步右移一格）', en: 'i → (x direction, one step right per move)' }), g.ox + (l - 1) * g.cell / 2, yAx + 15); ctx.fillText(U().T({ zh: 'j ↑（y 方向）', en: 'j ↑ (y direction)' }), g.ox + 10, g.oy - 22);
       // selection
       const col = view === 'check' ? null : sel.site;
       if (view === 'check') {
         const row = (sel.kind === 'X' ? code.hx : code.hz)[sel.site]; const pc = cpos(sel.kind, sel.site, g); const color = sel.kind === 'X' ? C.cx : C.cz;
-        for (let c = 0; c < 2 * N; c++) if (row[c]) { const q = qpos(c, g); drawSpoke(ctx, pc, q, g, color); ctx.fillStyle = color; ctx.beginPath(); ctx.arc(q.x, q.y, 6, 0, 7); ctx.fill(); }
-        ctx.fillStyle = color; ctx.beginPath(); ctx.arc(pc.x, pc.y, 8, 0, 7); ctx.fill(); ctx.strokeStyle = C.bg2; ctx.lineWidth = 2; ctx.stroke();
+        for (let c = 0; c < 2 * N; c++) if (row[c]) { const q = qpos(c, g); drawSpoke(ctx, pc, q, g, color); ctx.fillStyle = color; ctx.beginPath(); ctx.arc(q.x, q.y, 6, 0, 7); ctx.fill(); if (q.layer) { ctx.fillStyle = C.bg2; ctx.beginPath(); ctx.arc(q.x, q.y, 2.6, 0, 7); ctx.fill(); } }
+        ctx.font = '600 10.5px ' + cssVar('--f-mono'); ctx.textAlign = 'left'; ctx.textBaseline = 'bottom';
+        for (let c = 0; c < 2 * N; c++) if (row[c]) { const q = qpos(c, g); const t = String(c), tw = ctx.measureText(t).width; ctx.fillStyle = C.bg2; ctx.fillRect(q.x + 5, q.y - 19, tw + 4, 13); ctx.fillStyle = color; ctx.fillText(t, q.x + 7, q.y - 6); }
+        ctx.fillStyle = color; ctx.beginPath(); if (sel.kind === 'X') ctx.arc(pc.x, pc.y, 8, 0, 7); else ctx.rect(pc.x - 7.5, pc.y - 7.5, 15, 15); ctx.fill(); ctx.strokeStyle = C.bg2; ctx.lineWidth = 2; ctx.stroke();
       } else {
         const q = qpos(col, g);
         for (let s = 0; s < N; s++) { if (code.hx[s][col]) { const pc = cpos('X', s, g); drawSpoke(ctx, q, pc, g, C.cx); ctx.fillStyle = C.cx; ctx.beginPath(); ctx.arc(pc.x, pc.y, 6.5, 0, 7); ctx.fill(); } if (code.hz[s][col]) { const pc = cpos('Z', s, g); drawSpoke(ctx, q, pc, g, C.cz); ctx.fillStyle = C.cz; ctx.beginPath(); ctx.rect(pc.x - 6, pc.y - 6, 12, 12); ctx.fill(); } }
-        ctx.fillStyle = C.cd; ctx.beginPath(); ctx.arc(q.x, q.y, 8, 0, 7); ctx.fill();
+        ctx.fillStyle = C.cd; ctx.beginPath(); ctx.arc(q.x, q.y, 8, 0, 7); ctx.fill(); if (q.layer) { ctx.fillStyle = C.bg2; ctx.beginPath(); ctx.arc(q.x, q.y, 3.6, 0, 7); ctx.fill(); }
       }
       ctx.fillStyle = C.ink2; ctx.font = '600 12px ' + cssVar('--f-body'); ctx.textAlign = 'center'; ctx.textBaseline = 'top';
-      ctx.fillText(U().T({ zh: l + ' × ' + m + ' 环面 · 每格两个数据比特（左层深灰、右层浅灰）· 圆 = X 检查，方 = Z 检查', en: l + ' × ' + m + ' torus · two data qubits per site (left layer dark, right layer light) · circle = X check, square = Z check' }), w / 2, h - 18);
+      ctx.fillText(U().T({ zh: l + ' × ' + m + ' 环面 · 每格两个数据比特：实心点 = 左层 L，空心点 = 右层 R', en: l + ' × ' + m + ' torus · two data qubits per site: filled dot = left layer L, hollow dot = right layer R' }), w / 2, h - 36);
+      ctx.fillText(U().T({ zh: '圆 = X 检查，方 = Z 检查 · 高亮比特旁的数字是它的编号 · 虚线 = 绕过环面边界', en: 'circle = X check, square = Z check · numbers next to highlighted qubits are their indices · dashed = wraps round the torus' }), w / 2, h - 19);
     }
     function drawSpoke(ctx, a, b, g, color) { // shortest torus displacement; dashed when wrapping
       let dx = b.x - a.x, dy = b.y - a.y; const W = l * g.cell, Hh = m * g.cell; let wrapped = false;
@@ -5310,9 +5351,10 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
       const N = l * m; const wX = [...new Set(P.checkWeightsX)].join('/'), degs = [...new Set(P.qubitDegX.map((v, i) => v + P.qubitDegZ[i]))].join('/');
       let zh = 'A = ' + termsToPoly(aTerms, 'x', 'y') + '，B = ' + termsToPoly(bTerms, 'x', 'y') + '，l = ' + l + '，m = ' + m + '。H<sub>X</sub> = [A | B]，H<sub>Z</sub> = [Bᵀ | Aᵀ]，' + (P.commute ? 'H<sub>X</sub>H<sub>Z</sub>ᵀ = 0 ✓' : '<span class="no">不对易！</span>') + '。' + paramsLine(P) + '。每条检查重量 ' + wX + '，每个比特被 ' + degs + ' 条检查碰到。';
       let en = 'A = ' + termsToPoly(aTerms, 'x', 'y') + ', B = ' + termsToPoly(bTerms, 'x', 'y') + ', l = ' + l + ', m = ' + m + '. H<sub>X</sub> = [A | B], H<sub>Z</sub> = [Bᵀ | Aᵀ], ' + (P.commute ? 'H<sub>X</sub>H<sub>Z</sub>ᵀ = 0 ✓' : '<span class="no">do not commute!</span>') + '. ' + paramsLine(P) + '. Every check has weight ' + wX + '; every qubit meets ' + degs + ' checks.';
-      if (view === 'check') { const s = sel.site, i = Math.floor(s / m), j = s % m; zh += ' 选中的 ' + sel.kind + ' 检查在格点 (' + i + ',' + j + ')：' + (sel.kind === 'X' ? 'A 的每一项指向左层一个比特，B 的每一项指向右层一个比特。' : 'Bᵀ 的每一项反向平移到左层，Aᵀ 的每一项反向平移到右层。'); en += ' Selected ' + sel.kind + ' check at site (' + i + ',' + j + '): ' + (sel.kind === 'X' ? 'each term of A points to one left-layer qubit, each term of B to one right-layer qubit.' : 'each term of Bᵀ translates backwards into the left layer, each term of Aᵀ into the right layer.'); }
-      else { const st = L().bbSite(l, m, sel.site); zh += ' 选中的比特在' + (st.layer ? '右' : '左') + '层 (' + st.i + ',' + st.j + ')：它属于 3 条 X 检查（圆）和 3 条 Z 检查（方）。'; en += ' Selected qubit in the ' + (st.layer ? 'right' : 'left') + ' layer at (' + st.i + ',' + st.j + '): it belongs to the X checks (circles) and Z checks (squares) shown.'; }
-      F.setReadout(bi(zh + searchNote, en + searchNote));
+      if (view === 'check') { const s = sel.site, i = Math.floor(s / m), j = s % m; const legs = (sel.kind === 'X' ? code.hx : code.hz)[s].reduce((a, v, c) => (v ? a.concat(c) : a), []); const lz = legs.filter((c) => c < N), rz = legs.filter((c) => c >= N); zh += ' 选中的是 ' + sel.kind + ' 检查 ' + s + '（格点 (' + i + ',' + j + ')，编号 = i·' + m + ' + j），腿：左层 ' + (lz.join('、') || '无') + '，右层 ' + (rz.join('、') || '无') + '。'; en += ' Selected: ' + sel.kind + ' check ' + s + ' (site (' + i + ',' + j + '), index = i·' + m + ' + j), legs: left layer ' + (lz.join(', ') || 'none') + ', right layer ' + (rz.join(', ') || 'none') + '.'; zh += ' ' + (sel.kind === 'X' ? 'A 的每一项指向左层一个比特，B 的每一项指向右层一个比特。' : 'Bᵀ 的每一项反向平移到左层，Aᵀ 的每一项反向平移到右层。'); en += ' ' + (sel.kind === 'X' ? 'each term of A points to one left-layer qubit, each term of B to one right-layer qubit.' : 'each term of Bᵀ translates backwards into the left layer, each term of Aᵀ into the right layer.'); }
+      else { const st = L().bbSite(l, m, sel.site); let dx = 0, dz = 0; for (let s = 0; s < N; s++) { dx += code.hx[s][sel.site] ? 1 : 0; dz += code.hz[s][sel.site] ? 1 : 0; } zh += ' 选中的是比特 ' + sel.site + '，在' + (st.layer ? '右' : '左') + '层 (' + st.i + ',' + st.j + ')：它属于 ' + dx + ' 条 X 检查（圆）和 ' + dz + ' 条 Z 检查（方）。'; en += ' Selected: qubit ' + sel.site + ', in the ' + (st.layer ? 'right' : 'left') + ' layer at (' + st.i + ',' + st.j + '): it belongs to ' + dx + ' X check' + (dx === 1 ? '' : 's') + ' (circles) and ' + dz + ' Z check' + (dz === 1 ? '' : 's') + ' (squares).'; }
+      if (searchRes) { const r = searchRes, wt = '<b>' + (r.weight === Infinity ? '—' : r.weight) + '</b>'; zh += ' <b>' + (r.exact ? '穷举' : '随机搜索') + '</b>：找到的最轻 X 逻辑算符重量 ' + wt + (r.exact ? '（即精确的 d<sub>X</sub>）。' : '（这是 d 的上界，不是 d）。'); en += ' <b>' + (r.exact ? 'exhaustive' : 'random search') + '</b>: lightest X-logical found has weight ' + wt + (r.exact ? ' (this is the exact d<sub>X</sub>).' : ' (an upper bound on d, not d itself).'); }
+      F.setReadout(bi(zh, en));
     }
     const presetSeg = U().seg(Object.keys(L().BB_PRESETS).map((k) => ({ id: k, zh: L().BB_PRESETS[k].label, en: L().BB_PRESETS[k].label })), presetKey, (k) => { pr = L().BB_PRESETS[k]; l = pr.l; m = pr.m; aTerms = pr.a.map((t) => t.slice()); bTerms = pr.b.map((t) => t.slice()); inA.value = termsToText(aTerms); inB.value = termsToText(bTerms); slL.el.value = l; slL.pill.textContent = 'l = ' + l; slM.el.value = m; slM.pill.textContent = 'm = ' + m; sel = { kind: 'X', site: 0 }; build(); box.redraw(); readout(); });
     const inA = textInput(termsToText(aTerms), 120, (v) => { const t = parseTerms(v); if (t.length) { aTerms = t; build(); box.redraw(); readout(); } });
@@ -5326,8 +5368,13 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
     const row3 = div('controls'); el.insertBefore(row3, F.readout);
     row3.append(viewSeg.el,
       U().btn('随机改一个指数', 'Perturb one exponent', '', () => { const which = Math.random() < 0.5 ? aTerms : bTerms; const t = which[Math.floor(Math.random() * which.length)]; if (Math.random() < 0.5) t[0] = (t[0] + 1 + Math.floor(Math.random() * (l - 1))) % l; else t[1] = (t[1] + 1 + Math.floor(Math.random() * (m - 1))) % m; inA.value = termsToText(aTerms); inB.value = termsToText(bTerms); build(); box.redraw(); readout(); }),
-      U().btn('搜索低重逻辑算符（约 1.5 秒）', 'Search a low-weight logical (~1.5 s)', 'primary', () => { const r = L().lowWeightLogical(code.hx, code.hz, { maxMs: 1500, maxIters: 3000, exactLimit: 18, seed: 5 }); searchNote = ' <b>' + (r.exact ? U().T({ zh: '穷举', en: 'exhaustive' }) : U().T({ zh: '随机搜索', en: 'random search' })) + '</b>: ' + U().T({ zh: '找到的最轻 X 逻辑算符重量 ', en: 'lightest X-logical found has weight ' }) + '<b>' + (r.weight === Infinity ? '—' : r.weight) + '</b>' + (r.exact ? U().T({ zh: '（即精确的 d<sub>X</sub>）', en: ' (this is the exact d<sub>X</sub>)' }) : U().T({ zh: '（这是 d 的上界，不是 d）', en: ' (an upper bound on d, not d itself)' })) + '.'; readout(); }));
-    legend(el, [{ color: cssVar('--cx'), dot: true, zh: 'X 检查', en: 'X check' }, { color: cssVar('--cz'), square: true, zh: 'Z 检查', en: 'Z check' }, { color: cssVar('--ink3'), dot: true, zh: '数据比特（两层）', en: 'data qubits (two layers)' }]);
+      U().btn('搜索低重逻辑算符（约 1.5 秒）', 'Search a low-weight logical (~1.5 s)', 'primary', () => { searchRes = L().lowWeightLogical(code.hx, code.hz, { maxMs: 1500, maxIters: 3000, exactLimit: 18, seed: 5 }); readout(); }));
+    const lg = div('legend');
+    [['ring', 'background:var(--cx-soft);border:1.5px solid var(--cx)', '圆 = X 检查', 'circle = X check'], ['box', 'background:var(--cz-soft);border:1.5px solid var(--cz)', '方 = Z 检查', 'square = Z check'],
+      ['ring', 'background:var(--ink2)', '实心点 = 左层数据比特 L（编号 0 … lm−1）', 'filled dot = left-layer data qubit L (indices 0 … lm−1)'], ['ring', 'background:var(--bg2);border:1.5px solid var(--ink2)', '空心点 = 右层数据比特 R（编号 lm … 2lm−1）', 'hollow dot = right-layer data qubit R (indices lm … 2lm−1)']].forEach(([shape, css, zh, en]) => {
+      const sp = doc.createElement('span'); sp.className = 'li'; sp.innerHTML = '<span class="' + shape + '" style="' + css + '"></span>' + bi(zh, en); lg.appendChild(sp);
+    });
+    el.appendChild(lg);
     build(); readout();
   }
   U().reg('bbbuilder', wBbBuilder);

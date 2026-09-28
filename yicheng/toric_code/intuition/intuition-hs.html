@@ -876,6 +876,24 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
 .formula .sym { border-bottom-color: color-mix(in srgb, var(--ink3) 55%, transparent); }
 .refpop .rp-sec.rp-symchar { font-size: 17px; color: var(--ink); font-weight: 600; }
 
+/* ---------- catch-up ("补课") fold-outs: remedial explanations opened on demand (rules copied from the BB page) ---------- */
+details.fold.basics { border-color: color-mix(in srgb, var(--cx) 55%, transparent); }
+details.fold.basics summary { color: var(--cx-ink); }
+details.fold.basics .fold-body h5 { font-family: var(--f-body); font-size: 14.5px; font-weight: 600; color: var(--ink); margin: 1.3em 0 0.4em; }
+details.fold.basics .fold-body > .formula { margin: 1em 0; }
+details.fold.basics .fold-body > .table-wrap { margin: 0.9em 0; }
+/* legend line placed under a widget (same look as the sandbox legend) */
+.legend.w-legend { padding: 4px 4px 0; margin: -0.6em 0 1.2em; }
+.legend.w-legend .li { gap: 5px; }
+.legend .ring { width: 10px; height: 10px; border-radius: 50%; display: inline-block; box-sizing: border-box; border: 2px solid currentColor; }
+table.small-tab { border-collapse: collapse; font-size: 13.5px; margin: 0 auto; }
+table.small-tab th, table.small-tab td { border: 1px solid var(--line); padding: 4px 9px; text-align: center; font-variant-numeric: tabular-nums; }
+table.small-tab th { color: var(--ink2); font-weight: 600; background: var(--bg3); }
+table.small-tab td.l { text-align: left; }
+table.small-tab td.hit { color: var(--cz-ink); font-weight: 600; background: var(--cz-soft); }
+/* long formulas wrap instead of hiding their tail behind a horizontal scrollbar */
+.prose ~ .formula, main .formula { white-space: normal; }
+
 </style>
 </head>
 <body>
@@ -910,7 +928,7 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
     </div>
     <div class="cta-row">
       <a class="btn primary" href="#ch0"><span class="zh">开始 ↓</span><span class="en">Begin ↓</span></a>
-      <span class="muted small"><span class="zh">全程约 50–80 分钟 · 12 个可动手实验 · 想要零基础慢速路线？<a href="../../toric_code/intuition/intuition.html">《从 1+1 到 Toric Code》（零基础版）→</a></span><span class="en">About 50–80 minutes · 12 hands-on experiments · prefer the slow no-prerequisites route? <a href="../../toric_code/intuition/intuition.html">“From 1+1 to the Toric Code” (no-prerequisites edition) →</a></span></span>
+      <span class="muted small"><span class="zh">全程约 50–80 分钟 · 18 个可动手实验 · 想要零基础慢速路线？<a href="../../toric_code/intuition/intuition.html">《从 1+1 到 Toric Code》（零基础版）→</a></span><span class="en">About 50–80 minutes · 18 hands-on experiments · prefer the slow no-prerequisites route? <a href="../../toric_code/intuition/intuition.html">“From 1+1 to the Toric Code” (no-prerequisites edition) →</a></span></span>
     </div>
   </div>
 </div>
@@ -1015,8 +1033,8 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
   <details class="fold">
     <summary><span class="zh">为什么大自然坚持用复数？</span><span class="en">Why does nature insist on <span class="sym" data-sym="bbC">ℂ</span>?</span></summary>
     <div class="fold-body">
-      <p class="zh">因为量子演化既要「转动」状态又要严格保持长度（概率总和为 1），二维里能连续转动且保长度的数系恰好是复数的乘法。教程主线用到的两种操作（交换、变号）碰巧都是实矩阵，所以我们可以全程待在实数里；但完整的操作清单里还有第三位成员 Y——它的矩阵含 i（<span class="ref" data-ref="ht3" data-sec="3">第 3 章</span>见）——以及一切「旋转角度」类操作。丢掉复数，量子力学的门就只剩一半。</p>
-      <p class="en">Because quantum evolution must “rotate” states while exactly preserving length (total probability 1), and the number system whose multiplication rotates-and-preserves in two dimensions is precisely <span class="sym" data-sym="bbC">ℂ</span>. The two operations our main path needs (swap, re-sign) happen to be real matrices, so we may stay in <span class="sym" data-sym="bbR">ℝ</span> throughout; but the full roster includes a third member Y — whose matrix contains i (<span class="ref" data-ref="ht3" data-sec="3">Chapter 3</span>) — and every “rotate by an angle” operation. Drop <span class="sym" data-sym="bbC">ℂ</span> and half of quantum mechanics' doors close.</p>
+      <p class="zh">这个问题比看上去深，本页不回答它。一个常见的说法是「量子演化要转动状态、又要保持长度，所以需要复数」，但这不够：实数的 2×2 旋转矩阵 [[cos θ, −sin θ], [sin θ, cos θ]] 同样能连续转动、保持长度。本页真正用到复数的地方只有两处：泡利矩阵 Y 含 i（<span class="ref" data-ref="ht3" data-sec="3">第 3 章</span>），以及 3.4 诚实说明里的整体相位 e<sup>iθ</sup>。主线用到的两种操作（交换、变号）都是实矩阵，所以其余部分都可以待在实数里。</p>
+      <p class="en">The question is deeper than it looks, and this page does not answer it. A common line is “quantum evolution must rotate states while preserving length, hence complex numbers”, but that is not enough: the real 2×2 rotation matrix [[cos θ, −sin θ], [sin θ, cos θ]] also rotates continuously and preserves length. This page actually needs <span class="sym" data-sym="bbC">ℂ</span> in only two places: the Pauli matrix Y contains i (<span class="ref" data-ref="ht3" data-sec="3">Chapter 3</span>), and the global phase e<sup>iθ</sup> in the honesty note of §3.4. The two operations the main path uses (swap, re-sign) are real matrices, so everything else can stay in <span class="sym" data-sym="bbR">ℝ</span>.</p>
     </div>
   </details>
 
@@ -1141,13 +1159,15 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
 
   <h3 id="s3-2"><span class="sec-no">3.2</span><span class="zh">公设二：操作是矩阵——泡利三人组登场</span><span class="en">Postulate two: operations are matrices — enter the Paulis</span></h3>
   <div class="prose">
-    <p class="zh"><b>公设二（操作）</b>：不做测量时，对系统的任何操作都是「线性保长度」的，即由矩阵实现。<span class="ref" data-ref="ht1" data-sec="1">第 1 章</span>的两位主角现在亮明身份——交换矩阵 S 与变号矩阵 D 正是量子比特最基本的两种「拨动」，行话记作 <span class="opx">X</span> 与 <span class="opz">Z</span>；连同含 i 的第三位成员，合称<b>泡利矩阵</b>：</p>
-    <p class="en"><b>Postulate two (operations)</b>: between measurements, any operation is “linear and length-preserving”, i.e. a matrix. <span class="ref" data-ref="ht1" data-sec="1">Chapter 1</span>'s protagonists now show their badges — the swap matrix S and re-sign matrix D are precisely the qubit's two elementary nudges, written <span class="opx">X</span> and <span class="opz">Z</span>; together with a third member containing i they form the <b>Pauli matrices</b>:</p>
+    <p class="zh"><b>公设二（操作）</b>：一个<b>孤立</b>系统（不与外界交换任何东西）在不被测量时，状态的变化是「线性保长度」的，即由矩阵实现。<span class="ref" data-ref="ht1" data-sec="1">第 1 章</span>的两位主角现在亮明身份——交换矩阵 S 与变号矩阵 D 正是量子比特最基本的两种「拨动」，行话记作 <span class="opx">X</span> 与 <span class="opz">Z</span>；连同含 i 的第三位成员，合称<b>泡利矩阵</b>：</p>
+    <p class="en"><b>Postulate two (operations)</b>: while an <b>isolated</b> system (one that exchanges nothing with its surroundings) is not being measured, its state changes in a “linear and length-preserving” way, i.e. by a matrix. <span class="ref" data-ref="ht1" data-sec="1">Chapter 1</span>'s protagonists now show their badges — the swap matrix S and re-sign matrix D are precisely the qubit's two elementary nudges, written <span class="opx">X</span> and <span class="opz">Z</span>; together with a third member containing i they form the <b>Pauli matrices</b>:</p>
   </div>
   <div class="formula center tall"><span class="opx">X</span> = <span class="mx c2"><i>0</i><i>1</i><i>1</i><i>0</i></span>　·　<span class="opz">Z</span> = <span class="mx c2"><i>1</i><i>0</i><i>0</i><i>−1</i></span>　·　Y = <span class="mx c2"><i>0</i><i>−i</i><i>i</i><i>0</i></span>　<span class="dim">(<span class="zh">本教程主线只需 X 与 Z</span><span class="en">the main path needs only X and Z</span>)</span></div>
   <div class="prose">
     <p class="zh">X 交换振幅（量子版比特翻转）：X(a,b)<span class="sym" data-sym="transpose">ᵀ</span>=(b,a)<span class="sym" data-sym="transpose">ᵀ</span>；Z 给 |1⟩-分量变号：Z(a,b)<span class="sym" data-sym="transpose">ᵀ</span>=(a,−b)<span class="sym" data-sym="transpose">ᵀ</span>。噪声施加 X 称为 <b>X 错误</b>，施加 Z 称为 <b>Z 错误</b>——注意 Z 完全不改动 |a|²、|b|²，在 0/1 测量里彻底隐形。它究竟动了什么？回答这个问题需要一个新词。</p>
     <p class="en">X swaps amplitudes (the quantum bit-flip): X(a,b)<span class="sym" data-sym="transpose">ᵀ</span>=(b,a)<span class="sym" data-sym="transpose">ᵀ</span>; Z re-signs the |1⟩ component: Z(a,b)<span class="sym" data-sym="transpose">ᵀ</span>=(a,−b)<span class="sym" data-sym="transpose">ᵀ</span>. Noise applying X is an <b>X error</b>; applying Z, a <b>Z error</b> — and note Z leaves |a|², |b|² untouched, utterly invisible to 0/1 measurement. What, then, did it change? Answering needs one new word.</p>
+    <p class="zh"><b>本教程的噪声模型（一个选择，不是公设的推论）。</b>真实的比特并不孤立：它会和周围环境交换能量，所以公设二管不到它挨的噪声。例：处在 |1⟩ 的比特会自发落回 |0⟩，把能量交给环境（称为<span class="term">振幅阻尼<span class="tip">amplitude damping：比特自发从 |1⟩ 落回 |0⟩、把能量交给环境的噪声。没有人测量它，但它也不是一个保长度的矩阵。</span></span>）。看最极端的情形：|0⟩ 不动，|1⟩ 必然变成 |0⟩。若这是一个矩阵 M，那么 M(1,0)<span class="sym" data-sym="transpose">ᵀ</span> = (1,0)<span class="sym" data-sym="transpose">ᵀ</span>、M(0,1)<span class="sym" data-sym="transpose">ᵀ</span> = (1,0)<span class="sym" data-sym="transpose">ᵀ</span>，按线性 M(1/√2, 1/√2)<span class="sym" data-sym="transpose">ᵀ</span> = (2/√2, 0)<span class="sym" data-sym="transpose">ᵀ</span> = (√2, 0)<span class="sym" data-sym="transpose">ᵀ</span>，平方和是 2 而不是 1：长度没有保住，所以它不是公设二说的那种操作。本教程（以及本系列）<b>选定</b>一种简化的模型：噪声偶尔对某个比特施加一个 X 或 Z，其余时候不打扰它。这样错误就只有 X 错误、Z 错误两种（以及二者同时发生），后面的全部机制都在这个模型里讲。</p>
+    <p class="en"><b>This tutorial's noise model (a choice, not a consequence of the postulates).</b> Real qubits are not isolated: they exchange energy with their surroundings, so Postulate two does not cover the noise they suffer. Example: a qubit in |1⟩ can fall back to |0⟩ on its own, handing its energy to the environment (called <span class="term">amplitude damping<span class="tip">Noise in which a qubit falls from |1⟩ back to |0⟩ on its own, giving its energy to the environment. Nobody measures it, yet it is not a length-preserving matrix either.</span></span>). Take the extreme case: |0⟩ stays put and |1⟩ always becomes |0⟩. If this were a matrix M, then M(1,0)<span class="sym" data-sym="transpose">ᵀ</span> = (1,0)<span class="sym" data-sym="transpose">ᵀ</span> and M(0,1)<span class="sym" data-sym="transpose">ᵀ</span> = (1,0)<span class="sym" data-sym="transpose">ᵀ</span>, so by linearity M(1/√2, 1/√2)<span class="sym" data-sym="transpose">ᵀ</span> = (2/√2, 0)<span class="sym" data-sym="transpose">ᵀ</span> = (√2, 0)<span class="sym" data-sym="transpose">ᵀ</span>, whose squares add to 2, not 1: length is not preserved, so this is not an operation of the kind Postulate two describes. This tutorial (and this series) <b>chooses</b> a simplified model: now and then noise applies an X or a Z to some qubit, and otherwise leaves it alone. Errors then come in just two kinds, X errors and Z errors (and both at once), and every mechanism from here on is explained within this model.</p>
   </div>
 
   <h3 id="s3-3"><span class="sec-no">3.3</span><span class="zh">本征值、本征态与「测一个算符」</span><span class="en">Eigenvalues, eigenstates, and “measuring an operator”</span></h3>
@@ -1234,8 +1254,8 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
   </div>
   <div class="formula center tall"><span class="mx c1"><i>a₁</i><i>b₁</i></span> <span class="sym" data-sym="otimes">⊗</span> <span class="mx c1"><i>a₂</i><i>b₂</i></span> = <span class="mx c1"><i>a₁a₂</i><i>a₁b₂</i><i>b₁a₂</i><i>b₁b₂</i></span>　<span class="dim">(<span class="zh">维数相乘：2×2=4；n 个比特 → 2ⁿ 维</span><span class="en">dimensions multiply: 2×2=4; n qubits → 2ⁿ dimensions</span>)</span></div>
   <div class="prose">
-    <p class="zh">关键在反面：<b>不是所有四维态都能这样拆开</b>。试拆 <span class="term">贝尔态<span class="tip">(|00⟩+|11⟩)/√2：最著名的纠缠态。单看任何一个比特都是纯随机，合看却完全相关。</span></span> (|00⟩+|11⟩)/√2 = (1/√2, 0, 0, 1/√2)<span class="sym" data-sym="transpose">ᵀ</span>：需要 a₁b₂ = 0，于是 a₁ = 0（与 a₁a₂ = 1/√2 矛盾）或 b₂ = 0（与 b₁b₂ = 1/√2 矛盾）——三行反证，无解。拆不开的状态称为<b>纠缠态</b>：信息不在任何单个比特里，而在它们的关联里。这正是我们即将用来藏匿逻辑比特的口袋。操作也升级到寄存器上：X₁ 表示「对 1 号比特做 X、对 2 号什么都不做」，即 X<span class="sym" data-sym="otimes">⊗</span>I——作用规则是翻转基标签的第一位；Z₂ 给第二位为 1 的分量变号，依此类推。</p>
-    <p class="en">The reverse direction is the point: <b>not every four-dimensional state factors this way</b>. Try the <span class="term">Bell state<span class="tip">(|00⟩+|11⟩)/√2: the most famous entangled state. Each qubit alone is pure noise; together, perfect correlation.</span></span> (|00⟩+|11⟩)/√2 = (1/√2, 0, 0, 1/√2)<span class="sym" data-sym="transpose">ᵀ</span>: we'd need a₁b₂ = 0, so a₁ = 0 (contradicting a₁a₂ = 1/√2) or b₂ = 0 (contradicting b₁b₂ = 1/√2) — a three-line contradiction, no solution. Unfactorable states are <b>entangled</b>: their information lives in correlations, not in any single qubit — precisely the pocket where we will hide logical qubits. Operations upgrade to registers too: X₁ means “X on qubit 1, nothing on qubit 2”, i.e. X<span class="sym" data-sym="otimes">⊗</span>I — flip the first slot of each basis label; Z₂ re-signs components whose second slot is 1; and so on.</p>
+    <p class="zh">关键在反面：<b>不是所有四维态都能这样拆开</b>。试拆 <span class="term">贝尔态<span class="tip">(|00⟩+|11⟩)/√2：最著名的纠缠态。单看任何一个比特都是纯随机，合看却完全相关。</span></span> (|00⟩+|11⟩)/√2 = (1/√2, 0, 0, 1/√2)<span class="sym" data-sym="transpose">ᵀ</span>：需要 a₁b₂ = 0，于是 a₁ = 0（与 a₁a₂ = 1/√2 矛盾）或 b₂ = 0（与 b₁b₂ = 1/√2 矛盾）——三行反证，无解。拆不开的状态称为<b>纠缠态</b>。贝尔态是最彻底的一种：单看任何一个比特，测 0/1 各得一半，这个比特自己什么也不透露；合看两个，结果永远相同。信息全在关联里。但「拆不开」本身并不保证这一点。例：√0.8|00⟩ + √0.2|11⟩ 用同样的三行反证也拆不开，可单测第一个比特，就以 0.8 的概率得 0、0.2 的概率得 1，状态的一部分信息露在单个比特上。纠错需要的是更强的性质：要保护的信息在单个比特（以及少数几个比特）上完全看不出来，像贝尔态那样。这才是我们要用来藏匿逻辑比特的口袋，第 5 章的环面码就把逻辑比特藏在这种遍布全局的关联里。操作也升级到寄存器上：X₁ 表示「对 1 号比特做 X、对 2 号什么都不做」，即 X<span class="sym" data-sym="otimes">⊗</span>I——作用规则是翻转基标签的第一位；Z₂ 给第二位为 1 的分量变号，依此类推。</p>
+    <p class="en">The reverse direction is the point: <b>not every four-dimensional state factors this way</b>. Try the <span class="term">Bell state<span class="tip">(|00⟩+|11⟩)/√2: the most famous entangled state. Each qubit alone is pure noise; together, perfect correlation.</span></span> (|00⟩+|11⟩)/√2 = (1/√2, 0, 0, 1/√2)<span class="sym" data-sym="transpose">ᵀ</span>: we'd need a₁b₂ = 0, so a₁ = 0 (contradicting a₁a₂ = 1/√2) or b₂ = 0 (contradicting b₁b₂ = 1/√2) — a three-line contradiction, no solution. Unfactorable states are <b>entangled</b>. The Bell state is the most thorough kind: look at either qubit alone and a 0/1 measurement gives each outcome half the time, so that qubit reveals nothing by itself; look at both and the results always agree. All the information sits in the correlation. Being unfactorable does not guarantee this, though. Example: √0.8|00⟩ + √0.2|11⟩ is unfactorable by the same three-line contradiction, yet measuring the first qubit alone gives 0 with probability 0.8 and 1 with probability 0.2, so part of the state's information shows on a single qubit. Error correction needs the stronger property: the protected information cannot be seen at all on a single qubit (or on a few qubits), as in the Bell state. That is the pocket where we will hide logical qubits; the toric code of Chapter 5 hides them in correlations of exactly this spread-out kind. Operations upgrade to registers too: X₁ means “X on qubit 1, nothing on qubit 2”, i.e. X<span class="sym" data-sym="otimes">⊗</span>I — flip the first slot of each basis label; Z₂ re-signs components whose second slot is 1; and so on.</p>
   </div>
   <div data-widget="twoqubit"></div>
   <details class="fold">
@@ -1248,8 +1268,8 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
 
   <h3 id="s4-2"><span class="sec-no">4.2</span><span class="zh">泡利串与碰撞定理</span><span class="en">Pauli strings and the collision theorem</span></h3>
   <div class="prose">
-    <p class="zh">形如 X₁Z₃（= X<span class="sym" data-sym="otimes">⊗</span>I<span class="sym" data-sym="otimes">⊗</span>Z）的多比特操作叫<span class="term">泡利串<span class="tip">每个比特一格、格中为 I/X/Z（完整版还有 Y）的多比特算符，如 X·I·Z。</span></span>：每比特一格，格里是 I、X 或 Z。两串相乘时能否交换顺序？逐格搬运即可：不同格互不干涉；同一格里只有「X 遇 Z」按 <span class="ref" data-ref="anticommute" data-sec="3.4">3.4 节</span>付出一个 −1。于是：</p>
-    <p class="en">Multi-qubit operations like X₁Z₃ (= X<span class="sym" data-sym="otimes">⊗</span>I<span class="sym" data-sym="otimes">⊗</span>Z) are called <span class="term">Pauli strings<span class="tip">One cell per qubit, each I/X/Z (plus Y in the full story), e.g. X·I·Z.</span></span>. When two strings multiply, may we swap their order? Carry them past each other cell by cell: different cells never interfere; within one cell, only “X meets Z” costs a −1 by <span class="ref" data-ref="anticommute" data-sec="3.4">§3.4</span>. Hence:</p>
+    <p class="zh">形如 X₁Z₃（= X<span class="sym" data-sym="otimes">⊗</span>I<span class="sym" data-sym="otimes">⊗</span>Z）的多比特操作叫<span class="term">泡利串<span class="tip">每个比特一格、格中为 I/X/Z（完整版还有 Y）的多比特算符，如 X·I·Z。</span></span>：每比特一格，格里是 I、X 或 Z。两串相乘时能否交换顺序？逐格搬运即可。不同格互不干涉：按 4.1 的规则，X₁ 只翻转基标签的第 1 位，Z₂ 只按第 2 位决定是否变号，谁也不改对方看的那一位，所以对任何基向量，先 X₁ 后 Z₂ 与先 Z₂ 后 X₁ 结果相同。例：|01⟩ 先 X₁ 得 |11⟩、再 Z₂ 得 −|11⟩；先 Z₂ 得 −|01⟩、再 X₁ 得 −|11⟩。同一格里只有「X 遇 Z」按 <span class="ref" data-ref="anticommute" data-sec="3.4">3.4 节</span>付出一个 −1。例如 X₁X₂·Z₁Z₂ = (X₁Z₁)(X₂Z₂) = (−Z₁X₁)(−Z₂X₂) = +Z₁Z₂·X₁X₂：两格各付一个 −1，合起来对易。于是：</p>
+    <p class="en">Multi-qubit operations like X₁Z₃ (= X<span class="sym" data-sym="otimes">⊗</span>I<span class="sym" data-sym="otimes">⊗</span>Z) are called <span class="term">Pauli strings<span class="tip">One cell per qubit, each I/X/Z (plus Y in the full story), e.g. X·I·Z.</span></span>. When two strings multiply, may we swap their order? Carry them past each other cell by cell. Different cells never interfere: by §4.1's rules, X₁ only flips label slot 1 and Z₂ only decides its sign by slot 2, so neither changes the slot the other reads, and on every basis vector X₁-then-Z₂ equals Z₂-then-X₁. Example: |01⟩ becomes |11⟩ under X₁ and then −|11⟩ under Z₂; Z₂ first gives −|01⟩, then X₁ gives −|11⟩. Within one cell, only “X meets Z” costs a −1 by <span class="ref" data-ref="anticommute" data-sec="3.4">§3.4</span>. For instance X₁X₂·Z₁Z₂ = (X₁Z₁)(X₂Z₂) = (−Z₁X₁)(−Z₂X₂) = +Z₁Z₂·X₁X₂: each of the two cells costs a −1, and together they commute. Hence:</p>
   </div>
   <div class="formula center"><span class="zh">定理（碰撞定理）</span><span class="en">Theorem (collision)</span>: PQ = (−1)<sup>c</sup> QP,　c = <span class="term">#<span class="tip"><span class="zh">井号读「个数」：#{…} 表示花括号里那个集合有多少个元素。</span><span class="en">The hash reads “the number of”: #{…} counts the elements of the set in braces.</span></span></span>{<span class="zh">X 与 Z 同格相遇的位置</span><span class="en">cells where X meets Z</span>}　<span class="sym" data-sym="implies">⇒</span>　<span class="zh">c 偶 <span class="sym" data-sym="iff">⇔</span> 对易</span><span class="en">even c <span class="sym" data-sym="iff">⇔</span> commute</span></div>
   <div data-widget="commutechecker"></div>
@@ -1263,7 +1283,7 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
   <details class="fold">
     <summary><span class="zh">四条性质，每条一行（建议亲手验证）</span><span class="en">Four properties, one line each (verify by hand)</span></summary>
     <div class="fold-body">
-      <p class="zh">P₊+P₋ = (I+S+I−S)/2 = I。P±² = (I±S)²/4 = (I±2S+S²)/4 = (2I±2S)/4 = P±（用了 S²=I）。P₊P₋ = (I+S)(I−S)/4 = (I−S²)/4 = 0。SP± = (S±S²)/2 = (S±I)/2 = ±P±——所以 P± 的像全由本征值 ±1 的向量构成：P± 就是「把状态里 ±1 的成分捞出来」的漏勺。</p>
+      <p class="zh">P₊+P₋ = (I+S+I−S)/2 = I。P±² = (I±S)²/4 = (I±2S+S²)/4 = (2I±2S)/4 = P±（用了 S²=I）。P₊P₋ = (I+S)(I−S)/4 = (I−S²)/4 = 0。SP± = (S±S²)/2 = (S±I)/2 = ±P±——所以 P± 作用在任何向量上，得到的都是 S 的本征值 ±1 的本征向量：P± 就是「把状态里 ±1 的成分捞出来」的漏勺。</p>
       <p class="en">P₊+P₋ = (I+S+I−S)/2 = I. P±² = (I±S)²/4 = (I±2S+S²)/4 = (2I±2S)/4 = P± (using S²=I). P₊P₋ = (I+S)(I−S)/4 = (I−S²)/4 = 0. SP± = (S±S²)/2 = (S±I)/2 = ±P± — so everything P± outputs is a ±1 eigenvector: P± is the sieve that strains out the ±1 component.</p>
     </div>
   </details>
@@ -1271,7 +1291,7 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
     <p class="zh"><b>测量规则（公设三的完整版）</b>：测 S 得 ±1 的概率是 p± = |P±<span class="sym" data-sym="psi">ψ</span>|²（分量的长度平方），测后状态是 P±<span class="sym" data-sym="psi">ψ</span> 重新拉伸回单位长度。两个成分互相垂直（P₊P₋=0），勾股定理保证 p₊+p₋ = |<span class="sym" data-sym="psi">ψ</span>|² = 1。两道例题把它算透：</p>
     <p class="en">The <b>measurement rule</b> (postulate three, full version): measuring S returns ±1 with probability p± = |P±<span class="sym" data-sym="psi">ψ</span>|² (the component's squared length); the post-state is P±<span class="sym" data-sym="psi">ψ</span> rescaled to unit length. The two components are perpendicular (P₊P₋=0), so Pythagoras gives p₊+p₋ = |<span class="sym" data-sym="psi">ψ</span>|² = 1. Two worked examples settle it:</p>
   </div>
-  <div class="formula center tall"><span class="zh">例一</span><span class="en">Ex. 1</span>: S = <span class="opz">Z₁Z₂</span>, |<span class="sym" data-sym="psi">ψ</span>⟩ = <span class="zh">贝尔态</span><span class="en">Bell</span>: S|<span class="sym" data-sym="psi">ψ</span>⟩ = |<span class="sym" data-sym="psi">ψ</span>⟩ <span class="sym" data-sym="implies">⇒</span> P₊<span class="sym" data-sym="psi">ψ</span> = <span class="sym" data-sym="psi">ψ</span>, p₊ = 1, <span class="zh">状态原封不动</span><span class="en">state untouched</span><br><span class="zh">例二</span><span class="en">Ex. 2</span>: S = <span class="opz">Z₁Z₂</span>, |<span class="sym" data-sym="psi">ψ</span>⟩ = |++⟩ = ¼(1,1,1,1)<span class="sym" data-sym="transpose">ᵀ</span>·2: P₊<span class="sym" data-sym="psi">ψ</span> = ½(1,0,0,1)<span class="sym" data-sym="transpose">ᵀ</span>, p₊ = ¼+¼ = ½, <span class="zh">测得 +1 后坍缩为贝尔态</span><span class="en">on +1 it collapses to Bell</span></div>
+  <div class="formula center tall"><span class="zh">例一</span><span class="en">Ex. 1</span>: S = <span class="opz">Z₁Z₂</span>, |<span class="sym" data-sym="psi">ψ</span>⟩ = <span class="zh">贝尔态</span><span class="en">Bell</span>: S|<span class="sym" data-sym="psi">ψ</span>⟩ = |<span class="sym" data-sym="psi">ψ</span>⟩ <span class="sym" data-sym="implies">⇒</span> P₊<span class="sym" data-sym="psi">ψ</span> = <span class="sym" data-sym="psi">ψ</span>, p₊ = 1, <span class="zh">状态原封不动</span><span class="en">state untouched</span><br><span class="zh">例二</span><span class="en">Ex. 2</span>: S = <span class="opz">Z₁Z₂</span>, |<span class="sym" data-sym="psi">ψ</span>⟩ = |++⟩ = ½(1,1,1,1)<span class="sym" data-sym="transpose">ᵀ</span>: P₊<span class="sym" data-sym="psi">ψ</span> = ½(1,0,0,1)<span class="sym" data-sym="transpose">ᵀ</span>, p₊ = ¼+¼ = ½, <span class="zh">测得 +1 后坍缩为贝尔态</span><span class="en">on +1 it collapses to Bell</span></div>
   <div class="note note-key">
     <span class="note-tag"><span class="zh">关键想法</span><span class="en">Key idea</span></span>
     <p class="zh">测 Z₁Z₂ 只问「两比特的联合奇偶」，绝不触碰单个比特的身份：贝尔态整个存活（例一），|++⟩ 甚至被这次提问<b>织成</b>纠缠态（例二）。这就是量子版的奇偶检查——<span class="ref" data-ref="paritycheck" data-sec="2.3">2.3 节</span>的两盏灯，如今有了矩阵证书。去实验台复算这两道例题（按「测 Z₁Z₂」按钮）。</p>
@@ -1280,32 +1300,54 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
 
   <h3 id="s4-4"><span class="sec-no">4.4</span><span class="zh">稳定子：一份互相兼容的检查清单</span><span class="en">Stabilizers: a mutually compatible checklist</span></h3>
   <div class="prose">
-    <p class="zh">现在批量提问。一份清单上的检查必须两两<b>对易</b>——否则无法同时都「必然 +1」：若 ST = −TS 而 S<span class="sym" data-sym="psi">ψ</span> = <span class="sym" data-sym="psi">ψ</span>、T<span class="sym" data-sym="psi">ψ</span> = <span class="sym" data-sym="psi">ψ</span>，则 <span class="sym" data-sym="psi">ψ</span> = ST<span class="sym" data-sym="psi">ψ</span> = −TS<span class="sym" data-sym="psi">ψ</span> = −<span class="sym" data-sym="psi">ψ</span>，只能 <span class="sym" data-sym="psi">ψ</span> = 0。一行归谬，铁案如山。互相对易、要求全部「必然 +1」的泡利串清单称为<span class="term">稳定子<span class="tip">stabilizer：一组两两对易的泡利串检查；编码态被要求是它们全体的 +1 本征态。</span></span>，通过全部检查的状态构成<b>编码空间</b>。它有多大？</p>
-    <p class="en">Now ask in bulk. Checks on one list must pairwise <b>commute</b> — else they cannot all be “+1 surely”: if ST = −TS with S<span class="sym" data-sym="psi">ψ</span> = <span class="sym" data-sym="psi">ψ</span> and T<span class="sym" data-sym="psi">ψ</span> = <span class="sym" data-sym="psi">ψ</span>, then <span class="sym" data-sym="psi">ψ</span> = ST<span class="sym" data-sym="psi">ψ</span> = −TS<span class="sym" data-sym="psi">ψ</span> = −<span class="sym" data-sym="psi">ψ</span>, forcing <span class="sym" data-sym="psi">ψ</span> = 0. One line of contradiction, case closed. A list of mutually commuting Pauli strings, all required to read “+1 surely”, is called the <span class="term">stabilizer<span class="tip">A set of pairwise-commuting Pauli-string checks; encoded states are common +1 eigenstates of all of them.</span></span>, and the states passing every check form the <b>code space</b>. How big is it?</p>
+    <p class="zh">现在批量提问。一份清单上的检查必须两两<b>对易</b>——否则无法同时都「必然 +1」：若 ST = −TS 而 S<span class="sym" data-sym="psi">ψ</span> = <span class="sym" data-sym="psi">ψ</span>、T<span class="sym" data-sym="psi">ψ</span> = <span class="sym" data-sym="psi">ψ</span>，则 <span class="sym" data-sym="psi">ψ</span> = ST<span class="sym" data-sym="psi">ψ</span> = −TS<span class="sym" data-sym="psi">ψ</span> = −<span class="sym" data-sym="psi">ψ</span>，只能 <span class="sym" data-sym="psi">ψ</span> = 0，不是合法状态。互相对易、要求全部「必然 +1」的泡利串清单称为<span class="term">稳定子<span class="tip">stabilizer：一组两两对易的泡利串检查；编码态被要求是它们全体的 +1 本征态。</span></span>，通过全部检查的状态构成<b>编码空间</b>。它有多大？</p>
+    <p class="zh">先说清哪些检查算数。一条检查若等于清单上另外几条的乘积，就<b>不独立</b>：它的读数总能由那几条的读数乘出来，测它不提供新信息。例：三个比特上的 Z₁Z₂、Z₂Z₃、Z₁Z₃，因 Z₂² = I，(Z₁Z₂)(Z₂Z₃) = Z₁Z₃，第三条不独立；八个基向量里通过前两条的只有 |000⟩、|111⟩，它们也自动通过第三条。记 <b>r = 独立检查的条数</b>（上例 r = 2，而不是 3）。判断独立时<b>不计正负号</b>：若 T 等于另外几条的乘积再乘 −1，T 同样不独立，它的读数也被那几条的读数定死，只是等于它们乘积的相反数。这种情形更糟：那几条都读 +1 时，T 必然读 −1，再要求 T 也读 +1 就自相矛盾；换个说法，这几条连同 T 乘起来等于 −I，而 −I 作用在任何状态上都给出 −<span class="sym" data-sym="psi">ψ</span>，没有状态能对它「必然 +1」。所以清单还得满足一条：<b>没有哪几条检查乘起来等于 −I</b>。两两对易的检查也可能违反它（下面第二个折叠盒给出一份这样的清单）；本页用到的检查每条只含 X 或只含 Z，自动满足（同一个折叠盒里有理由）。满足时，每条独立检查把空间维数砍掉一半（下面第一个折叠盒证明），于是：</p>
+    <p class="en">Now ask in bulk. Checks on one list must pairwise <b>commute</b> — else they cannot all be “+1 surely”: if ST = −TS with S<span class="sym" data-sym="psi">ψ</span> = <span class="sym" data-sym="psi">ψ</span> and T<span class="sym" data-sym="psi">ψ</span> = <span class="sym" data-sym="psi">ψ</span>, then <span class="sym" data-sym="psi">ψ</span> = ST<span class="sym" data-sym="psi">ψ</span> = −TS<span class="sym" data-sym="psi">ψ</span> = −<span class="sym" data-sym="psi">ψ</span>, forcing <span class="sym" data-sym="psi">ψ</span> = 0, which is not a legal state. A list of mutually commuting Pauli strings, all required to read “+1 surely”, is called the <span class="term">stabilizer<span class="tip">A set of pairwise-commuting Pauli-string checks; encoded states are common +1 eigenstates of all of them.</span></span>, and the states passing every check form the <b>code space</b>. How big is it?</p>
+    <p class="en">First, which checks count. A check that equals the product of some other checks on the list is <b>not independent</b>: its reading can always be multiplied together from theirs, so measuring it brings no new information. Example: on three qubits take Z₁Z₂, Z₂Z₃, Z₁Z₃; since Z₂² = I, (Z₁Z₂)(Z₂Z₃) = Z₁Z₃, so the third is not independent; of the eight basis vectors only |000⟩ and |111⟩ pass the first two, and they pass the third automatically. Write <b>r = the number of independent checks</b> (r = 2 above, not 3). Independence <b>ignores signs</b>: if T equals a product of some other checks times −1, T is not independent either, since its reading is again fixed by theirs, only as the negative of their product. That case is worse: when those checks all read +1, T must read −1, so demanding +1 from T as well is a contradiction; put differently, those checks together with T multiply to −I, and −I turns every state into −<span class="sym" data-sym="psi">ψ</span>, so no state can answer “+1 surely” to it. Hence the list must satisfy one more condition: <b>no selection of checks multiplies to −I</b>. Pairwise-commuting checks can still violate it (the second fold-out below gives such a list); the checks on this page each contain only X’s or only Z’s and satisfy it automatically (the same fold-out says why). When it holds, each independent check cuts the dimension in half (proved in the first fold-out below), so:</p>
   </div>
-  <div class="formula center">n <span class="zh">个比特</span><span class="en">qubits</span>, k <span class="zh">条独立检查</span><span class="en">independent checks</span> <span class="sym" data-sym="implies">⇒</span> <span class="zh">编码空间维数</span><span class="en">code-space dimension</span> = 2<sup>n−k</sup> <span class="sym" data-sym="implies">⇒</span> <b>n−k</b> <span class="zh">个逻辑量子比特</span><span class="en">logical qubits</span></div>
+  <div class="formula center">n <span class="zh">个比特</span><span class="en">qubits</span>, r <span class="zh">条独立检查（两两对易，没有哪几条乘起来是 −I）</span><span class="en">independent checks (pairwise commuting, no product equal to −I)</span> <span class="sym" data-sym="implies">⇒</span> <span class="zh">编码空间维数</span><span class="en">code-space dimension</span> = 2<sup>n−r</sup> <span class="sym" data-sym="implies">⇒</span> <b>k = n − r</b> <span class="zh">个逻辑量子比特</span><span class="en">logical qubits</span></div>
+  <div class="prose">
+    <p class="zh"><b>记号说明：</b>k 数的是逻辑量子比特（2<sup>k</sup> 维的空间恰好装下 k 个量子比特，4.1），r 数的是独立检查。这与编码论的通用写法 <span class="sym" data-sym="nkd">[[n, k, d]]</span> 一致（d 在 4.5 出场），本系列后面各篇都这样用。</p>
+    <p class="en"><b>A note on notation:</b> k counts logical qubits (a 2<sup>k</sup>-dimensional space holds exactly k qubits, §4.1) and r counts independent checks. This matches the standard coding-theory label <span class="sym" data-sym="nkd">[[n, k, d]]</span> (d appears in §4.5), and every later tutorial in this series uses it the same way.</p>
+  </div>
   <details class="fold">
     <summary><span class="zh">为什么每条检查恰好砍半？（对半定理）</span><span class="en">Why does each check cut exactly in half? (the halving theorem)</span></summary>
     <div class="fold-body">
-      <p class="zh">对任何非平凡泡利串 S，总能找到与它反对易的泡利串 E（在 S 有 X 的某格放一个 Z 即可，反之亦然）。E 把 S 的 +1 本征空间映到 −1 本征空间：若 Sv = v，则 S(Ev) = −E(Sv) = −Ev。E 又可逆（E² = I），所以这两个子空间维数相等——各占一半。k 条独立检查依次砍半，2ⁿ → 2ⁿ⁻ᵏ。（「独立」意为任何一条都不是其他若干条的乘积；若是，它的读数被其余决定，不提供新的一刀。）</p>
-      <p class="en">For any nontrivial Pauli string S there is a string E anticommuting with it (put a Z where S has an X, or vice versa). E maps S's +1 eigenspace into the −1 eigenspace: if Sv = v then S(Ev) = −E(Sv) = −Ev. And E is invertible (E² = I), so the two subspaces have equal dimension — half each. k independent checks halve k times: 2ⁿ → 2ⁿ⁻ᵏ. (“Independent” means no check is a product of the others; such a check's reading is already determined and cuts nothing new.)</p>
+      <p class="zh">对任何非平凡泡利串 S，总能找到与它反对易的泡利串 E（在 S 有 X 的某格放一个 Z 即可，反之亦然）。E 把 S 的 +1 本征空间映到 −1 本征空间：若 Sv = v，则 S(Ev) = −E(Sv) = −Ev。E 又可逆（E² = I），所以这两个子空间维数相等——各占一半。</p>
+      <p class="zh">第二条、第三条……检查要<b>在已有的编码空间里</b>再砍一半，需要的 E 多一个条件：与新检查 T 反对易，同时与已有的检查全都对易。这样 E 不会把状态带出已有的编码空间（对已有的每条 S，S(Ev) = E(Sv) = Ev），又在其中把 T 的 +1 部分和 −1 部分一一对应。例：已有 Z₁Z₂，新检查 Z₂Z₃，取 E = X₃：它只和 Z₂Z₃ 在第 3 格碰撞，与 Z₁Z₂ 不碰撞，于是在 {|000⟩, |001⟩, |110⟩, |111⟩} 张成的 4 维空间里把 |000⟩ ↔ |001⟩、|111⟩ ↔ |110⟩ 配对，砍成 2 维。这样的 E 存在的条件恰好就是「T 独立于已有检查（不计正负号）」：若 T = ±(几条已有检查的乘积)，与那几条都对易的 E 也与 T 对易，找不到所需的 E（取 + 时 T 不砍任何东西，取 − 时 T 把剩下的全部砍掉，即上面的 −I 情形）；对一般清单，这一步要用 GF(2) 上的线性代数（高斯消元）来保证，本页不展开，<a href="../../bb_code/intuition/intuition.html#cu-0d">《BB 码》补课 0.D</a> 对本系列用到的这类码（X 检查与 Z 检查分开的码）完整做了一遍。r 条独立检查依次砍半：2ⁿ → 2ⁿ⁻ʳ。</p>
+      <p class="en">For any nontrivial Pauli string S there is a string E anticommuting with it (put a Z where S has an X, or vice versa). E maps S's +1 eigenspace into the −1 eigenspace: if Sv = v then S(Ev) = −E(Sv) = −Ev. And E is invertible (E² = I), so the two subspaces have equal dimension — half each.</p>
+      <p class="en">For the second, third, … check to halve again <b>inside the code space built so far</b>, E needs one more property: anticommute with the new check T while commuting with every existing check. Then E never carries a state out of the existing code space (for each existing S, S(Ev) = E(Sv) = Ev), and inside it pairs T's +1 part one to one with its −1 part. Example: existing Z₁Z₂, new check Z₂Z₃, take E = X₃: it collides only with Z₂Z₃ (cell 3), not with Z₁Z₂, so in the 4-dimensional space spanned by {|000⟩, |001⟩, |110⟩, |111⟩} it pairs |000⟩ ↔ |001⟩ and |111⟩ ↔ |110⟩, cutting it to 2 dimensions. Such an E exists exactly when T is independent of the existing checks (ignoring signs): if T = ±(a product of existing checks), any E commuting with those checks also commutes with T, so the needed E does not exist (with + T cuts nothing away, with − it cuts away everything that is left, the −I case above); for a general list this step is guaranteed by linear algebra over GF(2) (Gaussian elimination), which this page does not develop; <a href="../../bb_code/intuition/intuition.html#cu-0d">Catch-up 0.D of the BB-code tutorial</a> works it out completely for the kind of code used in this series (X checks and Z checks kept separate). r independent checks halve r times: 2ⁿ → 2ⁿ⁻ʳ.</p>
+    </div>
+  </details>
+  <details class="fold basics" id="cu-4a">
+    <summary><span class="zh">补课 · 两两对易，却一个通过者也没有：XZZ、ZXZ、ZZX、XXX</span><span class="en">Catch-up · Pairwise commuting, yet nothing passes: XZZ, ZXZ, ZZX, XXX</span></summary>
+    <div class="fold-body">
+      <p class="zh">看三个比特上的四条检查 XZZ、ZXZ、ZZX、XXX（XZZ 是 X₁Z₂Z₃ 的简写：第几个字母就作用在第几个比特上）。用 4.2 的碰撞定理两两数碰撞（同一格里一个是 X、另一个是 Z，算一次碰撞）：XZZ 与 ZXZ 在第 1、2 格，XZZ 与 ZZX 在第 1、3 格，XZZ 与 XXX 在第 2、3 格，ZXZ 与 ZZX 在第 2、3 格，ZXZ 与 XXX 在第 1、3 格，ZZX 与 XXX 在第 1、2 格。六对都恰好碰撞 2 次，偶数，全部对易。现在按 XZZ、ZXZ、ZZX、XXX 的顺序把四条逐格乘起来：</p>
+      <p class="en">Take four checks on three qubits: XZZ, ZXZ, ZZX, XXX (XZZ is short for X₁Z₂Z₃: the k-th letter acts on qubit k). Count collisions pair by pair with §4.2's collision theorem (one collision per cell where one string has X and the other has Z): XZZ and ZXZ collide in cells 1 and 2, XZZ and ZZX in cells 1 and 3, XZZ and XXX in cells 2 and 3, ZXZ and ZZX in cells 2 and 3, ZXZ and XXX in cells 1 and 3, ZZX and XXX in cells 1 and 2. All six pairs collide exactly twice, an even number, so all commute. Now multiply the four cell by cell, in the order XZZ, ZXZ, ZZX, XXX:</p>
+      <div class="formula"><span class="zh">第 1 格</span><span class="en">cell 1</span>: X·Z·Z·X = X·X = I　·　<span class="zh">第 3 格</span><span class="en">cell 3</span>: Z·Z·X·X = I　·　<span class="zh">第 2 格</span><span class="en">cell 2</span>: Z·X·Z·X = Z·(−Z·X)·X = −Z·Z·X·X = −I</div>
+      <p class="zh">第 2 格里用了 <span class="ref" data-ref="anticommute" data-sec="3.4">3.4 节</span>的 XZ = −ZX 把中间两个换位。所以四条的乘积是 −I。假如某个状态 <span class="sym" data-sym="psi">ψ</span> 通过全部四条，依次施加四条检查时它每一步都原样不变，于是 <span class="sym" data-sym="psi">ψ</span> = (−I)<span class="sym" data-sym="psi">ψ</span> = −<span class="sym" data-sym="psi">ψ</span>，只能是零向量，不是合法状态。<b>这份清单一个通过者也没有</b>，「每条砍一半」的账不能照算（照算会得出 k = 3 − 4 = −1，毫无意义）。用正文的说法：前三条的乘积是 −XXX，所以第四条 XXX 按「不计正负号」不独立，而且正是带负号的那种；前三条都读 +1 时，XXX 必然读 −1。去掉 XXX，前三条是独立的，r = 3，剩 2³⁻³ = 1 维：恰好一个通过者，k = 0。</p>
+      <p class="en">In cell 2, the rule XZ = −ZX of <span class="ref" data-ref="anticommute" data-sec="3.4">§3.4</span> swapped the middle pair. So the product of the four is −I. If some state <span class="sym" data-sym="psi">ψ</span> passed all four, it would stay unchanged at every step as we apply the four checks one after another, so <span class="sym" data-sym="psi">ψ</span> = (−I)<span class="sym" data-sym="psi">ψ</span> = −<span class="sym" data-sym="psi">ψ</span>, forcing the zero vector, which is not a legal state. <b>This list has no passing state at all</b>, and the “each check halves” count cannot be applied (it would give k = 3 − 4 = −1, which means nothing). In the main text's terms: the first three multiply to −XXX, so the fourth, XXX, is not independent once signs are ignored, and it is the kind with the minus sign; when the first three read +1, XXX must read −1. Drop XXX and the first three are independent, r = 3, leaving 2³⁻³ = 1 dimension: exactly one passing state, k = 0.</p>
+      <p class="zh">什么时候不必担心？每条检查若只含 X 或只含 Z（再加上 I），就不会出现这种矛盾；本页的所有检查（三比特码、环面码）都是这样。理由：检查两两对易，乘积里可以随意调换顺序，于是把只含 X 的检查排在前面、只含 Z 的排在后面。几条只含 X 的串相乘，每一格只是若干个 X 相乘，X·X = I，不会冒出负号，结果是一条只含 X 的串；只含 Z 的同理。一条只含 X 的串乘一条只含 Z 的串要等于 ±I，两者都只能是 I 本身，所以乘积是 +I，不会是 −I。</p>
+      <p class="en">When is there nothing to worry about? If every check contains only X's or only Z's (plus I's), this contradiction cannot happen; every check on this page (the three-qubit code, the toric code) is of that kind. The reason: the checks commute pairwise, so the factors of a product may be reordered freely; put the X-only checks first and the Z-only checks after them. Multiplying X-only strings just multiplies X's within each cell, and X·X = I produces no minus sign, so the result is again an X-only string; likewise for Z-only strings. For an X-only string times a Z-only string to equal ±I, both must be I itself, so the product is +I, never −I.</p>
     </div>
   </details>
   <div class="prose">
-    <p class="zh">还差一个角色：<b>逻辑算符</b>——与全部检查对易（不触发警报）、又不能写成检查乘积（不是「白干」）的泡利串。它保持编码空间整体不动，却在其内部实施非平凡的改写：改写的正是逻辑比特。</p>
-    <p class="en">One cast member remains: <b>logical operators</b> — Pauli strings commuting with every check (no alarms) yet not products of checks (not “doing nothing”). They preserve the code space as a whole while rewriting its interior nontrivially: what they rewrite is the logical qubit.</p>
+    <p class="zh">还差一个角色：<b>逻辑算符</b>——与全部检查对易（不触发警报）、又不能写成检查乘积（不是「白干」）的泡利串。它不把状态带出编码空间（与每条检查对易，理由同折叠盒），却在编码空间内部真的改写了状态：改写的正是逻辑比特。「真的改写」要靠一个反对易的搭档来证明，4.5 和 5.6 各给一例。</p>
+    <p class="en">One cast member remains: <b>logical operators</b> — Pauli strings commuting with every check (no alarms) yet not products of checks (not “doing nothing”). They never carry a state out of the code space (they commute with every check, for the reason in the fold-out), yet they really do change states inside it: what they change is the logical qubit. “Really do change” is proved with an anticommuting partner; §4.5 and §5.6 give one example each.</p>
   </div>
 
   <h3 id="s4-5"><span class="sec-no">4.5</span><span class="zh">第一个量子码，与它的判决书</span><span class="en">A first quantum code, and its verdict</span></h3>
   <div class="prose">
-    <p class="zh">取 n = 3、清单 {Z₁Z₂, Z₂Z₃}（对易：Z 遇 Z 无碰撞）。同时「必然 +1」要求相邻位标签相同，八个基向量只剩 |000⟩ 与 |111⟩：编码空间 = {<span class="sym" data-sym="alpha">α</span>|000⟩ + <span class="sym" data-sym="beta">β</span>|111⟩}，恰好 2³⁻² = 2 维，存 1 个逻辑比特 ✓。逻辑算符（字母头上一横读「bar」，标记「逻辑版」）可取 <span class="sym" data-sym="macron">X̄</span> = X₁X₂X₃（与每条检查碰撞 2 次，对易 ✓；交换 |000⟩↔|111⟩，即逻辑翻转）与 <span class="sym" data-sym="macron">Z̄</span> = Z₁（零碰撞 ✓；给 |111⟩ 变号）。X̄ 与 Z̄ 在 1 号格碰撞 1 次——反对易 ✓，一对合格的逻辑 X/Z。</p>
-    <p class="en">Take n = 3 with checklist {Z₁Z₂, Z₂Z₃} (commuting: Z meets Z, no collisions). Demanding both “+1 surely” forces neighbouring label slots equal, leaving only |000⟩ and |111⟩ of the eight basis kets: code space = {<span class="sym" data-sym="alpha">α</span>|000⟩ + <span class="sym" data-sym="beta">β</span>|111⟩}, dimension 2³⁻² = 2 — one logical qubit ✓. As logical operators (the overbar reads “bar” and marks the logical edition) take <span class="sym" data-sym="macron">X̄</span> = X₁X₂X₃ (two collisions with each check: commutes ✓; swaps |000⟩↔|111⟩ — the logical flip) and <span class="sym" data-sym="macron">Z̄</span> = Z₁ (zero collisions ✓; re-signs |111⟩). X̄ and Z̄ collide once, in cell 1 — anticommute ✓: a proper logical X/Z pair.</p>
+    <p class="zh">取 n = 3、清单 {Z₁Z₂, Z₂Z₃}（对易：Z 遇 Z 无碰撞）。同时「必然 +1」要求相邻位标签相同，八个基向量只剩 |000⟩ 与 |111⟩：编码空间 = {<span class="sym" data-sym="alpha">α</span>|000⟩ + <span class="sym" data-sym="beta">β</span>|111⟩}，恰好 2³⁻² = 2 维（n = 3、r = 2），存 k = 1 个逻辑比特 ✓。这不违反 4.1 的不可克隆定理：编码只是用两次「受控翻转」（CNOT：第 1 位是 1 时翻转目标位）把第 1 位的<b>标签</b>抄到第 2、3 位，α|000⟩ + β|100⟩ → α|000⟩ + β|110⟩ → α|000⟩ + β|111⟩；配比数字 α、β 只出现一次。真正的三份副本 |ψ⟩⊗|ψ⟩⊗|ψ⟩ 会有 α³|000⟩ + α²β|001⟩ + … 共 8 项。逻辑算符（字母头上一横读「bar」，标记「逻辑版」）可取 <span class="sym" data-sym="macron">X̄</span> = X₁X₂X₃（与每条检查碰撞 2 次，对易 ✓；交换 |000⟩↔|111⟩，即逻辑翻转）与 <span class="sym" data-sym="macron">Z̄</span> = Z₁（零碰撞 ✓；给 |111⟩ 变号）。X̄ 与 Z̄ 在 1 号格碰撞 1 次——反对易 ✓，一对合格的逻辑 X/Z。Z̄ 真的改写了编码态：Z̄(α|000⟩ + β|111⟩) = α|000⟩ − β|111⟩。</p>
+    <p class="en">Take n = 3 with checklist {Z₁Z₂, Z₂Z₃} (commuting: Z meets Z, no collisions). Demanding both “+1 surely” forces neighbouring label slots equal, leaving only |000⟩ and |111⟩ of the eight basis kets: code space = {<span class="sym" data-sym="alpha">α</span>|000⟩ + <span class="sym" data-sym="beta">β</span>|111⟩}, dimension 2³⁻² = 2 (n = 3, r = 2) — k = 1 logical qubit ✓. This does not violate §4.1's no-cloning theorem: encoding just uses two “controlled flips” (CNOT: flip the target slot if slot 1 is 1) to copy the <b>label</b> of slot 1 onto slots 2 and 3, α|000⟩ + β|100⟩ → α|000⟩ + β|110⟩ → α|000⟩ + β|111⟩; the mixing numbers α, β still appear only once. Three genuine copies |ψ⟩⊗|ψ⟩⊗|ψ⟩ would have 8 terms, α³|000⟩ + α²β|001⟩ + …. As logical operators (the overbar reads “bar” and marks the logical edition) take <span class="sym" data-sym="macron">X̄</span> = X₁X₂X₃ (two collisions with each check: commutes ✓; swaps |000⟩↔|111⟩ — the logical flip) and <span class="sym" data-sym="macron">Z̄</span> = Z₁ (zero collisions ✓; re-signs |111⟩). X̄ and Z̄ collide once, in cell 1 — anticommute ✓: a proper logical X/Z pair. Z̄ really does change encoded states: Z̄(α|000⟩ + β|111⟩) = α|000⟩ − β|111⟩.</p>
     <p class="zh">侦错机制一句话：编码态满足 S<span class="sym" data-sym="psi">ψ</span> = <span class="sym" data-sym="psi">ψ</span>；错误 E 落下后状态为 E<span class="sym" data-sym="psi">ψ</span>；若 E 与 S <b>反对易</b>，则 S(E<span class="sym" data-sym="psi">ψ</span>) = −E(S<span class="sym" data-sym="psi">ψ</span>) = −E<span class="sym" data-sym="psi">ψ</span>——检查 S 必然读出 −1。警报=反对易，隐身=对易。X₂ 与两条检查各撞一次 → 症状 (−1, −1)，唯一指认 2 号比特，再补一个 X₂ 即痊愈。但 <span class="opz">Z₂</span> 与两条检查都零碰撞——毫无警报；而 Z₂ 在编码空间上与 Z̄ 作用完全相同（都只给 |111⟩ 变号）——一次<b>无声的逻辑错误</b>。在实验台上把两种命运都走一遍：</p>
     <p class="en">Error detection in one sentence: encoded states satisfy S<span class="sym" data-sym="psi">ψ</span> = <span class="sym" data-sym="psi">ψ</span>; after an error E the state is E<span class="sym" data-sym="psi">ψ</span>; if E <b>anticommutes</b> with S, then S(E<span class="sym" data-sym="psi">ψ</span>) = −E(S<span class="sym" data-sym="psi">ψ</span>) = −E<span class="sym" data-sym="psi">ψ</span> — check S reads −1 with certainty. Alarm = anticommute; invisibility = commute. X₂ collides once with each check → syndrome (−1, −1), uniquely naming qubit 2; one more X₂ heals it. But <span class="opz">Z₂</span> has zero collisions with both checks — no alarm at all; and on the code space Z₂ acts identically to Z̄ (each re-signs |111⟩ only) — a <b>silent logical error</b>. Walk both fates on the bench:</p>
   </div>
   <div data-widget="rep3q"></div>
   <div class="formula center"><span class="zh">三比特码的码距</span><span class="en">distances of the 3-qubit code</span>: d<sub>X</sub> = 3,　d<sub>Z</sub> = 1　<span class="dim">(<span class="zh">码距 d = 能改写逻辑信息的最轻泡利串的重量</span><span class="en">d = the weight of the lightest logical-rewriting string</span>)</span></div>
   <div class="prose">
+    <p class="zh">泡利串的<b>重量</b>是它不为 I 的格数：X₁X₂X₃ 重 3，Z₁ 重 1。对 X 错误，最轻的逻辑算符是 X₁X₂X₃，d<sub>X</sub> = 3；对 Z 错误，一个 Z₁ 就够，d<sub>Z</sub> = 1。码距 d 的码保证纠正任意 (d − 1)/2 个错误（取整数部分）：少于一半时，离原码字比离另一个码字近，按「离谁近」修复不会修错。编码论把三项指标并排写成 <span class="sym" data-sym="nkd">[[n, k, d]]</span>，d 取各类错误中最小的一个：三比特码是 [[3, 1, 1]]。</p>
+    <p class="en">The <b>weight</b> of a Pauli string is its number of non-I cells: X₁X₂X₃ has weight 3, Z₁ weight 1. Against X errors the lightest logical operator is X₁X₂X₃, so d<sub>X</sub> = 3; against Z errors a single Z₁ suffices, d<sub>Z</sub> = 1. A code of distance d is guaranteed to correct any (d − 1)/2 errors (whole-number part): with fewer than half, the state is closer to the original code word than to any other, so “repair towards the nearest” never goes wrong. Coding theory writes the three numbers side by side as <span class="sym" data-sym="nkd">[[n, k, d]]</span>, with d the smallest over all kinds of error: the 3-qubit code is [[3, 1, 1]].</p>
     <p class="zh">把清单换成 {X₁X₂, X₂X₃} 只是镜像：捉得住 Z、放得过 X。<b>设计任务书</b>就此写定：需要一族 Z-型检查与一族 X-型检查共存；任意 X-串检查与任意 Z-串检查的碰撞数必须<b>恒为偶数</b>（碰撞定理）；两种码距对称且可任意加大；每条检查只碰少数几个近邻比特。1997 年，Kitaev 的回答是把这一切交给几何：<b>画在网格上，让「偶数」成为定理而非巧合。</b></p>
     <p class="en">Swapping in {X₁X₂, X₂X₃} merely mirrors the failure: catches Z, misses X. The <b>design brief</b> is now fixed: a Z-type family and an X-type family must coexist; every X-string check must meet every Z-string check in an <b>even</b> number of cells (collision theorem); both distances symmetric and freely growable; each check touching only a few neighbours. Kitaev's 1997 answer hands it all to geometry: <b>draw it on a grid, and make “even” a theorem instead of a coincidence.</b></p>
   </div>
@@ -1351,6 +1393,13 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
     <p class="en"><b>Theorem (commutation)</b>: every A<sub>v</sub> commutes with every B<sub>p</sub>. Proof: the collision theorem plus one geometric observation — collisions occur only on shared edges, and a vertex either ignores a square face (0 shared edges) or sits at one of its corners, where it touches exactly <b>two</b> of the face's sides (one horizontal, one vertical). The overlap is always 0 or 2 — even. <span class="sym" data-sym="qed">∎</span> Don't take prose's word; tally it:</p>
   </div>
   <div data-widget="overlapexplorer"></div>
+  <div class="legend w-legend">
+    <span class="li"><span class="dot" style="background:var(--ink3)"></span><span class="zh">边中点的小灰点 = 住在这条边上的量子比特</span><span class="en">small grey dot at an edge's midpoint = the qubit living on that edge</span></span>
+    <span class="li"><span class="sw" style="background:var(--cx)"></span><span class="zh">橙 = 所选星形检查的 4 条边</span><span class="en">orange = the 4 edges of the chosen star</span></span>
+    <span class="li"><span class="sw" style="background:var(--cz)"></span><span class="zh">蓝 = 所选面检查的 4 条边</span><span class="en">blue = the 4 edges of the chosen face</span></span>
+    <span class="li"><span class="sw" style="background:var(--cd)"></span><span class="zh">品红 = 两者共享的边</span><span class="en">magenta = edges shared by both</span></span>
+    <span class="li"><span class="zh">右侧和下方伸出的短线 = 绕回另一侧的边（5.2）</span><span class="en">stubs sticking out right and below = edges that wrap to the other side (§5.2)</span></span>
+  </div>
 
   <h3 id="s5-2"><span class="sec-no">5.2</span><span class="zh">为什么在环面上</span><span class="en">Why on a torus</span></h3>
   <div class="prose">
@@ -1358,30 +1407,44 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
     <p class="en">An ordinary grid has a rim; rim vertices can't muster 4 edges and the rules crumble. The cleanest patch is <b>periodic boundary conditions</b>: exit right, re-enter left; exit top, re-enter bottom. The resulting surface is the <span class="term">torus<span class="tip">The closed surface from gluing left↔right and top↔bottom; a donut's skin.</span></span> — a donut's skin, whence the name. Now every vertex has exactly 4 edges and every face exactly 4 sides, no exceptions. Take a stroll in the wrap-around world:</p>
   </div>
   <div data-widget="pacman"></div>
+  <div class="prose">
+    <p class="zh">画在纸上时，环面通常被<b>摊平</b>成 L × L 的方格图，并约定右边缘与左边缘是同一条线、下边缘与上边缘是同一条线。下面是 L = 3 的完整蓝图：18 个比特全部编号（1–9 在横边，10–18 在竖边），最右一列与最下一行的边用虚线再画一遍，编号与它们真正所在的左列、上行相同。点顶点看星形检查 A<sub>v</sub> 碰哪 4 个比特，点方块看面检查 B<sub>p</sub>；角上的顶点会把腿伸到图的对侧，但共享比特数照样是 0 或 2。</p>
+    <p class="en">On paper the torus is usually drawn <b>flattened</b> into an L × L grid, with the agreement that the right rim equals the left rim and the bottom rim equals the top rim. Below is the complete blueprint for L = 3: all 18 qubits numbered (1–9 on horizontal edges, 10–18 on vertical ones), with the edges of the rightmost column and bottom row drawn again, dashed, carrying the numbers of the left column and top row where they really live. Click a vertex to see which 4 qubits its star A<sub>v</sub> touches, a square for its face check B<sub>p</sub>; a corner vertex reaches to the opposite side, yet the number of shared qubits is still 0 or 2.</p>
+  </div>
+  <div data-widget="torusblueprint"></div>
 
   <h3 id="s5-3"><span class="sec-no">5.3</span><span class="zh">记账：k = 2</span><span class="en">The ledger: k = 2</span></h3>
   <div class="prose">
-    <p class="zh">L×L 环面：横边 L² + 竖边 L² = <b>2L² 个比特</b>；星、面各 <b>L²</b> 条。若全部独立，<span class="ref" data-ref="stabilizer" data-sec="4.4">4.4</span> 的公式给逻辑比特数 k = 2L² − 2L² = 0——但独立性恰恰不成立。每条边连两个顶点，于是把<b>全部</b>星相乘时每个比特吃到两个 X，而 X² = I：</p>
-    <p class="en">The L×L torus: L² horizontal + L² vertical = <b>2L² qubits</b>; <b>L²</b> stars and <b>L²</b> plaquettes. If all were independent, <span class="ref" data-ref="stabilizer" data-sec="4.4">§4.4</span> would give a logical-qubit count k = 2L² − 2L² = 0 — but independence is precisely what fails. Every edge meets two vertices, so multiplying <b>all</b> stars feeds every qubit two X's, and X² = I:</p>
+    <p class="zh">L×L 环面：横边 L² + 竖边 L² = <b>2L² 个比特</b>；星、面各 <b>L²</b> 条。若全部独立，<span class="ref" data-ref="stabilizer" data-sec="4.4">4.4</span> 的公式 k = n − r 给 k = 2L² − 2L² = 0——但独立性恰恰不成立。每条边连两个顶点，于是把<b>全部</b>星相乘时每个比特吃到两个 X，而 X² = I：</p>
+    <p class="en">The L×L torus: L² horizontal + L² vertical = <b>2L² qubits</b>; <b>L²</b> stars and <b>L²</b> plaquettes. If all were independent, <span class="ref" data-ref="stabilizer" data-sec="4.4">§4.4</span>'s k = n − r would give k = 2L² − 2L² = 0 — but independence is precisely what fails. Every edge meets two vertices, so multiplying <b>all</b> stars feeds every qubit two X's, and X² = I:</p>
   </div>
-  <div class="formula center"><span class="sym" data-sym="prod">∏</span><sub>v</sub> A<sub>v</sub> = I,　<span class="sym" data-sym="prod">∏</span><sub>p</sub> B<sub>p</sub> = I　<span class="sym" data-sym="implies">⇒</span>　<span class="zh">独立检查恰为</span><span class="en">independent checks number</span> 2L² − 2　<span class="sym" data-sym="implies">⇒</span>　k = 2L² − (2L² − 2) = <b>2</b></div>
+  <div class="formula center"><span class="sym" data-sym="prod">∏</span><sub>v</sub> A<sub>v</sub> = I,　<span class="sym" data-sym="prod">∏</span><sub>p</sub> B<sub>p</sub> = I　<span class="sym" data-sym="implies">⇒</span>　r = 2L² − 2　<span class="sym" data-sym="implies">⇒</span>　k = n − r = 2L² − (2L² − 2) = <b>2</b>　<span class="dim">(<span class="zh">L = 3：n = 18，r = 16</span><span class="en">L = 3: n = 18, r = 16</span>)</span></div>
   <div class="prose">
-    <p class="zh">（「恰为」的另一半——除这两条外再无其他约束——可以由 <span class="ref" data-ref="winding" data-sec="5.6">5.6 节</span>的逻辑算符反证：若还有第三条约束，k 将小于 2，与我们即将亲手构造出的两对反对易逻辑算符矛盾。）看动画数账，并看「全体星相乘」如何逐边抵消：</p>
-    <p class="en">(The other half of “exactly” — that no third constraint exists — follows from <span class="ref" data-ref="winding" data-sec="5.6">§5.6</span>'s logical operators: a third constraint would force k &lt; 2, contradicting the two anticommuting logical pairs we are about to build by hand.) Watch the ledger, and the all-stars product cancel edge by edge:</p>
+    <p class="zh">「恰为」的另一半，即除这两条外再无其他依赖，由下面的补课 5.A 直接数出来；它只用到「每条边连两个顶点、挨两个面」和网格连成一片。看动画数账，并看「全体星相乘」如何逐边抵消：</p>
+    <p class="en">The other half of “exactly”, that there is no further dependency, is counted directly in Catch-up 5.A below; it uses only “every edge joins two vertices and borders two faces” and the fact that the grid is in one piece. Watch the ledger, and the all-stars product cancel edge by edge:</p>
   </div>
   <div data-widget="counting"></div>
-  <details class="fold">
-    <summary><span class="zh">为什么偏偏是 2？欧拉示性数的惊鸿一瞥</span><span class="en">Why exactly 2? A glimpse of the Euler characteristic</span></summary>
+  <details class="fold basics" id="cu-5a">
+    <summary><span class="zh">补课 · 除了 ∏A<sub>v</sub> = I 与 ∏B<sub>p</sub> = I，为什么再没有别的依赖</span><span class="en">Catch-up · Why there is no dependency besides ∏A<sub>v</sub> = I and ∏B<sub>p</sub> = I</span></summary>
     <div class="fold-body">
-      <p class="zh">对任何画在曲面上的网格，数 <span class="sym" data-sym="chi">χ</span> = V − E + F（<span class="sym" data-sym="chi">χ</span> 是希腊字母，读「凯」；V、E、F 分别是顶点数、边数、面数）。环面网格：<span class="sym" data-sym="chi">χ</span> = L² − 2L² + L² = 0。几何学的深定理说 <span class="sym" data-sym="chi">χ</span> 只由曲面本身决定：<span class="sym" data-sym="chi">χ</span> = 2 − 2g，g 是「洞数」（亏格）。<span class="sym" data-sym="chi">χ</span> = 0 给 g = 1——甜甜圈恰有一个洞 ✓。而 toric code 的逻辑比特数恰好是 k = 2g：每个洞贡献两种「绕不回来的方向」。把码画在 g 个洞的曲面上就存 2g 个逻辑比特——这就是「拓扑码」一词的完整由来：<b>存储容量由曲面的拓扑决定，与网格多细无关。</b></p>
-      <p class="en">For any grid drawn on a surface, count <span class="sym" data-sym="chi">χ</span> = V − E + F (<span class="sym" data-sym="chi">χ</span> — Greek, read “kai”; V, E, F count vertices, edges, faces). On the torus: <span class="sym" data-sym="chi">χ</span> = L² − 2L² + L² = 0. A deep theorem says <span class="sym" data-sym="chi">χ</span> depends only on the surface itself: <span class="sym" data-sym="chi">χ</span> = 2 − 2g, with g the number of holes (the genus). <span class="sym" data-sym="chi">χ</span> = 0 gives g = 1 — a donut has exactly one hole ✓. And the toric code stores exactly k = 2g logical qubits: each hole contributes two inequivalent “can't-unwind directions”. Draw the code on a g-holed surface and it stores 2g logical qubits — the full meaning of the word <b>topological</b>: storage capacity set by the surface's topology, indifferent to how fine the grid is.</p>
+      <p class="zh">要找的是：哪些检查乘起来等于 I？<b>只挑星。</b>挑出一批顶点 S，把它们的星相乘。边 e 上 X 的个数 = e 的两个端点中属于 S 的个数；0 或 2 时抵消，1 时留下。乘积为 I ⇔ 每条边的两端「同进同出」S。于是挑中一个顶点就必须挑中它的邻居、邻居的邻居……网格连通，结果只有 S = ∅ 或 S = 全体。<b>只挑面</b>同理：相邻两面共享一条边，挑中一个就得挑中全部。<b>星面混挑：</b>星的乘积全是 X，面的乘积全是 Z，同一条边上剩下的 X 与 Z 不会抵消（XZ 不是 I 的倍数），所以 X 部分与 Z 部分必须各自为 I，回到前两种情形。</p>
+      <p class="en">We want: which sets of checks multiply to I? <b>Stars only.</b> Pick a set S of vertices and multiply their stars. The number of X's on edge e equals how many of e's two endpoints lie in S; 0 or 2 cancel, 1 survives. The product is I ⇔ every edge has both ends in S or both out. So picking one vertex forces its neighbours, their neighbours, …; the grid is connected, so S = ∅ or S = everything. <b>Faces only</b>, likewise: neighbouring faces share an edge, so picking one forces all. <b>Stars and faces mixed:</b> a product of stars is all X, a product of faces all Z, and an X and a Z left on the same edge do not cancel (XZ is not a multiple of I), so the X part and the Z part must each be I, which is one of the first two cases.</p>
+      <p class="zh">记账：V 个顶点的星恰有一条多余，F 个面也恰有一条多余，<b>r = (V − 1) + (F − 1)</b>。环面上 V = F = L²，r = 2L² − 2。这个论证对画在任何<b>连通</b>（只有一整块）闭曲面上的网格都成立（它用到的只是「网格连通」和「每条边恰有两个端点、恰好挨着两个面」），于是 k = E − (V − 1) − (F − 1) = 2 − (V − E + F)。括号里的数正是下一个折叠盒的主角。</p>
+      <p class="en">Tally: the V stars have exactly one redundancy and the F faces exactly one, so <b>r = (V − 1) + (F − 1)</b>. On the torus V = F = L², r = 2L² − 2. The argument works for a grid drawn on any <b>connected</b> (all in one piece) closed surface (all it uses is that the grid is connected and that every edge has exactly two endpoints and borders exactly two faces), so k = E − (V − 1) − (F − 1) = 2 − (V − E + F). The number in brackets is the star of the next fold-out.</p>
+    </div>
+  </details>
+  <details class="fold">
+    <summary><span class="zh">为什么偏偏是 2？欧拉示性数把它算出来</span><span class="en">Why exactly 2? The Euler characteristic computes it</span></summary>
+    <div class="fold-body">
+      <p class="zh">对任何画在曲面上的网格，数 <span class="sym" data-sym="chi">χ</span> = V − E + F（<span class="sym" data-sym="chi">χ</span> 是希腊字母，读「凯」；V、E、F 分别是顶点数、边数、面数）。环面网格：<span class="sym" data-sym="chi">χ</span> = L² − 2L² + L² = 0。补课 5.A 末尾已经算出 k = 2 − <span class="sym" data-sym="chi">χ</span>，所以环面上 k = 2。拓扑学的曲面分类定理（大学课程内容，本页不证）说：<span class="sym" data-sym="chi">χ</span> 只由曲面本身决定，不管网格怎么画，对<b>连通、闭合、可定向</b>的曲面，<span class="sym" data-sym="chi">χ</span> = 2 − 2g，g 是曲面上「把手」的个数（称为亏格；甜甜圈那样的一个洞算一个把手）。三个条件各有含义：连通 = 只有一整块；闭合 = 没有边缘，处处都能继续往前走（环面是，一张有边的纸不是）；可定向 = 分得出正反两面（球面、环面都是；把纸条扭半圈再粘成的莫比乌斯带只有一面，不是）。不可定向的闭曲面（例如克莱因瓶）有另一个公式，本页不讨论。代入得 <b>k = 2g</b>：甜甜圈 g = 1，k = 2 ✓；球面 g = 0，k = 0，一个逻辑比特也存不了。每个洞贡献两个「绕不回来的方向」。这就是「拓扑码」一词的完整由来：<b>存储容量由曲面的拓扑决定，与网格多细无关。</b></p>
+      <p class="en">For any grid drawn on a surface, count <span class="sym" data-sym="chi">χ</span> = V − E + F (<span class="sym" data-sym="chi">χ</span> — Greek, read “kai”; V, E, F count vertices, edges, faces). On the torus: <span class="sym" data-sym="chi">χ</span> = L² − 2L² + L² = 0. The end of Catch-up 5.A already showed k = 2 − <span class="sym" data-sym="chi">χ</span>, so k = 2 on the torus. The classification theorem of surfaces in topology (university material, not proved here) says that <span class="sym" data-sym="chi">χ</span> depends only on the surface, however the grid is drawn: for a <b>connected, closed, orientable</b> surface, <span class="sym" data-sym="chi">χ</span> = 2 − 2g, where g is the number of “handles” on the surface (called the genus; one donut hole counts as one handle). Each condition means something: connected = all in one piece; closed = no edge anywhere, you can always keep walking (the torus is closed, a sheet of paper with a rim is not); orientable = it has two distinguishable sides (the sphere and the torus do; a Möbius strip, a paper strip given a half twist and glued, has only one side and is not orientable). Non-orientable closed surfaces (the Klein bottle, for example) follow a different formula, not treated here. Substituting gives <b>k = 2g</b>: a donut has g = 1 and k = 2 ✓; a sphere has g = 0 and k = 0, storing nothing at all. Each hole contributes two “can't-unwind directions”. That is the full meaning of the word <b>topological</b>: storage capacity set by the surface's topology, indifferent to how fine the grid is.</p>
     </div>
   </details>
 
   <h3 id="s5-4"><span class="sec-no">5.4</span><span class="zh">错误链与症状</span><span class="en">Error chains and syndromes</span></h3>
   <div class="prose">
-    <p class="zh">设一批边挨了 Z 错误，把这些边涂蓝：它们连成<b>链</b>。哪些星报警？由 <span class="ref" data-ref="rep3q" data-sec="4.5">4.5</span> 的判决（警报 <span class="sym" data-sym="iff">⇔</span> 反对易）加碰撞定理：A<sub>v</sub> 与链的碰撞数 = 链中碰到 v 的边数。链内部的顶点被两条链边穿过——偶数，安静；只有链的<b>端点</b>被奇数条链边碰到——报警。X 错误的链画在对偶方向（连接相邻面心），报警的是端点处的<b>面</b>。一整条链无论多长，只点亮两处：</p>
-    <p class="en">Say a batch of edges takes Z errors; paint them blue — they form <b>chains</b>. Which stars alarm? By <span class="ref" data-ref="rep3q" data-sec="4.5">§4.5</span>'s verdict (alarm <span class="sym" data-sym="iff">⇔</span> anticommute) plus the collision theorem: A<sub>v</sub>'s collision count with the chain = the number of chain edges touching v. Interior vertices are crossed by two chain edges — even, silent; only the chain's <b>endpoints</b> are touched by an odd number — alarm. X-error chains run in the dual direction (joining adjacent face centres), alarming the <b>faces</b> at their ends. A chain of any length lights exactly two spots:</p>
+    <p class="zh">设一批边挨了 Z 错误，把这些边涂蓝：它们连成<b>链</b>。哪些星报警？由 <span class="ref" data-ref="rep3q" data-sec="4.5">4.5</span> 的判决（警报 <span class="sym" data-sym="iff">⇔</span> 反对易）加碰撞定理：A<sub>v</sub> 与链的碰撞数 = 链中碰到 v 的边数。链内部的顶点被两条链边穿过——偶数，安静；只有链的<b>端点</b>被奇数条链边碰到——报警。X 错误的链画在对偶方向（连接相邻面心），报警的是端点处的<b>面</b>：边 e 上的 X 与挨着 e 的两个面检查各碰撞一次，所以从一个面心跨过出错的边走到隔壁面心，恰好沿着 X 链走。一整条链无论多长，只点亮两处：</p>
+    <p class="en">Say a batch of edges takes Z errors; paint them blue — they form <b>chains</b>. Which stars alarm? By <span class="ref" data-ref="rep3q" data-sec="4.5">§4.5</span>'s verdict (alarm <span class="sym" data-sym="iff">⇔</span> anticommute) plus the collision theorem: A<sub>v</sub>'s collision count with the chain = the number of chain edges touching v. Interior vertices are crossed by two chain edges — even, silent; only the chain's <b>endpoints</b> are touched by an odd number — alarm. X-error chains run in the dual direction (joining adjacent face centres), alarming the <b>faces</b> at their ends: an X on edge e collides once with each of the two face checks beside e, so stepping from a face centre across an erring edge into the next face centre follows the X chain exactly. A chain of any length lights exactly two spots:</p>
   </div>
   <div class="formula center"><span class="zh">症状 = 链的端点集</span><span class="en">syndrome = the chain's endpoint set</span>　<span class="dim">(<span class="zh">数学家写作：症状 = <span class="sym" data-sym="partial">∂</span>链，「边界算子」</span><span class="en">a mathematician writes: syndrome = <span class="sym" data-sym="partial">∂</span>chain, the boundary operator</span>)</span></div>
   <div data-widget="toricsandbox"></div>
@@ -1396,29 +1459,57 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
 
   <h3 id="s5-6"><span class="sec-no">5.6</span><span class="zh">缠绕圈：逻辑算符现身</span><span class="en">Winding loops: the logical operators appear</span></h3>
   <div class="prose">
-    <p class="zh">环面上另有一种闭合圈：横贯一整行、从右边绕回左边接上自己。它<b>不围任何区域</b>——像箍在甜甜圈上的橡皮筋，收缩不掉。上面实验台的第二个示范画的正是它。它通过全部检查（无端点），却写不成面检查的乘积——按 <span class="ref" data-ref="stabilizer" data-sec="4.4">4.4</span> 的定义，这是一条<b>逻辑算符</b>。环面有两个独立绕向，给出 Z̄₁（水平 Z-圈）与 Z̄₂（竖直 Z-圈）；对偶方向同理给出 X̄₁、X̄₂。配对验收用碰撞定理：竖直的 X̄-圈与水平的 Z̄-圈在环面上<b>恰好交叉一次</b>——奇数，反对易 ✓；平行的两圈交叉 0 次——对易 ✓。于是 {X̄₁,Z̄₁} 与 {X̄₂,Z̄₂} 构成两对标准逻辑比特算符——与 <span class="ref" data-ref="count2" data-sec="5.3">5.3</span> 的 k = 2 严丝合缝。</p>
-    <p class="en">The torus hosts a second kind of closed loop: straight across a row, wrapping from the right edge back to the left. It <b>encloses no region</b> — a rubber band around the donut, impossible to shrink. The second demo above draws exactly this. It passes every check (no endpoints) yet cannot be written as a product of plaquettes — by <span class="ref" data-ref="stabilizer" data-sec="4.4">§4.4</span>'s definition, a <b>logical operator</b>. Two independent winding directions give Z̄₁ (horizontal Z-loop) and Z̄₂ (vertical); the dual directions give X̄₁, X̄₂. Certify the pairing by the collision theorem: a vertical X̄-loop crosses a horizontal Z̄-loop <b>exactly once</b> on a torus — odd, anticommute ✓; parallel loops cross 0 times — commute ✓. So {X̄₁,Z̄₁} and {X̄₂,Z̄₂} are two standard logical pairs — dovetailing with <span class="ref" data-ref="count2" data-sec="5.3">§5.3</span>'s k = 2.</p>
+    <p class="zh">环面上另有一种闭合圈：横贯一整行、从右边绕回左边接上自己。它<b>不围任何区域</b>——像箍在甜甜圈上的橡皮筋，收缩不掉。上面实验台的第二个示范画的正是它。它通过全部检查（圈上每个顶点恰好占两条圈边，与每颗星碰撞 0 或 2 次），却写不成面检查的乘积，而且真的改写编码态（这两点的理由见下面的补课 5.B）——按 <span class="ref" data-ref="stabilizer" data-sec="4.4">4.4</span> 的定义，这是一条<b>逻辑算符</b>。环面有两个独立绕向，给出 Z̄₁（水平 Z-圈）与 Z̄₂（竖直 Z-圈）；对偶方向同理给出 X̄₁、X̄₂。配对验收用碰撞定理：竖直的 X̄-圈与水平的 Z̄-圈在环面上<b>恰好交叉一次</b>——奇数，反对易 ✓；平行的两圈交叉 0 次——对易 ✓。于是 {X̄₁,Z̄₁} 与 {X̄₂,Z̄₂} 构成两对标准逻辑比特算符——与 <span class="ref" data-ref="count2" data-sec="5.3">5.3</span> 的 k = 2 严丝合缝。</p>
+    <p class="en">The torus hosts a second kind of closed loop: straight across a row, wrapping from the right edge back to the left. It <b>encloses no region</b> — a rubber band around the donut, impossible to shrink. The second demo above draws exactly this. It passes every check (each vertex on the loop owns exactly two loop edges, so it collides 0 or 2 times with every star), yet it cannot be written as a product of plaquettes and it really changes encoded states (the reasons for both are in Catch-up 5.B below) — by <span class="ref" data-ref="stabilizer" data-sec="4.4">§4.4</span>'s definition, a <b>logical operator</b>. Two independent winding directions give Z̄₁ (horizontal Z-loop) and Z̄₂ (vertical); the dual directions give X̄₁, X̄₂. Certify the pairing by the collision theorem: a vertical X̄-loop crosses a horizontal Z̄-loop <b>exactly once</b> on a torus — odd, anticommute ✓; parallel loops cross 0 times — commute ✓. So {X̄₁,Z̄₁} and {X̄₂,Z̄₂} are two standard logical pairs — dovetailing with <span class="ref" data-ref="count2" data-sec="5.3">§5.3</span>'s k = 2.</p>
   </div>
   <div class="formula center">X̄<sub>i</sub>Z̄<sub>j</sub> = (−1)<sup><span class="sym" data-sym="delta">δ</span><sub>ij</sub></sup> Z̄<sub>j</sub>X̄<sub>i</sub>　<span class="dim">(<span class="sym" data-sym="delta">δ</span><sub>ij</sub><span class="zh">：<span class="sym" data-sym="delta">δ</span> 读「德尔塔」；i=j 时取 1，否则 0——即「交叉数的奇偶」</span><span class="en">: <span class="sym" data-sym="delta">δ</span> reads “DEL-ta”; 1 when i=j, else 0 — the crossing parity</span>)</span></div>
+  <div class="prose">
+    <p class="zh">四条圈画在同一个 4 × 4 环面上如下（比特编号规则同 5.2 的蓝图）。切换组合，看每一对共享几个比特：</p>
+    <p class="en">Here are the four loops on one 4 × 4 torus (qubits numbered as in the blueprint of §5.2). Switch between the combinations and see how many qubits each pair shares:</p>
+  </div>
+  <div data-widget="logicalpairs"></div>
+  <details class="fold basics" id="cu-5b">
+    <summary><span class="zh">补课 · 缠绕圈为什么不是面检查的乘积，又为什么真的改写编码态</span><span class="en">Catch-up · Why a winding loop is not a product of face checks, and why it really changes encoded states</span></summary>
+    <div class="fold-body">
+      <h5><span class="zh">① 不是面检查的乘积</span><span class="en">① Not a product of face checks</span></h5>
+      <p class="zh">任取一批面 R，把它们的面检查相乘：挨着 R 中两个面的边上 Z 抵消，只挨着一个面的边上留下 Z，所以乘积 = Z(∂R)，∂R 是「一侧在 R 里、另一侧不在」的边（5.5 的公式）。现在沿一列面竖直向下走，绕环面一周回到出发的面。每跨过一条横边：它若属于 ∂R，就从 R 里走到 R 外（或反过来）；否则留在原侧。回到起点时「在不在 R 里」必须与出发时相同，所以跨过 ∂R 的次数必为<b>偶数</b>。而这条竖直的路只跨过水平圈 Z̄₁ 一次。因此 Z̄₁ ≠ Z(∂R) 对任何 R 都成立。</p>
+      <p class="en">Take any set R of faces and multiply their face checks: on edges bordering two faces of R the Z's cancel, on edges bordering just one a Z remains, so the product is Z(∂R), with ∂R the edges having R on one side only (the formula of §5.5). Now walk straight down a column of faces, once around the torus, back to the starting face. Each horizontal edge crossed either belongs to ∂R, taking you from inside R to outside (or back), or does not, keeping you on the same side. Back at the start, “inside R or not” must be as it was, so the walk crosses ∂R an <b>even</b> number of times. But this vertical walk crosses the horizontal loop Z̄₁ exactly once. Hence Z̄₁ ≠ Z(∂R) for every R.</p>
+      <h5><span class="zh">② 真的改写编码态</span><span class="en">② It really changes encoded states</span></h5>
+      <p class="zh">「什么都不做」要说得小心：<span class="ref" data-ref="anticommute" data-sec="3.4">3.4 节</span>说过，<span class="sym" data-sym="psi">ψ</span> 与 e<sup>iθ</sup><span class="sym" data-sym="psi">ψ</span> 是同一个物理状态，所以一个算符即使给状态乘上一个模为 1 的数，也等于没改写它。于是反证的假设应当是：<b>存在一个固定的角度 θ，使 Z̄₁<span class="sym" data-sym="psi">ψ</span> = e<sup>iθ</sup><span class="sym" data-sym="psi">ψ</span> 对一切编码态 <span class="sym" data-sym="psi">ψ</span> 成立</b>，即 Z̄₁ 在编码空间里等于 e<sup>iθ</sup>·I。（各个编码态各乘各的数也不行：若 Z̄₁<span class="sym" data-sym="psi">ψ</span>₁ = c₁<span class="sym" data-sym="psi">ψ</span>₁、Z̄₁<span class="sym" data-sym="psi">ψ</span>₂ = c₂<span class="sym" data-sym="psi">ψ</span>₂，且 <span class="sym" data-sym="psi">ψ</span>₁、<span class="sym" data-sym="psi">ψ</span>₂ 不成比例，把 Z̄₁ 作用在 <span class="sym" data-sym="psi">ψ</span>₁ + <span class="sym" data-sym="psi">ψ</span>₂ 上，按线性得 c₁<span class="sym" data-sym="psi">ψ</span>₁ + c₂<span class="sym" data-sym="psi">ψ</span>₂；它要等于某个 c 乘 (<span class="sym" data-sym="psi">ψ</span>₁ + <span class="sym" data-sym="psi">ψ</span>₂)，只能 c₁ = c = c₂。所以「不改写任何编码态」确实就是这条假设。）现在推出矛盾。X̄₁ 也与全部检查对易，所以对编码态 <span class="sym" data-sym="psi">ψ</span>，X̄₁<span class="sym" data-sym="psi">ψ</span> 仍是编码态，假设对它也成立：Z̄₁X̄₁<span class="sym" data-sym="psi">ψ</span> = e<sup>iθ</sup>X̄₁<span class="sym" data-sym="psi">ψ</span>。另一方面 X̄₁、Z̄₁ 只共享一个比特、反对易：Z̄₁X̄₁<span class="sym" data-sym="psi">ψ</span> = −X̄₁Z̄₁<span class="sym" data-sym="psi">ψ</span> = −e<sup>iθ</sup>X̄₁<span class="sym" data-sym="psi">ψ</span>。两式相减得 2e<sup>iθ</sup>X̄₁<span class="sym" data-sym="psi">ψ</span> = 0；e<sup>iθ</sup> 不为零，所以 X̄₁<span class="sym" data-sym="psi">ψ</span> = 0；再两边作用 X̄₁（X̄₁X̄₁ = I）得 <span class="sym" data-sym="psi">ψ</span> = 0，不是合法状态，矛盾。所以 Z̄₁ 至少把某个编码态变成了<b>另一个</b>状态。可收缩圈找不到这样的反对易搭档：它是面检查的乘积，而面检查与所有检查都对易；它在编码空间里恰好等于 I（θ = 0）。</p>
+      <p class="en">“Doing nothing” needs care: <span class="ref" data-ref="anticommute" data-sec="3.4">§3.4</span> noted that <span class="sym" data-sym="psi">ψ</span> and e<sup>iθ</sup><span class="sym" data-sym="psi">ψ</span> are the same physical state, so an operator that multiplies a state by a number of modulus 1 has not changed it either. The assumption to refute is therefore: <b>there is a fixed angle θ with Z̄₁<span class="sym" data-sym="psi">ψ</span> = e<sup>iθ</sup><span class="sym" data-sym="psi">ψ</span> for every encoded state <span class="sym" data-sym="psi">ψ</span></b>, that is, Z̄₁ equals e<sup>iθ</sup>·I on the code space. (A different number for each encoded state is not possible: if Z̄₁<span class="sym" data-sym="psi">ψ</span>₁ = c₁<span class="sym" data-sym="psi">ψ</span>₁ and Z̄₁<span class="sym" data-sym="psi">ψ</span>₂ = c₂<span class="sym" data-sym="psi">ψ</span>₂ with <span class="sym" data-sym="psi">ψ</span>₁, <span class="sym" data-sym="psi">ψ</span>₂ not proportional, apply Z̄₁ to <span class="sym" data-sym="psi">ψ</span>₁ + <span class="sym" data-sym="psi">ψ</span>₂; linearity gives c₁<span class="sym" data-sym="psi">ψ</span>₁ + c₂<span class="sym" data-sym="psi">ψ</span>₂, and for this to be some c times (<span class="sym" data-sym="psi">ψ</span>₁ + <span class="sym" data-sym="psi">ψ</span>₂) we need c₁ = c = c₂. So “changes no encoded state” is exactly this assumption.) Now the contradiction. X̄₁ also commutes with every check, so for an encoded state <span class="sym" data-sym="psi">ψ</span>, X̄₁<span class="sym" data-sym="psi">ψ</span> is still encoded, and the assumption applies to it: Z̄₁X̄₁<span class="sym" data-sym="psi">ψ</span> = e<sup>iθ</sup>X̄₁<span class="sym" data-sym="psi">ψ</span>. On the other hand X̄₁ and Z̄₁ share one qubit and anticommute: Z̄₁X̄₁<span class="sym" data-sym="psi">ψ</span> = −X̄₁Z̄₁<span class="sym" data-sym="psi">ψ</span> = −e<sup>iθ</sup>X̄₁<span class="sym" data-sym="psi">ψ</span>. Subtracting, 2e<sup>iθ</sup>X̄₁<span class="sym" data-sym="psi">ψ</span> = 0; e<sup>iθ</sup> is not zero, so X̄₁<span class="sym" data-sym="psi">ψ</span> = 0; applying X̄₁ to both sides (X̄₁X̄₁ = I) gives <span class="sym" data-sym="psi">ψ</span> = 0, which is not a legal state: a contradiction. So Z̄₁ turns at least one encoded state into a <b>different</b> state. A contractible loop has no such anticommuting partner: it is a product of face checks, face checks commute with every check, and on the code space it equals I exactly (θ = 0).</p>
+    </div>
+  </details>
   <details class="fold">
     <summary><span class="zh">这一切的学名：<span class="sym" data-sym="bbZ">ℤ</span>₂ 同调</span><span class="en">The scholarly name for all this: <span class="sym" data-sym="bbZ">ℤ</span>₂ homology</span></summary>
     <div class="fold-body">
-      <p class="zh">把「圈」按「相差一个可收缩部分即视为相同」归类，得到的类恰有四个：{平凡, 绕横向, 绕纵向, 双绕}。数学家称之为环面的一阶 <span class="sym" data-sym="bbZ">ℤ</span>₂ 同调群 H₁(<span class="term">T²<span class="tip">环面（torus）的记号：T 取自 torus，上标 2 表示它是二维曲面。</span></span>, <span class="sym" data-sym="bbZ">ℤ</span>₂) = <span class="sym" data-sym="bbZ">ℤ</span>₂ × <span class="sym" data-sym="bbZ">ℤ</span>₂——四个元素对应编码空间的 2² = 4 维。「错误链只定义到相差检查乘积」与「逻辑类由缠绕决定」正是同调语言的物理翻译。无需深究，但若你日后读论文，遇见 homology 时会认出老朋友。</p>
-      <p class="en">Classify loops with “equal up to a contractible part”, and exactly four classes appear: {trivial, horizontal winding, vertical winding, both}. Mathematicians call this the torus's first <span class="sym" data-sym="bbZ">ℤ</span>₂ homology group, H₁(<span class="term">T²<span class="tip">The symbol for the torus: T from “torus”, superscript 2 because it is a two-dimensional surface.</span></span>, <span class="sym" data-sym="bbZ">ℤ</span>₂) = <span class="sym" data-sym="bbZ">ℤ</span>₂ × <span class="sym" data-sym="bbZ">ℤ</span>₂ — four elements matching the code space's 2² = 4 dimensions. “Errors defined only up to products of checks” and “logical class set by winding” are physics translations of homology. No need to go deeper — but when papers say homology, you'll recognize an old friend.</p>
+      <p class="zh">把闭合圈（可以是好几条）按「相差若干面检查的乘积，即相差某批面 R 的边界 ∂R，就视为相同」归类，类别只由两个方向缠绕数的奇偶决定（5.7 节），所以恰有四类：{平凡（偶, 偶）, 绕横向, 绕纵向, 双绕}。两条平行的缠绕圈合起来是一条带子的边界，属于平凡类。数学家称之为环面的一阶 <span class="sym" data-sym="bbZ">ℤ</span>₂ 同调群 H₁(<span class="term">T²<span class="tip">环面（torus）的记号：T 取自 torus，上标 2 表示它是二维曲面。</span></span>, <span class="sym" data-sym="bbZ">ℤ</span>₂) = <span class="sym" data-sym="bbZ">ℤ</span>₂ × <span class="sym" data-sym="bbZ">ℤ</span>₂——四个元素对应编码空间的 2² = 4 维。「错误链只定义到相差检查乘积」与「逻辑类由缠绕决定」正是同调语言的物理翻译。无需深究，但若你日后读论文，遇见 homology 时会认出老朋友。</p>
+      <p class="en">Classify closed loops (possibly several at once) as “the same if they differ by a product of face checks, i.e. by the boundary ∂R of some set of faces R”; the class depends only on whether each of the two winding numbers is even or odd (§5.7), so exactly four classes appear: {trivial (even, even), horizontal winding, vertical winding, both}. Two parallel winding loops together are the boundary of a strip and belong to the trivial class. Mathematicians call this the torus's first <span class="sym" data-sym="bbZ">ℤ</span>₂ homology group, H₁(<span class="term">T²<span class="tip">The symbol for the torus: T from “torus”, superscript 2 because it is a two-dimensional surface.</span></span>, <span class="sym" data-sym="bbZ">ℤ</span>₂) = <span class="sym" data-sym="bbZ">ℤ</span>₂ × <span class="sym" data-sym="bbZ">ℤ</span>₂ — four elements matching the code space's 2² = 4 dimensions. “Errors defined only up to products of checks” and “logical class set by winding” are physics translations of homology. No need to go deeper — but when papers say homology, you'll recognize an old friend.</p>
     </div>
   </details>
 
   <h3 id="s5-7"><span class="sec-no">5.7</span><span class="zh">纠错 = 给症状配对</span><span class="en">Correction = matching the syndrome</span></h3>
   <div class="prose">
-    <p class="zh">运行时我们看不见链，只看得见端点（症状）。<span class="term">译码器<span class="tip">decoder：读取全部症状、推断修复操作的经典算法。常用最小重量完美匹配（MWPM）或 Union-Find。</span></span>的策略：把报警点两两配对、沿路径施加 Z 补链。真实链 <span class="sym" data-sym="oplus">⊕</span> 修复链（<span class="sym" data-sym="oplus">⊕</span>：合并两组边、成对相消，因为 Z·Z = I）永远闭合，命运由 5.5/<span class="ref" data-ref="winding" data-sec="5.6">5.6</span> 的二分法裁决：可收缩 <span class="sym" data-sym="implies">⇒</span> 完美复原；缠绕 <span class="sym" data-sym="implies">⇒</span> 无声逻辑错误。修复不必猜中原链——同类即可，这正是「错误只定义到同调类」的实战含义。上场当一回译码器：</p>
-    <p class="en">At runtime we see no chains, only endpoints (the syndrome). The <span class="term">decoder<span class="tip">The classical algorithm reading all syndromes and inferring repairs. Standard choices: minimum-weight perfect matching (MWPM) or Union-Find.</span></span>'s strategy: pair up the alarms and apply Z along connecting paths. True chain <span class="sym" data-sym="oplus">⊕</span> repair chain (<span class="sym" data-sym="oplus">⊕</span>: merge edge sets with pairwise cancellation, since Z·Z = I) is always closed, and its fate follows the <span class="ref" data-ref="trivloop" data-sec="5.5">§5.5</span>/<span class="ref" data-ref="winding" data-sec="5.6">§5.6</span> dichotomy: contractible <span class="sym" data-sym="implies">⇒</span> perfect recovery; winding <span class="sym" data-sym="implies">⇒</span> silent logical error. The repair needn't guess the original chain — same class suffices: the practical meaning of “errors defined only up to homology class”. Take the decoder's chair:</p>
+    <p class="zh">运行时我们看不见链，只看得见端点（症状）。<span class="term">译码器<span class="tip">decoder：读取全部症状、推断修复操作的经典算法。常用最小重量完美匹配（MWPM：在所有两两配对方式中挑修复链总长度最短的一种）或 Union-Find（让每个警报周围的簇逐步长大、相遇就合并的快速近似算法）。</span></span>的策略：把报警点两两配对、沿路径施加 Z 补链。真实链 <span class="sym" data-sym="oplus">⊕</span> 修复链（<span class="sym" data-sym="oplus">⊕</span>：合并两组边、成对相消，因为 Z·Z = I）没有端点，是一条或几条闭合圈。剩下的问题只有一个：这些圈<b>合起来</b>是不是面检查的乘积（<span class="ref" data-ref="trivloop" data-sec="5.5">5.5 节</span>：是，就什么都没发生；<span class="ref" data-ref="winding" data-sec="5.6">5.6 节</span>：不是，就是逻辑算符）？判据是数<span class="term">缠绕数<span class="tip">一条绕环面一周的测试路径跨过残留边的次数。竖直、水平各数一次；只有奇偶有意义。</span></span>：沿 X̄₁ 那条竖直的路（穿过一列方块中心，绕环面一周）走一遍，数它跨过几条残留的 Z 边；再沿 X̄₂ 那条水平的路数一次。只看奇偶：</p>
+    <p class="en">At runtime we see no chains, only endpoints (the syndrome). The <span class="term">decoder<span class="tip">The classical algorithm reading all syndromes and inferring repairs. Standard choices: minimum-weight perfect matching (MWPM: among all ways of pairing the alarms, pick the one with shortest total repair length) or Union-Find (a fast approximate method that grows a cluster around each alarm and merges clusters when they meet).</span></span>'s strategy: pair up the alarms and apply Z along connecting paths. True chain <span class="sym" data-sym="oplus">⊕</span> repair chain (<span class="sym" data-sym="oplus">⊕</span>: merge edge sets with pairwise cancellation, since Z·Z = I) has no endpoints: it is one or more closed loops. Only one question remains: are these loops, <b>taken together</b>, a product of face checks (<span class="ref" data-ref="trivloop" data-sec="5.5">§5.5</span>: if so, nothing happened; <span class="ref" data-ref="winding" data-sec="5.6">§5.6</span>: if not, they form a logical operator)? The test is to count <span class="term">winding numbers<span class="tip">How many times a test path going once around the torus crosses the leftover edges. Count once vertically and once horizontally; only even or odd matters.</span></span>: walk the vertical path of X̄₁ (through the centres of one column of squares, once around the torus) and count how many leftover Z edges it crosses; then count again along the horizontal path of X̄₂. Only even or odd matters:</p>
+  </div>
+  <div class="formula center"><span class="zh">错误 <span class="sym" data-sym="oplus">⊕</span> 修复：两个方向的缠绕数都是偶数 <span class="sym" data-sym="implies">⇒</span> 完美复原　·　任一方向是奇数 <span class="sym" data-sym="implies">⇒</span> 无声的逻辑错误</span><span class="en">error <span class="sym" data-sym="oplus">⊕</span> repair: both winding numbers even <span class="sym" data-sym="implies">⇒</span> perfect recovery · either one odd <span class="sym" data-sym="implies">⇒</span> silent logical error</span></div>
+  <div class="prose">
+    <p class="zh">为什么数奇偶，而不是看「有没有缠绕圈」？下面的实验台画了三种残留，都在 4 × 4 环面上，比特编号同 5.2 的蓝图。<b>一条</b>水平缠绕圈就是 Z̄₁：竖直测试路径跨过它 1 次，奇数，逻辑错误。<b>两条</b>平行的水平缠绕圈，每一条单独都是 Z̄₁，合起来却夹出一条带子（图中着色的 8 块面）。按 5.5 的公式把带子里的 8 条面检查乘起来：带子内部的每条边都挨着带子里的两块面（左右两端绕回相接，那里的竖边也一样），Z·Z 抵消；只剩带子的上下两条边框，正好是这两条圈。所以两条圈合起来是面检查的乘积，对编码态什么都不做；换个说法，Z̄₁ 做了两次，Z̄₁·Z̄₁ = I。竖直测试路径跨过它们 2 次，偶数。<b>一条水平、一条竖直</b>：两个方向各跨 1 次，残留是 Z̄₁Z̄₂，两个逻辑比特都被改写。</p>
+    <p class="en">Why count even or odd, instead of asking “is there a winding loop”? The bench below draws three leftovers, all on a 4 × 4 torus with qubits numbered as in §5.2's blueprint. <b>One</b> horizontal winding loop is Z̄₁: the vertical test path crosses it once, odd, a logical error. <b>Two</b> parallel horizontal winding loops: each one alone is Z̄₁, but together they enclose a strip (the 8 shaded squares). Multiply the 8 face checks of the strip with §5.5's formula: every edge inside the strip borders two squares of the strip (the two ends wrap around and meet, and the vertical edges there behave the same way), so Z·Z cancels; only the strip's top and bottom rims remain, and they are exactly the two loops. So the two loops together are a product of face checks and do nothing to encoded states; put differently, Z̄₁ was applied twice, and Z̄₁·Z̄₁ = I. The vertical test path crosses them twice, even. <b>One horizontal and one vertical</b>: each direction is crossed once, the leftover is Z̄₁Z̄₂, and both logical qubits are rewritten.</p>
+  </div>
+  <div data-widget="twowinding"></div>
+  <div class="prose">
+    <p class="zh">判据的两半各有来历。<b>奇数 <span class="sym" data-sym="implies">⇒</span> 逻辑错误：</b>补课 5.B ① 的走路论证说明，任何一批面检查的乘积 Z(∂R) 都被绕环面一周的路跨过偶数次，所以跨奇数次的残留不是面检查的乘积；它与这条路上的 X̄ 共享奇数个比特，按碰撞定理反对易，于是补课 5.B ② 的论证原样适用：它改写了编码态。<b>偶数 <span class="sym" data-sym="implies">⇒</span> 无害：</b>两个方向都跨偶数次的闭合圈一定是面检查的乘积。这一半的一般证明要用拓扑学里的同调论，超出本页（5.6 节末尾的折叠盒给出它的名字）；两条平行圈是它最简单的例子。X 错误的残留同理，只是测试路径换成沿边走的 Z̄₁、Z̄₂。</p>
+    <p class="en">Each half of the test has its own reason. <b>Odd <span class="sym" data-sym="implies">⇒</span> logical error:</b> the walking argument of Catch-up 5.B ① shows that any product of face checks Z(∂R) is crossed an even number of times by a path going once around the torus, so a leftover crossed an odd number of times is not a product of face checks; it shares an odd number of qubits with the X̄ on that path, so by the collision theorem they anticommute, and the argument of Catch-up 5.B ② applies word for word: it changes encoded states. <b>Even <span class="sym" data-sym="implies">⇒</span> harmless:</b> closed loops crossed an even number of times in both directions are always a product of face checks. The general proof of this half uses homology from topology and is beyond this page (the fold-out at the end of §5.6 gives its name); the two parallel loops are its simplest example. Leftovers of X errors work the same way, with the along-edge loops Z̄₁ and Z̄₂ as the test paths.</p>
+    <p class="zh">所以修复<b>不必</b>猜中原链：只要合成的圈两个方向的缠绕数都是偶数就全胜，最常见的情形是它们根本不绕，只是可收缩的小圈。这正是「错误只定义到同调类」的实战含义。下面实验台的「自动译码」在警报不超过 14 个时逐一比较所有配对方式、取总长度最短的一种（即 MWPM），更多时退为每次先配最近两个的贪心配对。每回合结束时，游戏按上面的判据判胜负，并在读数里写出竖直、水平两条测试路径各跨过残留（蓝 <span class="sym" data-sym="oplus">⊕</span> 绿）几次。上场当一回译码器：</p>
+    <p class="en">So the repair need <b>not</b> guess the original chain: it wins as long as the combined loops have even winding numbers in both directions, and most often they do not wind at all and are small contractible loops. That is the practical meaning of “errors defined only up to homology class”. The bench's “auto-decode” compares every pairing and takes the shortest (that is, MWPM) when there are at most 14 alarms, and falls back to greedy closest-pair matching beyond that. At the end of each round the game judges by the test above and writes in the readout how many times the vertical and the horizontal test path cross the leftover (blue <span class="sym" data-sym="oplus">⊕</span> green). Take the decoder's chair:</p>
   </div>
   <div data-widget="decodergame"></div>
 
   <h3 id="s5-8"><span class="sec-no">5.8</span><span class="zh">码距 d = L，与一个悬念</span><span class="en">Distance d = L, and a cliffhanger</span></h3>
   <div class="prose">
-    <p class="zh">最轻的逻辑算符是最短的缠绕圈：长度 L。故码距 d = L，且对 X、Z 完全对称——任务书四项全部交付（两族检查 ✓ 对易定理 ✓ 对称可增长的 d ✓ 四近邻局部性 ✓）。要压垮它，约 L/2 个错误必须连成一线。这个事件的概率随 L 怎样衰减？多小的 p 才「越大越好」？定量答案是量子计算最著名的曲线之一——<b>阈值</b>，我们留作<a href="../../surface_code/intuition/intuition-hs.html#ch6">《Surface Code · 高中数学版》第 6 章</a>的压轴，在那里你会先用排列组合与等比数列亲手证出一个下界，再用蒙特卡洛当场测出真值。</p>
-    <p class="en">The lightest logical operator is the shortest winding loop: length L. Hence d = L, fully symmetric in X and Z — all four items of the brief delivered (two families ✓ commutation theorem ✓ symmetric growable d ✓ four-neighbour locality ✓). To crush it, roughly L/2 errors must fall in a line. How fast does that probability shrink with L? Below what p does bigger become better? The quantitative answer is one of quantum computing's most famous curves — the <b>threshold</b> — saved as the finale of <a href="../../surface_code/intuition/intuition-hs.html#ch6">“The Surface Code · High-School Edition”, Chapter 6</a>, where you will first prove a lower bound by counting and geometric series, then measure the true value live by Monte-Carlo.</p>
+    <p class="zh">最轻的逻辑算符是最短的缠绕圈：水平缠绕的圈每经过一列至少用一条横边，所以至少 L 条边，直线圈恰好 L 条。故码距 d = L，环面码是 <span class="sym" data-sym="nkd">[[2L², 2, L]]</span>（L = 3 时 [[18, 2, 3]]），且对 X、Z 完全对称——任务书四项全部交付（两族检查 ✓ 对易定理 ✓ 对称可增长的 d ✓ 四近邻局部性 ✓）。按 4.5 的规则它保证纠正任意 (L − 1)/2 个错误；要压垮最短配对译码器，约 L/2 个错误恰好排在一条缠绕线上就够（修复会补齐另一半）。这个事件的概率随 L 怎样衰减？多小的 p 才「越大越好」？定量答案是量子计算最著名的曲线之一——<b>阈值</b>，我们留作<a href="../../surface_code/intuition/intuition-hs.html#ch6">《Surface Code · 高中数学版》第 6 章</a>的压轴，在那里你会先用排列组合与等比数列亲手证出一个下界，再用蒙特卡洛模拟当场测出那一页简化译码器的阈值估计。</p>
+    <p class="en">The lightest logical operator is the shortest winding loop: a horizontally winding loop uses at least one horizontal edge per column, so at least L edges, and the straight loop has exactly L. Hence d = L, the toric code is <span class="sym" data-sym="nkd">[[2L², 2, L]]</span> ([[18, 2, 3]] for L = 3), fully symmetric in X and Z — all four items of the brief delivered (two families ✓ commutation theorem ✓ symmetric growable d ✓ four-neighbour locality ✓). By §4.5's rule it is guaranteed to correct any (L − 1)/2 errors; to defeat a shortest-pairing decoder, about L/2 errors lined up on one winding line suffice (the repair completes the other half). How fast does that probability shrink with L? Below what p does bigger become better? The quantitative answer is one of quantum computing's most famous curves — the <b>threshold</b> — saved as the finale of <a href="../../surface_code/intuition/intuition-hs.html#ch6">“The Surface Code · High-School Edition”, Chapter 6</a>, where you will first prove a lower bound by counting and geometric series, then estimate by live Monte-Carlo simulation the threshold of that page's simplified decoder.</p>
   </div>
 
   <div class="quiz" data-quiz>
@@ -1430,7 +1521,7 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
         <button class="q-opt" data-ok><span class="zh">200，198，2 —— n=2L²=200；星面各 100 条、各有一条乘积恒等式 → 198；k = 200−198 = 2</span><span class="en">200, 198, 2 — n=2L²=200; 100 stars + 100 faces minus one identity each → 198; k = 200−198 = 2</span></button>
         <button class="q-opt"><span class="zh">200，200，0</span><span class="en">200, 200, 0</span></button>
       </div>
-      <div class="q-fb ok"><p class="zh">对。且码距 d = 10：一万个物理比特量级的操心，只为两个逻辑比特——但它们受「必须缠绕整个环面」保护。容量固定为 2、保护随 L 增长，这正是拓扑码的交易结构。</p><p class="en">Right — with d = 10. Two hundred physical qubits' worry buys just two logical ones — but protected by “must wind the whole torus”. Fixed capacity, growing protection: the topological trade.</p></div>
+      <div class="q-fb ok"><p class="zh">对。码距 d = 10：200 个物理比特只存两个逻辑比特，但要改写它们，错误必须连成一条绕环面一整圈的链，至少 10 条边。逻辑比特数固定为 2，保护（码距 d = L）却随 L 增长：这就是拓扑码的取舍。</p><p class="en">Right, and the distance is d = 10: 200 physical qubits store only two logical qubits, but to rewrite them the errors must join into a chain winding once around the torus, at least 10 edges long. The number of logical qubits stays at 2 while the protection (distance d = L) grows with L: that is the trade-off of a topological code.</p></div>
       <div class="q-fb no"><p class="zh">边数 = 横 L² + 竖 L²；星、面各 L² 但各含一条 <span class="sym" data-sym="prod">∏</span> = I 的冗余。</p><p class="en">Edges = L² horizontal + L² vertical; L² stars and faces each, each family carrying one <span class="sym" data-sym="prod">∏</span> = I redundancy.</p></div>
     </div>
   </div>
@@ -1472,7 +1563,7 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
   </div>
 
   <h3 id="symtable"><span class="zh">符号与读法</span><span class="en">Symbols & how to read them</span></h3>
-  <div class="table-wrap"><table class="glossary"><tr><th><span class="zh">符号</span><span class="en">Symbol</span></th><th><span class="zh">名称与读法</span><span class="en">Name & how to read it</span></th><th><span class="zh">在本教程中的含义</span><span class="en">Meaning in this tutorial</span></th></tr><tr><td class="mono" style="font-size:17px">ψ</td><td><span class="zh">希腊字母，读「普西」（psai）</span><span class="en">Greek letter, read “psy” (rhymes with “sigh”)</span></td><td><span class="zh">物理学的百年老习惯：用 ψ 给一个量子状态起名。|ψ⟩ 就是「名叫 ψ 的那个状态」——它不是未知数，只是个名字，相当于「小明」。</span><span class="en">A century-old physics habit: ψ names a quantum state. |ψ⟩ is “the state called ψ” — not an unknown, just a name.</span></td></tr><tr><td class="mono" style="font-size:17px">α</td><td><span class="zh">希腊字母，读「阿尔法」（alpha）</span><span class="en">Greek letter, read “AL-fa”</span></td><td><span class="zh">希腊字母表的第一个，惯用作第一个系数。这里：逻辑 0̄ 成分的振幅。</span><span class="en">First letter of the Greek alphabet, customary for a first coefficient. Here: the amplitude of the logical-0̄ part.</span></td></tr><tr><td class="mono" style="font-size:17px">β</td><td><span class="zh">希腊字母，读「贝塔」（beta）</span><span class="en">Greek letter, read “BAY-ta”</span></td><td><span class="zh">希腊字母表的第二个，惯用作第二个系数。这里：逻辑 1̄ 成分的振幅。注意 α²+β²=1。</span><span class="en">Second Greek letter, customary for a second coefficient. Here: the amplitude of the logical-1̄ part, with α²+β²=1.</span></td></tr><tr><td class="mono" style="font-size:17px">δ</td><td><span class="zh">希腊字母，读「德尔塔」（delta）</span><span class="en">Greek letter, read “DEL-ta”</span></td><td><span class="zh">这里只用它组成 δ<sub>ij</sub>（克罗内克 δ）：一个「同或不同」的开关——i = j 时取 1，否则取 0。</span><span class="en">Used here only inside δ<sub>ij</sub> (the Kronecker delta): a same-or-different switch — 1 when i = j, else 0.</span></td></tr><tr><td class="mono" style="font-size:17px">λ</td><td><span class="zh">希腊字母，读「拉姆达」（lambda）</span><span class="en">Greek letter, read “LAM-da”</span></td><td><span class="zh">本征值的惯用名：Mv = λv 里那个「整体伸缩的倍数」。这里的本征值只有 +1 与 −1。</span><span class="en">The customary name for an eigenvalue: the stretch factor in Mv = λv. Here eigenvalues are only ±1.</span></td></tr><tr><td class="mono" style="font-size:17px">χ</td><td><span class="zh">希腊字母，读「凯」（kai）——不是英文 x</span><span class="en">Greek letter, read “kai” — not the letter x</span></td><td><span class="zh">欧拉示性数的专用名：χ = V − E + F，只由曲面本身决定（环面 χ = 0）。</span><span class="en">Reserved for the Euler characteristic: χ = V − E + F, fixed by the surface alone (torus: χ = 0).</span></td></tr><tr><td class="mono" style="font-size:17px">θ</td><td><span class="zh">希腊字母，读「西塔」（theta）</span><span class="en">Greek letter, read “THAY-ta”</span></td><td><span class="zh">惯用来表示一个角度；e<sup>iθ</sup> 是「转过 θ 角」的相位因子。</span><span class="en">Customary for an angle; e<sup>iθ</sup> is the phase factor “rotated by θ”.</span></td></tr><tr><td class="mono" style="font-size:17px">∏</td><td><span class="zh">大写希腊字母 π，读「派」（pi）</span><span class="en">Capital Greek π, read “pie”</span></td><td><span class="zh">连乘记号：把后面的东西全部<b>乘</b>起来——∑ 的乘法版。∏<sub>v</sub> A<sub>v</sub> 即「所有星形检查的乘积」。</span><span class="en">The product sign: <b>multiply</b> everything that follows — the multiplicative sibling of ∑. ∏<sub>v</sub> A<sub>v</sub> = “the product of all star checks”.</span></td></tr><tr><td class="mono" style="font-size:17px">∂</td><td><span class="zh">弯体 d，读「偏」（英文 partial 或 round-d）</span><span class="en">A curly d, read “partial” (or “round-d”)</span></td><td><span class="zh">这里它表示「取边界」：∂p = 围住面 p 的那 4 条边；∂链 = 链的端点集。</span><span class="en">Here it means “take the boundary”: ∂p = the 4 edges rimming face p; ∂chain = the chain's endpoint set.</span></td></tr><tr><td class="mono" style="font-size:17px">⊕</td><td><span class="zh">圆圈加，读「异或」或「圆圈加」</span><span class="en">A circled plus, read “X-OR” or “o-plus”</span></td><td><span class="zh">合并两组东西、成对相消：同一条边出现两次就抵消（因为 Z·Z = I）；对 0/1 就是「模 2 加法」。</span><span class="en">Merge two collections with pairwise cancellation: anything appearing twice cancels (since Z·Z = I); on 0/1 it is addition mod 2.</span></td></tr><tr><td class="mono" style="font-size:17px">⊗</td><td><span class="zh">圆圈乘，读「张量积」（tensor）</span><span class="en">A circled times, read “tensor”</span></td><td><span class="zh">把两个系统并成一个的记号：基标签并排写、振幅相乘、维数相乘。</span><span class="en">The glue joining two systems into one: labels concatenate, amplitudes multiply, dimensions multiply.</span></td></tr><tr><td class="mono" style="font-size:17px">ℂ</td><td><span class="zh">双线体大写 C，读「复数集」</span><span class="en">Double-struck C, read “the complex numbers”</span></td><td><span class="zh">全体复数组成的集合。ℂ² 读「C 二」：由两个复数组成的向量的全体——量子比特状态的家。</span><span class="en">The set of all complex numbers. ℂ² (“C-two”) is the set of vectors with two complex entries — where qubit states live.</span></td></tr><tr><td class="mono" style="font-size:17px">ℝ</td><td><span class="zh">双线体大写 R，读「实数集」</span><span class="en">Double-struck R, read “the real numbers”</span></td><td><span class="zh">全体实数组成的集合。</span><span class="en">The set of all real numbers.</span></td></tr><tr><td class="mono" style="font-size:17px">ℤ</td><td><span class="zh">双线体大写 Z，读「整数集」</span><span class="en">Double-struck Z, read “the integers”</span></td><td><span class="zh">全体整数。ℤ₂ 读「Z 二」：只剩 0 和 1 的「模 2 / 奇偶」算术——1+1=0 的世界。</span><span class="en">All whole numbers. ℤ₂ (“Z-two”) is arithmetic mod 2 — the 0/1 world where 1+1=0.</span></td></tr><tr><td class="mono" style="font-size:17px">ᵀ</td><td><span class="zh">上标 T，读「转置」（transpose）</span><span class="en">A superscript T, read “transpose”</span></td><td><span class="zh">「把横着写的竖起来」：(a, b)ᵀ 表示列向量——为了排版省地方的写法，含义不变。</span><span class="en">“Stand the row up”: (a, b)ᵀ denotes the column vector — a space-saving notation, same object.</span></td></tr><tr><td class="mono" style="font-size:17px">∈　∋</td><td><span class="zh">读「属于」</span><span class="en">Read “belongs to / element of”</span></td><td><span class="zh">e ∈ S：e 是集合 S 的一员。反着写的 e ∋ v 用在 ∏<sub>e∋v</sub> 里：「所有碰到顶点 v 的边 e」。</span><span class="en">e ∈ S: e is a member of the set S. The mirrored e ∋ v in ∏<sub>e∋v</sub> reads “all edges e touching vertex v”.</span></td></tr><tr><td class="mono" style="font-size:17px">∎</td><td><span class="zh">实心小方块，读「证毕」（Q.E.D.）</span><span class="en">A filled square, read “Q.E.D.”</span></td><td><span class="zh">数学家在证明末尾盖的小方章：到此证完，无需再言。</span><span class="en">The mathematician's end-of-proof stamp: done, nothing more to say.</span></td></tr><tr><td class="mono" style="font-size:17px">↦</td><td><span class="zh">带竖杠的箭头，读「映到」</span><span class="en">A barred arrow, read “maps to”</span></td><td><span class="zh">(x, y) ↦ (y, x)：左边的向量被操作送到右边的向量；描述一个操作「把什么变成什么」。</span><span class="en">(x, y) ↦ (y, x): the vector on the left is sent to the one on the right — how an operation is described by what it does.</span></td></tr><tr><td class="mono" style="font-size:17px">#{…}</td><td><span class="zh">井号，读「个数」</span><span class="en">The hash sign, read “the number of”</span></td><td><span class="zh">#{…} = 花括号里集合的元素个数。碰撞定理里 c = #{X 与 Z 同格相遇的位置}。</span><span class="en">#{…} = how many elements the set in braces has. In the collision theorem, c = #{cells where X meets Z}.</span></td></tr><tr><td class="mono" style="font-size:17px">e<sup>iθ</sup></td><td><span class="zh">读「e 的 i θ 次方」</span><span class="en">Read “e to the i-theta”</span></td><td><span class="zh">欧拉公式 e<sup>iθ</sup> = cos θ + i sin θ：模为 1 的复数，乘它只转动相位、不改变任何模方；量子态整体乘上它，物理上视为同一状态。</span><span class="en">Euler's formula e<sup>iθ</sup> = cos θ + i sin θ: a complex number of modulus 1; multiplying by it rotates the phase and changes no modulus-square — a state times e<sup>iθ</sup> is the same physical state.</span></td></tr><tr><td class="mono" style="font-size:17px">T²</td><td><span class="zh">读「T 二」</span><span class="en">Read “T-two”</span></td><td><span class="zh">环面（torus）的记号；上标 2 表示二维曲面。H₁(T², ℤ₂) 即「环面的一阶 ℤ₂ 同调群」。</span><span class="en">The symbol for the torus; superscript 2 because it is a two-dimensional surface. H₁(T², ℤ₂) reads “the first ℤ₂ homology group of the torus”.</span></td></tr><tr><td class="mono" style="font-size:17px">⇒</td><td><span class="zh">双线箭头，读「推出 / 则」</span><span class="en">A double arrow, read “implies”</span></td><td><span class="zh">A ⇒ B：由 A 可以得出 B。</span><span class="en">A ⇒ B: from A one may conclude B.</span></td></tr><tr><td class="mono" style="font-size:17px">⇔</td><td><span class="zh">双向双线箭头，读「当且仅当」</span><span class="en">A two-way double arrow, read “if and only if”</span></td><td><span class="zh">A ⇔ B：A 与 B 同真同假，互为充要条件——是一条双向的「推出」。</span><span class="en">A ⇔ B: A and B stand or fall together — an implication running both ways.</span></td></tr><tr><td class="mono" style="font-size:17px">⟨·|·⟩</td><td><span class="zh">左尖括号（bra-ket 记号）</span><span class="en">The left angle bracket (bra-ket notation)</span></td><td><span class="zh">⟨u|v⟩ 读「u 内积 v」：两个向量的点乘（复数情形第一个向量先取共轭）。</span><span class="en">⟨u|v⟩ reads “u inner-product v”: the dot product of two vectors (conjugating the first in the complex case).</span></td></tr><tr><td class="mono" style="font-size:17px">X̄　Z̄</td><td><span class="zh">字母头上一横，读「X bar / Z bar」</span><span class="en">An overbar, read “X-bar / Z-bar”</span></td><td><span class="zh">一横 = 「逻辑版」：X̄ 是作用在被保护的<b>逻辑</b>比特上的 X，由许多物理操作组成（这里 = 缠绕圈 / 横跨串）。</span><span class="en">The bar means “logical edition”: X̄ is the X acting on the protected <b>logical</b> qubit, built from many physical operations (here: winding loops / spanning strings).</span></td></tr><tr><td class="mono" style="font-size:17px">±</td><td><span class="zh">读「正负」</span><span class="en">Read “plus-minus”</span></td><td><span class="zh">±1 = 「+1 或 −1」两个可能取值；这里每条检查的答案都是这两个之一。</span><span class="en">±1 = the two possible values “+1 or −1”; every check here answers with one of them.</span></td></tr><tr><td class="mono" style="font-size:17px">√</td><td><span class="zh">读「根号」</span><span class="en">Read “square root”</span></td><td><span class="zh">√A = 面积为 A 的正方形的边长；(√A)² = A；常客：1/√2 ≈ 0.71。</span><span class="en">√A = the side of a square of area A; (√A)² = A; frequent guest: 1/√2 ≈ 0.71.</span></td></tr><tr><td class="mono" style="font-size:17px">|·⟩</td><td><span class="zh">竖线加右尖括号，读「刻特」（ket）</span><span class="en">A bar with a right angle bracket, read “ket”</span></td><td><span class="zh">|0⟩ = 「贴着标签 0 的状态」：给量子状态套的礼盒括号，本质是基向量的名字。</span><span class="en">|0⟩ = “the state labelled 0”: gift-wrap for quantum states — really just a basis vector's name.</span></td></tr><tr><td class="mono" style="font-size:17px">≈</td><td><span class="zh">读「约等于」</span><span class="en">Read “approximately equals”</span></td><td><span class="zh">两边近似相等。</span><span class="en">The two sides are nearly equal.</span></td></tr><tr><td class="mono" style="font-size:17px">≠</td><td><span class="zh">读「不等于」</span><span class="en">Read “not equal”</span></td><td><span class="zh">两边不相等。</span><span class="en">The two sides differ.</span></td></tr><tr><td class="mono" style="font-size:17px">≤　≥</td><td><span class="zh">读「小于等于 / 大于等于」</span><span class="en">Read “at most / at least”</span></td><td><span class="zh">不超过 / 不少于。</span><span class="en">No more than / no less than.</span></td></tr></table></div>
+  <div class="table-wrap"><table class="glossary"><tr><th><span class="zh">符号</span><span class="en">Symbol</span></th><th><span class="zh">名称与读法</span><span class="en">Name & how to read it</span></th><th><span class="zh">在本教程中的含义</span><span class="en">Meaning in this tutorial</span></th></tr><tr><td class="mono" style="font-size:17px">ψ</td><td><span class="zh">希腊字母，读「普西」（psai）</span><span class="en">Greek letter, read “psy” (rhymes with “sigh”)</span></td><td><span class="zh">物理学的百年老习惯：用 ψ 给一个量子状态起名。|ψ⟩ 就是「名叫 ψ 的那个状态」——它不是未知数，只是个名字，相当于「小明」。</span><span class="en">A century-old physics habit: ψ names a quantum state. |ψ⟩ is “the state called ψ” — not an unknown, just a name.</span></td></tr><tr><td class="mono" style="font-size:17px">α</td><td><span class="zh">希腊字母，读「阿尔法」（alpha）</span><span class="en">Greek letter, read “AL-fa”</span></td><td><span class="zh">希腊字母表的第一个，惯用作第一个系数。这里：逻辑 0̄ 成分的振幅。</span><span class="en">First letter of the Greek alphabet, customary for a first coefficient. Here: the amplitude of the logical-0̄ part.</span></td></tr><tr><td class="mono" style="font-size:17px">β</td><td><span class="zh">希腊字母，读「贝塔」（beta）</span><span class="en">Greek letter, read “BAY-ta”</span></td><td><span class="zh">希腊字母表的第二个，惯用作第二个系数。这里：逻辑 1̄ 成分的振幅。注意 α²+β²=1。</span><span class="en">Second Greek letter, customary for a second coefficient. Here: the amplitude of the logical-1̄ part, with α²+β²=1.</span></td></tr><tr><td class="mono" style="font-size:17px">δ</td><td><span class="zh">希腊字母，读「德尔塔」（delta）</span><span class="en">Greek letter, read “DEL-ta”</span></td><td><span class="zh">这里只用它组成 δ<sub>ij</sub>（克罗内克 δ）：一个「同或不同」的开关——i = j 时取 1，否则取 0。</span><span class="en">Used here only inside δ<sub>ij</sub> (the Kronecker delta): a same-or-different switch — 1 when i = j, else 0.</span></td></tr><tr><td class="mono" style="font-size:17px">λ</td><td><span class="zh">希腊字母，读「拉姆达」（lambda）</span><span class="en">Greek letter, read “LAM-da”</span></td><td><span class="zh">本征值的惯用名：Mv = λv 里那个「整体伸缩的倍数」。这里的本征值只有 +1 与 −1。</span><span class="en">The customary name for an eigenvalue: the stretch factor in Mv = λv. Here eigenvalues are only ±1.</span></td></tr><tr><td class="mono" style="font-size:17px">χ</td><td><span class="zh">希腊字母，读「凯」（kai）——不是英文 x</span><span class="en">Greek letter, read “kai” — not the letter x</span></td><td><span class="zh">欧拉示性数的专用名：χ = V − E + F，只由曲面本身决定（环面 χ = 0）。</span><span class="en">Reserved for the Euler characteristic: χ = V − E + F, fixed by the surface alone (torus: χ = 0).</span></td></tr><tr><td class="mono" style="font-size:17px">θ</td><td><span class="zh">希腊字母，读「西塔」（theta）</span><span class="en">Greek letter, read “THAY-ta”</span></td><td><span class="zh">惯用来表示一个角度；e<sup>iθ</sup> 是「转过 θ 角」的相位因子。</span><span class="en">Customary for an angle; e<sup>iθ</sup> is the phase factor “rotated by θ”.</span></td></tr><tr><td class="mono" style="font-size:17px">∏</td><td><span class="zh">大写希腊字母 π，读「派」（pi）</span><span class="en">Capital Greek π, read “pie”</span></td><td><span class="zh">连乘记号：把后面的东西全部<b>乘</b>起来——∑ 的乘法版。∏<sub>v</sub> A<sub>v</sub> 即「所有星形检查的乘积」。</span><span class="en">The product sign: <b>multiply</b> everything that follows — the multiplicative sibling of ∑. ∏<sub>v</sub> A<sub>v</sub> = “the product of all star checks”.</span></td></tr><tr><td class="mono" style="font-size:17px">∂</td><td><span class="zh">弯体 d，读「偏」（英文 partial 或 round-d）</span><span class="en">A curly d, read “partial” (or “round-d”)</span></td><td><span class="zh">这里它表示「取边界」：∂p = 围住面 p 的那 4 条边；∂链 = 链的端点集。</span><span class="en">Here it means “take the boundary”: ∂p = the 4 edges rimming face p; ∂chain = the chain's endpoint set.</span></td></tr><tr><td class="mono" style="font-size:17px">⊕</td><td><span class="zh">圆圈加，读「异或」或「圆圈加」</span><span class="en">A circled plus, read “X-OR” or “o-plus”</span></td><td><span class="zh">合并两组东西、成对相消：同一条边出现两次就抵消（因为 Z·Z = I）；对 0/1 就是「模 2 加法」。</span><span class="en">Merge two collections with pairwise cancellation: anything appearing twice cancels (since Z·Z = I); on 0/1 it is addition mod 2.</span></td></tr><tr><td class="mono" style="font-size:17px">⊗</td><td><span class="zh">圆圈乘，读「张量积」（tensor）</span><span class="en">A circled times, read “tensor”</span></td><td><span class="zh">把两个系统并成一个的记号：基标签并排写、振幅相乘、维数相乘。</span><span class="en">The glue joining two systems into one: labels concatenate, amplitudes multiply, dimensions multiply.</span></td></tr><tr><td class="mono" style="font-size:17px">ℂ</td><td><span class="zh">双线体大写 C，读「复数集」</span><span class="en">Double-struck C, read “the complex numbers”</span></td><td><span class="zh">全体复数组成的集合。ℂ² 读「C 二」：由两个复数组成的向量的全体——量子比特状态的家。</span><span class="en">The set of all complex numbers. ℂ² (“C-two”) is the set of vectors with two complex entries — where qubit states live.</span></td></tr><tr><td class="mono" style="font-size:17px">ℝ</td><td><span class="zh">双线体大写 R，读「实数集」</span><span class="en">Double-struck R, read “the real numbers”</span></td><td><span class="zh">全体实数组成的集合。</span><span class="en">The set of all real numbers.</span></td></tr><tr><td class="mono" style="font-size:17px">ℤ</td><td><span class="zh">双线体大写 Z，读「整数集」</span><span class="en">Double-struck Z, read “the integers”</span></td><td><span class="zh">全体整数。ℤ₂ 读「Z 二」：只剩 0 和 1 的「模 2 / 奇偶」算术——1+1=0 的世界。</span><span class="en">All whole numbers. ℤ₂ (“Z-two”) is arithmetic mod 2 — the 0/1 world where 1+1=0.</span></td></tr><tr><td class="mono" style="font-size:17px">ᵀ</td><td><span class="zh">上标 T，读「转置」（transpose）</span><span class="en">A superscript T, read “transpose”</span></td><td><span class="zh">「把横着写的竖起来」：(a, b)ᵀ 表示列向量——为了排版省地方的写法，含义不变。</span><span class="en">“Stand the row up”: (a, b)ᵀ denotes the column vector — a space-saving notation, same object.</span></td></tr><tr><td class="mono" style="font-size:17px">∈　∋</td><td><span class="zh">读「属于」</span><span class="en">Read “belongs to / element of”</span></td><td><span class="zh">e ∈ S：e 是集合 S 的一员。反着写的 e ∋ v 用在 ∏<sub>e∋v</sub> 里：「所有碰到顶点 v 的边 e」。</span><span class="en">e ∈ S: e is a member of the set S. The mirrored e ∋ v in ∏<sub>e∋v</sub> reads “all edges e touching vertex v”.</span></td></tr><tr><td class="mono" style="font-size:17px">∎</td><td><span class="zh">实心小方块，读「证毕」（Q.E.D.）</span><span class="en">A filled square, read “Q.E.D.”</span></td><td><span class="zh">数学家在证明末尾盖的小方章：到此证完，无需再言。</span><span class="en">The mathematician's end-of-proof stamp: done, nothing more to say.</span></td></tr><tr><td class="mono" style="font-size:17px">↦</td><td><span class="zh">带竖杠的箭头，读「映到」</span><span class="en">A barred arrow, read “maps to”</span></td><td><span class="zh">(x, y) ↦ (y, x)：左边的向量被操作送到右边的向量；描述一个操作「把什么变成什么」。</span><span class="en">(x, y) ↦ (y, x): the vector on the left is sent to the one on the right — how an operation is described by what it does.</span></td></tr><tr><td class="mono" style="font-size:17px">#{…}</td><td><span class="zh">井号，读「个数」</span><span class="en">The hash sign, read “the number of”</span></td><td><span class="zh">#{…} = 花括号里集合的元素个数。碰撞定理里 c = #{X 与 Z 同格相遇的位置}。</span><span class="en">#{…} = how many elements the set in braces has. In the collision theorem, c = #{cells where X meets Z}.</span></td></tr><tr><td class="mono" style="font-size:17px">e<sup>iθ</sup></td><td><span class="zh">读「e 的 i θ 次方」</span><span class="en">Read “e to the i-theta”</span></td><td><span class="zh">欧拉公式 e<sup>iθ</sup> = cos θ + i sin θ：模为 1 的复数，乘它只转动相位、不改变任何模方；量子态整体乘上它，物理上视为同一状态。</span><span class="en">Euler's formula e<sup>iθ</sup> = cos θ + i sin θ: a complex number of modulus 1; multiplying by it rotates the phase and changes no modulus-square — a state times e<sup>iθ</sup> is the same physical state.</span></td></tr><tr><td class="mono" style="font-size:17px">T²</td><td><span class="zh">读「T 二」</span><span class="en">Read “T-two”</span></td><td><span class="zh">环面（torus）的记号；上标 2 表示二维曲面。H₁(T², ℤ₂) 即「环面的一阶 ℤ₂ 同调群」。</span><span class="en">The symbol for the torus; superscript 2 because it is a two-dimensional surface. H₁(T², ℤ₂) reads “the first ℤ₂ homology group of the torus”.</span></td></tr><tr><td class="mono" style="font-size:17px">⇒</td><td><span class="zh">双线箭头，读「推出 / 则」</span><span class="en">A double arrow, read “implies”</span></td><td><span class="zh">A ⇒ B：由 A 可以得出 B。</span><span class="en">A ⇒ B: from A one may conclude B.</span></td></tr><tr><td class="mono" style="font-size:17px">⇔</td><td><span class="zh">双向双线箭头，读「当且仅当」</span><span class="en">A two-way double arrow, read “if and only if”</span></td><td><span class="zh">A ⇔ B：A 与 B 同真同假，互为充要条件——是一条双向的「推出」。</span><span class="en">A ⇔ B: A and B stand or fall together — an implication running both ways.</span></td></tr><tr><td class="mono" style="font-size:17px">⟨·|·⟩</td><td><span class="zh">左尖括号（bra-ket 记号）</span><span class="en">The left angle bracket (bra-ket notation)</span></td><td><span class="zh">⟨u|v⟩ 读「u 内积 v」：两个向量的点乘（复数情形第一个向量先取共轭）。</span><span class="en">⟨u|v⟩ reads “u inner-product v”: the dot product of two vectors (conjugating the first in the complex case).</span></td></tr><tr><td class="mono" style="font-size:17px">X̄　Z̄</td><td><span class="zh">字母头上一横，读「X bar / Z bar」</span><span class="en">An overbar, read “X-bar / Z-bar”</span></td><td><span class="zh">一横 = 「逻辑版」：X̄ 是作用在被保护的<b>逻辑</b>比特上的 X，由许多物理操作组成（这里 = 缠绕圈 / 横跨串）。</span><span class="en">The bar means “logical edition”: X̄ is the X acting on the protected <b>logical</b> qubit, built from many physical operations (here: winding loops / spanning strings).</span></td></tr><tr><td class="mono" style="font-size:17px">±</td><td><span class="zh">读「正负」</span><span class="en">Read “plus-minus”</span></td><td><span class="zh">±1 = 「+1 或 −1」两个可能取值；这里每条检查的答案都是这两个之一。</span><span class="en">±1 = the two possible values “+1 or −1”; every check here answers with one of them.</span></td></tr><tr><td class="mono" style="font-size:17px">√</td><td><span class="zh">读「根号」</span><span class="en">Read “square root”</span></td><td><span class="zh">√A = 面积为 A 的正方形的边长；(√A)² = A；常客：1/√2 ≈ 0.71。</span><span class="en">√A = the side of a square of area A; (√A)² = A; frequent guest: 1/√2 ≈ 0.71.</span></td></tr><tr><td class="mono" style="font-size:17px">|·⟩</td><td><span class="zh">竖线加右尖括号，读「刻特」（ket）</span><span class="en">A bar with a right angle bracket, read “ket”</span></td><td><span class="zh">|0⟩ = 「贴着标签 0 的状态」：给量子状态套的礼盒括号，本质是基向量的名字。</span><span class="en">|0⟩ = “the state labelled 0”: gift-wrap for quantum states — really just a basis vector's name.</span></td></tr><tr><td class="mono" style="font-size:17px">≈</td><td><span class="zh">读「约等于」</span><span class="en">Read “approximately equals”</span></td><td><span class="zh">两边近似相等。</span><span class="en">The two sides are nearly equal.</span></td></tr><tr><td class="mono" style="font-size:17px">≠</td><td><span class="zh">读「不等于」</span><span class="en">Read “not equal”</span></td><td><span class="zh">两边不相等。</span><span class="en">The two sides differ.</span></td></tr><tr><td class="mono" style="font-size:17px">≤　≥</td><td><span class="zh">读「小于等于 / 大于等于」</span><span class="en">Read “at most / at least”</span></td><td><span class="zh">不超过 / 不少于。</span><span class="en">No more than / no less than.</span></td></tr><tr><td class="mono" style="font-size:17px">n　k　r</td><td><span class="zh">三个字母</span><span class="en">Three letters</span></td><td><span class="zh">n = 物理比特数；r = 独立检查条数；k = n − r = 逻辑比特数（4.4）。</span><span class="en">n = physical qubits; r = independent checks; k = n − r = logical qubits (§4.4).</span></td></tr><tr><td class="mono" style="font-size:17px">[[n, k, d]]</td><td><span class="zh">读「n k d 码」（双层方括号）</span><span class="en">Read “n, k, d code” (double brackets)</span></td><td><span class="zh">量子码的三项指标：物理比特数、逻辑比特数、码距。</span><span class="en">A quantum code's three numbers: physical qubits, logical qubits, distance.</span></td></tr></table></div>
 
   <h3><span class="zh">词汇表</span><span class="en">Glossary</span></h3>
   <div class="table-wrap">
@@ -1486,8 +1577,11 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
       <tr><td><span class="zh">投影算符 P±</span><span class="en">projectors P±</span></td><td><span class="zh">(I±S)/2；测 S 得 ± 的概率 = |P±<span class="sym" data-sym="psi">ψ</span>|²，测后取 P±<span class="sym" data-sym="psi">ψ</span> 归一。</span><span class="en">(I±S)/2; outcome probabilities |P±<span class="sym" data-sym="psi">ψ</span>|², post-state P±<span class="sym" data-sym="psi">ψ</span> renormalized.</span></td></tr>
       <tr><td><span class="zh">稳定子 / 症状</span><span class="en">stabilizer / syndrome</span></td><td><span class="zh">两两对易的检查清单，编码态为全体 +1 本征态；全部读数的清单即症状。</span><span class="en">The pairwise-commuting checklist whose common +1 eigenstates form the code; the list of readings is the syndrome.</span></td></tr>
       <tr><td>A<sub>v</sub>, B<sub>p</sub></td><td><span class="zh">星形检查（顶点 4 边上的 X）与面检查（面 4 边上的 Z）。</span><span class="en">Star check (X on a vertex's 4 edges) and plaquette (Z on a face's 4 edges).</span></td></tr>
-      <tr><td><span class="zh">逻辑算符 / 码距 d</span><span class="en">logical operators / distance d</span></td><td><span class="zh">与全部检查对易、又非检查乘积的串（环面上 = 缠绕圈）；最轻者的重量即 d = L。</span><span class="en">Strings commuting with all checks yet not products of them (= winding loops on the torus); the lightest one's weight is d = L.</span></td></tr>
-      <tr><td><span class="zh">同调类</span><span class="en">homology class</span></td><td><span class="zh">「相差可收缩部分视为相同」的圈分类；环面上共 4 类，对应 2 个逻辑比特。</span><span class="en">Loop classes “equal up to contractible parts”; four on the torus, matching 2 logical qubits.</span></td></tr>
+      <tr><td><span class="zh">逻辑算符 / 码距 d</span><span class="en">logical operators / distance d</span></td><td><span class="zh">与全部检查对易、又非检查乘积的串（环面上 = 缠绕圈）；最轻者的重量即 d = L。码距 d 保证纠正 (d − 1)/2 个错误。</span><span class="en">Strings commuting with all checks yet not products of them (= winding loops on the torus); the lightest one's weight is d = L. Distance d guarantees correcting (d − 1)/2 errors.</span></td></tr>
+      <tr><td><span class="zh">独立检查 / r</span><span class="en">independent check / r</span></td><td><span class="zh">不是清单上其他检查乘积的检查；其条数记作 r，每条把编码空间维数砍半，k = n − r。</span><span class="en">A check that is not a product of other checks on the list; their number is r, each halves the code-space dimension, k = n − r.</span></td></tr>
+      <tr><td><span class="zh">重量</span><span class="en">weight</span></td><td><span class="zh">泡利串中不为 I 的格数，如 X₁X₂X₃ 重 3。</span><span class="en">The number of non-I cells of a Pauli string, e.g. X₁X₂X₃ has weight 3.</span></td></tr>
+      <tr><td>[[n, k, d]]</td><td><span class="zh">量子码三项指标：n 个物理比特、k 个逻辑比特、码距 d。三比特码 [[3,1,1]]，环面码 [[2L²,2,L]]。</span><span class="en">A quantum code's three numbers: n physical qubits, k logical qubits, distance d. 3-qubit code [[3,1,1]], toric code [[2L²,2,L]].</span></td></tr>
+      <tr><td><span class="zh">同调类</span><span class="en">homology class</span></td><td><span class="zh">「相差若干面检查的乘积（一批面的边界）视为相同」的圈分类；由两个方向缠绕数的奇偶决定，环面上共 4 类，对应 2 个逻辑比特。</span><span class="en">Loop classes “equal up to a product of face checks (the boundary of a set of faces)”; fixed by whether each winding number is even or odd; four on the torus, matching 2 logical qubits.</span></td></tr>
       <tr><td><span class="zh">欧拉示性数 <span class="sym" data-sym="chi">χ</span></span><span class="en">Euler characteristic <span class="sym" data-sym="chi">χ</span></span></td><td><span class="zh">V−E+F = 2−2g；环面 <span class="sym" data-sym="chi">χ</span>=0、g=1，而 k = 2g。</span><span class="en">V−E+F = 2−2g; torus <span class="sym" data-sym="chi">χ</span>=0, g=1, and k = 2g.</span></td></tr>
     </table>
   </div>
@@ -1503,8 +1597,8 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
 
   <div class="note note-honest">
     <span class="note-tag"><span class="zh">诚实总账</span><span class="en">The honesty ledger</span></span>
-    <p class="zh">本教程的框架（复数振幅、三公设、投影测量）即标准量子力学，无缩水；以下三处从简：① 互动实验台只展示实振幅切片（完整态空间含复相位，结论不受影响）；② 「操作 = 保长度的线性映射（酉矩阵）」我们只用到泡利族，未展开一般理论；③ 测量读数假设完美、译码器为简化配对——两者的现实版本见《Surface Code · 高中数学版》<a href="../../surface_code/intuition/intuition-hs.html#ch4">第 4 章</a>、<a href="../../surface_code/intuition/intuition-hs.html#ch6">第 6 章</a>。</p>
-    <p class="en">This tutorial's framework (complex amplitudes, three postulates, projective measurement) is standard quantum mechanics, unshrunk. Three economies: ① the interactive benches display the real-amplitude slice (full state space carries complex phases; no conclusion is affected); ② of “operations = length-preserving linear maps (unitaries)” we used only the Pauli family, not the general theory; ③ measurement readings are assumed perfect and the decoder is a simplified matcher — reality's versions await “The Surface Code · High-School Edition”, <a href="../../surface_code/intuition/intuition-hs.html#ch4">Chapter 4</a> and <a href="../../surface_code/intuition/intuition-hs.html#ch6">Chapter 6</a>.</p>
+    <p class="zh">本教程的框架（复数振幅、三公设、投影测量）即标准量子力学，无缩水；以下三处从简：① 互动实验台只展示实振幅切片（完整态空间含复相位，结论不受影响）；② 「操作 = 保长度的线性映射（酉矩阵）」我们只用到泡利族，未展开一般理论；③ 测量读数假设完美；实验台的自动译码在警报不超过 14 个时是精确的最小重量完美匹配，更多时退为贪心配对，且不按出错概率给路径加权——两者的现实版本见《Surface Code · 高中数学版》<a href="../../surface_code/intuition/intuition-hs.html#ch4">第 4 章</a>、<a href="../../surface_code/intuition/intuition-hs.html#ch6">第 6 章</a>。</p>
+    <p class="en">This tutorial's framework (complex amplitudes, three postulates, projective measurement) is standard quantum mechanics, unshrunk. Three economies: ① the interactive benches display the real-amplitude slice (full state space carries complex phases; no conclusion is affected); ② of “operations = length-preserving linear maps (unitaries)” we used only the Pauli family, not the general theory; ③ measurement readings are assumed perfect; the bench's auto-decoder is exact minimum-weight perfect matching for at most 14 alarms, greedy matching beyond, and it does not weight paths by error probability — reality's versions await “The Surface Code · High-School Edition”, <a href="../../surface_code/intuition/intuition-hs.html#ch4">Chapter 4</a> and <a href="../../surface_code/intuition/intuition-hs.html#ch6">Chapter 6</a>.</p>
   </div>
 </section>
 
@@ -4048,50 +4142,65 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
         'Z', (v) => { mode = v; upd(); }
       );
       F.controls.append(seg.el,
-        U().btn(isToric ? '示范：可收缩的圈' : '示范：平凡closed圈', isToric ? 'Demo: contractible loop' : 'Demo: trivial loop', '', () => {
+        U().btn(isToric ? '示范：可收缩的圈' : '示范：平凡的闭合圈', isToric ? 'Demo: contractible loop' : 'Demo: trivial loop', '', () => {
           view.errZ = new Set(); view.errX = new Set();
           // boundary of a 2x1 block of plaquettes
           const s = P().xorSet(lat.plaqs[0].support, lat.plaqs[1].support);
           view.errZ = new Set(s);
-          mode = 'Z';
+          if (mode !== 'Z') seg.el.children[0].click();
           upd();
         }),
         U().btn(isToric ? '示范：缠绕圈' : '示范：跨边界串', isToric ? 'Demo: winding loop' : 'Demo: boundary-to-boundary', '', () => {
           view.errZ = new Set(lat.logicals.Z[0]); view.errX = new Set();
-          mode = 'Z';
+          if (mode !== 'Z') seg.el.children[0].click();
           upd();
         }),
         U().btn('清空', 'Clear', '', () => { view.errZ.clear(); view.errX.clear(); upd(); })
       );
+      // Both string types may be on the lattice at once (some pages ask for an X and a Z loop together),
+      // so alarms of both types are counted and each drawn type gets its own verdict.
+      function judge(type, sup) {
+        const partners = type === 'Z' ? lat.logicals.X : lat.logicals.Z;
+        const par = partners.map((Lg) => P().overlapParity(sup, Lg));
+        if (!par.some((v) => v === 1)) {
+          return {
+            zh: '<span class="ok">警报全灭</span>，而且它是<b>平凡的</b>：它恰好等于若干' + (type === 'Z' ? '面检查' : '星检查') + '的乘积，对编码信息<b>什么也不做</b>。',
+            en: '<span class="ok">No alarms</span>, and it is <b>trivial</b>: it equals a product of ' + (type === 'Z' ? 'face checks' : 'star checks') + ' and does <b>nothing</b> to the stored information.',
+          };
+        }
+        const L1 = type === 'Z' ? 'Z̄₁' : 'X̄₁', L2 = type === 'Z' ? 'Z̄₂' : 'X̄₂';
+        if (isToric) {
+          const which = par[0] && par[1] ? L1 + '·' + L2 + '（两个方向都绕）' : par[0] ? L1 + (type === 'Z' ? '（水平缠绕）' : '') : L2 + (type === 'Z' ? '（垂直缠绕）' : '');
+          const whichEn = par[0] && par[1] ? L1 + '·' + L2 + ', both directions' : par[0] ? L1 + ', direction 1' : L2 + ', direction 2';
+          return {
+            zh: '<span class="no">警报全灭，但这不是平凡圈！</span>它绕过了整个环面——这是<b>逻辑算符 ' + which + '</b>：不触发任何检查，却会改写存下来的量子信息。',
+            en: '<span class="no">No alarms, yet NOT trivial!</span> It winds around the torus (' + whichEn + ') — a <b>logical operator</b>: invisible to every check, yet it rewrites the stored quantum information.',
+          };
+        }
+        return {
+          zh: '<span class="no">警报全灭，但这不是平凡圈！</span>这条串从一条边界横跨到对面——它就是<b>逻辑算符 ' + (type === 'Z' ? 'Z̄' : 'X̄') + '</b>：不触发任何检查，却改写了存下来的量子比特。',
+          en: '<span class="no">No alarms, yet NOT trivial!</span> The string spans from one boundary to the opposite one — the <b>logical operator ' + (type === 'Z' ? 'Z̄' : 'X̄') + '</b>: invisible to every check, yet it rewrites the stored qubit.',
+        };
+      }
       function upd() {
         view.draw();
         const syn = view.syndrome();
         const zSup = [...view.errZ], xSup = [...view.errX];
-        const active = mode === 'Z' ? zSup : xSup;
-        const defects = mode === 'Z' ? syn.starDefects.length : syn.plaqDefects.length;
+        const defects = syn.starDefects.length + syn.plaqDefects.length;
         let verdictZh, verdictEn;
-        if (!active.length) {
+        if (!zSup.length && !xSup.length) {
           verdictZh = '画几条边试试。目标：不触发任何警报。';
           verdictEn = 'Draw some edges. Goal: trigger no alarms.';
         } else if (defects > 0) {
           verdictZh = '还有 <b>' + defects + '</b> 个警报亮着：串有端点。把它闭合，或' + (isToric ? '绕一整圈' : '让两端都搭到正确的边界上') + '。';
           verdictEn = '<b>' + defects + '</b> alarms still lit: the string has endpoints. Close it up, or ' + (isToric ? 'wrap it all the way around' : 'land both ends on the right boundaries') + '.';
         } else {
-          const partners = mode === 'Z' ? lat.logicals.X : lat.logicals.Z;
-          const par = partners.map((Lg) => P().overlapParity(active, Lg));
-          const wound = par.some((v) => v === 1);
-          if (!wound) {
-            verdictZh = '<span class="ok">警报全灭</span>，且这是一个<b>平凡圈</b>：它恰好等于若干' + (mode === 'Z' ? '面检查' : '星检查') + '的乘积，对编码信息<b>什么也不做</b>。';
-            verdictEn = '<span class="ok">No alarms</span>, and this is a <b>trivial loop</b>: it equals a product of ' + (mode === 'Z' ? 'face checks' : 'star checks') + ' and does <b>nothing</b> to the stored information.';
-          } else if (isToric) {
-            const which = par[0] && par[1] ? 'Z̄₁·Z̄₂（两个方向都绕）' : par[0] ? (mode === 'Z' ? 'Z̄₁（水平缠绕）' : 'X̄₁') : (mode === 'Z' ? 'Z̄₂（垂直缠绕）' : 'X̄₂');
-            const whichEn = par[0] && par[1] ? 'both directions' : par[0] ? 'direction 1' : 'direction 2';
-            verdictZh = '<span class="no">警报全灭，但这不是平凡圈！</span>它绕过了整个环面——这是<b>逻辑算符 ' + which + '</b>：不触发任何检查，却会改写存下来的量子信息。';
-            verdictEn = '<span class="no">No alarms, yet NOT trivial!</span> It winds around the torus (' + whichEn + ') — a <b>logical operator</b>: invisible to every check, yet it rewrites the stored quantum information.';
-          } else {
-            verdictZh = '<span class="no">警报全灭，但这不是平凡圈！</span>这条串从一条边界横跨到对面——它就是<b>逻辑算符 ' + (mode === 'Z' ? 'Z̄' : 'X̄') + '</b>：不触发任何检查，却改写了存下来的量子比特。';
-            verdictEn = '<span class="no">No alarms, yet NOT trivial!</span> The string spans from one boundary to the opposite one — the <b>logical operator ' + (mode === 'Z' ? 'Z̄' : 'X̄') + '</b>: invisible to every check, yet it rewrites the stored qubit.';
-          }
+          const both = zSup.length > 0 && xSup.length > 0;
+          const parts = [];
+          if (zSup.length) parts.push({ j: judge('Z', zSup), lz: 'Z 串：', le: 'Z string: ' });
+          if (xSup.length) parts.push({ j: judge('X', xSup), lz: 'X 串：', le: 'X string: ' });
+          verdictZh = parts.map((q) => (both ? q.lz : '') + q.j.zh).join('<br>');
+          verdictEn = parts.map((q) => (both ? q.le : '') + q.j.en).join('<br>');
         }
         F.setReadout('<span class="zh">' + verdictZh + '</span><span class="en">' + verdictEn + '</span>');
       }
@@ -4176,8 +4285,8 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
         view.hlEdges = new Map([...corr].map((e) => [e, { color: getComputedStyle(doc.documentElement).getPropertyValue('--good').trim(), width: 5 }]));
         view.draw();
         F.setReadout(fail
-          ? '<span class="zh"><span class="no">这回合失败了。</span>蓝色 = 真实错误，绿色 = 你的修复。二者合起来形成了' + (isToric ? '一条<b>缠绕整个环面</b>的圈' : '一条<b>横跨两条边界</b>的串') + ' —— 恰好是逻辑算符，信息被改写。连胜清零。点「新回合」再来！</span><span class="en"><span class="no">Round lost.</span> Blue = true errors, green = your repair. Together they form ' + (isToric ? 'a loop <b>winding around the torus</b>' : 'a string <b>spanning both boundaries</b>') + ' — exactly a logical operator; the data got rewritten. Streak reset. “New round” to retry!</span>'
-          : '<span class="zh"><span class="ok">成功！</span>蓝 + 绿合成的圈都是可收缩的平凡圈 —— 你的修复不必和错误一模一样，只要「合起来平凡」就赢。连胜 <b>' + streak + '</b>！</span><span class="en"><span class="ok">Success!</span> Blue + green together form only trivial contractible loops — the repair need not equal the error, it only needs to be trivial in combination. Streak <b>' + streak + '</b>!</span>');
+          ? '<span class="zh"><span class="no">这回合失败了。</span>蓝色 = 真实错误，绿色 = 你的修复。二者合起来' + (isToric ? '在某个方向上<b>缠绕环面</b>的总圈数是<b>奇数</b>' : '含有<b>奇数条</b><b>横跨两条边界</b>的串') + ' —— 合起来是一个逻辑算符，信息被改写。连胜清零。点「新回合」再来！</span><span class="en"><span class="no">Round lost.</span> Blue = true errors, green = your repair. Together they ' + (isToric ? '<b>wind around the torus</b> an <b>odd</b> total number of times in some direction' : 'contain an <b>odd number</b> of strings <b>spanning both boundaries</b>') + ' — together a logical operator; the data got rewritten. Streak reset. “New round” to retry!</span>'
+          : '<span class="zh"><span class="ok">成功！</span>蓝 + 绿合起来' + (isToric ? '在两个方向上缠绕环面的总圈数都是偶数（0 也算，两圈互相抵消）' : '横跨两条边界的串是偶数条（0 条也算，两条互相抵消）') + '—— 合起来只是一些检查的乘积。你的修复不必和错误一模一样，只要合起来是检查的乘积就赢。连胜 <b>' + streak + '</b>！</span><span class="en"><span class="ok">Success!</span> Blue + green together ' + (isToric ? 'wind around the torus an even total number of times in both directions (0 counts; two windings cancel)' : 'contain an even number of strings spanning both boundaries (0 counts; two cancel)') + ' — together just a product of checks. The repair need not equal the error; together with it, it only needs to form a product of checks. Streak <b>' + streak + '</b>!</span>');
       }
       function newRound() {
         err = new Set(); corr = new Set(); sel = null; over = false;
@@ -4223,12 +4332,12 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
         en: '① Start: the toric code. Note the stubs sticking out — they wrap to the opposite side; that is what makes it a torus.',
       },
       {
-        zh: '② 一刀剪开：删除所有绕回去的边。立刻出问题——边界上的星和面都缺了一条腿（虚线标出），检查表变得乱七八糟。',
-        en: '② Cut: delete every wrapping edge. Trouble at once — boundary stars and faces each lose a leg (dashed); the checks are mutilated.',
+        zh: '② 一刀剪开：删除所有绕回去的边（图里不再画出）。立刻出问题：沿边的星少了一条腿，四个角上的星少了两条；原来跨过剪口的面只剩两条腿，而且这两条分在贴片相对的两头，角上那一块面一条腿也不剩。检查表乱了套。',
+        en: '② Cut: delete every wrapping edge (no longer drawn). Trouble at once: the stars along the edge lose one leg and the four corner stars lose two; the faces that straddled the cut keep only two legs, on opposite sides of the patch, and the corner face keeps none. The checks are mutilated.',
       },
       {
-        zh: '③ 收拾干净：接受「三条腿」的检查作为正式成员，但分好工——左右两侧只截断<b>面</b>（并保留伸出的悬挂边），上下两侧只截断<b>星</b>。这就是<b>表面码</b>的版图：两种边界，各司其职。',
-        en: '③ Tidy up: keep the 3-leg checks as legitimate members, but divide the work — the left/right sides truncate only <b>faces</b> (keeping the dangling edges), the top/bottom truncate only <b>stars</b>. This is the <b>surface code</b> layout: two kinds of boundary, each with a job.',
+        zh: '③ 收拾干净：接受「三条腿」的检查作为正式成员，但分好工——左右两侧只截断<b>面</b>（并保留伸出的悬挂边），上下两侧只截断<b>星</b>。这就是<b>表面码</b>的版图：两种边界，各司其职。（这一帧重新画了一块 L = 4 的平面码，而不是在上一帧上修补：25 个比特、12 个星检查、12 个面检查，左右两侧带悬挂的横边。）',
+        en: '③ Tidy up: keep the 3-leg checks as legitimate members, but divide the work — the left/right sides truncate only <b>faces</b> (keeping the dangling edges), the top/bottom truncate only <b>stars</b>. This is the <b>surface code</b> layout: two kinds of boundary, each with a job. (This frame redraws an L = 4 planar code rather than patching the previous one: 25 qubits, 12 star checks and 12 face checks, with dangling horizontal edges on the left and right.)',
       },
     ];
     function render() {
@@ -4290,8 +4399,10 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
       { zh: '① 噪声落下：几条 Z 错误悄悄出现（真实设备里你看不到它们）', en: '① Noise strikes: a few Z errors appear (invisible in a real device)' },
       { zh: '② 测量所有检查：只有错误链的端点亮起警报', en: '② Measure every check: only chain endpoints raise alarms' },
       { zh: '③ 译码器配对警报，规划修复链（绿）', en: '③ The decoder pairs alarms and plans repair chains (green)' },
-      { zh: '④ 施加修复：错误 ⊕ 修复 = 平凡圈 → 警报全灭，信息完好', en: '④ Apply the repair: error ⊕ repair = trivial loops → alarms clear, data intact' },
+      { zh: '④ 施加修复：警报全灭；错误 ⊕ 修复和 X̄ 交叉偶数次 → 信息完好', en: '④ Apply the repair: alarms clear; error ⊕ repair crosses X̄ an even number of times → data intact' },
     ];
+    const PH_FAIL = { zh: '④ 施加修复：警报全灭，但错误 ⊕ 修复和 X̄ 交叉奇数次 → 逻辑错误，信息被改写', en: '④ Apply the repair: alarms clear, but error ⊕ repair crosses X̄ an odd number of times → a logical error; the data is overwritten' };
+    let lastFail = false;
     function step() {
       phase = (phase + 1) % 4;
       if (phase === 0) {
@@ -4311,16 +4422,16 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
       } else {
         const residual = P().xorSet([...err], corr);
         const fail = lat.logicals.X.some((Lg) => P().overlapParity(residual, Lg));
-        rounds++; if (!fail) saved++;
+        rounds++; if (!fail) saved++; lastFail = fail;
         view.errZ = new Set(residual.filter(() => false));
         view.errZ = new Set();
         view.hlEdges = new Map();
       }
       view.draw();
-      const tail = phase === 3 ? (U().getLang() === 'en'
-        ? ' — rounds: ' + rounds + ', data survived: ' + saved
-        : ' — 已运行 ' + rounds + ' 轮，信息幸存 ' + saved + ' 轮') : '';
-      F.setReadout('<span class="zh">' + PH[phase].zh + tail + '</span><span class="en">' + PH[phase].en + tail + '</span>');
+      const tailZh = phase === 3 ? ' — 已运行 ' + rounds + ' 轮，信息幸存 ' + saved + ' 轮' : '';
+      const tailEn = phase === 3 ? ' — rounds: ' + rounds + ', data survived: ' + saved : '';
+      const ph = phase === 3 && lastFail ? PH_FAIL : PH[phase];
+      F.setReadout('<span class="zh">' + ph.zh + tailZh + '</span><span class="en">' + ph.en + tailEn + '</span>');
     }
     function play() {
       if (timer) return;
@@ -4767,8 +4878,8 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
       en: ['Winding loops = logicals', 'Loops circling the whole torus pass every check yet are no product of checks — they rewrite logical data. Two directions give Z̄₁, Z̄₂; duals give X̄₁, X̄₂; paired loops cross once ⇒ anticommute.'],
     },
     decoder: {
-      zh: ['译码 = 配对', '只见警报不见链：把警报两两配对、沿路径修复。错误⊕修复必闭合——可收缩则完美复原，缠绕则无声逻辑错误。'],
-      en: ['Decoding = matching', 'Alarms visible, chains not: pair the alarms and repair along paths. Error ⊕ repair is always closed — contractible = perfect recovery, winding = silent logical error.'],
+      zh: ['译码 = 配对', '只见警报不见链：把警报两两配对、沿路径修复。错误⊕修复必闭合——每个方向都缠绕偶数次（0 次也算）则完美复原，某个方向缠绕奇数次则是无声的逻辑错误；同方向的两圈互相抵消。'],
+      en: ['Decoding = matching', 'Alarms visible, chains not: pair the alarms and repair along paths. Error ⊕ repair is always closed — an even number of windings in each direction (0 included) = perfect recovery, an odd number in some direction = a silent logical error; two windings in the same direction cancel.'],
     },
     dL: {
       zh: ['环面码距 d = L', '最轻的逻辑算符是最短缠绕圈（长 L），对 X、Z 对称；压垮它需约 L/2 个错误连成线。'],
@@ -4788,8 +4899,8 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
       en: ['Spanning strings = logicals', 'A string dying on its own boundary at both ends: zero alarms, no product of checks (it crosses the other direction\'s spanning string once, so they anticommute).' + F('Z̄: rough→rough · X̄: smooth→smooth · X̄Z̄ = −Z̄X̄')],
     },
     cycle: {
-      zh: ['纠错循环', '每轮四拍：噪声 → 测全部检查 → 配对（可配边界）→ 修复；失败 ⇔ 错误⊕修复含横跨串。'],
-      en: ['The correction cycle', 'Four beats per round: noise → measure all checks → match (boundaries allowed) → repair; failure ⇔ error ⊕ repair contains a spanning string.'],
+      zh: ['纠错循环', '每轮四拍：噪声 → 测全部检查 → 配对（可配边界）→ 修复；失败 ⇔ 错误⊕修复和 X̄ 交叉奇数次，也就是横跨贴片的串有奇数条（两条互相抵消，偶数条无事）。'],
+      en: ['The correction cycle', 'Four beats per round: noise → measure all checks → match (boundaries allowed) → repair; failure ⇔ error ⊕ repair crosses X̄ an odd number of times, i.e. contains an odd number of spanning strings (two cancel, so an even number is harmless).'],
     },
     ancilla: {
       zh: ['辅助比特测量', '每条检查配一个帮手比特：与 4 个数据比特依次作用后单独被读出，给出 ±1；数据比特从未被直接测量。'],
@@ -4981,6 +5092,344 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
   TQ.BOOKTITLES = TQ.BOOKTITLES || {"toric":{"zh":"《从 1+1 到 Toric Code》","en":"“From 1+1 to the Toric Code”"},"surface":{"zh":"《从 Toric Code 到 Surface Code》","en":"“From Toric Code to Surface Code”"},"toricHs":{"zh":"《从高考数学到 Toric Code》","en":"“From High-School Math to the Toric Code”"},"surfaceHs":{"zh":"《Surface Code · 高中数学版》","en":"“The Surface Code · High-School Edition”"},"decodingHs":{"zh":"《译码器 · 高中数学版》","en":"“Decoders · High-School Edition”"},"surgeryHs":{"zh":"《格点手术 · 高中数学版》","en":"“Lattice Surgery · High-School Edition”"},"bbHs":{"zh":"《BB 码 · 高中数学版》","en":"“BB Codes · High-School Edition”"},"qldpcHs":{"zh":"《qLDPC 码 · 高中数学版》","en":"“qLDPC Codes · High-School Edition”"}};
 })(typeof window !== 'undefined' ? window : globalThis);
 
+</script>
+<script>
+/* Page-specific additions for "From Gaokao Math to the Toric Code" (2026-09 revision; same code as the zero-basis edition):
+   ref-card override for the new k = n − r convention, extra symbols, and two labelled lattice figures
+   (torusblueprint: every qubit of the 3 × 3 torus numbered; logicalpairs: the four logical loops and
+   where they cross). Qubit numbering = TQ.lattice edge index + 1 (horizontal edges first). */
+(function (root) {
+  const TQ = (root.TQ = root.TQ || {});
+  if (!root.document) return;
+  const doc = root.document;
+  const U = () => TQ.ui;
+  const bi = (zh, en) => '<span class="zh">' + zh + '</span><span class="en">' + en + '</span>';
+  const fam = (v) => getComputedStyle(doc.body).getPropertyValue(v);
+  const Fm = (s) => '<span class="formula-mini">' + s + '</span>';
+
+  Object.assign(TQ.REFDATA, {
+    stabilizer: {
+      zh: ['稳定子与计数法', '一份两两对易的检查清单；编码态须对每条「必然 +1」。前提：没有哪几条乘起来等于 −I（否则一个通过者也没有，例 XZZ、ZXZ、ZZX、XXX）；只含 X 或只含 Z 的检查自动满足。此时每条独立检查（不计正负号，不是其他检查的乘积）把编码空间维数砍半。k 数逻辑比特，与 [[n, k, d]] 的写法一致。' + Fm('n 个比特，r 条独立检查 ⇒ 维数 2<sup>n−r</sup> ⇒ k = n − r 个逻辑比特')],
+      en: ['Stabilizers & the count', 'A pairwise-commuting checklist; encoded states answer “+1 surely” to each. Provided no selection of checks multiplies to −I (otherwise nothing passes, e.g. XZZ, ZXZ, ZZX, XXX; checks that are all-X or all-Z satisfy this automatically), every independent check (not a product of the others, signs ignored) halves the code-space dimension. k counts logical qubits, as in [[n, k, d]].' + Fm('n qubits, r independent checks ⇒ dimension 2<sup>n−r</sup> ⇒ k = n − r logical qubits')],
+    },
+    winding: {
+      zh: ['缠绕圈 = 逻辑算符', '绕环面一整圈的单条闭圈：通过全部检查、又非检查乘积，故改写逻辑信息。横竖两绕向给 Z̄₁、Z̄₂；对偶得 X̄₁、X̄₂；配对圈恰交叉一次 ⇒ 反对易。几条圈合起来时只看两个方向缠绕数的奇偶：两条平行圈合起来是一条带子的边界，无害。'],
+      en: ['Winding loops = logicals', 'A single loop circling the whole torus passes every check yet is no product of checks, so it rewrites logical data. Two directions give Z̄₁, Z̄₂; duals give X̄₁, X̄₂; paired loops cross once ⇒ anticommute. For several loops together only the parity of each winding number counts: two parallel loops bound a strip and are harmless.'],
+    },
+  });
+  Object.assign(TQ.SYMDATA, {
+    nkd: { m: ['[[n, k, d]]'], zh: ['读「n k d 码」（双层方括号）', '量子码的三项指标：n 个物理比特、k 个逻辑比特、码距 d。双层括号用来和经典码的 [n, k, d] 区分。三比特码是 [[3, 1, 1]]，L × L 环面码是 [[2L², 2, L]]。'], en: ['Read “n, k, d code” (double brackets)', 'A quantum code\'s three key numbers: n physical qubits, k logical qubits, distance d. The double brackets tell it apart from a classical [n, k, d] code. The 3-qubit code is [[3, 1, 1]]; the L × L toric code is [[2L², 2, L]].'] },
+  });
+
+  /* ---------- shared drawing helpers ---------- */
+  function torusGeom(w, L, maxCell, top) {
+    const g = Math.max(40, Math.min(maxCell, (w - 150) / (L + 0.4)));
+    return { g, ox: Math.round((w - g * L) / 2), oy: top };
+  }
+  // all drawable edges of an L × L torus, plus dashed "ghost" copies of the wrapped row/column
+  function torusEdges(L) {
+    const out = [];
+    for (let j = 0; j < L; j++) for (let i = 0; i < L; i++) {
+      out.push({ q: j * L + i + 1, a: [i, j], b: [i + 1, j], ghost: false });
+      out.push({ q: L * L + j * L + i + 1, a: [i, j], b: [i, j + 1], ghost: false });
+    }
+    for (let i = 0; i < L; i++) out.push({ q: i + 1, a: [i, L], b: [i + 1, L], ghost: true });           // copy of the top row
+    for (let j = 0; j < L; j++) out.push({ q: L * L + j * L + 1, a: [L, j], b: [L, j + 1], ghost: true }); // copy of the left column
+    return out;
+  }
+  function edgeLine(ctx, G, e, color, width, dash) {
+    const x1 = G.ox + e.a[0] * G.g, y1 = G.oy + e.a[1] * G.g, x2 = G.ox + e.b[0] * G.g, y2 = G.oy + e.b[1] * G.g;
+    ctx.strokeStyle = color; ctx.lineWidth = width; ctx.setLineDash(dash ? [6, 5] : []);
+    ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke(); ctx.setLineDash([]);
+    return { x: (x1 + x2) / 2, y: (y1 + y2) / 2 };
+  }
+  function qubitDot(ctx, C, m, label, ring, faint, r) {
+    ctx.beginPath(); ctx.arc(m.x, m.y, r, 0, 7);
+    ctx.fillStyle = C.bg2; ctx.fill();
+    ctx.strokeStyle = ring || C.line2; ctx.lineWidth = ring ? 2.2 : 1.2; ctx.stroke();
+    if (label !== null) {
+      ctx.fillStyle = faint ? C.ink3 : C.ink; ctx.font = '600 ' + (r > 9 ? 11 : 10) + 'px ' + fam('--f-mono');
+      ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(label, m.x, m.y + 0.5);
+    }
+  }
+  const subs = (arr, P) => arr.map((q) => P + '<sub>' + q + '</sub>').join('');
+  // HTML legend under a canvas: items [[swatchHtml, zh, en], ...]
+  function legend(parent, items) {
+    const d = doc.createElement('div'); d.className = 'legend';
+    d.innerHTML = items.map((it) => '<span class="li">' + it[0] + bi(it[1], it[2]) + '</span>').join('');
+    parent.appendChild(d);
+  }
+  const sw = (v) => '<span class="sw" style="background:var(' + v + ')"></span>';
+  const swd = (v) => '<span class="sw" style="background:repeating-linear-gradient(90deg,var(' + v + ') 0 5px,transparent 5px 8px)"></span>';
+  const qdot = '<span class="ring" style="color:var(--line2)"></span>';
+
+  /* ============ W: torusblueprint — the 3 × 3 torus with every qubit numbered ============ */
+  function wBlueprint(el) {
+    const L = 3;
+    let star = [1, 1], face = [1, 1];
+    const F = U().frame(el, {
+      titleZh: '3 × 3 环面的全部 18 个比特：点顶点选一条星形检查，点方块选一条面检查',
+      titleEn: 'All 18 qubits of the 3 × 3 torus: click a vertex to pick a star check, a square to pick a face check',
+      onReset: () => { star = [1, 1]; face = [1, 1]; box.redraw(); upd(); },
+    });
+    const wrap = doc.createElement('div'); wrap.className = 'canvas-wrap'; F.body.appendChild(wrap);
+    const hq = (i, j) => j * L + i + 1, vq = (i, j) => L * L + j * L + i + 1;
+    const starQ = (i, j) => [hq(i, j), hq((i + L - 1) % L, j), vq(i, j), vq(i, (j + L - 1) % L)].sort((a, b) => a - b);
+    const faceQ = (i, j) => [hq(i, j), hq(i, (j + 1) % L), vq(i, j), vq((i + 1) % L, j)].sort((a, b) => a - b);
+    const G0 = (w) => torusGeom(w, L, 104, 30);
+    const box = U().canvasBox(wrap, (w) => G0(w).g * L + 50, draw);
+    legend(F.body, [
+      [qdot, '圆圈里的数 = 比特编号：1–9 在横边上，10–18 在竖边上', 'number in a circle = qubit label: 1–9 on horizontal edges, 10–18 on vertical edges'],
+      [swd('--ink3'), '虚线、空心点 = 绕回来的同一批比特和顶点（最下一行就是最上一行，最右一列就是最左一列）', 'dashed lines, hollow dots = the same qubits and vertices met again after wrapping (bottom row = top row, right column = left column)'],
+      [sw('--cx'), '橙 = 星形检查 A<sub>v</sub> 的 4 个比特', 'orange = the 4 qubits of star A<sub>v</sub>'],
+      [sw('--cz'), '蓝 = 面检查 B<sub>p</sub> 的 4 个比特', 'blue = the 4 qubits of face B<sub>p</sub>'],
+      [sw('--cd'), '品红 = 两者共享', 'magenta = shared by both'],
+    ]);
+    const edges = torusEdges(L);
+    function draw() {
+      const C = U().colors(), ctx = box.ctx, w = box.w, h = box.h, G = G0(w);
+      ctx.clearRect(0, 0, w, h);
+      const sq = starQ(star[0], star[1]), fq = faceQ(face[0], face[1]);
+      // selected face
+      ctx.fillStyle = C.czSoft2; ctx.fillRect(G.ox + face[0] * G.g + 3, G.oy + face[1] * G.g + 3, G.g - 6, G.g - 6);
+      ctx.fillStyle = C.czInk; ctx.font = '600 13px ' + fam('--f-mono'); ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.fillText('B', G.ox + (face[0] + 0.5) * G.g - 4, G.oy + (face[1] + 0.5) * G.g);
+      ctx.font = '600 10px ' + fam('--f-mono'); ctx.fillText('p', G.ox + (face[0] + 0.5) * G.g + 5, G.oy + (face[1] + 0.5) * G.g + 5);
+      const mids = [];
+      for (const e of edges) {
+        const inS = sq.includes(e.q), inF = fq.includes(e.q);
+        const col = inS && inF ? C.cd : inS ? C.cx : inF ? C.cz : (e.ghost ? C.line2 : C.ink3);
+        const m = edgeLine(ctx, G, e, col, inS || inF ? 4 : 1.6, e.ghost);
+        mids.push([m, e, inS || inF ? col : null]);
+      }
+      // vertices (ghost copies hollow)
+      for (let j = 0; j <= L; j++) for (let i = 0; i <= L; i++) {
+        const x = G.ox + i * G.g, y = G.oy + j * G.g, ghost = i === L || j === L;
+        const sel = i % L === star[0] && j % L === star[1];
+        ctx.beginPath(); ctx.arc(x, y, sel ? 7 : 3.5, 0, 7);
+        if (sel) { ctx.fillStyle = ghost ? C.bg2 : C.cx; ctx.fill(); ctx.strokeStyle = C.cx; ctx.lineWidth = 2; ctx.stroke(); }
+        else if (ghost) { ctx.strokeStyle = C.ink3; ctx.lineWidth = 1.2; ctx.stroke(); }
+        else { ctx.fillStyle = C.ink2; ctx.fill(); }
+        if (sel && !ghost) {
+          ctx.fillStyle = C.cxInk; ctx.font = '600 13px ' + fam('--f-mono'); ctx.textAlign = 'left'; ctx.textBaseline = 'bottom';
+          ctx.fillText('A', x + 8, y - 5); ctx.font = '600 10px ' + fam('--f-mono'); ctx.fillText('v', x + 17, y - 2);
+        }
+      }
+      for (const [m, e, ring] of mids) qubitDot(ctx, C, m, String(e.q), ring, e.ghost, 10.5);
+    }
+    function upd() {
+      const sq = starQ(star[0], star[1]), fq = faceQ(face[0], face[1]);
+      const sh = sq.filter((q) => fq.includes(q));
+      const wrapS = star[0] === 0 || star[1] === 0, wrapF = face[0] === L - 1 || face[1] === L - 1;
+      const noteZh = (wrapS || wrapF) ? '　这条检查用到了绕回的边：它的某条腿画在图的另一侧（看虚线副本上相同的编号）。' : '';
+      const noteEn = (wrapS || wrapF) ? ' This check uses wrapped edges: one of its legs is drawn on the far side of the picture (look for the same number on a dashed copy).' : '';
+      F.setReadout(
+        bi('n = 18 个比特 · 9 颗星 · 9 块面<br>星 <b>A<sub>v</sub> = ' + subs(sq, 'X') + '</b>　·　面 <b>B<sub>p</sub> = ' + subs(fq, 'Z') + '</b><br>共享的比特：' + (sh.length ? sh.join('、') : '无') + '（' + sh.length + ' 个）→ X 撞 Z ' + sh.length + ' 次 → ' + (sh.length % 2 ? '反对易' : '<span class="ok">对易</span>') + noteZh,
+           'n = 18 qubits · 9 stars · 9 faces<br>star <b>A<sub>v</sub> = ' + subs(sq, 'X') + '</b> · face <b>B<sub>p</sub> = ' + subs(fq, 'Z') + '</b><br>shared qubits: ' + (sh.length ? sh.join(', ') : 'none') + ' (' + sh.length + ') → X meets Z ' + sh.length + ' times → ' + (sh.length % 2 ? 'anticommute' : '<span class="ok">commute</span>') + noteEn));
+    }
+    box.canvas.addEventListener('click', (ev) => {
+      const p = U().evtPos(box.canvas, ev), G = G0(box.w);
+      const fi = (p.x - G.ox) / G.g, fj = (p.y - G.oy) / G.g;
+      const ri = Math.round(fi), rj = Math.round(fj);
+      if (ri >= 0 && ri <= L && rj >= 0 && rj <= L && Math.hypot(fi - ri, fj - rj) < 0.2) star = [ri % L, rj % L];
+      else if (fi > 0 && fi < L && fj > 0 && fj < L) face = [Math.floor(fi), Math.floor(fj)];
+      else return;
+      box.redraw(); upd();
+    });
+    F.controls.append(
+      U().btn('选一颗绕回的星', 'Pick a wrapping star', '', () => { star = [0, 0]; box.redraw(); upd(); }),
+      U().btn('选一对不相邻的', 'Pick a far-apart pair', '', () => { star = [0, 0]; face = [1, 1]; box.redraw(); upd(); }));
+    upd();
+  }
+  U().reg('torusblueprint', wBlueprint);
+
+  /* ============ W: logicalpairs — Z̄1, Z̄2 on edges, X̄1, X̄2 across edges, and their crossings ============ */
+  function wLogicalPairs(el) {
+    const L = 4;
+    let mode = 'p1';
+    const F = U().frame(el, {
+      titleZh: '四条缠绕圈：谁和谁交叉，交叉几次', titleEn: 'The four winding loops: which cross which, and how often',
+      onReset: () => seg.el.querySelector('button').click(),
+    });
+    const wrap = doc.createElement('div'); wrap.className = 'canvas-wrap'; F.body.appendChild(wrap);
+    const hq = (i, j) => j * L + i + 1, vq = (i, j) => L * L + j * L + i + 1;
+    const range = [...Array(L).keys()];
+    const LOOPS = {
+      Z1: { q: range.map((i) => hq(i, 1)), kind: 'Z', zh: 'Z̄₁：第 2 行的横边，水平绕一圈', en: 'Z̄₁: the horizontal edges of row 2, winding horizontally' },
+      Z2: { q: range.map((j) => vq(2, j)), kind: 'Z', zh: 'Z̄₂：第 3 列的竖边，竖直绕一圈', en: 'Z̄₂: the vertical edges of column 3, winding vertically' },
+      X1: { q: range.map((j) => hq(1, j)), kind: 'X', zh: 'X̄₁：竖直穿过第 2 列方块、跨过的横边', en: 'X̄₁: the horizontal edges crossed by a vertical path through column-2 squares' },
+      X2: { q: range.map((i) => vq(i, 2)), kind: 'X', zh: 'X̄₂：水平穿过第 3 行方块、跨过的竖边', en: 'X̄₂: the vertical edges crossed by a horizontal path through row-3 squares' },
+    };
+    const MODES = { p1: ['Z1', 'X1'], p2: ['Z2', 'X2'], x12: ['Z1', 'X2'], all: ['Z1', 'Z2', 'X1', 'X2'] };
+    const G0 = (w) => torusGeom(w, L, 86, 34);
+    const box = U().canvasBox(wrap, (w) => G0(w).g * L + 50, draw);
+    legend(F.body, [
+      [sw('--cz'), '蓝色实线 = Z 串，沿着边走，作用在它经过的边上', 'blue solid = Z string: runs along edges, acts on the edges it runs over'],
+      [swd('--cx'), '橙色虚线 = X 串，穿过方块中心，作用在它跨过的边上', 'orange dashed = X string: runs through square centres, acts on the edges it crosses'],
+      ['<span class="ring" style="color:var(--cd)"></span>', '品红圈 = 两串共享的比特', 'magenta ring = qubit shared by both strings'],
+      [swd('--ink3'), '虚线副本 = 绕回的同一批比特：每条圈从一侧出去、从对侧回来，接成闭合的圈', 'dashed copies = the same qubits after wrapping: each loop leaves one side and re-enters on the opposite side, closing up'],
+    ]);
+    const edges = torusEdges(L);
+    function draw() {
+      const C = U().colors(), ctx = box.ctx, w = box.w, h = box.h, G = G0(w);
+      ctx.clearRect(0, 0, w, h);
+      const on = MODES[mode];
+      const zq = new Set(), xq = new Set();
+      for (const k of on) for (const q of LOOPS[k].q) (LOOPS[k].kind === 'Z' ? zq : xq).add(q);
+      const mids = [];
+      for (const e of edges) {
+        const z = zq.has(e.q);
+        const m = edgeLine(ctx, G, e, z ? C.cz : (e.ghost ? C.line2 : C.ink3), z ? 4.5 : 1.5, e.ghost);
+        mids.push([m, e]);
+      }
+      for (let j = 0; j <= L; j++) for (let i = 0; i <= L; i++) {
+        ctx.beginPath(); ctx.arc(G.ox + i * G.g, G.oy + j * G.g, 3, 0, 7);
+        if (i === L || j === L) { ctx.strokeStyle = C.ink3; ctx.lineWidth = 1; ctx.stroke(); } else { ctx.fillStyle = C.ink2; ctx.fill(); }
+      }
+      // X loops: dashed orange paths through face centres (dual lattice)
+      ctx.strokeStyle = C.cx; ctx.lineWidth = 3.5; ctx.setLineDash([9, 6]);
+      if (on.includes('X1')) { const x = G.ox + 1.5 * G.g; ctx.beginPath(); ctx.moveTo(x, G.oy - 14); ctx.lineTo(x, G.oy + L * G.g + 4); ctx.stroke(); }
+      if (on.includes('X2')) { const y = G.oy + 2.5 * G.g; ctx.beginPath(); ctx.moveTo(G.ox - 14, y); ctx.lineTo(G.ox + L * G.g + 4, y); ctx.stroke(); }
+      ctx.setLineDash([]);
+      for (const [m, e] of mids) {
+        const z = zq.has(e.q), x = xq.has(e.q);
+        if (z && x) { ctx.beginPath(); ctx.arc(m.x, m.y, 15, 0, 7); ctx.strokeStyle = C.cd; ctx.lineWidth = 3; ctx.stroke(); }
+        qubitDot(ctx, C, m, z || x ? String(e.q) : null, z ? C.cz : x ? C.cx : null, e.ghost, z || x ? 10 : 4);
+      }
+      // loop names
+      ctx.font = '600 14px ' + fam('--f-mono'); ctx.textBaseline = 'middle';
+      const tag = (txt, x, y, col, al) => { ctx.fillStyle = col; ctx.textAlign = al; ctx.fillText(txt, x, y); };
+      if (on.includes('Z1')) tag('Z̄₁', G.ox - 12, G.oy + 1 * G.g, C.czInk, 'right');
+      if (on.includes('Z2')) tag('Z̄₂', G.ox + 2 * G.g, G.oy - 16, C.czInk, 'center');
+      if (on.includes('X1')) tag('X̄₁', G.ox + 1.5 * G.g, G.oy - 26, C.cxInk, 'center');
+      if (on.includes('X2')) tag('X̄₂', G.ox - 20, G.oy + 2.5 * G.g, C.cxInk, 'right');
+    }
+    function upd() {
+      const on = MODES[mode];
+      const lines = on.map((k) => bi(LOOPS[k].zh + ' = ' + subs(LOOPS[k].q, LOOPS[k].kind), LOOPS[k].en + ' = ' + subs(LOOPS[k].q, LOOPS[k].kind)));
+      const pairs = [];
+      for (const z of on.filter((k) => k[0] === 'Z')) for (const x of on.filter((k) => k[0] === 'X')) {
+        const sh = LOOPS[z].q.filter((q) => LOOPS[x].q.includes(q));
+        const nz = z === 'Z1' ? 'Z̄₁' : 'Z̄₂', nx = x === 'X1' ? 'X̄₁' : 'X̄₂';
+        pairs.push(bi(nx + ' 与 ' + nz + ' 共享 ' + (sh.length ? '比特 ' + sh.join('、') : '0 个比特') + ' → ' + (sh.length % 2 ? '<b>反对易</b>（一对搭档）' : '<span class="ok">对易</span>（互不干扰）'),
+          nx + ' and ' + nz + ' share ' + (sh.length ? 'qubit ' + sh.join(', ') : 'no qubit') + ' → ' + (sh.length % 2 ? '<b>anticommute</b> (partners)' : '<span class="ok">commute</span> (independent)')));
+      }
+      F.setReadout(lines.join('<br>') + '<br>' + pairs.join('<br>'));
+    }
+    const seg = U().seg([
+      { id: 'p1', zh: '第一对 X̄₁, Z̄₁', en: 'Pair 1: X̄₁, Z̄₁' },
+      { id: 'p2', zh: '第二对 X̄₂, Z̄₂', en: 'Pair 2: X̄₂, Z̄₂' },
+      { id: 'x12', zh: '交叉组合 X̄₂, Z̄₁', en: 'Mixed: X̄₂, Z̄₁' },
+      { id: 'all', zh: '四条都画', en: 'All four' },
+    ], 'p1', (v) => { mode = v; box.redraw(); upd(); });
+    F.controls.append(seg.el);
+    upd();
+  }
+  U().reg('logicalpairs', wLogicalPairs);
+  /* ============ W: twowinding — why the decoder's verdict is a parity: one loop, two parallel loops, two directions ============ */
+  function wTwoWinding(el) {
+    const L = 4;
+    let mode = 'one';
+    const F = U().frame(el, {
+      titleZh: '残留的圈：数两条测试路径各跨过几次，只看奇偶', titleEn: 'Leftover loops: count how often each test path crosses them, and look only at even or odd',
+      onReset: () => seg.el.querySelector('button').click(),
+    });
+    const wrap = doc.createElement('div'); wrap.className = 'canvas-wrap'; F.body.appendChild(wrap);
+    const hq = (i, j) => j * L + i + 1, vq = (i, j) => L * L + j * L + i + 1;
+    const range = [...Array(L).keys()];
+    const ROW1 = range.map((i) => hq(i, 1)), ROW3 = range.map((i) => hq(i, 3)), COL2 = range.map((j) => vq(2, j));
+    const WALK_V = range.map((j) => hq(1, j)), WALK_H = range.map((i) => vq(i, 2)); // the X̄₁ and X̄₂ paths of §5.6
+    const MODES = { one: [ROW1], two: [ROW1, ROW3], cross: [ROW1, COL2] };
+    const G0 = (w) => torusGeom(w, L, 80, 34);
+    const box = U().canvasBox(wrap, (w) => G0(w).g * L + 50, draw);
+    legend(F.body, [
+      [sw('--cz'), '蓝色实线 = 残留的 Z 圈（错误 ⊕ 修复），作用在它经过的边上', 'blue solid = leftover Z loops (error ⊕ repair), acting on the edges they run over'],
+      [swd('--cx'), '橙色虚线 = 两条测试路径：竖直的走 X̄₁ 的路（穿过第 2 列方块），水平的走 X̄₂ 的路（穿过第 3 行方块）', 'orange dashed = the two test paths: the vertical one follows X̄₁ (through column-2 squares), the horizontal one follows X̄₂ (through row-3 squares)'],
+      ['<span class="ring" style="color:var(--cd)"></span>', '品红圈 = 一次跨越（测试路径跨过的残留边）', 'magenta ring = one crossing (a leftover edge crossed by a test path)'],
+      [sw('--cz-soft2'), '蓝色填充的方块 = 两条平行圈夹出的带子：这 8 条面检查的乘积正好是这两条圈（只在「两条平行」时画出）', 'blue-filled squares = the strip between two parallel loops: the product of these 8 face checks is exactly the two loops (drawn only for “two parallel”)'],
+      [swd('--ink3'), '虚线副本 = 绕回的同一批比特', 'dashed copies = the same qubits after wrapping'],
+    ]);
+    const edges = torusEdges(L);
+    function draw() {
+      const C = U().colors(), ctx = box.ctx, w = box.w, h = box.h, G = G0(w);
+      ctx.clearRect(0, 0, w, h);
+      const zq = new Set(MODES[mode].flat());
+      if (mode === 'two') {
+        ctx.fillStyle = C.czSoft2;
+        for (let j = 1; j <= 2; j++) for (let i = 0; i < L; i++) ctx.fillRect(G.ox + i * G.g + 3, G.oy + j * G.g + 3, G.g - 6, G.g - 6);
+      }
+      const mids = [];
+      for (const e of edges) {
+        const z = zq.has(e.q);
+        mids.push([edgeLine(ctx, G, e, z ? C.cz : (e.ghost ? C.line2 : C.ink3), z ? 4.5 : 1.5, e.ghost), e]);
+      }
+      for (let j = 0; j <= L; j++) for (let i = 0; i <= L; i++) {
+        ctx.beginPath(); ctx.arc(G.ox + i * G.g, G.oy + j * G.g, 3, 0, 7);
+        if (i === L || j === L) { ctx.strokeStyle = C.ink3; ctx.lineWidth = 1; ctx.stroke(); } else { ctx.fillStyle = C.ink2; ctx.fill(); }
+      }
+      ctx.strokeStyle = C.cx; ctx.lineWidth = 3; ctx.setLineDash([9, 6]);
+      const xv = G.ox + 1.5 * G.g, yh = G.oy + 2.5 * G.g;
+      ctx.beginPath(); ctx.moveTo(xv, G.oy - 14); ctx.lineTo(xv, G.oy + L * G.g + 4); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(G.ox - 14, yh); ctx.lineTo(G.ox + L * G.g + 4, yh); ctx.stroke();
+      ctx.setLineDash([]);
+      const crossed = new Set([...WALK_V, ...WALK_H].filter((q) => zq.has(q)));
+      for (const [m, e] of mids) {
+        const z = zq.has(e.q);
+        if (crossed.has(e.q) && !e.ghost) { ctx.beginPath(); ctx.arc(m.x, m.y, 15, 0, 7); ctx.strokeStyle = C.cd; ctx.lineWidth = 3; ctx.stroke(); }
+        qubitDot(ctx, C, m, z ? String(e.q) : null, z ? C.cz : null, e.ghost, z ? 10 : 4);
+      }
+      ctx.font = '600 13px ' + fam('--f-mono'); ctx.textBaseline = 'middle'; ctx.fillStyle = C.cxInk;
+      ctx.textAlign = 'center'; ctx.fillText(U().T({ zh: '竖直测试路径', en: 'vertical test path' }), xv, G.oy - 24);
+      ctx.textAlign = 'right'; ctx.fillText(U().T({ zh: '水平', en: 'horizontal' }), G.ox - 18, yh);
+    }
+    function upd() {
+      const loops = MODES[mode], all = loops.flat();
+      const nv = WALK_V.filter((q) => all.includes(q)).length, nh = WALK_H.filter((q) => all.includes(q)).length;
+      const pz = (n) => n % 2 ? '奇' : '偶', pe = (n) => n % 2 ? 'odd' : 'even';
+      const list = loops.map((lp) => subs(lp, 'Z')).join(' · ');
+      const V = {
+        one: ['残留 = Z̄₁（第 2 行的横边）：<span class="no">逻辑错误</span>，第一个逻辑比特被改写。', 'leftover = Z̄₁ (the horizontal edges of row 2): <span class="no">logical error</span>, logical qubit 1 is rewritten.'],
+        two: ['两条圈 = 带子里 8 条面检查的乘积（Z̄₁·Z̄₁ = I）：<span class="ok">无害</span>，对编码状态什么都不做。', 'the two loops = the product of the 8 face checks of the strip (Z̄₁·Z̄₁ = I): <span class="ok">harmless</span>, they do nothing to encoded states.'],
+        cross: ['残留 = Z̄₁Z̄₂：<span class="no">逻辑错误</span>，两个逻辑比特都被改写。', 'leftover = Z̄₁Z̄₂: <span class="no">logical error</span>, both logical qubits are rewritten.'],
+      }[mode];
+      F.setReadout(bi(
+        '残留：' + list + '<br>竖直测试路径跨过 <b>' + nv + '</b> 次（' + pz(nv) + '）　·　水平测试路径跨过 <b>' + nh + '</b> 次（' + pz(nh) + '）<br>' + V[0],
+        'leftover: ' + list + '<br>vertical test path crosses it <b>' + nv + '</b> times (' + pe(nv) + ') · horizontal test path <b>' + nh + '</b> times (' + pe(nh) + ')<br>' + V[1]));
+    }
+    const seg = U().seg([
+      { id: 'one', zh: '一条水平圈', en: 'One horizontal loop' },
+      { id: 'two', zh: '两条平行的水平圈', en: 'Two parallel horizontal loops' },
+      { id: 'cross', zh: '一条水平 + 一条竖直', en: 'One horizontal + one vertical' },
+    ], 'one', (v) => { mode = v; box.redraw(); upd(); });
+    F.controls.append(seg.el);
+    upd();
+  }
+  U().reg('twowinding', wTwoWinding);
+
+  /* decodergame lives in the shared engine; restate its end-of-round verdict with §5.7's parity rule
+     (winding numbers of error ⊕ repair against the two test paths lat.logicals.X). */
+  (function patchGameVerdict() {
+    const el = doc.querySelector('[data-widget="decodergame"]');
+    if (!el || !root.MutationObserver) return;
+    let lat = null;
+    new MutationObserver(() => {
+      const ro = el.querySelector('.readout'), g = el.__game;
+      if (!ro || !g || ro.querySelector('[data-parity]')) return;
+      const txt = ro.textContent, won = txt.includes('Success!'), lost = txt.includes('Round lost.');
+      if (!won && !lost) return;
+      lat = lat || TQ.lattice.buildToric(5);
+      const res = new Set(TQ.pauli.xorSet([...g.err], [...g.corr]));
+      const [nv, nh] = lat.logicals.X.map((Lg) => Lg.filter((q) => res.has(q)).length);
+      const streak = (ro.innerHTML.match(/<b>(\d+)<\/b>/) || [0, '0'])[1];
+      const cnt = bi('竖直测试路径跨过残留 <b>' + nv + '</b> 次、水平测试路径跨过 <b>' + nh + '</b> 次', 'the vertical test path crosses the leftover <b>' + nv + '</b> times and the horizontal one <b>' + nh + '</b> times');
+      ro.innerHTML = '<span data-parity></span>' + (won
+        ? bi('<span class="ok">成功！</span>蓝色 = 真实错误，绿色 = 你的修复。', '<span class="ok">Success!</span> Blue = true errors, green = your repair. ') + cnt +
+          bi('，两个都是偶数：残留是面检查的乘积（通常就是可收缩的小圈），对编码信息什么都不做。修复不必和错误一模一样。连胜 <b>' + streak + '</b>！', ': both even, so the leftover is a product of face checks (usually small contractible loops) and does nothing to the stored data. The repair need not equal the error. Streak <b>' + streak + '</b>!')
+        : bi('<span class="no">这回合失败了。</span>蓝色 = 真实错误，绿色 = 你的修复。', '<span class="no">Round lost.</span> Blue = true errors, green = your repair. ') + cnt +
+          bi('，有奇数：残留绕环面奇数次，是逻辑算符，信息被改写。连胜清零。点「新回合」再来！', ': at least one is odd, so the leftover winds around the torus an odd number of times: a logical operator, and the data got rewritten. Streak reset. “New round” to retry!'));
+    }).observe(el, { childList: true, subtree: true });
+  })();
+})(typeof window !== 'undefined' ? window : globalThis);
 </script>
 </body>
 </html>

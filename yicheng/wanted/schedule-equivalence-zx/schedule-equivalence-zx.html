@@ -955,7 +955,7 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
       <tr><td>1</td><td><span class="zh">一条<b>奇偶检查</b>只问「这几个比特里 1 的个数是偶数吗」（两个比特时就是「这两位一样吗」），答案是 +1 或 −1。几个比特的奇偶 = 把它们的 0/1 加起来看奇偶，记号 ⊕（1 ⊕ 1 = 0，不进位）。</span><span class="en">A <b>parity check</b> only asks “is the number of 1s among these bits even?” (for two bits: “are they the same?”), answering +1 or −1. The parity of several bits = add their 0/1 values and look at odd/even, written ⊕ (1 ⊕ 1 = 0, no carry).</span></td><td><a href="../../toric_code/intuition/intuition-hs.html#s2-3"><span class="zh">2.3 节</span><span class="en">section 2.3</span></a></td></tr>
       <tr><td>2</td><td><span class="zh">两条<b>泡利串</b>要么对易、要么反对易：数它们在同一比特上放了两个<b>都不是 I、且不同</b>的字母的位置数，偶数则对易，奇数则反对易（碰撞定理）。</span><span class="en">Two <b>Pauli strings</b> either commute or anticommute: count the qubits where both carry a <b>non-identity</b> letter and the letters <b>differ</b>; even means commute, odd means anticommute (the collision theorem).</span></td><td><a href="../../toric_code/intuition/intuition-hs.html#s4-2"><span class="zh">4.2 节</span><span class="en">section 4.2</span></a></td></tr>
       <tr><td>3</td><td><span class="zh"><b>测一条泡利串</b>得到 ±1；测过之后，状态就成了这条串的本征态，与它反对易的那些串的信息被抹掉。</span><span class="en"><b>Measuring a Pauli string</b> yields ±1; afterwards the state is an eigenstate of that string, and the information carried by strings anticommuting with it is erased.</span></td><td><a href="../../toric_code/intuition/intuition-hs.html#s4-3"><span class="zh">4.3 节</span><span class="en">section 4.3</span></a></td></tr>
-      <tr><td>4</td><td><span class="zh">一个<b>稳定子码</b>是一份两两对易的检查清单；n 个比特、r 条独立检查，存 k = n − r 个逻辑比特。环面码 L = 3：n = 18，r = 16，k = 2。</span><span class="en">A <b>stabilizer code</b> is a list of pairwise commuting checks; n qubits and r independent checks store k = n − r logical qubits. Toric code with L = 3: n = 18, r = 16, k = 2.</span></td><td><a href="../../toric_code/intuition/intuition-hs.html#s4-4"><span class="zh">4.4 节</span><span class="en">section 4.4</span></a> · <a href="../../toric_code/intuition/intuition-hs.html#s5-3"><span class="zh">5.3 节</span><span class="en">section 5.3</span></a></td></tr>
+      <tr><td>4</td><td><span class="zh">一个<b>稳定子码</b>是一份两两对易的检查清单；n 个比特、r 条独立检查，存 k = n − r 个逻辑比特（前提是这些检查乘不出 −I，否则没有任何状态能同时通过它们。符号要算进去：X₁、X₂、−X₁X₂ 两两对易，三条相乘却是 −I。每条检查都是<b>带 + 号</b>的全 X 串或全 Z 串时自动满足：这样的串相乘不产生任何符号，乘出单位的只能是 +I。测量得到的瞬时稳定子群（1.2 节）里，每条检查带的是<b>测得的</b>符号，也自动满足：它的每条检查都被此刻的实际状态 |ψ⟩ 通过，若某个乘积等于 −I，就得有 −|ψ⟩ = |ψ⟩，不可能）。环面码 L = 3：n = 18，r = 16，k = 2。</span><span class="en">A <b>stabilizer code</b> is a list of pairwise commuting checks; n qubits and r independent checks store k = n − r logical qubits (provided no product of the checks equals −I, otherwise no state passes them all. Signs count here: X₁, X₂, −X₁X₂ commute pairwise, yet the three multiply to −I. The condition holds automatically when every check is an all-X or all-Z string <b>with a + sign</b>: multiplying such strings never produces a sign, so the only identity they can make is +I. It also holds for an instantaneous stabilizer group produced by measurement (1.2), where each check carries its <b>measured</b> sign: the actual current state |ψ⟩ passes every one of those checks, so a product equal to −I would force −|ψ⟩ = |ψ⟩, which is impossible). Toric code with L = 3: n = 18, r = 16, k = 2.</span></td><td><a href="../../toric_code/intuition/intuition-hs.html#s4-4"><span class="zh">4.4 节</span><span class="en">section 4.4</span></a> · <a href="../../toric_code/intuition/intuition-hs.html#s5-3"><span class="zh">5.3 节</span><span class="en">section 5.3</span></a></td></tr>
       <tr><td>5</td><td><span class="zh">「换衣服」：重新给比特编号、在单个比特上把 X/Y/Z 改名、换一组生成同样检查的代表——三种操作不改变码，合称<b>局部等价</b>。</span><span class="en">“Changing clothes”: renumbering qubits, renaming X/Y/Z on single qubits, choosing different representatives generating the same checks; the three moves leave the code unchanged and are together called <b>local equivalence</b>.</span></td><td><a href="../code-equivalence/code-equivalence.html#s1-3"><span class="zh">《同一个码穿不同的衣服》1.3 节</span><span class="en">“The same code in different clothes”, §1.3</span></a></td></tr>
     </table>
   </div>
@@ -995,8 +995,8 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
   <div class="formula center"><span class="zh">规则 R1（交换）：x ⊕ y = y ⊕ x</span><span class="en">Rule R1 (commute): x ⊕ y = y ⊕ x</span></div>
   <div class="formula center"><span class="zh">规则 R2（结合）：(x ⊕ y) ⊕ z = x ⊕ (y ⊕ z)</span><span class="en">Rule R2 (associate): (x ⊕ y) ⊕ z = x ⊕ (y ⊕ z)</span></div>
   <div class="prose">
-    <p class="zh muted small">记号：x、y、z = 任意三个 0/1 值（可以本身是括号里的算式）。两条规则各用 8 种取值就能验证。</p>
-    <p class="en muted small">Notation: x, y, z = any three 0/1 values (each may itself be a bracketed expression). Each rule is verified by its 8 assignments.</p>
+    <p class="zh muted small">记号：x、y、z = 任意三个 0/1 值（可以本身是括号里的算式）。R1 代入 x、y 的 4 种取值、R2 代入 x、y、z 的 8 种取值就能验证。</p>
+    <p class="en muted small">Notation: x, y, z = any three 0/1 values (each may itself be a bracketed expression). R1 is verified by the 4 assignments of x, y, and R2 by the 8 assignments of x, y, z.</p>
     <p class="zh">现在从甲出发，一步只用一条规则：((a ⊕ b) ⊕ c) ⊕ d ＝<sub>R2</sub> (a ⊕ b) ⊕ (c ⊕ d)，这是乙，一步到。再从乙到丙，六步：(a ⊕ b) ⊕ (c ⊕ d) ＝<sub>R2</sub> a ⊕ (b ⊕ (c ⊕ d)) ＝<sub>R1</sub> a ⊕ ((c ⊕ d) ⊕ b) ＝<sub>R2</sub> a ⊕ (c ⊕ (d ⊕ b)) ＝<sub>R1</sub> a ⊕ ((d ⊕ b) ⊕ c) ＝<sub>R2</sub> a ⊕ (d ⊕ (b ⊕ c)) ＝<sub>R2</sub> (a ⊕ d) ⊕ (b ⊕ c)，这是丙。每一步只用了 R1 或 R2 中的一条，请逐步核对。这条链就是「甲、乙、丙是同一回事」的<b>证明</b>：不需要代 16 种值，任何人都能一步一步检查。</p>
     <p class="en">Now start from A, one rule per step: ((a ⊕ b) ⊕ c) ⊕ d =<sub>R2</sub> (a ⊕ b) ⊕ (c ⊕ d), which is B, in one step. From B to C, six steps: (a ⊕ b) ⊕ (c ⊕ d) =<sub>R2</sub> a ⊕ (b ⊕ (c ⊕ d)) =<sub>R1</sub> a ⊕ ((c ⊕ d) ⊕ b) =<sub>R2</sub> a ⊕ (c ⊕ (d ⊕ b)) =<sub>R1</sub> a ⊕ ((d ⊕ b) ⊕ c) =<sub>R2</sub> a ⊕ (d ⊕ (b ⊕ c)) =<sub>R2</sub> (a ⊕ d) ⊕ (b ⊕ c), which is C. Each step uses exactly one of R1, R2; check them one by one. This chain is the <b>proof</b> that A, B and C are the same thing: no 16 substitutions needed, and anyone can check it step by step.</p>
   </div>
@@ -1016,17 +1016,289 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
     <p class="zh">而 Atlas 的蜂窝码条目（<span class="mono">honeycomb</span>，本题 yaml 的 <span class="mono">related</span> 唯一一项）是真正的多轮时间表。它的登记原话（<span class="mono">atlas/honeycomb/card.yaml</span> 的 description）：“A period-three dynamical stabilizer memory made only from weight-two Pauli measurements on a honeycomb torus. Edge operators are fixed as XX, YY, or ZZ by direction, while a plaquette three-coloring partitions them into three perfect-matching rounds. <b>The code is the ordered schedule</b> and its outcome-dependent instantaneous stabilizer group, not any one static set of mutually commuting edge checks; after startup that group carries two toric-code logical qubits.” 人话：比特住在蜂窝格的顶点上；每条边是一对相邻比特，按边的方向测 XX、YY 或 ZZ（两比特的检查，重量 2）；把六边形涂成三色，每条边按「它两侧六边形<b>缺</b>的那个颜色」分到第 0、1、2 轮；每一轮里的边两两不相邻（<span class="term">完美匹配<span class="tip">perfect matching：一组边，每个顶点恰好被其中一条边碰到。这保证同一轮的检查支撑互不相交，因而两两对易。</span></span>），所以同一轮的测量两两对易。最小实例 L3x3：n = 18，每轮 9 条两比特测量（3 条 XX、3 条 YY、3 条 ZZ）。</p>
     <p class="en">The Atlas honeycomb entry (<span class="mono">honeycomb</span>, the only item in this yaml's <span class="mono">related</span>) is a genuinely multi-round schedule. Its registered description (<span class="mono">atlas/honeycomb/card.yaml</span>): “A period-three dynamical stabilizer memory made only from weight-two Pauli measurements on a honeycomb torus. Edge operators are fixed as XX, YY, or ZZ by direction, while a plaquette three-coloring partitions them into three perfect-matching rounds. <b>The code is the ordered schedule</b> and its outcome-dependent instantaneous stabilizer group, not any one static set of mutually commuting edge checks; after startup that group carries two toric-code logical qubits.” In plain words: qubits live on the vertices of a honeycomb; each edge is a pair of neighbouring qubits measured as XX, YY or ZZ by direction (a two-qubit check, weight 2); colour the hexagons with three colours and assign each edge to round 0, 1 or 2 by “the colour <b>missing</b> from its two neighbouring hexagons”; within a round no two edges share a vertex (a <span class="term">perfect matching<span class="tip">A set of edges touching every vertex exactly once. It guarantees the checks of one round have disjoint supports, hence commute pairwise.</span></span>), so the measurements of one round commute. The smallest instance L3x3: n = 18, 9 two-qubit measurements per round (3 XX, 3 YY, 3 ZZ).</p>
   </div>
+  <svg id="fig-honeycomb" viewBox="0 0 640 300" width="100%" style="max-width:640px;display:block;margin:0.6em auto" role="img" aria-label="A patch of the honeycomb: left, each edge labelled with its round under the colour rule; right, the same edges labelled with their Pauli type">
+    <text class="zh" x="160" y="20" font-size="13" fill="var(--ink)" text-anchor="middle">按颜色分轮：边上的数 = 第几轮</text>
+    <text class="en" x="160" y="20" font-size="13" fill="var(--ink)" text-anchor="middle">Colour rule: number on an edge = its round</text>
+    <text class="zh" x="480" y="20" font-size="13" fill="var(--ink)" text-anchor="middle">同一批边：按方向测 XX、YY、ZZ</text>
+    <text class="en" x="480" y="20" font-size="13" fill="var(--ink)" text-anchor="middle">The same edges: XX, YY, ZZ by direction</text>
+    <polygon points="198.1,172.0 160.0,194.0 121.9,172.0 121.9,128.0 160.0,106.0 198.1,128.0" fill="var(--cz-soft)" stroke="none"/>
+    <text x="160.0" y="154.0" font-size="11" fill="var(--ink2)" text-anchor="middle">A</text>
+    <polygon points="274.3,172.0 236.2,194.0 198.1,172.0 198.1,128.0 236.2,106.0 274.3,128.0" fill="var(--cx-soft)" stroke="none"/>
+    <text x="236.2" y="154.0" font-size="11" fill="var(--ink2)" text-anchor="middle">B</text>
+    <polygon points="121.9,172.0 83.8,194.0 45.7,172.0 45.7,128.0 83.8,106.0 121.9,128.0" fill="var(--good-soft)" stroke="none"/>
+    <text x="83.8" y="154.0" font-size="11" fill="var(--ink2)" text-anchor="middle">C</text>
+    <polygon points="236.2,238.0 198.1,260.0 160.0,238.0 160.0,194.0 198.1,172.0 236.2,194.0" fill="var(--good-soft)" stroke="none"/>
+    <text x="198.1" y="220.0" font-size="11" fill="var(--ink2)" text-anchor="middle">C</text>
+    <polygon points="160.0,106.0 121.9,128.0 83.8,106.0 83.8,62.0 121.9,40.0 160.0,62.0" fill="var(--cx-soft)" stroke="none"/>
+    <text x="121.9" y="88.0" font-size="11" fill="var(--ink2)" text-anchor="middle">B</text>
+    <polygon points="236.2,106.0 198.1,128.0 160.0,106.0 160.0,62.0 198.1,40.0 236.2,62.0" fill="var(--good-soft)" stroke="none"/>
+    <text x="198.1" y="88.0" font-size="11" fill="var(--ink2)" text-anchor="middle">C</text>
+    <polygon points="160.0,238.0 121.9,260.0 83.8,238.0 83.8,194.0 121.9,172.0 160.0,194.0" fill="var(--cx-soft)" stroke="none"/>
+    <text x="121.9" y="220.0" font-size="11" fill="var(--ink2)" text-anchor="middle">B</text>
+    <line x1="160.0" y1="194.0" x2="198.1" y2="172.0" stroke="var(--ink)" stroke-width="2"/>
+    <line x1="121.9" y1="172.0" x2="160.0" y2="194.0" stroke="var(--ink)" stroke-width="2"/>
+    <line x1="121.9" y1="128.0" x2="121.9" y2="172.0" stroke="var(--ink)" stroke-width="2"/>
+    <line x1="160.0" y1="106.0" x2="121.9" y2="128.0" stroke="var(--ink)" stroke-width="2"/>
+    <line x1="198.1" y1="128.0" x2="160.0" y2="106.0" stroke="var(--ink)" stroke-width="2"/>
+    <line x1="198.1" y1="172.0" x2="198.1" y2="128.0" stroke="var(--ink)" stroke-width="2"/>
+    <line x1="274.3" y1="172.0" x2="236.2" y2="194.0" stroke="var(--ink)" stroke-width="2"/>
+    <line x1="198.1" y1="172.0" x2="236.2" y2="194.0" stroke="var(--ink)" stroke-width="2"/>
+    <line x1="236.2" y1="106.0" x2="198.1" y2="128.0" stroke="var(--ink)" stroke-width="2"/>
+    <line x1="236.2" y1="106.0" x2="274.3" y2="128.0" stroke="var(--ink)" stroke-width="2"/>
+    <line x1="274.3" y1="128.0" x2="274.3" y2="172.0" stroke="var(--ink)" stroke-width="2"/>
+    <line x1="83.8" y1="194.0" x2="121.9" y2="172.0" stroke="var(--ink)" stroke-width="2"/>
+    <line x1="83.8" y1="194.0" x2="45.7" y2="172.0" stroke="var(--ink)" stroke-width="2"/>
+    <line x1="45.7" y1="172.0" x2="45.7" y2="128.0" stroke="var(--ink)" stroke-width="2"/>
+    <line x1="45.7" y1="128.0" x2="83.8" y2="106.0" stroke="var(--ink)" stroke-width="2"/>
+    <line x1="121.9" y1="128.0" x2="83.8" y2="106.0" stroke="var(--ink)" stroke-width="2"/>
+    <line x1="236.2" y1="238.0" x2="198.1" y2="260.0" stroke="var(--ink)" stroke-width="2"/>
+    <line x1="198.1" y1="260.0" x2="160.0" y2="238.0" stroke="var(--ink)" stroke-width="2"/>
+    <line x1="160.0" y1="194.0" x2="160.0" y2="238.0" stroke="var(--ink)" stroke-width="2"/>
+    <line x1="236.2" y1="194.0" x2="236.2" y2="238.0" stroke="var(--ink)" stroke-width="2"/>
+    <line x1="83.8" y1="106.0" x2="83.8" y2="62.0" stroke="var(--ink)" stroke-width="2"/>
+    <line x1="83.8" y1="62.0" x2="121.9" y2="40.0" stroke="var(--ink)" stroke-width="2"/>
+    <line x1="121.9" y1="40.0" x2="160.0" y2="62.0" stroke="var(--ink)" stroke-width="2"/>
+    <line x1="160.0" y1="106.0" x2="160.0" y2="62.0" stroke="var(--ink)" stroke-width="2"/>
+    <line x1="160.0" y1="62.0" x2="198.1" y2="40.0" stroke="var(--ink)" stroke-width="2"/>
+    <line x1="198.1" y1="40.0" x2="236.2" y2="62.0" stroke="var(--ink)" stroke-width="2"/>
+    <line x1="236.2" y1="62.0" x2="236.2" y2="106.0" stroke="var(--ink)" stroke-width="2"/>
+    <line x1="160.0" y1="238.0" x2="121.9" y2="260.0" stroke="var(--ink)" stroke-width="2"/>
+    <line x1="121.9" y1="260.0" x2="83.8" y2="238.0" stroke="var(--ink)" stroke-width="2"/>
+    <line x1="83.8" y1="238.0" x2="83.8" y2="194.0" stroke="var(--ink)" stroke-width="2"/>
+    <rect x="171.1" y="176.0" width="16" height="14" rx="4" fill="var(--bg)" stroke="var(--ink3)" stroke-width="0.8"/>
+    <text x="179.1" y="187.0" font-size="10" fill="var(--ink)" text-anchor="middle" font-family="var(--f-mono)">1</text>
+    <rect x="132.9" y="176.0" width="16" height="14" rx="4" fill="var(--bg)" stroke="var(--ink3)" stroke-width="0.8"/>
+    <text x="140.9" y="187.0" font-size="10" fill="var(--ink)" text-anchor="middle" font-family="var(--f-mono)">2</text>
+    <rect x="113.9" y="143.0" width="16" height="14" rx="4" fill="var(--bg)" stroke="var(--ink3)" stroke-width="0.8"/>
+    <text x="121.9" y="154.0" font-size="10" fill="var(--ink)" text-anchor="middle" font-family="var(--f-mono)">1</text>
+    <rect x="132.9" y="110.0" width="16" height="14" rx="4" fill="var(--bg)" stroke="var(--ink3)" stroke-width="0.8"/>
+    <text x="140.9" y="121.0" font-size="10" fill="var(--ink)" text-anchor="middle" font-family="var(--f-mono)">2</text>
+    <rect x="171.1" y="110.0" width="16" height="14" rx="4" fill="var(--bg)" stroke="var(--ink3)" stroke-width="0.8"/>
+    <text x="179.1" y="121.0" font-size="10" fill="var(--ink)" text-anchor="middle" font-family="var(--f-mono)">1</text>
+    <rect x="190.1" y="143.0" width="16" height="14" rx="4" fill="var(--bg)" stroke="var(--ink3)" stroke-width="0.8"/>
+    <text x="198.1" y="154.0" font-size="10" fill="var(--ink)" text-anchor="middle" font-family="var(--f-mono)">2</text>
+    <rect x="247.3" y="176.0" width="16" height="14" rx="4" fill="var(--bg)" stroke="var(--ink3)" stroke-width="0.8"/>
+    <text x="255.3" y="187.0" font-size="10" fill="var(--ink)" text-anchor="middle" font-family="var(--f-mono)">2</text>
+    <rect x="209.2" y="176.0" width="16" height="14" rx="4" fill="var(--bg)" stroke="var(--ink3)" stroke-width="0.8"/>
+    <text x="217.2" y="187.0" font-size="10" fill="var(--ink)" text-anchor="middle" font-family="var(--f-mono)">0</text>
+    <rect x="209.2" y="110.0" width="16" height="14" rx="4" fill="var(--bg)" stroke="var(--ink3)" stroke-width="0.8"/>
+    <text x="217.2" y="121.0" font-size="10" fill="var(--ink)" text-anchor="middle" font-family="var(--f-mono)">0</text>
+    <rect x="247.3" y="110.0" width="16" height="14" rx="4" fill="var(--bg)" stroke="var(--ink3)" stroke-width="0.8"/>
+    <text x="255.3" y="121.0" font-size="10" fill="var(--ink)" text-anchor="middle" font-family="var(--f-mono)">2</text>
+    <rect x="266.3" y="143.0" width="16" height="14" rx="4" fill="var(--bg)" stroke="var(--ink3)" stroke-width="0.8"/>
+    <text x="274.3" y="154.0" font-size="10" fill="var(--ink)" text-anchor="middle" font-family="var(--f-mono)">0</text>
+    <rect x="94.8" y="176.0" width="16" height="14" rx="4" fill="var(--bg)" stroke="var(--ink3)" stroke-width="0.8"/>
+    <text x="102.8" y="187.0" font-size="10" fill="var(--ink)" text-anchor="middle" font-family="var(--f-mono)">0</text>
+    <rect x="56.7" y="176.0" width="16" height="14" rx="4" fill="var(--bg)" stroke="var(--ink3)" stroke-width="0.8"/>
+    <text x="64.7" y="187.0" font-size="10" fill="var(--ink)" text-anchor="middle" font-family="var(--f-mono)">1</text>
+    <rect x="37.7" y="143.0" width="16" height="14" rx="4" fill="var(--bg)" stroke="var(--ink3)" stroke-width="0.8"/>
+    <text x="45.7" y="154.0" font-size="10" fill="var(--ink)" text-anchor="middle" font-family="var(--f-mono)">0</text>
+    <rect x="56.7" y="110.0" width="16" height="14" rx="4" fill="var(--bg)" stroke="var(--ink3)" stroke-width="0.8"/>
+    <text x="64.7" y="121.0" font-size="10" fill="var(--ink)" text-anchor="middle" font-family="var(--f-mono)">1</text>
+    <rect x="94.8" y="110.0" width="16" height="14" rx="4" fill="var(--bg)" stroke="var(--ink3)" stroke-width="0.8"/>
+    <text x="102.8" y="121.0" font-size="10" fill="var(--ink)" text-anchor="middle" font-family="var(--f-mono)">0</text>
+    <rect x="209.2" y="242.0" width="16" height="14" rx="4" fill="var(--bg)" stroke="var(--ink3)" stroke-width="0.8"/>
+    <text x="217.2" y="253.0" font-size="10" fill="var(--ink)" text-anchor="middle" font-family="var(--f-mono)">0</text>
+    <rect x="171.1" y="242.0" width="16" height="14" rx="4" fill="var(--bg)" stroke="var(--ink3)" stroke-width="0.8"/>
+    <text x="179.1" y="253.0" font-size="10" fill="var(--ink)" text-anchor="middle" font-family="var(--f-mono)">1</text>
+    <rect x="152.0" y="209.0" width="16" height="14" rx="4" fill="var(--bg)" stroke="var(--ink3)" stroke-width="0.8"/>
+    <text x="160.0" y="220.0" font-size="10" fill="var(--ink)" text-anchor="middle" font-family="var(--f-mono)">0</text>
+    <rect x="228.2" y="209.0" width="16" height="14" rx="4" fill="var(--bg)" stroke="var(--ink3)" stroke-width="0.8"/>
+    <text x="236.2" y="220.0" font-size="10" fill="var(--ink)" text-anchor="middle" font-family="var(--f-mono)">1</text>
+    <rect x="75.8" y="77.0" width="16" height="14" rx="4" fill="var(--bg)" stroke="var(--ink3)" stroke-width="0.8"/>
+    <text x="83.8" y="88.0" font-size="10" fill="var(--ink)" text-anchor="middle" font-family="var(--f-mono)">2</text>
+    <rect x="94.8" y="44.0" width="16" height="14" rx="4" fill="var(--bg)" stroke="var(--ink3)" stroke-width="0.8"/>
+    <text x="102.8" y="55.0" font-size="10" fill="var(--ink)" text-anchor="middle" font-family="var(--f-mono)">0</text>
+    <rect x="132.9" y="44.0" width="16" height="14" rx="4" fill="var(--bg)" stroke="var(--ink3)" stroke-width="0.8"/>
+    <text x="140.9" y="55.0" font-size="10" fill="var(--ink)" text-anchor="middle" font-family="var(--f-mono)">2</text>
+    <rect x="152.0" y="77.0" width="16" height="14" rx="4" fill="var(--bg)" stroke="var(--ink3)" stroke-width="0.8"/>
+    <text x="160.0" y="88.0" font-size="10" fill="var(--ink)" text-anchor="middle" font-family="var(--f-mono)">0</text>
+    <rect x="171.1" y="44.0" width="16" height="14" rx="4" fill="var(--bg)" stroke="var(--ink3)" stroke-width="0.8"/>
+    <text x="179.1" y="55.0" font-size="10" fill="var(--ink)" text-anchor="middle" font-family="var(--f-mono)">1</text>
+    <rect x="209.2" y="44.0" width="16" height="14" rx="4" fill="var(--bg)" stroke="var(--ink3)" stroke-width="0.8"/>
+    <text x="217.2" y="55.0" font-size="10" fill="var(--ink)" text-anchor="middle" font-family="var(--f-mono)">0</text>
+    <rect x="228.2" y="77.0" width="16" height="14" rx="4" fill="var(--bg)" stroke="var(--ink3)" stroke-width="0.8"/>
+    <text x="236.2" y="88.0" font-size="10" fill="var(--ink)" text-anchor="middle" font-family="var(--f-mono)">1</text>
+    <rect x="132.9" y="242.0" width="16" height="14" rx="4" fill="var(--bg)" stroke="var(--ink3)" stroke-width="0.8"/>
+    <text x="140.9" y="253.0" font-size="10" fill="var(--ink)" text-anchor="middle" font-family="var(--f-mono)">2</text>
+    <rect x="94.8" y="242.0" width="16" height="14" rx="4" fill="var(--bg)" stroke="var(--ink3)" stroke-width="0.8"/>
+    <text x="102.8" y="253.0" font-size="10" fill="var(--ink)" text-anchor="middle" font-family="var(--f-mono)">0</text>
+    <rect x="75.8" y="209.0" width="16" height="14" rx="4" fill="var(--bg)" stroke="var(--ink3)" stroke-width="0.8"/>
+    <text x="83.8" y="220.0" font-size="10" fill="var(--ink)" text-anchor="middle" font-family="var(--f-mono)">2</text>
+    <polygon points="518.1,172.0 480.0,194.0 441.9,172.0 441.9,128.0 480.0,106.0 518.1,128.0" fill="var(--cz-soft)" stroke="none"/>
+    <text x="480.0" y="154.0" font-size="11" fill="var(--ink2)" text-anchor="middle">A</text>
+    <polygon points="594.3,172.0 556.2,194.0 518.1,172.0 518.1,128.0 556.2,106.0 594.3,128.0" fill="var(--cx-soft)" stroke="none"/>
+    <text x="556.2" y="154.0" font-size="11" fill="var(--ink2)" text-anchor="middle">B</text>
+    <polygon points="441.9,172.0 403.8,194.0 365.7,172.0 365.7,128.0 403.8,106.0 441.9,128.0" fill="var(--good-soft)" stroke="none"/>
+    <text x="403.8" y="154.0" font-size="11" fill="var(--ink2)" text-anchor="middle">C</text>
+    <polygon points="556.2,238.0 518.1,260.0 480.0,238.0 480.0,194.0 518.1,172.0 556.2,194.0" fill="var(--good-soft)" stroke="none"/>
+    <text x="518.1" y="220.0" font-size="11" fill="var(--ink2)" text-anchor="middle">C</text>
+    <polygon points="480.0,106.0 441.9,128.0 403.8,106.0 403.8,62.0 441.9,40.0 480.0,62.0" fill="var(--cx-soft)" stroke="none"/>
+    <text x="441.9" y="88.0" font-size="11" fill="var(--ink2)" text-anchor="middle">B</text>
+    <polygon points="556.2,106.0 518.1,128.0 480.0,106.0 480.0,62.0 518.1,40.0 556.2,62.0" fill="var(--good-soft)" stroke="none"/>
+    <text x="518.1" y="88.0" font-size="11" fill="var(--ink2)" text-anchor="middle">C</text>
+    <polygon points="480.0,238.0 441.9,260.0 403.8,238.0 403.8,194.0 441.9,172.0 480.0,194.0" fill="var(--cx-soft)" stroke="none"/>
+    <text x="441.9" y="220.0" font-size="11" fill="var(--ink2)" text-anchor="middle">B</text>
+    <line x1="480.0" y1="194.0" x2="518.1" y2="172.0" stroke="var(--ink)" stroke-width="2"/>
+    <line x1="441.9" y1="172.0" x2="480.0" y2="194.0" stroke="var(--ink)" stroke-width="2"/>
+    <line x1="441.9" y1="128.0" x2="441.9" y2="172.0" stroke="var(--ink)" stroke-width="2"/>
+    <line x1="480.0" y1="106.0" x2="441.9" y2="128.0" stroke="var(--ink)" stroke-width="2"/>
+    <line x1="518.1" y1="128.0" x2="480.0" y2="106.0" stroke="var(--ink)" stroke-width="2"/>
+    <line x1="518.1" y1="172.0" x2="518.1" y2="128.0" stroke="var(--ink)" stroke-width="2"/>
+    <line x1="594.3" y1="172.0" x2="556.2" y2="194.0" stroke="var(--ink)" stroke-width="2"/>
+    <line x1="518.1" y1="172.0" x2="556.2" y2="194.0" stroke="var(--ink)" stroke-width="2"/>
+    <line x1="556.2" y1="106.0" x2="518.1" y2="128.0" stroke="var(--ink)" stroke-width="2"/>
+    <line x1="556.2" y1="106.0" x2="594.3" y2="128.0" stroke="var(--ink)" stroke-width="2"/>
+    <line x1="594.3" y1="128.0" x2="594.3" y2="172.0" stroke="var(--ink)" stroke-width="2"/>
+    <line x1="403.8" y1="194.0" x2="441.9" y2="172.0" stroke="var(--ink)" stroke-width="2"/>
+    <line x1="403.8" y1="194.0" x2="365.7" y2="172.0" stroke="var(--ink)" stroke-width="2"/>
+    <line x1="365.7" y1="172.0" x2="365.7" y2="128.0" stroke="var(--ink)" stroke-width="2"/>
+    <line x1="365.7" y1="128.0" x2="403.8" y2="106.0" stroke="var(--ink)" stroke-width="2"/>
+    <line x1="441.9" y1="128.0" x2="403.8" y2="106.0" stroke="var(--ink)" stroke-width="2"/>
+    <line x1="556.2" y1="238.0" x2="518.1" y2="260.0" stroke="var(--ink)" stroke-width="2"/>
+    <line x1="518.1" y1="260.0" x2="480.0" y2="238.0" stroke="var(--ink)" stroke-width="2"/>
+    <line x1="480.0" y1="194.0" x2="480.0" y2="238.0" stroke="var(--ink)" stroke-width="2"/>
+    <line x1="556.2" y1="194.0" x2="556.2" y2="238.0" stroke="var(--ink)" stroke-width="2"/>
+    <line x1="403.8" y1="106.0" x2="403.8" y2="62.0" stroke="var(--ink)" stroke-width="2"/>
+    <line x1="403.8" y1="62.0" x2="441.9" y2="40.0" stroke="var(--ink)" stroke-width="2"/>
+    <line x1="441.9" y1="40.0" x2="480.0" y2="62.0" stroke="var(--ink)" stroke-width="2"/>
+    <line x1="480.0" y1="106.0" x2="480.0" y2="62.0" stroke="var(--ink)" stroke-width="2"/>
+    <line x1="480.0" y1="62.0" x2="518.1" y2="40.0" stroke="var(--ink)" stroke-width="2"/>
+    <line x1="518.1" y1="40.0" x2="556.2" y2="62.0" stroke="var(--ink)" stroke-width="2"/>
+    <line x1="556.2" y1="62.0" x2="556.2" y2="106.0" stroke="var(--ink)" stroke-width="2"/>
+    <line x1="480.0" y1="238.0" x2="441.9" y2="260.0" stroke="var(--ink)" stroke-width="2"/>
+    <line x1="441.9" y1="260.0" x2="403.8" y2="238.0" stroke="var(--ink)" stroke-width="2"/>
+    <line x1="403.8" y1="238.0" x2="403.8" y2="194.0" stroke="var(--ink)" stroke-width="2"/>
+    <rect x="488.1" y="176.0" width="22" height="14" rx="4" fill="var(--bg)" stroke="var(--ink3)" stroke-width="0.8"/>
+    <text x="499.1" y="187.0" font-size="10" fill="var(--ink)" text-anchor="middle" font-family="var(--f-mono)">YY</text>
+    <rect x="449.9" y="176.0" width="22" height="14" rx="4" fill="var(--bg)" stroke="var(--ink3)" stroke-width="0.8"/>
+    <text x="460.9" y="187.0" font-size="10" fill="var(--ink)" text-anchor="middle" font-family="var(--f-mono)">XX</text>
+    <rect x="430.9" y="143.0" width="22" height="14" rx="4" fill="var(--bg)" stroke="var(--ink3)" stroke-width="0.8"/>
+    <text x="441.9" y="154.0" font-size="10" fill="var(--ink)" text-anchor="middle" font-family="var(--f-mono)">ZZ</text>
+    <rect x="449.9" y="110.0" width="22" height="14" rx="4" fill="var(--bg)" stroke="var(--ink3)" stroke-width="0.8"/>
+    <text x="460.9" y="121.0" font-size="10" fill="var(--ink)" text-anchor="middle" font-family="var(--f-mono)">YY</text>
+    <rect x="488.1" y="110.0" width="22" height="14" rx="4" fill="var(--bg)" stroke="var(--ink3)" stroke-width="0.8"/>
+    <text x="499.1" y="121.0" font-size="10" fill="var(--ink)" text-anchor="middle" font-family="var(--f-mono)">XX</text>
+    <rect x="507.1" y="143.0" width="22" height="14" rx="4" fill="var(--bg)" stroke="var(--ink3)" stroke-width="0.8"/>
+    <text x="518.1" y="154.0" font-size="10" fill="var(--ink)" text-anchor="middle" font-family="var(--f-mono)">ZZ</text>
+    <rect x="564.3" y="176.0" width="22" height="14" rx="4" fill="var(--bg)" stroke="var(--ink3)" stroke-width="0.8"/>
+    <text x="575.3" y="187.0" font-size="10" fill="var(--ink)" text-anchor="middle" font-family="var(--f-mono)">YY</text>
+    <rect x="526.2" y="176.0" width="22" height="14" rx="4" fill="var(--bg)" stroke="var(--ink3)" stroke-width="0.8"/>
+    <text x="537.2" y="187.0" font-size="10" fill="var(--ink)" text-anchor="middle" font-family="var(--f-mono)">XX</text>
+    <rect x="526.2" y="110.0" width="22" height="14" rx="4" fill="var(--bg)" stroke="var(--ink3)" stroke-width="0.8"/>
+    <text x="537.2" y="121.0" font-size="10" fill="var(--ink)" text-anchor="middle" font-family="var(--f-mono)">YY</text>
+    <rect x="564.3" y="110.0" width="22" height="14" rx="4" fill="var(--bg)" stroke="var(--ink3)" stroke-width="0.8"/>
+    <text x="575.3" y="121.0" font-size="10" fill="var(--ink)" text-anchor="middle" font-family="var(--f-mono)">XX</text>
+    <rect x="583.3" y="143.0" width="22" height="14" rx="4" fill="var(--bg)" stroke="var(--ink3)" stroke-width="0.8"/>
+    <text x="594.3" y="154.0" font-size="10" fill="var(--ink)" text-anchor="middle" font-family="var(--f-mono)">ZZ</text>
+    <rect x="411.8" y="176.0" width="22" height="14" rx="4" fill="var(--bg)" stroke="var(--ink3)" stroke-width="0.8"/>
+    <text x="422.8" y="187.0" font-size="10" fill="var(--ink)" text-anchor="middle" font-family="var(--f-mono)">YY</text>
+    <rect x="373.7" y="176.0" width="22" height="14" rx="4" fill="var(--bg)" stroke="var(--ink3)" stroke-width="0.8"/>
+    <text x="384.7" y="187.0" font-size="10" fill="var(--ink)" text-anchor="middle" font-family="var(--f-mono)">XX</text>
+    <rect x="354.7" y="143.0" width="22" height="14" rx="4" fill="var(--bg)" stroke="var(--ink3)" stroke-width="0.8"/>
+    <text x="365.7" y="154.0" font-size="10" fill="var(--ink)" text-anchor="middle" font-family="var(--f-mono)">ZZ</text>
+    <rect x="373.7" y="110.0" width="22" height="14" rx="4" fill="var(--bg)" stroke="var(--ink3)" stroke-width="0.8"/>
+    <text x="384.7" y="121.0" font-size="10" fill="var(--ink)" text-anchor="middle" font-family="var(--f-mono)">YY</text>
+    <rect x="411.8" y="110.0" width="22" height="14" rx="4" fill="var(--bg)" stroke="var(--ink3)" stroke-width="0.8"/>
+    <text x="422.8" y="121.0" font-size="10" fill="var(--ink)" text-anchor="middle" font-family="var(--f-mono)">XX</text>
+    <rect x="526.2" y="242.0" width="22" height="14" rx="4" fill="var(--bg)" stroke="var(--ink3)" stroke-width="0.8"/>
+    <text x="537.2" y="253.0" font-size="10" fill="var(--ink)" text-anchor="middle" font-family="var(--f-mono)">YY</text>
+    <rect x="488.1" y="242.0" width="22" height="14" rx="4" fill="var(--bg)" stroke="var(--ink3)" stroke-width="0.8"/>
+    <text x="499.1" y="253.0" font-size="10" fill="var(--ink)" text-anchor="middle" font-family="var(--f-mono)">XX</text>
+    <rect x="469.0" y="209.0" width="22" height="14" rx="4" fill="var(--bg)" stroke="var(--ink3)" stroke-width="0.8"/>
+    <text x="480.0" y="220.0" font-size="10" fill="var(--ink)" text-anchor="middle" font-family="var(--f-mono)">ZZ</text>
+    <rect x="545.2" y="209.0" width="22" height="14" rx="4" fill="var(--bg)" stroke="var(--ink3)" stroke-width="0.8"/>
+    <text x="556.2" y="220.0" font-size="10" fill="var(--ink)" text-anchor="middle" font-family="var(--f-mono)">ZZ</text>
+    <rect x="392.8" y="77.0" width="22" height="14" rx="4" fill="var(--bg)" stroke="var(--ink3)" stroke-width="0.8"/>
+    <text x="403.8" y="88.0" font-size="10" fill="var(--ink)" text-anchor="middle" font-family="var(--f-mono)">ZZ</text>
+    <rect x="411.8" y="44.0" width="22" height="14" rx="4" fill="var(--bg)" stroke="var(--ink3)" stroke-width="0.8"/>
+    <text x="422.8" y="55.0" font-size="10" fill="var(--ink)" text-anchor="middle" font-family="var(--f-mono)">YY</text>
+    <rect x="449.9" y="44.0" width="22" height="14" rx="4" fill="var(--bg)" stroke="var(--ink3)" stroke-width="0.8"/>
+    <text x="460.9" y="55.0" font-size="10" fill="var(--ink)" text-anchor="middle" font-family="var(--f-mono)">XX</text>
+    <rect x="469.0" y="77.0" width="22" height="14" rx="4" fill="var(--bg)" stroke="var(--ink3)" stroke-width="0.8"/>
+    <text x="480.0" y="88.0" font-size="10" fill="var(--ink)" text-anchor="middle" font-family="var(--f-mono)">ZZ</text>
+    <rect x="488.1" y="44.0" width="22" height="14" rx="4" fill="var(--bg)" stroke="var(--ink3)" stroke-width="0.8"/>
+    <text x="499.1" y="55.0" font-size="10" fill="var(--ink)" text-anchor="middle" font-family="var(--f-mono)">YY</text>
+    <rect x="526.2" y="44.0" width="22" height="14" rx="4" fill="var(--bg)" stroke="var(--ink3)" stroke-width="0.8"/>
+    <text x="537.2" y="55.0" font-size="10" fill="var(--ink)" text-anchor="middle" font-family="var(--f-mono)">XX</text>
+    <rect x="545.2" y="77.0" width="22" height="14" rx="4" fill="var(--bg)" stroke="var(--ink3)" stroke-width="0.8"/>
+    <text x="556.2" y="88.0" font-size="10" fill="var(--ink)" text-anchor="middle" font-family="var(--f-mono)">ZZ</text>
+    <rect x="449.9" y="242.0" width="22" height="14" rx="4" fill="var(--bg)" stroke="var(--ink3)" stroke-width="0.8"/>
+    <text x="460.9" y="253.0" font-size="10" fill="var(--ink)" text-anchor="middle" font-family="var(--f-mono)">YY</text>
+    <rect x="411.8" y="242.0" width="22" height="14" rx="4" fill="var(--bg)" stroke="var(--ink3)" stroke-width="0.8"/>
+    <text x="422.8" y="253.0" font-size="10" fill="var(--ink)" text-anchor="middle" font-family="var(--f-mono)">XX</text>
+    <rect x="392.8" y="209.0" width="22" height="14" rx="4" fill="var(--bg)" stroke="var(--ink3)" stroke-width="0.8"/>
+    <text x="403.8" y="220.0" font-size="10" fill="var(--ink)" text-anchor="middle" font-family="var(--f-mono)">ZZ</text>
+    <text class="zh" x="320" y="290" font-size="11" fill="var(--ink2)" text-anchor="middle">六边形上的 A、B、C = 三种颜色（A 记作色 0，B 色 1，C 色 2）；每条边的轮次 = 它两侧六边形都不是的那个颜色</text>
+    <text class="en" x="320" y="290" font-size="11" fill="var(--ink2)" text-anchor="middle">A, B, C on the hexagons = the three colours (A is colour 0, B 1, C 2); an edge's round = the colour of neither hexagon beside it</text>
+  </svg>
+  <div class="prose">
+    <p class="zh muted small">图注：同一块 7 个六边形的蜂窝片画了两遍。比特在顶点上，每条边是一次两比特测量。左图边上的数是它在「按颜色分轮」下属于第几轮：例如标 0 的边，两侧是 B、C 两色的六边形，它两端伸向的是 A 色六边形。同一个数的边从不共用顶点，所以同一轮的测量两两对易。右图标的是每条边测什么：竖边 ZZ，两种斜边分别 XX、YY（哪个方向配哪个字母是约定，这里只是一种画法）。对照两图可以看到，每一轮里三种字母都有；1.3 节第 ③ 行的「按方向分轮」，就是改成按右图的字母分轮。边缘上的边只画出了一部分邻居。本篇用一段脚本检查过图里的这三点：三染色合法、每轮是匹配、每轮三种字母都有。</p>
+    <p class="en muted small">Caption: the same patch of 7 hexagons, drawn twice. Qubits sit on the vertices; each edge is one two-qubit measurement. On the left, the number on an edge is its round under the colour rule: an edge marked 0, for instance, has a B hexagon and a C hexagon beside it, and its two ends point into A hexagons. Edges with the same number never share a vertex, so the measurements of one round commute. On the right, each edge shows what it measures: vertical edges ZZ, the two slanted directions XX and YY (which direction gets which letter is a convention; this is one way to draw it). Comparing the two, every round contains all three letters; the “split by direction” of row ③ in 1.3 regroups the rounds by the letters on the right. Edges on the rim show only part of their neighbourhood. A script written for this guide checks those three facts in the figure: the 3-colouring is proper, each round is a matching, each round has all three letters.</p>
+  </div>
   <div class="formula center"><span class="zh">蜂窝码 L3x3：n = 18，rounds = [ 9 条, 9 条, 9 条 ]，周期 3</span><span class="en">Honeycomb L3x3: n = 18, rounds = [ 9, 9, 9 ], period 3</span></div>
   <div class="prose">
-    <p class="zh">不同轮的两条边若共用一个顶点，两个都不是 I 且字母不同（比如 XX 和 YY 在共用比特上是 X 与 Y），只有 1 个这样的位置——反对易。按第 0 章事实 3，测了第 1 轮就会抹掉第 0 轮的一部分信息。那么「码」在哪里？在<span class="term">瞬时稳定子群<span class="tip">ISG, instantaneous stabilizer group：此刻状态满足的全部检查（含它们的乘积）。每测一条新串就更新一次：与所有现有检查对易且不在其中 → 加进去；已在其中 → 只是符号可能变；与某些现有检查反对易 → 挑一条当枢轴，把其它反对易的都乘上枢轴，再用新串替换枢轴。</span></span>里：此刻状态满足的全部检查。Atlas 的 <span class="mono">ISGTracker</span> 按上面弹窗里的三条规则逐条更新，并记下每轮结束时独立检查的条数 r。蜂窝码 L3x3 从空清单出发的 r 依次是：</p>
-    <p class="en">Two edges of different rounds sharing a vertex carry two different non-identity letters there (say X and Y for XX and YY), exactly 1 such position: they anticommute. By fact 3 of Chapter 0, measuring round 1 erases part of round 0's information. So where is the “code”? In the <span class="term">instantaneous stabilizer group<span class="tip">ISG: all checks (and their products) the current state satisfies. Updated at every new measured string: commutes with all current checks and lies outside them → append; already inside → only a sign may change; anticommutes with some → pick one as pivot, multiply the other anticommuting ones by the pivot, then replace the pivot by the new string.</span></span>: everything the state satisfies right now. The Atlas <span class="mono">ISGTracker</span> updates it string by string with the three rules in the tooltip and records the number r of independent checks after each round. For honeycomb L3x3, starting from an empty list, r runs:</p>
+    <p class="zh">不同轮的两条边若共用一个顶点，两个都不是 I 且字母不同（比如 XX 和 YY 在共用比特上是 X 与 Y），只有 1 个这样的位置——反对易。按第 0 章事实 3，测了第 1 轮就会抹掉第 0 轮的一部分信息。那么「码」在哪里？在<span class="term">瞬时稳定子群<span class="tip">ISG, instantaneous stabilizer group：此刻状态满足的全部检查（含它们的乘积），每条带 + 或 − 号。理想测量（不出错）每测一条串 P 就按三种情况更新：(a) P 或 −P 已在群里 → 结果是确定的，由群里那条的符号决定，群不变；(b) P 与所有现有检查对易、但 P 和 −P 都不在群里 → 把 P 带上测得的符号加进去，结果 ±1 各有一半概率；(c) P 与某些现有检查反对易 → 挑其中一条当枢轴，把其它反对易的都乘上枢轴（乘完就与 P 对易了），再用带测得符号的 P 替换枢轴，条数不变。</span></span>里：此刻状态满足的全部检查。三种情况 (a)、(b)、(c) 在弹窗里（出处：Hastings–Haah，arXiv:2107.02194，1.3 节）；下面马上用一个六比特的例子走一遍。Atlas 的 <span class="mono">ISGTracker</span> 按这三条逐条更新，并记下每轮结束时独立检查的条数 r。蜂窝码 L3x3 从空清单出发的 r 依次是：</p>
+    <p class="en">Two edges of different rounds sharing a vertex carry two different non-identity letters there (say X and Y for XX and YY), exactly 1 such position: they anticommute. By fact 3 of Chapter 0, measuring round 1 erases part of round 0's information. So where is the “code”? In the <span class="term">instantaneous stabilizer group<span class="tip">ISG: all checks (and their products) the current state satisfies, each with a + or − sign. An ideal (error-free) measurement of a string P updates it in one of three ways: (a) P or −P is already in the group → the outcome is certain, fixed by that element's sign, and the group is unchanged; (b) P commutes with every current check but neither P nor −P is in the group → append P with the measured sign; the outcomes ±1 are equally likely; (c) P anticommutes with some current checks → pick one of them as pivot, multiply the other anticommuting ones by the pivot (they then commute with P), and replace the pivot by P with the measured sign; the count stays the same.</span></span>: everything the state satisfies right now. The three cases (a), (b), (c) are in the tooltip (source: Hastings and Haah, arXiv:2107.02194, section 1.3); a six-qubit example below walks through them. The Atlas <span class="mono">ISGTracker</span> updates the group string by string with these rules and records the number r of independent checks after each round. For honeycomb L3x3, starting from an empty list, r runs:</p>
   </div>
   <div class="formula center">r = 9, 12, 14, 16, 16, 16, …　　⇒　　dynamic_k = 18 − 16 = 2</div>
   <div class="prose">
     <p class="zh muted small">记号：r = 该轮结束时瞬时稳定子群里独立检查的条数；dynamic_k = n − 稳定后的 r，「整部电影放完还活着的逻辑比特数」。数字出自 <span class="mono">atlas/honeycomb/pedagogy/schedule-isg-cycle.md</span>；<span class="mono">instances.yaml</span> 登记 L3x3：n = 18 verified，k = 2 verified，dynamic_k = 2 verified。</p>
     <p class="en muted small">Notation: r = number of independent checks in the ISG at the end of the round; dynamic_k = n − the settled r, “the logical qubits still alive after the whole film”. Numbers from <span class="mono">atlas/honeycomb/pedagogy/schedule-isg-cycle.md</span>; <span class="mono">instances.yaml</span> registers L3x3: n = 18 verified, k = 2 verified, dynamic_k = 2 verified.</p>
-    <p class="zh">第 0 轮 9 条互不相交的两比特测量，r = 9。第 1 轮的测量与第 0 轮的某些串反对易，按规则「替换枢轴」一进一出，r 不变；r 能涨，是因为另一些新测量（或它们与旧清单的乘积）与现有清单全部对易且独立，被加了进来——六边形乘积就是这样一点点拼出来的。为什么恰好是 9、12、14、16，本篇照抄 Atlas 推导页，不手算。再两轮后到 16 就不动了：18 个比特，16 条独立检查，还剩 2 个逻辑比特，和环面码一样。这就是「时间表是码」的意思：<b>码的 k 不是任何一轮的性质，而是整部电影放完以后的性质</b>。</p>
-    <p class="en">Round 0: 9 disjoint two-qubit measurements, r = 9. Round 1's measurements anticommute with some strings of round 0; by the “replace the pivot” rule one goes in and one goes out, r unchanged; r can rise because other new measurements (or their products with the old list) commute with everything present and are independent, so they are appended, and the hexagon products are assembled piece by piece this way. Why exactly 9, 12, 14, 16 is copied from the Atlas derivation page, not hand-computed here. Two rounds later it reaches 16 and stops: 18 qubits, 16 independent checks, 2 logical qubits left, as in the toric code. That is what “the schedule is the code” means: <b>the code's k is not a property of any single round but of the whole film once played</b>.</p>
+    <p class="zh"><b>先在一个六边形上手算。</b>取一个六边形的 6 个顶点，从顶上顺时针编号 1 到 6，只看它的 6 条边（下图）。字母按方向：e₁₂ 和 e₄₅ 是 XX，e₂₃ 和 e₅₆（两条竖边）是 ZZ，e₃₄ 和 e₆₁ 是 YY；实线三条 e₁₂、e₃₄、e₅₆ 属第 0 轮，虚线三条 e₂₃、e₄₅、e₆₁ 属第 1 轮。第 0 轮测完，三条实线边互不相交、两两对易，按情况 (b) 各加一条：清单 = {X₁X₂, Y₃Y₄, Z₅Z₆}。现在逐条测第 1 轮，每一步都按弹窗的规则做：</p>
+    <p class="en"><b>First, by hand on one hexagon.</b> Take the 6 vertices of one hexagon, numbered 1 to 6 clockwise from the top, and look only at its 6 edges (figure below). Letters by direction: e₁₂ and e₄₅ are XX, e₂₃ and e₅₆ (the two vertical edges) are ZZ, e₃₄ and e₆₁ are YY; the three solid edges e₁₂, e₃₄, e₅₆ belong to round 0, the three dashed edges e₂₃, e₄₅, e₆₁ to round 1. After round 0 the three solid edges are disjoint and commute pairwise, so case (b) appends each: list = {X₁X₂, Y₃Y₄, Z₅Z₆}. Now measure round 1 one string at a time, following the tooltip's rules at every step:</p>
+  </div>
+  <svg id="fig-hexisg" viewBox="0 0 300 230" width="100%" style="max-width:300px;display:block;margin:0.4em auto" role="img" aria-label="One hexagon, qubits 1 to 6 clockwise from the top; solid edges are round 0 (e12 XX, e34 YY, e56 ZZ), dashed edges round 1 (e23 ZZ, e45 XX, e61 YY)">
+    <g stroke="var(--ink)" stroke-width="3" fill="none" stroke-linecap="round">
+      <path d="M150 40 L210.6 75"/><path d="M210.6 145 L150 180"/><path d="M89.4 145 L89.4 75"/>
+    </g>
+    <g stroke="var(--ink2)" stroke-width="2.4" fill="none" stroke-dasharray="7 5" stroke-linecap="round">
+      <path d="M210.6 75 L210.6 145"/><path d="M150 180 L89.4 145"/><path d="M89.4 75 L150 40"/>
+    </g>
+    <g fill="var(--bg)" stroke="var(--ink)" stroke-width="1.5">
+      <circle cx="150" cy="40" r="11"/><circle cx="210.6" cy="75" r="11"/><circle cx="210.6" cy="145" r="11"/>
+      <circle cx="150" cy="180" r="11"/><circle cx="89.4" cy="145" r="11"/><circle cx="89.4" cy="75" r="11"/>
+    </g>
+    <g fill="var(--ink)" font-size="12" font-family="var(--f-mono)" text-anchor="middle">
+      <text x="150" y="44">1</text><text x="210.6" y="79">2</text><text x="210.6" y="149">3</text>
+      <text x="150" y="184">4</text><text x="89.4" y="149">5</text><text x="89.4" y="79">6</text>
+    </g>
+    <g fill="var(--ink)" font-size="11" font-family="var(--f-mono)">
+      <text x="186" y="48">XX</text><text x="220" y="114">ZZ</text><text x="186" y="178">YY</text>
+      <text x="96" y="178">XX</text><text x="60" y="114">ZZ</text><text x="96" y="48">YY</text>
+    </g>
+    <g stroke-width="2.4" fill="none"><path d="M20 206 H44" stroke="var(--ink)" stroke-width="3"/><path d="M160 206 H184" stroke="var(--ink2)" stroke-dasharray="7 5"/></g>
+    <text class="zh" x="50" y="210" font-size="11" fill="var(--ink)">实线 = 第 0 轮</text>
+    <text class="en" x="50" y="210" font-size="11" fill="var(--ink)">solid = round 0</text>
+    <text class="zh" x="190" y="210" font-size="11" fill="var(--ink)">虚线 = 第 1 轮</text>
+    <text class="en" x="190" y="210" font-size="11" fill="var(--ink)">dashed = round 1</text>
+  </svg>
+  <div class="table-wrap">
+    <table class="glossary">
+      <tr><th><span class="zh">测</span><span class="en">Measure</span></th><th><span class="zh">与清单里哪些反对易（冲突的比特）</span><span class="en">Anticommutes with (clashing qubit)</span></th><th><span class="zh">情况与做法</span><span class="en">Case and action</span></th><th><span class="zh">之后的清单</span><span class="en">List afterwards</span></th></tr>
+      <tr><td class="mono">Z₂Z₃</td><td><span class="zh">X₁X₂（比特 2：Z 对 X）、Y₃Y₄（比特 3：Z 对 Y）</span><span class="en">X₁X₂ (qubit 2: Z vs X), Y₃Y₄ (qubit 3: Z vs Y)</span></td><td><span class="zh">(c)：枢轴 X₁X₂；Y₃Y₄ 乘上枢轴变成 X₁X₂Y₃Y₄（在比特 2、3 各冲突一次，两次抵消，与 Z₂Z₃ 对易）；Z₂Z₃ 顶替枢轴</span><span class="en">(c): pivot X₁X₂; Y₃Y₄ times the pivot is X₁X₂Y₃Y₄ (it clashes with Z₂Z₃ at qubits 2 and 3, two clashes cancel, so it commutes); Z₂Z₃ takes the pivot's place</span></td><td class="mono">Z₂Z₃, X₁X₂Y₃Y₄, Z₅Z₆</td></tr>
+      <tr><td class="mono">X₄X₅</td><td><span class="zh">X₁X₂Y₃Y₄（比特 4）、Z₅Z₆（比特 5）</span><span class="en">X₁X₂Y₃Y₄ (qubit 4), Z₅Z₆ (qubit 5)</span></td><td><span class="zh">(c)：枢轴 X₁X₂Y₃Y₄；Z₅Z₆ 乘上它变成 X₁X₂Y₃Y₄Z₅Z₆；X₄X₅ 顶替枢轴</span><span class="en">(c): pivot X₁X₂Y₃Y₄; Z₅Z₆ times it is X₁X₂Y₃Y₄Z₅Z₆; X₄X₅ takes the pivot's place</span></td><td class="mono">Z₂Z₃, X₄X₅, X₁X₂Y₃Y₄Z₅Z₆</td></tr>
+      <tr><td class="mono">Y₆Y₁</td><td><span class="zh">没有：与 X₁X₂Y₃Y₄Z₅Z₆ 在比特 1、6 各冲突一次，抵消</span><span class="en">none: it clashes with X₁X₂Y₃Y₄Z₅Z₆ at qubits 1 and 6, which cancel</span></td><td><span class="zh">(b)：加进去</span><span class="en">(b): append</span></td><td class="mono">Z₂Z₃, X₄X₅, Y₆Y₁, X₁X₂Y₃Y₄Z₅Z₆</td></tr>
+    </table>
+  </div>
+  <div class="prose">
+    <p class="zh">三条第 0 轮的边都被顶掉了，但它们的<b>乘积</b> X₁X₂Y₃Y₄Z₅Z₆ 活了下来：这就是「替换」丢掉的只是与新测量冲突的那部分信息。再乘上三条第 1 轮的边，得到六边形算符 W = (X₁X₂Y₃Y₄Z₅Z₆)(Z₂Z₃)(X₄X₅)(Y₆Y₁)，逐比特相乘（不计符号），它是 Z₁Y₂X₃Z₄Y₅X₆，与这个六边形周围的每条边都对易。它的 ±1 取值是六个测得结果的乘积：四个因子两两对易，状态同时通过它们。清单从 3 条变成 4 条：多出来的一条就是六边形。</p>
+    <p class="en">All three round-0 edges were pushed out, but their <b>product</b> X₁X₂Y₃Y₄Z₅Z₆ survived: replacement discards only the part of the information that clashes with the new measurement. Multiplying in the three round-1 edges gives the hexagon operator W = (X₁X₂Y₃Y₄Z₅Z₆)(Z₂Z₃)(X₄X₅)(Y₆Y₁); multiplied qubit by qubit (ignoring the sign) it is Z₁Y₂X₃Z₄Y₅X₆, and it commutes with every edge around this hexagon. Its ±1 value is the product of the six measured outcomes: the four factors commute pairwise and the state passes each of them. The list grew from 3 to 4 entries, and the extra one is the hexagon.</p>
+    <p class="zh"><b>再数整张 L3x3。</b>L3x3 有 9 个六边形，每种颜色 3 个。一条边的轮次是它两侧六边形都不是的那个颜色，所以一个颜色为 c 的六边形，边界上的 6 条边都不属于第 c 轮，而是另外两轮各 3 条交替出现。于是：</p>
+    <p class="en"><b>Now count the whole L3x3.</b> L3x3 has 9 hexagons, 3 of each colour. An edge's round is the colour of neither hexagon beside it, so a hexagon of colour c has no round-c edge on its boundary: its 6 boundary edges alternate between the other two rounds, 3 each. Hence:</p>
+  </div>
+  <div class="table-wrap">
+    <table class="glossary">
+      <tr><th><span class="zh">这一轮结束</span><span class="en">End of round</span></th><th><span class="zh">生成元</span><span class="en">Generators</span></th><th><span class="zh">它们之间的依赖</span><span class="en">Dependencies among them</span></th><th style="text-transform:none">r</th></tr>
+      <tr><td>0</td><td><span class="zh">9 条第 0 轮的边</span><span class="en">the 9 round-0 edges</span></td><td><span class="zh">没有：9 条边互不相交</span><span class="en">none: the 9 edges are disjoint</span></td><td>9</td></tr>
+      <tr><td>1</td><td><span class="zh">9 条第 1 轮的边 + 3 个色 2 六边形</span><span class="en">the 9 round-1 edges + 3 colour-2 hexagons</span></td><td><span class="zh">没有。3 个色 2 六边形正好占满 18 个比特、互不相交（3 × 6 = 18），每个都各自走一遍上面的六比特例子：3 条换 3 条，多出 1 个六边形</span><span class="en">none. The 3 colour-2 hexagons are disjoint and cover all 18 qubits (3 × 6 = 18); each runs through the six-qubit example above on its own: 3 edges replace 3 edges and one hexagon is gained</span></td><td>9 + 3 = 12</td></tr>
+      <tr><td>2</td><td><span class="zh">9 条第 2 轮的边 + 3 个色 2 六边形（与所有边对易，留下）+ 3 个色 0 六边形（由第 1、2 轮的边拼出）</span><span class="en">the 9 round-2 edges + 3 colour-2 hexagons (they commute with every edge and stay) + 3 colour-0 hexagons (built from round-1 and round-2 edges)</span></td><td><span class="zh">1 条：9 条第 2 轮的边之积 = 3 个色 2 六边形之积（不计符号）</span><span class="en">1: the product of the 9 round-2 edges equals the product of the 3 colour-2 hexagons (up to sign)</span></td><td>15 − 1 = 14</td></tr>
+      <tr><td><span class="zh">3（又是第 0 轮）</span><span class="en">3 (round 0 again)</span></td><td><span class="zh">9 条第 0 轮的边 + 全部 9 个六边形（色 1 的 3 个由第 2、0 轮的边拼出）</span><span class="en">the 9 round-0 edges + all 9 hexagons (the 3 of colour 1 are built from round-2 and round-0 edges)</span></td><td><span class="zh">2 条：9 个六边形之积 = I；9 条第 0 轮的边之积 = 3 个色 0 六边形之积</span><span class="en">2: the product of all 9 hexagons is I; the product of the 9 round-0 edges equals the product of the 3 colour-0 hexagons</span></td><td>18 − 2 = 16</td></tr>
+    </table>
+  </div>
+  <div class="prose">
+    <p class="zh">两条依赖为什么成立，都能手数。① 每条边夹在两个六边形之间，所以 9 个六边形之积里每条边出现两次，两次抵消，积为 I。② 每个顶点连着三条边，方向各不相同，所以 XX、YY、ZZ 各一条；全部 27 条边之积在每个顶点上是 X·Y·Z，只差一个符号就是 I。一个色 t 的六边形的边界边都不属第 t 轮，而每条不属第 t 轮的边恰好贴着一个色 t 的六边形，所以 3 个色 t 六边形之积 = 所有不属第 t 轮的边之积；再由 ②，它等于第 t 轮 9 条边之积（不计符号）。从第 3 轮起，每轮只是新一轮的边顶替上一轮的边，9 个六边形一直留着，r 停在 16：18 个比特，16 条独立检查，还剩 2 个逻辑比特，和环面码一样。这与 Hastings–Haah（arXiv:2107.02194，1.3 节）的一般计数一致：n_p 个六边形的环面上稳定后有 2n_p − 2 条独立检查，这里 n_p = 9，得 16。本篇的检验脚本也逐条模拟了这几轮，得到同样的 9、12、14、16。这就是「时间表是码」的意思：<b>码的 k 不是任何一轮的性质，而是整部电影放完以后的性质</b>。</p>
+    <p class="en">Both dependencies can be checked by counting. ① Every edge lies between two hexagons, so in the product of all 9 hexagons each edge appears twice and cancels: the product is I. ② Every vertex meets three edges in three different directions, so one XX, one YY and one ZZ; the product of all 27 edges is X·Y·Z at every vertex, which is I up to a sign. A colour-t hexagon has no round-t edge on its boundary, and every edge outside round t touches exactly one colour-t hexagon, so the product of the 3 colour-t hexagons equals the product of all edges outside round t; by ② this equals the product of the 9 round-t edges (up to sign). From round 3 on, each round's edges just replace the previous round's, the 9 hexagons stay, and r stays at 16: 18 qubits, 16 independent checks, 2 logical qubits left, as in the toric code. This matches the general count of Hastings and Haah (arXiv:2107.02194, section 1.3): on a torus with n_p hexagons the settled group has 2n_p − 2 independent checks, here n_p = 9, giving 16. This guide's check script also simulated these rounds string by string and got the same 9, 12, 14, 16. That is what “the schedule is the code” means: <b>the code's k is not a property of any single round but of the whole film once played</b>.</p>
   </div>
 
   <h3 id="s1-3"><span class="sec-no">1.3</span><span class="zh">两张时间表，什么时候是「同一回事」</span><span class="en">When are two schedules “the same thing”?</span></h3>
@@ -1116,14 +1388,21 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
     </table>
   </div>
   <div class="prose">
-    <p class="zh">八段里只有第一段是机器算出来的（derived），第二段是构造器的规范定义（canonical），其余六段都是人写的（curated），而且它们之间<b>没有一条机器核对过的连线</b>：没有程序验证「schedule-isg 描述的三轮」「instantaneous-toric 说的环面码」「zx-spacetime 画的图」是同一个对象。卡片上唯一一条有类型的「同一」边也是人写的：<span class="mono">same_bulk_phase_as → toric</span>，origin curated，refs <span class="mono">hastings2021dynamically</span>、<span class="mono">aasen2022automorphism</span>，how 字段原文：“After each round, contracting the just-measured matching and applying a depth-one local Clifford change of basis maps the instantaneous stabilizer group to toric-code stabilizers on a coarser lattice. <b>The equivalence is frame-by-frame</b>; the full protocol still has spacetime detectors and a nontrivial anyon automorphism.” 说人话：每一帧像环面码，整部电影不是环面码——这正是 1.3 节第 ③ 行教的「逐帧看不出来」的另一面：逐帧像，也不等于整体像。这句话今天靠两篇论文和写卡片的人背书，板上叫它 “curated identity claim”。</p>
-    <p class="en">Of the eight, only the first is machine-computed (derived), the second is the constructor's defining convention (canonical), and the other six are written by people (curated); among them there is <b>not one machine-checked link</b>: no program verifies that “the three rounds of schedule-isg”, “the toric code of instantaneous-toric” and “the picture of zx-spacetime” are one object. The card's single typed “identity” edge is hand-written too: <span class="mono">same_bulk_phase_as → toric</span>, origin curated, refs <span class="mono">hastings2021dynamically</span>, <span class="mono">aasen2022automorphism</span>, how field verbatim: “After each round, contracting the just-measured matching and applying a depth-one local Clifford change of basis maps the instantaneous stabilizer group to toric-code stabilizers on a coarser lattice. <b>The equivalence is frame-by-frame</b>; the full protocol still has spacetime detectors and a nontrivial anyon automorphism.” In plain words: every frame resembles a toric code, the whole film is not one; the other face of row ③ in 1.3, “you cannot tell frame by frame”: resembling frame by frame does not make the whole alike either. Today this sentence rests on two papers and the card's author; the board calls it a “curated identity claim”.</p>
+    <p class="zh">八段里只有第一段是机器算出来的（derived），第二段是构造器的规范定义（canonical），其余六段都是人写的（curated），而且它们之间<b>没有一条机器核对过的连线</b>：没有程序验证「schedule-isg 描述的三轮」「instantaneous-toric 说的环面码」「zx-spacetime 画的图」是同一个对象。卡片上唯一一条有类型的「同一」边也是人写的：<span class="mono">same_bulk_phase_as → toric</span>，origin curated，refs <span class="mono">hastings2021dynamically</span>、<span class="mono">aasen2022automorphism</span>，how 字段原文：“After each round, contracting the just-measured matching and applying a depth-one local Clifford change of basis maps the instantaneous stabilizer group to toric-code stabilizers on a coarser lattice. <b>The equivalence is frame-by-frame</b>; the full protocol still has spacetime detectors and a nontrivial anyon automorphism.”（前半句的「收缩」下一段拆开讲；anyon automorphism = 放完一个周期，环面码里两类缺陷的标签互换。）说人话：每一帧像环面码，整部电影不是环面码——这正是 1.3 节第 ③ 行教的「逐帧看不出来」的另一面：逐帧像，也不等于整体像。这句话今天靠两篇论文和写卡片的人背书，板上叫它 “curated identity claim”。</p>
+    <p class="en">Of the eight, only the first is machine-computed (derived), the second is the constructor's defining convention (canonical), and the other six are written by people (curated); among them there is <b>not one machine-checked link</b>: no program verifies that “the three rounds of schedule-isg”, “the toric code of instantaneous-toric” and “the picture of zx-spacetime” are one object. The card's single typed “identity” edge is hand-written too: <span class="mono">same_bulk_phase_as → toric</span>, origin curated, refs <span class="mono">hastings2021dynamically</span>, <span class="mono">aasen2022automorphism</span>, how field verbatim: “After each round, contracting the just-measured matching and applying a depth-one local Clifford change of basis maps the instantaneous stabilizer group to toric-code stabilizers on a coarser lattice. <b>The equivalence is frame-by-frame</b>; the full protocol still has spacetime detectors and a nontrivial anyon automorphism.” (The next paragraph unpacks the “contracting” in the first sentence; the anyon automorphism = after one period, the labels of the toric code's two kinds of defect are exchanged.) In plain words: every frame resembles a toric code, the whole film is not one; the other face of row ③ in 1.3, “you cannot tell frame by frame”: resembling frame by frame does not make the whole alike either. Today this sentence rests on two papers and the card's author; the board calls it a “curated identity claim”.</p>
+    <p class="zh">how 字段的前半句说的是 Hastings–Haah（arXiv:2107.02194，1.4 节）的一步收缩。一轮刚测完，每条刚测的边（比如 Z<sub>a</sub>Z<sub>b</sub>，结果 ±1 已经知道）把它的两个比特 a、b 锁进一个二维子空间：两个比特本来有 4 个基态 |00⟩、|01⟩、|10⟩、|11⟩，检查只放行其中 2 个（结果 +1 时是 |00⟩ 和 |11⟩），所以这一对只剩<b>一个有效比特</b>。要把它显式地拆出来，就在这一对上做一个两比特门：ZZ 边和 XX 边用一个 CNOT，YY 边用一个受控 Y 门（论文原话：“one CNOT for each x or z edge and one control-Y for each y edge”）。以 ZZ 边为例，CNOT（a 控制、b 受控）把三个算符换成：</p>
+    <p class="en">The first half of the how field is a contraction step of Hastings and Haah (arXiv:2107.02194, section 1.4). Right after a round, each just-measured edge (say Z<sub>a</sub>Z<sub>b</sub>, with its ±1 outcome known) locks its two qubits a and b into a two-dimensional subspace: two qubits have 4 basis states |00⟩, |01⟩, |10⟩, |11⟩, the check lets only 2 of them through (|00⟩ and |11⟩ for outcome +1), so the pair holds just <b>one effective qubit</b>. To split it out explicitly, apply one two-qubit gate to the pair: a CNOT for a ZZ or XX edge, a controlled-Y gate for a YY edge (in the paper's words, “one CNOT for each x or z edge and one control-Y for each y edge”). For a ZZ edge, the CNOT with control a and target b maps three operators to:</p>
+  </div>
+  <div class="formula center" id="f-disentangle">Z<sub>a</sub>Z<sub>b</sub> → Z<sub>b</sub>　　　X<sub>a</sub>X<sub>b</sub> → X<sub>a</sub>　　　Z<sub>a</sub> → Z<sub>a</sub></div>
+  <div class="prose">
+    <p class="zh">第一项：检查变成只作用在 b 上的 Z<sub>b</sub>，b 被结果钉在 |0⟩ 或 |1⟩ 上，和其余一切无关，这就是「拆出去」。后两项：与检查对易的 X<sub>a</sub>X<sub>b</sub> 和 Z<sub>a</sub> 变成比特 a 上的 X 和 Z，所以有效比特住在 a 上，它的 X 就是原来的 X<sub>a</sub>X<sub>b</sub>，它的 Z 就是 Z<sub>a</sub>。（三项都可以用 4 × 4 矩阵直接乘出来核对，本篇的检验脚本做过。）刚测的边是一组完美匹配，这些门作用在两两不相交的比特对上，可以同时做完：这就是 <b>depth-one（深度一）</b>，一层并行的门。<b>local Clifford</b> = 每个门只碰相邻的两个比特，并且把泡利串变成泡利串。门做完，每条刚测的边只剩一个有效比特，六边形算符在这些有效比特上就是一张更粗的六角格上的环面码检查（论文 1.4 节图 2）。注意这一步和第 0 章事实 5 的单比特改名不是一回事：改名只动一个比特、不减少比特数，这里每个门同时动一对比特，把其中一个拆出去。</p>
+    <p class="en">The first: the check becomes Z<sub>b</sub>, acting on b alone; the outcome pins b to |0⟩ or |1⟩, independent of everything else, which is what “split out” means. The other two: X<sub>a</sub>X<sub>b</sub> and Z<sub>a</sub>, which commute with the check, become X and Z on qubit a, so the effective qubit lives on a, with the old X<sub>a</sub>X<sub>b</sub> as its X and Z<sub>a</sub> as its Z. (All three can be checked by multiplying 4 × 4 matrices; this guide's check script does so.) The just-measured edges form a perfect matching, so these gates act on pairwise disjoint pairs and can all run at once: that is <b>depth one</b>, one parallel layer of gates. <b>Local Clifford</b> = each gate touches only two neighbouring qubits and maps Pauli strings to Pauli strings. After the layer, each just-measured edge leaves one effective qubit, and on those effective qubits the hexagon operators are the checks of a toric code on a coarser hexagonal lattice (the paper's section 1.4, Fig. 2). This step is not the single-qubit relabelling of fact 5 in Chapter 0: a relabelling touches one qubit and keeps the qubit count, whereas each gate here acts on a pair and splits one of its qubits out.</p>
   </div>
 
   <h3 id="s2-3"><span class="sec-no">2.3</span><span class="zh">顺便看一眼 d 那一栏</span><span class="en">A glance at the d column</span></h3>
   <div class="prose">
-    <p class="zh">honeycomb 条目页的实例表写着：L3x3 n = 18 verified、k = 2 verified、<b>d = ?</b>；L6x6 n = 72 verified、k = 2 verified、<b>d = ?</b>。卡片的 <span class="mono">claim_gaps</span> 字段把这个问号指向另一道开放问题：<span class="mono">{property: d, target: wanted:floquet-fault-distance}</span>——<a href="../floquet-fault-distance/floquet-fault-distance.html">《检查每一轮都在变，码距该怎么数》</a>专讲。这里只提一句它和本篇的关系：一张时间表的「容错性质」（能抓住多少个错、d 是多少）是整部电影的性质；「两张表是不是同一回事」若有了答案，一张表上算出的 d 才能安全地借给另一张。反过来，没有等价判定，每张变体时间表的 d 都得从头算。</p>
-    <p class="en">The honeycomb entry page's instance table reads: L3x3 n = 18 verified, k = 2 verified, <b>d = ?</b>; L6x6 n = 72 verified, k = 2 verified, <b>d = ?</b>. The card's <span class="mono">claim_gaps</span> field points that question mark at another open problem, <span class="mono">{property: d, target: wanted:floquet-fault-distance}</span>, the subject of <a href="../floquet-fault-distance/floquet-fault-distance.html">“When the checks change every round, how do you count distance?”</a>. Only its link to this guide is noted here: a schedule's “fault-tolerant properties” (how many errors it catches, what d is) are properties of the whole film; once “are two schedules the same thing?” has an answer, a d computed on one schedule can safely be lent to the other. Without an equivalence decision, every variant schedule's d must be computed from scratch.</p>
+    <p class="zh">honeycomb 条目页的实例表写着：L3x3 n = 18 verified、k = 2 verified、<b>d = ?</b>；L6x6 n = 72 verified、k = 2 verified、<b>d = ?</b>。卡片的 <span class="mono">claim_gaps</span> 字段把这个问号指向另一道开放问题：<span class="mono">{property: d, target: wanted:floquet-fault-distance}</span>——<a href="../floquet-fault-distance/floquet-fault-distance.html">《检查每一轮都在变，码距该怎么数》</a>专讲。这里只提一句它和本篇的关系：一张时间表的「容错性质」（能抓住多少个错、d 是多少）是整部电影的性质；「两张表是不是同一回事」若有了答案，而且等价证明在规定的故障模型下附带一份保持权重的故障对应（3.2 节表格第三行），一张表上算出的 d 才能安全地借给另一张。反过来，没有等价判定，每张变体时间表的 d 都得从头算。</p>
+    <p class="en">The honeycomb entry page's instance table reads: L3x3 n = 18 verified, k = 2 verified, <b>d = ?</b>; L6x6 n = 72 verified, k = 2 verified, <b>d = ?</b>. The card's <span class="mono">claim_gaps</span> field points that question mark at another open problem, <span class="mono">{property: d, target: wanted:floquet-fault-distance}</span>, the subject of <a href="../floquet-fault-distance/floquet-fault-distance.html">“When the checks change every round, how do you count distance?”</a>. Only its link to this guide is noted here: a schedule's “fault-tolerant properties” (how many errors it catches, what d is) are properties of the whole film; once “are two schedules the same thing?” has an answer, and the equivalence proof comes with a weight-preserving fault correspondence under a fixed fault model (row three of the table in 3.2), a d computed on one schedule can safely be lent to the other. Without an equivalence decision, every variant schedule's d must be computed from scratch.</p>
   </div>
   <div class="ch-nav">
     <a href="#ch1"><span class="zh">上一章</span><span class="en">Back</span><b><span class="zh">1 · 这个问题用人话说是什么</span><span class="en">1 · The problem in plain words</span></b></a>
@@ -1160,12 +1439,12 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
       <tr><th><span class="zh">地方</span><span class="en">Place</span></th><th><span class="zh">今天</span><span class="en">Today</span></th><th><span class="zh">有了答案之后</span><span class="en">With the answer</span></th></tr>
       <tr><td style="white-space:normal"><span class="zh">honeycomb 的 <span class="mono">same_bulk_phase_as → toric</span></span><span class="en">honeycomb's <span class="mono">same_bulk_phase_as → toric</span></span></td><td><span class="zh">origin <span class="mono">curated</span>，一句人写的「逐帧像」</span><span class="en">origin <span class="mono">curated</span>, a hand-written “alike frame by frame”</span></td><td><span class="zh">「逐帧对应」由机器验证（每一帧先按卡片说的把刚测过的比特对合并，再交给<a href="../code-equivalence/code-equivalence.html">静态等价判定</a>），「整体不等价」由 ZX 规则下的不变量证实；origin 翻成 <span class="mono">derived</span> / <span class="mono">verified</span>，how 字段的两句话各有证书。</span><span class="en">“Frame-by-frame correspondence” verified by machine (each frame first has its just-measured pairs merged as the card says, then goes to the <a href="../code-equivalence/code-equivalence.html">static equivalence decision</a>), “not equivalent as a whole” confirmed by an invariant under the ZX rules; origin flips to <span class="mono">derived</span> / <span class="mono">verified</span>, each of the how field's two sentences with its own certificate.</span></td></tr>
       <tr><td style="white-space:normal"><span class="zh">1.3 节第 ③ 行的「按方向分轮」冒名者</span><span class="en">The “grouped by direction” impostor of row ③ in 1.3</span></td><td><span class="zh">靠一位作者写下的反例测试（dynamic_k = 20）才被识破</span><span class="en">Exposed only because one author wrote an anti-test (dynamic_k = 20)</span></td><td><span class="zh">任何新时间表提交时自动典范化、自动比对；冒名者被拒，改衣服的复制品被合并。</span><span class="en">Every submitted schedule canonicalised and compared automatically; impostors rejected, re-dressed copies merged.</span></td></tr>
-      <tr><td style="white-space:normal"><span class="zh">honeycomb 的 d = ?（2.3 节）</span><span class="en">honeycomb's d = ? (2.3)</span></td><td><span class="zh">每张变体各自 <span class="mono">?</span></span><span class="en">Every variant its own <span class="mono">?</span></span></td><td><span class="zh">一旦某张表的容错码距被算出（<a href="../floquet-fault-distance/floquet-fault-distance.html">另一道题</a>），与它等价的表可以继承——因为「同一个容错对象」正是等价的定义。</span><span class="en">Once one schedule's fault distance is computed (<a href="../floquet-fault-distance/floquet-fault-distance.html">another problem</a>), equivalent schedules may inherit it, because “the same fault-tolerant object” is exactly the definition of equivalence.</span></td></tr>
+      <tr><td style="white-space:normal"><span class="zh">honeycomb 的 d = ?（2.3 节）</span><span class="en">honeycomb's d = ? (2.3)</span></td><td><span class="zh">每张变体各自 <span class="mono">?</span></span><span class="en">Every variant its own <span class="mono">?</span></span></td><td><span class="zh">一旦某张表的容错码距被算出（<a href="../floquet-fault-distance/floquet-fault-distance.html">另一道题</a>），与它等价的表<b>在两个条件下</b>可以继承。一，先规定故障模型：哪些位置会出哪些错，每个错算多少权重。二，等价证明要附带一份故障对应：一张表上每个故障组合，都对应到另一张表上权重相同、触发同样的检查、造成同样逻辑效果的组合，反过来也一样。单靠局部 ZX 改写得不到这份对应：arXiv:2303.08829 把泡利故障画成插在图中已有导线上的 π 点，而融合两个点时连接它们的那根导线消失了，那根导线上的故障位置也跟着没了，两张图的故障位置和权重不一定一一对上。</span><span class="en">Once one schedule's fault distance is computed (<a href="../floquet-fault-distance/floquet-fault-distance.html">another problem</a>), equivalent schedules can inherit it <b>under two conditions</b>. One, a fault model is fixed first: which errors can occur at which locations and what weight each counts for. Two, the equivalence proof comes with a fault correspondence: every fault combination in one schedule corresponds to a combination in the other with the same weight, the same triggered checks and the same logical effect, and conversely. Local ZX rewrites alone do not supply it: arXiv:2303.08829 draws Pauli faults as π dots inserted on existing wires of the diagram, and fusing two dots deletes the wire that joined them, together with the fault location on it, so the fault locations and weights of the two diagrams need not match one to one.</span></td></tr>
     </table>
   </div>
   <div class="prose">
-    <p class="zh">注意 zx-spacetime 视图末尾那半句：“without pretending that their hardware noise models are identical”。等价说的是<b>容错对象</b>相同，不是硬件表现相同：两张等价的表放在不同机器上，噪声不同，阈值就不同——就像<a href="../code-equivalence/code-equivalence.html#s3-1">静态那一篇 3.1 节</a>说的，阈值不能跟着等价边走。能继承的是「结构性」的东西：k、逻辑算符、抓错的能力；不能继承的是任何带着具体电路和噪声模型的数字。</p>
-    <p class="en">Note the half-sentence closing the zx-spacetime view: “without pretending that their hardware noise models are identical”. Equivalence says the <b>fault-tolerant object</b> is the same, not the hardware performance: two equivalent schedules on different machines see different noise and hence different thresholds, just as <a href="../code-equivalence/code-equivalence.html#s3-1">§3.1 of the static guide</a> says thresholds must not travel along equivalence edges. What can be inherited is the “structural”: k, logical operators, the ability to catch errors; what cannot is any number tied to a specific circuit and noise model.</p>
+    <p class="zh">注意 zx-spacetime 视图末尾那半句：“without pretending that their hardware noise models are identical”。等价说的是<b>容错对象</b>相同，不是硬件表现相同：两张等价的表放在不同机器上，噪声不同，阈值就不同——就像<a href="../code-equivalence/code-equivalence.html#s3-1">静态那一篇 3.1 节</a>说的，阈值不能跟着等价边走。在理想测量下能继承的是 k 和逻辑算符；抓错的能力（d）只有满足上表第三行的两个条件才能继承；不能继承的是任何带着具体电路和噪声模型的数字。</p>
+    <p class="en">Note the half-sentence closing the zx-spacetime view: “without pretending that their hardware noise models are identical”. Equivalence says the <b>fault-tolerant object</b> is the same, not the hardware performance: two equivalent schedules on different machines see different noise and hence different thresholds, just as <a href="../code-equivalence/code-equivalence.html#s3-1">§3.1 of the static guide</a> says thresholds must not travel along equivalence edges. Under ideal measurements, k and the logical operators can be inherited; the ability to catch errors (d) only when the two conditions in row three of the table hold; what cannot be inherited is any number tied to a specific circuit and noise model.</p>
   </div>
 
   <h3 id="s3-3"><span class="sec-no">3.3</span><span class="zh">今天一个 Atlas 用户做不到的事</span><span class="en">What a user of the Atlas cannot do today</span></h3>
@@ -1194,19 +1473,18 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
     <p class="zh"><span class="term">ZX 图<span class="tip">ZX diagram / ZX calculus：一种画量子过程的图形语言。导线代表比特（沿导线是时间），点代表操作，点只有两种颜色（Z 型、X 型），每个点可以接任意多根导线。图与图之间有一套「局部改写规则」，规定哪些局部改动不改变图所代表的过程。</span></span>是一种画量子过程的图形语言。规矩极少：<b>导线</b>代表比特，沿着导线走就是时间在流；<b>点</b>代表操作，只有两种颜色，本篇用蓝色画 <span class="opz">Z</span> 型点、琥珀色画 <span class="opx">X</span> 型点；一个点可以接任意多根导线（叫它的「腿」）。不带任何角度参数的点只表达两种约束：一个 <span class="opz">Z</span> 型点接 m 根腿，说的是「这 m 根线上的比特<b>全都相等</b>」（正是 3 比特重复码那种约束）；一个 <span class="opx">X</span> 型点接 m 根腿，说的是「这 m 根线上的比特里 1 的个数是<b>偶数</b>」——正是第 0 章事实 1 的奇偶检查。Atlas 表面码卡片的 <span class="mono">zx</span> 视图把这一点说成一句话：“A phase-free ZX diagram and a CSS code encode the same binary linear subspace”（refs <span class="mono">kissinger2022phasefree</span>、<span class="mono">debeaudrap2020zx</span>、<span class="mono">bombin2023unifying</span>）。下图是 1.1 节的玩具画成 ZX 图的样子：</p>
     <p class="en">A <span class="term">ZX diagram<span class="tip">ZX diagram / ZX calculus: a graphical language for quantum processes. Wires are qubits (time runs along the wire), dots are operations, dots come in only two colours (Z type, X type), and a dot may attach to any number of wires. A set of “local rewriting rules” says which local changes leave the represented process unchanged.</span></span> is a graphical language for quantum processes with very few conventions: <b>wires</b> are qubits, and walking along a wire is time passing; <b>dots</b> are operations and come in two colours only, drawn here blue for <span class="opz">Z</span>-type and amber for <span class="opx">X</span>-type; a dot may attach to any number of wires (its “legs”). Dots without any angle parameter express just two constraints: a <span class="opz">Z</span>-type dot with m legs says “the bits on these m wires are <b>all equal</b>” (exactly the constraint of the 3-bit repetition code); an <span class="opx">X</span>-type dot with m legs says “the number of 1s among the bits on these m wires is <b>even</b>”, which is the parity check of fact 1 in Chapter 0. The <span class="mono">zx</span> view of the Atlas surface card puts it in one sentence: “A phase-free ZX diagram and a CSS code encode the same binary linear subspace” (refs <span class="mono">kissinger2022phasefree</span>, <span class="mono">debeaudrap2020zx</span>, <span class="mono">bombin2023unifying</span>). The figure below is the toy of 1.1 drawn as a ZX diagram:</p>
   </div>
-  <svg viewBox="0 0 720 250" width="100%" style="max-width:720px;display:block;margin:0 auto" role="img" aria-label="ZX fusion rule">
+  <svg id="fig-fusion" viewBox="0 0 720 250" width="100%" style="max-width:720px;display:block;margin:0 auto" role="img" aria-label="ZX fusion rule">
     <g stroke="var(--ink2)" stroke-width="2" fill="none">
       <!-- left diagram: four wires -->
       <path d="M40 50 H100 M40 90 H100 M40 150 H100 M40 190 H100"/>
-      <path d="M100 50 L140 70 M100 90 L140 70 M140 70 L180 50 M140 70 L180 90"/>
-      <path d="M100 150 L140 170 M100 190 L140 170 M140 170 L180 150 M140 170 L180 190"/>
-      <path d="M180 50 H260 M180 90 H260 M180 150 H260 M180 190 H260"/>
+      <path d="M100 50 L140 70 M100 90 L140 70"/>
+      <path d="M100 150 L140 170 M100 190 L140 170"/>
       <path d="M140 82 V158"/>
+      <path d="M151 170 H232"/>
       <!-- right diagram -->
       <path d="M440 50 H500 M440 90 H500 M440 150 H500 M440 190 H500"/>
       <path d="M500 50 L560 120 M500 90 L560 120 M500 150 L560 120 M500 190 L560 120"/>
-      <path d="M560 120 L620 50 M560 120 L620 90 M560 120 L620 150 M560 120 L620 190"/>
-      <path d="M620 50 H680 M620 90 H680 M620 150 H680 M620 190 H680"/>
+      <path d="M573 120 H652"/>
     </g>
     <g fill="var(--cx)" stroke="var(--ink)" stroke-width="1.5">
       <circle cx="140" cy="70" r="11"/><circle cx="140" cy="170" r="11"/><circle cx="560" cy="120" r="13"/>
@@ -1214,36 +1492,71 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
     <g fill="var(--ink2)" font-size="15" font-family="ui-monospace, monospace">
       <text x="22" y="55">a</text><text x="22" y="95">b</text><text x="22" y="155">c</text><text x="22" y="195">d</text>
       <text x="422" y="55">a</text><text x="422" y="95">b</text><text x="422" y="155">c</text><text x="422" y="195">d</text>
+      <text x="240" y="175">p</text><text x="660" y="125">p</text><text x="148" y="124">w</text>
     </g>
     <text x="350" y="128" font-size="30" fill="var(--ink)" text-anchor="middle">=</text>
-    <text class="zh" x="150" y="230" font-size="14" fill="var(--ink2)" text-anchor="middle">乙：两个 X 点，用一根导线相连</text>
-    <text class="en" x="150" y="230" font-size="14" fill="var(--ink2)" text-anchor="middle">B: two X dots joined by a wire</text>
-    <text class="zh" x="560" y="230" font-size="14" fill="var(--ink2)" text-anchor="middle">一个四腿的 X 点：a ⊕ b ⊕ c ⊕ d = 0</text>
-    <text class="en" x="560" y="230" font-size="14" fill="var(--ink2)" text-anchor="middle">one X dot with four legs: a ⊕ b ⊕ c ⊕ d = 0</text>
+    <text class="zh" x="150" y="230" font-size="14" fill="var(--ink2)" text-anchor="middle">乙：两个 X 点，由导线 w 相连</text>
+    <text class="en" x="150" y="230" font-size="14" fill="var(--ink2)" text-anchor="middle">B: two X dots joined by wire w</text>
+    <text class="zh" x="560" y="230" font-size="14" fill="var(--ink2)" text-anchor="middle">一个五腿的 X 点：p = a ⊕ b ⊕ c ⊕ d</text>
+    <text class="en" x="560" y="230" font-size="14" fill="var(--ink2)" text-anchor="middle">one X dot with five legs: p = a ⊕ b ⊕ c ⊕ d</text>
   </svg>
   <div class="prose">
-    <p class="zh muted small">图注：导线上的 a、b、c、d 是四个比特，点是 X 型（琥珀色）。左图先把 a、b 接到一个 X 点、c、d 接到另一个 X 点，再用一根导线把两个点连起来（每个点因此有三条腿）；右图直接把四根导线接到一个 X 点，即「四个比特的奇偶为偶」这一条约束。两图相等，是下面规则 ① 的一次应用——也就是 1.1 节「先算两个两两的奇偶、再合并」等于「一次算四个的奇偶」。</p>
-    <p class="en muted small">Caption: a, b, c, d on the wires are the four bits; the dots are X-type (amber). Left: a and b attach to one X dot, c and d to another, and a wire joins the two dots (so each dot has three legs); right: all four wires attach to one X dot, the single constraint “the parity of the four bits is even”. The two are equal by one application of rule ① below, which is 1.1's “two pairwise parities, then combined” equalling “one parity of all four”.</p>
+    <p class="zh muted small">图注：左边导线上的 a、b、c、d 是四个输入比特，右边伸出的导线 p 是输出，点是 X 型（琥珀色）。一个 X 点要求它所有腿上的值之和为偶，所以多接一条输出腿 p，就等于规定 p 取「其余各腿的奇偶」。左图：上面的点接 a、b、w，要求 a ⊕ b ⊕ w = 0，即 w = a ⊕ b；下面的点接 c、d、w、p，要求 c ⊕ d ⊕ w ⊕ p = 0，即 p = w ⊕ c ⊕ d = (a ⊕ b) ⊕ (c ⊕ d)，正是算法乙。右图：一个点接全部五条腿，要求 a ⊕ b ⊕ c ⊕ d ⊕ p = 0，即 p = a ⊕ b ⊕ c ⊕ d。手算核对：把左图两个式子相加，w ⊕ w = 0 消掉，剩下 a ⊕ b ⊕ c ⊕ d ⊕ p = 0，正是右图；再代一个输入，a b c d = 0001 时两图都给 p = 1。两图相等，是下面规则 ① 的一次应用，也就是 1.1 节「先算两两的奇偶、再合并」等于「一次算四个的奇偶」。若去掉 p，剩下的四腿 X 点就不再算奇偶，只表示「a ⊕ b ⊕ c ⊕ d = 0」这一条偶校验约束（输入 0001 不满足它）。</p>
+    <p class="en muted small">Caption: a, b, c, d on the left wires are the four input bits, the wire p leaving on the right is the output, and the dots are X-type (amber). An X dot demands that the values on all its legs sum to an even number, so one extra output leg p is set to “the parity of the other legs”. Left: the upper dot has legs a, b, w and demands a ⊕ b ⊕ w = 0, so w = a ⊕ b; the lower dot has legs c, d, w, p and demands c ⊕ d ⊕ w ⊕ p = 0, so p = w ⊕ c ⊕ d = (a ⊕ b) ⊕ (c ⊕ d), which is procedure B. Right: one dot with all five legs demands a ⊕ b ⊕ c ⊕ d ⊕ p = 0, so p = a ⊕ b ⊕ c ⊕ d. Check by hand: adding the two left equations, w ⊕ w = 0 drops out and a ⊕ b ⊕ c ⊕ d ⊕ p = 0 remains, which is the right diagram; and for the input a b c d = 0001 both give p = 1. The two are equal by one application of rule ① below, which is 1.1's “pairwise parities first, then combined” equalling “one parity of all four”. Without p, the four-legged X dot no longer computes the parity; it only states the even-parity constraint “a ⊕ b ⊕ c ⊕ d = 0” (the input 0001 violates it).</p>
     <p class="zh">ZX 的规则不多，本篇只用口头说三条，不推导：</p>
     <p class="en">ZX has few rules; three are stated here in words only, without derivation:</p>
   </div>
   <div class="table-wrap">
     <table class="glossary">
       <tr><th><span class="zh">规则</span><span class="en">Rule</span></th><th><span class="zh">口头表述</span><span class="en">In words</span></th><th><span class="zh">对应到本篇</span><span class="en">Correspondence in this guide</span></th></tr>
-      <tr><td><span class="zh">① 融合</span><span class="en">① Fusion</span></td><td><span class="zh">两个<b>同色</b>的点若有导线相连，可以合成一个点，腿全部保留。</span><span class="en">Two dots of the <b>same colour</b> joined by a wire may fuse into one dot, keeping all legs.</span></td><td><span class="zh">就是 1.1 节的 R1 与 R2 合在一起：奇偶怎么分组、按什么顺序算，画成图都是同一个四腿 X 点。上图 = 融合一次。</span><span class="en">R1 and R2 of 1.1 rolled into one: however the parity is grouped and ordered, the picture is the same four-legged X dot. The figure = one fusion.</span></td></tr>
+      <tr><td><span class="zh">① 融合</span><span class="en">① Fusion</span></td><td><span class="zh">两个<b>同色</b>的点若有导线相连，可以合成一个点：其余的腿全部保留，连接它们的那根导线消失。</span><span class="en">Two dots of the <b>same colour</b> joined by a wire may fuse into one dot: all other legs are kept, and the wire joining them disappears.</span></td><td><span class="zh">就是 1.1 节的 R1 与 R2 合在一起：奇偶怎么分组、按什么顺序算，画成图都是同一个 X 点（上图带输出腿 p，所以是五腿）。上图 = 融合一次。</span><span class="en">R1 and R2 of 1.1 rolled into one: however the parity is grouped and ordered, the picture is the same X dot (five-legged above, because of the output leg p). The figure = one fusion.</span></td></tr>
       <tr><td><span class="zh">② 两腿即导线</span><span class="en">② Two legs is a wire</span></td><td><span class="zh">一个只有两条腿、不带参数的点，可以直接擦掉，当作一根导线。</span><span class="en">A dot with exactly two legs and no parameter may be erased and treated as a plain wire.</span></td><td><span class="zh">「只测一个比特和自己的奇偶」什么都没做。</span><span class="en">“Measuring the parity of one bit with itself” does nothing.</span></td></tr>
-      <tr><td><span class="zh">③ 变色</span><span class="en">③ Colour change</span></td><td><span class="zh">在一个点的每条腿上各放一个 H<sub>ad</sub>，点就换成另一种颜色。</span><span class="en">Put one H<sub>ad</sub> on every leg of a dot and the dot switches to the other colour.</span></td><td><span class="zh">就是<a href="../code-equivalence/code-equivalence.html#s1-2">《同一个码穿不同的衣服》1.2 节</a>的 X ↔ Z 换衣服（操作 ②）。</span><span class="en">The X ↔ Z change of clothes (move ②) of <a href="../code-equivalence/code-equivalence.html#s1-2">§1.2 of “The same code in different clothes”</a>.</span></td></tr>
+      <tr><td><span class="zh">③ 变色</span><span class="en">③ Colour change</span></td><td><span class="zh">在一个点的每条腿上各放一个 H<sub>ad</sub>（哈达玛门：把 0/1 基与 ± 基互换、也就是把 X 与 Z 互换的单比特门），点就换成另一种颜色。</span><span class="en">Put one H<sub>ad</sub> (the Hadamard gate: the one-qubit gate that swaps the 0/1 basis with the ± basis, i.e. swaps X and Z) on every leg of a dot and the dot switches to the other colour.</span></td><td><span class="zh">就是<a href="../code-equivalence/code-equivalence.html#s1-2">《同一个码穿不同的衣服》1.2 节</a>的 X ↔ Z 换衣服（操作 ②）。</span><span class="en">The X ↔ Z change of clothes (move ②) of <a href="../code-equivalence/code-equivalence.html#s1-2">§1.2 of “The same code in different clothes”</a>.</span></td></tr>
     </table>
   </div>
   <div class="prose">
-    <p class="zh">为什么 Wanted 板要用它当规则集？因为一张<b>时间表</b>——先测这些、再测那些、每轮的结果如何组合——可以整个画成一张 ZX 图：导线沿时间延伸，每一次测量是导线上的一个点，几轮之间的关系是点与点之间的导线。honeycomb 卡片的 <span class="mono">zx-spacetime</span> 视图写的就是这件事：“A ZX diagram represents the whole measurement history as a spacetime tensor network. Different circuit, fusion, and Floquet descriptions can be related by local rewrites.” 于是「两张时间表是不是同一回事」变成「两张 ZX 图能不能用规则互相改写到」，和 1.1 节「甲能不能改写成丙」是同一种问题。<span class="mono">bombin2023unifying</span>（arXiv:2303.08829）正是把电路式、融合式、Floquet 式三种容错方案放进同一张 ZX 图、用局部改写互相翻译的那篇论文——板上说的 “the ZX local-equivalence picture” 就指它。它的内容远超高中范围，本篇只描述它是什么类型的东西，没有读它的推导。</p>
-    <p class="en">Why does the board choose it as the rule set? Because a whole <b>schedule</b>, measure these first, then those, and combine the rounds' outcomes so, can be drawn as one ZX diagram: wires extend along time, each measurement is a dot on a wire, and the relations between rounds are wires between dots. The honeycomb card's <span class="mono">zx-spacetime</span> view says exactly this: “A ZX diagram represents the whole measurement history as a spacetime tensor network. Different circuit, fusion, and Floquet descriptions can be related by local rewrites.” So “are two schedules the same thing?” becomes “can two ZX diagrams be rewritten into each other by the rules?”, the same kind of question as “can A be rewritten into C?” in 1.1. <span class="mono">bombin2023unifying</span> (arXiv:2303.08829) is the paper that places circuit-based, fusion-based and Floquet fault-tolerance schemes into one ZX diagram and translates between them by local rewrites; that is the “ZX local-equivalence picture” the board names. Its content lies far beyond high-school level; this guide describes only what kind of thing it is and did not read its derivations.</p>
+    <p class="zh">为什么 Wanted 板要用它当规则集？因为一张<b>时间表</b>——先测这些、再测那些、每轮的结果如何组合——可以整个画成一张 ZX 图：导线沿时间延伸，每一次测量是接在导线上的一小组点，外加一根送出测量结果的<b>经典输出</b>（下面马上画），几轮之间的关系是点与点之间的导线。honeycomb 卡片的 <span class="mono">zx-spacetime</span> 视图写的就是这件事：“A ZX diagram represents the whole measurement history as a spacetime tensor network. Different circuit, fusion, and Floquet descriptions can be related by local rewrites.”（spacetime tensor network，时空张量网络：把许多小的操作按导线连成一张大图来表示整个过程的写法；ZX 图就是其中一种。）于是「两张时间表是不是同一回事」变成「两张 ZX 图能不能用规则互相改写到」，和 1.1 节「甲能不能改写成丙」是同一种问题。<span class="mono">bombin2023unifying</span>（arXiv:2303.08829）正是把电路式、融合式、Floquet 式三种容错方案放进同一张 ZX 图、用局部改写互相翻译的那篇论文——板上说的 “the ZX local-equivalence picture” 就指它。它的内容远超高中范围，本篇只描述它是什么类型的东西，没有读它的推导。</p>
+    <p class="en">Why does the board choose it as the rule set? Because a whole <b>schedule</b>, measure these first, then those, and combine the rounds' outcomes so, can be drawn as one ZX diagram: wires extend along time, each measurement is a small group of dots on the wires plus a <b>classical output</b> that carries its result (drawn just below), and the relations between rounds are wires between dots. The honeycomb card's <span class="mono">zx-spacetime</span> view says exactly this: “A ZX diagram represents the whole measurement history as a spacetime tensor network. Different circuit, fusion, and Floquet descriptions can be related by local rewrites.” (A spacetime tensor network is a way of writing a whole process as many small operations joined by wires into one big diagram; a ZX diagram is one such.) So “are two schedules the same thing?” becomes “can two ZX diagrams be rewritten into each other by the rules?”, the same kind of question as “can A be rewritten into C?” in 1.1. <span class="mono">bombin2023unifying</span> (arXiv:2303.08829) is the paper that places circuit-based, fusion-based and Floquet fault-tolerance schemes into one ZX diagram and translates between them by local rewrites; that is the “ZX local-equivalence picture” the board names. Its content lies far beyond high-school level; this guide describes only what kind of thing it is and did not read its derivations.</p>
+    <p class="zh">测量和门有一处根本不同：它吐出一个<b>经典结果</b>，这个结果可能是随机的（态恰好是被测算符的本征态时，结果是确定的，例如在 |00⟩ 上测 ZZ 必得 b = 0），但无论哪种情况都得把它记下来。所以上面三条规则还不够，图里得画出结果。arXiv:2303.08829 第 2 节的做法是给点加一根粗黑线，叫<b>经典输出</b>，它带一个比特 b（0 或 1），b 决定这个点的角度是 0 还是 π（原话：“Each classical output is a bit b (0 or 1) which determines whether the phase of the spider is α or α+π”）。用本篇的读法，不带角度的 X 点要求各腿的奇偶为偶，角度为 π 时要求奇偶为奇；合起来就是「各腿的奇偶 = b」。下图是测两比特 Z<sub>1</sub>Z<sub>2</sub> 而不毁掉比特的画法：</p>
+    <p class="en">A measurement differs from a gate in one basic way: it emits a <b>classical outcome</b>, which may be random (on an eigenstate of the measured operator it is deterministic: measuring ZZ on |00⟩ always gives b = 0), and in either case it has to be recorded. The three rules above are therefore not enough; the diagram has to show the outcome. Section 2 of arXiv:2303.08829 adds a thick black line to a dot, a <b>classical output</b> carrying a bit b (0 or 1), and b sets the dot's angle to 0 or π (in the paper's words, “Each classical output is a bit b (0 or 1) which determines whether the phase of the spider is α or α+π”). In this guide's reading, an X dot without an angle demands even parity on its legs and one with angle π demands odd parity; together, “the parity of the legs = b”. The figure below draws a measurement of Z<sub>1</sub>Z<sub>2</sub> on two qubits that leaves the qubits in place:</p>
+  </div>
+  <svg id="fig-zzmeas" viewBox="0 0 560 190" width="100%" style="max-width:560px;display:block;margin:0.4em auto" role="img" aria-label="ZX drawing of a two-qubit ZZ measurement: a Z dot on each qubit wire, both joined to one X dot that has a thick classical output labelled b">
+    <g stroke="var(--ink2)" stroke-width="2" fill="none">
+      <path d="M90 55 H470 M90 135 H470"/>
+      <path d="M250 55 L320 95 M250 135 L320 95"/>
+    </g>
+    <path d="M331 95 H420" stroke="var(--ink)" stroke-width="6" fill="none"/>
+    <circle cx="250" cy="55" r="11" fill="var(--cz)" stroke="var(--ink)" stroke-width="1.5"/>
+    <circle cx="250" cy="135" r="11" fill="var(--cz)" stroke="var(--ink)" stroke-width="1.5"/>
+    <circle cx="320" cy="95" r="12" fill="var(--cx)" stroke="var(--ink)" stroke-width="1.5"/>
+    <g font-size="13" fill="var(--ink)" font-family="var(--f-mono)">
+      <text x="236" y="36">Z</text><text x="236" y="163">Z</text><text x="314" y="124">X</text><text x="428" y="100">b</text>
+      <text x="250" y="80" font-size="11" fill="var(--ink2)">x₁</text><text x="250" y="118" font-size="11" fill="var(--ink2)">x₂</text>
+    </g>
+    <text class="zh" x="84" y="59" font-size="12" fill="var(--ink)" text-anchor="end">比特 1 进</text>
+    <text class="en" x="84" y="59" font-size="12" fill="var(--ink)" text-anchor="end">qubit 1 in</text>
+    <text class="zh" x="84" y="139" font-size="12" fill="var(--ink)" text-anchor="end">比特 2 进</text>
+    <text class="en" x="84" y="139" font-size="12" fill="var(--ink)" text-anchor="end">qubit 2 in</text>
+    <text class="zh" x="476" y="59" font-size="12" fill="var(--ink)">比特 1 出</text>
+    <text class="en" x="476" y="59" font-size="12" fill="var(--ink)">qubit 1 out</text>
+    <text class="zh" x="476" y="139" font-size="12" fill="var(--ink)">比特 2 出</text>
+    <text class="en" x="476" y="139" font-size="12" fill="var(--ink)">qubit 2 out</text>
+    <text class="zh" x="440" y="100" font-size="12" fill="var(--ink)">经典输出</text>
+    <text class="en" x="440" y="100" font-size="12" fill="var(--ink)">classical output</text>
+    <text class="zh" x="280" y="184" font-size="12" fill="var(--ink2)" text-anchor="middle">时间从左向右 →</text>
+    <text class="en" x="280" y="184" font-size="12" fill="var(--ink2)" text-anchor="middle">time runs left to right →</text>
+  </svg>
+  <div class="prose">
+    <p class="zh muted small">图注：两根细导线是比特 1、2，从左边进、从右边出；蓝点是 Z 型，琥珀点是 X 型，从琥珀点伸出的那条粗线是它的经典输出 b（论文里画成粗黑线）。逐点读：每个蓝点有三条腿（进、出、通向琥珀点的一条），要求三条腿上的值相等，所以通向琥珀点的两条腿分别带着比特 1、2 的 Z 基取值 x₁、x₂；琥珀点要求 x₁ ⊕ x₂ = b。于是 b = 0 的图只放行 x₁ = x₂ 的状态（测得 Z<sub>1</sub>Z<sub>2</sub> = +1），b = 1 的图只放行 x₁ ≠ x₂ 的状态（测得 −1）。论文图 2c 从「一个辅助比特 + 两个 CNOT + 一次单比特 Z 测量」的电路出发，用规则化简到三个点，就是这个形状（这里按本篇的颜色重画）。</p>
+    <p class="en muted small">Caption: the two thin wires are qubits 1 and 2, entering on the left and leaving on the right; blue dots are Z-type, the amber dot X-type, and the thick line leaving the amber dot is its classical output b (drawn as a thick black line in the paper). Read dot by dot: each blue dot has three legs (in, out, and one to the amber dot) and demands equal values on all three, so the two legs into the amber dot carry the Z-basis values x₁ and x₂ of qubits 1 and 2; the amber dot demands x₁ ⊕ x₂ = b. So the diagram with b = 0 lets through only states with x₁ = x₂ (outcome Z<sub>1</sub>Z<sub>2</sub> = +1), and the one with b = 1 only states with x₁ ≠ x₂ (outcome −1). The paper's Fig. 2c starts from the circuit “one ancilla qubit + two CNOTs + one single-qubit Z measurement” and simplifies it by the rules to three dots, which is this shape (redrawn here in this guide's colours).</p>
+    <p class="zh">改写规则怎样对待这些结果？论文给了三点。第一，把所有 b 都固定下来，剩下的就是一张普通 ZX 图（“for any fixed outcome configuration, we recover a plain vanilla ZX network”）。第二，融合和变色这两条规则对带经典输出的点照样成立，② 两腿即导线则不能用在带输出的点上（论文把 ② 叫 identity 规则，原话：“apart from the identity rule, these rules also work with the proposed extension”）。第三，两个同色、都带输出的点融合时，结果只剩<b>一个</b>输出，取值 b₁ ⊕ b₂；论文说只有当我们只关心这两个结果的奇偶时才能这样合（“A merge is possible, as long as only the joint parity of the outcomes is relevant”）。也就是说，改写保住的不是每一个单独的结果，而是一些结果的<b>奇偶组合</b>：无错时取值固定、用来抓错的那些组合（论文叫 checks，对应「探测器」），以及读出逻辑信息的那些组合。两张时间表的图即使量子部分相同，挂着的结果也可以不同；论文自己就说，它的融合式网络与电路式网络「严格说并不等价，因为挂着一组更大、不同的经典结果」（“strictly speaking, not equivalent … because there is a larger and different set of classical outcomes attached”），两者要靠结果组合之间的对应才连得起来。所以「两张图能互相改写」本身还不是时间表等价：还得说清一张表的每个检查组合、每个逻辑读数对应到另一张表的哪个组合。另外，Atlas 的 <span class="mono">Schedule(n, rounds)</span> 是一份固定的轮次列表，下一轮测什么不看结果，结果只决定瞬时稳定子群里各条检查的符号；若将来的时间表要按结果选下一步，图里还得画进这种分支，本篇不讨论。</p>
+    <p class="en">How do the rewrite rules treat these outcomes? The paper makes three points. First, fixing every b leaves an ordinary ZX diagram (“for any fixed outcome configuration, we recover a plain vanilla ZX network”). Second, fusion and colour change still hold for dots with a classical output, while ② (two legs is a wire) may not be used on such a dot (the paper calls ② the identity rule: “apart from the identity rule, these rules also work with the proposed extension”). Third, when two dots of the same colour, both with outputs, are fused, only <b>one</b> output is left, with value b₁ ⊕ b₂; the paper allows this only when just the parity of the two outcomes matters (“A merge is possible, as long as only the joint parity of the outcomes is relevant”). So rewriting preserves not each individual outcome but certain <b>parity combinations</b> of outcomes: those that are fixed when nothing goes wrong and are used to catch errors (the paper's checks, the “detectors”), and those that read out logical information. Two schedules' diagrams may agree in their quantum part and still carry different outcomes; the paper itself says its fusion-based network is “strictly speaking, not equivalent” to the circuit-based one “because there is a larger and different set of classical outcomes attached”, and the two are linked through a correspondence between outcome combinations. So “the two diagrams can be rewritten into each other” is not yet schedule equivalence: one must also say which combination in the other schedule each check combination and each logical readout corresponds to. Also, an Atlas <span class="mono">Schedule(n, rounds)</span> is a fixed list of rounds: what is measured next never depends on an outcome, and outcomes only set the signs of the checks in the instantaneous stabilizer group. A future schedule that chose its next step from an outcome would need that branching drawn into the diagram too; this guide does not treat it.</p>
   </div>
 
   <h3 id="s4-2"><span class="sec-no">4.2</span><span class="zh">什么算解决</span><span class="en">What counts as solved</span></h3>
   <div class="prose">
-    <p class="zh">一台程序，输入两个 <span class="mono">Schedule</span> 对象，做三步：把每张时间表画成 ZX 图；判定两张图能否用允许的规则互相改写到（或者把每张图改写到一个典范形再比较）；输出「同一回事 / 不是」，并在答「是」时交出<b>改写链</b>——像 1.1 节那六步一样，每一步只用一条规则，任何人（或任何程序）都能逐步核对。答「不是」时最好也给理由：一个在规则下不变、却在两张图上取值不同的量（比如 dynamic_k 的 2 与 20）。有了这台程序，第 2 章那六段 curated 的话中「像」的部分就能变成一条条有证书的 derived 边；「不是」的部分（逐帧像、整体不像）也各有凭据。</p>
-    <p class="en">A program that takes two <span class="mono">Schedule</span> objects and does three things: draw each schedule as a ZX diagram; decide whether the two diagrams can be rewritten into each other by the allowed rules (or rewrite each into a canonical form and compare); output “the same thing / not”, and when it says “yes” hand over the <b>rewrite chain</b>, like the six steps of 1.1, each step one rule, checkable step by step by any person or program. When it says “no” it should ideally give a reason: a quantity invariant under the rules that differs between the two diagrams (such as dynamic_k, 2 versus 20). With this program, the “alike” parts of Chapter 2's six curated paragraphs become derived edges with certificates, and the “not” parts (alike frame by frame, not as a whole) each get their evidence.</p>
+    <p class="zh">一台程序，输入两个 <span class="mono">Schedule</span> 对象，做三步：把每张时间表画成带经典输出的 ZX 图（4.1 节）；判定两张图能否用允许的规则互相改写到（或者把每张图改写到一个典范形再比较）；输出「同一回事 / 不是」，并在答「是」时交出<b>改写链</b>——像 1.1 节那六步一样，每一步只用一条规则，任何人（或任何程序）都能逐步核对——外加一张<b>结果对照表</b>：一张表的每个检查组合、每个逻辑读数，对应到另一张表的哪个结果组合（4.1 节末段说了为什么缺它不行）。若还要说两张表的 d 相同，还得先规定故障模型，并交出保持权重的故障对应（3.2 节表格第三行）。答「不是」时最好也给理由：一个在规则下不变、却在两张图上取值不同的量（比如 dynamic_k 的 2 与 20）。有了这台程序，第 2 章那六段 curated 的话中「像」的部分就能变成一条条有证书的 derived 边；「不是」的部分（逐帧像、整体不像）也各有凭据。</p>
+    <p class="en">A program that takes two <span class="mono">Schedule</span> objects and does three things: draw each schedule as a ZX diagram with classical outputs (4.1); decide whether the two diagrams can be rewritten into each other by the allowed rules (or rewrite each into a canonical form and compare); output “the same thing / not”, and when it says “yes” hand over the <b>rewrite chain</b>, like the six steps of 1.1, each step one rule, checkable step by step by any person or program, together with an <b>outcome table</b>: which outcome combination in the other schedule each check combination and each logical readout corresponds to (the end of 4.1 says why it cannot be left out). To claim also that the two schedules have the same d, one must first fix a fault model and hand over a weight-preserving fault correspondence (row three of the table in 3.2). When it says “no” it should ideally give a reason: a quantity invariant under the rules that differs between the two diagrams (such as dynamic_k, 2 versus 20). With this program, the “alike” parts of Chapter 2's six curated paragraphs become derived edges with certificates, and the “not” parts (alike frame by frame, not as a whole) each get their evidence.</p>
   </div>
 
   <h3 id="s4-3"><span class="sec-no">4.3</span><span class="zh">为什么难：规则有了方向就没了，对象本身也还没算全</span><span class="en">Why it is hard: rules have no direction, and the object itself is not fully computed</span></h3>
@@ -1256,7 +1569,7 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
       <tr><th><span class="zh">难点</span><span class="en">Difficulty</span></th><th><span class="zh">在玩具上是什么样</span><span class="en">What it looks like on the toy</span></th></tr>
       <tr><td style="white-space:normal"><span class="zh">改写链没有方向</span><span class="en">Rewrite chains have no direction</span></td><td><span class="zh">1.1 节从乙到丙用了六步，中间的式子并不比两头更「简单」；高中里证两个多项式相等，常常要先展开变大、再合并变小。两张大图之间要试的改写路径数随图的大小爆炸，而「不存在这样的链」比「存在」更难说——除非先找到一个不变量。</span><span class="en">The six steps from B to C in 1.1 pass through expressions no “simpler” than either end; proving two polynomials equal at school often means expanding (larger) before collecting (smaller). The number of rewrite paths to try between two large diagrams explodes with their size, and “no such chain exists” is harder to establish than “one exists”, unless an invariant is found first.</span></td></tr>
       <tr><td style="white-space:normal"><span class="zh">语义本身还在被定下来</span><span class="en">The semantics is itself still being fixed</span></td><td><span class="zh">对「重新排序、重新加括号」这类改写，R1、R2 是完备的：两个写法相等 ⇔ 有链。ZX 对「容错对象」的哪一套规则完备、哪些改动算无害（1.3 节的 ①、②）哪些算换人（③），板上说用 arXiv:2303.08829 的图像「当作目标语义」——是目标，不是 Atlas 里已经能执行的定义。</span><span class="en">For rewrites of the “reorder and re-bracket” kind, R1, R2 are complete: two writings are equal ⇔ a chain exists. Which set of ZX rules is complete for a “fault-tolerant object”, which changes are harmless (① and ② of 1.3) and which change the person (③), the board says to take from the picture of arXiv:2303.08829 “as target semantics”: a target, not a definition the Atlas can execute yet.</span></td></tr>
-      <tr><td style="white-space:normal"><span class="zh">要保持相同的东西，自己也还没算出来</span><span class="en">What must be preserved is not yet computed either</span></td><td><span class="zh">「同一个容错对象」至少包括：k、逻辑算符、能抓住哪些错（d）。而 honeycomb 的 d 今天是 <span class="mono">?</span>（2.3 节），由<a href="../floquet-fault-distance/floquet-fault-distance.html">另一道开放问题</a>负责。一条经核实的对应关系可以在不知道 d 具体是多少的情况下证明两张表的 d 相等，但「容错对象」这个要保持的东西，今天连它的定义在 Atlas 里都还没算出来过。</span><span class="en">“The same fault-tolerant object” includes at least k, the logical operators, and which errors are caught (d). Yet honeycomb's d is <span class="mono">?</span> today (2.3), the charge of <a href="../floquet-fault-distance/floquet-fault-distance.html">another open problem</a>. A verified correspondence can prove two schedules have equal d without knowing its value, but the “fault-tolerant object” to be preserved has never yet been computed in the Atlas even once.</span></td></tr>
+      <tr><td style="white-space:normal"><span class="zh">要保持相同的东西，自己也还没算出来</span><span class="en">What must be preserved is not yet computed either</span></td><td><span class="zh">「同一个容错对象」至少包括：k、逻辑算符、能抓住哪些错（d）。而 honeycomb 的 d 今天是 <span class="mono">?</span>（2.3 节），由<a href="../floquet-fault-distance/floquet-fault-distance.html">另一道开放问题</a>负责。一条经核实、并在规定的故障模型下保持故障权重的对应关系（3.2 节），可以在不知道 d 具体是多少的情况下证明两张表的 d 相等，但「容错对象」这个要保持的东西，今天连它的定义在 Atlas 里都还没算出来过。</span><span class="en">“The same fault-tolerant object” includes at least k, the logical operators, and which errors are caught (d). Yet honeycomb's d is <span class="mono">?</span> today (2.3), the charge of <a href="../floquet-fault-distance/floquet-fault-distance.html">another open problem</a>. A verified correspondence that also preserves fault weights under a fixed fault model (3.2) can prove two schedules have equal d without knowing its value, but the “fault-tolerant object” to be preserved has never yet been computed in the Atlas even once.</span></td></tr>
       <tr><td style="white-space:normal"><span class="zh">尺寸</span><span class="en">Size</span></td><td><span class="zh">honeycomb L3x3 一个周期 3 × 9 = 27 次测量，L6x6 是 3 × 36 = 108 次；判等价还要看足够多个周期。图的点数随「比特数 × 轮数」增长，改写搜索随点数爆炸。</span><span class="en">One period of honeycomb L3x3 is 3 × 9 = 27 measurements, of L6x6 3 × 36 = 108; equivalence must also look at enough periods. Dots grow with “qubits × rounds”, and rewrite search explodes with dots.</span></td></tr>
     </table>
   </div>
@@ -1282,14 +1595,14 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
 
   <h3 id="s5-1"><span class="sec-no">5.1</span><span class="zh">手算：环面码的两张时间表</span><span class="en">By hand: two schedules for the toric code</span></h3>
   <div class="prose">
-    <p class="zh"><b>时间表 P</b>：一轮，测全部 9 条星检查和 9 条面检查，重复。<b>时间表 Q</b>：第 0 轮只测 9 条星，第 1 轮只测 9 条面，重复。算 r。P：第一轮之后，18 条检查里独立的是 16 条（第 0 章事实 4），r = 16，之后一直 16。Q：第 0 轮 9 条星，其中 9 条的乘积是单位（每条边被两颗星各碰一次），所以独立的只有 8 条，r = 8；第 1 轮的 9 条面与所有星对易（<a href="../../toric_code/intuition/intuition-hs.html#s5-1">Toric Code 教程 5.1 节的对易定理</a>），按 1.2 节弹窗里的规则「对易且不在其中 → 加进去」，加上 8 条独立的面，r = 16；第 2 轮再测星，全在清单里，r 不变。两条序列：</p>
-    <p class="en"><b>Schedule P</b>: one round measuring all 9 star checks and 9 plaquette checks, repeated. <b>Schedule Q</b>: round 0 measures only the 9 stars, round 1 only the 9 plaquettes, repeated. Compute r. P: after the first round, 16 of the 18 checks are independent (fact 4 of Chapter 0), r = 16, and 16 ever after. Q: round 0's 9 stars have product equal to the identity (every edge is touched by two stars), so only 8 are independent, r = 8; round 1's 9 plaquettes commute with every star (<a href="../../toric_code/intuition/intuition-hs.html#s5-1">the commutation theorem of section 5.1 of the toric-code guide</a>), so by the tooltip rule of 1.2 “commutes and lies outside → append”, 8 independent plaquettes are added, r = 16; round 2 measures stars again, all already in the list, r unchanged. The two sequences:</p>
+    <p class="zh"><b>时间表 P</b>：一轮，测全部 9 条星检查和 9 条面检查，重复。<b>时间表 Q</b>：第 0 轮只测 9 条星，第 1 轮只测 9 条面，重复。算 r。P：第一轮之后，18 条检查里独立的是 16 条（第 0 章事实 4），r = 16，之后一直 16。Q：第 0 轮 9 条星，其中 9 条的乘积是单位（每条边被两颗星各碰一次），所以独立的只有 8 条，r = 8；第 1 轮的 9 条面与所有星对易（<a href="../../toric_code/intuition/intuition-hs.html#s5-1">Toric Code 教程 5.1 节的对易定理</a>），按 1.2 节弹窗里的情况 (b)「对易但不在群里 → 带测得的符号加进去」，加上 8 条独立的面，r = 16；第 2 轮再测星，每条星都已在群里，按情况 (a) 结果是确定的（等于上次的读数），群不变，r 不变。两条序列：</p>
+    <p class="en"><b>Schedule P</b>: one round measuring all 9 star checks and 9 plaquette checks, repeated. <b>Schedule Q</b>: round 0 measures only the 9 stars, round 1 only the 9 plaquettes, repeated. Compute r. P: after the first round, 16 of the 18 checks are independent (fact 4 of Chapter 0), r = 16, and 16 ever after. Q: round 0's 9 stars have product equal to the identity (every edge is touched by two stars), so only 8 are independent, r = 8; round 1's 9 plaquettes commute with every star (<a href="../../toric_code/intuition/intuition-hs.html#s5-1">the commutation theorem of section 5.1 of the toric-code guide</a>), so by case (b) in the tooltip of 1.2, “commutes but lies outside → append with the measured sign”, 8 independent plaquettes are added, r = 16; round 2 measures stars again, each star is already in the group, so by case (a) its outcome is certain (equal to the last reading) and the group, and r, are unchanged. The two sequences:</p>
   </div>
   <div class="formula center">P:　r = 16, 16, 16, …　　　Q:　r = 8, 16, 16, 16, …</div>
   <div class="formula center">⇒　dynamic_k = 18 − 16 = 2　<span class="zh">（两者相同）</span><span class="en">(for both)</span></div>
   <div class="prose">
-    <p class="zh">dynamic_k 相同只是不否决；P 和 Q 是同一回事吗？在「理想测量、没有测错」的意义上是，而且能证：Q 的两轮里所有串两两对易，对易的测量<b>先后顺序不影响结果</b>（第 0 章事实 3：只有反对易的串才会抹掉信息），所以把 Q 的第 0 轮和第 1 轮合成一轮就是 P，两者每一时刻的瞬时稳定子群、逻辑算符都相同——这是一条「对易的轮次可以合并或拆开」的规则，作用和 1.1 节的 R1 一样；在 ZX 语言里它对应一条允许的局部改写，本篇不画。诚实地说，这只证明了两张表是同一个<b>码</b>，没有证明它们是同一个<b>容错对象</b>：一旦测量本身会出错，P 一轮读 18 个数、Q 一轮只读 9 个，探测器和能抓住的错误可能不同，那一层本篇没有碰。反过来看 honeycomb：它三轮之间<b>反对易</b>，这条规则用不上，这正是它的等价问题比环面码难得多的原因。</p>
-    <p class="en">Equal dynamic_k merely fails to veto; are P and Q the same thing? In the sense of “ideal measurements, no measurement errors”, yes, provably: within Q's two rounds all strings commute pairwise, and the <b>order of commuting measurements does not affect the result</b> (fact 3 of Chapter 0: only anticommuting strings erase information), so merging Q's rounds 0 and 1 into one round gives P, and the two share their ISG and logical operators at every moment. This is a rule, “commuting rounds may be merged or split”, playing the role of R1 in 1.1; in ZX language it corresponds to one allowed local rewrite, not drawn here. Honestly, this proves only that the two schedules are the same <b>code</b>, not the same <b>fault-tolerant object</b>: once measurements themselves can fail, P reads 18 numbers per round and Q only 9, so the detectors and the errors caught may differ; that layer is untouched here. Look back at honeycomb: its three rounds <b>anticommute</b>, this rule does not apply, and that is exactly why its equivalence problem is so much harder than the toric code's.</p>
+    <p class="zh">dynamic_k 相同只是不否决；P 和 Q 是同一回事吗？在「理想测量、没有测错」的意义上是，而且能证：Q 的两轮里所有串两两对易，对易的测量<b>先后顺序不影响结果</b>（第 0 章事实 3：只有反对易的串才会抹掉信息），所以把 Q 的第 0 轮和第 1 轮合成一轮就是 P。相同的是<b>对齐的完整周期结束时</b>的状态：Q 每做完一个周期（第 2t、2t + 1 两轮），它的瞬时稳定子群和逻辑算符与 P 做完第 t 轮时相同，符号也按对应的读数对得上：Q 第 2t 轮的 9 个星读数和第 2t + 1 轮的 9 个面读数，与 P 第 t 轮的 18 个读数一一对应（同一条检查对同一条检查），两边的瞬时稳定子群都由对应的读数定符号。中间时刻并不相同：Q 第 0 轮刚结束时群里只有 8 条独立的星（r = 8），P 此时已有 16 条。这是一条「对易的轮次可以合并或拆开」的规则，作用和 1.1 节的 R1 一样；在 ZX 语言里它对应一条允许的局部改写，本篇不画。诚实地说，这只证明了两张表是同一个<b>码</b>，没有证明它们是同一个<b>容错对象</b>：一旦测量本身会出错，P 一轮读 18 个数、Q 一轮只读 9 个，探测器和能抓住的错误可能不同，那一层本篇没有碰。反过来看 honeycomb：它三轮之间<b>反对易</b>，这条规则用不上，这正是它的等价问题比环面码难得多的原因。</p>
+    <p class="en">Equal dynamic_k merely fails to veto; are P and Q the same thing? In the sense of “ideal measurements, no measurement errors”, yes, provably: within Q's two rounds all strings commute pairwise, and the <b>order of commuting measurements does not affect the result</b> (fact 3 of Chapter 0: only anticommuting strings erase information), so merging Q's rounds 0 and 1 into one round gives P. What agrees is the state <b>at matched ends of complete cycles</b>: each time Q completes a cycle (rounds 2t and 2t + 1), its ISG and logical operators equal P's after round t, with signs matching under the outcome correspondence: Q's 9 star readings in round 2t and 9 plaquette readings in round 2t + 1 correspond one to one to the 18 readings of P's round t (each check to the same check), and on both sides the ISG takes its signs from the corresponding readings. In between they differ: right after Q's round 0 the group holds only 8 independent stars (r = 8), while P already has 16. This is a rule, “commuting rounds may be merged or split”, playing the role of R1 in 1.1; in ZX language it corresponds to one allowed local rewrite, not drawn here. Honestly, this proves only that the two schedules are the same <b>code</b>, not the same <b>fault-tolerant object</b>: once measurements themselves can fail, P reads 18 numbers per round and Q only 9, so the detectors and the errors caught may differ; that layer is untouched here. Look back at honeycomb: its three rounds <b>anticommute</b>, this rule does not apply, and that is exactly why its equivalence problem is so much harder than the toric code's.</p>
   </div>
 
   <h3 id="s5-2"><span class="sec-no">5.2</span><span class="zh">沙盘：两族检查互不打扰</span><span class="en">Sandbox: the two families do not disturb each other</span></h3>
@@ -1341,7 +1654,7 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
       <tr><th><span class="zh">术语</span><span class="en">Term</span></th><th><span class="zh">白话定义</span><span class="en">Plain definition</span></th></tr>
       <tr><td><span class="zh">测量时间表 / 轮</span><span class="en">measurement schedule / round</span></td><td><span class="zh">一轮一轮要测的泡利串清单；同一轮内两两对易；静态码 = 只有一轮。</span><span class="en">The list of Pauli strings to measure, round by round; commuting within a round; a static code = one round.</span></td></tr>
       <tr><td><span class="zh">动态码 / Floquet 码</span><span class="en">dynamical / Floquet code</span></td><td><span class="zh">时间表有多轮、轮与轮之间可以反对易的码；k 是整部电影的性质。</span><span class="en">A code whose schedule has several rounds that may anticommute across rounds; k is a property of the whole film.</span></td></tr>
-      <tr><td><span class="zh">瞬时稳定子群（ISG）</span><span class="en">instantaneous stabilizer group (ISG)</span></td><td><span class="zh">此刻状态满足的全部检查；每测一条串按「加入 / 只改符号 / 替换枢轴」更新。</span><span class="en">All checks the state satisfies right now; updated per measured string by “append / sign only / replace pivot”.</span></td></tr>
+      <tr><td><span class="zh">瞬时稳定子群（ISG）</span><span class="en">instantaneous stabilizer group (ISG)</span></td><td><span class="zh">此刻状态满足的全部检查；每测一条串按三种情况更新：±P 已在群里 → 结果确定、群不变；对易但不在 → 带测得的符号加入；反对易 → 替换枢轴（1.2 节）。</span><span class="en">All checks the state satisfies right now; updated per measured string in three cases: ±P already inside → certain outcome, group unchanged; commutes but outside → appended with the measured sign; anticommutes → replaces a pivot (1.2).</span></td></tr>
       <tr><td><span class="zh">完美匹配</span><span class="en">perfect matching</span></td><td><span class="zh">一组边，每个顶点恰被一条碰到；保证同轮测量支撑不交。</span><span class="en">A set of edges touching every vertex exactly once; guarantees disjoint supports within a round.</span></td></tr>
       <tr><td><span class="zh">重写规则 / 语义</span><span class="en">rewriting rule / semantics</span></td><td><span class="zh">规定哪些改动合法的规则；一条改写链是相等的证书。</span><span class="en">Rules fixing which changes are legal; a rewrite chain is a certificate of equality.</span></td></tr>
       <tr><td><span class="zh">典范化 / 典范形</span><span class="en">canonicalise / canonical form</span></td><td><span class="zh">每个等价类选一个标准代表；相等 ⇔ 标准形相同。</span><span class="en">One standard representative per equivalence class; equal ⇔ same standard form.</span></td></tr>
@@ -3920,50 +4233,65 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
         'Z', (v) => { mode = v; upd(); }
       );
       F.controls.append(seg.el,
-        U().btn(isToric ? '示范：可收缩的圈' : '示范：平凡closed圈', isToric ? 'Demo: contractible loop' : 'Demo: trivial loop', '', () => {
+        U().btn(isToric ? '示范：可收缩的圈' : '示范：平凡的闭合圈', isToric ? 'Demo: contractible loop' : 'Demo: trivial loop', '', () => {
           view.errZ = new Set(); view.errX = new Set();
           // boundary of a 2x1 block of plaquettes
           const s = P().xorSet(lat.plaqs[0].support, lat.plaqs[1].support);
           view.errZ = new Set(s);
-          mode = 'Z';
+          if (mode !== 'Z') seg.el.children[0].click();
           upd();
         }),
         U().btn(isToric ? '示范：缠绕圈' : '示范：跨边界串', isToric ? 'Demo: winding loop' : 'Demo: boundary-to-boundary', '', () => {
           view.errZ = new Set(lat.logicals.Z[0]); view.errX = new Set();
-          mode = 'Z';
+          if (mode !== 'Z') seg.el.children[0].click();
           upd();
         }),
         U().btn('清空', 'Clear', '', () => { view.errZ.clear(); view.errX.clear(); upd(); })
       );
+      // Both string types may be on the lattice at once (some pages ask for an X and a Z loop together),
+      // so alarms of both types are counted and each drawn type gets its own verdict.
+      function judge(type, sup) {
+        const partners = type === 'Z' ? lat.logicals.X : lat.logicals.Z;
+        const par = partners.map((Lg) => P().overlapParity(sup, Lg));
+        if (!par.some((v) => v === 1)) {
+          return {
+            zh: '<span class="ok">警报全灭</span>，而且它是<b>平凡的</b>：它恰好等于若干' + (type === 'Z' ? '面检查' : '星检查') + '的乘积，对编码信息<b>什么也不做</b>。',
+            en: '<span class="ok">No alarms</span>, and it is <b>trivial</b>: it equals a product of ' + (type === 'Z' ? 'face checks' : 'star checks') + ' and does <b>nothing</b> to the stored information.',
+          };
+        }
+        const L1 = type === 'Z' ? 'Z̄₁' : 'X̄₁', L2 = type === 'Z' ? 'Z̄₂' : 'X̄₂';
+        if (isToric) {
+          const which = par[0] && par[1] ? L1 + '·' + L2 + '（两个方向都绕）' : par[0] ? L1 + (type === 'Z' ? '（水平缠绕）' : '') : L2 + (type === 'Z' ? '（垂直缠绕）' : '');
+          const whichEn = par[0] && par[1] ? L1 + '·' + L2 + ', both directions' : par[0] ? L1 + ', direction 1' : L2 + ', direction 2';
+          return {
+            zh: '<span class="no">警报全灭，但这不是平凡圈！</span>它绕过了整个环面——这是<b>逻辑算符 ' + which + '</b>：不触发任何检查，却会改写存下来的量子信息。',
+            en: '<span class="no">No alarms, yet NOT trivial!</span> It winds around the torus (' + whichEn + ') — a <b>logical operator</b>: invisible to every check, yet it rewrites the stored quantum information.',
+          };
+        }
+        return {
+          zh: '<span class="no">警报全灭，但这不是平凡圈！</span>这条串从一条边界横跨到对面——它就是<b>逻辑算符 ' + (type === 'Z' ? 'Z̄' : 'X̄') + '</b>：不触发任何检查，却改写了存下来的量子比特。',
+          en: '<span class="no">No alarms, yet NOT trivial!</span> The string spans from one boundary to the opposite one — the <b>logical operator ' + (type === 'Z' ? 'Z̄' : 'X̄') + '</b>: invisible to every check, yet it rewrites the stored qubit.',
+        };
+      }
       function upd() {
         view.draw();
         const syn = view.syndrome();
         const zSup = [...view.errZ], xSup = [...view.errX];
-        const active = mode === 'Z' ? zSup : xSup;
-        const defects = mode === 'Z' ? syn.starDefects.length : syn.plaqDefects.length;
+        const defects = syn.starDefects.length + syn.plaqDefects.length;
         let verdictZh, verdictEn;
-        if (!active.length) {
+        if (!zSup.length && !xSup.length) {
           verdictZh = '画几条边试试。目标：不触发任何警报。';
           verdictEn = 'Draw some edges. Goal: trigger no alarms.';
         } else if (defects > 0) {
           verdictZh = '还有 <b>' + defects + '</b> 个警报亮着：串有端点。把它闭合，或' + (isToric ? '绕一整圈' : '让两端都搭到正确的边界上') + '。';
           verdictEn = '<b>' + defects + '</b> alarms still lit: the string has endpoints. Close it up, or ' + (isToric ? 'wrap it all the way around' : 'land both ends on the right boundaries') + '.';
         } else {
-          const partners = mode === 'Z' ? lat.logicals.X : lat.logicals.Z;
-          const par = partners.map((Lg) => P().overlapParity(active, Lg));
-          const wound = par.some((v) => v === 1);
-          if (!wound) {
-            verdictZh = '<span class="ok">警报全灭</span>，且这是一个<b>平凡圈</b>：它恰好等于若干' + (mode === 'Z' ? '面检查' : '星检查') + '的乘积，对编码信息<b>什么也不做</b>。';
-            verdictEn = '<span class="ok">No alarms</span>, and this is a <b>trivial loop</b>: it equals a product of ' + (mode === 'Z' ? 'face checks' : 'star checks') + ' and does <b>nothing</b> to the stored information.';
-          } else if (isToric) {
-            const which = par[0] && par[1] ? 'Z̄₁·Z̄₂（两个方向都绕）' : par[0] ? (mode === 'Z' ? 'Z̄₁（水平缠绕）' : 'X̄₁') : (mode === 'Z' ? 'Z̄₂（垂直缠绕）' : 'X̄₂');
-            const whichEn = par[0] && par[1] ? 'both directions' : par[0] ? 'direction 1' : 'direction 2';
-            verdictZh = '<span class="no">警报全灭，但这不是平凡圈！</span>它绕过了整个环面——这是<b>逻辑算符 ' + which + '</b>：不触发任何检查，却会改写存下来的量子信息。';
-            verdictEn = '<span class="no">No alarms, yet NOT trivial!</span> It winds around the torus (' + whichEn + ') — a <b>logical operator</b>: invisible to every check, yet it rewrites the stored quantum information.';
-          } else {
-            verdictZh = '<span class="no">警报全灭，但这不是平凡圈！</span>这条串从一条边界横跨到对面——它就是<b>逻辑算符 ' + (mode === 'Z' ? 'Z̄' : 'X̄') + '</b>：不触发任何检查，却改写了存下来的量子比特。';
-            verdictEn = '<span class="no">No alarms, yet NOT trivial!</span> The string spans from one boundary to the opposite one — the <b>logical operator ' + (mode === 'Z' ? 'Z̄' : 'X̄') + '</b>: invisible to every check, yet it rewrites the stored qubit.';
-          }
+          const both = zSup.length > 0 && xSup.length > 0;
+          const parts = [];
+          if (zSup.length) parts.push({ j: judge('Z', zSup), lz: 'Z 串：', le: 'Z string: ' });
+          if (xSup.length) parts.push({ j: judge('X', xSup), lz: 'X 串：', le: 'X string: ' });
+          verdictZh = parts.map((q) => (both ? q.lz : '') + q.j.zh).join('<br>');
+          verdictEn = parts.map((q) => (both ? q.le : '') + q.j.en).join('<br>');
         }
         F.setReadout('<span class="zh">' + verdictZh + '</span><span class="en">' + verdictEn + '</span>');
       }
@@ -4048,8 +4376,8 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
         view.hlEdges = new Map([...corr].map((e) => [e, { color: getComputedStyle(doc.documentElement).getPropertyValue('--good').trim(), width: 5 }]));
         view.draw();
         F.setReadout(fail
-          ? '<span class="zh"><span class="no">这回合失败了。</span>蓝色 = 真实错误，绿色 = 你的修复。二者合起来形成了' + (isToric ? '一条<b>缠绕整个环面</b>的圈' : '一条<b>横跨两条边界</b>的串') + ' —— 恰好是逻辑算符，信息被改写。连胜清零。点「新回合」再来！</span><span class="en"><span class="no">Round lost.</span> Blue = true errors, green = your repair. Together they form ' + (isToric ? 'a loop <b>winding around the torus</b>' : 'a string <b>spanning both boundaries</b>') + ' — exactly a logical operator; the data got rewritten. Streak reset. “New round” to retry!</span>'
-          : '<span class="zh"><span class="ok">成功！</span>蓝 + 绿合成的圈都是可收缩的平凡圈 —— 你的修复不必和错误一模一样，只要「合起来平凡」就赢。连胜 <b>' + streak + '</b>！</span><span class="en"><span class="ok">Success!</span> Blue + green together form only trivial contractible loops — the repair need not equal the error, it only needs to be trivial in combination. Streak <b>' + streak + '</b>!</span>');
+          ? '<span class="zh"><span class="no">这回合失败了。</span>蓝色 = 真实错误，绿色 = 你的修复。二者合起来' + (isToric ? '在某个方向上<b>缠绕环面</b>的总圈数是<b>奇数</b>' : '含有<b>奇数条</b><b>横跨两条边界</b>的串') + ' —— 合起来是一个逻辑算符，信息被改写。连胜清零。点「新回合」再来！</span><span class="en"><span class="no">Round lost.</span> Blue = true errors, green = your repair. Together they ' + (isToric ? '<b>wind around the torus</b> an <b>odd</b> total number of times in some direction' : 'contain an <b>odd number</b> of strings <b>spanning both boundaries</b>') + ' — together a logical operator; the data got rewritten. Streak reset. “New round” to retry!</span>'
+          : '<span class="zh"><span class="ok">成功！</span>蓝 + 绿合起来' + (isToric ? '在两个方向上缠绕环面的总圈数都是偶数（0 也算，两圈互相抵消）' : '横跨两条边界的串是偶数条（0 条也算，两条互相抵消）') + '—— 合起来只是一些检查的乘积。你的修复不必和错误一模一样，只要合起来是检查的乘积就赢。连胜 <b>' + streak + '</b>！</span><span class="en"><span class="ok">Success!</span> Blue + green together ' + (isToric ? 'wind around the torus an even total number of times in both directions (0 counts; two windings cancel)' : 'contain an even number of strings spanning both boundaries (0 counts; two cancel)') + ' — together just a product of checks. The repair need not equal the error; together with it, it only needs to form a product of checks. Streak <b>' + streak + '</b>!</span>');
       }
       function newRound() {
         err = new Set(); corr = new Set(); sel = null; over = false;
@@ -4095,12 +4423,12 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
         en: '① Start: the toric code. Note the stubs sticking out — they wrap to the opposite side; that is what makes it a torus.',
       },
       {
-        zh: '② 一刀剪开：删除所有绕回去的边。立刻出问题——边界上的星和面都缺了一条腿（虚线标出），检查表变得乱七八糟。',
-        en: '② Cut: delete every wrapping edge. Trouble at once — boundary stars and faces each lose a leg (dashed); the checks are mutilated.',
+        zh: '② 一刀剪开：删除所有绕回去的边（图里不再画出）。立刻出问题：沿边的星少了一条腿，四个角上的星少了两条；原来跨过剪口的面只剩两条腿，而且这两条分在贴片相对的两头，角上那一块面一条腿也不剩。检查表乱了套。',
+        en: '② Cut: delete every wrapping edge (no longer drawn). Trouble at once: the stars along the edge lose one leg and the four corner stars lose two; the faces that straddled the cut keep only two legs, on opposite sides of the patch, and the corner face keeps none. The checks are mutilated.',
       },
       {
-        zh: '③ 收拾干净：接受「三条腿」的检查作为正式成员，但分好工——左右两侧只截断<b>面</b>（并保留伸出的悬挂边），上下两侧只截断<b>星</b>。这就是<b>表面码</b>的版图：两种边界，各司其职。',
-        en: '③ Tidy up: keep the 3-leg checks as legitimate members, but divide the work — the left/right sides truncate only <b>faces</b> (keeping the dangling edges), the top/bottom truncate only <b>stars</b>. This is the <b>surface code</b> layout: two kinds of boundary, each with a job.',
+        zh: '③ 收拾干净：接受「三条腿」的检查作为正式成员，但分好工——左右两侧只截断<b>面</b>（并保留伸出的悬挂边），上下两侧只截断<b>星</b>。这就是<b>表面码</b>的版图：两种边界，各司其职。（这一帧重新画了一块 L = 4 的平面码，而不是在上一帧上修补：25 个比特、12 个星检查、12 个面检查，左右两侧带悬挂的横边。）',
+        en: '③ Tidy up: keep the 3-leg checks as legitimate members, but divide the work — the left/right sides truncate only <b>faces</b> (keeping the dangling edges), the top/bottom truncate only <b>stars</b>. This is the <b>surface code</b> layout: two kinds of boundary, each with a job. (This frame redraws an L = 4 planar code rather than patching the previous one: 25 qubits, 12 star checks and 12 face checks, with dangling horizontal edges on the left and right.)',
       },
     ];
     function render() {
@@ -4162,8 +4490,10 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
       { zh: '① 噪声落下：几条 Z 错误悄悄出现（真实设备里你看不到它们）', en: '① Noise strikes: a few Z errors appear (invisible in a real device)' },
       { zh: '② 测量所有检查：只有错误链的端点亮起警报', en: '② Measure every check: only chain endpoints raise alarms' },
       { zh: '③ 译码器配对警报，规划修复链（绿）', en: '③ The decoder pairs alarms and plans repair chains (green)' },
-      { zh: '④ 施加修复：错误 ⊕ 修复 = 平凡圈 → 警报全灭，信息完好', en: '④ Apply the repair: error ⊕ repair = trivial loops → alarms clear, data intact' },
+      { zh: '④ 施加修复：警报全灭；错误 ⊕ 修复和 X̄ 交叉偶数次 → 信息完好', en: '④ Apply the repair: alarms clear; error ⊕ repair crosses X̄ an even number of times → data intact' },
     ];
+    const PH_FAIL = { zh: '④ 施加修复：警报全灭，但错误 ⊕ 修复和 X̄ 交叉奇数次 → 逻辑错误，信息被改写', en: '④ Apply the repair: alarms clear, but error ⊕ repair crosses X̄ an odd number of times → a logical error; the data is overwritten' };
+    let lastFail = false;
     function step() {
       phase = (phase + 1) % 4;
       if (phase === 0) {
@@ -4183,16 +4513,16 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
       } else {
         const residual = P().xorSet([...err], corr);
         const fail = lat.logicals.X.some((Lg) => P().overlapParity(residual, Lg));
-        rounds++; if (!fail) saved++;
+        rounds++; if (!fail) saved++; lastFail = fail;
         view.errZ = new Set(residual.filter(() => false));
         view.errZ = new Set();
         view.hlEdges = new Map();
       }
       view.draw();
-      const tail = phase === 3 ? (U().getLang() === 'en'
-        ? ' — rounds: ' + rounds + ', data survived: ' + saved
-        : ' — 已运行 ' + rounds + ' 轮，信息幸存 ' + saved + ' 轮') : '';
-      F.setReadout('<span class="zh">' + PH[phase].zh + tail + '</span><span class="en">' + PH[phase].en + tail + '</span>');
+      const tailZh = phase === 3 ? ' — 已运行 ' + rounds + ' 轮，信息幸存 ' + saved + ' 轮' : '';
+      const tailEn = phase === 3 ? ' — rounds: ' + rounds + ', data survived: ' + saved : '';
+      const ph = phase === 3 && lastFail ? PH_FAIL : PH[phase];
+      F.setReadout('<span class="zh">' + ph.zh + tailZh + '</span><span class="en">' + ph.en + tailEn + '</span>');
     }
     function play() {
       if (timer) return;
@@ -4639,8 +4969,8 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
       en: ['Winding loops = logicals', 'Loops circling the whole torus pass every check yet are no product of checks — they rewrite logical data. Two directions give Z̄₁, Z̄₂; duals give X̄₁, X̄₂; paired loops cross once ⇒ anticommute.'],
     },
     decoder: {
-      zh: ['译码 = 配对', '只见警报不见链：把警报两两配对、沿路径修复。错误⊕修复必闭合——可收缩则完美复原，缠绕则无声逻辑错误。'],
-      en: ['Decoding = matching', 'Alarms visible, chains not: pair the alarms and repair along paths. Error ⊕ repair is always closed — contractible = perfect recovery, winding = silent logical error.'],
+      zh: ['译码 = 配对', '只见警报不见链：把警报两两配对、沿路径修复。错误⊕修复必闭合——每个方向都缠绕偶数次（0 次也算）则完美复原，某个方向缠绕奇数次则是无声的逻辑错误；同方向的两圈互相抵消。'],
+      en: ['Decoding = matching', 'Alarms visible, chains not: pair the alarms and repair along paths. Error ⊕ repair is always closed — an even number of windings in each direction (0 included) = perfect recovery, an odd number in some direction = a silent logical error; two windings in the same direction cancel.'],
     },
     dL: {
       zh: ['环面码距 d = L', '最轻的逻辑算符是最短缠绕圈（长 L），对 X、Z 对称；压垮它需约 L/2 个错误连成线。'],
@@ -4660,8 +4990,8 @@ figure.fig figcaption .fno { font-family: var(--f-mono); color: var(--ink3); mar
       en: ['Spanning strings = logicals', 'A string dying on its own boundary at both ends: zero alarms, no product of checks (it crosses the other direction\'s spanning string once, so they anticommute).' + F('Z̄: rough→rough · X̄: smooth→smooth · X̄Z̄ = −Z̄X̄')],
     },
     cycle: {
-      zh: ['纠错循环', '每轮四拍：噪声 → 测全部检查 → 配对（可配边界）→ 修复；失败 ⇔ 错误⊕修复含横跨串。'],
-      en: ['The correction cycle', 'Four beats per round: noise → measure all checks → match (boundaries allowed) → repair; failure ⇔ error ⊕ repair contains a spanning string.'],
+      zh: ['纠错循环', '每轮四拍：噪声 → 测全部检查 → 配对（可配边界）→ 修复；失败 ⇔ 错误⊕修复和 X̄ 交叉奇数次，也就是横跨贴片的串有奇数条（两条互相抵消，偶数条无事）。'],
+      en: ['The correction cycle', 'Four beats per round: noise → measure all checks → match (boundaries allowed) → repair; failure ⇔ error ⊕ repair crosses X̄ an odd number of times, i.e. contains an odd number of spanning strings (two cancel, so an even number is harmless).'],
     },
     ancilla: {
       zh: ['辅助比特测量', '每条检查配一个帮手比特：与 4 个数据比特依次作用后单独被读出，给出 ±1；数据比特从未被直接测量。'],
