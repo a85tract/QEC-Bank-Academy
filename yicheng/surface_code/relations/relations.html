@@ -437,7 +437,7 @@ details.fold .fold-body p:last-child { margin-bottom: 0; }
   border: 1px solid var(--line);
   border-radius: 10px;
   overflow-x: auto;
-  white-space: nowrap;
+  white-space: normal;
 }
 .formula.center { text-align: center; }
 .formula .dim { color: var(--ink3); }
@@ -1581,8 +1581,8 @@ details.fold.basics .fold-body > .table-wrap { margin: 0.9em 0; }
   TQ.lattice = { buildToric, buildPlanar, syndrome };
 })(typeof window !== 'undefined' ? window : globalThis);
 
-/* TQ.decoder — a simple greedy matching decoder for the toric and planar codes.
-   Not minimum-weight-perfect-matching, but close in spirit and good enough to
+/* TQ.decoder — a matching decoder for the toric and planar codes: exact minimum-
+   weight matching up to EXACT_LIMIT alarms, greedy nearest-pair beyond. Good enough to
    show the threshold behaviour live in the browser (and honest about it in the
    tutorial text). */
 (function (root) {
@@ -2210,6 +2210,8 @@ details.fold.basics .fold-body > .table-wrap { margin: 0.9em 0; }
       this.hlEdges = new Map(); // id -> {color, width, dash}
       this.hlStars = new Map(); // k -> color
       this.hlPlaqs = new Map();
+      this.haloEdges = new Set(); // edges drawn under everything as a wide pink halo (e.g. a residual loop)
+      this.starTags = new Map(); // k -> short text label drawn beside the star (e.g. alarm names A, B, C)
       this.hover = null; // {type:'edge'|'star'|'plaq', id}
       this.phase = 0;
       this._raf = null;
@@ -2439,6 +2441,21 @@ details.fold.basics .fold-body > .table-wrap { margin: 0.9em 0; }
         }
       }
 
+      // halo edges (under the chains, so blue / green stay readable on top)
+      for (const id of this.haloEdges) {
+        if (skipEdge(id)) continue;
+        for (const s of this.edgeSegs(id, m)) {
+          ctx.beginPath();
+          ctx.moveTo(s.x1, s.y1);
+          ctx.lineTo(s.x2, s.y2);
+          ctx.strokeStyle = C.cd;
+          ctx.globalAlpha = 0.45;
+          ctx.lineWidth = 15;
+          ctx.stroke();
+          ctx.globalAlpha = 1;
+        }
+      }
+
       // Z error chains (on edges)
       for (const id of this.opts.showErrors ? this.errZ : []) {
         for (const s of this.edgeSegs(id, m)) {
@@ -2568,6 +2585,22 @@ details.fold.basics .fold-body > .table-wrap { margin: 0.9em 0; }
           ctx.restore();
         }
       });
+
+      // star tags (short names beside vertices)
+      if (this.starTags.size) {
+        ctx.font = '700 13px ' + getComputedStyle(document.body).getPropertyValue('--f-mono');
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        const off = this.lat.type === 'toric' ? Math.min(16, m.cell * 0.3) : Math.min(16, m.hcell * 0.6);
+        for (const [k, t] of this.starTags) {
+          const p = this.starPos(k, m);
+          ctx.lineWidth = 3.5;
+          ctx.strokeStyle = C.bg2;
+          ctx.strokeText(t, p.x + off, p.y - off);
+          ctx.fillStyle = C.cd;
+          ctx.fillText(t, p.x + off, p.y - off);
+        }
+      }
 
       // labels
       if (this.opts.labels.stars || this.opts.labels.plaqs || this.opts.labels.edges) {
@@ -3295,10 +3328,12 @@ details.fold.basics .fold-body > .table-wrap { margin: 0.9em 0; }
       const r = Math.random() < m.pPlus ? +1 : -1;
       const pShown = r > 0 ? m.pPlus : 1 - m.pPlus;
       const same = JSON.stringify(m.project(r)) === JSON.stringify(st);
+      const bell = Math.abs(st[0] - st[3]) < 1e-9 && Math.abs(Math.abs(st[0]) - R2) < 1e-9;
+      const hint = bell && xmask === 0b11 && r > 0;
       st = m.project(r);
       log(
-        '测 ' + name + '（' + zhWhat + '）→ 结果 <b>' + (r > 0 ? '+1' : '−1') + '</b>（这一结果的概率 ' + pct(pShown) + '）' + (same ? '。<span class="ok">状态一点没变！</span>' : '。状态只保留了与答案一致的部分'),
-        'measured ' + name + ' (' + enWhat + ') → outcome <b>' + (r > 0 ? '+1' : '−1') + '</b> (probability ' + pct(pShown) + ')' + (same ? '. <span class="ok">State untouched!</span>' : '. State keeps only the matching part')
+        '测 ' + name + '（' + zhWhat + '）→ 结果 <b>' + (r > 0 ? '+1' : '−1') + '</b>（这一结果的概率 ' + pct(pShown) + '）' + (same ? '。<span class="ok">状态一点没变！</span>' : '。状态只保留了与答案一致的部分') + (hint ? '<br>柱子上看不出 +/− 眼镜下的「一样」，为什么是必然 +1？把贝尔态换到 +/− 眼镜下重写：(|00⟩ + |11⟩)/√2 = (|++⟩ + |−−⟩)/√2，两个成分都是「一样」，所以测 X₁X₂ 必然 +1，状态也原样不变。' : ''),
+        'measured ' + name + ' (' + enWhat + ') → outcome <b>' + (r > 0 ? '+1' : '−1') + '</b> (probability ' + pct(pShown) + ')' + (same ? '. <span class="ok">State untouched!</span>' : '. State keeps only the matching part') + (hint ? '<br>The bars can\'t show “equal in the +/− lens”, so why a sure +1? Rewrite the Bell state in the +/− lens: (|00⟩ + |11⟩)/√2 = (|++⟩ + |−−⟩)/√2. Both components are “equal”, so measuring X₁X₂ surely gives +1 and leaves the state unchanged.' : '')
       );
       upd();
     }
@@ -3855,11 +3890,16 @@ details.fold.basics .fold-body > .table-wrap { margin: 0.9em 0; }
         }
         const L1 = type === 'Z' ? 'Z̄₁' : 'X̄₁', L2 = type === 'Z' ? 'Z̄₂' : 'X̄₂';
         if (isToric) {
-          const which = par[0] && par[1] ? L1 + '·' + L2 + '（两个方向都绕）' : par[0] ? L1 + (type === 'Z' ? '（水平缠绕）' : '') : L2 + (type === 'Z' ? '（垂直缠绕）' : '');
-          const whichEn = par[0] && par[1] ? L1 + '·' + L2 + ', both directions' : par[0] ? L1 + ', direction 1' : L2 + ', direction 2';
+          // Z̄₁ (row 0) and X̄₂ (dual, row 0) run horizontally, Z̄₂ and X̄₁ vertically (buildToric); par[k] is the
+          // overlap with the k-th partner, so a Z string with par[0] odd winds horizontally, an X string vertically
+          const d0 = type === 'Z' ? ['水平', 'horizontally'] : ['竖直', 'vertically'];
+          const d1 = type === 'Z' ? ['竖直', 'vertically'] : ['水平', 'horizontally'];
+          const which = par[0] && par[1] ? L1 + '·' + L2 : par[0] ? L1 : L2;
+          const dirZh = par[0] && par[1] ? '在水平和竖直两个方向上都' : '在' + (par[0] ? d0 : d1)[0] + '方向上';
+          const dirEn = par[0] && par[1] ? 'both horizontally and vertically' : (par[0] ? d0 : d1)[1];
           return {
-            zh: '<span class="no">警报全灭，但这不是平凡圈！</span>它绕过了整个环面——这是<b>逻辑算符 ' + which + '</b>：不触发任何检查，却会改写存下来的量子信息。',
-            en: '<span class="no">No alarms, yet NOT trivial!</span> It winds around the torus (' + whichEn + ') — a <b>logical operator</b>: invisible to every check, yet it rewrites the stored quantum information.',
+            zh: '<span class="no">警报全灭，但这不是平凡圈！</span>它' + dirZh + '缠绕环面奇数次——这是<b>逻辑算符 ' + which + '</b>：不触发任何检查，却会改写存下来的量子信息。',
+            en: '<span class="no">No alarms, yet NOT trivial!</span> It winds around the torus ' + dirEn + ' an odd number of times — the <b>logical operator ' + which + '</b>: invisible to every check, yet it rewrites the stored quantum information.',
           };
         }
         return {
@@ -3906,6 +3946,10 @@ details.fold.basics .fold-body > .table-wrap { margin: 0.9em 0; }
       });
       const lat = isToric ? LAT().buildToric(5) : LAT().buildPlanar(5);
       let err = new Set(), corr = new Set(), sel = null, over = false, streak = 0, best = 0, p = 0.08;
+      // per-round bookkeeping for the feedback: the round's alarms (named A, B, C…),
+      // the pairs the reader made, and whether the auto button finished the round for them
+      let alarms = [], tags = new Map(), userPairs = [], assisted = false;
+      const goodCol = () => getComputedStyle(doc.documentElement).getPropertyValue('--good').trim();
       const view = latView(F, lat, {
         clickables: 'stars',
         showStars: 'defects', showPlaqs: 'none',
@@ -3920,21 +3964,115 @@ details.fold.basics .fold-body > .table-wrap { margin: 0.9em 0; }
           const path = isToric
             ? DEC().toricPathStars(lat, lat.stars[sel], lat.stars[k])
             : DEC().planarPath(lat, lat.stars[sel], lat.stars[k], 'star');
+          userPairs.push([sel, k]);
           applyCorr(path);
         },
       });
+      /* the minimum-weight decoder's repair for this round's full set of alarms */
+      function decoderCorr() {
+        return isToric ? DEC().decodeToric(lat, alarms, 'star') : DEC().decodePlanar(lat, alarms, 'star');
+      }
+      /* its pairing, as pairs of star ids (torus only; same matching decodeToric uses) */
+      function decoderPairs() {
+        if (!isToric || alarms.length < 2 || alarms.length > 14 || alarms.length % 2) return null;
+        const nodes = alarms.map((k) => lat.stars[k]);
+        return DEC().optimalMatch(nodes, (i, j) => DEC().toricDist(nodes[i], nodes[j], lat.L), null)
+          .map(([i, j]) => [alarms[i], alarms[j]]);
+      }
+      function isLogical(residual) {
+        return lat.logicals.X.some((Lg) => P().overlapParity(residual, Lg));
+      }
+      function steps(a, b) { return DEC().toricDist(lat.stars[a], lat.stars[b], lat.L); }
+      function pairName(pr) { return tags.get(pr[0]) + '–' + tags.get(pr[1]); }
+      function pairKey(pr) { return pr[0] < pr[1] ? pr[0] + ',' + pr[1] : pr[1] + ',' + pr[0]; }
+      /* "you paired A–C (4 steps); the shorter choice was A–B (1 step)" — torus only */
+      function pairHint() {
+        if (!isToric || assisted) return ['', ''];
+        const dp = decoderPairs();
+        if (!dp || userPairs.length !== dp.length) return ['', ''];
+        const dk = new Set(dp.map(pairKey)), uk = new Set(userPairs.map(pairKey));
+        const mine = userPairs.filter((pr) => !dk.has(pairKey(pr)));
+        const theirs = dp.filter((pr) => !uk.has(pairKey(pr)));
+        if (!mine.length) return ['', ''];
+        const tot = (list) => list.reduce((s, pr) => s + steps(pr[0], pr[1]), 0);
+        const listZh = (list) => list.map((pr) => pairName(pr) + '（' + steps(pr[0], pr[1]) + ' 步）').join('、');
+        const listEn = (list) => list.map((pr) => pairName(pr) + ' (' + steps(pr[0], pr[1]) + (steps(pr[0], pr[1]) === 1 ? ' step)' : ' steps)')).join(', ');
+        const a = tot(userPairs), b = tot(dp);
+        return [
+          '<br>问题出在配对上：你配了 ' + listZh(mine) + '；最小权译码器配的是 ' + listZh(theirs) + '。全部修复链加起来，你走了 ' + a + ' 步，它只走 ' + b + ' 步。',
+          '<br>The trouble is the pairing: you paired ' + listEn(mine) + '; the minimum-weight decoder paired ' + listEn(theirs) + '. Over all repair chains you used ' + a + ' steps; it used only ' + b + '.',
+        ];
+      }
+      /* show the true errors (blue), a repair chain (green) and optionally a pink halo */
+      function reveal(chain, halo) {
+        view.opts.showErrors = true;
+        view.errZ = new Set(err);
+        view.hlEdges = new Map([...chain].map((e) => [e, { color: goodCol(), width: 5 }]));
+        view.haloEdges = new Set(halo);
+        view.hlStars = new Map();
+        view.starTags = new Map(tags);
+        view.draw();
+      }
       function autoDecode() {
-        if (over) return;
+        if (over) { replay(); return; }
+        assisted = true;
         const defs = view.syndrome().starDefects;
         const c = isToric ? DEC().decodeToric(lat, defs, 'star') : DEC().decodePlanar(lat, defs, 'star');
         corr = new Set(P().xorSet([...corr], c));
         syncState();
         finish();
       }
+      // the reader's own result in the round just finished: finish() records it, replay() words its comparison by it
+      let readerWon = false;
+      /* decoderCorr() is exact minimum-weight matching only up to 14 alarms (EXACT_LIMIT) and greedy nearest-pair
+         matching beyond, so the texts name the decoder by what it did this round */
+      function greedy() { return alarms.length > 14; }
+      function decName() {
+        return greedy() ? ['本页的自动译码器', 'this page’s auto-decoder'] : ['最小权译码器', 'the minimum-weight decoder'];
+      }
+      const GREEDY = ['这一局警报超过 14 个，本页的自动译码器从最小权配对换成了贪心的就近配对，总长不一定最短', 'this round has more than 14 alarms, so this page’s auto-decoder switched from minimum-weight matching to greedy nearest-pair matching, whose total length need not be the shortest'];
+      // error ⊕ repair against the rule isLogical() applies: an odd overlap with an X logical
+      const ODD = isToric
+        ? ['在某个方向上<b>缠绕环面</b>的总圈数是<b>奇数</b>', '<b>winds around the torus</b> an <b>odd</b> total number of times in some direction']
+        : ['含有<b>奇数条</b><b>横跨两条边界</b>的串', 'contains an <b>odd number</b> of strings <b>spanning both boundaries</b>'];
+      const EVEN = isToric
+        ? ['在两个方向上缠绕环面的总圈数都是偶数（0 也算，两圈互相抵消）', 'winds around the torus an even total number of times in both directions (0 counts; two windings cancel)']
+        : ['横跨两条边界的串是偶数条（0 条也算，两条互相抵消）', 'contains an even number of strings spanning both boundaries (0 counts; two cancel)'];
+      /* after a round: clear the reader's repair and replay the decoder on the SAME errors */
+      function replay() {
+        const c = decoderCorr();
+        corr = new Set(c);
+        const res = P().xorSet([...err], c);
+        const f = isLogical(res);
+        reveal(c, res);
+        const dp = decoderPairs();
+        const pz = dp && dp.length ? '它配的是 ' + dp.map(pairName).join('、') + '。' : '';
+        const pe = dp && dp.length ? 'It paired ' + dp.map(pairName).join(', ') + '. ' : '';
+        const [dz, de] = decName();
+        // above 14 alarms, say first that this replay is the greedy fallback
+        const gz = greedy() ? GREEDY[0] + '。' : '', ge = greedy() ? GREEDY[1].charAt(0).toUpperCase() + GREEDY[1].slice(1) + '. ' : '';
+        const cmpZh = readerWon ? '' : '对照你刚才的配法，看看哪一对不一样。';
+        const cmpEn = readerWon ? '' : ' Compare with your pairing and spot the pair that differs.';
+        let zh, en;
+        if (f) {
+          zh = '<span class="no">示范：' + dz + '在同一份错误上' + (readerWon ? '输了，你刚才却赢了。' : '也输了。') + '</span>' + gz + pz + '绿色 = 它的修复；粉色光晕 = 错误 ⊕ 它的修复，它' + ODD[0] + '，是逻辑算符，信息被改写。' +
+            (greedy() ? '' : '这一局的错误本身就太长了：真实错误连到了' + (isToric ? '半圈' : '半程') + '以上，最短的配法恰好从另一侧把它补成了' + (isToric ? '绕环面一整圈的圈' : '一条横跨的串') + '。');
+          en = '<span class="no">Replay: ' + de + ' loses on these same errors' + (readerWon ? ', where you won.' : ' too.') + '</span> ' + ge + pe + 'Green = its repair; the pink halo = error ⊕ its repair, which ' + ODD[1] + ': a logical operator, so the data got rewritten.' +
+            (greedy() ? '' : ' The error itself was the trouble this round: it already reached more than halfway ' + (isToric ? 'around' : 'across') + ', so the shortest pairing completed it from the other side into ' + (isToric ? 'a loop around the torus' : 'a spanning string') + '.');
+        } else if (!res.length) {
+          zh = '<span class="ok">示范：' + dz + '在同一份错误上赢了。</span>' + gz + pz + '绿色 = 它的修复，和蓝色的真实错误完全重合：错误 ⊕ 修复什么都不剩。' + cmpZh;
+          en = '<span class="ok">Replay: ' + de + ' wins on these same errors.</span> ' + ge + pe + 'Green = its repair, and it lands exactly on the blue errors: error ⊕ repair leaves nothing at all.' + cmpEn;
+        } else {
+          zh = '<span class="ok">示范：' + dz + '在同一份错误上赢了。</span>' + gz + pz + '绿色 = 它的修复；粉色光晕 = 错误 ⊕ 它的修复。剩下的部分' + EVEN[0] + '，合起来只是一些检查的乘积，所以什么也没改写。' + cmpZh;
+          en = '<span class="ok">Replay: ' + de + ' wins on these same errors.</span> ' + ge + pe + 'Green = its repair; the pink halo = error ⊕ its repair. What is left ' + EVEN[1] + ', so it is just a product of checks and nothing got rewritten.' + cmpEn;
+        }
+        F.setReadout('<span class="zh">' + zh + '　点「新回合」再来。</span><span class="en">' + en + ' Press “New round” to play again.</span>');
+      }
       el.__game = { get err() { return err; }, get corr() { return corr; }, view, newRound: () => newRound(), auto: autoDecode };
       const bndBtn = U().btn('把选中的警报连到最近边界', 'Pair selected alarm to nearest boundary', '', () => {
         if (sel === null || over) return;
         const path = DEC().planarBoundaryPath(lat, lat.stars[sel], 'star');
+        userPairs.push([sel, -1]);
         applyCorr(path);
       });
       function applyCorr(path) {
@@ -3949,10 +4087,13 @@ details.fold.basics .fold-body > .table-wrap { margin: 0.9em 0; }
         view.errZ = new Set(P().xorSet([...err], [...corr]));
       }
       function paint() {
-        view.hlEdges = new Map([...corr].map((e) => [e, { color: getComputedStyle(doc.documentElement).getPropertyValue('--good').trim(), width: 5 }]));
+        view.hlEdges = new Map([...corr].map((e) => [e, { color: goodCol(), width: 5 }]));
         view.hlStars = sel !== null ? new Map([[sel, true]]) : new Map();
+        view.haloEdges = new Set();
+        const live = new Set(view.syndrome().starDefects);
+        view.starTags = new Map([...tags].filter(([k]) => live.has(k)));
         view.draw();
-        const defs = view.syndrome().starDefects.length;
+        const defs = live.size;
         F.setReadout(
           '<span class="zh">连胜 <b>' + streak + '</b>（最佳 ' + best + '）　·　剩余警报 <b>' + defs + '</b>' + (sel !== null ? '　·　已选中一个警报，点击另一个完成配对' + (isToric ? '' : '，或点下方按钮连到边界') : '　·　点击一个警报开始配对') + '</span>' +
           '<span class="en">streak <b>' + streak + '</b> (best ' + best + ') · alarms left <b>' + defs + '</b>' + (sel !== null ? ' · one alarm selected — click another to pair' + (isToric ? '' : ', or use the boundary button') : ' · click an alarm to start pairing') + '</span>'
@@ -3962,24 +4103,66 @@ details.fold.basics .fold-body > .table-wrap { margin: 0.9em 0; }
       function finish() {
         over = true;
         const residual = P().xorSet([...err], [...corr]);
-        const fail = lat.logicals.X.some((Lg) => P().overlapParity(residual, Lg));
-        if (fail) { streak = 0; } else { streak++; best = Math.max(best, streak); }
-        // reveal
-        view.opts.showErrors = true;
-        view.errZ = new Set(err);
-        view.hlEdges = new Map([...corr].map((e) => [e, { color: getComputedStyle(doc.documentElement).getPropertyValue('--good').trim(), width: 5 }]));
-        view.draw();
-        F.setReadout(fail
-          ? '<span class="zh"><span class="no">这回合失败了。</span>蓝色 = 真实错误，绿色 = 你的修复。二者合起来' + (isToric ? '在某个方向上<b>缠绕环面</b>的总圈数是<b>奇数</b>' : '含有<b>奇数条</b><b>横跨两条边界</b>的串') + ' —— 合起来是一个逻辑算符，信息被改写。连胜清零。点「新回合」再来！</span><span class="en"><span class="no">Round lost.</span> Blue = true errors, green = your repair. Together they ' + (isToric ? '<b>wind around the torus</b> an <b>odd</b> total number of times in some direction' : 'contain an <b>odd number</b> of strings <b>spanning both boundaries</b>') + ' — together a logical operator; the data got rewritten. Streak reset. “New round” to retry!</span>'
-          : '<span class="zh"><span class="ok">成功！</span>蓝 + 绿合起来' + (isToric ? '在两个方向上缠绕环面的总圈数都是偶数（0 也算，两圈互相抵消）' : '横跨两条边界的串是偶数条（0 条也算，两条互相抵消）') + '—— 合起来只是一些检查的乘积。你的修复不必和错误一模一样，只要合起来是检查的乘积就赢。连胜 <b>' + streak + '</b>！</span><span class="en"><span class="ok">Success!</span> Blue + green together ' + (isToric ? 'wind around the torus an even total number of times in both directions (0 counts; two windings cancel)' : 'contain an even number of strings spanning both boundaries (0 counts; two cancel)') + ' — together just a product of checks. The repair need not equal the error; together with it, it only needs to form a product of checks. Streak <b>' + streak + '</b>!</span>');
+        const fail = isLogical(residual);
+        readerWon = !fail;
+        // would the decoder have lost on this very error set?
+        const decFail = isLogical(P().xorSet([...err], decoderCorr()));
+        const unwinnable = fail && decFail;
+        if (fail && !unwinnable) { streak = 0; } else if (!fail) { streak++; best = Math.max(best, streak); }
+        reveal(corr, fail ? residual : []);
+        const [dz, de] = decName();
+        const half = isToric ? ['半圈', 'around'] : ['半程', 'across'];
+        // why the decoder loses too, and why such a round is kept out of the streak
+        const whyZh = greedy()
+          ? '（' + GREEDY[0] + '）。所以这一局记作无解局，<b>连胜保留</b>。'
+          : '：真实错误已经连到了' + half[0] + '以上，从警报看，从另一侧绕过来的短链反而更像真相。这种局没有稳妥的赢法；只要 p 低于阈值，网格越大，这样的局越罕见，这正是码距越大越好的原因。<b>连胜保留</b>（记作无解局）。';
+        const whyEn = greedy()
+          ? ' (' + GREEDY[1] + '). So the round counts as unwinnable: <b>streak kept</b>.'
+          : ': the true error already reaches more than halfway ' + half[1] + ', so from the alarms alone the short chain from the other side looks like the likelier story. No sensible strategy wins a round like this; below the threshold, the bigger the grid, the rarer such rounds, and that is why a larger code distance helps. <b>Streak kept</b> (counted as an unwinnable round).';
+        let zh, en;
+        if (assisted && fail) {
+          // the round was closed by the demo button: the green chain is (partly) the decoder's, not the reader's
+          const mixed = userPairs.length > 0;
+          zh = '<span class="no">这回合由「自动译码」收尾，还是输了。</span>蓝色 = 真实错误，绿色 = 修复（' + (mixed ? '你先配的几对 + 译码器补的' : '译码器的配对') + '），粉色光晕 = 错误 ⊕ 修复，它' + ODD[0] + '，是逻辑算符，信息被改写。' +
+            (decFail
+              ? dz + '独自面对这份错误也会输' + whyZh
+              : '译码器独自面对这份错误本来能赢，是前面的配对把它带偏了。连胜清零。') +
+            '点「新回合」再来。';
+          en = '<span class="no">Closed by “Auto-decode”, and still lost.</span> Blue = true errors, green = the repair (' + (mixed ? 'your first pairs plus what the decoder added' : 'the decoder’s pairing') + '), pink halo = error ⊕ repair, which ' + ODD[1] + ': a logical operator, so the data got rewritten. ' +
+            (decFail
+              ? de.charAt(0).toUpperCase() + de.slice(1) + ' loses on these errors even on its own' + whyEn
+              : 'On its own the decoder would have won this one; the earlier pairs led it astray. Streak reset.') +
+            ' Press “New round” to try again.';
+        } else if (unwinnable) {
+          zh = '<span class="no">这回合输了，但不怪你。</span>蓝色 = 真实错误，绿色 = 你的修复，粉色光晕 = 二者合起来剩下的部分，它' + ODD[0] + '，是逻辑算符，信息被改写。可是' + dz + (greedy() ? '' : '（永远挑总长最短的配法）') + '在同一份错误上<b>也会输</b>' + whyZh + '点「自动译码（示范）」可以亲眼看译码器怎么输；点「新回合」再来。';
+          en = '<span class="no">Round lost, but not your fault.</span> Blue = true errors, green = your repair, pink halo = what the two leave behind together, which ' + ODD[1] + ': a logical operator, so the data got rewritten. But ' + de + (greedy() ? '' : ' (which always picks the shortest total pairing)') + ' <b>loses on these same errors too</b>' + whyEn + ' Press “Auto-decode (demo)” to watch the decoder lose, or “New round” to play on.';
+        } else if (fail) {
+          const [hz, he] = pairHint();
+          zh = '<span class="no">这回合失败了。</span>蓝色 = 真实错误，绿色 = 你的修复，粉色光晕 = 二者合起来剩下的部分（错误 ⊕ 修复）。它' + ODD[0] + '，是逻辑算符，信息被改写。连胜清零。' + hz +
+            '<br>经验法则：配对时优先选离得近的警报，走最短的路。如果你的修复链和真实错误连起来' + (isToric ? '横穿了整整一排（或一列），就是绕了一圈' : '从一条边界连到了另一条，就是横跨了') + '。' +
+            '<br>想对照？点「自动译码（示范）」，看' + dz + (greedy() ? '（这一局警报超过 14 个，它用的是贪心的就近配对）' : '') + '在<b>同一份错误</b>上怎么配；点「新回合」再来。';
+          en = '<span class="no">Round lost.</span> Blue = true errors, green = your repair, pink halo = what the two leave behind together (error ⊕ repair). It ' + ODD[1] + ': a logical operator, so the data got rewritten. Streak reset.' + he +
+            '<br>Rule of thumb: pair alarms that are close together, along the shortest path. If your repair chains plus the true errors ' + (isToric ? 'run across a whole row (or column), you have gone all the way around' : 'join one boundary to the other, you have spanned the patch') + '.' +
+            '<br>Want to compare? Press “Auto-decode (demo)” to see how ' + de + (greedy() ? ' (greedy nearest-pair matching this round, since there are more than 14 alarms)' : '') + ' pairs <b>these same errors</b>, or “New round” to retry.';
+        } else {
+          const lucky = decFail
+            ? ['　顺带一提：' + dz + (greedy() ? '（这一局用的是贪心的就近配对）' : '') + '在这份错误上反而会输，你这回的配法赌赢了。', ' Fun fact: ' + de + (greedy() ? ' (greedy nearest-pair matching this round)' : '') + ' would have lost on these errors; your pairing beat it this time.']
+            : ['', ''];
+          zh = '<span class="ok">成功！</span>蓝 + 绿合起来' + EVEN[0] + '—— 合起来只是一些检查的乘积。你的修复不必和错误一模一样，只要合起来是检查的乘积就赢。连胜 <b>' + streak + '</b>！' + lucky[0];
+          en = '<span class="ok">Success!</span> Blue + green together ' + (isToric ? 'wind around the torus an even total number of times in both directions (0 counts; two windings cancel)' : 'contain an even number of strings spanning both boundaries (0 counts; two cancel)') + ' — together just a product of checks. The repair need not equal the error; together with it, it only needs to form a product of checks. Streak <b>' + streak + '</b>!' + lucky[1];
+        }
+        F.setReadout('<span class="zh">' + zh + '</span><span class="en">' + en + '</span>');
       }
       function newRound() {
         err = new Set(); corr = new Set(); sel = null; over = false;
+        userPairs = []; assisted = false;
         for (let q = 0; q < lat.n; q++) if (Math.random() < p) err.add(q);
         view.opts.showErrors = false;
         syncState();
         if (!view.syndrome().starDefects.length && err.size === 0) { err.add(Math.floor(Math.random() * lat.n)); syncState(); }
-        if (!view.syndrome().starDefects.length && err.size) { finish(); return; }
+        alarms = view.syndrome().starDefects.slice();
+        tags = new Map(alarms.map((k, i) => [k, i < 26 ? String.fromCharCode(65 + i) : String(i + 1)]));
+        if (!alarms.length && err.size) { finish(); return; }
         paint();
       }
       const slider = doc.createElement('input');
@@ -3996,6 +4179,7 @@ details.fold.basics .fold-body > .table-wrap { margin: 0.9em 0; }
         { swatch: SW.defect, zh: '警报（点它配对）', en: 'alarm (click to pair)' },
         { swatch: SW.corr, zh: '你的修复链', en: 'your repair chain' },
         { swatch: SW.zchain, zh: '真实错误（回合结束才揭晓）', en: 'true errors (revealed at round end)' },
+        { swatch: '<span class="sw" style="background:var(--cd);opacity:.5"></span>', zh: '错误 ⊕ 修复剩下的圈（输了或看示范时显示）', en: 'loops left by error ⊕ repair (shown on a loss or in the replay)' },
       ]);
       newRound();
     };
@@ -4416,8 +4600,8 @@ details.fold.basics .fold-body > .table-wrap { margin: 0.9em 0; }
         ? 'Reading the chart: at p = 3%, d=3 fails ' + lo(0).toFixed(1) + '% of rounds while d=7 fails only ' + lo(2).toFixed(1) + '% — <b>bigger codes are safer</b>.'
         : 'Left end: for small p we expect d=7 &lt; d=3; this sample fluctuated at p = 3% (' + lo(0).toFixed(1) + '% vs ' + lo(2).toFixed(1) + '%) — press “Fine run” for more rounds.';
       F.setReadout(
-        '<span class="zh">' + openZh + (cp ? ' 而在 ≈' + cp + ' 附近三条曲线交叉；越过它，加大码反而更糟。这条分界线就是<b>阈值</b>。' : ' 继续加大轮数可以看清三条曲线交叉的位置（阈值）。') + '（本页译码器在警报较多时退化为贪心配对，阈值偏低；文献里的最优配对译码给出 ≈10.3%。）</span>' +
-        '<span class="en">' + openEn + (cp ? ' Near ≈' + cp + ' the three curves cross; beyond it, bigger codes get WORSE. That dividing line is the <b>threshold</b>.' : ' More rounds will pin down where the curves cross (the threshold).') + ' (This page’s decoder degrades to greedy pairing when alarms are many, so its threshold sits low; optimal matching in the literature gives ≈10.3%.)</span>'
+        '<span class="zh">' + openZh + (cp ? ' 而在 ≈' + cp + ' 附近三条曲线交叉；越过它，加大码反而更糟。这条分界线就是<b>阈值</b>。' : ' 继续加大轮数可以看清三条曲线交叉的位置（阈值）。') + '（本页译码器在警报超过 14 个时改用贪心就近配对，所以阈值比文献值略低；文献里的最优配对译码给出 ≈10.3%。）</span>' +
+        '<span class="en">' + openEn + (cp ? ' Near ≈' + cp + ' the three curves cross; beyond it, bigger codes get WORSE. That dividing line is the <b>threshold</b>.' : ' More rounds will pin down where the curves cross (the threshold).') + ' (This page’s decoder switches to greedy nearest-pair matching once there are more than 14 alarms, so its threshold sits a little below the literature value; optimal matching in the literature gives ≈10.3%.)</span>'
       );
     }
 

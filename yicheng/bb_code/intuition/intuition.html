@@ -437,7 +437,7 @@ details.fold .fold-body p:last-child { margin-bottom: 0; }
   border: 1px solid var(--line);
   border-radius: 10px;
   overflow-x: auto;
-  white-space: nowrap;
+  white-space: normal;
 }
 .formula.center { text-align: center; }
 .formula .dim { color: var(--ink3); }
@@ -931,12 +931,12 @@ table.hmat.roles td.op { white-space: normal; font-family: var(--f-body); font-s
       <span class="en">Two polynomials,<br>twelve <span class="accent">logical qubits</span></span>
     </h1>
     <p class="lede">
-      <span class="zh">表面码用 144 个数据比特存 1 个逻辑比特；同样 144 个比特，gross 码存 12 个，码距还是 12。它没有网格图，只有两个三项的多项式 A = x³ + y + y² 和 B = y³ + x + x²，写在一个 12 × 6 的环面上。本教程把这件事从零推导出来：为什么单项式是平移、为什么 H<sub>X</sub> = [A | B] 与 H<sub>Z</sub> = [Bᵀ | Aᵀ]（<span class="term">竖线与上标 ᵀ<span class="tip">[A | B]：把两个矩阵左右并排拼成一个更宽的矩阵；上标 ᵀ 读「转置」，把矩阵的行与列互换。</span></span>）必然对易、k = 12 从哪一个秩来、五个重要实例各自长什么样，以及这份「十二倍」在真实机器上要付出什么。所有 n、k 都由你的浏览器现场在 <span class="term">GF(2)<span class="tip">只有 0 和 1 两个数、按 1 + 1 = 0 运算的数域；「mod 2 算术」的正式名字。</span></span> 上重算。</span>
-      <span class="en">A surface code spends 144 data qubits on 1 logical qubit; the gross code spends the same 144 on 12, still at distance 12. It has no lattice picture, only two three-term polynomials A = x³ + y + y² and B = y³ + x + x² on a 12 × 6 torus. This tutorial derives all of it from scratch: why a monomial is a translation, why H<sub>X</sub> = [A | B] and H<sub>Z</sub> = [Bᵀ | Aᵀ] (the <span class="term">bar and the superscript ᵀ<span class="tip">[A | B]: two matrices placed side by side into one wider matrix; the superscript ᵀ reads “transpose” and swaps rows with columns.</span></span>) must commute, which rank produces k = 12, what each of the five important instances looks like, and what the “twelve-fold” costs on a real machine. Every n and k is recomputed live over <span class="term">GF(2)<span class="tip">The number system with only 0 and 1, where 1 + 1 = 0; the formal name of mod-2 arithmetic.</span></span> in your browser.</span>
+      <span class="zh">表面码用 144 个数据比特存 1 个逻辑比特；同样 144 个比特，<span class="term">gross 码<span class="tip">BB（双变量自行车）码是一套配方：选一个环面、两个多项式，就得到一个码；gross 码是其中一组具体取值（环面 l = 12、m = 6，A = x³ + y + y²，B = y³ + x + x²），参数 [[144, 12, 12]]。名字是 Bravyi 等人 2024 年起的：英文 gross 是「一罗」，十二打，正好 144，就是它的数据比特数。它是那篇论文和本教程的主角，第 5 章逐项拆解。</span></span>存 12 个，码距还是 12。它没有网格图，只有两个三项的多项式 A = x³ + y + y² 和 B = y³ + x + x²，写在一个 12 × 6 的环面上。本教程把这件事从零推导出来：为什么单项式是平移、为什么 H<sub>X</sub> = [A | B] 与 H<sub>Z</sub> = [Bᵀ | Aᵀ]（<span class="term">竖线与上标 ᵀ<span class="tip">[A | B]：把两个矩阵左右并排拼成一个更宽的矩阵；上标 ᵀ 读「转置」，把矩阵的行与列互换。</span></span>）必然对易、k = 12 从哪一个秩来、五个重要实例各自长什么样，以及这份「十二倍」在真实机器上要付出什么。所有 n、k 都由你的浏览器现场在 <span class="term">GF(2)<span class="tip">只有 0 和 1 两个数、按 1 + 1 = 0 运算的数域；「mod 2 算术」的正式名字。</span></span> 上重算。</span>
+      <span class="en">A surface code spends 144 data qubits on 1 logical qubit; the <span class="term">gross code<span class="tip">BB (bivariate bicycle) codes are a recipe: pick a torus and two polynomials, and out comes a code. The gross code is one particular choice, a 12 × 6 torus with A = x³ + y + y² and B = y³ + x + x², and it comes out as [[144, 12, 12]]. Bravyi et al. named it in 2024: a gross is twelve dozen, 144, which is its number of data qubits. It is the star of their paper and of this tutorial; Chapter 5 takes it apart.</span></span> spends the same 144 on 12, still at distance 12. It has no lattice picture, only two three-term polynomials A = x³ + y + y² and B = y³ + x + x² on a 12 × 6 torus. This tutorial derives all of it from scratch: why a monomial is a translation, why H<sub>X</sub> = [A | B] and H<sub>Z</sub> = [Bᵀ | Aᵀ] (the <span class="term">bar and the superscript ᵀ<span class="tip">[A | B]: two matrices placed side by side into one wider matrix; the superscript ᵀ reads “transpose” and swaps rows with columns.</span></span>) must commute, which rank produces k = 12, what each of the five important instances looks like, and what the “twelve-fold” costs on a real machine. Every n and k is recomputed live over <span class="term">GF(2)<span class="tip">The number system with only 0 and 1, where 1 + 1 = 0; the formal name of mod-2 arithmetic.</span></span> in your browser.</span>
     </p>
     <div class="promise">
-      <span class="zh">前置：<a href="../../toric_code/intuition/intuition-hs.html">《从高考数学到 Toric Code》</a>与<a href="../../surface_code/intuition/intuition-hs.html">《Surface Code · 高中数学版》</a>（环面码与表面码的账本、CSS 条件）。<a href="../../surface_code/decoders/decoders.html">《译码器 · 高中数学版》</a>与<a href="../../surface_code/operations/operations.html">《格点手术 · 高中数学版》</a>在<span class="ref" data-ref="b5c6" data-sec="6">第 6 章</span>用到，可先不读。新增数学：矩阵乘法与置换矩阵、mod 运算、克罗内克积（现场现教）。</span>
-      <span class="en">Prerequisites: <a href="../../toric_code/intuition/intuition-hs.html">“From High-School Math to the Toric Code”</a> and <a href="../../surface_code/intuition/intuition-hs.html">“The Surface Code · High-School Edition”</a> (toric and surface-code ledgers, the CSS condition). <a href="../../surface_code/decoders/decoders.html">“Decoders · High-School Edition”</a> and <a href="../../surface_code/operations/operations.html">“Lattice Surgery · High-School Edition”</a> are used in <span class="ref" data-ref="b5c6" data-sec="6">Chapter 6</span> and can wait. New mathematics: matrix multiplication and permutation matrices, modular arithmetic, the Kronecker product (taught on the spot).</span>
+      <span class="zh">前置：<a href="../../toric_code/intuition/intuition-hs.html">《从高考数学到 Toric Code》</a>与<a href="../../surface_code/intuition/intuition-hs.html">《Surface Code · 高中数学版》</a>（环面码与表面码的账本、碰撞定理）。<a href="../../surface_code/decoders/decoders.html">《译码器 · 高中数学版》</a>与<a href="../../surface_code/operations/operations.html">《格点手术 · 高中数学版》</a>在<span class="ref" data-ref="b5c6" data-sec="6">第 6 章</span>用到，可先不读。新增数学：矩阵乘法与置换矩阵、mod 运算、克罗内克积（现场现教）。</span>
+      <span class="en">Prerequisites: <a href="../../toric_code/intuition/intuition-hs.html">“From High-School Math to the Toric Code”</a> and <a href="../../surface_code/intuition/intuition-hs.html">“The Surface Code · High-School Edition”</a> (toric and surface-code ledgers, the collision theorem). <a href="../../surface_code/decoders/decoders.html">“Decoders · High-School Edition”</a> and <a href="../../surface_code/operations/operations.html">“Lattice Surgery · High-School Edition”</a> are used in <span class="ref" data-ref="b5c6" data-sec="6">Chapter 6</span> and can wait. New mathematics: matrix multiplication and permutation matrices, modular arithmetic, the Kronecker product (taught on the spot).</span>
     </div>
     <div class="cta-row">
       <a class="btn primary" href="#ch0"><span class="zh">开始 ↓</span><span class="en">Begin ↓</span></a>
@@ -976,16 +976,15 @@ table.hmat.roles td.op { white-space: normal; font-family: var(--f-body); font-s
     <div class="ch-no"><span class="zh">第 0 章</span><span class="en">Chapter 0</span></div>
     <h2><span class="zh">速查回顾：三条公式，一本旧账</span><span class="en">Express recap: three formulas and an old ledger</span></h2>
     <p class="ch-lede">
-      <span class="zh">这里要用的旧知识只有三条：CSS 码的对易条件、用秩记账算 k、以及环面码「每格两个比特、两条恒等式、k = 2」的那本账。任何一条觉得生疏，就回对应章节重修；橙色虚线点一下弹出定义卡片，浅灰点线的符号点一下告诉你怎么读。全页各处还放了橙色虚线框的「补课」折叠块，把检查、本征态、秩、逻辑算符这些基础从零讲一遍，需要时展开即可。</span>
-      <span class="en">Only three old facts are needed: the commutation condition of a CSS code, the rank ledger for k, and the toric code's ledger of “two qubits per site, two identities, k = 2”. Revisit any that feels rusty; amber dashed citations pop up a definition card, faint dotted symbols tell you how they are read. Amber dashed “Catch-up” fold-outs throughout the page explain the basics — checks, eigenstates, rank, logical operators — from scratch; open them when needed.</span>
+      <span class="zh">这里要用的旧知识只有三条：碰撞定理、用秩记账算 k、以及环面码「每格两个比特、两条恒等式、k = 2」的那本账。第一条要换一种新写法：把检查写成矩阵的行——这张表叫<span class="term">检查矩阵<span class="tip">一张 0/1 表：每行是一条检查，每列是一个物理比特，检查碰到哪个比特，那一格就写 1；所以一行是一条检查的腿落在哪里，一列是哪些检查在盯着这个比特。CSS 码有两张：X 检查排成 H<sub>X</sub>，Z 检查排成 H<sub>Z</sub>；环面码里 H<sub>X</sub> 的每一行是一个星，H<sub>Z</sub> 的每一行是一个面。经典编码论里它叫「奇偶校验矩阵」（parity-check matrix）。</span></span>——它就叫作 <span class="term">CSS 码<span class="tip">一种稳定子码：它的检查分成两族，一族只由 X 组成，一族只由 Z 组成（星检查和面检查就是你见过的例子）。名字取自 Calderbank、Shor、Steane 三人；环面码、表面码和本教程里的每一个码都是 CSS 码。</span></span>的对易条件。这种写法就在下面现教，底下的数学还是你认识的那条定理。任何一条觉得生疏，就回对应章节重修；橙色虚线点一下弹出定义卡片，浅灰点线的符号点一下告诉你怎么读。全页各处还放了橙色虚线框的「补课」折叠块，把检查、本征态、秩、逻辑算符这些基础从零讲一遍，需要时展开即可。</span>
+      <span class="en">Only three old facts are needed: the collision theorem, the rank ledger for k, and the toric code's ledger of “two qubits per site, two identities, k = 2”. The first one comes in new clothes: write the checks as rows of a matrix — that table is called a <span class="term">check matrix<span class="tip">A 0/1 table: one row per check, one column per physical qubit, and a 1 wherever that check touches that qubit; so a row shows where one check’s legs land, and a column shows which checks watch one qubit. A CSS code has two of them: the X checks form H<sub>X</sub> and the Z checks form H<sub>Z</sub>; for the toric code every row of H<sub>X</sub> is a star and every row of H<sub>Z</sub> is a plaquette. In classical coding theory it is called the parity-check matrix.</span></span> — and it becomes the commutation condition of a <span class="term">CSS code<span class="tip">A stabilizer code whose checks split into two families: one made only of X's, one made only of Z's (stars and plaquettes are the example you know). Named after Calderbank, Shor and Steane; the toric code, the surface code and every code in this tutorial are CSS codes.</span></span>. That way of writing is taught right below; the math underneath is the theorem you already know. Revisit any that feels rusty; amber dashed citations pop up a definition card, faint dotted symbols tell you how they are read. Amber dashed “Catch-up” fold-outs throughout the page explain the basics — checks, eigenstates, rank, logical operators — from scratch; open them when needed.</span>
     </p>
   </div>
-  <div class="formula center">① <span class="zh">CSS 码：X 检查矩阵 H<sub>X</sub> 与 Z 检查矩阵 H<sub>Z</sub> 两两对易</span><span class="en">CSS code: the X-check matrix H<sub>X</sub> and the Z-check matrix H<sub>Z</sub> commute pairwise</span> <span class="sym" data-sym="iff">⇔</span> H<sub>X</sub>H<sub>Z</sub><sup><span class="sym" data-sym="transpose">T</span></sup> = 0<br><span class="dim">(<span class="zh">GF(2) 上：每一对行共享的 1 是偶数个</span><span class="en">over GF(2): every pair of rows shares an even number of 1s</span>)</span></div>
-  <div class="formula center">② k = n − <span class="sym" data-sym="rank">rank</span> H<sub>X</sub> − <span class="sym" data-sym="rank">rank</span> H<sub>Z</sub><br>③ <span class="zh">环面码 L×L：n = 2L²，星面各 L² 条，<span class="sym" data-sym="prod">∏</span>A = <span class="sym" data-sym="prod">∏</span>B = I，<br>独立检查 2L² − 2，k = 2</span><span class="en">toric code L×L: n = 2L², L² stars and plaquettes, <span class="sym" data-sym="prod">∏</span>A = <span class="sym" data-sym="prod">∏</span>B = I,<br>2L² − 2 independent checks, k = 2</span></div>
+  <div class="formula center">① <span class="zh">CSS 码：X 检查矩阵 H<sub>X</sub> 与 Z 检查矩阵 H<sub>Z</sub> 两两对易</span><span class="en">CSS code: the X-check matrix H<sub>X</sub> and the Z-check matrix H<sub>Z</sub> commute pairwise</span> <span class="sym" data-sym="iff">⇔</span> H<sub>X</sub>H<sub>Z</sub><sup><span class="sym" data-sym="transpose">T</span></sup> = 0<br><span class="dim">(<span class="zh">GF(2) 上：每一对行共享的 1 是偶数个</span><span class="en">over GF(2): every pair of rows shares an even number of 1s</span>)</span><br>② k = n − <span class="sym" data-sym="rank">rank</span> H<sub>X</sub> − <span class="sym" data-sym="rank">rank</span> H<sub>Z</sub><br>③ <span class="zh">环面码 L×L：n = 2L²，星面各 L² 条，<span class="sym" data-sym="prod">∏</span>A = <span class="sym" data-sym="prod">∏</span>B = I，<br>独立检查 2L² − 2，k = 2</span><span class="en">toric code L×L: n = 2L², L² stars and plaquettes, <span class="sym" data-sym="prod">∏</span>A = <span class="sym" data-sym="prod">∏</span>B = I,<br>2L² − 2 independent checks, k = 2</span></div>
   <div class="prose"><p class="zh muted small">记号：n = 物理比特数，k = 逻辑比特数，r = 独立检查的条数，于是 k = n − r（与<a href="../../toric_code/intuition/intuition-hs.html#s4-4">《从高考数学到 Toric Code》4.4 节</a>的记法相同），d = 码距，即能骗过全部检查的最轻逻辑算符的重量（<a href="../../toric_code/intuition/intuition-hs.html#s5-8">同一教程 5.8 节</a>）。</p><p class="en muted small">Notation: n = number of physical qubits; k = number of logical qubits; r = number of independent checks, so k = n − r (the notation of <a href="../../toric_code/intuition/intuition-hs.html#s4-4">“From High-School Math to the Toric Code”, §4.4</a>); d = the code distance, the weight of the lightest logical operator that fools every check (<a href="../../toric_code/intuition/intuition-hs.html#s5-8">§5.8 there</a>).</p></div>
   <div class="prose">
-    <p class="zh">第①条是<a href="../../toric_code/intuition/intuition-hs.html#s4-2">《从高考数学到 Toric Code》4.2 节的碰撞定理</a>在矩阵语言里的样子：把每条 X 检查写成一行 0/1（哪些比特上有 X），每条 Z 检查也写成一行，两行的点积（mod 2）就是碰撞数的奇偶。第②条是<a href="../../toric_code/intuition/intuition-hs.html#s4-4">同一教程 4.4 节</a>的「每条独立检查砍掉一半」，只是把「独立检查的条数」换成了它的正式名字：矩阵的秩。第③条的环面账本（<a href="../../toric_code/intuition/intuition-hs.html#s5-3">同一教程 5.3 节</a>）在本教程会以另一副面孔出现：环面码恰好是最简单的 BB 码。先到实验台上把那本账重算一遍：</p>
-    <p class="en">Item ① is the collision theorem of <a href="../../toric_code/intuition/intuition-hs.html#s4-2">“From High-School Math to the Toric Code”, §4.2</a> in matrix language: write each X check as a row of 0/1 (which qubits carry an X), each Z check as another row, and the two rows' dot product (mod 2) is the parity of collisions. Item ② is <a href="../../toric_code/intuition/intuition-hs.html#s4-4">§4.4</a>'s “every independent check halves the space”, with “number of independent checks” given its proper name: the rank of the matrix. Item ③, the toric ledger (<a href="../../toric_code/intuition/intuition-hs.html#s5-3">§5.3 there</a>), reappears in this tutorial wearing another face: the toric code is exactly the simplest BB code. Recompute that ledger on the bench first:</p>
+    <p class="zh">第①条是<a href="../../toric_code/intuition/intuition-hs.html#s4-2">《从高考数学到 Toric Code》4.2 节的碰撞定理</a>在矩阵语言里的样子。H<sub>X</sub> 里每条 X 检查占一行，H<sub>Z</sub> 里每条 Z 检查占一行；每个比特占一列，检查碰到这个比特，那一格写 1，否则写 0。于是一条 X 行和一条 Z 行的点积（mod 2），数的正是这两条检查碰撞次数的奇偶。H<sub>X</sub>H<sub>Z</sub>ᵀ 第 i 行第 j 列的那一格，恰好是第 i 条 X 行与第 j 条 Z 行的点积，所以「两两对易」就是说这个乘积的每一格都是 0：这正是第①条。第②条是<a href="../../toric_code/intuition/intuition-hs.html#s4-4">同一教程 4.4 节</a>的「每条独立检查砍掉一半」，只是把「独立检查的条数」换成了它的正式名字：矩阵的秩。第③条的环面账本（<a href="../../toric_code/intuition/intuition-hs.html#s5-3">同一教程 5.3 节</a>）在本教程会以另一副面孔出现：环面码恰好是最简单的 BB 码。先到实验台上把那本账重算一遍：</p>
+    <p class="en">Item ① is the collision theorem of <a href="../../toric_code/intuition/intuition-hs.html#s4-2">“From High-School Math to the Toric Code”, §4.2</a> written in matrix language. H<sub>X</sub> has one row per X check and H<sub>Z</sub> one row per Z check; both have one column per qubit, with a 1 wherever the check touches that qubit. The dot product (mod 2) of an X-row and a Z-row then counts their collisions, mod 2. The entry in row i, column j of H<sub>X</sub>H<sub>Z</sub>ᵀ is exactly that dot product for X check i and Z check j, so “every pair commutes” says every entry is 0: that is formula ①. Item ② is <a href="../../toric_code/intuition/intuition-hs.html#s4-4">§4.4</a>'s “every independent check halves the space”, with “number of independent checks” given its proper name: the rank of the matrix. Item ③, the toric ledger (<a href="../../toric_code/intuition/intuition-hs.html#s5-3">§5.3 there</a>), reappears in this tutorial wearing another face: the toric code is exactly the simplest BB code. Recompute that ledger on the bench first:</p>
   </div>
     <details class="fold basics" id="cu-0a">
     <summary><span class="zh">补课 · 「一条检查」到底是什么，H<sub>X</sub> 里的 1 是什么意思</span><span class="en">Catch-up · What exactly “a check” is, and what a 1 in H<sub>X</sub> means</span></summary>
@@ -1069,8 +1068,8 @@ table.hmat.roles td.op { white-space: normal; font-family: var(--f-body); font-s
   <div data-widget="counting"></div>
   <div class="note note-key">
     <span class="note-tag"><span class="zh">一句话总结</span><span class="en">In one sentence</span></span>
-    <p class="zh">环面码的检查是「画」在网格上的；BB 码的检查是「算」出来的：两个多项式各自变成一个稀疏矩阵，拼成 H<sub>X</sub> = [A | B] 与 H<sub>Z</sub> = [Bᵀ | Aᵀ]，对易由代数自动保证（<span class="ref" data-ref="b5c3" data-sec="3">第 3 章</span>），k 由秩的亏损给出（<span class="ref" data-ref="b5c4" data-sec="4">第 4 章</span>）。搜索的自由度花在多项式的几个指数上，收获是 8 到 12 个逻辑比特挤在一块检查重量为 6 的码里（<span class="ref" data-ref="b5c5" data-sec="5">第 5 章</span>）；代价是每个比特要和 6 条检查相连，芯片必须有两层耦合（<span class="ref" data-ref="b5c6" data-sec="6">第 6 章</span>）。</p>
-    <p class="en">A toric code's checks are <em>drawn</em> on a grid; a BB code's checks are <em>computed</em>: two polynomials each become a sparse matrix, assembled into H<sub>X</sub> = [A | B] and H<sub>Z</sub> = [Bᵀ | Aᵀ], with commutation guaranteed by algebra (<span class="ref" data-ref="b5c3" data-sec="3">Ch. 3</span>) and k given by a rank deficit (<span class="ref" data-ref="b5c4" data-sec="4">Ch. 4</span>). The search freedom goes into a few polynomial exponents; the payoff is 8 to 12 logical qubits packed into a code with weight-6 checks (<span class="ref" data-ref="b5c5" data-sec="5">Ch. 5</span>); the price is that every qubit couples to 6 checks, so the chip needs two coupling layers (<span class="ref" data-ref="b5c6" data-sec="6">Ch. 6</span>).</p>
+    <p class="zh">环面码的检查是「画」在网格上的；BB 码的检查是「算」出来的：两个多项式各自变成一个稀疏矩阵，拼成 H<sub>X</sub> = <span class="term">[A | B]<span class="tip">分块矩阵：一个中括号，竖线只标出分界。[A | B] 就是把 A、B 左右并排拼成一张宽矩阵——行数不变，列数相加。每列对应一个数据比特：左块管一半，右块管另一半。</span></span> 与 H<sub>Z</sub> = [Bᵀ | Aᵀ]，对易由代数自动保证（<span class="ref" data-ref="b5c3" data-sec="3">第 3 章</span>），k 由秩的亏损给出（<span class="ref" data-ref="b5c4" data-sec="4">第 4 章</span>）。搜索的自由度花在多项式的几个指数上，收获是 8 到 12 个逻辑比特挤在一块检查重量为 6 的码里（<span class="ref" data-ref="b5c5" data-sec="5">第 5 章</span>）；代价是每个比特要和 6 条检查相连，芯片必须有两层耦合（<span class="ref" data-ref="b5c6" data-sec="6">第 6 章</span>）。</p>
+    <p class="en">A toric code's checks are <em>drawn</em> on a grid; a BB code's checks are <em>computed</em>: two polynomials each become a sparse matrix, assembled into H<sub>X</sub> = <span class="term">[A | B]<span class="tip">A block matrix: one bracket, the bar only marks the seam. [A | B] puts A and B side by side into one wide matrix — same rows, columns added. Each column is one data qubit: the left block covers half of them, the right block the other half.</span></span> and H<sub>Z</sub> = [Bᵀ | Aᵀ], with commutation guaranteed by algebra (<span class="ref" data-ref="b5c3" data-sec="3">Ch. 3</span>) and k given by a rank deficit (<span class="ref" data-ref="b5c4" data-sec="4">Ch. 4</span>). The search freedom goes into a few polynomial exponents; the payoff is 8 to 12 logical qubits packed into a code with weight-6 checks (<span class="ref" data-ref="b5c5" data-sec="5">Ch. 5</span>); the price is that every qubit couples to 6 checks, so the chip needs two coupling layers (<span class="ref" data-ref="b5c6" data-sec="6">Ch. 6</span>).</p>
   </div>
   <div class="ch-nav">
     <a href="#top"><span class="zh">回到</span><span class="en">Back to</span><b><span class="zh">开头</span><span class="en">the top</span></b></a>
@@ -1104,8 +1103,231 @@ table.hmat.roles td.op { white-space: normal; font-family: var(--f-body); font-s
 
   <h3 id="s1-2"><span class="sec-no">1.2</span><span class="zh">放弃局域的最小代价</span><span class="en">The smallest price for giving up locality</span></h3>
   <div class="prose">
-    <p class="zh">在这条不等式里，BB 码动的是常数 c，不是定理：每条检查仍然只碰 6 个比特，每个比特仍然只被 6 条检查碰到（<span class="term">低密度<span class="tip">LDPC = low-density parity check：检查矩阵每行、每列的 1 都不超过一个固定的小数目。BB 码每行 6 个、每列 6 个。</span></span>，和表面码的 4 差得不多），只是这 6 个比特不再挤在一个小方块里，而是按两个多项式规定的方向伸到几格之外（gross 码是三格），并且绕过环面接回来。gross 码的 k·d² = 12·144 = 12n，是表面码的十二倍——与 BPT 不矛盾：检查伸得更远，常数 c 就更大。要把这样的线布到平面芯片上，Bravyi 等人 2024 年证明连接图可以画成<b>两层</b>平面图，每层每个比特最多连三根线——比起一层最近邻的表面码，多的只是一层。代价与收获的账在下一张图里：</p>
-    <p class="en">Within that inequality, BB codes move the constant c, not the theorem: every check still touches only 6 qubits and every qubit is touched by only 6 checks (<span class="term">low density<span class="tip">LDPC = low-density parity check: every row and column of the check matrix has at most a fixed small number of 1s. BB codes have 6 per row and 6 per column.</span></span>, not far from the surface code's 4), except that those 6 qubits no longer crowd into one small square but reach a few sites away in directions set by two polynomials (three for the gross code) and wrap around the torus. The gross code's k·d² = 12·144 = 12n is twelve times the surface code's — no contradiction with BPT: longer-reaching checks mean a larger constant c. To wire this on a planar chip, Bravyi et al. showed in 2024 that the connection graph can be drawn as <b>two</b> planar layers with at most three wires per qubit per layer — one layer more than the nearest-neighbour surface code. The ledger of price and payoff is in the next picture:</p>
+    <p class="zh">在这条不等式里，BB 码动的是常数 c，不是定理：每条检查仍然只碰 6 个比特，每个比特仍然只被 6 条检查碰到（<span class="term">低密度<span class="tip">LDPC = low-density parity check：检查矩阵每行、每列的 1 都不超过一个固定的小数目。BB 码每行 6 个、每列 6 个。</span></span>，和表面码的 4 差得不多），只是这 6 个比特不再挤在一个小方块里，而是按两个多项式规定的方向伸到几格之外（gross 码是三格），并且绕过环面接回来。gross 码的 k·d² = 12·144 = 12n，是表面码的十二倍——与 BPT 不矛盾：检查伸得更远，常数 c 就更大。要把这样的线布到平面芯片上，Bravyi 等人 2024 年证明连接图可以画成<b>两层</b>平面图，每层每个比特最多连三根线——比起一层最近邻的表面码，多的只是一层。</p>
+    <p class="en">Within that inequality, BB codes move the constant c, not the theorem: every check still touches only 6 qubits and every qubit is touched by only 6 checks (<span class="term">low density<span class="tip">LDPC = low-density parity check: every row and column of the check matrix has at most a fixed small number of 1s. BB codes have 6 per row and 6 per column.</span></span>, not far from the surface code's 4), except that those 6 qubits no longer crowd into one small square but reach a few sites away in directions set by two polynomials (three for the gross code) and wrap around the torus. The gross code's k·d² = 12·144 = 12n is twelve times the surface code's — no contradiction with BPT: longer-reaching checks mean a larger constant c. To wire this on a planar chip, Bravyi et al. showed in 2024 that the connection graph can be drawn as <b>two</b> planar layers with at most three wires per qubit per layer — one layer more than the nearest-neighbour surface code.</p>
+  </div>
+  <figure class="fig">
+    <div class="fig-frame">
+      <svg viewBox="0 0 760 272" role="img" aria-label="表面码一层最近邻布线，BB 码每比特六根线拆成两个平面耦合层 / surface-code wiring in one layer versus BB-code wiring split into two planar coupling layers" style="max-width:100%;height:auto;color:var(--ink);font-family:var(--f-body)">
+<g stroke="var(--line2)" stroke-width="1.2">
+<line x1="30" y1="78" x2="56" y2="78"/>
+<line x1="30" y1="78" x2="30" y2="104"/>
+<line x1="56" y1="78" x2="82" y2="78"/>
+<line x1="56" y1="78" x2="56" y2="104"/>
+<line x1="82" y1="78" x2="108" y2="78"/>
+<line x1="82" y1="78" x2="82" y2="104"/>
+<line x1="108" y1="78" x2="134" y2="78"/>
+<line x1="108" y1="78" x2="108" y2="104"/>
+<line x1="134" y1="78" x2="134" y2="104"/>
+<line x1="30" y1="104" x2="56" y2="104"/>
+<line x1="30" y1="104" x2="30" y2="130"/>
+<line x1="56" y1="104" x2="82" y2="104"/>
+<line x1="56" y1="104" x2="56" y2="130"/>
+<line x1="82" y1="104" x2="108" y2="104"/>
+<line x1="82" y1="104" x2="82" y2="130"/>
+<line x1="108" y1="104" x2="134" y2="104"/>
+<line x1="108" y1="104" x2="108" y2="130"/>
+<line x1="134" y1="104" x2="134" y2="130"/>
+<line x1="30" y1="130" x2="56" y2="130"/>
+<line x1="30" y1="130" x2="30" y2="156"/>
+<line x1="56" y1="130" x2="82" y2="130"/>
+<line x1="56" y1="130" x2="56" y2="156"/>
+<line x1="82" y1="130" x2="108" y2="130"/>
+<line x1="82" y1="130" x2="82" y2="156"/>
+<line x1="108" y1="130" x2="134" y2="130"/>
+<line x1="108" y1="130" x2="108" y2="156"/>
+<line x1="134" y1="130" x2="134" y2="156"/>
+<line x1="30" y1="156" x2="56" y2="156"/>
+<line x1="30" y1="156" x2="30" y2="182"/>
+<line x1="56" y1="156" x2="82" y2="156"/>
+<line x1="56" y1="156" x2="56" y2="182"/>
+<line x1="82" y1="156" x2="108" y2="156"/>
+<line x1="82" y1="156" x2="82" y2="182"/>
+<line x1="108" y1="156" x2="134" y2="156"/>
+<line x1="108" y1="156" x2="108" y2="182"/>
+<line x1="134" y1="156" x2="134" y2="182"/>
+<line x1="30" y1="182" x2="56" y2="182"/>
+<line x1="56" y1="182" x2="82" y2="182"/>
+<line x1="82" y1="182" x2="108" y2="182"/>
+<line x1="108" y1="182" x2="134" y2="182"/>
+</g>
+<g stroke="var(--cz)" stroke-width="2.6" stroke-linecap="round">
+<line x1="82" y1="130" x2="108" y2="130"/>
+<line x1="82" y1="130" x2="56" y2="130"/>
+<line x1="82" y1="130" x2="82" y2="156"/>
+<line x1="82" y1="130" x2="82" y2="104"/>
+</g>
+<circle cx="30" cy="78" r="4" fill="var(--ink3)" />
+<rect x="51.5" y="73.5" width="9.0" height="9.0" rx="1.5" fill="var(--ink3)" />
+<circle cx="82" cy="78" r="4" fill="var(--ink3)" />
+<rect x="103.5" y="73.5" width="9.0" height="9.0" rx="1.5" fill="var(--ink3)" />
+<circle cx="134" cy="78" r="4" fill="var(--ink3)" />
+<rect x="25.5" y="99.5" width="9.0" height="9.0" rx="1.5" fill="var(--ink3)" />
+<circle cx="56" cy="104" r="4" fill="var(--ink3)" />
+<rect x="77.5" y="99.5" width="9.0" height="9.0" rx="1.5" fill="var(--ink3)" />
+<circle cx="108" cy="104" r="4" fill="var(--ink3)" />
+<rect x="129.5" y="99.5" width="9.0" height="9.0" rx="1.5" fill="var(--ink3)" />
+<circle cx="30" cy="130" r="4" fill="var(--ink3)" />
+<rect x="51.5" y="125.5" width="9.0" height="9.0" rx="1.5" fill="var(--ink3)" />
+<circle cx="82" cy="130" r="6" fill="var(--cd)" />
+<rect x="103.5" y="125.5" width="9.0" height="9.0" rx="1.5" fill="var(--ink3)" />
+<circle cx="134" cy="130" r="4" fill="var(--ink3)" />
+<rect x="25.5" y="151.5" width="9.0" height="9.0" rx="1.5" fill="var(--ink3)" />
+<circle cx="56" cy="156" r="4" fill="var(--ink3)" />
+<rect x="77.5" y="151.5" width="9.0" height="9.0" rx="1.5" fill="var(--ink3)" />
+<circle cx="108" cy="156" r="4" fill="var(--ink3)" />
+<rect x="129.5" y="151.5" width="9.0" height="9.0" rx="1.5" fill="var(--ink3)" />
+<circle cx="30" cy="182" r="4" fill="var(--ink3)" />
+<rect x="51.5" y="177.5" width="9.0" height="9.0" rx="1.5" fill="var(--ink3)" />
+<circle cx="82" cy="182" r="4" fill="var(--ink3)" />
+<rect x="103.5" y="177.5" width="9.0" height="9.0" rx="1.5" fill="var(--ink3)" />
+<circle cx="134" cy="182" r="4" fill="var(--ink3)" />
+<text x="82" y="36" text-anchor="middle" font-size="12.5" fill="var(--ink2)"><tspan class="zh">(a) 表面码：一层</tspan><tspan class="en">(a) Surface code: one layer</tspan></text>
+<text x="82" y="222" text-anchor="middle" font-size="11.5" fill="var(--ink2)" font-weight="600"><tspan class="zh">每个比特 4 根线，全是近邻</tspan><tspan class="en">4 short wires per qubit</tspan></text>
+<g stroke="var(--line2)" stroke-width="1.2">
+<line x1="224" y1="78" x2="250" y2="78"/>
+<line x1="224" y1="78" x2="224" y2="104"/>
+<line x1="250" y1="78" x2="276" y2="78"/>
+<line x1="250" y1="78" x2="250" y2="104"/>
+<line x1="276" y1="78" x2="302" y2="78"/>
+<line x1="276" y1="78" x2="276" y2="104"/>
+<line x1="302" y1="78" x2="328" y2="78"/>
+<line x1="302" y1="78" x2="302" y2="104"/>
+<line x1="328" y1="78" x2="354" y2="78"/>
+<line x1="328" y1="78" x2="328" y2="104"/>
+<line x1="354" y1="78" x2="380" y2="78"/>
+<line x1="354" y1="78" x2="354" y2="104"/>
+<line x1="380" y1="78" x2="380" y2="104"/>
+<line x1="224" y1="104" x2="250" y2="104"/>
+<line x1="224" y1="104" x2="224" y2="130"/>
+<line x1="250" y1="104" x2="276" y2="104"/>
+<line x1="250" y1="104" x2="250" y2="130"/>
+<line x1="276" y1="104" x2="302" y2="104"/>
+<line x1="276" y1="104" x2="276" y2="130"/>
+<line x1="302" y1="104" x2="328" y2="104"/>
+<line x1="302" y1="104" x2="302" y2="130"/>
+<line x1="328" y1="104" x2="354" y2="104"/>
+<line x1="328" y1="104" x2="328" y2="130"/>
+<line x1="354" y1="104" x2="380" y2="104"/>
+<line x1="354" y1="104" x2="354" y2="130"/>
+<line x1="380" y1="104" x2="380" y2="130"/>
+<line x1="224" y1="130" x2="250" y2="130"/>
+<line x1="224" y1="130" x2="224" y2="156"/>
+<line x1="250" y1="130" x2="276" y2="130"/>
+<line x1="250" y1="130" x2="250" y2="156"/>
+<line x1="276" y1="130" x2="302" y2="130"/>
+<line x1="276" y1="130" x2="276" y2="156"/>
+<line x1="302" y1="130" x2="328" y2="130"/>
+<line x1="302" y1="130" x2="302" y2="156"/>
+<line x1="328" y1="130" x2="354" y2="130"/>
+<line x1="328" y1="130" x2="328" y2="156"/>
+<line x1="354" y1="130" x2="380" y2="130"/>
+<line x1="354" y1="130" x2="354" y2="156"/>
+<line x1="380" y1="130" x2="380" y2="156"/>
+<line x1="224" y1="156" x2="250" y2="156"/>
+<line x1="224" y1="156" x2="224" y2="182"/>
+<line x1="250" y1="156" x2="276" y2="156"/>
+<line x1="250" y1="156" x2="250" y2="182"/>
+<line x1="276" y1="156" x2="302" y2="156"/>
+<line x1="276" y1="156" x2="276" y2="182"/>
+<line x1="302" y1="156" x2="328" y2="156"/>
+<line x1="302" y1="156" x2="302" y2="182"/>
+<line x1="328" y1="156" x2="354" y2="156"/>
+<line x1="328" y1="156" x2="328" y2="182"/>
+<line x1="354" y1="156" x2="380" y2="156"/>
+<line x1="354" y1="156" x2="354" y2="182"/>
+<line x1="380" y1="156" x2="380" y2="182"/>
+<line x1="224" y1="182" x2="250" y2="182"/>
+<line x1="250" y1="182" x2="276" y2="182"/>
+<line x1="276" y1="182" x2="302" y2="182"/>
+<line x1="302" y1="182" x2="328" y2="182"/>
+<line x1="328" y1="182" x2="354" y2="182"/>
+<line x1="354" y1="182" x2="380" y2="182"/>
+</g>
+<g stroke="var(--cz)" stroke-width="2.6" stroke-linecap="round">
+<line x1="302" y1="104" x2="328" y2="104"/>
+<line x1="302" y1="104" x2="276" y2="104"/>
+<line x1="302" y1="104" x2="302" y2="130"/>
+<line x1="302" y1="104" x2="302" y2="78"/>
+</g>
+<circle cx="224" cy="78" r="4" fill="var(--ink3)" />
+<rect x="245.5" y="73.5" width="9.0" height="9.0" rx="1.5" fill="var(--ink3)" />
+<circle cx="276" cy="78" r="4" fill="var(--ink3)" />
+<rect x="297.5" y="73.5" width="9.0" height="9.0" rx="1.5" fill="var(--ink3)" />
+<circle cx="328" cy="78" r="4" fill="var(--ink3)" />
+<rect x="349.5" y="73.5" width="9.0" height="9.0" rx="1.5" fill="var(--ink3)" />
+<circle cx="380" cy="78" r="4" fill="var(--ink3)" />
+<rect x="219.5" y="99.5" width="9.0" height="9.0" rx="1.5" fill="var(--ink3)" />
+<circle cx="250" cy="104" r="4" fill="var(--ink3)" />
+<rect x="271.5" y="99.5" width="9.0" height="9.0" rx="1.5" fill="var(--ink3)" />
+<circle cx="302" cy="104" r="6" fill="var(--cd)" />
+<rect x="323.5" y="99.5" width="9.0" height="9.0" rx="1.5" fill="var(--ink3)" />
+<circle cx="354" cy="104" r="4" fill="var(--ink3)" />
+<rect x="375.5" y="99.5" width="9.0" height="9.0" rx="1.5" fill="var(--ink3)" />
+<circle cx="224" cy="130" r="4" fill="var(--ink3)" />
+<rect x="245.5" y="125.5" width="9.0" height="9.0" rx="1.5" fill="var(--ink3)" />
+<circle cx="276" cy="130" r="4" fill="var(--ink3)" />
+<rect x="297.5" y="125.5" width="9.0" height="9.0" rx="1.5" fill="var(--ink3)" />
+<circle cx="328" cy="130" r="4" fill="var(--ink3)" />
+<rect x="349.5" y="125.5" width="9.0" height="9.0" rx="1.5" fill="var(--ink3)" />
+<circle cx="380" cy="130" r="4" fill="var(--ink3)" />
+<rect x="219.5" y="151.5" width="9.0" height="9.0" rx="1.5" fill="var(--ink3)" />
+<circle cx="250" cy="156" r="4" fill="var(--ink3)" />
+<rect x="271.5" y="151.5" width="9.0" height="9.0" rx="1.5" fill="var(--ink3)" />
+<circle cx="302" cy="156" r="4" fill="var(--ink3)" />
+<rect x="323.5" y="151.5" width="9.0" height="9.0" rx="1.5" fill="var(--ink3)" />
+<circle cx="354" cy="156" r="4" fill="var(--ink3)" />
+<rect x="375.5" y="151.5" width="9.0" height="9.0" rx="1.5" fill="var(--ink3)" />
+<circle cx="224" cy="182" r="4" fill="var(--ink3)" />
+<rect x="245.5" y="177.5" width="9.0" height="9.0" rx="1.5" fill="var(--ink3)" />
+<circle cx="276" cy="182" r="4" fill="var(--ink3)" />
+<rect x="297.5" y="177.5" width="9.0" height="9.0" rx="1.5" fill="var(--ink3)" />
+<circle cx="328" cy="182" r="4" fill="var(--ink3)" />
+<rect x="349.5" y="177.5" width="9.0" height="9.0" rx="1.5" fill="var(--ink3)" />
+<circle cx="380" cy="182" r="4" fill="var(--ink3)" />
+<g stroke="var(--cx)" stroke-width="2.4" fill="none" stroke-dasharray="6 4" stroke-linecap="round"><path d="M302,104 Q341.0,144 380,104"/><path d="M302,104 Q263.0,70 224,104"/></g>
+<rect x="374.5" y="98.5" width="11.0" height="11.0" rx="1.5" fill="var(--cx)" />
+<rect x="218.5" y="98.5" width="11.0" height="11.0" rx="1.5" fill="var(--cx)" />
+<circle cx="302" cy="104" r="6" fill="var(--cd)" />
+<text x="302" y="36" text-anchor="middle" font-size="12.5" fill="var(--ink2)"><tspan class="zh">(b) BB 码：每个比特 6 根线</tspan><tspan class="en">(b) BB code: 6 wires per qubit</tspan></text>
+<text x="302" y="222" text-anchor="middle" font-size="11.5" fill="var(--ink2)" font-weight="600"><tspan class="zh">4 根近邻 + 2 根伸到三格外 · 一层画不平</tspan><tspan class="en">4 short + 2 long wires · not planar</tspan></text>
+<g transform="translate(480,62) skewX(-28)">
+<rect x="0" y="0" width="150" height="70" rx="6" fill="var(--bg)" stroke="var(--line2)" stroke-width="1.2"/>
+<g stroke="var(--line2)" stroke-width="1"><line x1="20" y1="35" x2="130" y2="35"/><line x1="75" y1="8" x2="75" y2="62"/></g>
+<line x1="75" y1="35" x2="101" y2="35" stroke="var(--cz)" stroke-width="2.6" stroke-linecap="round"/>
+<rect x="96.5" y="30.5" width="9.0" height="9.0" rx="1.5" fill="var(--cz)" />
+<line x1="75" y1="35" x2="49" y2="35" stroke="var(--cz)" stroke-width="2.6" stroke-linecap="round"/>
+<rect x="44.5" y="30.5" width="9.0" height="9.0" rx="1.5" fill="var(--cz)" />
+<line x1="75" y1="35" x2="75" y2="9" stroke="var(--cz)" stroke-width="2.6" stroke-linecap="round"/>
+<rect x="70.5" y="4.5" width="9.0" height="9.0" rx="1.5" fill="var(--cz)" />
+<circle cx="75" cy="35" r="6" fill="var(--cd)" />
+</g>
+<text x="658" y="102" font-size="11.5" fill="var(--ink2)" font-weight="600"><tspan class="zh">上层：3 根</tspan><tspan class="en">top: 3 wires</tspan></text>
+<g transform="translate(480,152) skewX(-28)">
+<rect x="0" y="0" width="150" height="70" rx="6" fill="var(--bg)" stroke="var(--line2)" stroke-width="1.2"/>
+<g stroke="var(--line2)" stroke-width="1"><line x1="20" y1="35" x2="130" y2="35"/><line x1="75" y1="8" x2="75" y2="62"/></g>
+<line x1="75" y1="35" x2="75" y2="61" stroke="var(--cz)" stroke-width="2.6" stroke-linecap="round"/>
+<rect x="70.5" y="56.5" width="9.0" height="9.0" rx="1.5" fill="var(--cz)" />
+<path d="M75,35 Q103.0,13 131,35" fill="none" stroke="var(--cx)" stroke-width="2.6" stroke-linecap="round" stroke-dasharray="6 4"/>
+<rect x="126.5" y="30.5" width="9.0" height="9.0" rx="1.5" fill="var(--cx)" />
+<path d="M75,35 Q47.0,13 19,35" fill="none" stroke="var(--cx)" stroke-width="2.6" stroke-linecap="round" stroke-dasharray="6 4"/>
+<rect x="14.5" y="30.5" width="9.0" height="9.0" rx="1.5" fill="var(--cx)" />
+<circle cx="75" cy="35" r="6" fill="var(--cd)" />
+</g>
+<text x="658" y="192" font-size="11.5" fill="var(--ink2)" font-weight="600"><tspan class="zh">下层：3 根</tspan><tspan class="en">bottom: 3 wires</tspan></text>
+<line x1="536" y1="106" x2="536" y2="178" stroke="var(--cd)" stroke-width="1" stroke-dasharray="2 3" opacity=".7"/>
+<text x="590" y="36" text-anchor="middle" font-size="12.5" fill="var(--ink2)"><tspan class="zh">(c) 拆成两个平面耦合层</tspan><tspan class="en">(c) Split into two planar coupling layers</tspan></text>
+<text x="590" y="256" text-anchor="middle" font-size="11.5" fill="var(--ink2)" font-weight="600"><tspan class="zh">6 = 3 + 3 · 每层都是平面图</tspan><tspan class="en">6 = 3 + 3 · each layer planar</tspan></text>
+</svg>
+    </div>
+    <figcaption>
+      <span class="zh"><span class="fno">图 1.1</span>　这是示意图，不是 gross 码的真实布线。(a) 表面码：每个比特连 4 根线，都通向紧挨着的检查，一层网格就放得下。(b) BB 码：每个比特连 6 根线（3 条 X 检查、3 条 Z 检查），其中 4 根仍是近邻，另外 2 根伸到三格之外（橙色虚线）；这样的图没法在一层里画平而不交叉。(c) 但它能拆成两个耦合层，每层都是平面图。把 A、B 各写成三项之和，A = A₁ + A₂ + A₃、B = B₁ + B₂ + B₃（<span class="ref" data-ref="b5c3" data-sec="3">第 3 章</span>会看到 A、B 是什么）：一个耦合层放 A₂、A₃、B₃ 的线，另一个放 A₁、B₁、B₂ 的线。同一个比特在每个耦合层恰好 3 根线，3 + 3 = 6——这就是 Bravyi 等人 2024 年论文里的引理 2。</span>
+      <span class="en"><span class="fno">Fig. 1.1</span>　A schematic, not the real wiring of the gross code. (a) Surface code: each qubit has 4 wires, all to the checks right next to it, and one flat layer holds them. (b) BB code: each qubit has 6 wires (3 to X-checks, 3 to Z-checks); 4 are still short, but 2 reach three cells away (dashed amber), and a graph like this cannot be drawn flat in one layer without crossings. (c) It can, though, be split into two planar coupling layers. Write A and B as sums of three terms each, A = A₁ + A₂ + A₃ and B = B₁ + B₂ + B₃ (<span class="ref" data-ref="b5c3" data-sec="3">Chapter 3</span> says what A and B are): one coupling layer carries the wires of A₂, A₃ and B₃, the other those of A₁, B₁ and B₂. Every qubit ends up with exactly 3 wires in each coupling layer, and 3 + 3 = 6 — that is Lemma 2 of Bravyi et al. (2024).</span>
+    </figcaption>
+  </figure>
+  <div class="prose">
+    <p class="zh">代价与收获的账在下一张图里：</p>
+    <p class="en">The ledger of price and payoff is in the next picture:</p>
   </div>
   <div data-widget="bbledgerchart"></div>
   <div class="prose">
@@ -1140,8 +1362,8 @@ table.hmat.roles td.op { white-space: normal; font-family: var(--f-body); font-s
     <div class="ch-no"><span class="zh">第 2 章</span><span class="en">Chapter 2</span></div>
     <h2><span class="zh">单项式是一步平移，多项式是一枚印章</span><span class="en">A monomial is a step, a polynomial is a stamp</span></h2>
     <p class="ch-lede">
-      <span class="zh">BB 码的全部输入只有四样：两个整数 l、m，两个多项式 A、B。这一章教你像专家那样读多项式：不写矩阵，直接在格子上走。词典只有三条——1 是原地不动，x 是横着走一格，y 是竖着走一格，走出边界就从对面绕回来。有了它，一个多项式就是一枚「印章」：盖在哪个格子上，就碰到哪几个格子；两枚印章重叠几格，把两个多项式乘一下就知道（2.3.2）。矩阵只是把同一件事交给计算机的记账方式，每节末尾再讲。</span>
-      <span class="en">A BB code's entire input is four things: two integers l, m and two polynomials A, B. This chapter teaches you to read a polynomial the way experts do: no matrices, just walking on a grid. The dictionary has three entries — 1 means stay put, x means one step across, y means one step up, and walking off an edge brings you back on the opposite side. With it a polynomial becomes a stamp: press it on a site and it touches a few sites; how many sites two stamps share, one polynomial product tells you (§2.3.2). Matrices are merely the bookkeeping that hands the same thing to a computer, and they come at the end of each section.</span>
+      <span class="zh">第 1 章说 BB 码的检查要「伸到几格之外」。怎么描述这样的检查？借环面码的做法：每个格子上的检查长得一模一样，只是平移到了不同位置，所以只需说清一个形状——它的腿落在哪几个偏移 (a, b) 上。每个偏移是一次平移，记作 x<sup>a</sup>y<sup>b</sup>；几个偏移加起来就是多项式。gross 码的 A = x³ + y + y² 记下的就是三条腿「右 3、上 1、上 2」，另外三条由 B 给出。于是 BB 码的全部输入是四个东西：环面的尺寸 l、m 和两个多项式 A、B。这一章教你像专家那样读多项式：不写矩阵，直接在格子上走。词典只有三条——1 是原地不动，x 是往右走一格，y 是往上走一格，走出边界就从对面绕回来。有了它，一个多项式就是一枚「印章」：盖在哪个格子上，就碰到哪几个格子；两枚印章重叠几格，把两个多项式乘一下就知道（2.3.2）。平移还白送一个性质：先右后上与先上后右到达同一处，第 3 章的对易定理就靠它。矩阵只是把同一件事交给计算机的记账方式，每节末尾再讲。</span>
+      <span class="en">Chapter 1 said a BB code's checks “reach a few sites away”. How do we describe such a check? Borrow the toric code's habit: the check on every site has the same shape, merely translated to a different place, so it is enough to state one shape — the offsets (a, b) where its legs land. Each offset is a translation, written x<sup>a</sup>y<sup>b</sup>; add a few offsets and you have a polynomial. The gross code's A = x³ + y + y² records three legs, “right 3, up 1, up 2”; B supplies the other three. So a BB code's entire input is four things: the torus size l, m and two polynomials A, B. This chapter teaches you to read a polynomial the way experts do: no matrices, just walking on a grid. The dictionary has three entries — 1 means stay put, x means one step right, y means one step up, and walking off an edge brings you back on the opposite side. With it a polynomial becomes a stamp: press it on a site and it touches a few sites; how many sites two stamps share, one polynomial product tells you (§2.3.2). Translations also come with a free gift: right-then-up and up-then-right land on the same site, which is all Chapter 3's commutation theorem needs. Matrices are merely the bookkeeping that hands the same thing to a computer, and they come at the end of each section.</span>
     </p>
   </div>
 
@@ -1183,16 +1405,89 @@ table.hmat.roles td.op { white-space: normal; font-family: var(--f-body); font-s
 </svg>
     </div>
     <figcaption>
-      <span class="fno">图 2.1</span>
+      <span class="fno"><span class="zh">图 2.1</span><span class="en">Fig. 2.1</span></span>
       <span class="zh">一圈 l = 6 个格子。平移 x 让每个格子向右（这里画成顺时针）走一格；从格子 4 出发，x 到 5，x² 到 0，x⁻¹ 到 3。</span>
       <span class="en">A ring of l = 6 sites. The step x moves every site one place right (drawn clockwise here); from site 4, x reaches 5, x² reaches 0 and x⁻¹ reaches 3.</span>
     </figcaption>
   </figure>
   <div class="prose">
-    <p class="zh"><b>记账：交给计算机的写法。</b>计算机不会「走格子」，它存一张 l × l 的表 S：第 i 行只在第 i+1 列（mod l）写 1，意思是「从格子 i 出发，落在格子 i+1」。这样每行每列恰有一个 1 的表叫<span class="term">置换矩阵<span class="tip">permutation matrix：每行每列恰有一个 1 的方阵；它作用在向量上只是重排分量的顺序。置换矩阵的转置是它的逆。</span></span>。上面的规则逐条翻译过来：S² 是走两格，S<sup>l</sup> = I 是转一整圈（I 是单位矩阵，对应「原地不动」的 1），Sᵀ 的 1 在第 i 行第 i−1 列，即向左一格：Sᵀ = S<sup>−1</sup>。矩阵乘法怎么算、为什么 S<sup>l</sup> = I，<a href="#cu-2a">补课 2.A</a> 一格一格算给你看。</p>
-    <p class="en"><b>Bookkeeping: how a computer writes it.</b> A computer does not “walk”; it stores an l × l table S whose row i has a single 1, in column i+1 (mod l), meaning “start at site i, land on site i+1”. A table with exactly one 1 per row and column is a <span class="term">permutation matrix<span class="tip">A square matrix with exactly one 1 in each row and column; acting on a vector it merely reorders the components. Its transpose is its inverse.</span></span>. The rules above translate one by one: S² is two steps, S<sup>l</sup> = I a full turn (I is the identity matrix, the matrix of “stay put”, 1), and Sᵀ has its 1 in column i−1 of row i, one step left: Sᵀ = S<sup>−1</sup>. How matrix multiplication works, and why S<sup>l</sup> = I, <a href="#cu-2a">Catch-up 2.A</a> computes entry by entry.</p>
+    <p class="zh"><b>记账：交给计算机的写法。</b>计算机不会「走格子」，它存一张 l × l 的表 S：第 i 行只在第 i+1 列（mod l）写 1，意思是「从格子 i 出发，落在格子 i+1」（图 2.2 画出 l = 2、3 的两张）。这样每行每列恰有一个 1 的表叫<span class="term">置换矩阵<span class="tip">permutation matrix：每行每列恰有一个 1 的方阵；它作用在向量上只是重排分量的顺序。置换矩阵的转置是它的逆。</span></span>。上面的规则逐条翻译过来：S² 是走两格，S<sup>l</sup> = I 是转一整圈（I 是单位矩阵，对应「原地不动」的 1），Sᵀ 的 1 在第 i 行第 i−1 列，即向左一格：Sᵀ = S<sup>−1</sup>。矩阵乘法怎么算、为什么 S<sup>l</sup> = I，<a href="#cu-2a">补课 2.A</a> 一格一格算给你看。</p>
+    <p class="en"><b>Bookkeeping: how a computer writes it.</b> A computer does not “walk”; it stores an l × l table S whose row i has a single 1, in column i+1 (mod l), meaning “start at site i, land on site i+1” (Fig. 2.2 draws the two for l = 2 and 3). A table with exactly one 1 per row and column is a <span class="term">permutation matrix<span class="tip">A square matrix with exactly one 1 in each row and column; acting on a vector it merely reorders the components. Its transpose is its inverse.</span></span>. The rules above translate one by one: S² is two steps, S<sup>l</sup> = I a full turn (I is the identity matrix, the matrix of “stay put”, 1), and Sᵀ has its 1 in column i−1 of row i, one step left: Sᵀ = S<sup>−1</sup>. How matrix multiplication works, and why S<sup>l</sup> = I, <a href="#cu-2a">Catch-up 2.A</a> computes entry by entry.</p>
   </div>
   <div class="formula center">S<sub>l</sub>[i][(i+1) mod l] = 1<br>S<sup>l</sup> = I<br>Sᵀ = S<sup>−1</sup><br><span class="zh">l = 3 时</span><span class="en">for l = 3</span>: S = <span class="mono">[0 1 0; 0 0 1; 1 0 0]</span></div>
+  <figure class="fig">
+    <div class="fig-frame">
+      <svg viewBox="0 0 760 232" role="img" aria-label="l 个格子排成一圈，循环移位是 l × l 的置换矩阵：l = 2 与 l = 3 / l sites in a ring; the cyclic shift is an l × l permutation matrix: l = 2 and l = 3" style="max-width:100%;height:auto;color:var(--ink);font-family:var(--f-body)">
+<defs>
+<marker id="f21-cx" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9 z" fill="var(--cx)"/></marker>
+<marker id="f21-cz" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9 z" fill="var(--cz)"/></marker>
+<marker id="f21-cd" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9 z" fill="var(--cd)"/></marker>
+<marker id="f21-ink2" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9 z" fill="var(--ink2)"/></marker>
+</defs>
+<text x="190" y="26" text-anchor="middle" font-size="12.5" fill="var(--ink2)"><tspan class="zh">(a) l = 2：两个格子</tspan><tspan class="en">(a) l = 2: two sites</tspan></text>
+<line x1="65" y1="104" x2="98" y2="104" stroke="var(--ink2)" stroke-width="1.8" marker-end="url(#f21-ink2)"/>
+<path d="M114,119 C124,166 40,166 50,121" fill="none" stroke="var(--cd)" stroke-width="1.8" stroke-dasharray="5 4" marker-end="url(#f21-cd)"/>
+<text x="82.0" y="170" text-anchor="middle" font-size="10.5" fill="var(--cd)"><tspan class="zh">绕回</tspan><tspan class="en">wraps</tspan></text>
+<circle cx="50" cy="104" r="13" fill="var(--bg2)" stroke="var(--ink3)" stroke-width="1.3"/>
+<text x="50" y="108.2" text-anchor="middle" font-size="12" fill="var(--ink)" font-weight="600" font-family="var(--f-mono)">0</text>
+<circle cx="114" cy="104" r="13" fill="var(--bg2)" stroke="var(--ink3)" stroke-width="1.3"/>
+<text x="114" y="108.2" text-anchor="middle" font-size="12" fill="var(--ink)" font-weight="600" font-family="var(--f-mono)">1</text>
+<text x="238.0" y="54.0" text-anchor="middle" font-size="12" fill="var(--ink)" font-weight="600"><tspan class="zh">S<tspan baseline-shift="sub" font-size="9">2</tspan>（2 × 2）</tspan><tspan class="en">S<tspan baseline-shift="sub" font-size="9">2</tspan> (2 × 2)</tspan></text>
+<text x="224.0" y="98.0" text-anchor="middle" font-size="12.6" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<rect x="238" y="80.0" width="28" height="28" fill="var(--cz)"/>
+<text x="252.0" y="98.0" text-anchor="middle" font-size="14.0" fill="var(--bg2)" font-weight="700" font-family="var(--f-mono)">1</text>
+<rect x="210" y="108.0" width="28" height="28" fill="var(--cd)"/>
+<text x="224.0" y="126.0" text-anchor="middle" font-size="14.0" fill="var(--bg2)" font-weight="700" font-family="var(--f-mono)">1</text>
+<text x="252.0" y="126.0" text-anchor="middle" font-size="12.6" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<g stroke="var(--line)" stroke-width="0.8"><line x1="210" y1="80.0" x2="266" y2="80.0"/><line x1="210" y1="80.0" x2="210" y2="136.0"/><line x1="210" y1="108.0" x2="266" y2="108.0"/><line x1="238" y1="80.0" x2="238" y2="136.0"/><line x1="210" y1="136.0" x2="266" y2="136.0"/><line x1="266" y1="80.0" x2="266" y2="136.0"/></g>
+<rect x="210" y="80.0" width="56" height="56" fill="none" stroke="var(--ink3)" stroke-width="1.4"/>
+<text x="224.0" y="74.0" text-anchor="middle" font-size="10" fill="var(--ink3)" font-family="var(--f-mono)">0</text>
+<text x="202" y="97.5" text-anchor="middle" font-size="10" fill="var(--ink3)" font-family="var(--f-mono)">0</text>
+<text x="252.0" y="74.0" text-anchor="middle" font-size="10" fill="var(--ink3)" font-family="var(--f-mono)">1</text>
+<text x="202" y="125.5" text-anchor="middle" font-size="10" fill="var(--ink3)" font-family="var(--f-mono)">1</text>
+<text x="190" y="196" text-anchor="middle" font-size="11.5" fill="var(--ink2)" font-weight="600"><tspan class="zh">2 个格子 → 2 × 2 的矩阵</tspan><tspan class="en">2 sites → a 2 × 2 matrix</tspan></text>
+<text x="570" y="26" text-anchor="middle" font-size="12.5" fill="var(--ink2)"><tspan class="zh">(b) l = 3：三个格子</tspan><tspan class="en">(b) l = 3: three sites</tspan></text>
+<line x1="445" y1="104" x2="478" y2="104" stroke="var(--ink2)" stroke-width="1.8" marker-end="url(#f21-ink2)"/>
+<line x1="509" y1="104" x2="542" y2="104" stroke="var(--ink2)" stroke-width="1.8" marker-end="url(#f21-ink2)"/>
+<path d="M558,119 C568,166 420,166 430,121" fill="none" stroke="var(--cd)" stroke-width="1.8" stroke-dasharray="5 4" marker-end="url(#f21-cd)"/>
+<text x="494.0" y="170" text-anchor="middle" font-size="10.5" fill="var(--cd)"><tspan class="zh">绕回</tspan><tspan class="en">wraps</tspan></text>
+<circle cx="430" cy="104" r="13" fill="var(--bg2)" stroke="var(--ink3)" stroke-width="1.3"/>
+<text x="430" y="108.2" text-anchor="middle" font-size="12" fill="var(--ink)" font-weight="600" font-family="var(--f-mono)">0</text>
+<circle cx="494" cy="104" r="13" fill="var(--bg2)" stroke="var(--ink3)" stroke-width="1.3"/>
+<text x="494" y="108.2" text-anchor="middle" font-size="12" fill="var(--ink)" font-weight="600" font-family="var(--f-mono)">1</text>
+<circle cx="558" cy="104" r="13" fill="var(--bg2)" stroke="var(--ink3)" stroke-width="1.3"/>
+<text x="558" y="108.2" text-anchor="middle" font-size="12" fill="var(--ink)" font-weight="600" font-family="var(--f-mono)">2</text>
+<text x="670.0" y="40.0" text-anchor="middle" font-size="12" fill="var(--ink)" font-weight="600"><tspan class="zh">S<tspan baseline-shift="sub" font-size="9">3</tspan>（3 × 3）</tspan><tspan class="en">S<tspan baseline-shift="sub" font-size="9">3</tspan> (3 × 3)</tspan></text>
+<text x="642.0" y="84.0" text-anchor="middle" font-size="12.6" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<rect x="656" y="66.0" width="28" height="28" fill="var(--cz)"/>
+<text x="670.0" y="84.0" text-anchor="middle" font-size="14.0" fill="var(--bg2)" font-weight="700" font-family="var(--f-mono)">1</text>
+<text x="698.0" y="84.0" text-anchor="middle" font-size="12.6" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="642.0" y="112.0" text-anchor="middle" font-size="12.6" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="670.0" y="112.0" text-anchor="middle" font-size="12.6" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<rect x="684" y="94.0" width="28" height="28" fill="var(--cz)"/>
+<text x="698.0" y="112.0" text-anchor="middle" font-size="14.0" fill="var(--bg2)" font-weight="700" font-family="var(--f-mono)">1</text>
+<rect x="628" y="122.0" width="28" height="28" fill="var(--cd)"/>
+<text x="642.0" y="140.0" text-anchor="middle" font-size="14.0" fill="var(--bg2)" font-weight="700" font-family="var(--f-mono)">1</text>
+<text x="670.0" y="140.0" text-anchor="middle" font-size="12.6" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="698.0" y="140.0" text-anchor="middle" font-size="12.6" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<g stroke="var(--line)" stroke-width="0.8"><line x1="628" y1="66.0" x2="712" y2="66.0"/><line x1="628" y1="66.0" x2="628" y2="150.0"/><line x1="628" y1="94.0" x2="712" y2="94.0"/><line x1="656" y1="66.0" x2="656" y2="150.0"/><line x1="628" y1="122.0" x2="712" y2="122.0"/><line x1="684" y1="66.0" x2="684" y2="150.0"/><line x1="628" y1="150.0" x2="712" y2="150.0"/><line x1="712" y1="66.0" x2="712" y2="150.0"/></g>
+<rect x="628" y="66.0" width="84" height="84" fill="none" stroke="var(--ink3)" stroke-width="1.4"/>
+<text x="642.0" y="60.0" text-anchor="middle" font-size="10" fill="var(--ink3)" font-family="var(--f-mono)">0</text>
+<text x="620" y="83.5" text-anchor="middle" font-size="10" fill="var(--ink3)" font-family="var(--f-mono)">0</text>
+<text x="670.0" y="60.0" text-anchor="middle" font-size="10" fill="var(--ink3)" font-family="var(--f-mono)">1</text>
+<text x="620" y="111.5" text-anchor="middle" font-size="10" fill="var(--ink3)" font-family="var(--f-mono)">1</text>
+<text x="698.0" y="60.0" text-anchor="middle" font-size="10" fill="var(--ink3)" font-family="var(--f-mono)">2</text>
+<text x="620" y="139.5" text-anchor="middle" font-size="10" fill="var(--ink3)" font-family="var(--f-mono)">2</text>
+<text x="570" y="196" text-anchor="middle" font-size="11.5" fill="var(--ink2)" font-weight="600"><tspan class="zh">3 个格子 → 3 × 3 的矩阵</tspan><tspan class="en">3 sites → a 3 × 3 matrix</tspan></text>
+<line x1="380" y1="44" x2="380" y2="204" stroke="var(--line)" stroke-width="1"/>
+<text x="380" y="224" text-anchor="middle" font-size="11" fill="var(--ink3)"><tspan class="zh">行号 = 出发的格子，列号 = 到达的格子；第 i 行的 1 在第 i+1 列</tspan><tspan class="en">row = the site you start from, column = the site you land on; row i has its 1 in column i+1</tspan></text>
+</svg>
+    </div>
+    <figcaption>
+      <span class="zh"><span class="fno">图 2.2</span>　循环移位的尺寸由格子数决定：l 个格子就是 l × l 的方阵，因为每一行对应一个出发的格子，每一列对应一个到达的格子。蓝色的 1 是「往右挪一格」，粉色的 1 是最后一格绕回第 0 格。这两个就是下一节图 2.4 那个 2 × 3 小例子的零件：S<sub>2</sub> 管第一个坐标，S<sub>3</sub> 管第二个。</span>
+      <span class="en"><span class="fno">Fig. 2.2</span>　The size of a cyclic shift is set by the number of sites: l sites give an l × l square matrix, because each row is a starting site and each column a landing site. Blue 1s are “step right”; the pink 1 is the last site wrapping to site 0. These two are the parts for the 2 × 3 example of Fig. 2.4 in the next section: S<sub>2</sub> for the first coordinate, S<sub>3</sub> for the second.</span>
+    </figcaption>
+  </figure>
 
   <details class="fold basics" id="cu-2a">
     <summary><span class="zh">补课 · 矩阵乘法怎么算：S·S 与 S<sup>l</sup> = I 的演算</span><span class="en">Catch-up · How matrix multiplication works: computing S·S and S<sup>l</sup> = I</span></summary>
@@ -1207,8 +1502,8 @@ table.hmat.roles td.op { white-space: normal; font-family: var(--f-body); font-s
   <div class="prose">
     <p class="zh">BB 码的格子排成 l 列 × m 行的长方形，而且四边都绕回：走出右边从左边回来，走出上边从下边回来，像贪吃蛇游戏的屏幕。这样的格子叫<span class="term">环面<span class="tip">torus：把长方形的左右两边粘起来、上下两边也粘起来得到的「甜甜圈」表面。格子上任何方向都没有尽头，走出去总会从对面回来。</span></span>。格子用一对坐标 (i, j) 标记：i 是横坐标，从 0 数到 l−1；j 是纵坐标，从 0 数到 m−1，向上增大。两个基本动作：<b>x 把 (i, j) 送到 (i+1, j)</b>，向右一格；<b>y 把 (i, j) 送到 (i, j+1)</b>，向上一格。</p>
     <p class="en">A BB code's sites form a rectangle of l columns by m rows that wraps on all four sides: walk off the right edge and you re-enter on the left, off the top and you re-enter at the bottom, like the screen of the game Snake. Such a grid is a <span class="term">torus<span class="tip">The doughnut surface obtained by gluing a rectangle's left edge to its right edge and its top to its bottom. It has no end in any direction: whatever leaves comes back from the opposite side.</span></span>. A site is labelled by a pair of coordinates (i, j): i across, counted 0 to l−1; j up, counted 0 to m−1. Two basic moves: <b>x sends (i, j) to (i+1, j)</b>, one step right; <b>y sends (i, j) to (i, j+1)</b>, one step up.</p>
-    <p class="zh">于是 x<sup>a</sup>y<sup>b</sup> 就是「向右 a 格、向上 b 格」：(i, j) → (i+a, j+b)，横坐标按 mod l、纵坐标按 mod m 绕回。2.1 的规则现在各有两份：x<sup>l</sup> = 1，y<sup>m</sup> = 1；x<sup>−1</sup> 是向左一格，y<sup>−1</sup> 是向下一格。新添的一条最重要：<b>xy = yx</b>，先右后上与先上后右，到达同一个格子（图 2.2）。这不是理所当然的：并不是所有动作都能交换次序，<a href="#cu-2b">补课 2.B</a> 里就有一对不能交换的例子；x 和 y 能交换，是因为它们各管一个坐标，互不干扰。</p>
-    <p class="en">So x<sup>a</sup>y<sup>b</sup> means “a steps right and b steps up”: (i, j) → (i+a, j+b), the first coordinate wrapping mod l and the second mod m. The rules of §2.1 now come in pairs: x<sup>l</sup> = 1 and y<sup>m</sup> = 1; x<sup>−1</sup> is one step left and y<sup>−1</sup> one step down. One new rule matters most: <b>xy = yx</b> — right-then-up and up-then-right land on the same site (Fig. 2.2). That is not automatic: not every pair of moves can be swapped, and <a href="#cu-2b">Catch-up 2.B</a> shows a pair that cannot; x and y can, because each minds its own coordinate and they never interfere.</p>
+    <p class="zh">于是 x<sup>a</sup>y<sup>b</sup> 就是「向右 a 格、向上 b 格」：(i, j) → (i+a, j+b)，横坐标按 mod l、纵坐标按 mod m 绕回。2.1 的规则现在各有两份：x<sup>l</sup> = 1，y<sup>m</sup> = 1；x<sup>−1</sup> 是向左一格，y<sup>−1</sup> 是向下一格。新添的一条最重要：<b>xy = yx</b>，先右后上与先上后右，到达同一个格子（图 2.3）。这不是理所当然的：并不是所有动作都能交换次序，<a href="#cu-2b">补课 2.B</a> 里就有一对不能交换的例子；x 和 y 能交换，是因为它们各管一个坐标，互不干扰。</p>
+    <p class="en">So x<sup>a</sup>y<sup>b</sup> means “a steps right and b steps up”: (i, j) → (i+a, j+b), the first coordinate wrapping mod l and the second mod m. The rules of §2.1 now come in pairs: x<sup>l</sup> = 1 and y<sup>m</sup> = 1; x<sup>−1</sup> is one step left and y<sup>−1</sup> one step down. One new rule matters most: <b>xy = yx</b> — right-then-up and up-then-right land on the same site (Fig. 2.3). That is not automatic: not every pair of moves can be swapped, and <a href="#cu-2b">Catch-up 2.B</a> shows a pair that cannot; x and y can, because each minds its own coordinate and they never interfere.</p>
     <p class="zh">这三条就是本节的全部内容。它们保证 x、y 的式子可以像中学里的多项式一样展开、合并、随意交换因子的次序，下一节马上要用。</p>
     <p class="en">These three rules are the whole content of the section. They guarantee that expressions in x and y can be expanded, collected and have their factors reordered exactly like the polynomials of school algebra, which the next section uses at once.</p>
   </div>
@@ -1263,16 +1558,284 @@ table.hmat.roles td.op { white-space: normal; font-family: var(--f-body); font-s
 </svg>
     </div>
     <figcaption>
-      <span class="fno">图 2.2</span>
+      <span class="fno"><span class="zh">图 2.3</span><span class="en">Fig. 2.3</span></span>
       <span class="zh">l = 4、m = 3 的环面，坐标 (i, j)。从 (1, 0) 出发，先 x 后 y（实线）与先 y 后 x（虚线）都到 (2, 1)：xy = yx。点线：从 (3, 1) 再走一步 x，从左边绕回 (0, 1)。</span>
       <span class="en">An l = 4, m = 3 torus with coordinates (i, j). From (1, 0), x then y (solid) and y then x (dashed) both reach (2, 1): xy = yx. Dotted: one more x from (3, 1) wraps round to (0, 1) on the left.</span>
     </figcaption>
   </figure>
   <div class="prose">
-    <p class="zh"><b>记账：</b>计算机把 lm 个格子排成一列编号，格子 (i, j) 编为 i·m + j（先按 i、再按 j）。于是 x 记成一张 lm × lm 的置换矩阵 x <span class="sym" data-sym="dfn">≔</span> S<sub>l</sub> <span class="sym" data-sym="otimes">⊗</span> I<sub>m</sub>，y 记成 y ≔ I<sub>l</sub> <span class="sym" data-sym="otimes">⊗</span> S<sub>m</sub>。这里的 ⊗ 是<span class="term">克罗内克积<span class="tip">Kronecker product：A ⊗ B 把 A 的每个元素 a 换成整块 a·B。(A ⊗ B)(C ⊗ D) = AC ⊗ BD，所以只动不同坐标的两个平移一定对易。</span></span>：把 S<sub>l</sub> 的每个元素放大成一整块 I<sub>m</sub>（或 0）。公式不必记，只记意思：x 让 (i, j) 变成 (i+1, j)。<a href="#cu-2b">补课 2.B</a> 用 l = m = 2 把两张矩阵逐格写出来，并给出 xy = yx 的三种证法。</p>
-    <p class="en"><b>Bookkeeping:</b> a computer numbers the lm sites in a single list, site (i, j) becoming number i·m + j (counting through i first, then j). Then x is stored as an lm × lm permutation matrix x <span class="sym" data-sym="dfn">≔</span> S<sub>l</sub> <span class="sym" data-sym="otimes">⊗</span> I<sub>m</sub>, and y as y ≔ I<sub>l</sub> <span class="sym" data-sym="otimes">⊗</span> S<sub>m</sub>. Here ⊗ is the <span class="term">Kronecker product<span class="tip">A ⊗ B replaces every entry a of A by the whole block a·B. (A ⊗ B)(C ⊗ D) = AC ⊗ BD, so two translations moving different coordinates must commute.</span></span>: every entry of S<sub>l</sub> blown up into a block I<sub>m</sub> (or 0). No need to memorise the formula, only its meaning: x turns (i, j) into (i+1, j). <a href="#cu-2b">Catch-up 2.B</a> writes both matrices out cell by cell for l = m = 2 and gives three proofs of xy = yx.</p>
+    <p class="zh"><b>记账：</b>计算机把 lm 个格子排成一列编号，格子 (i, j) 编为 i·m + j（先按 i、再按 j）。于是 x 记成一张 lm × lm 的置换矩阵 x <span class="sym" data-sym="dfn">≔</span> S<sub>l</sub> <span class="sym" data-sym="otimes">⊗</span> I<sub>m</sub>，y 记成 y ≔ I<sub>l</sub> <span class="sym" data-sym="otimes">⊗</span> S<sub>m</sub>。这里的 ⊗ 是<span class="term">克罗内克积<span class="tip">Kronecker product：A ⊗ B 把 A 的每个元素 a 换成整块 a·B。(A ⊗ B)(C ⊗ D) = AC ⊗ BD，所以只动不同坐标的两个平移一定对易。</span></span>：把 S<sub>l</sub> 的每个元素放大成一整块 I<sub>m</sub>（或 0）。公式不必记，只记意思：x 让 (i, j) 变成 (i+1, j)。图 2.4 用 l = 2、m = 3 把 x、y 和 x + y 三张 6 × 6 的矩阵整张画出来。<a href="#cu-2b">补课 2.B</a> 用 l = m = 2 把两张矩阵逐格写出来，并给出 xy = yx 的三种证法。</p>
+    <p class="en"><b>Bookkeeping:</b> a computer numbers the lm sites in a single list, site (i, j) becoming number i·m + j (counting through i first, then j). Then x is stored as an lm × lm permutation matrix x <span class="sym" data-sym="dfn">≔</span> S<sub>l</sub> <span class="sym" data-sym="otimes">⊗</span> I<sub>m</sub>, and y as y ≔ I<sub>l</sub> <span class="sym" data-sym="otimes">⊗</span> S<sub>m</sub>. Here ⊗ is the <span class="term">Kronecker product<span class="tip">A ⊗ B replaces every entry a of A by the whole block a·B. (A ⊗ B)(C ⊗ D) = AC ⊗ BD, so two translations moving different coordinates must commute.</span></span>: every entry of S<sub>l</sub> blown up into a block I<sub>m</sub> (or 0). No need to memorise the formula, only its meaning: x turns (i, j) into (i+1, j). Fig. 2.4 draws x, y and x + y in full for l = 2, m = 3: three 6 × 6 matrices. <a href="#cu-2b">Catch-up 2.B</a> writes both matrices out cell by cell for l = m = 2 and gives three proofs of xy = yx.</p>
   </div>
   <div class="formula center">x<sup>a</sup>y<sup>b</sup>: (i, j) <span class="sym" data-sym="implies">⇒</span> (i+a, j+b)<br>x<sup>l</sup> = y<sup>m</sup> = 1<br>xy = yx</div>
+  <figure class="fig">
+    <div class="fig-frame">
+      <svg viewBox="0 0 760 500" role="img" aria-label="2 × 3 环面上有 6 个格子，x 与 y 各是 6 × 6 的矩阵，相加仍是 6 × 6 / a 2 × 3 torus has 6 sites; x and y are each 6 × 6 matrices, and their sum is still 6 × 6" style="max-width:100%;height:auto;color:var(--ink);font-family:var(--f-body)">
+<defs>
+<marker id="f22-cx" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9 z" fill="var(--cx)"/></marker>
+<marker id="f22-cz" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9 z" fill="var(--cz)"/></marker>
+<marker id="f22-cd" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9 z" fill="var(--cd)"/></marker>
+<marker id="f22-ink2" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9 z" fill="var(--ink2)"/></marker>
+</defs>
+<text x="101.0" y="26" text-anchor="middle" font-size="12.5" fill="var(--ink2)"><tspan class="zh">(a) x：每个格子往右一格</tspan><tspan class="en">(a) x: every site steps right</tspan></text>
+<line x1="85" y1="176" x2="116" y2="176" stroke="var(--cx)" stroke-width="1.8" marker-end="url(#f22-cx)"/>
+<line x1="85" y1="130" x2="116" y2="130" stroke="var(--cx)" stroke-width="1.8" marker-end="url(#f22-cx)"/>
+<line x1="85" y1="84" x2="116" y2="84" stroke="var(--cx)" stroke-width="1.8" marker-end="url(#f22-cx)"/>
+<line x1="147" y1="176" x2="170" y2="176" stroke="var(--cx)" stroke-width="1.8" stroke-dasharray="5 4" marker-end="url(#f22-cx)"/>
+<line x1="32" y1="176" x2="54" y2="176" stroke="var(--cx)" stroke-width="1.8" stroke-dasharray="5 4" marker-end="url(#f22-cx)"/>
+<line x1="147" y1="130" x2="170" y2="130" stroke="var(--cx)" stroke-width="1.8" stroke-dasharray="5 4" marker-end="url(#f22-cx)"/>
+<line x1="32" y1="130" x2="54" y2="130" stroke="var(--cx)" stroke-width="1.8" stroke-dasharray="5 4" marker-end="url(#f22-cx)"/>
+<line x1="147" y1="84" x2="170" y2="84" stroke="var(--cx)" stroke-width="1.8" stroke-dasharray="5 4" marker-end="url(#f22-cx)"/>
+<line x1="32" y1="84" x2="54" y2="84" stroke="var(--cx)" stroke-width="1.8" stroke-dasharray="5 4" marker-end="url(#f22-cx)"/>
+<circle cx="70" cy="176" r="13" fill="var(--bg2)" stroke="var(--ink3)" stroke-width="1.3"/>
+<text x="70" y="180.2" text-anchor="middle" font-size="12" fill="var(--ink)" font-weight="600" font-family="var(--f-mono)">0</text>
+<text x="86" y="197" text-anchor="start" font-size="9.5" fill="var(--ink3)" font-family="var(--f-mono)">(0,0)</text>
+<circle cx="70" cy="130" r="13" fill="var(--bg2)" stroke="var(--ink3)" stroke-width="1.3"/>
+<text x="70" y="134.2" text-anchor="middle" font-size="12" fill="var(--ink)" font-weight="600" font-family="var(--f-mono)">1</text>
+<text x="86" y="151" text-anchor="start" font-size="9.5" fill="var(--ink3)" font-family="var(--f-mono)">(0,1)</text>
+<circle cx="70" cy="84" r="13" fill="var(--bg2)" stroke="var(--ink3)" stroke-width="1.3"/>
+<text x="70" y="88.2" text-anchor="middle" font-size="12" fill="var(--ink)" font-weight="600" font-family="var(--f-mono)">2</text>
+<text x="86" y="105" text-anchor="start" font-size="9.5" fill="var(--ink3)" font-family="var(--f-mono)">(0,2)</text>
+<circle cx="132" cy="176" r="13" fill="var(--bg2)" stroke="var(--ink3)" stroke-width="1.3"/>
+<text x="132" y="180.2" text-anchor="middle" font-size="12" fill="var(--ink)" font-weight="600" font-family="var(--f-mono)">3</text>
+<text x="148" y="197" text-anchor="start" font-size="9.5" fill="var(--ink3)" font-family="var(--f-mono)">(1,0)</text>
+<circle cx="132" cy="130" r="13" fill="var(--bg2)" stroke="var(--ink3)" stroke-width="1.3"/>
+<text x="132" y="134.2" text-anchor="middle" font-size="12" fill="var(--ink)" font-weight="600" font-family="var(--f-mono)">4</text>
+<text x="148" y="151" text-anchor="start" font-size="9.5" fill="var(--ink3)" font-family="var(--f-mono)">(1,1)</text>
+<circle cx="132" cy="84" r="13" fill="var(--bg2)" stroke="var(--ink3)" stroke-width="1.3"/>
+<text x="132" y="88.2" text-anchor="middle" font-size="12" fill="var(--ink)" font-weight="600" font-family="var(--f-mono)">5</text>
+<text x="148" y="105" text-anchor="start" font-size="9.5" fill="var(--ink3)" font-family="var(--f-mono)">(1,2)</text>
+<text x="321.0" y="26" text-anchor="middle" font-size="12.5" fill="var(--ink2)"><tspan class="zh">(b) y：每个格子往上一格</tspan><tspan class="en">(b) y: every site steps up</tspan></text>
+<line x1="290" y1="161" x2="290" y2="146" stroke="var(--cz)" stroke-width="1.8" marker-end="url(#f22-cz)"/>
+<line x1="290" y1="115" x2="290" y2="100" stroke="var(--cz)" stroke-width="1.8" marker-end="url(#f22-cz)"/>
+<line x1="290" y1="69" x2="290" y2="50" stroke="var(--cz)" stroke-width="1.8" stroke-dasharray="5 4" marker-end="url(#f22-cz)"/>
+<line x1="290" y1="210" x2="290" y2="192" stroke="var(--cz)" stroke-width="1.8" stroke-dasharray="5 4" marker-end="url(#f22-cz)"/>
+<line x1="352" y1="161" x2="352" y2="146" stroke="var(--cz)" stroke-width="1.8" marker-end="url(#f22-cz)"/>
+<line x1="352" y1="115" x2="352" y2="100" stroke="var(--cz)" stroke-width="1.8" marker-end="url(#f22-cz)"/>
+<line x1="352" y1="69" x2="352" y2="50" stroke="var(--cz)" stroke-width="1.8" stroke-dasharray="5 4" marker-end="url(#f22-cz)"/>
+<line x1="352" y1="210" x2="352" y2="192" stroke="var(--cz)" stroke-width="1.8" stroke-dasharray="5 4" marker-end="url(#f22-cz)"/>
+<circle cx="290" cy="176" r="13" fill="var(--bg2)" stroke="var(--ink3)" stroke-width="1.3"/>
+<text x="290" y="180.2" text-anchor="middle" font-size="12" fill="var(--ink)" font-weight="600" font-family="var(--f-mono)">0</text>
+<text x="306" y="197" text-anchor="start" font-size="9.5" fill="var(--ink3)" font-family="var(--f-mono)">(0,0)</text>
+<circle cx="290" cy="130" r="13" fill="var(--bg2)" stroke="var(--ink3)" stroke-width="1.3"/>
+<text x="290" y="134.2" text-anchor="middle" font-size="12" fill="var(--ink)" font-weight="600" font-family="var(--f-mono)">1</text>
+<text x="306" y="151" text-anchor="start" font-size="9.5" fill="var(--ink3)" font-family="var(--f-mono)">(0,1)</text>
+<circle cx="290" cy="84" r="13" fill="var(--bg2)" stroke="var(--ink3)" stroke-width="1.3"/>
+<text x="290" y="88.2" text-anchor="middle" font-size="12" fill="var(--ink)" font-weight="600" font-family="var(--f-mono)">2</text>
+<text x="306" y="105" text-anchor="start" font-size="9.5" fill="var(--ink3)" font-family="var(--f-mono)">(0,2)</text>
+<circle cx="352" cy="176" r="13" fill="var(--bg2)" stroke="var(--ink3)" stroke-width="1.3"/>
+<text x="352" y="180.2" text-anchor="middle" font-size="12" fill="var(--ink)" font-weight="600" font-family="var(--f-mono)">3</text>
+<text x="368" y="197" text-anchor="start" font-size="9.5" fill="var(--ink3)" font-family="var(--f-mono)">(1,0)</text>
+<circle cx="352" cy="130" r="13" fill="var(--bg2)" stroke="var(--ink3)" stroke-width="1.3"/>
+<text x="352" y="134.2" text-anchor="middle" font-size="12" fill="var(--ink)" font-weight="600" font-family="var(--f-mono)">4</text>
+<text x="368" y="151" text-anchor="start" font-size="9.5" fill="var(--ink3)" font-family="var(--f-mono)">(1,1)</text>
+<circle cx="352" cy="84" r="13" fill="var(--bg2)" stroke="var(--ink3)" stroke-width="1.3"/>
+<text x="352" y="88.2" text-anchor="middle" font-size="12" fill="var(--ink)" font-weight="600" font-family="var(--f-mono)">5</text>
+<text x="368" y="105" text-anchor="start" font-size="9.5" fill="var(--ink3)" font-family="var(--f-mono)">(1,2)</text>
+<rect x="505" y="44" width="236" height="150" rx="8" fill="var(--bg3)" stroke="var(--line)" stroke-width="1"/>
+<text x="521" y="72" text-anchor="start" font-size="11.5" fill="var(--ink2)"><tspan class="zh">格子：l × m = 2 × 3 = <tspan font-weight="700" fill="var(--ink)">6 个</tspan></tspan><tspan class="en">sites: l × m = 2 × 3 = <tspan font-weight="700" fill="var(--ink)">6</tspan></tspan></text>
+<text x="521" y="94" text-anchor="start" font-size="11.5" fill="var(--ink2)"><tspan class="zh">编号：(i, j) → 3i + j</tspan><tspan class="en">numbering: (i, j) → 3i + j</tspan></text>
+<text x="521" y="116" text-anchor="start" font-size="11.5" fill="var(--ink2)"><tspan class="zh">平移：6 个格子各搬一次家</tspan><tspan class="en">a translation moves all 6 sites</tspan></text>
+<text x="521" y="138" text-anchor="start" font-size="11.5" fill="var(--ink2)"><tspan class="zh">行 = 出发格子，6 行</tspan><tspan class="en">rows = starting sites: 6</tspan></text>
+<text x="521" y="160" text-anchor="start" font-size="11.5" fill="var(--ink2)"><tspan class="zh">列 = 到达格子，6 列</tspan><tspan class="en">columns = landing sites: 6</tspan></text>
+<text x="521" y="182" text-anchor="start" font-size="11.5" fill="var(--ink2)"><tspan class="zh">⇒ 单项式是 <tspan font-weight="700" fill="var(--ink)">6 × 6</tspan>，不是 2 × 3</tspan><tspan class="en">⇒ a monomial is <tspan font-weight="700" fill="var(--ink)">6 × 6</tspan>, not 2 × 3</tspan></text>
+<line x1="20" y1="232" x2="740" y2="232" stroke="var(--line)" stroke-width="1"/>
+<text x="125.0" y="262" text-anchor="middle" font-size="12.5" fill="var(--ink)" font-weight="600">(c) x = S<tspan baseline-shift="sub" font-size="9">2</tspan> ⊗ I<tspan baseline-shift="sub" font-size="9">3</tspan></text>
+<text x="77.5" y="303.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="96.5" y="303.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="115.5" y="303.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<rect x="125" y="290" width="19" height="19" fill="var(--cx)"/>
+<text x="134.5" y="303.5" text-anchor="middle" font-size="9.5" fill="var(--bg2)" font-weight="700" font-family="var(--f-mono)">1</text>
+<text x="153.5" y="303.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="172.5" y="303.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="77.5" y="322.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="96.5" y="322.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="115.5" y="322.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="134.5" y="322.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<rect x="144" y="309" width="19" height="19" fill="var(--cx)"/>
+<text x="153.5" y="322.5" text-anchor="middle" font-size="9.5" fill="var(--bg2)" font-weight="700" font-family="var(--f-mono)">1</text>
+<text x="172.5" y="322.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="77.5" y="341.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="96.5" y="341.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="115.5" y="341.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="134.5" y="341.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="153.5" y="341.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<rect x="163" y="328" width="19" height="19" fill="var(--cx)"/>
+<text x="172.5" y="341.5" text-anchor="middle" font-size="9.5" fill="var(--bg2)" font-weight="700" font-family="var(--f-mono)">1</text>
+<rect x="68" y="347" width="19" height="19" fill="var(--cx)"/>
+<text x="77.5" y="360.5" text-anchor="middle" font-size="9.5" fill="var(--bg2)" font-weight="700" font-family="var(--f-mono)">1</text>
+<text x="96.5" y="360.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="115.5" y="360.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="134.5" y="360.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="153.5" y="360.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="172.5" y="360.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="77.5" y="379.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<rect x="87" y="366" width="19" height="19" fill="var(--cx)"/>
+<text x="96.5" y="379.5" text-anchor="middle" font-size="9.5" fill="var(--bg2)" font-weight="700" font-family="var(--f-mono)">1</text>
+<text x="115.5" y="379.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="134.5" y="379.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="153.5" y="379.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="172.5" y="379.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="77.5" y="398.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="96.5" y="398.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<rect x="106" y="385" width="19" height="19" fill="var(--cx)"/>
+<text x="115.5" y="398.5" text-anchor="middle" font-size="9.5" fill="var(--bg2)" font-weight="700" font-family="var(--f-mono)">1</text>
+<text x="134.5" y="398.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="153.5" y="398.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="172.5" y="398.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<g stroke="var(--line)" stroke-width="0.8"><line x1="68" y1="290" x2="182" y2="290"/><line x1="68" y1="290" x2="68" y2="404"/><line x1="68" y1="309" x2="182" y2="309"/><line x1="87" y1="290" x2="87" y2="404"/><line x1="68" y1="328" x2="182" y2="328"/><line x1="106" y1="290" x2="106" y2="404"/><line x1="68" y1="347" x2="182" y2="347"/><line x1="125" y1="290" x2="125" y2="404"/><line x1="68" y1="366" x2="182" y2="366"/><line x1="144" y1="290" x2="144" y2="404"/><line x1="68" y1="385" x2="182" y2="385"/><line x1="163" y1="290" x2="163" y2="404"/><line x1="68" y1="404" x2="182" y2="404"/><line x1="182" y1="290" x2="182" y2="404"/></g>
+<g stroke="var(--ink3)" stroke-width="1.4"><line x1="68" y1="347" x2="182" y2="347"/><line x1="125" y1="290" x2="125" y2="404"/></g>
+<rect x="68" y="290" width="114" height="114" fill="none" stroke="var(--ink3)" stroke-width="1.4"/>
+<text x="77.5" y="284" text-anchor="middle" font-size="10" fill="var(--ink3)" font-family="var(--f-mono)">0</text>
+<text x="60" y="303.0" text-anchor="middle" font-size="10" fill="var(--ink3)" font-family="var(--f-mono)">0</text>
+<text x="96.5" y="284" text-anchor="middle" font-size="10" fill="var(--ink3)" font-family="var(--f-mono)">1</text>
+<text x="60" y="322.0" text-anchor="middle" font-size="10" fill="var(--ink3)" font-family="var(--f-mono)">1</text>
+<text x="115.5" y="284" text-anchor="middle" font-size="10" fill="var(--ink3)" font-family="var(--f-mono)">2</text>
+<text x="60" y="341.0" text-anchor="middle" font-size="10" fill="var(--ink3)" font-family="var(--f-mono)">2</text>
+<text x="134.5" y="284" text-anchor="middle" font-size="10" fill="var(--ink3)" font-family="var(--f-mono)">3</text>
+<text x="60" y="360.0" text-anchor="middle" font-size="10" fill="var(--ink3)" font-family="var(--f-mono)">3</text>
+<text x="153.5" y="284" text-anchor="middle" font-size="10" fill="var(--ink3)" font-family="var(--f-mono)">4</text>
+<text x="60" y="379.0" text-anchor="middle" font-size="10" fill="var(--ink3)" font-family="var(--f-mono)">4</text>
+<text x="172.5" y="284" text-anchor="middle" font-size="10" fill="var(--ink3)" font-family="var(--f-mono)">5</text>
+<text x="60" y="398.0" text-anchor="middle" font-size="10" fill="var(--ink3)" font-family="var(--f-mono)">5</text>
+<text x="125.0" y="428" text-anchor="middle" font-size="11.5" fill="var(--ink2)" font-weight="600" font-family="var(--f-mono)">6 × 6</text>
+<text x="125.0" y="448" text-anchor="middle" font-size="11.5" fill="var(--ink2)" font-weight="600"><tspan class="zh">每行 1 个 1</tspan><tspan class="en">one 1 per row</tspan></text>
+<text x="380.0" y="262" text-anchor="middle" font-size="12.5" fill="var(--ink)" font-weight="600">(d) y = I<tspan baseline-shift="sub" font-size="9">2</tspan> ⊗ S<tspan baseline-shift="sub" font-size="9">3</tspan></text>
+<text x="332.5" y="303.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<rect x="342" y="290" width="19" height="19" fill="var(--cz)"/>
+<text x="351.5" y="303.5" text-anchor="middle" font-size="9.5" fill="var(--bg2)" font-weight="700" font-family="var(--f-mono)">1</text>
+<text x="370.5" y="303.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="389.5" y="303.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="408.5" y="303.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="427.5" y="303.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="332.5" y="322.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="351.5" y="322.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<rect x="361" y="309" width="19" height="19" fill="var(--cz)"/>
+<text x="370.5" y="322.5" text-anchor="middle" font-size="9.5" fill="var(--bg2)" font-weight="700" font-family="var(--f-mono)">1</text>
+<text x="389.5" y="322.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="408.5" y="322.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="427.5" y="322.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<rect x="323" y="328" width="19" height="19" fill="var(--cz)"/>
+<text x="332.5" y="341.5" text-anchor="middle" font-size="9.5" fill="var(--bg2)" font-weight="700" font-family="var(--f-mono)">1</text>
+<text x="351.5" y="341.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="370.5" y="341.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="389.5" y="341.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="408.5" y="341.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="427.5" y="341.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="332.5" y="360.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="351.5" y="360.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="370.5" y="360.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="389.5" y="360.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<rect x="399" y="347" width="19" height="19" fill="var(--cz)"/>
+<text x="408.5" y="360.5" text-anchor="middle" font-size="9.5" fill="var(--bg2)" font-weight="700" font-family="var(--f-mono)">1</text>
+<text x="427.5" y="360.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="332.5" y="379.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="351.5" y="379.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="370.5" y="379.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="389.5" y="379.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="408.5" y="379.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<rect x="418" y="366" width="19" height="19" fill="var(--cz)"/>
+<text x="427.5" y="379.5" text-anchor="middle" font-size="9.5" fill="var(--bg2)" font-weight="700" font-family="var(--f-mono)">1</text>
+<text x="332.5" y="398.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="351.5" y="398.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="370.5" y="398.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<rect x="380" y="385" width="19" height="19" fill="var(--cz)"/>
+<text x="389.5" y="398.5" text-anchor="middle" font-size="9.5" fill="var(--bg2)" font-weight="700" font-family="var(--f-mono)">1</text>
+<text x="408.5" y="398.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="427.5" y="398.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<g stroke="var(--line)" stroke-width="0.8"><line x1="323" y1="290" x2="437" y2="290"/><line x1="323" y1="290" x2="323" y2="404"/><line x1="323" y1="309" x2="437" y2="309"/><line x1="342" y1="290" x2="342" y2="404"/><line x1="323" y1="328" x2="437" y2="328"/><line x1="361" y1="290" x2="361" y2="404"/><line x1="323" y1="347" x2="437" y2="347"/><line x1="380" y1="290" x2="380" y2="404"/><line x1="323" y1="366" x2="437" y2="366"/><line x1="399" y1="290" x2="399" y2="404"/><line x1="323" y1="385" x2="437" y2="385"/><line x1="418" y1="290" x2="418" y2="404"/><line x1="323" y1="404" x2="437" y2="404"/><line x1="437" y1="290" x2="437" y2="404"/></g>
+<g stroke="var(--ink3)" stroke-width="1.4"><line x1="323" y1="347" x2="437" y2="347"/><line x1="380" y1="290" x2="380" y2="404"/></g>
+<rect x="323" y="290" width="114" height="114" fill="none" stroke="var(--ink3)" stroke-width="1.4"/>
+<text x="332.5" y="284" text-anchor="middle" font-size="10" fill="var(--ink3)" font-family="var(--f-mono)">0</text>
+<text x="315" y="303.0" text-anchor="middle" font-size="10" fill="var(--ink3)" font-family="var(--f-mono)">0</text>
+<text x="351.5" y="284" text-anchor="middle" font-size="10" fill="var(--ink3)" font-family="var(--f-mono)">1</text>
+<text x="315" y="322.0" text-anchor="middle" font-size="10" fill="var(--ink3)" font-family="var(--f-mono)">1</text>
+<text x="370.5" y="284" text-anchor="middle" font-size="10" fill="var(--ink3)" font-family="var(--f-mono)">2</text>
+<text x="315" y="341.0" text-anchor="middle" font-size="10" fill="var(--ink3)" font-family="var(--f-mono)">2</text>
+<text x="389.5" y="284" text-anchor="middle" font-size="10" fill="var(--ink3)" font-family="var(--f-mono)">3</text>
+<text x="315" y="360.0" text-anchor="middle" font-size="10" fill="var(--ink3)" font-family="var(--f-mono)">3</text>
+<text x="408.5" y="284" text-anchor="middle" font-size="10" fill="var(--ink3)" font-family="var(--f-mono)">4</text>
+<text x="315" y="379.0" text-anchor="middle" font-size="10" fill="var(--ink3)" font-family="var(--f-mono)">4</text>
+<text x="427.5" y="284" text-anchor="middle" font-size="10" fill="var(--ink3)" font-family="var(--f-mono)">5</text>
+<text x="315" y="398.0" text-anchor="middle" font-size="10" fill="var(--ink3)" font-family="var(--f-mono)">5</text>
+<text x="380.0" y="428" text-anchor="middle" font-size="11.5" fill="var(--ink2)" font-weight="600" font-family="var(--f-mono)">6 × 6</text>
+<text x="380.0" y="448" text-anchor="middle" font-size="11.5" fill="var(--ink2)" font-weight="600"><tspan class="zh">每行 1 个 1</tspan><tspan class="en">one 1 per row</tspan></text>
+<text x="635.0" y="262" text-anchor="middle" font-size="12.5" fill="var(--ink)" font-weight="600">(e) x + y</text>
+<text x="587.5" y="303.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<rect x="597" y="290" width="19" height="19" fill="var(--cz)"/>
+<text x="606.5" y="303.5" text-anchor="middle" font-size="9.5" fill="var(--bg2)" font-weight="700" font-family="var(--f-mono)">1</text>
+<text x="625.5" y="303.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<rect x="635" y="290" width="19" height="19" fill="var(--cx)"/>
+<text x="644.5" y="303.5" text-anchor="middle" font-size="9.5" fill="var(--bg2)" font-weight="700" font-family="var(--f-mono)">1</text>
+<text x="663.5" y="303.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="682.5" y="303.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="587.5" y="322.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="606.5" y="322.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<rect x="616" y="309" width="19" height="19" fill="var(--cz)"/>
+<text x="625.5" y="322.5" text-anchor="middle" font-size="9.5" fill="var(--bg2)" font-weight="700" font-family="var(--f-mono)">1</text>
+<text x="644.5" y="322.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<rect x="654" y="309" width="19" height="19" fill="var(--cx)"/>
+<text x="663.5" y="322.5" text-anchor="middle" font-size="9.5" fill="var(--bg2)" font-weight="700" font-family="var(--f-mono)">1</text>
+<text x="682.5" y="322.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<rect x="578" y="328" width="19" height="19" fill="var(--cz)"/>
+<text x="587.5" y="341.5" text-anchor="middle" font-size="9.5" fill="var(--bg2)" font-weight="700" font-family="var(--f-mono)">1</text>
+<text x="606.5" y="341.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="625.5" y="341.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="644.5" y="341.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="663.5" y="341.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<rect x="673" y="328" width="19" height="19" fill="var(--cx)"/>
+<text x="682.5" y="341.5" text-anchor="middle" font-size="9.5" fill="var(--bg2)" font-weight="700" font-family="var(--f-mono)">1</text>
+<rect x="578" y="347" width="19" height="19" fill="var(--cx)"/>
+<text x="587.5" y="360.5" text-anchor="middle" font-size="9.5" fill="var(--bg2)" font-weight="700" font-family="var(--f-mono)">1</text>
+<text x="606.5" y="360.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="625.5" y="360.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="644.5" y="360.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<rect x="654" y="347" width="19" height="19" fill="var(--cz)"/>
+<text x="663.5" y="360.5" text-anchor="middle" font-size="9.5" fill="var(--bg2)" font-weight="700" font-family="var(--f-mono)">1</text>
+<text x="682.5" y="360.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="587.5" y="379.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<rect x="597" y="366" width="19" height="19" fill="var(--cx)"/>
+<text x="606.5" y="379.5" text-anchor="middle" font-size="9.5" fill="var(--bg2)" font-weight="700" font-family="var(--f-mono)">1</text>
+<text x="625.5" y="379.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="644.5" y="379.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="663.5" y="379.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<rect x="673" y="366" width="19" height="19" fill="var(--cz)"/>
+<text x="682.5" y="379.5" text-anchor="middle" font-size="9.5" fill="var(--bg2)" font-weight="700" font-family="var(--f-mono)">1</text>
+<text x="587.5" y="398.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="606.5" y="398.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<rect x="616" y="385" width="19" height="19" fill="var(--cx)"/>
+<text x="625.5" y="398.5" text-anchor="middle" font-size="9.5" fill="var(--bg2)" font-weight="700" font-family="var(--f-mono)">1</text>
+<rect x="635" y="385" width="19" height="19" fill="var(--cz)"/>
+<text x="644.5" y="398.5" text-anchor="middle" font-size="9.5" fill="var(--bg2)" font-weight="700" font-family="var(--f-mono)">1</text>
+<text x="663.5" y="398.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<text x="682.5" y="398.5" text-anchor="middle" font-size="8.55" fill="var(--line2)" font-family="var(--f-mono)">0</text>
+<g stroke="var(--line)" stroke-width="0.8"><line x1="578" y1="290" x2="692" y2="290"/><line x1="578" y1="290" x2="578" y2="404"/><line x1="578" y1="309" x2="692" y2="309"/><line x1="597" y1="290" x2="597" y2="404"/><line x1="578" y1="328" x2="692" y2="328"/><line x1="616" y1="290" x2="616" y2="404"/><line x1="578" y1="347" x2="692" y2="347"/><line x1="635" y1="290" x2="635" y2="404"/><line x1="578" y1="366" x2="692" y2="366"/><line x1="654" y1="290" x2="654" y2="404"/><line x1="578" y1="385" x2="692" y2="385"/><line x1="673" y1="290" x2="673" y2="404"/><line x1="578" y1="404" x2="692" y2="404"/><line x1="692" y1="290" x2="692" y2="404"/></g>
+<g stroke="var(--ink3)" stroke-width="1.4"><line x1="578" y1="347" x2="692" y2="347"/><line x1="635" y1="290" x2="635" y2="404"/></g>
+<rect x="578" y="290" width="114" height="114" fill="none" stroke="var(--ink3)" stroke-width="1.4"/>
+<text x="587.5" y="284" text-anchor="middle" font-size="10" fill="var(--ink3)" font-family="var(--f-mono)">0</text>
+<text x="570" y="303.0" text-anchor="middle" font-size="10" fill="var(--ink3)" font-family="var(--f-mono)">0</text>
+<text x="606.5" y="284" text-anchor="middle" font-size="10" fill="var(--ink3)" font-family="var(--f-mono)">1</text>
+<text x="570" y="322.0" text-anchor="middle" font-size="10" fill="var(--ink3)" font-family="var(--f-mono)">1</text>
+<text x="625.5" y="284" text-anchor="middle" font-size="10" fill="var(--ink3)" font-family="var(--f-mono)">2</text>
+<text x="570" y="341.0" text-anchor="middle" font-size="10" fill="var(--ink3)" font-family="var(--f-mono)">2</text>
+<text x="644.5" y="284" text-anchor="middle" font-size="10" fill="var(--ink3)" font-family="var(--f-mono)">3</text>
+<text x="570" y="360.0" text-anchor="middle" font-size="10" fill="var(--ink3)" font-family="var(--f-mono)">3</text>
+<text x="663.5" y="284" text-anchor="middle" font-size="10" fill="var(--ink3)" font-family="var(--f-mono)">4</text>
+<text x="570" y="379.0" text-anchor="middle" font-size="10" fill="var(--ink3)" font-family="var(--f-mono)">4</text>
+<text x="682.5" y="284" text-anchor="middle" font-size="10" fill="var(--ink3)" font-family="var(--f-mono)">5</text>
+<text x="570" y="398.0" text-anchor="middle" font-size="10" fill="var(--ink3)" font-family="var(--f-mono)">5</text>
+<text x="635.0" y="428" text-anchor="middle" font-size="11.5" fill="var(--ink2)" font-weight="600" font-family="var(--f-mono)">6 × 6</text>
+<text x="635.0" y="448" text-anchor="middle" font-size="11.5" fill="var(--ink2)" font-weight="600"><tspan class="zh">每行 2 个 1 · 仍是 6 × 6</tspan><tspan class="en">two 1s per row · still 6 × 6</tspan></text>
+<text x="250" y="355.0" text-anchor="middle" font-size="24" fill="var(--ink2)">+</text>
+<text x="505" y="355.0" text-anchor="middle" font-size="24" fill="var(--ink2)">=</text>
+<text x="380" y="488" text-anchor="middle" font-size="11" fill="var(--ink3)"><tspan class="zh">粗线把矩阵切成 3 × 3 的块：x 的块是 I<tspan baseline-shift="sub" font-size="8">3</tspan>（放在 S<tspan baseline-shift="sub" font-size="8">2</tspan> 的 1 处），y 的块是 S<tspan baseline-shift="sub" font-size="8">3</tspan>（放在 I<tspan baseline-shift="sub" font-size="8">2</tspan> 的 1 处）</tspan><tspan class="en">Thick lines cut each matrix into 3 × 3 blocks: x has blocks I<tspan baseline-shift="sub" font-size="8">3</tspan> where S<tspan baseline-shift="sub" font-size="8">2</tspan> has 1s; y has blocks S<tspan baseline-shift="sub" font-size="8">3</tspan> where I<tspan baseline-shift="sub" font-size="8">2</tspan> has 1s</tspan></text>
+</svg>
+    </div>
+    <figcaption>
+      <span class="zh"><span class="fno">图 2.4</span>　l = 2、m = 3 的小例子。容易混的一点：<b>l × m 是格子的排法，不是矩阵的尺寸</b>。2 × 3 的环面上有 6 个格子，一次平移要说清这 6 个格子各自搬到哪里，所以 x、y 以及任何单项式 x<sup>a</sup>y<sup>b</sup> 都是 6 × 6 的置换矩阵（一般地是 lm × lm）。(a)(b) 虚线箭头是绕回：从右边出去从左边进来，从上边出去从下边进来。(c)(d) 格子 r 那一行的 1 落在它被搬到的格子那一列，例如 x 把 1 = (0,1) 搬到 4 = (1,1)，y 把它搬到 2 = (0,2)。(e) 尺寸相同的矩阵才能相加；x + y 仍是 6 × 6，只是每行多了一个 1——这就是 2.3.3 节的「一枚印章就是一张稀疏矩阵」。</span>
+      <span class="en"><span class="fno">Fig. 2.4</span>　The small example l = 2, m = 3. The point that is easy to mix up: <b>l × m is how the sites are laid out, not the size of the matrix</b>. A 2 × 3 torus has 6 sites, and a translation must say where each of those 6 sites goes, so x, y and every monomial x<sup>a</sup>y<sup>b</sup> are 6 × 6 permutation matrices (lm × lm in general). (a)(b) Dashed arrows wrap around: out on the right and in on the left, out at the top and in at the bottom. (c)(d) Row r has its 1 in the column of the site r is moved to; e.g. x moves 1 = (0,1) to 4 = (1,1), y moves it to 2 = (0,2). (e) Only matrices of the same size can be added; x + y is still 6 × 6, just with one more 1 per row — which is §2.3.3's “a stamp is a sparse matrix”.</span>
+    </figcaption>
+  </figure>
 
   <details class="fold basics" id="cu-2b">
     <summary><span class="zh">补课 · 把 x、y 写成矩阵，并证明 xy = yx</span><span class="en">Catch-up · x and y as matrices, and the proof of xy = yx</span></summary>
@@ -1298,10 +1861,10 @@ table.hmat.roles td.op { white-space: normal; font-family: var(--f-body); font-s
 
   <h4 id="s2-3a"><span class="zh">2.3.1 · 读印章：一条检查的腿，直接从多项式读出来</span><span class="en">2.3.1 · Reading a stamp: a check's legs straight off the polynomial</span></h4>
   <div class="prose">
-    <p class="zh">第 3 章会看到，BB 码的一条检查就是两枚这样的印章各盖一次：A 盖在一层比特上，B 盖在另一层上；印章碰到的比特，就是这条检查的「腿」（它在哪些比特上放 X 或 Z）。所以读 BB 码根本用不着矩阵：看多项式的每一项指向哪里，腿就在哪里。gross 码的 A = x³ + y + y² 盖在 (i, j) 上，三条腿落在 (i+3, j)、(i, j+1)、(i, j+2)（图 2.3 左）。</p>
-    <p class="en">Chapter 3 will show that a BB check is exactly two such stamps pressed once each: A on one layer of qubits and B on the other; the qubits a stamp touches are the check's “legs” (the qubits on which it places an X or a Z). So reading a BB code needs no matrix at all: wherever a term of the polynomial points, there is a leg. The gross code's A = x³ + y + y² pressed on (i, j) puts its three legs on (i+3, j), (i, j+1) and (i, j+2) (Fig. 2.3, left).</p>
-    <p class="zh">两条细则。<b>① 系数只有 0 和 1，1 + 1 = 0。</b>两项若落在同一个格子，就互相抵消，那个格子不算腿。例如 m = 6 时 y⁷ = y（向上 7 格就是向上 1 格），所以 y + y⁷ = 0：两条腿踩在同一个比特上，等于没踩，因为在同一个比特上放两次 X，X·X = I。这就是「系数在 GF(2) 里」的意思。<b>② 反向印章。</b>把每一项倒着走，得到 A 的反向印章，记作 Aᵀ = x<sup>−3</sup> + y<sup>−1</sup> + y<sup>−2</sup>（为什么借用转置的记号 ᵀ，<a href="#s2-3c">2.3.3</a> 的记账会说明）。它盖在 t 上，碰到 t − (3, 0)、t − (0, 1)、t − (0, 2)（图 2.3 右）。第 3 章里 Z 检查用的就是反向印章。</p>
-    <p class="en">Two fine points. <b>① Coefficients are only 0 and 1, and 1 + 1 = 0.</b> If two terms land on the same site they cancel and that site is not a leg. For m = 6, y⁷ = y (7 steps up is 1 step up), so y + y⁷ = 0: two legs on the same qubit amount to none, because placing X twice on a qubit gives X·X = I. That is what “coefficients in GF(2)” means. <b>② The reversed stamp.</b> Walk every term backwards and you get A's reversed stamp, written Aᵀ = x<sup>−3</sup> + y<sup>−1</sup> + y<sup>−2</sup> (why it borrows the transpose sign ᵀ, the bookkeeping of <a href="#s2-3c">§2.3.3</a> explains). Pressed on t it touches t − (3, 0), t − (0, 1) and t − (0, 2) (Fig. 2.3, right). In Chapter 3 the Z checks use reversed stamps.</p>
+    <p class="zh">第 3 章会看到，BB 码的一条检查就是两枚这样的印章各盖一次：A 盖在一层比特上，B 盖在另一层上；印章碰到的比特，就是这条检查的「腿」（它在哪些比特上放 X 或 Z）。所以读 BB 码根本用不着矩阵：看多项式的每一项指向哪里，腿就在哪里。gross 码的 A = x³ + y + y² 盖在 (i, j) 上，三条腿落在 (i+3, j)、(i, j+1)、(i, j+2)（图 2.5 左）。</p>
+    <p class="en">Chapter 3 will show that a BB check is exactly two such stamps pressed once each: A on one layer of qubits and B on the other; the qubits a stamp touches are the check's “legs” (the qubits on which it places an X or a Z). So reading a BB code needs no matrix at all: wherever a term of the polynomial points, there is a leg. The gross code's A = x³ + y + y² pressed on (i, j) puts its three legs on (i+3, j), (i, j+1) and (i, j+2) (Fig. 2.5, left).</p>
+    <p class="zh">两条细则。<b>① 系数只有 0 和 1，1 + 1 = 0。</b>两项若落在同一个格子，就互相抵消，那个格子不算腿。例如 m = 6 时 y⁷ = y（向上 7 格就是向上 1 格），所以 y + y⁷ = 0：两条腿踩在同一个比特上，等于没踩，因为在同一个比特上放两次 X，X·X = I。这就是「系数在 GF(2) 里」的意思。<b>② 反向印章。</b>把每一项倒着走，得到 A 的反向印章，记作 Aᵀ = x<sup>−3</sup> + y<sup>−1</sup> + y<sup>−2</sup>（为什么借用转置的记号 ᵀ，<a href="#s2-3c">2.3.3</a> 的记账会说明）。它盖在 t 上，碰到 t − (3, 0)、t − (0, 1)、t − (0, 2)（图 2.5 右）。第 3 章里 Z 检查用的就是反向印章。</p>
+    <p class="en">Two fine points. <b>① Coefficients are only 0 and 1, and 1 + 1 = 0.</b> If two terms land on the same site they cancel and that site is not a leg. For m = 6, y⁷ = y (7 steps up is 1 step up), so y + y⁷ = 0: two legs on the same qubit amount to none, because placing X twice on a qubit gives X·X = I. That is what “coefficients in GF(2)” means. <b>② The reversed stamp.</b> Walk every term backwards and you get A's reversed stamp, written Aᵀ = x<sup>−3</sup> + y<sup>−1</sup> + y<sup>−2</sup> (why it borrows the transpose sign ᵀ, the bookkeeping of <a href="#s2-3c">§2.3.3</a> explains). Pressed on t it touches t − (3, 0), t − (0, 1) and t − (0, 2) (Fig. 2.5, right). In Chapter 3 the Z checks use reversed stamps.</p>
   </div>
   <figure class="fig">
     <div class="fig-frame">
@@ -1457,7 +2020,7 @@ table.hmat.roles td.op { white-space: normal; font-family: var(--f-body); font-s
 </svg>
     </div>
     <figcaption>
-      <span class="fno">图 2.3</span>
+      <span class="fno"><span class="zh">图 2.5</span><span class="en">Fig. 2.5</span></span>
       <span class="zh">gross 码的印章 A = x³ + y + y²。左：盖在 s（红点）上，三项各落一点，就是一条检查在这一层的三条腿。右：反向印章 Aᵀ 盖在 t 上，每一步倒着走。</span>
       <span class="en">The gross code’s stamp A = x³ + y + y². Left: pressed on s (red dot), each term lands one dot, a check’s three legs on this layer. Right: the reversed stamp Aᵀ pressed on t, every step walked backwards.</span>
     </figcaption>
@@ -1519,8 +2082,8 @@ table.hmat.roles td.op { white-space: normal; font-family: var(--f-body); font-s
   <div class="prose">
     <p class="zh">进入两个方向之前，先看只有一个方向时的样子。<b>这一节只有 x，没有 y</b>：格子只排成一圈（2.1），不是环面，所以一个变量就够了。BB 码名字里的第一个 B 是 bivariate（二元），指的正是把这里的一个方向扩成 2.2 的两个方向。</p>
     <p class="en">Before going to two directions, see what one direction looks like. <b>This section has x but no y</b>: the sites form just a ring (§2.1), not a torus, so one variable suffices. The first B of “BB” stands for bivariate — two variables — which is exactly the step from the one direction here to the two of §2.2.</p>
-    <p class="zh">做法是：一圈 l 个位置，<b>每个位置放两个比特</b>，一个在「左轮」上、一个在「右轮」上，共 n = 2l 个（图 2.4，l = 3：左轮 L0、L1、L2，右轮 R0、R1、R2）。每个位置 i 配一条检查：把印章 C 盖在左轮的 i 上，把反向印章 Cᵀ 盖在右轮的 i 上，碰到的比特就是它的腿。X 检查和 Z 检查用同一个配方。取 C = 1 + x：位置 i 的检查在左轮碰 i 和右邻 i+1，在右轮碰 i 和左邻 i−1——一只轮子向右伸腿、一只向左伸腿，这就是名字里的「自行车」（bicycle）。</p>
-    <p class="en">The recipe: a ring of l positions with <b>two qubits at each position</b>, one on the “left wheel” and one on the “right wheel”, n = 2l in all (Fig. 2.4, l = 3: left wheel L0, L1, L2; right wheel R0, R1, R2). Each position i gets one check: press the stamp C on position i of the left wheel and the reversed stamp Cᵀ on position i of the right wheel; the qubits touched are its legs. X checks and Z checks follow the same recipe. Take C = 1 + x: the check at position i touches i and its right neighbour i+1 on the left wheel, and i and its left neighbour i−1 on the right wheel — one wheel reaches right, the other left, hence the “bicycle”.</p>
+    <p class="zh">做法是：一圈 l 个位置，<b>每个位置放两个比特</b>，一个在「左轮」上、一个在「右轮」上，共 n = 2l 个（图 2.6，l = 3：左轮 L0、L1、L2，右轮 R0、R1、R2）。每个位置 i 配一条检查：把印章 C 盖在左轮的 i 上，把反向印章 Cᵀ 盖在右轮的 i 上，碰到的比特就是它的腿。X 检查和 Z 检查用同一个配方。取 C = 1 + x：位置 i 的检查在左轮碰 i 和右邻 i+1，在右轮碰 i 和左邻 i−1——一只轮子向右伸腿、一只向左伸腿，这就是名字里的「自行车」（bicycle）。</p>
+    <p class="en">The recipe: a ring of l positions with <b>two qubits at each position</b>, one on the “left wheel” and one on the “right wheel”, n = 2l in all (Fig. 2.6, l = 3: left wheel L0, L1, L2; right wheel R0, R1, R2). Each position i gets one check: press the stamp C on position i of the left wheel and the reversed stamp Cᵀ on position i of the right wheel; the qubits touched are its legs. X checks and Z checks follow the same recipe. Take C = 1 + x: the check at position i touches i and its right neighbour i+1 on the left wheel, and i and its left neighbour i−1 on the right wheel — one wheel reaches right, the other left, hence the “bicycle”.</p>
   </div>
   <figure class="fig">
     <div class="fig-frame">
@@ -1557,7 +2120,7 @@ table.hmat.roles td.op { white-space: normal; font-family: var(--f-body); font-s
 </svg>
     </div>
     <figcaption>
-      <span class="fno">图 2.4</span>
+      <span class="fno"><span class="zh">图 2.6</span><span class="en">Fig. 2.6</span></span>
       <span class="zh">l = 3 的 bicycle 码：每个位置 i 有左轮比特 L<sub>i</sub>（圆）和右轮比特 R<sub>i</sub>（菱形）。位置 0 的检查（橙色）：印章 C = 1 + x 盖在左轮的 0 上 → L0、L1；反向印章 Cᵀ = 1 + x² 盖在右轮的 0 上 → R0、R2。四条腿，写成算符就是 X<sub>L0</sub>X<sub>L1</sub>X<sub>R0</sub>X<sub>R2</sub>。</span>
       <span class="en">The bicycle code with l = 3: position i holds a left-wheel qubit L<sub>i</sub> (circle) and a right-wheel qubit R<sub>i</sub> (diamond). The check at position 0 (orange): stamp C = 1 + x pressed on left-wheel position 0 → L0, L1; reversed stamp Cᵀ = 1 + x² pressed on right-wheel position 0 → R0, R2. Four legs; as an operator, X<sub>L0</sub>X<sub>L1</sub>X<sub>R0</sub>X<sub>R2</sub>.</span>
     </figcaption>
@@ -2426,8 +2989,8 @@ table.hmat.roles td.op { white-space: normal; font-family: var(--f-body); font-s
   TQ.lattice = { buildToric, buildPlanar, syndrome };
 })(typeof window !== 'undefined' ? window : globalThis);
 
-/* TQ.decoder — a simple greedy matching decoder for the toric and planar codes.
-   Not minimum-weight-perfect-matching, but close in spirit and good enough to
+/* TQ.decoder — a matching decoder for the toric and planar codes: exact minimum-
+   weight matching up to EXACT_LIMIT alarms, greedy nearest-pair beyond. Good enough to
    show the threshold behaviour live in the browser (and honest about it in the
    tutorial text). */
 (function (root) {
@@ -3055,6 +3618,8 @@ table.hmat.roles td.op { white-space: normal; font-family: var(--f-body); font-s
       this.hlEdges = new Map(); // id -> {color, width, dash}
       this.hlStars = new Map(); // k -> color
       this.hlPlaqs = new Map();
+      this.haloEdges = new Set(); // edges drawn under everything as a wide pink halo (e.g. a residual loop)
+      this.starTags = new Map(); // k -> short text label drawn beside the star (e.g. alarm names A, B, C)
       this.hover = null; // {type:'edge'|'star'|'plaq', id}
       this.phase = 0;
       this._raf = null;
@@ -3284,6 +3849,21 @@ table.hmat.roles td.op { white-space: normal; font-family: var(--f-body); font-s
         }
       }
 
+      // halo edges (under the chains, so blue / green stay readable on top)
+      for (const id of this.haloEdges) {
+        if (skipEdge(id)) continue;
+        for (const s of this.edgeSegs(id, m)) {
+          ctx.beginPath();
+          ctx.moveTo(s.x1, s.y1);
+          ctx.lineTo(s.x2, s.y2);
+          ctx.strokeStyle = C.cd;
+          ctx.globalAlpha = 0.45;
+          ctx.lineWidth = 15;
+          ctx.stroke();
+          ctx.globalAlpha = 1;
+        }
+      }
+
       // Z error chains (on edges)
       for (const id of this.opts.showErrors ? this.errZ : []) {
         for (const s of this.edgeSegs(id, m)) {
@@ -3413,6 +3993,22 @@ table.hmat.roles td.op { white-space: normal; font-family: var(--f-body); font-s
           ctx.restore();
         }
       });
+
+      // star tags (short names beside vertices)
+      if (this.starTags.size) {
+        ctx.font = '700 13px ' + getComputedStyle(document.body).getPropertyValue('--f-mono');
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        const off = this.lat.type === 'toric' ? Math.min(16, m.cell * 0.3) : Math.min(16, m.hcell * 0.6);
+        for (const [k, t] of this.starTags) {
+          const p = this.starPos(k, m);
+          ctx.lineWidth = 3.5;
+          ctx.strokeStyle = C.bg2;
+          ctx.strokeText(t, p.x + off, p.y - off);
+          ctx.fillStyle = C.cd;
+          ctx.fillText(t, p.x + off, p.y - off);
+        }
+      }
 
       // labels
       if (this.opts.labels.stars || this.opts.labels.plaqs || this.opts.labels.edges) {
@@ -4140,10 +4736,12 @@ table.hmat.roles td.op { white-space: normal; font-family: var(--f-body); font-s
       const r = Math.random() < m.pPlus ? +1 : -1;
       const pShown = r > 0 ? m.pPlus : 1 - m.pPlus;
       const same = JSON.stringify(m.project(r)) === JSON.stringify(st);
+      const bell = Math.abs(st[0] - st[3]) < 1e-9 && Math.abs(Math.abs(st[0]) - R2) < 1e-9;
+      const hint = bell && xmask === 0b11 && r > 0;
       st = m.project(r);
       log(
-        '测 ' + name + '（' + zhWhat + '）→ 结果 <b>' + (r > 0 ? '+1' : '−1') + '</b>（这一结果的概率 ' + pct(pShown) + '）' + (same ? '。<span class="ok">状态一点没变！</span>' : '。状态只保留了与答案一致的部分'),
-        'measured ' + name + ' (' + enWhat + ') → outcome <b>' + (r > 0 ? '+1' : '−1') + '</b> (probability ' + pct(pShown) + ')' + (same ? '. <span class="ok">State untouched!</span>' : '. State keeps only the matching part')
+        '测 ' + name + '（' + zhWhat + '）→ 结果 <b>' + (r > 0 ? '+1' : '−1') + '</b>（这一结果的概率 ' + pct(pShown) + '）' + (same ? '。<span class="ok">状态一点没变！</span>' : '。状态只保留了与答案一致的部分') + (hint ? '<br>柱子上看不出 +/− 眼镜下的「一样」，为什么是必然 +1？把贝尔态换到 +/− 眼镜下重写：(|00⟩ + |11⟩)/√2 = (|++⟩ + |−−⟩)/√2，两个成分都是「一样」，所以测 X₁X₂ 必然 +1，状态也原样不变。' : ''),
+        'measured ' + name + ' (' + enWhat + ') → outcome <b>' + (r > 0 ? '+1' : '−1') + '</b> (probability ' + pct(pShown) + ')' + (same ? '. <span class="ok">State untouched!</span>' : '. State keeps only the matching part') + (hint ? '<br>The bars can\'t show “equal in the +/− lens”, so why a sure +1? Rewrite the Bell state in the +/− lens: (|00⟩ + |11⟩)/√2 = (|++⟩ + |−−⟩)/√2. Both components are “equal”, so measuring X₁X₂ surely gives +1 and leaves the state unchanged.' : '')
       );
       upd();
     }
@@ -4700,11 +5298,16 @@ table.hmat.roles td.op { white-space: normal; font-family: var(--f-body); font-s
         }
         const L1 = type === 'Z' ? 'Z̄₁' : 'X̄₁', L2 = type === 'Z' ? 'Z̄₂' : 'X̄₂';
         if (isToric) {
-          const which = par[0] && par[1] ? L1 + '·' + L2 + '（两个方向都绕）' : par[0] ? L1 + (type === 'Z' ? '（水平缠绕）' : '') : L2 + (type === 'Z' ? '（垂直缠绕）' : '');
-          const whichEn = par[0] && par[1] ? L1 + '·' + L2 + ', both directions' : par[0] ? L1 + ', direction 1' : L2 + ', direction 2';
+          // Z̄₁ (row 0) and X̄₂ (dual, row 0) run horizontally, Z̄₂ and X̄₁ vertically (buildToric); par[k] is the
+          // overlap with the k-th partner, so a Z string with par[0] odd winds horizontally, an X string vertically
+          const d0 = type === 'Z' ? ['水平', 'horizontally'] : ['竖直', 'vertically'];
+          const d1 = type === 'Z' ? ['竖直', 'vertically'] : ['水平', 'horizontally'];
+          const which = par[0] && par[1] ? L1 + '·' + L2 : par[0] ? L1 : L2;
+          const dirZh = par[0] && par[1] ? '在水平和竖直两个方向上都' : '在' + (par[0] ? d0 : d1)[0] + '方向上';
+          const dirEn = par[0] && par[1] ? 'both horizontally and vertically' : (par[0] ? d0 : d1)[1];
           return {
-            zh: '<span class="no">警报全灭，但这不是平凡圈！</span>它绕过了整个环面——这是<b>逻辑算符 ' + which + '</b>：不触发任何检查，却会改写存下来的量子信息。',
-            en: '<span class="no">No alarms, yet NOT trivial!</span> It winds around the torus (' + whichEn + ') — a <b>logical operator</b>: invisible to every check, yet it rewrites the stored quantum information.',
+            zh: '<span class="no">警报全灭，但这不是平凡圈！</span>它' + dirZh + '缠绕环面奇数次——这是<b>逻辑算符 ' + which + '</b>：不触发任何检查，却会改写存下来的量子信息。',
+            en: '<span class="no">No alarms, yet NOT trivial!</span> It winds around the torus ' + dirEn + ' an odd number of times — the <b>logical operator ' + which + '</b>: invisible to every check, yet it rewrites the stored quantum information.',
           };
         }
         return {
@@ -4751,6 +5354,10 @@ table.hmat.roles td.op { white-space: normal; font-family: var(--f-body); font-s
       });
       const lat = isToric ? LAT().buildToric(5) : LAT().buildPlanar(5);
       let err = new Set(), corr = new Set(), sel = null, over = false, streak = 0, best = 0, p = 0.08;
+      // per-round bookkeeping for the feedback: the round's alarms (named A, B, C…),
+      // the pairs the reader made, and whether the auto button finished the round for them
+      let alarms = [], tags = new Map(), userPairs = [], assisted = false;
+      const goodCol = () => getComputedStyle(doc.documentElement).getPropertyValue('--good').trim();
       const view = latView(F, lat, {
         clickables: 'stars',
         showStars: 'defects', showPlaqs: 'none',
@@ -4765,21 +5372,115 @@ table.hmat.roles td.op { white-space: normal; font-family: var(--f-body); font-s
           const path = isToric
             ? DEC().toricPathStars(lat, lat.stars[sel], lat.stars[k])
             : DEC().planarPath(lat, lat.stars[sel], lat.stars[k], 'star');
+          userPairs.push([sel, k]);
           applyCorr(path);
         },
       });
+      /* the minimum-weight decoder's repair for this round's full set of alarms */
+      function decoderCorr() {
+        return isToric ? DEC().decodeToric(lat, alarms, 'star') : DEC().decodePlanar(lat, alarms, 'star');
+      }
+      /* its pairing, as pairs of star ids (torus only; same matching decodeToric uses) */
+      function decoderPairs() {
+        if (!isToric || alarms.length < 2 || alarms.length > 14 || alarms.length % 2) return null;
+        const nodes = alarms.map((k) => lat.stars[k]);
+        return DEC().optimalMatch(nodes, (i, j) => DEC().toricDist(nodes[i], nodes[j], lat.L), null)
+          .map(([i, j]) => [alarms[i], alarms[j]]);
+      }
+      function isLogical(residual) {
+        return lat.logicals.X.some((Lg) => P().overlapParity(residual, Lg));
+      }
+      function steps(a, b) { return DEC().toricDist(lat.stars[a], lat.stars[b], lat.L); }
+      function pairName(pr) { return tags.get(pr[0]) + '–' + tags.get(pr[1]); }
+      function pairKey(pr) { return pr[0] < pr[1] ? pr[0] + ',' + pr[1] : pr[1] + ',' + pr[0]; }
+      /* "you paired A–C (4 steps); the shorter choice was A–B (1 step)" — torus only */
+      function pairHint() {
+        if (!isToric || assisted) return ['', ''];
+        const dp = decoderPairs();
+        if (!dp || userPairs.length !== dp.length) return ['', ''];
+        const dk = new Set(dp.map(pairKey)), uk = new Set(userPairs.map(pairKey));
+        const mine = userPairs.filter((pr) => !dk.has(pairKey(pr)));
+        const theirs = dp.filter((pr) => !uk.has(pairKey(pr)));
+        if (!mine.length) return ['', ''];
+        const tot = (list) => list.reduce((s, pr) => s + steps(pr[0], pr[1]), 0);
+        const listZh = (list) => list.map((pr) => pairName(pr) + '（' + steps(pr[0], pr[1]) + ' 步）').join('、');
+        const listEn = (list) => list.map((pr) => pairName(pr) + ' (' + steps(pr[0], pr[1]) + (steps(pr[0], pr[1]) === 1 ? ' step)' : ' steps)')).join(', ');
+        const a = tot(userPairs), b = tot(dp);
+        return [
+          '<br>问题出在配对上：你配了 ' + listZh(mine) + '；最小权译码器配的是 ' + listZh(theirs) + '。全部修复链加起来，你走了 ' + a + ' 步，它只走 ' + b + ' 步。',
+          '<br>The trouble is the pairing: you paired ' + listEn(mine) + '; the minimum-weight decoder paired ' + listEn(theirs) + '. Over all repair chains you used ' + a + ' steps; it used only ' + b + '.',
+        ];
+      }
+      /* show the true errors (blue), a repair chain (green) and optionally a pink halo */
+      function reveal(chain, halo) {
+        view.opts.showErrors = true;
+        view.errZ = new Set(err);
+        view.hlEdges = new Map([...chain].map((e) => [e, { color: goodCol(), width: 5 }]));
+        view.haloEdges = new Set(halo);
+        view.hlStars = new Map();
+        view.starTags = new Map(tags);
+        view.draw();
+      }
       function autoDecode() {
-        if (over) return;
+        if (over) { replay(); return; }
+        assisted = true;
         const defs = view.syndrome().starDefects;
         const c = isToric ? DEC().decodeToric(lat, defs, 'star') : DEC().decodePlanar(lat, defs, 'star');
         corr = new Set(P().xorSet([...corr], c));
         syncState();
         finish();
       }
+      // the reader's own result in the round just finished: finish() records it, replay() words its comparison by it
+      let readerWon = false;
+      /* decoderCorr() is exact minimum-weight matching only up to 14 alarms (EXACT_LIMIT) and greedy nearest-pair
+         matching beyond, so the texts name the decoder by what it did this round */
+      function greedy() { return alarms.length > 14; }
+      function decName() {
+        return greedy() ? ['本页的自动译码器', 'this page’s auto-decoder'] : ['最小权译码器', 'the minimum-weight decoder'];
+      }
+      const GREEDY = ['这一局警报超过 14 个，本页的自动译码器从最小权配对换成了贪心的就近配对，总长不一定最短', 'this round has more than 14 alarms, so this page’s auto-decoder switched from minimum-weight matching to greedy nearest-pair matching, whose total length need not be the shortest'];
+      // error ⊕ repair against the rule isLogical() applies: an odd overlap with an X logical
+      const ODD = isToric
+        ? ['在某个方向上<b>缠绕环面</b>的总圈数是<b>奇数</b>', '<b>winds around the torus</b> an <b>odd</b> total number of times in some direction']
+        : ['含有<b>奇数条</b><b>横跨两条边界</b>的串', 'contains an <b>odd number</b> of strings <b>spanning both boundaries</b>'];
+      const EVEN = isToric
+        ? ['在两个方向上缠绕环面的总圈数都是偶数（0 也算，两圈互相抵消）', 'winds around the torus an even total number of times in both directions (0 counts; two windings cancel)']
+        : ['横跨两条边界的串是偶数条（0 条也算，两条互相抵消）', 'contains an even number of strings spanning both boundaries (0 counts; two cancel)'];
+      /* after a round: clear the reader's repair and replay the decoder on the SAME errors */
+      function replay() {
+        const c = decoderCorr();
+        corr = new Set(c);
+        const res = P().xorSet([...err], c);
+        const f = isLogical(res);
+        reveal(c, res);
+        const dp = decoderPairs();
+        const pz = dp && dp.length ? '它配的是 ' + dp.map(pairName).join('、') + '。' : '';
+        const pe = dp && dp.length ? 'It paired ' + dp.map(pairName).join(', ') + '. ' : '';
+        const [dz, de] = decName();
+        // above 14 alarms, say first that this replay is the greedy fallback
+        const gz = greedy() ? GREEDY[0] + '。' : '', ge = greedy() ? GREEDY[1].charAt(0).toUpperCase() + GREEDY[1].slice(1) + '. ' : '';
+        const cmpZh = readerWon ? '' : '对照你刚才的配法，看看哪一对不一样。';
+        const cmpEn = readerWon ? '' : ' Compare with your pairing and spot the pair that differs.';
+        let zh, en;
+        if (f) {
+          zh = '<span class="no">示范：' + dz + '在同一份错误上' + (readerWon ? '输了，你刚才却赢了。' : '也输了。') + '</span>' + gz + pz + '绿色 = 它的修复；粉色光晕 = 错误 ⊕ 它的修复，它' + ODD[0] + '，是逻辑算符，信息被改写。' +
+            (greedy() ? '' : '这一局的错误本身就太长了：真实错误连到了' + (isToric ? '半圈' : '半程') + '以上，最短的配法恰好从另一侧把它补成了' + (isToric ? '绕环面一整圈的圈' : '一条横跨的串') + '。');
+          en = '<span class="no">Replay: ' + de + ' loses on these same errors' + (readerWon ? ', where you won.' : ' too.') + '</span> ' + ge + pe + 'Green = its repair; the pink halo = error ⊕ its repair, which ' + ODD[1] + ': a logical operator, so the data got rewritten.' +
+            (greedy() ? '' : ' The error itself was the trouble this round: it already reached more than halfway ' + (isToric ? 'around' : 'across') + ', so the shortest pairing completed it from the other side into ' + (isToric ? 'a loop around the torus' : 'a spanning string') + '.');
+        } else if (!res.length) {
+          zh = '<span class="ok">示范：' + dz + '在同一份错误上赢了。</span>' + gz + pz + '绿色 = 它的修复，和蓝色的真实错误完全重合：错误 ⊕ 修复什么都不剩。' + cmpZh;
+          en = '<span class="ok">Replay: ' + de + ' wins on these same errors.</span> ' + ge + pe + 'Green = its repair, and it lands exactly on the blue errors: error ⊕ repair leaves nothing at all.' + cmpEn;
+        } else {
+          zh = '<span class="ok">示范：' + dz + '在同一份错误上赢了。</span>' + gz + pz + '绿色 = 它的修复；粉色光晕 = 错误 ⊕ 它的修复。剩下的部分' + EVEN[0] + '，合起来只是一些检查的乘积，所以什么也没改写。' + cmpZh;
+          en = '<span class="ok">Replay: ' + de + ' wins on these same errors.</span> ' + ge + pe + 'Green = its repair; the pink halo = error ⊕ its repair. What is left ' + EVEN[1] + ', so it is just a product of checks and nothing got rewritten.' + cmpEn;
+        }
+        F.setReadout('<span class="zh">' + zh + '　点「新回合」再来。</span><span class="en">' + en + ' Press “New round” to play again.</span>');
+      }
       el.__game = { get err() { return err; }, get corr() { return corr; }, view, newRound: () => newRound(), auto: autoDecode };
       const bndBtn = U().btn('把选中的警报连到最近边界', 'Pair selected alarm to nearest boundary', '', () => {
         if (sel === null || over) return;
         const path = DEC().planarBoundaryPath(lat, lat.stars[sel], 'star');
+        userPairs.push([sel, -1]);
         applyCorr(path);
       });
       function applyCorr(path) {
@@ -4794,10 +5495,13 @@ table.hmat.roles td.op { white-space: normal; font-family: var(--f-body); font-s
         view.errZ = new Set(P().xorSet([...err], [...corr]));
       }
       function paint() {
-        view.hlEdges = new Map([...corr].map((e) => [e, { color: getComputedStyle(doc.documentElement).getPropertyValue('--good').trim(), width: 5 }]));
+        view.hlEdges = new Map([...corr].map((e) => [e, { color: goodCol(), width: 5 }]));
         view.hlStars = sel !== null ? new Map([[sel, true]]) : new Map();
+        view.haloEdges = new Set();
+        const live = new Set(view.syndrome().starDefects);
+        view.starTags = new Map([...tags].filter(([k]) => live.has(k)));
         view.draw();
-        const defs = view.syndrome().starDefects.length;
+        const defs = live.size;
         F.setReadout(
           '<span class="zh">连胜 <b>' + streak + '</b>（最佳 ' + best + '）　·　剩余警报 <b>' + defs + '</b>' + (sel !== null ? '　·　已选中一个警报，点击另一个完成配对' + (isToric ? '' : '，或点下方按钮连到边界') : '　·　点击一个警报开始配对') + '</span>' +
           '<span class="en">streak <b>' + streak + '</b> (best ' + best + ') · alarms left <b>' + defs + '</b>' + (sel !== null ? ' · one alarm selected — click another to pair' + (isToric ? '' : ', or use the boundary button') : ' · click an alarm to start pairing') + '</span>'
@@ -4807,24 +5511,66 @@ table.hmat.roles td.op { white-space: normal; font-family: var(--f-body); font-s
       function finish() {
         over = true;
         const residual = P().xorSet([...err], [...corr]);
-        const fail = lat.logicals.X.some((Lg) => P().overlapParity(residual, Lg));
-        if (fail) { streak = 0; } else { streak++; best = Math.max(best, streak); }
-        // reveal
-        view.opts.showErrors = true;
-        view.errZ = new Set(err);
-        view.hlEdges = new Map([...corr].map((e) => [e, { color: getComputedStyle(doc.documentElement).getPropertyValue('--good').trim(), width: 5 }]));
-        view.draw();
-        F.setReadout(fail
-          ? '<span class="zh"><span class="no">这回合失败了。</span>蓝色 = 真实错误，绿色 = 你的修复。二者合起来' + (isToric ? '在某个方向上<b>缠绕环面</b>的总圈数是<b>奇数</b>' : '含有<b>奇数条</b><b>横跨两条边界</b>的串') + ' —— 合起来是一个逻辑算符，信息被改写。连胜清零。点「新回合」再来！</span><span class="en"><span class="no">Round lost.</span> Blue = true errors, green = your repair. Together they ' + (isToric ? '<b>wind around the torus</b> an <b>odd</b> total number of times in some direction' : 'contain an <b>odd number</b> of strings <b>spanning both boundaries</b>') + ' — together a logical operator; the data got rewritten. Streak reset. “New round” to retry!</span>'
-          : '<span class="zh"><span class="ok">成功！</span>蓝 + 绿合起来' + (isToric ? '在两个方向上缠绕环面的总圈数都是偶数（0 也算，两圈互相抵消）' : '横跨两条边界的串是偶数条（0 条也算，两条互相抵消）') + '—— 合起来只是一些检查的乘积。你的修复不必和错误一模一样，只要合起来是检查的乘积就赢。连胜 <b>' + streak + '</b>！</span><span class="en"><span class="ok">Success!</span> Blue + green together ' + (isToric ? 'wind around the torus an even total number of times in both directions (0 counts; two windings cancel)' : 'contain an even number of strings spanning both boundaries (0 counts; two cancel)') + ' — together just a product of checks. The repair need not equal the error; together with it, it only needs to form a product of checks. Streak <b>' + streak + '</b>!</span>');
+        const fail = isLogical(residual);
+        readerWon = !fail;
+        // would the decoder have lost on this very error set?
+        const decFail = isLogical(P().xorSet([...err], decoderCorr()));
+        const unwinnable = fail && decFail;
+        if (fail && !unwinnable) { streak = 0; } else if (!fail) { streak++; best = Math.max(best, streak); }
+        reveal(corr, fail ? residual : []);
+        const [dz, de] = decName();
+        const half = isToric ? ['半圈', 'around'] : ['半程', 'across'];
+        // why the decoder loses too, and why such a round is kept out of the streak
+        const whyZh = greedy()
+          ? '（' + GREEDY[0] + '）。所以这一局记作无解局，<b>连胜保留</b>。'
+          : '：真实错误已经连到了' + half[0] + '以上，从警报看，从另一侧绕过来的短链反而更像真相。这种局没有稳妥的赢法；只要 p 低于阈值，网格越大，这样的局越罕见，这正是码距越大越好的原因。<b>连胜保留</b>（记作无解局）。';
+        const whyEn = greedy()
+          ? ' (' + GREEDY[1] + '). So the round counts as unwinnable: <b>streak kept</b>.'
+          : ': the true error already reaches more than halfway ' + half[1] + ', so from the alarms alone the short chain from the other side looks like the likelier story. No sensible strategy wins a round like this; below the threshold, the bigger the grid, the rarer such rounds, and that is why a larger code distance helps. <b>Streak kept</b> (counted as an unwinnable round).';
+        let zh, en;
+        if (assisted && fail) {
+          // the round was closed by the demo button: the green chain is (partly) the decoder's, not the reader's
+          const mixed = userPairs.length > 0;
+          zh = '<span class="no">这回合由「自动译码」收尾，还是输了。</span>蓝色 = 真实错误，绿色 = 修复（' + (mixed ? '你先配的几对 + 译码器补的' : '译码器的配对') + '），粉色光晕 = 错误 ⊕ 修复，它' + ODD[0] + '，是逻辑算符，信息被改写。' +
+            (decFail
+              ? dz + '独自面对这份错误也会输' + whyZh
+              : '译码器独自面对这份错误本来能赢，是前面的配对把它带偏了。连胜清零。') +
+            '点「新回合」再来。';
+          en = '<span class="no">Closed by “Auto-decode”, and still lost.</span> Blue = true errors, green = the repair (' + (mixed ? 'your first pairs plus what the decoder added' : 'the decoder’s pairing') + '), pink halo = error ⊕ repair, which ' + ODD[1] + ': a logical operator, so the data got rewritten. ' +
+            (decFail
+              ? de.charAt(0).toUpperCase() + de.slice(1) + ' loses on these errors even on its own' + whyEn
+              : 'On its own the decoder would have won this one; the earlier pairs led it astray. Streak reset.') +
+            ' Press “New round” to try again.';
+        } else if (unwinnable) {
+          zh = '<span class="no">这回合输了，但不怪你。</span>蓝色 = 真实错误，绿色 = 你的修复，粉色光晕 = 二者合起来剩下的部分，它' + ODD[0] + '，是逻辑算符，信息被改写。可是' + dz + (greedy() ? '' : '（永远挑总长最短的配法）') + '在同一份错误上<b>也会输</b>' + whyZh + '点「自动译码（示范）」可以亲眼看译码器怎么输；点「新回合」再来。';
+          en = '<span class="no">Round lost, but not your fault.</span> Blue = true errors, green = your repair, pink halo = what the two leave behind together, which ' + ODD[1] + ': a logical operator, so the data got rewritten. But ' + de + (greedy() ? '' : ' (which always picks the shortest total pairing)') + ' <b>loses on these same errors too</b>' + whyEn + ' Press “Auto-decode (demo)” to watch the decoder lose, or “New round” to play on.';
+        } else if (fail) {
+          const [hz, he] = pairHint();
+          zh = '<span class="no">这回合失败了。</span>蓝色 = 真实错误，绿色 = 你的修复，粉色光晕 = 二者合起来剩下的部分（错误 ⊕ 修复）。它' + ODD[0] + '，是逻辑算符，信息被改写。连胜清零。' + hz +
+            '<br>经验法则：配对时优先选离得近的警报，走最短的路。如果你的修复链和真实错误连起来' + (isToric ? '横穿了整整一排（或一列），就是绕了一圈' : '从一条边界连到了另一条，就是横跨了') + '。' +
+            '<br>想对照？点「自动译码（示范）」，看' + dz + (greedy() ? '（这一局警报超过 14 个，它用的是贪心的就近配对）' : '') + '在<b>同一份错误</b>上怎么配；点「新回合」再来。';
+          en = '<span class="no">Round lost.</span> Blue = true errors, green = your repair, pink halo = what the two leave behind together (error ⊕ repair). It ' + ODD[1] + ': a logical operator, so the data got rewritten. Streak reset.' + he +
+            '<br>Rule of thumb: pair alarms that are close together, along the shortest path. If your repair chains plus the true errors ' + (isToric ? 'run across a whole row (or column), you have gone all the way around' : 'join one boundary to the other, you have spanned the patch') + '.' +
+            '<br>Want to compare? Press “Auto-decode (demo)” to see how ' + de + (greedy() ? ' (greedy nearest-pair matching this round, since there are more than 14 alarms)' : '') + ' pairs <b>these same errors</b>, or “New round” to retry.';
+        } else {
+          const lucky = decFail
+            ? ['　顺带一提：' + dz + (greedy() ? '（这一局用的是贪心的就近配对）' : '') + '在这份错误上反而会输，你这回的配法赌赢了。', ' Fun fact: ' + de + (greedy() ? ' (greedy nearest-pair matching this round)' : '') + ' would have lost on these errors; your pairing beat it this time.']
+            : ['', ''];
+          zh = '<span class="ok">成功！</span>蓝 + 绿合起来' + EVEN[0] + '—— 合起来只是一些检查的乘积。你的修复不必和错误一模一样，只要合起来是检查的乘积就赢。连胜 <b>' + streak + '</b>！' + lucky[0];
+          en = '<span class="ok">Success!</span> Blue + green together ' + (isToric ? 'wind around the torus an even total number of times in both directions (0 counts; two windings cancel)' : 'contain an even number of strings spanning both boundaries (0 counts; two cancel)') + ' — together just a product of checks. The repair need not equal the error; together with it, it only needs to form a product of checks. Streak <b>' + streak + '</b>!' + lucky[1];
+        }
+        F.setReadout('<span class="zh">' + zh + '</span><span class="en">' + en + '</span>');
       }
       function newRound() {
         err = new Set(); corr = new Set(); sel = null; over = false;
+        userPairs = []; assisted = false;
         for (let q = 0; q < lat.n; q++) if (Math.random() < p) err.add(q);
         view.opts.showErrors = false;
         syncState();
         if (!view.syndrome().starDefects.length && err.size === 0) { err.add(Math.floor(Math.random() * lat.n)); syncState(); }
-        if (!view.syndrome().starDefects.length && err.size) { finish(); return; }
+        alarms = view.syndrome().starDefects.slice();
+        tags = new Map(alarms.map((k, i) => [k, i < 26 ? String.fromCharCode(65 + i) : String(i + 1)]));
+        if (!alarms.length && err.size) { finish(); return; }
         paint();
       }
       const slider = doc.createElement('input');
@@ -4841,6 +5587,7 @@ table.hmat.roles td.op { white-space: normal; font-family: var(--f-body); font-s
         { swatch: SW.defect, zh: '警报（点它配对）', en: 'alarm (click to pair)' },
         { swatch: SW.corr, zh: '你的修复链', en: 'your repair chain' },
         { swatch: SW.zchain, zh: '真实错误（回合结束才揭晓）', en: 'true errors (revealed at round end)' },
+        { swatch: '<span class="sw" style="background:var(--cd);opacity:.5"></span>', zh: '错误 ⊕ 修复剩下的圈（输了或看示范时显示）', en: 'loops left by error ⊕ repair (shown on a loss or in the replay)' },
       ]);
       newRound();
     };
@@ -5261,8 +6008,8 @@ table.hmat.roles td.op { white-space: normal; font-family: var(--f-body); font-s
         ? 'Reading the chart: at p = 3%, d=3 fails ' + lo(0).toFixed(1) + '% of rounds while d=7 fails only ' + lo(2).toFixed(1) + '% — <b>bigger codes are safer</b>.'
         : 'Left end: for small p we expect d=7 &lt; d=3; this sample fluctuated at p = 3% (' + lo(0).toFixed(1) + '% vs ' + lo(2).toFixed(1) + '%) — press “Fine run” for more rounds.';
       F.setReadout(
-        '<span class="zh">' + openZh + (cp ? ' 而在 ≈' + cp + ' 附近三条曲线交叉；越过它，加大码反而更糟。这条分界线就是<b>阈值</b>。' : ' 继续加大轮数可以看清三条曲线交叉的位置（阈值）。') + '（本页译码器在警报较多时退化为贪心配对，阈值偏低；文献里的最优配对译码给出 ≈10.3%。）</span>' +
-        '<span class="en">' + openEn + (cp ? ' Near ≈' + cp + ' the three curves cross; beyond it, bigger codes get WORSE. That dividing line is the <b>threshold</b>.' : ' More rounds will pin down where the curves cross (the threshold).') + ' (This page’s decoder degrades to greedy pairing when alarms are many, so its threshold sits low; optimal matching in the literature gives ≈10.3%.)</span>'
+        '<span class="zh">' + openZh + (cp ? ' 而在 ≈' + cp + ' 附近三条曲线交叉；越过它，加大码反而更糟。这条分界线就是<b>阈值</b>。' : ' 继续加大轮数可以看清三条曲线交叉的位置（阈值）。') + '（本页译码器在警报超过 14 个时改用贪心就近配对，所以阈值比文献值略低；文献里的最优配对译码给出 ≈10.3%。）</span>' +
+        '<span class="en">' + openEn + (cp ? ' Near ≈' + cp + ' the three curves cross; beyond it, bigger codes get WORSE. That dividing line is the <b>threshold</b>.' : ' More rounds will pin down where the curves cross (the threshold).') + ' (This page’s decoder switches to greedy nearest-pair matching once there are more than 14 alarms, so its threshold sits a little below the literature value; optimal matching in the literature gives ≈10.3%.)</span>'
       );
     }
 
@@ -5953,9 +6700,9 @@ table.hmat.roles td.op { white-space: normal; font-family: var(--f-body); font-s
   }
   function textInput(value, width, onChange) {
     const t = doc.createElement('input'); t.type = 'text'; t.value = value; t.style.cssText = 'font-family:var(--f-mono);font-size:12.5px;padding:4px 6px;border:1px solid var(--line2);border-radius:6px;background:var(--bg2);color:var(--ink);width:' + (width || 150) + 'px';
-    t.addEventListener('change', () => onChange(t.value)); return t;
+    t.addEventListener('input', () => onChange(t.value)); return t;
   }
-  const parseTerms = (str) => str.split(/[;\s]+/).filter(Boolean).map((t) => t.split(',').map(Number)).filter((p) => p.length === 2 && p.every((v) => Number.isInteger(v)));
+  const parseTerms = (str) => { const v = (str.replace(/\u2212/g, '-').match(/-?\d+/g) || []).map(Number); if (v.length % 2) return []; const t = []; for (let k = 0; k < v.length; k += 2) t.push([v[k], v[k + 1]]); return t; };
   const expSup = (e) => (e === 1 ? '' : '<sup>' + (e < 0 ? '−' + (-e) : e) + '</sup>');
   const termsToPoly = (terms, vx, vy) => terms.map(([a, b]) => { const p = (a ? vx + expSup(a) : '') + (b ? vy + expSup(b) : ''); return p || '1'; }).join(' + ');
   const termsToText = (terms) => terms.map((t) => t.join(',')).join(' ');
@@ -5986,7 +6733,7 @@ table.hmat.roles td.op { white-space: normal; font-family: var(--f-body); font-s
       for (const p of pts) {
         const x = xOf(p.n, w), y = yOf(p.k), hov = hover === p;
         ctx.beginPath(); ctx.arc(x, y, p.kind === 'bb' ? (hov ? 8 : 6) : (hov ? 5.5 : 3.5), 0, 7);
-        ctx.fillStyle = p.kind === 'bb' ? C.cd : p.kind === 'rot' ? C.cz : C.cx; ctx.fill();
+        ctx.fillStyle = p.kind === 'bb' ? C.cd : p.kind === 'rot' ? C.cz : C.good; ctx.fill(); // green, not amber: amber sits too close to the BB magenta
         if (p.kind === 'bb') { ctx.fillStyle = C.ink2; ctx.font = '600 11px ' + mono; ctx.textAlign = 'left'; ctx.textBaseline = 'middle'; ctx.fillText('d=' + p.d, x + 10, y); }
       }
     }
@@ -5998,7 +6745,7 @@ table.hmat.roles td.op { white-space: normal; font-family: var(--f-body); font-s
       box.redraw();
     });
     box.canvas.addEventListener('pointerleave', () => { hover = null; tip.style.opacity = '0'; box.redraw(); });
-    legend(el, [{ color: cssVar('--cx'), dot: true, zh: '未旋转表面码（k = 1）', en: 'unrotated surface code (k = 1)' }, { color: cssVar('--cz'), dot: true, zh: '旋转表面码（k = 1）', en: 'rotated surface code (k = 1)' }, { color: cssVar('--cd'), dot: true, zh: 'BB 码', en: 'BB codes' }]);
+    legend(el, [{ color: cssVar('--good'), dot: true, zh: '未旋转表面码（k = 1）', en: 'unrotated surface code (k = 1)' }, { color: cssVar('--cz'), dot: true, zh: '旋转表面码（k = 1）', en: 'rotated surface code (k = 1)' }, { color: cssVar('--cd'), dot: true, zh: 'BB 码', en: 'BB codes' }]);
     F.setReadout(bi('横轴是数据比特数，纵轴是存下的逻辑比特数。表面码无论多大都贴在 k = 1 这条底线上；BB 码在 72 到 288 个比特之间存 8 到 12 个。把鼠标放在点上看 k·d²/n：表面码约为 1，gross 码是 12。', 'Horizontal: data qubits; vertical: logical qubits stored. Surface codes of every size hug the k = 1 floor; BB codes store 8 to 12 in 72 to 288 qubits. Hover a point for k·d²/n: about 1 for surface codes, 12 for the gross code.'));
   }
   U().reg('bbledgerchart', wBbLedgerChart);
@@ -6024,7 +6771,10 @@ table.hmat.roles td.op { white-space: normal; font-family: var(--f-body); font-s
         ctx.beginPath(); ctx.moveTo(ps.x, ps.y); ctx.lineTo(pt.x, pt.y); ctx.stroke(); ctx.setLineDash([]);
         ctx.fillStyle = C.cz; ctx.beginPath(); ctx.arc(pt.x, pt.y, 6, 0, 7); ctx.fill();
         ctx.fillStyle = C.bg2; ctx.font = '700 9px ' + cssVar('--f-mono'); ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-        ctx.fillText((a || b) ? 'x' + (sign * a === 0 ? '' : (sign * a > 0 ? '^' + sign * a : '^' + sign * a)) + 'y' + (sign * b === 0 ? '' : '^' + sign * b) : '1', pt.x, pt.y + 0.5);
+        // x³y, y, x⁻¹y²: exponent 0 drops the variable, exponent 1 is not written
+        const sup = (e) => (e === 1 ? '' : String(e).replace('-', '⁻').replace(/\d/g, (c) => '⁰¹²³⁴⁵⁶⁷⁸⁹'[c]));
+        const mono = (e, v) => (e === 0 ? '' : v + sup(e));
+        ctx.fillText(mono(sign * a, 'x') + mono(sign * b, 'y') || '1', pt.x, pt.y + 0.5);
       }
       // matrix pattern
       const N = l * m, side = Math.min(160, h - 60), px = side / N; const mx = g.mx, my = (h - side) / 2;
@@ -6037,16 +6787,18 @@ table.hmat.roles td.op { white-space: normal; font-family: var(--f-body); font-s
       ctx.fillText(U().T({ zh: (transposed ? 'Aᵀ' : 'A') + ' 的 ' + N + '×' + N + ' 矩阵（每行 ' + terms.length + ' 个 1）', en: (transposed ? 'Aᵀ' : 'A') + ' as a ' + N + '×' + N + ' matrix (' + terms.length + ' ones per row)' }), mx + side / 2, my + side + 6);
     }
     box.canvas.addEventListener('click', (ev) => { const q = U().evtPos(box.canvas, ev), g = metrics(); let best = null, bd = 14; for (let i = 0; i < l; i++) for (let j = 0; j < m; j++) { const p = pos(i, j, g); const d = Math.hypot(p.x - q.x, p.y - q.y); if (d < bd) { bd = d; best = [i, j]; } } if (best) { src = best; box.redraw(); readout(); } });
-    const inp = textInput(termsToText(terms), 170, (v) => { const t = parseTerms(v); if (t.length) { terms = t; box.redraw(); readout(); } });
+    const echo = doc.createElement('span'); echo.style.cssText = 'font-family:var(--f-mono);font-size:12.5px;color:var(--ink2);margin-right:6px';
+    const showEcho = (t) => { echo.style.color = t.length ? 'var(--ink2)' : 'var(--bad)'; echo.innerHTML = t.length ? '= ' + termsToPoly(t, 'x', 'y') : bi('数字要两个一组：a,b', 'numbers go in pairs: a,b'); };
+    const inp = textInput(termsToText(terms), 170, (v) => { const t = parseTerms(v); showEcho(t); if (t.length) { terms = t; box.redraw(); readout(); } });
     const sl = slider(3, 12, 1, l, (v) => { l = Math.round(v); box.redraw(); readout(); }, (v) => 'l = ' + v), sm = slider(3, 12, 1, m, (v) => { m = Math.round(v); box.redraw(); readout(); }, (v) => 'm = ' + v);
     const seg = U().seg([{ id: 'A', zh: 'A（正向平移）', en: 'A (translations)' }, { id: 'AT', zh: 'Aᵀ（反向平移）', en: 'Aᵀ (reversed)' }], 'A', (v) => { transposed = v === 'AT'; box.redraw(); readout(); });
-    F.controls.append(U().label('多项式的项 (a,b)：', 'terms (a,b):'), inp, sl.el, sl.pill, sm.el, sm.pill);
+    F.controls.append(U().label('多项式的项 (a,b)：', 'terms (a,b):'), inp, echo, sl.el, sl.pill, sm.el, sm.pill);
     const row2 = div('controls'); el.insertBefore(row2, F.readout); row2.append(seg.el);
     function readout() {
       F.setReadout(bi('A = ' + termsToPoly(terms, 'x', 'y') + '，环面 ' + l + ' × ' + m + '。红点是起点 (' + src[0] + ',' + src[1] + ')，每个单项式 x<sup>a</sup>y<sup>b</sup> 把它平移到 (i+a, j+b)（虚线表示绕回）。这 ' + terms.length + ' 个终点就是矩阵这一行里 1 的位置；转置把每次平移倒过来走。点击任意格点换起点。', 'A = ' + termsToPoly(terms, 'x', 'y') + ' on a ' + l + ' × ' + m + ' torus. The red dot is the source (' + src[0] + ',' + src[1] + '); each monomial x<sup>a</sup>y<sup>b</sup> translates it to (i+a, j+b) (dashed = wrapped around). Those ' + terms.length + ' targets are the ones in this row of the matrix; the transpose walks every translation backwards. Click any site to change the source.'));
     }
-    function reset() { l = 6; m = 6; terms = [[3, 0], [0, 1], [0, 2]]; src = [1, 1]; inp.value = termsToText(terms); box.redraw(); readout(); }
-    readout();
+    function reset() { l = 6; m = 6; terms = [[3, 0], [0, 1], [0, 2]]; src = [1, 1]; inp.value = termsToText(terms); showEcho(terms); box.redraw(); readout(); }
+    showEcho(terms); readout();
   }
   U().reg('polyshift', wPolyShift);
 
