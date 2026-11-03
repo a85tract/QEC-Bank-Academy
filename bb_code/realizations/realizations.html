@@ -2241,7 +2241,10 @@ table.glossary td.c { text-align: center; font-variant-numeric: tabular-nums; }
   function boot() {
     let saved = null;
     try { saved = localStorage.getItem(LANG_KEY); } catch (e) { /* ignore */ }
-    setLang(saved === 'zh' ? 'zh' : 'en', false);
+    let asked = null;
+    try { asked = new URLSearchParams(root.location.search).get('lang'); } catch (e) { /* ignore */ }
+    if (asked === 'en' || asked === 'zh') setLang(asked, true);
+    else setLang(saved === 'zh' ? 'zh' : 'en', false);
     doc.querySelectorAll('.lang-switch button').forEach((b) => {
       b.addEventListener('click', () => setLang(b.dataset.lang, true));
     });

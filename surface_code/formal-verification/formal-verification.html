@@ -2220,7 +2220,10 @@ SHA-256 → 560d614d6ef0e58136b0c3d80a9ca7da997daee080eee4f026e841358a914716
   function boot() {
     let saved = null;
     try { saved = localStorage.getItem(LANG_KEY); } catch (e) { /* ignore */ }
-    setLang(saved === 'zh' ? 'zh' : 'en', false);
+    let asked = null;
+    try { asked = new URLSearchParams(root.location.search).get('lang'); } catch (e) { /* ignore */ }
+    if (asked === 'en' || asked === 'zh') setLang(asked, true);
+    else setLang(saved === 'zh' ? 'zh' : 'en', false);
     doc.querySelectorAll('.lang-switch button').forEach((b) => {
       b.addEventListener('click', () => setLang(b.dataset.lang, true));
     });
