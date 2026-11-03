@@ -38,4 +38,4 @@ CC BY 4.0. See [LICENSE](LICENSE).
 
 ## Authors
 
-Yuliang Xiong, Yicheng Guang, Xun Gao, Yueqi Chen
+Yicheng Guang, Yuliang Xiong, Xun Gao, Yueqi Chen
