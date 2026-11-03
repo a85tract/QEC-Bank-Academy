@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="en" data-lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Surface Code · 形式化 IR 与证书</title>
+<title>Surface Code · Formal IR &amp; Certificates</title>
 <meta name="tq-title-zh" content="Surface Code · 形式化 IR 与证书">
 <meta name="tq-title-en" content="Surface Code · Formal IR &amp; Certificates">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500..700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Serif+SC:wght@600;700&display=swap">
@@ -133,7 +133,7 @@ body {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
-/* language switching: default zh, html[data-lang="en"] flips */
+/* language switching: default en, html[data-lang="zh"] flips */
 html:not([data-lang="en"]) .en { display: none !important; }
 html[data-lang="en"] .zh { display: none !important; }
 html[data-lang="en"] body { font-size: 16px; }
@@ -894,8 +894,8 @@ pre.snippet { font-family: var(--f-mono); font-size: 12.5px; line-height: 1.55; 
   </a>
   <span class="spacer"></span>
   <div class="lang-switch" role="group" aria-label="Language">
-    <button type="button" data-lang="zh" aria-pressed="true">中文</button>
-    <button type="button" data-lang="en" aria-pressed="false">EN</button>
+    <button type="button" data-lang="zh" aria-pressed="false">中文</button>
+    <button type="button" data-lang="en" aria-pressed="true">EN</button>
   </div>
   <div class="progress-track"><div class="progress-bar"></div></div>
 </header>
@@ -2220,7 +2220,7 @@ SHA-256 → 560d614d6ef0e58136b0c3d80a9ca7da997daee080eee4f026e841358a914716
   function boot() {
     let saved = null;
     try { saved = localStorage.getItem(LANG_KEY); } catch (e) { /* ignore */ }
-    setLang(saved === 'en' ? 'en' : 'zh', false);
+    setLang(saved === 'zh' ? 'zh' : 'en', false);
     doc.querySelectorAll('.lang-switch button').forEach((b) => {
       b.addEventListener('click', () => setLang(b.dataset.lang, true));
     });
