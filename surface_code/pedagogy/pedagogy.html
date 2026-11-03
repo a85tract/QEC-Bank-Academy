@@ -980,13 +980,13 @@ table.hmat.qgrid td.gz { background: var(--cz-soft); color: var(--cz-ink); }
 
   <h3 id="s0-2"><span class="sec-no">0.2</span><span class="zh">复现契约：每个数字都能重跑</span><span class="en">The reproduction contract: every number reruns</span></h3>
   <div class="prose">
-    <p class="zh">QEC-Bank 对这些页面立了一条规矩：凡是「算出来」的陈述，都必须能在仓库里重跑。脚本 <span class="mono">atlas/surface/pedagogy/reproduce.py</span> 导入随 QEC-Bank 一起发布的构造器，逐条<b>断言</b>本教程用到的每个计算结果：检查矩阵、局域性、秩、逻辑代表元、症状走位、两个精确码距、L=5 的带种子上界、资源计数、以及 L=3 的矩形合并。任何一条不符，脚本立刻以非零状态退出。另有独立的验证器重跑 <span class="mono">instances.yaml</span> 里的参数。</p>
-    <p class="en">The QEC-Bank imposes one rule on these pages: every statement that was “computed” must rerun inside the repository. The script <span class="mono">atlas/surface/pedagogy/reproduce.py</span> imports the constructor shipped with the QEC-Bank and <b>asserts</b> every computed result this tutorial uses: check matrices, locality, ranks, logical representatives, the syndrome walk, the two exact distances, the seeded L=5 upper bound, resource counts, and the L=3 rectangular merge. On the first disagreement it exits nonzero. An independent verifier reruns the parameters in <span class="mono">instances.yaml</span>.</p>
+    <p class="zh">QEC-Bank 对这些页面立了一条规矩：凡是「算出来」的陈述，都必须能在仓库里重跑。脚本 <span class="mono">codes/surface/pedagogy/reproduce.py</span> 导入随 QEC-Bank 一起发布的构造器，逐条<b>断言</b>本教程用到的每个计算结果：检查矩阵、局域性、秩、逻辑代表元、症状走位、两个精确码距、L=5 的带种子上界、资源计数、以及 L=3 的矩形合并。任何一条不符，脚本立刻以非零状态退出。另有独立的验证器重跑 <span class="mono">instances.yaml</span> 里的参数。</p>
+    <p class="en">The QEC-Bank imposes one rule on these pages: every statement that was “computed” must rerun inside the repository. The script <span class="mono">codes/surface/pedagogy/reproduce.py</span> imports the constructor shipped with the QEC-Bank and <b>asserts</b> every computed result this tutorial uses: check matrices, locality, ranks, logical representatives, the syndrome walk, the two exact distances, the seeded L=5 upper bound, resource counts, and the L=3 rectangular merge. On the first disagreement it exits nonzero. An independent verifier reruns the parameters in <span class="mono">instances.yaml</span>.</p>
   </div>
   <div class="formula" style="text-align:left;white-space:pre-wrap">source .venv/bin/activate
-python atlas/surface/pedagogy/reproduce.py
-make verify-entry E=atlas/surface</div>
-  <p class="muted small" data-legend="1"><span class="zh"><span class="mono">E=atlas/surface</span> = 要验证的条目路径；三行依次是：进入虚拟环境、重跑全部断言、独立验证器重跑 <span class="mono">instances.yaml</span>。</span><span class="en"><span class="mono">E=atlas/surface</span> = the entry path to verify; the three lines: enter the virtual environment, rerun every assertion, let the independent verifier rerun <span class="mono">instances.yaml</span>.</span></p>
+python codes/surface/pedagogy/reproduce.py
+make verify-entry E=codes/surface</div>
+  <p class="muted small" data-legend="1"><span class="zh"><span class="mono">E=codes/surface</span> = 要验证的条目路径；三行依次是：进入虚拟环境、重跑全部断言、独立验证器重跑 <span class="mono">instances.yaml</span>。</span><span class="en"><span class="mono">E=codes/surface</span> = the entry path to verify; the three lines: enter the virtual environment, rerun every assertion, let the independent verifier rerun <span class="mono">instances.yaml</span>.</span></p>
   <div class="prose">
     <p class="zh">出处的划分是刻意的，本教程每一章都会沿用这套标签：</p>
     <p class="en">The provenance split is deliberate, and every chapter below reuses these labels:</p>
